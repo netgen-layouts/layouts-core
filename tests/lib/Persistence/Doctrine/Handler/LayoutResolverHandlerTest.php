@@ -68,14 +68,14 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'ruleGroupId' => 1,
-                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'enabled' => true,
-                'priority' => 9,
                 'description' => 'My description',
+                'enabled' => true,
+                'id' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
+                'priority' => 9,
+                'ruleGroupId' => 1,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
             ],
             $this->exportObject($rule),
         );
@@ -105,17 +105,17 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 2,
-                'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
                 'depth' => 1,
-                'path' => '/1/2/',
-                'parentId' => 1,
-                'parentUuid' => RuleGroup::ROOT_UUID,
-                'name' => 'First group',
                 'description' => 'My description',
                 'enabled' => true,
+                'id' => 2,
+                'name' => 'First group',
+                'parentId' => 1,
+                'parentUuid' => RuleGroup::ROOT_UUID,
+                'path' => '/1/2/',
                 'priority' => 1,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
             ],
             $this->exportObject($rule),
         );
@@ -254,12 +254,12 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
-                'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'type' => 'route',
-                'value' => 'my_cool_route',
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'route',
+                'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
+                'value' => 'my_cool_route',
             ],
             $this->exportObject($target),
         );
@@ -315,16 +315,16 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
+                'id' => 1,
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
-                'id' => 1,
-                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
+                'status' => Value::STATUS_PUBLISHED,
                 'type' => 'route_parameter',
+                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'value' => [
                     'parameter_name' => 'some_param',
                     'parameter_values' => [1, 2],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($condition),
         );
@@ -353,15 +353,15 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
+                'id' => 5,
                 'ruleGroupId' => 2,
                 'ruleGroupUuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
-                'id' => 5,
-                'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                'status' => Value::STATUS_PUBLISHED,
                 'type' => 'condition1',
+                'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
                 'value' => [
                     'some_other_value',
                 ],
-                'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($condition),
         );
@@ -725,21 +725,21 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 21,
-                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_second_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                    'value' => 'my_second_cool_',
                 ],
                 [
                     'id' => 22,
-                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_third_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
+                    'value' => 'my_third_cool_',
                 ],
             ],
             $this->exportObjectList(
@@ -750,13 +750,13 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 7,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'id' => 7,
-                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
-                    'type' => 'condition1',
-                    'value' => ['some_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
+                    'value' => ['some_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -803,21 +803,21 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 21,
-                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_second_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                    'value' => 'my_second_cool_',
                 ],
                 [
                     'id' => 22,
-                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_third_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
+                    'value' => 'my_third_cool_',
                 ],
             ],
             $this->exportObjectList(
@@ -828,13 +828,13 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 7,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'id' => 7,
-                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
-                    'type' => 'condition1',
-                    'value' => ['some_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
+                    'value' => ['some_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -867,21 +867,21 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 9,
-                    'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_second_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
+                    'value' => 'my_second_cool_',
                 ],
                 [
                     'id' => 10,
-                    'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_third_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
+                    'value' => 'my_third_cool_',
                 ],
             ],
             $this->exportObjectList(
@@ -892,13 +892,13 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 4,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'id' => 4,
-                    'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
-                    'type' => 'condition1',
-                    'value' => ['some_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
+                    'value' => ['some_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -931,21 +931,21 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 9,
-                    'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_second_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
+                    'value' => 'my_second_cool_',
                 ],
                 [
                     'id' => 10,
-                    'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'type' => 'route_prefix',
-                    'value' => 'my_third_cool_',
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'route_prefix',
+                    'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
+                    'value' => 'my_third_cool_',
                 ],
             ],
             $this->exportObjectList(
@@ -956,13 +956,13 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 4,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'id' => 4,
-                    'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
-                    'type' => 'condition1',
-                    'value' => ['some_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
+                    'value' => ['some_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -1013,21 +1013,21 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 5,
-                    'uuid' => '445e885e-1ad5-584b-b51b-263fb66805c2',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'type' => 'route',
-                    'value' => 'my_fourth_cool_route',
                     'status' => Value::STATUS_ARCHIVED,
+                    'type' => 'route',
+                    'uuid' => '445e885e-1ad5-584b-b51b-263fb66805c2',
+                    'value' => 'my_fourth_cool_route',
                 ],
                 [
                     'id' => 6,
-                    'uuid' => 'feee231e-4fee-514a-a938-a2769036c07b',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'type' => 'route',
-                    'value' => 'my_fifth_cool_route',
                     'status' => Value::STATUS_ARCHIVED,
+                    'type' => 'route',
+                    'uuid' => 'feee231e-4fee-514a-a938-a2769036c07b',
+                    'value' => 'my_fifth_cool_route',
                 ],
             ],
             $this->exportObjectList(
@@ -1038,28 +1038,28 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 2,
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'id' => 2,
-                    'uuid' => '9a6c8459-5fda-5d4b-b06e-06f637ab6e01',
+                    'status' => Value::STATUS_ARCHIVED,
                     'type' => 'route_parameter',
+                    'uuid' => '9a6c8459-5fda-5d4b-b06e-06f637ab6e01',
                     'value' => [
                         'parameter_name' => 'some_param',
                         'parameter_values' => [3, 4],
                     ],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
+                    'id' => 3,
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'id' => 3,
-                    'uuid' => 'dd49afcd-aab0-5970-b7b8-413238faf539',
+                    'status' => Value::STATUS_ARCHIVED,
                     'type' => 'route_parameter',
+                    'uuid' => 'dd49afcd-aab0-5970-b7b8-413238faf539',
                     'value' => [
                         'parameter_name' => 'some_other_param',
                         'parameter_values' => [5, 6],
                     ],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -1425,22 +1425,22 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 7,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'id' => 7,
-                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
-                    'type' => 'condition1',
-                    'value' => ['some_other_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                    'value' => ['some_other_value'],
                 ],
                 [
+                    'id' => 8,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'id' => 8,
-                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
-                    'type' => 'condition1',
-                    'value' => ['some_third_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
+                    'value' => ['some_third_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -1499,22 +1499,22 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 7,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'id' => 7,
-                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
-                    'type' => 'condition1',
-                    'value' => ['some_other_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                    'value' => ['some_other_value'],
                 ],
                 [
+                    'id' => 8,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'id' => 8,
-                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
-                    'type' => 'condition1',
-                    'value' => ['some_third_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
+                    'value' => ['some_third_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -1570,22 +1570,22 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 5,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'id' => 5,
-                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
-                    'type' => 'condition1',
-                    'value' => ['some_other_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                    'value' => ['some_other_value'],
                 ],
                 [
+                    'id' => 6,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'id' => 6,
-                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
-                    'type' => 'condition1',
-                    'value' => ['some_third_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
+                    'value' => ['some_third_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -1620,22 +1620,22 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 5,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'id' => 5,
-                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
-                    'type' => 'condition1',
-                    'value' => ['some_other_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                    'value' => ['some_other_value'],
                 ],
                 [
+                    'id' => 6,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'id' => 6,
-                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
-                    'type' => 'condition1',
-                    'value' => ['some_third_value'],
                     'status' => Value::STATUS_PUBLISHED,
+                    'type' => 'condition1',
+                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
+                    'value' => ['some_third_value'],
                 ],
             ],
             $this->exportObjectList(
@@ -1701,26 +1701,26 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
+                    'id' => 5,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'id' => 5,
-                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                    'status' => Value::STATUS_ARCHIVED,
                     'type' => 'condition1',
+                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
                     'value' => [
                         'some_other_value',
                     ],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
+                    'id' => 6,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'id' => 6,
-                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
+                    'status' => Value::STATUS_ARCHIVED,
                     'type' => 'condition1',
+                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
                     'value' => [
                         'some_third_value',
                     ],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -1799,12 +1799,12 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 21,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'type' => 'target',
-                'value' => '42',
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'target',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'value' => '42',
             ],
             $this->exportObject($target),
         );
@@ -1827,12 +1827,12 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
-                'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'type' => 'route',
-                'value' => 'my_new_route',
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'route',
+                'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
+                'value' => 'my_new_route',
             ],
             $this->exportObject($target),
         );
@@ -1875,13 +1875,13 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
+                'id' => 7,
                 'ruleId' => 3,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                'id' => 7,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'condition',
-                'value' => ['param' => 'value'],
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'condition',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'value' => ['param' => 'value'],
             ],
             $this->exportObject($condition),
         );
@@ -1908,13 +1908,13 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
+                'id' => 7,
                 'ruleGroupId' => 3,
                 'ruleGroupUuid' => 'eb6311eb-24f6-4143-b476-99979a885a7e',
-                'id' => 7,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'condition',
-                'value' => ['param' => 'value'],
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'condition',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'value' => ['param' => 'value'],
             ],
             $this->exportObject($condition),
         );
@@ -1936,13 +1936,13 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
+                'id' => 1,
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
-                'id' => 1,
-                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
-                'type' => 'route_parameter',
-                'value' => ['new_param' => 'new_value'],
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'route_parameter',
+                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
+                'value' => ['new_param' => 'new_value'],
             ],
             $this->exportObject($condition),
         );

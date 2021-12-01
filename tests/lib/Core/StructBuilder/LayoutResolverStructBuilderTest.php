@@ -30,12 +30,12 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'uuid' => null,
+                'comment' => '',
+                'description' => '',
+                'enabled' => true,
                 'layoutId' => null,
                 'priority' => null,
-                'enabled' => true,
-                'description' => '',
-                'comment' => '',
+                'uuid' => null,
             ],
             $this->exportObject($struct),
         );
@@ -50,9 +50,9 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'layoutId' => null,
-                'description' => null,
                 'comment' => null,
+                'description' => null,
+                'layoutId' => null,
             ],
             $this->exportObject($struct),
         );
@@ -82,11 +82,11 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'uuid' => null,
-                'name' => 'Test group',
                 'description' => '',
-                'priority' => null,
                 'enabled' => true,
+                'name' => 'Test group',
+                'priority' => null,
+                'uuid' => null,
             ],
             $this->exportObject($struct),
         );
@@ -101,8 +101,8 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'name' => null,
                 'description' => null,
+                'name' => null,
             ],
             $this->exportObject($struct),
         );

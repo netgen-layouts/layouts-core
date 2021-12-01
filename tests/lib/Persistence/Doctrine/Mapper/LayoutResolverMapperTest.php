@@ -55,24 +55,24 @@ final class LayoutResolverMapperTest extends TestCase
 
         $expectedData = [
             [
-                'id' => 42,
-                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'ruleGroupId' => 62,
-                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'enabled' => true,
-                'priority' => 2,
                 'description' => 'Description',
+                'enabled' => true,
+                'id' => 42,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'priority' => 2,
+                'ruleGroupId' => 62,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
-                'id' => 43,
-                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'ruleGroupId' => 64,
-                'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'enabled' => false,
-                'priority' => 3,
                 'description' => '',
+                'enabled' => false,
+                'id' => 43,
+                'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'priority' => 3,
+                'ruleGroupId' => 64,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
             ],
         ];
 
@@ -118,30 +118,30 @@ final class LayoutResolverMapperTest extends TestCase
 
         $expectedData = [
             [
-                'id' => 42,
-                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
                 'depth' => 1,
-                'path' => '/62/43/',
-                'parentId' => 62,
-                'parentUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'name' => 'Name',
                 'description' => 'Description',
                 'enabled' => true,
+                'id' => 42,
+                'name' => 'Name',
+                'parentId' => 62,
+                'parentUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'path' => '/62/43/',
                 'priority' => 2,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
-                'id' => 43,
-                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'depth' => 0,
-                'path' => '/43/',
-                'parentId' => null,
-                'parentUuid' => null,
-                'name' => '',
                 'description' => '',
                 'enabled' => false,
+                'id' => 43,
+                'name' => '',
+                'parentId' => null,
+                'parentUuid' => null,
+                'path' => '/43/',
                 'priority' => 3,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
             ],
         ];
 
@@ -180,21 +180,21 @@ final class LayoutResolverMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
-                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'ruleId' => 1,
                 'ruleUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'type' => 'target',
-                'value' => '32',
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'target',
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'value' => '32',
             ],
             [
                 'id' => 43,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'ruleId' => 2,
                 'ruleUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'type' => 'target2',
-                'value' => '42',
                 'status' => Value::STATUS_DRAFT,
+                'type' => 'target2',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'value' => '42',
             ],
         ];
 
@@ -232,24 +232,24 @@ final class LayoutResolverMapperTest extends TestCase
 
         $expectedData = [
             [
+                'id' => 42,
                 'ruleId' => 1,
                 'ruleUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'id' => 42,
-                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'type' => 'condition',
-                'value' => 24,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'condition',
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'value' => 24,
             ],
             [
+                'id' => 43,
                 'ruleId' => 2,
                 'ruleUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'id' => 43,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'status' => Value::STATUS_DRAFT,
                 'type' => 'condition2',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => [
                     'param' => 'value',
                 ],
-                'status' => Value::STATUS_DRAFT,
             ],
         ];
 
@@ -287,24 +287,24 @@ final class LayoutResolverMapperTest extends TestCase
 
         $expectedData = [
             [
+                'id' => 42,
                 'ruleGroupId' => 1,
                 'ruleGroupUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'id' => 42,
-                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'type' => 'condition',
-                'value' => 24,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'condition',
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'value' => 24,
             ],
             [
+                'id' => 43,
                 'ruleGroupId' => 2,
                 'ruleGroupUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'id' => 43,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'status' => Value::STATUS_DRAFT,
                 'type' => 'condition2',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => [
                     'param' => 'value',
                 ],
-                'status' => Value::STATUS_DRAFT,
             ],
         ];
 

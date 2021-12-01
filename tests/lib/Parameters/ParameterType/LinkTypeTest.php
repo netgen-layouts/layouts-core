@@ -255,18 +255,18 @@ final class LinkTypeTest extends TestCase
             [
                 42,
                 [
-                    'linkType' => null,
                     'link' => null,
                     'linkSuffix' => null,
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
             [
                 [],
                 [
-                    'linkType' => null,
                     'link' => null,
                     'linkSuffix' => null,
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
@@ -278,9 +278,9 @@ final class LinkTypeTest extends TestCase
                     'new_window' => true,
                 ],
                 [
-                    'linkType' => 'url',
                     'link' => 'https://netgen.io',
                     'linkSuffix' => '?suffix',
+                    'linkType' => 'url',
                     'newWindow' => true,
                 ],
             ],
@@ -290,9 +290,9 @@ final class LinkTypeTest extends TestCase
                     'link' => 'https://netgen.io',
                 ],
                 [
-                    'linkType' => 'url',
                     'link' => 'https://netgen.io',
                     'linkSuffix' => null,
+                    'linkType' => 'url',
                     'newWindow' => false,
                 ],
             ],
@@ -473,9 +473,9 @@ final class LinkTypeTest extends TestCase
 
         self::assertSame(
             [
-                'linkType' => 'internal',
                 'link' => 'null://0',
                 'linkSuffix' => '?suffix',
+                'linkType' => 'internal',
                 'newWindow' => true,
             ],
             $this->exportObject($importedValue),
@@ -488,18 +488,18 @@ final class LinkTypeTest extends TestCase
             [
                 42,
                 [
-                    'linkType' => null,
                     'link' => null,
                     'linkSuffix' => null,
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
             [
                 [],
                 [
-                    'linkType' => null,
                     'link' => null,
                     'linkSuffix' => null,
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
@@ -511,9 +511,9 @@ final class LinkTypeTest extends TestCase
                     'new_window' => true,
                 ],
                 [
-                    'linkType' => 'url',
                     'link' => 'https://netgen.io',
                     'linkSuffix' => '?suffix',
+                    'linkType' => 'url',
                     'newWindow' => true,
                 ],
             ],
@@ -523,9 +523,9 @@ final class LinkTypeTest extends TestCase
                     'link' => 'https://netgen.io',
                 ],
                 [
-                    'linkType' => 'url',
                     'link' => 'https://netgen.io',
                     'linkSuffix' => null,
+                    'linkType' => 'url',
                     'newWindow' => false,
                 ],
             ],
@@ -537,9 +537,9 @@ final class LinkTypeTest extends TestCase
                     'new_window' => true,
                 ],
                 [
-                    'linkType' => 'internal',
                     'link' => 'my-value-type://42',
                     'linkSuffix' => '?suffix',
+                    'linkType' => 'internal',
                     'newWindow' => true,
                 ],
             ],
@@ -551,9 +551,9 @@ final class LinkTypeTest extends TestCase
                     'new_window' => true,
                 ],
                 [
-                    'linkType' => 'internal',
                     'link' => 'null://0',
                     'linkSuffix' => '?suffix',
+                    'linkType' => 'internal',
                     'newWindow' => true,
                 ],
             ],
@@ -562,9 +562,9 @@ final class LinkTypeTest extends TestCase
                     'link_type' => 'internal',
                 ],
                 [
-                    'linkType' => 'internal',
                     'link' => 'null://0',
                     'linkSuffix' => null,
+                    'linkType' => 'internal',
                     'newWindow' => false,
                 ],
             ],

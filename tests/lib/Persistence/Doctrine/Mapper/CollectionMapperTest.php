@@ -74,30 +74,30 @@ final class CollectionMapperTest extends TestCase
 
         $expectedData = [
             [
-                'id' => 42,
-                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en'],
                 'blockId' => 24,
                 'blockUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'offset' => 5,
-                'limit' => 10,
+                'id' => 42,
                 'isTranslatable' => false,
+                'limit' => 10,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en'],
-                'alwaysAvailable' => true,
+                'offset' => 5,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
-                'id' => 43,
-                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'offset' => 10,
-                'limit' => 20,
+                'id' => 43,
                 'isTranslatable' => false,
+                'limit' => 20,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 10,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
             ],
         ];
 
@@ -156,30 +156,30 @@ final class CollectionMapperTest extends TestCase
 
         $expectedData = [
             [
-                'id' => 42,
-                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en'],
                 'blockId' => 34,
                 'blockUuid' => '08f48ee7-da70-42a6-bb49-07ac14f7a6b0',
-                'offset' => 5,
-                'limit' => 10,
+                'id' => 42,
                 'isTranslatable' => false,
+                'limit' => 10,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en'],
-                'alwaysAvailable' => true,
+                'offset' => 5,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
-                'id' => 43,
-                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '08f48ee7-da70-42a6-bb49-07ac14f7a6b0',
-                'offset' => 10,
-                'limit' => 20,
+                'id' => 43,
                 'isTranslatable' => false,
+                'limit' => 20,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 10,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
             ],
         ];
 
@@ -268,32 +268,32 @@ final class CollectionMapperTest extends TestCase
 
         $expectedData = [
             [
-                'id' => 42,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 1,
                 'collectionUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'position' => 2,
-                'value' => '32',
-                'valueType' => 'my_value_type',
-                'viewType' => 'overlay',
                 'config' => [
                     'config_item' => [
                         'id' => 42,
                     ],
                 ],
+                'id' => 42,
+                'position' => 2,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'value' => '32',
+                'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
             ],
             [
-                'id' => 43,
-                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionId' => 2,
                 'collectionUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'config' => [],
+                'id' => 43,
                 'position' => 5,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'viewType' => null,
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
         ];
 
@@ -346,25 +346,24 @@ final class CollectionMapperTest extends TestCase
         // depend on collection, so they are mapped outside the method under test
         $expectedData = [
             [
-                'id' => 43,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'availableLocales' => ['en'],
                 'collectionId' => 1,
                 'collectionUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'type' => 'my_query_type',
+                'id' => 43,
                 'parameters' => [
                     'en' => [
                         'param' => 'value',
                     ],
                 ],
-                'availableLocales' => ['en'],
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             [
-                'id' => 42,
-                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => 1,
                 'collectionUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'type' => 'my_query_type',
+                'id' => 42,
                 'parameters' => [
                     'en' => [
                         'param' => 'value',
@@ -373,8 +372,9 @@ final class CollectionMapperTest extends TestCase
                         'param2' => 'value2',
                     ],
                 ],
-                'availableLocales' => ['en', 'hr'],
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
             ],
         ];
 
@@ -412,22 +412,22 @@ final class CollectionMapperTest extends TestCase
 
         $expectedData = [
             2 => [
-                'id' => 42,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 1,
                 'collectionUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'id' => 42,
                 'position' => 2,
-                'viewType' => 'overlay',
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'viewType' => 'overlay',
             ],
             5 => [
-                'id' => 43,
-                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionId' => 2,
                 'collectionUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'id' => 43,
                 'position' => 5,
-                'viewType' => 'standard',
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'viewType' => 'standard',
             ],
         ];
 

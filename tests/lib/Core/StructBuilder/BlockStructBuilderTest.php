@@ -35,18 +35,18 @@ abstract class BlockStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'viewType' => 'small',
-                'itemViewType' => 'standard',
-                'name' => '',
-                'isTranslatable' => true,
                 'alwaysAvailable' => true,
-                'definition' => $blockDefinition,
                 'collectionCreateStructs' => [],
                 'configStructs' => [],
+                'definition' => $blockDefinition,
+                'isTranslatable' => true,
+                'itemViewType' => 'standard',
+                'name' => '',
                 'parameterValues' => [
                     'css_class' => 'some-class',
                     'css_id' => null,
                 ],
+                'viewType' => 'small',
             ],
             $this->exportObject($struct),
         );
@@ -61,13 +61,13 @@ abstract class BlockStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'locale' => 'en',
-                'viewType' => null,
-                'itemViewType' => null,
-                'name' => null,
                 'alwaysAvailable' => null,
                 'configStructs' => [],
+                'itemViewType' => null,
+                'locale' => 'en',
+                'name' => null,
                 'parameterValues' => [],
+                'viewType' => null,
             ],
             $this->exportObject($struct),
         );
@@ -85,10 +85,6 @@ abstract class BlockStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'locale' => 'en',
-                'viewType' => 'title',
-                'itemViewType' => 'standard',
-                'name' => 'My sixth block',
                 'alwaysAvailable' => true,
                 'configStructs' => [
                     'key' => [
@@ -98,10 +94,14 @@ abstract class BlockStructBuilderTest extends CoreTestCase
                         ],
                     ],
                 ],
+                'itemViewType' => 'standard',
+                'locale' => 'en',
+                'name' => 'My sixth block',
                 'parameterValues' => [
                     'css_class' => 'CSS class',
                     'css_id' => null,
                 ],
+                'viewType' => 'title',
             ],
             $this->exportObject($struct, true),
         );

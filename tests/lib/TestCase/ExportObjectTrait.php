@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\TestCase;
 use Netgen\Layouts\Utils\Hydrator;
 use function is_array;
 use function is_object;
+use function ksort;
 
 trait ExportObjectTrait
 {
@@ -16,6 +17,7 @@ trait ExportObjectTrait
     private function exportObject(object $object, bool $recursive = false): array
     {
         $data = (new Hydrator())->extract($object);
+        ksort($data);
 
         if (!$recursive) {
             return $data;

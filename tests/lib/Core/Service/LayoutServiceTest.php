@@ -1348,12 +1348,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'uuid' => null,
-                'layoutType' => $layoutType,
-                'name' => 'New layout',
                 'description' => '',
-                'shared' => false,
+                'layoutType' => $layoutType,
                 'mainLocale' => 'en',
+                'name' => 'New layout',
+                'shared' => false,
+                'uuid' => null,
             ],
             $this->exportObject($struct),
         );
@@ -1370,8 +1370,8 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'name' => 'My layout',
                 'description' => 'My layout description',
+                'name' => 'My layout',
             ],
             $this->exportObject($struct),
         );
@@ -1386,8 +1386,8 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'name' => null,
                 'description' => null,
+                'name' => null,
             ],
             $this->exportObject($struct),
         );
@@ -1404,8 +1404,8 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'name' => 'My layout (copy)',
                 'description' => null,
+                'name' => 'My layout (copy)',
             ],
             $this->exportObject($struct),
         );
@@ -1420,8 +1420,8 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'name' => 'Layout (copy)',
                 'description' => null,
+                'name' => 'Layout (copy)',
             ],
             $this->exportObject($struct),
         );

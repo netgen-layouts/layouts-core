@@ -66,17 +66,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 1,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($collection),
         );
@@ -108,30 +108,30 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'default' => [
-                    'id' => 1,
-                    'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'alwaysAvailable' => true,
+                    'availableLocales' => ['en', 'hr'],
                     'blockId' => 31,
                     'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                    'offset' => 0,
-                    'limit' => null,
+                    'id' => 1,
                     'isTranslatable' => true,
+                    'limit' => null,
                     'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
+                    'offset' => 0,
                     'status' => Value::STATUS_DRAFT,
+                    'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 ],
                 'featured' => [
-                    'id' => 3,
-                    'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'alwaysAvailable' => true,
+                    'availableLocales' => ['en', 'hr'],
                     'blockId' => 31,
                     'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                    'offset' => 4,
-                    'limit' => 2,
+                    'id' => 3,
                     'isTranslatable' => true,
+                    'limit' => 2,
                     'mainLocale' => 'en',
-                    'availableLocales' => ['en', 'hr'],
-                    'alwaysAvailable' => true,
+                    'offset' => 4,
                     'status' => Value::STATUS_DRAFT,
+                    'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 ],
             ],
             $this->exportObjectList($collections),
@@ -220,16 +220,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => [],
+                'id' => 1,
                 'position' => 0,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'viewType' => 'overlay',
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -261,16 +261,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => [],
+                'id' => 1,
                 'position' => 0,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'viewType' => 'overlay',
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -316,11 +316,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
-                'type' => 'my_query_type',
+                'id' => 1,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'parent_location_id' => 2,
@@ -335,11 +337,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
         );
@@ -369,11 +369,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
-                'type' => 'my_query_type',
+                'id' => 1,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'parent_location_id' => 2,
@@ -388,11 +390,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
         );
@@ -423,13 +423,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'id' => 1,
                 'position' => 0,
-                'viewType' => 'standard',
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                'viewType' => 'standard',
             ],
             $this->exportObject($slot),
         );
@@ -510,17 +510,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 7,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en'],
                 'blockId' => 38,
                 'blockUuid' => 'a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6',
-                'offset' => 5,
-                'limit' => 10,
+                'id' => 7,
                 'isTranslatable' => true,
+                'limit' => 10,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en'],
-                'alwaysAvailable' => true,
+                'offset' => 5,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($createdCollection),
         );
@@ -563,17 +563,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 2,
-                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr', 'de'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 2,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr', 'de'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
             ],
             $this->exportObject($collection),
         );
@@ -582,11 +582,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['de', 'en', 'hr'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
-                'type' => 'my_query_type',
+                'id' => 1,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'de' => [
                         'parent_location_id' => 2,
@@ -607,11 +609,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['de', 'en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
         );
@@ -631,17 +631,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 2,
-                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr', 'de'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 2,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr', 'de'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
             ],
             $this->exportObject($collection),
         );
@@ -650,11 +650,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['de', 'en', 'hr'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
-                'type' => 'my_query_type',
+                'id' => 1,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'de' => [
                         'parent_location_id' => 2,
@@ -675,11 +677,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['de', 'en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
         );
@@ -699,17 +699,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr', 'de'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 1,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr', 'de'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($collection),
         );
@@ -832,17 +832,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'alwaysAvailable' => false,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 5,
-                'limit' => 10,
+                'id' => 1,
                 'isTranslatable' => false,
+                'limit' => 10,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => false,
+                'offset' => 5,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($updatedCollection),
         );
@@ -865,17 +865,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 3,
-                'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 5,
-                'limit' => null,
+                'id' => 3,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 5,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
             ],
             $this->exportObject($updatedCollection),
         );
@@ -896,17 +896,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 1,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($updatedCollection),
         );
@@ -944,17 +944,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 7,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '42446cc9-24c3-573c-9022-6b3a764727b5',
-                'offset' => 4,
-                'limit' => 2,
+                'id' => 7,
                 'isTranslatable' => true,
+                'limit' => 2,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 4,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($copiedCollection),
         );
@@ -962,40 +962,40 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'id' => 13,
-                    'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'config' => [],
+                    'id' => 13,
                     'position' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_PUBLISHED,
                 ],
                 [
-                    'id' => 14,
-                    'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'config' => [],
+                    'id' => 14,
                     'position' => 3,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_PUBLISHED,
                 ],
                 [
-                    'id' => 15,
-                    'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'config' => [],
+                    'id' => 15,
                     'position' => 5,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
             $this->exportObjectList(
@@ -1007,11 +1007,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 5,
-                'uuid' => '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => $copiedCollection->id,
                 'collectionUuid' => $copiedCollection->uuid,
-                'type' => 'my_query_type',
+                'id' => 5,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'parent_location_id' => 2,
@@ -1026,11 +1028,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
             ],
             $this->exportObject($query),
         );
@@ -1038,22 +1038,22 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 3 => [
-                    'id' => 7,
-                    'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'id' => 7,
                     'position' => 3,
-                    'viewType' => 'standard',
                     'status' => Value::STATUS_PUBLISHED,
+                    'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                    'viewType' => 'standard',
                 ],
                 5 => [
-                    'id' => 8,
-                    'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'id' => 8,
                     'position' => 5,
-                    'viewType' => 'overlay',
                     'status' => Value::STATUS_PUBLISHED,
+                    'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                    'viewType' => 'overlay',
                 ],
             ],
             $this->exportObjectList(
@@ -1091,17 +1091,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 7,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '42446cc9-24c3-573c-9022-6b3a764727b5',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 7,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($copiedCollection),
         );
@@ -1109,40 +1109,40 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'id' => 13,
-                    'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'config' => [],
+                    'id' => 13,
                     'position' => 0,
+                    'status' => Value::STATUS_DRAFT,
+                    'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'viewType' => 'overlay',
-                    'config' => [],
-                    'status' => Value::STATUS_DRAFT,
                 ],
                 [
-                    'id' => 14,
-                    'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'config' => [],
+                    'id' => 14,
                     'position' => 1,
+                    'status' => Value::STATUS_DRAFT,
+                    'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_DRAFT,
                 ],
                 [
-                    'id' => 15,
-                    'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'config' => [],
+                    'id' => 15,
                     'position' => 2,
+                    'status' => Value::STATUS_DRAFT,
+                    'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'viewType' => 'overlay',
-                    'config' => [],
-                    'status' => Value::STATUS_DRAFT,
                 ],
             ],
             $this->exportObjectList(
@@ -1153,22 +1153,22 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 0 => [
-                    'id' => 7,
-                    'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'id' => 7,
                     'position' => 0,
-                    'viewType' => 'standard',
                     'status' => Value::STATUS_DRAFT,
+                    'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                    'viewType' => 'standard',
                 ],
                 2 => [
-                    'id' => 8,
-                    'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
+                    'id' => 8,
                     'position' => 2,
-                    'viewType' => 'overlay',
                     'status' => Value::STATUS_DRAFT,
+                    'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                    'viewType' => 'overlay',
                 ],
             ],
             $this->exportObjectList(
@@ -1212,17 +1212,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 3,
-                'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 4,
-                'limit' => 2,
+                'id' => 3,
                 'isTranslatable' => true,
+                'limit' => 2,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 4,
                 'status' => Value::STATUS_ARCHIVED,
+                'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
             ],
             $this->exportObject($copiedCollection),
         );
@@ -1230,40 +1230,40 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'id' => 7,
-                    'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'config' => [],
+                    'id' => 7,
                     'position' => 2,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
-                    'id' => 8,
-                    'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'config' => [],
+                    'id' => 8,
                     'position' => 3,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
-                    'id' => 9,
-                    'uuid' => '9701e116-51f4-5ff6-b9b5-5660cb2ab21d',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'config' => [],
+                    'id' => 9,
                     'position' => 5,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => '9701e116-51f4-5ff6-b9b5-5660cb2ab21d',
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -1273,11 +1273,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 2,
-                'uuid' => '0303abc4-c894-59b5-ba95-5cf330b99c66',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
-                'type' => 'my_query_type',
+                'id' => 2,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'parent_location_id' => 2,
@@ -1292,11 +1294,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_ARCHIVED,
+                'type' => 'my_query_type',
+                'uuid' => '0303abc4-c894-59b5-ba95-5cf330b99c66',
             ],
             $this->exportObject(
                 $this->collectionHandler->loadCollectionQuery($copiedCollection),
@@ -1306,22 +1306,22 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 3 => [
-                    'id' => 5,
-                    'uuid' => 'd0c55af8-5a45-4221-84e6-c7e4b975db0e',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'id' => 5,
                     'position' => 3,
-                    'viewType' => 'standard',
                     'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => 'd0c55af8-5a45-4221-84e6-c7e4b975db0e',
+                    'viewType' => 'standard',
                 ],
                 5 => [
-                    'id' => 6,
-                    'uuid' => 'f520bcc4-e977-4c51-85cb-f68c79884e81',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'id' => 6,
                     'position' => 5,
-                    'viewType' => 'overlay',
                     'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => 'f520bcc4-e977-4c51-85cb-f68c79884e81',
+                    'viewType' => 'overlay',
                 ],
             ],
             $this->exportObjectList(
@@ -1346,17 +1346,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 1,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_ARCHIVED,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($copiedCollection),
         );
@@ -1364,40 +1364,40 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'id' => 1,
-                    'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'config' => [],
+                    'id' => 1,
                     'position' => 0,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                     'value' => '72',
                     'valueType' => 'my_value_type',
                     'viewType' => 'overlay',
-                    'config' => [],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
-                    'id' => 2,
-                    'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'config' => [],
+                    'id' => 2,
                     'position' => 1,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                     'value' => '73',
                     'valueType' => 'my_value_type',
                     'viewType' => null,
-                    'config' => [],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
-                    'id' => 3,
-                    'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'config' => [],
+                    'id' => 3,
                     'position' => 2,
+                    'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                     'value' => '74',
                     'valueType' => 'my_value_type',
                     'viewType' => 'overlay',
-                    'config' => [],
-                    'status' => Value::STATUS_ARCHIVED,
                 ],
             ],
             $this->exportObjectList(
@@ -1408,22 +1408,22 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 0 => [
-                    'id' => 1,
-                    'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'id' => 1,
                     'position' => 0,
-                    'viewType' => 'standard',
                     'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                    'viewType' => 'standard',
                 ],
                 2 => [
-                    'id' => 2,
-                    'uuid' => 'ee232f5b-478c-4513-a4b4-19e7e8b03aab',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'id' => 2,
                     'position' => 2,
-                    'viewType' => 'overlay',
                     'status' => Value::STATUS_ARCHIVED,
+                    'uuid' => 'ee232f5b-478c-4513-a4b4-19e7e8b03aab',
+                    'viewType' => 'overlay',
                 ],
             ],
             $this->exportObjectList(
@@ -1505,17 +1505,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 2,
-                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 2,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_PUBLISHED,
+                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
             ],
             $this->exportObject($collection),
         );
@@ -1524,11 +1524,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
-                'type' => 'my_query_type',
+                'id' => 1,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'parent_location_id' => 2,
@@ -1537,11 +1539,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
         );
@@ -1560,17 +1560,17 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
-                'offset' => 0,
-                'limit' => null,
+                'id' => 1,
                 'isTranslatable' => true,
+                'limit' => null,
                 'mainLocale' => 'en',
-                'availableLocales' => ['en'],
-                'alwaysAvailable' => true,
+                'offset' => 0,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($collection),
         );
@@ -1632,16 +1632,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 13,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => ['config' => ['value' => 42]],
+                'id' => 13,
                 'position' => 1,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'viewType' => 'my_view_type',
-                'config' => ['config' => ['value' => 42]],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -1676,16 +1676,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 13,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'config' => ['config' => ['value' => 42]],
+                'id' => 13,
                 'position' => 2,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'viewType' => 'my_view_type',
-                'config' => ['config' => ['value' => 42]],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -1726,16 +1726,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 13,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'config' => ['config' => ['value' => 42]],
+                'id' => 13,
                 'position' => 4,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'viewType' => 'my_view_type',
-                'config' => ['config' => ['value' => 42]],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -1770,16 +1770,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 13,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => ['config' => ['value' => 42]],
+                'id' => 13,
                 'position' => 3,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
                 'viewType' => null,
-                'config' => ['config' => ['value' => 42]],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -1878,16 +1878,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => ['new_config' => ['val' => 24]],
+                'id' => 1,
                 'position' => 0,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'viewType' => 'new_view_type',
-                'config' => ['new_config' => ['val' => 24]],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -1909,16 +1909,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => [],
+                'id' => 1,
                 'position' => 0,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'viewType' => null,
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item),
         );
@@ -1941,16 +1941,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 12,
-                'uuid' => '3562a253-72d1-54d1-8b31-ef1b55409cb5',
                 'collectionId' => 4,
                 'collectionUuid' => '08937ca0-18f4-5806-84df-8c132c36cabe',
+                'config' => [],
+                'id' => 12,
                 'position' => 2,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '3562a253-72d1-54d1-8b31-ef1b55409cb5',
                 'value' => '74',
                 'valueType' => 'my_value_type',
                 'viewType' => null,
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem),
         );
@@ -1979,16 +1979,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => [],
+                'id' => 1,
                 'position' => 1,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'viewType' => 'overlay',
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem),
         );
@@ -2017,16 +2017,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => [],
+                'id' => 1,
                 'position' => 0,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'viewType' => 'overlay',
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem),
         );
@@ -2055,16 +2055,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 2,
-                'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => [],
+                'id' => 2,
                 'position' => 0,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                 'value' => '73',
                 'valueType' => 'my_value_type',
                 'viewType' => null,
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem),
         );
@@ -2090,16 +2090,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 3,
-                'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'config' => [],
+                'id' => 3,
                 'position' => 1,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                 'value' => '74',
                 'valueType' => 'my_value_type',
                 'viewType' => 'overlay',
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem),
         );
@@ -2128,16 +2128,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 7,
-                'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'config' => [],
+                'id' => 7,
                 'position' => 4,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                 'value' => '72',
                 'valueType' => 'my_value_type',
                 'viewType' => null,
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem),
         );
@@ -2166,16 +2166,16 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 8,
-                'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'config' => [],
+                'id' => 8,
                 'position' => 2,
+                'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                 'value' => '73',
                 'valueType' => 'my_value_type',
                 'viewType' => null,
-                'config' => [],
-                'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($movedItem),
         );
@@ -2350,11 +2350,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 5,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
-                'type' => 'my_query_type',
+                'id' => 5,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'param' => 'value',
@@ -2363,11 +2365,9 @@ final class CollectionHandlerTest extends TestCase
                         'param' => 'value',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
+                'type' => 'my_query_type',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($createdQuery),
         );
@@ -2415,11 +2415,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
-                'type' => 'my_query_type',
+                'id' => 1,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'parent_location_id' => 999,
@@ -2432,11 +2434,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($updatedQuery),
         );
@@ -2458,11 +2458,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
+                'alwaysAvailable' => true,
+                'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
-                'type' => 'my_query_type',
+                'id' => 1,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
                 'parameters' => [
                     'en' => [
                         'parent_location_id' => 2,
@@ -2477,11 +2479,9 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'isTranslatable' => true,
-                'mainLocale' => 'en',
-                'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'type' => 'my_query_type',
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($updatedQuery),
         );
@@ -2583,13 +2583,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 7,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'id' => 7,
                 'position' => 1,
-                'viewType' => 'my_view_type',
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'viewType' => 'my_view_type',
             ],
             $this->exportObject($slot),
         );
@@ -2630,13 +2630,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'id' => 1,
                 'position' => 0,
-                'viewType' => 'new_view_type',
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                'viewType' => 'new_view_type',
             ],
             $this->exportObject($slot),
         );
@@ -2658,13 +2658,13 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'id' => 1,
                 'position' => 0,
-                'viewType' => null,
                 'status' => Value::STATUS_DRAFT,
+                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                'viewType' => null,
             ],
             $this->exportObject($slot),
         );

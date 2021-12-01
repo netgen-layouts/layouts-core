@@ -140,7 +140,6 @@ final class BlockDefinitionFactoryTest extends TestCase
             [
                 'view_type' => [
                     'identifier' => 'view_type',
-                    'name' => 'View type',
                     'itemViewTypes' => [
                         'item_view_type' => [
                             'identifier' => 'item_view_type',
@@ -151,6 +150,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                             'name' => 'Standard',
                         ],
                     ],
+                    'name' => 'View type',
                     'validParameters' => ['param1', 'param2'],
                 ],
             ],

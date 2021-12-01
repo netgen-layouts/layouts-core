@@ -73,9 +73,9 @@ final class LinkTypeTest extends FormTestCase
 
         self::assertSame(
             [
-                'linkType' => 'url',
                 'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
+                'linkType' => 'url',
                 'newWindow' => true,
             ],
             $this->exportObject($formData),
@@ -123,9 +123,9 @@ final class LinkTypeTest extends FormTestCase
 
         self::assertSame(
             [
-                'linkType' => null,
                 'link' => null,
                 'linkSuffix' => null,
+                'linkType' => null,
                 'newWindow' => false,
             ],
             $this->exportObject($formData),

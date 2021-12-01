@@ -128,9 +128,9 @@ final class LinkDataMapperTest extends DataMapperTest
 
         self::assertSame(
             [
-                'linkType' => 'url',
                 'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
+                'linkType' => 'url',
                 'newWindow' => true,
             ],
             $this->exportObject($data),
@@ -156,9 +156,9 @@ final class LinkDataMapperTest extends DataMapperTest
 
         self::assertSame(
             [
-                'linkType' => null,
                 'link' => null,
                 'linkSuffix' => null,
+                'linkType' => null,
                 'newWindow' => false,
             ],
             $this->exportObject($data),

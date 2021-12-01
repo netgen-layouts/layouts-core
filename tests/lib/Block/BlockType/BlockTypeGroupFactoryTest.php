@@ -31,10 +31,10 @@ final class BlockTypeGroupFactoryTest extends TestCase
 
         self::assertSame(
             [
+                'blockTypes' => [$blockType],
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,
                 'name' => 'Simple blocks',
-                'blockTypes' => [$blockType],
             ],
             $this->exportObject($blockTypeGroup),
         );

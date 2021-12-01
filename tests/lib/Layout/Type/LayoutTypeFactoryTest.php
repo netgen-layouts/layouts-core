@@ -36,15 +36,15 @@ final class LayoutTypeFactoryTest extends TestCase
 
         self::assertSame(
             [
+                'icon' => '/icon.svg',
                 'identifier' => '4_zones_a',
                 'isEnabled' => false,
                 'name' => '4 zones A',
-                'icon' => '/icon.svg',
                 'zones' => [
                     'left' => [
+                        'allowedBlockDefinitions' => ['title', 'text'],
                         'identifier' => 'left',
                         'name' => 'Left',
-                        'allowedBlockDefinitions' => ['title', 'text'],
                     ],
                 ],
             ],

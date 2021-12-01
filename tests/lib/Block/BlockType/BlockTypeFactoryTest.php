@@ -36,14 +36,14 @@ final class BlockTypeFactoryTest extends TestCase
 
         self::assertSame(
             [
-                'identifier' => 'title',
-                'isEnabled' => false,
-                'name' => 'Title',
-                'icon' => '/icon.svg',
-                'definition' => $blockDefinition,
                 'defaults' => [
                     'viewType' => 'default',
                 ],
+                'definition' => $blockDefinition,
+                'icon' => '/icon.svg',
+                'identifier' => 'title',
+                'isEnabled' => false,
+                'name' => 'Title',
             ],
             $this->exportObject($blockType),
         );

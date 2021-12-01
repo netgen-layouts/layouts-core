@@ -859,43 +859,43 @@ final class ParameterBuilderTest extends TestCase
 
         self::assertSame(
             [
-                'name' => 'test',
-                'type' => $this->registry->getParameterType('text'),
-                'options' => [],
-                'isRequired' => true,
-                'defaultValue' => 'test value',
-                'label' => null,
-                'groups' => ['group'],
                 'constraints' => $constraints,
+                'defaultValue' => 'test value',
+                'groups' => ['group'],
+                'isRequired' => true,
+                'label' => null,
+                'name' => 'test',
+                'options' => [],
+                'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($parameterDefinitions['test']),
         );
 
         self::assertSame(
             [
-                'name' => 'compound',
-                'type' => $this->registry->getParameterType('compound_boolean'),
-                'options' => ['reverse' => false],
-                'isRequired' => false,
-                'defaultValue' => true,
-                'label' => false,
-                'groups' => ['group 2'],
                 'constraints' => [],
+                'defaultValue' => true,
+                'groups' => ['group 2'],
+                'isRequired' => false,
+                'label' => false,
+                'name' => 'compound',
+                'options' => ['reverse' => false],
                 'parameterDefinitions' => $innerDefinitions,
+                'type' => $this->registry->getParameterType('compound_boolean'),
             ],
             $this->exportObject($parameterDefinitions['compound']),
         );
 
         self::assertSame(
             [
-                'name' => 'test2',
-                'type' => $this->registry->getParameterType('text'),
-                'options' => [],
-                'isRequired' => true,
-                'defaultValue' => 'test value 2',
-                'label' => 'Custom label',
-                'groups' => ['group 2'],
                 'constraints' => [],
+                'defaultValue' => 'test value 2',
+                'groups' => ['group 2'],
+                'isRequired' => true,
+                'label' => 'Custom label',
+                'name' => 'test2',
+                'options' => [],
+                'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($innerDefinitions['test2']),
         );
@@ -916,11 +916,11 @@ final class ParameterBuilderTest extends TestCase
             'test',
             ParameterType\TextType::class,
             [
-                'required' => true,
-                'default_value' => 'test value',
-                'label' => null,
-                'groups' => ['group'],
                 'constraints' => $constraints,
+                'default_value' => 'test value',
+                'groups' => ['group'],
+                'label' => null,
+                'required' => true,
             ],
         );
 
@@ -933,14 +933,14 @@ final class ParameterBuilderTest extends TestCase
 
         self::assertSame(
             [
-                'name' => 'test',
-                'type' => $this->registry->getParameterType('text'),
-                'options' => [],
-                'isRequired' => true,
-                'defaultValue' => 'test value',
-                'label' => null,
-                'groups' => ['group'],
                 'constraints' => $constraints,
+                'defaultValue' => 'test value',
+                'groups' => ['group'],
+                'isRequired' => true,
+                'label' => null,
+                'name' => 'test',
+                'options' => [],
+                'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($parameterDefinitions['test']),
         );
@@ -964,14 +964,14 @@ final class ParameterBuilderTest extends TestCase
 
         self::assertSame(
             [
-                'name' => 'test',
-                'type' => $this->registry->getParameterType('text'),
-                'options' => [],
-                'isRequired' => false,
-                'defaultValue' => null,
-                'label' => null,
-                'groups' => [],
                 'constraints' => [],
+                'defaultValue' => null,
+                'groups' => [],
+                'isRequired' => false,
+                'label' => null,
+                'name' => 'test',
+                'options' => [],
+                'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($parameterDefinitions['test']),
         );

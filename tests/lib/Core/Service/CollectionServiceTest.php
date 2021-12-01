@@ -760,8 +760,8 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'offset' => 0,
                 'limit' => null,
+                'offset' => 0,
                 'queryCreateStruct' => $queryCreateStruct,
             ],
             $this->exportObject($struct),
@@ -777,8 +777,8 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'offset' => null,
                 'limit' => null,
+                'offset' => null,
             ],
             $this->exportObject($struct),
         );
@@ -795,8 +795,8 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'offset' => 4,
                 'limit' => 2,
+                'offset' => 4,
             ],
             $this->exportObject($struct),
         );
@@ -813,8 +813,8 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'offset' => 0,
                 'limit' => 0,
+                'offset' => 0,
             ],
             $this->exportObject($struct),
         );
@@ -830,10 +830,10 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
+                'configStructs' => [],
                 'definition' => $itemDefinition,
                 'value' => '42',
                 'viewType' => null,
-                'configStructs' => [],
             ],
             $this->exportObject($struct),
         );
@@ -848,8 +848,8 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'viewType' => null,
                 'configStructs' => [],
+                'viewType' => null,
             ],
             $this->exportObject($struct, true),
         );
@@ -867,7 +867,6 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'viewType' => 'overlay',
                 'configStructs' => [
                     'key' => [
                         'parameterValues' => [
@@ -876,6 +875,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                         ],
                     ],
                 ],
+                'viewType' => 'overlay',
             ],
             $this->exportObject($struct, true),
         );
@@ -893,7 +893,6 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'viewType' => '',
                 'configStructs' => [
                     'key' => [
                         'parameterValues' => [
@@ -902,6 +901,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                         ],
                     ],
                 ],
+                'viewType' => '',
             ],
             $this->exportObject($struct, true),
         );
@@ -918,11 +918,11 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         self::assertSame(
             [
-                'queryType' => $queryType,
                 'parameterValues' => [
                     'param' => 'value',
                     'param2' => null,
                 ],
+                'queryType' => $queryType,
             ],
             $this->exportObject($struct),
         );

@@ -32,12 +32,12 @@ final class CmsItemBuilderTest extends TestCase
 
         self::assertSame(
             [
-                'value' => 42,
-                'remoteId' => 'abc',
-                'valueType' => 'value',
-                'name' => 'Some value',
                 'isVisible' => true,
+                'name' => 'Some value',
                 'object' => $value,
+                'remoteId' => 'abc',
+                'value' => 42,
+                'valueType' => 'value',
             ],
             $this->exportObject($builtItem),
         );
