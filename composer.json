@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^7.4 || ^8.1",
         "ext-intl": "*",
         "ext-mbstring": "*",
         "netgen/layouts-ui": "~1.4.0",
