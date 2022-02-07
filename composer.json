@@ -91,7 +91,8 @@
         "friends-of-behat/page-object-extension": "^0.3"
     },
     "conflict": {
-        "ocramius/proxy-manager": "<2.1"
+        "ocramius/proxy-manager": "<2.1",
+        "symfony/proxy-manager-bridge": "<3.4.47"
     },
     "config": {
         "process-timeout": 3600
