@@ -11,12 +11,12 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \ArrayAccess<string, mixed>
+ * @implements \ArrayAccess<mixed, mixed>
  */
 final class DynamicParameters implements ArrayAccess, Countable
 {
     /**
-     * @var array<string, mixed>
+     * @var array<mixed, mixed>
      */
     private array $dynamicParameters = [];
 

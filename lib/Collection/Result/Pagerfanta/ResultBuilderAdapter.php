@@ -9,6 +9,9 @@ use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Netgen\Layouts\Collection\Result\Result>
+ */
 final class ResultBuilderAdapter implements AdapterInterface
 {
     private ResultBuilderInterface $resultBuilder;
