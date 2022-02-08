@@ -57,6 +57,8 @@ final class PagerFactory
     /**
      * Builds the pager from provided adapter.
      *
+     * @param AdapterInterface<\Netgen\Layouts\Collection\Result\Result> $adapter
+     *
      * @return PagerfantaInterface<\Netgen\Layouts\Collection\Result\Result>
      */
     private function buildPager(AdapterInterface $adapter, Collection $collection, int $startPage): PagerfantaInterface
