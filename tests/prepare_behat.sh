@@ -1,10 +1,8 @@
 #!/bin/bash
 
 if [ ! -f vendor/bin/symfony ]; then
-    LATEST_SYMFONY_CLI=$(wget -qO- https://get.symfony.com/cli/LATEST)
-    curl -L https://github.com/symfony/cli/releases/download/v$LATEST_SYMFONY_CLI/symfony_linux_amd64.gz > symfony.gz
-    gunzip symfony.gz && chmod 755 symfony
-    mv -f symfony vendor/bin/
+    curl -L https://github.com/symfony-cli/symfony-cli/releases/latest/download/symfony-cli_linux_amd64.tar.gz > symfony.tar.gz
+    tar xvf symfony.tar.gz --directory vendor/bin/ && rm symfony.tar.gz && chmod 755 vendor/bin/symfony
 fi
 
 if [ ! -f vendor/bin/chromedriver ]; then
