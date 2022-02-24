@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 use function count;
+use function in_array;
 use function is_array;
 
 /**
@@ -163,7 +164,7 @@ final class LinkType extends ParameterType
             return true;
         }
 
-        if ($value->getLinkType() === LinkValue::LINK_TYPE_URL) {
+        if (in_array($value->getLinkType(), [LinkValue::LINK_TYPE_URL, LinkValue::LINK_TYPE_RELATIVE_URL], true)) {
             return ($value->getLink() ?? '') === '' && ($value->getLinkSuffix() ?? '') === '';
         }
 

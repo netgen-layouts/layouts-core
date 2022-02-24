@@ -4,7 +4,7 @@
     {% set link = null %}
     {% set content = content|default('') %}
 
-    {% if value.linkType is constant('LINK_TYPE_URL', value) %}
+    {% if value.linkType is constant('LINK_TYPE_URL', value) or value.linkType is constant('LINK_TYPE_RELATIVE_URL', value) %}
         {% set link = value.link ~ value.linkSuffix %}
     {% elseif value.linkType is constant('LINK_TYPE_EMAIL', value) %}
         {% set link = 'mailto:' ~ value.link ~ value.linkSuffix %}

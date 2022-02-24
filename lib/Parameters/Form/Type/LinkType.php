@@ -41,6 +41,7 @@ final class LinkType extends AbstractType
                 'label' => 'parameter.link.link_type',
                 'choices' => [
                     'parameter.link.link_type.url' => LinkValue::LINK_TYPE_URL,
+                    'parameter.link.link_type.relative_url' => LinkValue::LINK_TYPE_RELATIVE_URL,
                     'parameter.link.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
                     'parameter.link.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
                     'parameter.link.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
@@ -55,6 +56,15 @@ final class LinkType extends AbstractType
             UrlType::class,
             [
                 'label' => 'parameter.link.link_type.url',
+                'required' => false,
+            ],
+        );
+
+        $builder->add(
+            LinkValue::LINK_TYPE_RELATIVE_URL,
+            TextType::class,
+            [
+                'label' => 'parameter.link.link_type.relative_url',
                 'required' => false,
             ],
         );

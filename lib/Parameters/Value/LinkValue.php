@@ -13,6 +13,8 @@ final class LinkValue implements Stringable
 
     public const LINK_TYPE_URL = 'url';
 
+    public const LINK_TYPE_RELATIVE_URL = 'relative_url';
+
     public const LINK_TYPE_EMAIL = 'email';
 
     public const LINK_TYPE_PHONE = 'phone';

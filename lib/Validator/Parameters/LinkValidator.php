@@ -47,6 +47,7 @@ final class LinkValidator extends ConstraintValidator
                     [
                         'choices' => [
                             LinkValue::LINK_TYPE_URL,
+                            LinkValue::LINK_TYPE_RELATIVE_URL,
                             LinkValue::LINK_TYPE_EMAIL,
                             LinkValue::LINK_TYPE_PHONE,
                             LinkValue::LINK_TYPE_INTERNAL,
@@ -67,6 +68,9 @@ final class LinkValidator extends ConstraintValidator
         if ($linkType !== null) {
             if ($linkType === LinkValue::LINK_TYPE_URL) {
                 $linkConstraints[] = new Constraints\Url();
+            } elseif ($linkType === LinkValue::LINK_TYPE_RELATIVE_URL) {
+                // @deprecated Replace with Url constraint with "relativeProtocol" option when support for Symfony 3.4 ends
+                $linkConstraints[] = new Constraints\Type(['type' => 'string']);
             } elseif ($linkType === LinkValue::LINK_TYPE_EMAIL) {
                 $linkConstraints[] = new Constraints\Email($this->getStrictEmailValidatorOption());
             } elseif ($linkType === LinkValue::LINK_TYPE_PHONE) {

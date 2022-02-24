@@ -9,6 +9,7 @@ block.plugin.paged_collections.max_pages: 'Maximum number of pages'
 
 parameter.link.link_type: 'Link type'
 parameter.link.link_type.url: 'URL'
+parameter.link.link_type.relative_url: 'Relative URL'
 parameter.link.link_type.email: 'E-mail'
 parameter.link.link_type.phone: 'Phone number'
 parameter.link.link_type.internal: 'Internal link'
