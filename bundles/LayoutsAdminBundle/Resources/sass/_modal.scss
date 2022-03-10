@@ -46,6 +46,9 @@
             text-align:center;
             background:transparent;
             text-decoration:none;
+            &:hover {
+                text-decoration: none;
+            }
             @extend %material-icons;
             &::before {
                 content:"clear";
