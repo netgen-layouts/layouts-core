@@ -119,6 +119,12 @@
             </errorLevel>
         </InvalidArgument>
 
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <referencedClass name="UnitEnum" />
+            </errorLevel>
+        </UndefinedDocblockClass>
+
         <!-- Other -->
 
         <InternalMethod>
