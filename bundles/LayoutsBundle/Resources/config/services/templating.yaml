@@ -100,6 +100,11 @@ services:
         tags:
             - { name: twig.runtime }
 
+    netgen_layouts.templating.twig.extension.version:
+        class: EdiModric\Twig\VersionExtension
+        tags:
+            - { name: twig.extension }
+
     netgen_layouts.templating.pagelayout_resolver.default:
         class: Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolver
         arguments:

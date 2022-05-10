@@ -1,7 +1,3 @@
-parameters:
-    netgen_layouts.event_listener.twig_extensions.extensions:
-        - EdiModric\Twig\VersionExtension
-
 services:
     netgen_layouts.event_listener.view:
         class: Netgen\Bundle\LayoutsBundle\EventListener\ViewListener
@@ -13,16 +9,6 @@ services:
         arguments:
             - "@netgen_layouts.view.view_renderer"
             - "@netgen_layouts.error.handler"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    netgen_layouts.event_listener.twig_extensions:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\TwigExtensionsListener
-        arguments:
-            - "@twig"
-            - "%netgen_layouts.event_listener.twig_extensions.extensions%"
-        # Set as lazy to prevent crashing of eZ Platform siteaccess aware config
-        lazy: true
         tags:
             - { name: kernel.event_subscriber }
 
