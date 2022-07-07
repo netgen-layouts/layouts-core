@@ -92,7 +92,8 @@
     },
     "conflict": {
         "ocramius/proxy-manager": "<2.1",
-        "symfony/proxy-manager-bridge": "<3.4.47"
+        "symfony/proxy-manager-bridge": "<3.4.47",
+        "composer/package-versions-deprecated": "<1.11.99"
     },
     "config": {
         "process-timeout": 3600
