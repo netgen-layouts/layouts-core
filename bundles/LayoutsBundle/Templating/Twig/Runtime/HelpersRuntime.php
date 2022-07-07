@@ -12,7 +12,6 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\Item\ItemException;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
@@ -21,6 +20,7 @@ use Ramsey\Uuid\Uuid;
 use Throwable;
 use Twig\Environment;
 use function array_unshift;
+use function is_string;
 use function twig_date_converter;
 
 final class HelpersRuntime
