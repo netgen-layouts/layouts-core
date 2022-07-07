@@ -137,13 +137,9 @@ final class HelpersRuntime
             IntlTimeZone::createTimeZone($dateTime->getTimezone()->getName()),
         );
 
-        if (!$formatter instanceof IntlDateFormatter) {
-            throw new RuntimeException('Unable to format the given date.');
-        }
-
         $formattedValue = $formatter->format($dateTime->getTimestamp());
 
-        return $formattedValue !== false ? $formattedValue : '';
+        return is_string($formattedValue) ? $formattedValue : '';
     }
 
     /**
