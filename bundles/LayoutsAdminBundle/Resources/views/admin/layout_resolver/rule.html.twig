@@ -92,12 +92,6 @@
                 </div>
             {% endif %}
 
-            {% if can_edit and rule.layout is not empty %}
-                <div class="nl-rule-cell rule-unlink-layout">
-                    <a href="#" class="js-rule-unlink">{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
-                </div>
-            {% endif %}
-
             <div class="nl-rule-cell rule-details">
                 <a href="#" class="js-toggle-body">{{ 'layout_resolver.rule.details'|trans }}</a>
             </div>
@@ -122,6 +116,10 @@
 
                     {% if can_delete %}
                         <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rule.delete_rule'|trans }}</a></li>
+                    {% endif %}
+
+                    {% if can_edit and rule.layout is not empty %}
+                        <li><a href="#" class="js-rule-unlink">{{ 'layout_resolver.rule.unlink_layout'|trans }}</a></li>
                     {% endif %}
 
                     {% if rule.layout is empty or not rule.layout.published or is_granted('nglayouts:layout:clear_cache', rule.layout) %}
