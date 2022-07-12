@@ -80,6 +80,12 @@
         </div>
 
         <div class="hover-actions">
+            {% if rule.layout is not empty and is_granted('nglayouts:layout:edit', rule.layout) %}
+                <div class="nl-rule-cell rule-edit-layout">
+                    <a href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
+                </div>
+            {% endif %}
+
             {% if can_edit %}
                 <div class="nl-rule-cell rule-link-layout">
                     <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
