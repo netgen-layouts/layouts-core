@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design;
 use Symfony\Component\Config\Resource\FileExistenceResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+
 use function array_filter;
 use function array_map;
 use function array_merge;

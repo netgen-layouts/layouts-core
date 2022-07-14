@@ -6,6 +6,7 @@ namespace Netgen\Layouts\View;
 
 use Netgen\Layouts\Exception\View\ViewException;
 use Symfony\Component\HttpFoundation\Response;
+
 use function array_key_exists;
 use function get_debug_type;
 

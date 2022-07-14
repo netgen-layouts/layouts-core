@@ -14,6 +14,7 @@ use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+
 use function method_exists;
 
 /**

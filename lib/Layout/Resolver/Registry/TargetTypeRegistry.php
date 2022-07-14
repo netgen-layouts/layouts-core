@@ -13,6 +13,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\TargetType;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
+
 use function count;
 use function method_exists;
 use function trigger_deprecation;

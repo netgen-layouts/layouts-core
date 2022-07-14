@@ -11,6 +11,7 @@ use Netgen\Layouts\Collection\Result\ResultSet;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 use function in_array;
 
 final class CollectionResultSetNormalizer implements NormalizerInterface, NormalizerAwareInterface

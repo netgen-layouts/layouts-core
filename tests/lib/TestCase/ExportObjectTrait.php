@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\TestCase;
 
 use Netgen\Layouts\Utils\Hydrator;
+
 use function is_array;
 use function is_object;
 use function ksort;

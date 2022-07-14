@@ -12,6 +12,7 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
+
 use function array_filter;
 use function count;
 

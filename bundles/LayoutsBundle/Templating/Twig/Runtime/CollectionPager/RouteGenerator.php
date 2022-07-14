@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Context\Context;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 use function str_contains;
 
 final class RouteGenerator

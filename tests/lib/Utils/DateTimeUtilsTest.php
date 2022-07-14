@@ -9,6 +9,7 @@ use DateTimeInterface;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
+
 use function date_default_timezone_get;
 
 final class DateTimeUtilsTest extends TestCase

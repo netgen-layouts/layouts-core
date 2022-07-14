@@ -13,12 +13,14 @@ use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+
 use function file_exists;
 use function file_get_contents;
 use function json_decode;
 use function json_encode;
 use function sprintf;
 use function trim;
+
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 use const PHP_EOL;

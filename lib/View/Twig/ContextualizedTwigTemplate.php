@@ -6,6 +6,7 @@ namespace Netgen\Layouts\View\Twig;
 
 use Throwable;
 use Twig\Template;
+
 use function ob_end_clean;
 use function ob_get_clean;
 use function ob_get_level;

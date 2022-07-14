@@ -11,6 +11,7 @@ use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 use function sprintf;
 
 final class GetTwigBlockContentListener implements EventSubscriberInterface

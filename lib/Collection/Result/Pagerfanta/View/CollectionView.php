@@ -9,6 +9,7 @@ use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
 use Twig\Environment;
+
 use function array_key_exists;
 use function is_string;
 use function sprintf;

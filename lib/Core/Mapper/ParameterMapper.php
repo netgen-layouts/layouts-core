@@ -8,6 +8,7 @@ use Generator;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+
 use function array_key_exists;
 
 final class ParameterMapper

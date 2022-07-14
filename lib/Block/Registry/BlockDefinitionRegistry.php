@@ -12,6 +12,7 @@ use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
+
 use function array_filter;
 use function count;
 

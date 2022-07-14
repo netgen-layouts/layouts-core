@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Node;
 
 use Twig\Test\NodeTestCase;
+
 use function sprintf;
 
 abstract class NodeTest extends NodeTestCase

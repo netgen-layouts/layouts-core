@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Core\Mapper;
 use Generator;
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\ParameterStruct;
+
 use function iterator_to_array;
 
 final class ConfigMapper

@@ -10,6 +10,7 @@ use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFla
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Validator\Constraints;
+
 use function class_exists;
 use function count;
 use function in_array;

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 use Symfony\Component\EventDispatcher\Event as LegacyEvent;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Contracts\EventDispatcher\Event as ContractsEvent;
+
 use function class_exists;
 
 // Deprecated BC layer for Symfony 4.3 which deprecated Event class from EventDispatcher component.

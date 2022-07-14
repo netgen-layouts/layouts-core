@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Exception;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class ConfigurationException extends InvalidArgumentException implements Exception

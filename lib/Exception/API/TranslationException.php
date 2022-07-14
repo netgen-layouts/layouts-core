@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\API;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class TranslationException extends InvalidArgumentException implements Exception

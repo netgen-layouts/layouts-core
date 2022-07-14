@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 use Exception;
 use Netgen\Layouts\Exception\RuntimeException;
 use Throwable;
+
 use function method_exists;
 
 /**

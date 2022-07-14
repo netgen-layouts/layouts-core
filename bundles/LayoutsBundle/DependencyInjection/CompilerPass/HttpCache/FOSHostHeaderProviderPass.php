@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache
 use FOS\HttpCache\ProxyClient\HttpDispatcher;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+
 use function class_exists;
 
 final class FOSHostHeaderProviderPass implements CompilerPassInterface

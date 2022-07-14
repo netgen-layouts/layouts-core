@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterException;
+
 use function array_key_exists;
 
 trait ParameterCollectionTrait

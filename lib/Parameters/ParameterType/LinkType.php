@@ -13,6 +13,7 @@ use Netgen\Layouts\Validator\Constraint\Parameters\Link as LinkConstraint;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
+
 use function count;
 use function in_array;
 use function is_array;

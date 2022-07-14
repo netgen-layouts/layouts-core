@@ -8,6 +8,7 @@ use Behat\Behat\Context\Context;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+
 use function array_values;
 
 final class LayoutContext implements Context

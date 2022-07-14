@@ -6,7 +6,9 @@ namespace Netgen\Layouts\Collection\Result;
 
 use Iterator;
 use Netgen\Layouts\API\Values\Collection\Query;
+
 use function intdiv;
+
 use const PHP_INT_MAX;
 
 final class ContextualQueryRunner implements QueryRunnerInterface

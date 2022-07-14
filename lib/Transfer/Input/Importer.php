@@ -16,8 +16,10 @@ use Psr\Container\ContainerInterface;
 use Ramsey\Uuid\Uuid;
 use Throwable;
 use Traversable;
+
 use function file_get_contents;
 use function json_decode;
+
 use const JSON_THROW_ON_ERROR;
 
 /**

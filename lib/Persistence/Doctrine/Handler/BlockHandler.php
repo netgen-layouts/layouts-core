@@ -19,6 +19,7 @@ use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+
 use function count;
 use function in_array;
 use function is_array;

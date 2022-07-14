@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use function is_callable;
 
 final class ChoiceMapper extends Mapper

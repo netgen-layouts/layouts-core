@@ -11,6 +11,7 @@ use Netgen\Layouts\Block\Form\FullEditType;
 use Netgen\Layouts\Utils\BackwardsCompatibility\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+
 use function array_unique;
 use function array_values;
 use function is_array;

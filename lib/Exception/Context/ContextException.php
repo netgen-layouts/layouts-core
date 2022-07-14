@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Context;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class ContextException extends InvalidArgumentException implements Exception

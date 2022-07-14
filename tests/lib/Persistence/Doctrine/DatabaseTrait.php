@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\RuntimeException;
+
 use function array_fill_keys;
 use function array_keys;
 use function array_map;

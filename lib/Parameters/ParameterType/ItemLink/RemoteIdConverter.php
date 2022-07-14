@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Parameters\ParameterType\ItemLink;
 
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
+
 use function is_array;
 use function parse_url;
 use function str_replace;

@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\Locales as SymfonyLocales;
+
 use function class_exists;
 
 final class Locales

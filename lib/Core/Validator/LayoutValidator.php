@@ -13,6 +13,7 @@ use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
+
 use function count;
 use function in_array;
 use function is_array;

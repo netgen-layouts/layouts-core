@@ -12,11 +12,13 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\String\Inflector\EnglishInflector;
+
 use function count;
 use function date;
 use function json_encode;
 use function reset;
 use function sprintf;
+
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 

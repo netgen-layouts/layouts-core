@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Utils\HydratorTrait;
+
 use function array_key_exists;
 
 /**

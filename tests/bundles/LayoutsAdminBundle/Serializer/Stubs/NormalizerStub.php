@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Stubs;
 
 use Generator;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 use function is_object;
 
 final class NormalizerStub implements NormalizerInterface

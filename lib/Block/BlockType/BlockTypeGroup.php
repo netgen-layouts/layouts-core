@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Block\BlockType;
 
 use Netgen\Layouts\Utils\HydratorTrait;
+
 use function array_filter;
 use function array_values;
 

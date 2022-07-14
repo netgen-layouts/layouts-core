@@ -8,6 +8,7 @@ use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\RuleTargetViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+
 use function in_array;
 
 /**

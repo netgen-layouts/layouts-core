@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Config;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class ConfigDefinitionException extends InvalidArgumentException implements Exception

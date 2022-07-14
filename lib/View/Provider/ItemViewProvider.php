@@ -8,6 +8,7 @@ use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\View\View\ItemView;
 use Netgen\Layouts\View\ViewInterface;
+
 use function is_string;
 
 final class ItemViewProvider implements ViewProviderInterface

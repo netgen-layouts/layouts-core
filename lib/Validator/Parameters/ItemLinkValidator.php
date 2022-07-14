@@ -11,6 +11,7 @@ use Netgen\Layouts\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+
 use function count;
 use function in_array;
 use function is_array;

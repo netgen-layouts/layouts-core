@@ -8,6 +8,7 @@ use Generator;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+
 use function iterator_to_array;
 
 /**

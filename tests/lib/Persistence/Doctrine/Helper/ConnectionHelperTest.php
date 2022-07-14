@@ -9,6 +9,7 @@ use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 use PHPUnit\Framework\TestCase;
+
 use function class_exists;
 
 // Deprecated DBAL 2 compatibility

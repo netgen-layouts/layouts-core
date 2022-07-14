@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Exception\View;
 use Netgen\Layouts\Exception\Exception;
 use RuntimeException;
 use Throwable;
+
 use function sprintf;
 
 final class TemplateResolverException extends RuntimeException implements Exception

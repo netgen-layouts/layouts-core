@@ -13,6 +13,7 @@ use Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+
 use function sprintf;
 
 final class RuleEntityHandlerTest extends TestCase
@@ -119,7 +120,7 @@ final class RuleEntityHandlerTest extends TestCase
 
         $this->layoutResolverServiceMock
             ->expects(self::once())
-            ->method(('deleteRule'))
+            ->method('deleteRule')
             ->with(self::identicalTo($rule));
 
         $this->entityHandler->deleteEntity($uuid);
@@ -143,7 +144,7 @@ final class RuleEntityHandlerTest extends TestCase
 
         $this->layoutResolverServiceMock
             ->expects(self::never())
-            ->method(('deleteRule'));
+            ->method('deleteRule');
 
         $this->entityHandler->deleteEntity($uuid);
     }

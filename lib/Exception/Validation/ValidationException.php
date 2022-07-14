@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Exception\Validation;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
 use Throwable;
+
 use function sprintf;
 
 final class ValidationException extends BaseInvalidArgumentException implements Exception

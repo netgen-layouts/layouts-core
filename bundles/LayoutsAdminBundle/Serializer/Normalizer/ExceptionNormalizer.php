@@ -10,6 +10,7 @@ use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFla
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 use function class_exists;
 
 final class ExceptionNormalizer implements NormalizerInterface

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Utils;
 
 use Netgen\Layouts\Exception\RuntimeException;
+
 use function get_debug_type;
 use function get_object_vars;
 use function property_exists;

@@ -7,7 +7,9 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Config;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use function json_decode;
+
 use const JSON_THROW_ON_ERROR;
 
 final class LoadBlockTypesTest extends JsonApiTestCase

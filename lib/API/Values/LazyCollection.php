@@ -7,6 +7,7 @@ namespace Netgen\Layouts\API\Values;
 use Closure;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
+
 use function call_user_func;
 
 /**

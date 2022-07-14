@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Behat\Page\App;
 use Behat\Mink\Element\NodeElement;
 use Netgen\Layouts\Behat\Exception\PageException;
 use Netgen\Layouts\Behat\Page\SymfonyPage;
+
 use function sprintf;
 use function var_export;
 

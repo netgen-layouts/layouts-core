@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\HttpCache;
 
 use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
+
 use function array_map;
 use function array_merge;
 use function count;

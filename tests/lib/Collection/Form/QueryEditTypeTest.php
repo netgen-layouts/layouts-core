@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use function array_keys;
 
 final class QueryEditTypeTest extends FormTestCase

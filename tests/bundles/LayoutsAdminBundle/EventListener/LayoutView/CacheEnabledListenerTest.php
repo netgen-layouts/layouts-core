@@ -17,6 +17,7 @@ use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\View\RuleView;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
+
 use function sprintf;
 
 final class CacheEnabledListenerTest extends TestCase

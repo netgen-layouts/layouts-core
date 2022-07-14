@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Block\BlockDefinition\Configuration;
 
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Utils\HydratorTrait;
+
 use function array_keys;
 
 final class ViewType

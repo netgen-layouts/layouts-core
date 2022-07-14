@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
+
 use function array_filter;
 use function array_map;
 use function array_values;

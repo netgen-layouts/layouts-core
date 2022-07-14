@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception;
 
 use Exception as BaseException;
 use Throwable;
+
 use function sprintf;
 
 final class BadStateException extends BaseException implements Exception

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Collection\Form;
 
 use Symfony\Component\Form\DataMapperInterface;
+
 use function iterator_to_array;
 
 final class CollectionDataMapper implements DataMapperInterface

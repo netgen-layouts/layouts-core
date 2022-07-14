@@ -27,6 +27,7 @@ use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
+
 use function array_fill_keys;
 use function array_map;
 use function array_merge;

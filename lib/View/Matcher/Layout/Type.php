@@ -9,6 +9,7 @@ use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\LayoutTypeViewInterface;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+
 use function in_array;
 
 /**

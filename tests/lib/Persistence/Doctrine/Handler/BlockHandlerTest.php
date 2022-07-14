@@ -19,6 +19,7 @@ use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\TestCase;
+
 use function sprintf;
 
 final class BlockHandlerTest extends TestCase

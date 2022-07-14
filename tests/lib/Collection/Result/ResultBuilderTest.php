@@ -21,7 +21,9 @@ use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueConverter;
 use PHPUnit\Framework\TestCase;
+
 use function array_map;
+
 use const PHP_INT_MAX;
 
 final class ResultBuilderTest extends TestCase

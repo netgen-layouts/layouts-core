@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 
 use Symfony\Component\HttpKernel\Event\KernelEvent;
+
 use function method_exists;
 
 /**

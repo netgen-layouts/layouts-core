@@ -40,10 +40,12 @@ use Netgen\Layouts\Transfer\Output\Serializer;
 use Netgen\Layouts\Transfer\Output\Visitor;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+
 use function file_get_contents;
 use function json_decode;
 use function json_encode;
 use function preg_replace;
+
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 use const PHP_EOL;

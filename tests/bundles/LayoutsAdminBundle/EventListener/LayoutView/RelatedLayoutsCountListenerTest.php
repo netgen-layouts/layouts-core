@@ -15,6 +15,7 @@ use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+
 use function sprintf;
 
 final class RelatedLayoutsCountListenerTest extends TestCase

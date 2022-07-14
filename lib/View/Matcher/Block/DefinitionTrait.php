@@ -6,6 +6,7 @@ namespace Netgen\Layouts\View\Matcher\Block;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\NullBlockDefinition;
+
 use function in_array;
 
 /**

@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+
 use function array_map;
 
 /**

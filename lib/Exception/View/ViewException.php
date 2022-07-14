@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\View;
 
 use Netgen\Layouts\Exception\Exception;
 use RuntimeException;
+
 use function sprintf;
 
 final class ViewException extends RuntimeException implements Exception

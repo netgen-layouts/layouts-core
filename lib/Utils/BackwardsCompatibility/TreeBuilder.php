@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder as BaseTreeBuilder;
+
 use function is_callable;
 
 /**

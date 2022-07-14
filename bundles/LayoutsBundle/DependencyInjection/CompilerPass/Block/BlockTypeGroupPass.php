@@ -10,6 +10,7 @@ use Netgen\Layouts\Block\BlockType\BlockTypeGroupFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+
 use function array_keys;
 use function in_array;
 use function iterator_to_array;

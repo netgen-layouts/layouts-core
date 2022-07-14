@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Parameters;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class ParameterException extends InvalidArgumentException implements Exception

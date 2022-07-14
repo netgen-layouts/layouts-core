@@ -13,6 +13,7 @@ use Netgen\Layouts\Config\ConfigDefinitionAwareTrait;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
+
 use function array_key_exists;
 use function array_keys;
 use function is_a;

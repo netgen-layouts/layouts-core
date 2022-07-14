@@ -10,6 +10,7 @@ use Netgen\Layouts\Error\ErrorHandlerInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+
 use function sprintf;
 
 final class ViewAjaxBlock extends AbstractController

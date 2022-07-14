@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Input;
 
 use Netgen\Layouts\Exception\InvalidArgumentException;
+
 use function in_array;
 use function sprintf;
 

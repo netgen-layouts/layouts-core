@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Item;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class ValueException extends InvalidArgumentException implements Exception

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\View\View;
 use Netgen\Layouts\View\View;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView as SymfonyFormView;
+
 use function get_class;
 
 final class FormView extends View implements FormViewInterface

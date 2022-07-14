@@ -11,6 +11,7 @@ use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreate
 use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\Layouts\Validator\ValidatorTrait;
+
 use function count;
 
 final class BlockValidator

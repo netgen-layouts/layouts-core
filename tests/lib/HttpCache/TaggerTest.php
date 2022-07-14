@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\Tagger;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+
 use function class_exists;
 
 final class TaggerTest extends TestCase

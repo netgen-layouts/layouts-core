@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Templating;
 
 use Netgen\Layouts\Exception\RuntimeException;
+
 use function sprintf;
 
 /**

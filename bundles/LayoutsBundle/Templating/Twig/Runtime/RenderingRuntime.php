@@ -26,6 +26,7 @@ use Throwable;
 use Twig\Environment;
 use Twig\Template;
 use Twig\TemplateWrapper;
+
 use function get_debug_type;
 use function is_object;
 use function is_scalar;

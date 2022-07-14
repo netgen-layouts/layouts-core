@@ -13,6 +13,7 @@ use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 use function in_array;
 use function sprintf;
 

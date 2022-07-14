@@ -9,6 +9,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTest
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\FOSHostHeaderProviderPass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
+
 use function class_exists;
 
 final class FOSHostHeaderProviderPassTest extends AbstractContainerBuilderTestCase

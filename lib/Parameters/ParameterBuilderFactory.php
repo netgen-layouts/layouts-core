@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Parameters;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use function is_string;
 
 class ParameterBuilderFactory implements ParameterBuilderFactoryInterface

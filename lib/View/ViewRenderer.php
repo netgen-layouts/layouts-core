@@ -9,6 +9,7 @@ use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
+
 use function sprintf;
 
 final class ViewRenderer implements ViewRendererInterface

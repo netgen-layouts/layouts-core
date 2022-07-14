@@ -19,6 +19,7 @@ use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+
 use function array_map;
 use function count;
 

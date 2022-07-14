@@ -8,6 +8,7 @@ use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
 use FOS\HttpCache\ProxyClient\Invalidation\TagCapable;
 use Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface;
+
 use function interface_exists;
 
 final class VarnishClient implements ClientInterface

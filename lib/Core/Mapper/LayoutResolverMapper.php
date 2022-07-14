@@ -27,6 +27,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as Persi
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\Layouts\Persistence\Values\Value;
 use Ramsey\Uuid\Uuid;
+
 use function array_map;
 
 final class LayoutResolverMapper

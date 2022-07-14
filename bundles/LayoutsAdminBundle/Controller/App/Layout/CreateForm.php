@@ -13,6 +13,7 @@ use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use function array_key_first;
 use function count;
 

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\View\Matcher\Form\Config;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\FormViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+
 use function is_a;
 
 /**

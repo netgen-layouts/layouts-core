@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
 use Twig\Template;
+
 use function sprintf;
 
 final class GetTwigBlockContentListenerTest extends TestCase

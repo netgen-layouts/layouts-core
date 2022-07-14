@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Item;
 
 use Netgen\Layouts\Exception\Item\ValueException;
+
 use function get_debug_type;
 
 final class CmsItemBuilder implements CmsItemBuilderInterface

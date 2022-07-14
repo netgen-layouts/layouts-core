@@ -11,6 +11,7 @@ use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+
 use function str_starts_with;
 
 final class SetIsAdminRequestListener implements EventSubscriberInterface

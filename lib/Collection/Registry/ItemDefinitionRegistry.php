@@ -12,6 +12,7 @@ use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
+
 use function array_filter;
 use function count;
 

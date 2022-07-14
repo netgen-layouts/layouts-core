@@ -10,6 +10,7 @@ use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
+
 use function is_a;
 
 final class ConnectionHelper implements ConnectionHelperInterface

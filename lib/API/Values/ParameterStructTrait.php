@@ -7,6 +7,7 @@ namespace Netgen\Layouts\API\Values;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+
 use function array_key_exists;
 use function is_object;
 

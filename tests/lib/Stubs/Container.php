@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Stubs;
 
 use Psr\Container\ContainerInterface;
+
 use function array_key_exists;
 
 final class Container implements ContainerInterface

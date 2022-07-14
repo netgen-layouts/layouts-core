@@ -10,6 +10,7 @@ use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 use function count;
 
 final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAwareInterface

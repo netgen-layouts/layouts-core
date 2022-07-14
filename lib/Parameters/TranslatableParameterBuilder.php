@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Parameters;
 
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use function sprintf;
 
 final class TranslatableParameterBuilder extends ParameterBuilder

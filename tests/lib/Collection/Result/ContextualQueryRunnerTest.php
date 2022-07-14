@@ -8,7 +8,9 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Collection\Result\ContextualQueryRunner;
 use Netgen\Layouts\Collection\Result\UnknownItem;
 use PHPUnit\Framework\TestCase;
+
 use function intdiv;
+
 use const PHP_INT_MAX;
 
 final class ContextualQueryRunnerTest extends TestCase

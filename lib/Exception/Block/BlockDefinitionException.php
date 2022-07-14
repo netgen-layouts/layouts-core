@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Block;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class BlockDefinitionException extends InvalidArgumentException implements Exception

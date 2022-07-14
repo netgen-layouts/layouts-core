@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
+
 use function is_int;
 use function is_string;
 

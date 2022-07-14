@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Config;
 
 use Netgen\Layouts\Exception\API\ConfigException;
+
 use function array_key_exists;
 
 trait ConfigAwareValueTrait

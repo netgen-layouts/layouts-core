@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 use function call_user_func;
 
 final class RouteGeneratorTest extends TestCase

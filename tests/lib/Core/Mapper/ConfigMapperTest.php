@@ -11,6 +11,7 @@ use Netgen\Layouts\Core\Mapper\ConfigMapper;
 use Netgen\Layouts\Core\Mapper\ParameterMapper;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
+
 use function iterator_to_array;
 
 final class ConfigMapperTest extends TestCase

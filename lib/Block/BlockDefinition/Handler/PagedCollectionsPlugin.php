@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Block\BlockDefinition\Handler;
 
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterType;
+
 use function array_flip;
 
 /**

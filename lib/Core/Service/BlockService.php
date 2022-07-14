@@ -38,6 +38,7 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Ramsey\Uuid\UuidInterface;
+
 use function array_filter;
 use function array_search;
 use function array_splice;

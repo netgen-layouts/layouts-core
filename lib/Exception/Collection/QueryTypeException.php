@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Collection;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class QueryTypeException extends InvalidArgumentException implements Exception

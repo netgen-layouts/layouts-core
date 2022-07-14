@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters\Form\Type\DataMapper;
 
 use Symfony\Component\Form\DataMapperInterface;
+
 use function is_array;
 use function is_string;
 use function iterator_to_array;

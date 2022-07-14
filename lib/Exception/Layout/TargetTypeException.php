@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Layout;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class TargetTypeException extends InvalidArgumentException implements Exception

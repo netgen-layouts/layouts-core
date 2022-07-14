@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Type;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
+
 use function array_keys;
 
 final class TimeTypeTest extends FormTestCase

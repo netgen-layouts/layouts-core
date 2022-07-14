@@ -20,6 +20,7 @@ use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Ramsey\Uuid\Uuid;
+
 use function array_intersect;
 use function array_map;
 use function array_unique;

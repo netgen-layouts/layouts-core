@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Value;
+
 use function array_column;
 use function array_map;
 use function is_string;

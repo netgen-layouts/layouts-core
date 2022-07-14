@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters;
 
 use Netgen\Layouts\Utils\HydratorTrait;
+
 use function is_array;
 use function is_object;
 use function method_exists;

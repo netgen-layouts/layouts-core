@@ -19,6 +19,7 @@ use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
+
 use function sprintf;
 
 final class CollectionValidator

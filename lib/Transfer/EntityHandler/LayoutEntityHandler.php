@@ -26,6 +26,7 @@ use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+
 use function array_flip;
 use function array_key_exists;
 use function array_keys;

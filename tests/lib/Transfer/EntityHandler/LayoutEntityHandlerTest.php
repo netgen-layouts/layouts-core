@@ -18,6 +18,7 @@ use Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+
 use function sprintf;
 
 final class LayoutEntityHandlerTest extends TestCase
@@ -129,7 +130,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
         $this->layoutServiceMock
             ->expects(self::once())
-            ->method(('deleteLayout'))
+            ->method('deleteLayout')
             ->with(self::identicalTo($layout));
 
         $this->entityHandler->deleteEntity($uuid);
@@ -153,7 +154,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
         $this->layoutServiceMock
             ->expects(self::never())
-            ->method(('deleteLayout'));
+            ->method('deleteLayout');
 
         $this->entityHandler->deleteEntity($uuid);
     }

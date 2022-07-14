@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
 use Netgen\Layouts\Persistence\Values\Block\Block;
+
 use function array_map;
 use function array_values;
 use function is_array;

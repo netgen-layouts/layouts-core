@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\TestCase;
 
 use PHPUnit\Framework\Assert;
+
 use function method_exists;
 
 trait LegacyTestCaseTrait

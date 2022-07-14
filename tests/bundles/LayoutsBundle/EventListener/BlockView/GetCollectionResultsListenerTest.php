@@ -24,6 +24,7 @@ use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\PagerfantaInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+
 use function sprintf;
 
 final class GetCollectionResultsListenerTest extends TestCase

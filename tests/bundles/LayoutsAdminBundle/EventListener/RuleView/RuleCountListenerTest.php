@@ -16,6 +16,7 @@ use Netgen\Layouts\View\View\RuleView;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+
 use function sprintf;
 
 final class RuleCountListenerTest extends TestCase

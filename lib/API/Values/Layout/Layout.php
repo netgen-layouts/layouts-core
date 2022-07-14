@@ -17,6 +17,7 @@ use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
 use Traversable;
+
 use function in_array;
 
 /**

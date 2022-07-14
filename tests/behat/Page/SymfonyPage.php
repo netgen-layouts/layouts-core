@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Behat\Page;
 
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage as BaseSymfonyPage;
 use FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException;
+
 use function array_key_exists;
 use function is_array;
 use function parse_url;

@@ -12,6 +12,7 @@ use Netgen\Layouts\View\View\LayoutViewInterface;
 use Netgen\Layouts\View\View\RuleViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 use function sprintf;
 
 final class CacheEnabledListener implements EventSubscriberInterface

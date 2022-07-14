@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Behat\Page\Admin\Layouts;
 
 use Behat\Mink\Element\NodeElement;
 use Netgen\Layouts\Behat\Page\Admin\AdminPage;
+
 use function array_merge;
 
 final class IndexPage extends AdminPage

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\View\Matcher\Block;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+
 use function in_array;
 
 /**

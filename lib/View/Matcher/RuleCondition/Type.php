@@ -8,6 +8,7 @@ use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\RuleConditionViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+
 use function in_array;
 
 /**

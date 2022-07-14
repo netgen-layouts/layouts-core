@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Throwable;
+
 use function sprintf;
 
 final class InvalidArgumentException extends BaseInvalidArgumentException implements Exception

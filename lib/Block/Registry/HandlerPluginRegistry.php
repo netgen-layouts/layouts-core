@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Block\Registry;
 
 use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
+
 use function array_filter;
 use function array_values;
 use function is_a;

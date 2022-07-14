@@ -10,6 +10,7 @@ use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 use function get_debug_type;
 use function sprintf;
 

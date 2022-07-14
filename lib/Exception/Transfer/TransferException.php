@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Transfer;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
+
 use function sprintf;
 
 final class TransferException extends InvalidArgumentException implements Exception

@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+
 use function array_combine;
 use function array_fill;
 use function count;
@@ -18,6 +19,7 @@ use function explode;
 use function is_array;
 use function is_string;
 use function json_encode;
+
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 

@@ -16,6 +16,7 @@ use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+
 use function array_map;
 
 final class ManualCollectionRunnerTest extends TestCase

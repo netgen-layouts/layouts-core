@@ -18,6 +18,7 @@ use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
+
 use function is_bool;
 use function sprintf;
 use function trim;

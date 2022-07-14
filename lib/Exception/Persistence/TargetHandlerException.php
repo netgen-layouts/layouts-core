@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Exception\Persistence;
 
 use Netgen\Layouts\Exception\Exception;
 use RuntimeException;
+
 use function sprintf;
 
 final class TargetHandlerException extends RuntimeException implements Exception

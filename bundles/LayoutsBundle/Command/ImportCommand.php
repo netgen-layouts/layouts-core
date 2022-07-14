@@ -20,6 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
+
 use function class_exists;
 use function file_exists;
 use function file_get_contents;

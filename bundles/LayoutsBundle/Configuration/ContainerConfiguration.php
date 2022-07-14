@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Configuration;
 
 use Netgen\Bundle\LayoutsBundle\Exception\ConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use function array_key_exists;
 
 /**

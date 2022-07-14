@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Block;
 use ArrayAccess;
 use Closure;
 use Countable;
+
 use function array_key_exists;
 use function count;
 

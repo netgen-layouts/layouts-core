@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Output;
 
 use Netgen\Layouts\Exception\RuntimeException;
+
 use function get_debug_type;
 use function sprintf;
 

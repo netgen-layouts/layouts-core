@@ -10,6 +10,7 @@ use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundParameter;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use PHPUnit\Framework\TestCase;
+
 use function iterator_to_array;
 
 final class ParameterMapperTest extends TestCase

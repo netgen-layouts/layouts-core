@@ -8,6 +8,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTest
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
+
 use function mkdir;
 
 final class ThemePassTest extends AbstractContainerBuilderTestCase

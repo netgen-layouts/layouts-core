@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Exception\Transfer;
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
 use Throwable;
+
 use function sprintf;
 
 final class JsonValidationException extends InvalidArgumentException implements Exception

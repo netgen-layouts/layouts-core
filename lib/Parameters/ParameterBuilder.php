@@ -10,6 +10,7 @@ use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraint;
+
 use function array_filter;
 use function array_key_exists;
 use function count;

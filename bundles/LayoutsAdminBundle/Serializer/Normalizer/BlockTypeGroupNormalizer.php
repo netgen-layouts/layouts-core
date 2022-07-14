@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 use function array_map;
 
 final class BlockTypeGroupNormalizer implements NormalizerInterface

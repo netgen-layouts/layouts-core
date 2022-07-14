@@ -11,6 +11,7 @@ use IteratorAggregate;
 use Netgen\Layouts\Exception\Context\ContextException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
+
 use function array_key_exists;
 use function count;
 

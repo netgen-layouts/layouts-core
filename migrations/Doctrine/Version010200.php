@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Migrations\Doctrine;
 
 use Doctrine\DBAL\Schema\Schema;
+
 use function sprintf;
 
 final class Version010200 extends AbstractMigration

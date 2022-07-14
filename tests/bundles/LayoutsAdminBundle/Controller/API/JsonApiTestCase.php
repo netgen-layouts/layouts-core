@@ -13,10 +13,12 @@ use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use Netgen\Layouts\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
+
 use function count;
 use function getenv;
 use function json_decode;
 use function json_encode;
+
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;

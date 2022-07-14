@@ -10,6 +10,7 @@ use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 use function sprintf;
 
 final class RuleCountListener implements EventSubscriberInterface

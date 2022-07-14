@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidFactoryInterface;
 use Ramsey\Uuid\UuidInterface;
+
 use function array_map;
 use function count;
 use function method_exists;

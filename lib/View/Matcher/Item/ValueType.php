@@ -8,6 +8,7 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\ItemViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+
 use function in_array;
 
 /**
