@@ -81,13 +81,13 @@
 
         <div class="hover-actions">
             {% if rule.layout is not empty and is_granted('nglayouts:layout:edit', rule.layout) %}
-                <div class="nl-rule-cell rule-edit-layout">
+                <div class="nl-rule-cell rule-edit-layout rule-padded-left">
                     <a href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
                 </div>
             {% endif %}
 
             {% if can_edit %}
-                <div class="nl-rule-cell rule-link-layout">
+                <div class="nl-rule-cell rule-link-layout {% if rule.layout is empty %}rule-padded-left{% endif %}">
                     <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
                         {% if rule.layout is not empty %}
                             {{ 'layout_resolver.rule.link_other_layout'|trans }}
