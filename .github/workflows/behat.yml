@@ -7,6 +7,9 @@ on:
       - '[0-9].[0-9]+'
   pull_request: ~
 
+env:
+  COMPOSER_ROOT_VERSION: dev-master
+
 jobs:
   behat:
     name: Behat
