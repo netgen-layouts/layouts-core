@@ -80,7 +80,6 @@ export default class NlModal {
 
     cancel(e) {
         e && e.preventDefault();
-        this.el.dispatchEvent(new Event('cancel'));
         this.close();
     }
 
