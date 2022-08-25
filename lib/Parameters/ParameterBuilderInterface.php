@@ -63,6 +63,16 @@ interface ParameterBuilderInterface extends Countable
     public function setRequired(bool $isRequired): self;
 
     /**
+     * Sets if the parameter is readonly.
+     */
+    public function isReadOnly(): bool;
+
+    /**
+     * Sets if the parameter is readonly.
+     */
+    public function setReadOnly(bool $isReadOnly): self;
+
+    /**
      * Returns the default value of the parameter.
      *
      * @return mixed

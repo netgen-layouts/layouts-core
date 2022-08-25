@@ -8,6 +8,7 @@ use Closure;
 use Generator;
 use Netgen\Layouts\API\Values\ParameterStruct;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
@@ -37,6 +38,10 @@ final class ParameterStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, ParameterStruct::class);
         }
 
+        if ($constraint->checkReadOnlyFields && !$constraint->payload instanceof ParameterCollectionInterface) {
+            throw new UnexpectedTypeException($constraint->payload, ParameterCollectionInterface::class);
+        }
+
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
@@ -58,7 +63,21 @@ final class ParameterStructValidator extends ConstraintValidator
         // Then we validate with runtime constraints coming from parameter definition
         // allowing for validation of values dependent on other parameter struct values
         foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
-            $parameterValue = $value->getParameterValue($parameterDefinition->getName());
+            $parameterName = $parameterDefinition->getName();
+            $parameterValue = $value->getParameterValue($parameterName);
+
+            if ($constraint->checkReadOnlyFields && $parameterDefinition->isReadOnly()) {
+                if (
+                    $parameterValue !== null &&
+                    $parameterValue !== $constraint->payload->getParameter($parameterName)->getValue()
+                ) {
+                    $this->context->buildViolation($constraint->fieldReadOnlyMessage)
+                        ->setParameter('%parameterName%', $parameterDefinition->getName())
+                        ->addViolation();
+
+                    return;
+                }
+            }
 
             $validator->atPath('[' . $parameterDefinition->getName() . ']')->validate(
                 $parameterValue,

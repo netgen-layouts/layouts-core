@@ -29,6 +29,8 @@ class ParameterDefinition
 
     protected bool $isRequired;
 
+    protected bool $isReadOnly;
+
     /**
      * @var mixed
      */
@@ -105,6 +107,14 @@ class ParameterDefinition
     public function isRequired(): bool
     {
         return $this->isRequired;
+    }
+
+    /**
+     * Returns if the parameter is readonly. A readonly parameter can be set only when creating a block.
+     */
+    public function isReadOnly(): bool
+    {
+        return $this->isReadOnly;
     }
 
     /**
