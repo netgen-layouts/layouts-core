@@ -21,6 +21,11 @@ services:
 
     # Parameter types
 
+    netgen_layouts.parameters.parameter_type.hidden:
+        class: Netgen\Layouts\Parameters\ParameterType\HiddenType
+        tags:
+            - { name: netgen_layouts.parameter_type }
+
     netgen_layouts.parameters.parameter_type.text_line:
         class: Netgen\Layouts\Parameters\ParameterType\TextLineType
         tags:
@@ -110,6 +115,11 @@ services:
             - { name: netgen_layouts.parameter_type }
 
     # Form mappers
+
+    netgen_layouts.parameters.form.mapper.hidden:
+        class: Netgen\Layouts\Parameters\Form\Mapper\HiddenMapper
+        tags:
+            - { name: netgen_layouts.parameter_type.form_mapper, type: hidden }
 
     netgen_layouts.parameters.form.mapper.text_line:
         class: Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper
