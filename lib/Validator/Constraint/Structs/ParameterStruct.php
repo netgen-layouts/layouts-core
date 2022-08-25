@@ -11,6 +11,8 @@ final class ParameterStruct extends Constraint
 {
     public string $message = 'netgen_layouts.parameter_struct.invalid_value';
 
+    public string $fieldReadOnlyMessage = 'netgen_layouts.parameter_struct.readonly';
+
     /**
      * Parameter definition collection used to validate parameter values against.
      */
@@ -20,6 +22,11 @@ final class ParameterStruct extends Constraint
      * If true, missing parameters will pass validation (e.g. when updating the value).
      */
     public bool $allowMissingFields = false;
+
+    /**
+     * If true, setting read only fields will NOT pass validation (e.g. when updating the value)
+     */
+    public bool $checkReadOnlyFields = false;
 
     /**
      * @return string[]

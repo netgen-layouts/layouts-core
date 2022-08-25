@@ -35,6 +35,8 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     private bool $isRequired = false;
 
+    private bool $isReadOnly = false;
+
     /**
      * @var mixed
      */
@@ -123,6 +125,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $options = $this->options + [
             'required' => $this->isRequired,
+            'readonly' => $this->isReadOnly,
             'default_value' => $this->defaultValue,
             'label' => $this->label,
             'groups' => $this->groups,
@@ -148,6 +151,22 @@ class ParameterBuilder implements ParameterBuilderInterface
         }
 
         $this->isRequired = $isRequired;
+
+        return $this;
+    }
+
+    public function isReadOnly(): bool
+    {
+        return $this->isReadOnly;
+    }
+
+    public function setReadOnly(bool $isReadOnly): ParameterBuilderInterface
+    {
+        if ($this->locked) {
+            throw new BadMethodCallException('Setting the readonly flag is not possible after parameters have been built.');
+        }
+
+        $this->isReadOnly = $isReadOnly;
 
         return $this;
     }
@@ -333,6 +352,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             'type' => $builder->getType(),
             'options' => $builder->getOptions(),
             'isRequired' => $builder->isRequired(),
+            'isReadOnly' => $builder->isReadOnly(),
             'defaultValue' => $builder->getDefaultValue(),
             'label' => $builder->getLabel(),
             'groups' => $builder->getGroups(),
@@ -364,6 +384,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $optionsResolver->setDefault('default_value', null);
         $optionsResolver->setDefault('required', false);
+        $optionsResolver->setDefault('readonly', false);
         $optionsResolver->setDefault('label', null);
         $optionsResolver->setDefault('groups', []);
         $optionsResolver->setDefault('constraints', []);
@@ -374,9 +395,10 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $this->configureOptions($optionsResolver);
 
-        $optionsResolver->setRequired(['required', 'default_value', 'label', 'groups', 'constraints']);
+        $optionsResolver->setRequired(['required', 'readonly', 'default_value', 'label', 'groups', 'constraints']);
 
         $optionsResolver->setAllowedTypes('required', 'bool');
+        $optionsResolver->setAllowedTypes('readonly', 'bool');
         $optionsResolver->setAllowedTypes('label', ['string', 'null', 'bool']);
         $optionsResolver->setAllowedTypes('groups', 'array');
         $optionsResolver->setAllowedTypes('constraints', 'array');
@@ -410,6 +432,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->isRequired = $resolvedOptions['required'];
+        $this->isReadOnly = $resolvedOptions['readonly'];
         $this->defaultValue = $resolvedOptions['default_value'];
         $this->label = $resolvedOptions['label'];
         $this->groups = $resolvedOptions['groups'];
@@ -417,6 +440,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         unset(
             $resolvedOptions['required'],
+            $resolvedOptions['readonly'],
             $resolvedOptions['default_value'],
             $resolvedOptions['label'],
             $resolvedOptions['groups'],

@@ -91,6 +91,8 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                     [
                         'parameterDefinitions' => $blockDefinition,
                         'allowMissingFields' => true,
+                        'checkReadOnlyFields' => true,
+                        'payload' => $block,
                     ],
                 ),
             ],
