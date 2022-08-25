@@ -64,33 +64,12 @@ final class BlockCreateStructValidator extends ConstraintValidator
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
-        $blockDefinition = $value->getDefinition();
-
-        $validator->atPath('viewType')->validate(
-            $value->viewType,
-            [
-                new BlockViewType(['definition' => $blockDefinition]),
-            ],
-        );
-
-        $validator->atPath('itemViewType')->validate(
-            $value->itemViewType,
-            [
-                new BlockItemViewType(
-                    [
-                        'viewType' => $value->viewType,
-                        'definition' => $blockDefinition,
-                    ],
-                ),
-            ],
-        );
-
         $validator->atPath('parameterValues')->validate(
             $value,
             [
                 new ParameterStruct(
                     [
-                        'parameterDefinitions' => $blockDefinition,
+                        'parameterDefinitions' => $value->getDefinition(),
                     ],
                 ),
             ],
