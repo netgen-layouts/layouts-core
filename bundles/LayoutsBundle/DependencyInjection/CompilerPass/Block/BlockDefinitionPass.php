@@ -74,6 +74,22 @@ final class BlockDefinitionPass implements CompilerPassInterface
                 );
             }
 
+            $configProvider = null;
+
+            if (($blockDefinition['config_provider'] ?? null) !== null) {
+                if (!$container->has($blockDefinition['config_provider'])) {
+                    throw new RuntimeException(
+                        sprintf(
+                            'Config provider service "%s" for "%s" block definition does not exist.',
+                            $blockDefinition['config_provider'],
+                            $identifier
+                        ),
+                    );
+                }
+
+                $configProvider = $container->findDefinition($blockDefinition['config_provider']);
+            }
+
             $factoryMethod = 'buildBlockDefinition';
             $definitionClass = BlockDefinition::class;
 
@@ -94,6 +110,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->setPublic(false);
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
+            $blockDefinitionService->addArgument($configProvider);
             $blockDefinitionService->addArgument($blockDefinition);
             $blockDefinitionService->addArgument(iterator_to_array($this->getConfigHandlers($container)));
 

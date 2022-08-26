@@ -74,22 +74,22 @@ final class NullBlockDefinition implements BlockDefinitionInterface
         throw BlockDefinitionException::noForm($this->identifier, $formName);
     }
 
-    public function getViewTypes(): array
+    public function getViewTypes(?Block $block = null): array
     {
         return [];
     }
 
-    public function getViewTypeIdentifiers(): array
+    public function getViewTypeIdentifiers(?Block $block = null): array
     {
         return [];
     }
 
-    public function hasViewType(string $viewType): bool
+    public function hasViewType(string $viewType, ?Block $block = null): bool
     {
         return false;
     }
 
-    public function getViewType(string $viewType): ViewType
+    public function getViewType(string $viewType, ?Block $block = null): ViewType
     {
         throw BlockDefinitionException::noViewType($this->identifier, $viewType);
     }

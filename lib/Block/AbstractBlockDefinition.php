@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Block;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ConfigProviderInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Config\ConfigDefinitionAwareTrait;
@@ -45,12 +46,14 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
      */
-    protected array $viewTypes = [];
+    protected array $viewTypes;
 
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
     protected array $handlerPlugins = [];
+
+    protected ConfigProviderInterface $configProvider;
 
     public function getIdentifier(): string
     {
@@ -110,24 +113,30 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         return $this->forms[$formName];
     }
 
-    public function getViewTypes(): array
+    public function getViewTypes(?Block $block = null): array
     {
+        $this->viewTypes ??= $this->configProvider->provideViewTypes($block);
+
         return $this->viewTypes;
     }
 
-    public function getViewTypeIdentifiers(): array
+    public function getViewTypeIdentifiers(?Block $block = null): array
     {
+        $this->viewTypes ??= $this->configProvider->provideViewTypes($block);
+
         return array_keys($this->viewTypes);
     }
 
-    public function hasViewType(string $viewType): bool
+    public function hasViewType(string $viewType, ?Block $block = null): bool
     {
+        $this->viewTypes ??= $this->configProvider->provideViewTypes($block);
+
         return array_key_exists($viewType, $this->viewTypes);
     }
 
-    public function getViewType(string $viewType): ViewType
+    public function getViewType(string $viewType, ?Block $block = null): ViewType
     {
-        if (!$this->hasViewType($viewType)) {
+        if (!$this->hasViewType($viewType, $block)) {
             throw BlockDefinitionException::noViewType($this->identifier, $viewType);
         }
 

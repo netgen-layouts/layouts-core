@@ -30,7 +30,7 @@ final class BlockItemViewTypeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        if (!$constraint->definition->hasViewType($constraint->viewType)) {
+        if (!$constraint->definition->hasViewType($constraint->viewType, $constraint->payload)) {
             $this->context->buildViolation($constraint->noViewTypeMessage)
                 ->setParameter('%viewType%', $constraint->viewType)
                 ->addViolation();
@@ -38,7 +38,7 @@ final class BlockItemViewTypeValidator extends ConstraintValidator
             return;
         }
 
-        $viewType = $constraint->definition->getViewType($constraint->viewType);
+        $viewType = $constraint->definition->getViewType($constraint->viewType, $constraint->payload);
 
         if (!$viewType->hasItemViewType($value)) {
             $this->context->buildViolation($constraint->message)

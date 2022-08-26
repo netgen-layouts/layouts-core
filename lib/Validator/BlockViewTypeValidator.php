@@ -30,7 +30,7 @@ final class BlockViewTypeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        if (!$constraint->definition->hasViewType($value)) {
+        if (!$constraint->definition->hasViewType($value, $constraint->payload)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%viewType%', $value)
                 ->addViolation();

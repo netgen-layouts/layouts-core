@@ -65,7 +65,12 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             $validator->atPath('viewType')->validate(
                 $value->viewType,
                 [
-                    new BlockViewType(['definition' => $blockDefinition]),
+                    new BlockViewType(
+                        [
+                            'definition' => $blockDefinition,
+                            'payload' => $block,
+                        ]
+                    ),
                 ],
             );
         }
@@ -78,6 +83,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                         [
                             'viewType' => $value->viewType ?? $block->getViewType(),
                             'definition' => $blockDefinition,
+                            'payload' => $block,
                         ],
                     ),
                 ],
