@@ -152,6 +152,7 @@ abstract class EditType extends AbstractType
                 'parameter_definitions' => $blockDefinition,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
                 'groups' => $groups,
+                'identifier' => $blockDefinition->getIdentifier(),
             ],
         );
     }
