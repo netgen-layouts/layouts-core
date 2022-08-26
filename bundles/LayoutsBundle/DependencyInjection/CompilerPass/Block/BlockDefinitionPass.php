@@ -75,19 +75,8 @@ final class BlockDefinitionPass implements CompilerPassInterface
             }
 
             $configProvider = null;
-
             if (($blockDefinition['config_provider'] ?? null) !== null) {
-                if (!$container->has($blockDefinition['config_provider'])) {
-                    throw new RuntimeException(
-                        sprintf(
-                            'Config provider service "%s" for "%s" block definition does not exist.',
-                            $blockDefinition['config_provider'],
-                            $identifier,
-                        ),
-                    );
-                }
-
-                $configProvider = $container->findDefinition($blockDefinition['config_provider']);
+                $configProvider = $this->getConfigProvider($container, $blockDefinition['config_provider'], $identifier);
             }
 
             $factoryMethod = 'buildBlockDefinition';
@@ -120,6 +109,27 @@ final class BlockDefinitionPass implements CompilerPassInterface
         }
 
         $blockDefinitionRegistry->replaceArgument(0, $blockDefinitionServices);
+    }
+
+    private function getConfigProvider(ContainerBuilder $container, string $identifier, string $blockDefinitionIdentifier): Reference
+    {
+        $configProviderServices = $container->findTaggedServiceIds('netgen_layouts.block_definition.config_provider');
+
+        foreach ($configProviderServices as $configProviderService => $tags) {
+            foreach ($tags as $tag) {
+                if (($tag['identifier'] ?? null) === $identifier) {
+                    return new Reference($configProviderService);
+                }
+            }
+        }
+
+        throw new RuntimeException(
+            sprintf(
+                'Config provider "%s" for "%s" block definition does not exist.',
+                $identifier,
+                $blockDefinitionIdentifier,
+            ),
+        );
     }
 
     /**
