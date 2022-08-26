@@ -84,10 +84,7 @@ abstract class EditType extends AbstractType
      */
     protected function addViewTypeForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var \Netgen\Layouts\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['block']->getDefinition();
-
-        $this->processViewTypeConfig($blockDefinition);
+        $this->processViewTypeConfig($options['block']);
 
         $builder->add(
             'view_type',
@@ -166,11 +163,11 @@ abstract class EditType extends AbstractType
      *
      * @todo Move this code somewhere else
      */
-    private function processViewTypeConfig(BlockDefinitionInterface $blockDefinition): void
+    private function processViewTypeConfig(Block $block): void
     {
-        $blockDefinitionParameters = array_keys($blockDefinition->getParameterDefinitions());
+        $blockDefinitionParameters = array_keys($block->getDefinition()->getParameterDefinitions());
 
-        foreach ($blockDefinition->getViewTypes() as $viewType) {
+        foreach ($block->getDefinition()->getViewTypes($block) as $viewType) {
             $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();
 
             foreach ($viewType->getItemViewTypes() as $itemViewType) {

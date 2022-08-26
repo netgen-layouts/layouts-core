@@ -6,20 +6,16 @@ namespace Netgen\Layouts\Block;
 
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ConfigProviderInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Provider\StaticConfigProvider;
 use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
-use function count;
 use function get_class;
-use function is_array;
-use function sprintf;
 
 final class BlockDefinitionFactory
 {
@@ -48,12 +44,14 @@ final class BlockDefinitionFactory
     public function buildBlockDefinition(
         string $identifier,
         BlockDefinitionHandlerInterface $handler,
+        ?ConfigProviderInterface $configProvider,
         array $config,
         array $configDefinitionHandlers
     ): BlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
+            $configProvider,
             $config,
             $configDefinitionHandlers,
         );
@@ -70,12 +68,14 @@ final class BlockDefinitionFactory
     public function buildTwigBlockDefinition(
         string $identifier,
         TwigBlockDefinitionHandlerInterface $handler,
+        ?ConfigProviderInterface $configProvider,
         array $config,
         array $configDefinitionHandlers
     ): TwigBlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
+            $configProvider,
             $config,
             $configDefinitionHandlers,
         );
@@ -92,12 +92,14 @@ final class BlockDefinitionFactory
     public function buildContainerDefinition(
         string $identifier,
         ContainerDefinitionHandlerInterface $handler,
+        ?ConfigProviderInterface $configProvider,
         array $config,
         array $configDefinitionHandlers
     ): ContainerDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
+            $configProvider,
             $config,
             $configDefinitionHandlers,
         );
@@ -116,6 +118,7 @@ final class BlockDefinitionFactory
     private function getCommonBlockDefinitionData(
         string $identifier,
         BlockDefinitionHandlerInterface $handler,
+        ?ConfigProviderInterface $configProvider,
         array $config,
         array $configDefinitionHandlers
     ): array {
@@ -141,6 +144,7 @@ final class BlockDefinitionFactory
             'identifier' => $identifier,
             'handler' => $handler,
             'handlerPlugins' => $handlerPlugins,
+            'configProvider' => $configProvider ?? new StaticConfigProvider($identifier, $config),
             'parameterDefinitions' => $parameterDefinitions,
             'configDefinitions' => $configDefinitions,
         ] + $this->processConfig($identifier, $config);
@@ -157,7 +161,6 @@ final class BlockDefinitionFactory
     {
         $collections = [];
         $forms = [];
-        $viewTypes = [];
 
         foreach (($config['collections'] ?? []) as $collectionIdentifier => $collectionConfig) {
             $collections[$collectionIdentifier] = Collection::fromArray(
@@ -182,71 +185,12 @@ final class BlockDefinitionFactory
             );
         }
 
-        foreach (($config['view_types'] ?? []) as $viewTypeIdentifier => $viewTypeConfig) {
-            if ($viewTypeConfig['enabled'] === false) {
-                continue;
-            }
-
-            $itemViewTypes = [];
-
-            if (!is_array($viewTypeConfig['item_view_types'] ?? [])) {
-                $viewTypeConfig['item_view_types'] = [];
-            }
-
-            $viewTypeConfig['item_view_types']['standard'] ??= [
-                'name' => 'Standard',
-                'enabled' => true,
-            ];
-
-            foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
-                if ($itemViewTypeConfig['enabled'] === false) {
-                    continue;
-                }
-
-                $itemViewTypes[$itemViewTypeIdentifier] = ItemViewType::fromArray(
-                    [
-                        'identifier' => $itemViewTypeIdentifier,
-                        'name' => $itemViewTypeConfig['name'],
-                    ],
-                );
-            }
-
-            if (count($itemViewTypes) === 0) {
-                throw new RuntimeException(
-                    sprintf(
-                        'You need to specify at least one enabled item view type for "%s" view type and "%s" block definition.',
-                        $viewTypeIdentifier,
-                        $identifier,
-                    ),
-                );
-            }
-
-            $viewTypes[$viewTypeIdentifier] = ViewType::fromArray(
-                [
-                    'identifier' => $viewTypeIdentifier,
-                    'name' => $viewTypeConfig['name'] ?? '',
-                    'itemViewTypes' => $itemViewTypes,
-                    'validParameters' => $viewTypeConfig['valid_parameters'] ?? null,
-                ],
-            );
-        }
-
-        if (count($viewTypes) === 0) {
-            throw new RuntimeException(
-                sprintf(
-                    'You need to specify at least one enabled view type for "%s" block definition.',
-                    $identifier,
-                ),
-            );
-        }
-
         return [
             'name' => $config['name'] ?? '',
             'icon' => $config['icon'] ?? '',
             'isTranslatable' => $config['translatable'] ?? false,
             'collections' => $collections,
             'forms' => $forms,
-            'viewTypes' => $viewTypes,
         ];
     }
 }

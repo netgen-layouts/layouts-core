@@ -81,26 +81,26 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
      */
-    public function getViewTypes(): array;
+    public function getViewTypes(?Block $block = null): array;
 
     /**
      * Returns the block definition view type identifiers.
      *
      * @return string[]
      */
-    public function getViewTypeIdentifiers(): array;
+    public function getViewTypeIdentifiers(?Block $block = null): array;
 
     /**
      * Returns if the block definition has a view type with provided identifier.
      */
-    public function hasViewType(string $viewType): bool;
+    public function hasViewType(string $viewType, ?Block $block = null): bool;
 
     /**
      * Returns the view type with provided identifier.
      *
      * @throws \Netgen\Layouts\Exception\Block\BlockDefinitionException If view type does not exist
      */
-    public function getViewType(string $viewType): ViewType;
+    public function getViewType(string $viewType, ?Block $block = null): ViewType;
 
     /**
      * Returns the array of dynamic parameters provided by this block definition.

@@ -150,8 +150,8 @@ final class LayoutsDataCollector extends DataCollector
             'layout_id' => $layoutId,
             'layout_name' => $this->layoutCache[$layoutId]->name,
             'definition' => $blockDefinition->getName(),
-            'view_type' => $blockDefinition->hasViewType($block->getViewType()) ?
-                $blockDefinition->getViewType($block->getViewType())->getName() :
+            'view_type' => $blockDefinition->hasViewType($block->getViewType(), $block) ?
+                $blockDefinition->getViewType($block->getViewType(), $block)->getName() :
                 'Invalid view type',
             'locale' => $block->getLocale(),
             'template' => null,
