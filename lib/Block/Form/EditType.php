@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Block\Form;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
-use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Symfony\Component\Form\AbstractType;

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Validator\Structs;
 
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
-use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
-use Netgen\Layouts\Validator\Constraint\BlockViewType;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;

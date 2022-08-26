@@ -9,6 +9,8 @@ use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 
+use function count;
+
 final class BlockStructBuilder
 {
     private ConfigStructBuilder $configStructBuilder;

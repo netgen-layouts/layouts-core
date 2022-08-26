@@ -17,6 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_intersect;
 use function count;
+use function sprintf;
+use function str_replace;
 
 final class ParametersType extends AbstractType
 {
