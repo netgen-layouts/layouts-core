@@ -24,7 +24,7 @@ final class ParameterStruct extends Constraint
     public bool $allowMissingFields = false;
 
     /**
-     * If true, setting read only fields will NOT pass validation (e.g. when updating the value)
+     * If true, setting read only fields will NOT pass validation (e.g. when updating the value).
      */
     public bool $checkReadOnlyFields = false;
 

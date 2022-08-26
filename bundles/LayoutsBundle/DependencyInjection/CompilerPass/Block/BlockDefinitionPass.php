@@ -82,7 +82,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
                         sprintf(
                             'Config provider service "%s" for "%s" block definition does not exist.',
                             $blockDefinition['config_provider'],
-                            $identifier
+                            $identifier,
                         ),
                     );
                 }

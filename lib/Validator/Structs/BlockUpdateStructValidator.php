@@ -69,7 +69,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                         [
                             'definition' => $blockDefinition,
                             'payload' => $block,
-                        ]
+                        ],
                     ),
                 ],
             );
