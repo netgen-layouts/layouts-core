@@ -27,8 +27,15 @@ final class CreateStructBuilder
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->name = $blockType->getDefaultName();
-        $blockCreateStruct->viewType = $blockType->getDefaultViewType();
-        $blockCreateStruct->itemViewType = $blockType->getDefaultItemViewType();
+
+        if (!isset($blockCreateStruct->viewType) || $blockType->getDefaultViewType() !== '') {
+            $blockCreateStruct->viewType = $blockType->getDefaultViewType();
+        }
+
+        if (!isset($blockCreateStruct->itemViewType) || $blockType->getDefaultItemViewType() !== '') {
+            $blockCreateStruct->itemViewType = $blockType->getDefaultItemViewType();
+        }
+
         $blockCreateStruct->fillParametersFromHash($blockType->getDefaultParameters());
 
         foreach ($blockDefinition->getCollections() as $collectionConfig) {
