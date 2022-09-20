@@ -13,3 +13,5 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.error.handler"
+        tags:
+            - { name: container.service_subscriber }
