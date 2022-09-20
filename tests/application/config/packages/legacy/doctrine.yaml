@@ -1,0 +1,6 @@
+doctrine:
+    dbal:
+        connections:
+            default:
+                url: '%env(resolve:DATABASE)%'
+                charset: '%env(resolve:DATABASE_CHARSET)%'

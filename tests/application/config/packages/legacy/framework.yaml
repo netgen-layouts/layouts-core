@@ -1,0 +1,9 @@
+framework:
+    secret: secret
+    test: true
+
+    session:
+        storage_id: session.storage.mock_file
+
+    php_errors:
+        log: true
