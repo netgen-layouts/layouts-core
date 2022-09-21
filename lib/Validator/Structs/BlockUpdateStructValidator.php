@@ -23,6 +23,9 @@ use function sprintf;
  */
 final class BlockUpdateStructValidator extends ConstraintValidator
 {
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof BlockUpdateStructConstraint) {

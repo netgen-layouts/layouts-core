@@ -103,7 +103,7 @@ trait ValidatorTrait
             return;
         }
 
-        $propertyPath = sprintf('%s%s', $propertyPath ?? '', $violations[0]->getPropertyPath() ?? '');
+        $propertyPath = sprintf('%s%s', $propertyPath ?? '', $violations[0]->getPropertyPath());
 
         throw ValidationException::validationFailed($propertyPath, (string) $violations[0]->getMessage());
     }

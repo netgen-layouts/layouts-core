@@ -20,6 +20,9 @@ use function sprintf;
  */
 final class BlockCreateStructValidator extends ConstraintValidator
 {
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof BlockCreateStructConstraint) {

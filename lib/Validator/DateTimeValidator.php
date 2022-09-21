@@ -26,6 +26,9 @@ final class DateTimeValidator extends ConstraintValidator
 {
     private const DATE_FORMAT = 'Y-m-d H:i:s';
 
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if ($value === null) {

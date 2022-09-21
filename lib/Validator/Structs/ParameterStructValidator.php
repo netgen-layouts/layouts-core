@@ -24,6 +24,9 @@ use function iterator_to_array;
  */
 final class ParameterStructValidator extends ConstraintValidator
 {
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ParameterStructConstraint) {

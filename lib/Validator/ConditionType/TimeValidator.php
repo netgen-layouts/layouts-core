@@ -20,6 +20,9 @@ use function is_array;
  */
 final class TimeValidator extends ConstraintValidator
 {
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if ($value === null) {

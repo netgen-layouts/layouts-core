@@ -25,6 +25,9 @@ final class LayoutNameValidator extends ConstraintValidator
         $this->layoutService = $layoutService;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof LayoutName) {
