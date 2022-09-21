@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 use function in_array;
 use function is_array;
+use function method_exists;
 
 final class RequestBodyListener implements EventSubscriberInterface
 {
@@ -81,6 +82,9 @@ final class RequestBodyListener implements EventSubscriberInterface
             return false;
         }
 
-        return $request->getContentType() === 'json';
+        // Request::getContentType() is deprecated since Symfony 6.2
+        return (method_exists($request, 'getContentTypeFormat') ?
+            $request->getContentTypeFormat() :
+            $request->getContentType()) === 'json';
     }
 }
