@@ -22,6 +22,7 @@ final class LocaleValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\Layouts\Validator\LocaleValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(?string $value, bool $isValid): void

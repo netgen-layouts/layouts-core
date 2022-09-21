@@ -85,6 +85,7 @@ final class ZoneViewProviderTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::supports
+     *
      * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void

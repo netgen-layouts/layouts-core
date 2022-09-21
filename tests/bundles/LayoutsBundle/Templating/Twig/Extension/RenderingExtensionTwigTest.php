@@ -55,6 +55,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     *
      * @dataProvider getTests
      *
      * @param mixed $file
@@ -74,6 +75,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     *
      * @dataProvider getTests
      *
      * @param mixed $file
@@ -98,6 +100,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
      *
      * @dataProvider getLegacyTests
+     *
      * @group legacy
      *
      * @param mixed $file

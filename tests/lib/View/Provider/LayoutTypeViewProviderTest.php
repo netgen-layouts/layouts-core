@@ -46,6 +46,7 @@ final class LayoutTypeViewProviderTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\View\Provider\LayoutTypeViewProvider::supports
+     *
      * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void

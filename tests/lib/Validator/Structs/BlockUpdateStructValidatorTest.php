@@ -54,6 +54,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
      * @param mixed[] $value
      *
      * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(array $value, bool $isValid): void

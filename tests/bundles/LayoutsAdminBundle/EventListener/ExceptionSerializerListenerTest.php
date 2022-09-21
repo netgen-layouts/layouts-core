@@ -97,6 +97,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::__construct
      * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
+     *
      * @dataProvider onExceptionWithHttpExceptionDataProvider
      */
     public function testOnExceptionWithHttpException(int $statusCode, bool $loggerCalled): void

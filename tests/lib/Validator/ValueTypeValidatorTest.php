@@ -25,6 +25,7 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\Layouts\Validator\ValueTypeValidator::__construct
      * @covers \Netgen\Layouts\Validator\ValueTypeValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(string $value, bool $isValid): void

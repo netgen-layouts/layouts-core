@@ -32,6 +32,7 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
@@ -55,6 +56,7 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $convertedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::toHash
+     *
      * @dataProvider toHashDataProvider
      */
     public function testToHash($value, $convertedValue): void
@@ -102,6 +104,7 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $convertedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::fromHash
+     *
      * @dataProvider invalidFromHashDataProvider
      */
     public function testFromHashWithInvalidValues($value, $convertedValue): void
@@ -127,6 +130,7 @@ final class DateTimeTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void

@@ -76,6 +76,7 @@ final class PlaceholderViewProviderTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::supports
+     *
      * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void

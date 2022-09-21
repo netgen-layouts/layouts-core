@@ -2103,6 +2103,7 @@ final class BlockHandlerTest extends TestCase
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     *
      * @doesNotPerformAssertions
      */
     public function testDeleteBlockWithSubBlocks(): void
@@ -2245,6 +2246,7 @@ final class BlockHandlerTest extends TestCase
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionReferences
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadBlockCollectionIds
+     *
      * @doesNotPerformAssertions
      */
     public function testDeleteBlocks(): void

@@ -35,6 +35,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\EventListener\AjaxBlockRequestListener::onKernelRequest
+     *
      * @dataProvider onKernelRequestDataProvider
      */
     public function testOnKernelRequest(string $uri, string $filteredUri): void

@@ -26,6 +26,7 @@ final class TypeTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\RuleTarget\Type::match
+     *
      * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void

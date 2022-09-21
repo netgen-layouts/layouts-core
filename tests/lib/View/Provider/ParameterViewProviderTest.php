@@ -47,6 +47,7 @@ final class ParameterViewProviderTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\View\Provider\ParameterViewProvider::supports
+     *
      * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void

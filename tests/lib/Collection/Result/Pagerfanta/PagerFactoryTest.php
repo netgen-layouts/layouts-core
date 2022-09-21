@@ -33,6 +33,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
+     *
      * @dataProvider getPagerDataProvider
      */
     public function testGetPager(int $startPage, int $currentPage): void
@@ -62,6 +63,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
+     *
      * @dataProvider getMaxPagesPagerDataProvider
      */
     public function testGetPagerWithMaxPages(int $maxPages, int $currentPage, int $nbPages): void
@@ -95,6 +97,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
+     *
      * @dataProvider getPagerWithCollectionLimitDataProvider
      */
     public function testGetPagerWithCollectionLimit(int $limit, ?int $maxPages, int $maxPerPage, int $nbPages): void

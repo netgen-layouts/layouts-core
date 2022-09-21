@@ -73,6 +73,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(array $value, bool $required, bool $isValid): void
@@ -93,6 +94,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
+     *
      * @dataProvider validateWithRuntimeConstraintsDataProvider
      */
     public function testValidateWithRuntimeConstraints(array $value, bool $required, bool $isValid): void

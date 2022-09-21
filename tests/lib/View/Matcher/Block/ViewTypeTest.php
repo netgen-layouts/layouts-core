@@ -24,6 +24,7 @@ final class ViewTypeTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\Block\ViewType::match
+     *
      * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void

@@ -36,6 +36,7 @@ final class ExceptionTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::getConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void

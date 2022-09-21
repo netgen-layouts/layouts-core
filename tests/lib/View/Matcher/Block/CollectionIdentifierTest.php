@@ -24,6 +24,7 @@ final class CollectionIdentifierTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\Block\CollectionIdentifier::match
+     *
      * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void

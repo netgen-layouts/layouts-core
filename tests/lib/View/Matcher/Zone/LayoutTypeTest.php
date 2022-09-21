@@ -29,6 +29,7 @@ final class LayoutTypeTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\Zone\LayoutType::match
+     *
      * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void

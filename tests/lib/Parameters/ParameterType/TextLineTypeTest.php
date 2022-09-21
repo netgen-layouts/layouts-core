@@ -31,6 +31,7 @@ final class TextLineTypeTest extends TestCase
      * @param mixed[] $resolvedOptions
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::configureOptions
+     *
      * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -43,6 +44,7 @@ final class TextLineTypeTest extends TestCase
      * @param mixed[] $options
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::configureOptions
+     *
      * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
@@ -78,6 +80,7 @@ final class TextLineTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -106,6 +109,7 @@ final class TextLineTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

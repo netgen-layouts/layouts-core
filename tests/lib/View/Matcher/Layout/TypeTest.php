@@ -27,6 +27,7 @@ final class TypeTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
+     *
      * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -78,6 +79,7 @@ final class TypeTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
+     *
      * @dataProvider matchLayoutTypeDataProvider
      */
     public function testMatchLayoutType(array $config, bool $expected): void

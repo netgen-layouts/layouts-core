@@ -30,6 +30,7 @@ final class RouteParameterTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::getConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void

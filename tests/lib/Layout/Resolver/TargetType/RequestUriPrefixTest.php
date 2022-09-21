@@ -30,6 +30,7 @@ final class RequestUriPrefixTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix::getConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void

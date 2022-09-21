@@ -154,7 +154,7 @@ final class CollectionMapper
             $queries[$queryId]['availableLocales'][] = $locale;
         }
 
-        $queries = array_values(
+        return array_values(
             array_map(
                 static function (array $queryData): Query {
                     ksort($queryData['parameters']);
@@ -165,8 +165,6 @@ final class CollectionMapper
                 $queries,
             ),
         );
-
-        return $queries;
     }
 
     /**

@@ -47,6 +47,7 @@ final class BooleanTypeTest extends TestCase
      * @param mixed[] $resolvedOptions
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::configureOptions
+     *
      * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -59,6 +60,7 @@ final class BooleanTypeTest extends TestCase
      * @param mixed[] $options
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::configureOptions
+     *
      * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
@@ -127,6 +129,7 @@ final class BooleanTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $required, bool $isValid): void
@@ -158,6 +161,7 @@ final class BooleanTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

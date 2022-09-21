@@ -51,6 +51,7 @@ final class ArrayValueNormalizerTest extends TestCase
      * @param mixed $data
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ArrayValueNormalizer::supportsNormalization
+     *
      * @dataProvider supportsNormalizationDataProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

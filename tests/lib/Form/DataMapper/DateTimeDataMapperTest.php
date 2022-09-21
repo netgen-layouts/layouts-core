@@ -52,6 +52,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
      * @param mixed[] $input
      *
      * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
+     *
      * @dataProvider mapDataToFormsWithArrayDataProvider
      */
     public function testMapDataToFormsWithArray(array $input, ?string $dateTime, string $timeZone): void

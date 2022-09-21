@@ -58,6 +58,7 @@ final class LayoutResolverValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleUpdateStruct
+     *
      * @dataProvider validateRuleUpdateStructDataProvider
      */
     public function testValidateRuleUpdateStruct(array $params, bool $isValid): void
@@ -79,6 +80,7 @@ final class LayoutResolverValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleGroupCreateStruct
+     *
      * @dataProvider validateRuleGroupCreateStructDataProvider
      */
     public function testValidateRuleGroupCreateStruct(array $params, bool $isValid): void
@@ -100,6 +102,7 @@ final class LayoutResolverValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleGroupUpdateStruct
+     *
      * @dataProvider validateRuleGroupUpdateStructDataProvider
      */
     public function testValidateRuleGroupUpdateStruct(array $params, bool $isValid): void
@@ -121,6 +124,7 @@ final class LayoutResolverValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateTargetCreateStruct
+     *
      * @dataProvider validateTargetCreateStructDataProvider
      */
     public function testValidateTargetCreateStruct(array $params, bool $isValid): void
@@ -142,6 +146,7 @@ final class LayoutResolverValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateTargetUpdateStruct
+     *
      * @dataProvider validateTargetUpdateStructDataProvider
      */
     public function testValidateTargetUpdateStruct(array $params, bool $isValid): void
@@ -166,6 +171,7 @@ final class LayoutResolverValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateConditionCreateStruct
+     *
      * @dataProvider validateConditionCreateStructDataProvider
      */
     public function testValidateConditionCreateStruct(array $params, bool $isValid): void
@@ -187,6 +193,7 @@ final class LayoutResolverValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateConditionUpdateStruct
+     *
      * @dataProvider validateConditionUpdateStructDataProvider
      */
     public function testValidateConditionUpdateStruct(array $params, bool $isValid): void

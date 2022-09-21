@@ -45,6 +45,7 @@ final class CollectionValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionCreateStruct
+     *
      * @dataProvider validateCollectionCreateStructDataProvider
      */
     public function testValidateCollectionCreateStruct(array $params, bool $isValid): void
@@ -66,6 +67,7 @@ final class CollectionValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionUpdateStruct
+     *
      * @dataProvider validateCollectionUpdateStructDataProvider
      */
     public function testValidateCollectionUpdateStruct(array $params, bool $isDynamic, bool $isValid): void
@@ -90,6 +92,7 @@ final class CollectionValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemCreateStruct
+     *
      * @dataProvider validateItemCreateStructDataProvider
      */
     public function testValidateItemCreateStruct(array $params, bool $isValid): void
@@ -111,6 +114,7 @@ final class CollectionValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemUpdateStruct
+     *
      * @dataProvider validateItemUpdateStructDataProvider
      */
     public function testValidateItemUpdateStruct(array $params, bool $isValid): void
@@ -145,6 +149,7 @@ final class CollectionValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryCreateStruct
+     *
      * @dataProvider validateQueryCreateStructDataProvider
      */
     public function testValidateQueryCreateStruct(array $params, bool $isValid): void
@@ -166,6 +171,7 @@ final class CollectionValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryUpdateStruct
+     *
      * @dataProvider validateQueryUpdateStructDataProvider
      */
     public function testValidateQueryUpdateStruct(array $params, bool $isValid): void

@@ -31,6 +31,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      *
      * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::__construct
      * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(?string $value, array $valueTypes, bool $isValid): void

@@ -25,6 +25,7 @@ final class TimeValidatorTest extends ValidatorTestCase
      * @param mixed[]|null $value
      *
      * @covers \Netgen\Layouts\Validator\ConditionType\TimeValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(?array $value, bool $isValid): void

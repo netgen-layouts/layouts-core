@@ -47,6 +47,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed[] $resolvedOptions
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
+     *
      * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -59,6 +60,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed[] $options
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
+     *
      * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
@@ -242,6 +244,7 @@ final class ChoiceTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isRequired, bool $isValid): void
@@ -258,6 +261,7 @@ final class ChoiceTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidationWithClosure($value, bool $isRequired, bool $isValid): void
@@ -298,6 +302,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed $convertedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::fromHash
+     *
      * @dataProvider fromHashDataProvider
      */
     public function testFromHash($value, $convertedValue, bool $multiple): void
@@ -366,6 +371,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

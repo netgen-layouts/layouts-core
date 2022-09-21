@@ -25,6 +25,7 @@ final class LinkValidatorTest extends ValidatorTestCase
      * @param mixed[] $valueTypes
      *
      * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(?LinkValue $value, bool $required, array $valueTypes, bool $isValid): void

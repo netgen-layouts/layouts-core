@@ -30,6 +30,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
+     *
      * @dataProvider processDataProvider
      */
     public function testProcess(string $handlerClass, string $definitionClass): void
@@ -87,6 +88,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
+     *
      * @dataProvider processDataProvider
      */
     public function testProcessWithCustomHandler(string $handlerClass, string $definitionClass): void

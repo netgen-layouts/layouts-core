@@ -27,6 +27,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\Layouts\Validator\LayoutNameValidator::__construct
      * @covers \Netgen\Layouts\Validator\LayoutNameValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(?string $value, bool $isValid): void

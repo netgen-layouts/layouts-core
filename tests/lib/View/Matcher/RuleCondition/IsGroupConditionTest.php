@@ -25,6 +25,7 @@ final class IsGroupConditionTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\RuleCondition\IsGroupCondition::match
+     *
      * @dataProvider matchWithRuleConditionDataProvider
      */
     public function testMatchWithRuleCondition(array $config, bool $expected): void
@@ -49,6 +50,7 @@ final class IsGroupConditionTest extends TestCase
      * @param mixed[] $config
      *
      * @covers \Netgen\Layouts\View\Matcher\RuleCondition\IsGroupCondition::match
+     *
      * @dataProvider matchWithRuleGroupConditionDataProvider
      */
     public function testMatchWithRuleGroupCondition(array $config, bool $expected): void

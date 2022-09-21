@@ -33,6 +33,7 @@ final class ValidatorTraitTest extends TestCase
      *
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validateIdentifier
+     *
      * @dataProvider validateIdentifierDataProvider
      */
     public function testValidateIdentifier($identifier, bool $isValid): void
@@ -70,6 +71,7 @@ final class ValidatorTraitTest extends TestCase
      *
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validatePosition
+     *
      * @dataProvider validatePositionDataProvider
      */
     public function testValidatePosition($position, bool $isRequired, bool $isValid): void
@@ -99,6 +101,7 @@ final class ValidatorTraitTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validateLocale
+     *
      * @dataProvider validateLocaleDataProvider
      */
     public function testValidateLocale(string $locale, bool $isValid): void

@@ -118,6 +118,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
+     *
      * @dataProvider invalidPageDataProvider
      */
     public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithInvalidPage(int $page): void

@@ -32,6 +32,7 @@ final class TimeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void

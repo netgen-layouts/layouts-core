@@ -27,6 +27,7 @@ final class DefinitionTest extends TestCase
      *
      * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
      * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
+     *
      * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void

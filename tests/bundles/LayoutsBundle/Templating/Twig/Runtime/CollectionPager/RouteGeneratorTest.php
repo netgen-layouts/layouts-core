@@ -41,6 +41,7 @@ final class RouteGeneratorTest extends TestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
+     *
      * @dataProvider invokeDataProvider
      */
     public function testInvoke(int $page, string $signedUri, string $signedUriSuffix): void

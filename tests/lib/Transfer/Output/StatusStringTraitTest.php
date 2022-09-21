@@ -23,6 +23,7 @@ final class StatusStringTraitTest extends TestCase
      * @param mixed[] $visitedValue
      *
      * @covers \Netgen\Layouts\Transfer\Output\StatusStringTrait::getStatusString
+     *
      * @dataProvider visitDataProvider
      */
     public function testVisit(int $status, array $visitedValue): void

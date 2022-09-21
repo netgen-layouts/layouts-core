@@ -37,6 +37,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\Layouts\Validator\BlockViewTypeValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(string $value, bool $isValid): void

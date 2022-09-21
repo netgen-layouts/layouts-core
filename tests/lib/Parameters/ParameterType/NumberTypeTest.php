@@ -46,6 +46,7 @@ final class NumberTypeTest extends TestCase
      * @param mixed[] $resolvedOptions
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::configureOptions
+     *
      * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -58,6 +59,7 @@ final class NumberTypeTest extends TestCase
      * @param mixed[] $options
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::configureOptions
+     *
      * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
@@ -210,6 +212,7 @@ final class NumberTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $required, bool $isValid): void
@@ -248,6 +251,7 @@ final class NumberTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

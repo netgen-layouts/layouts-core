@@ -78,6 +78,7 @@ final class ItemLinkTypeTest extends TestCase
      * @param mixed[] $resolvedOptions
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::configureOptions
+     *
      * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -90,6 +91,7 @@ final class ItemLinkTypeTest extends TestCase
      * @param mixed[] $options
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::configureOptions
+     *
      * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
@@ -152,6 +154,7 @@ final class ItemLinkTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -211,6 +214,7 @@ final class ItemLinkTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

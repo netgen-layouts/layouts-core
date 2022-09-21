@@ -44,6 +44,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
+     *
      * @dataProvider validateDataProvider
      */
     public function testValidate(string $viewType, string $value, bool $isValid): void

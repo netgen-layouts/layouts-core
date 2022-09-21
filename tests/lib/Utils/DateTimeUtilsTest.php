@@ -57,6 +57,7 @@ final class DateTimeUtilsTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Utils\DateTimeUtils::isBetweenDates
+     *
      * @dataProvider isBetweenDatesDataProvider
      */
     public function testIsBetweenDates(?DateTimeInterface $from = null, ?DateTimeInterface $to = null, bool $result = false): void
@@ -91,6 +92,7 @@ final class DateTimeUtilsTest extends TestCase
      * @param mixed[] $input
      *
      * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromArray
+     *
      * @dataProvider createFromArrayDataProvider
      */
     public function testCreateFromArray(array $input, bool $isValid): void

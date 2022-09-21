@@ -54,6 +54,7 @@ final class ItemTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\API\Values\Collection\Item::isValid
+     *
      * @dataProvider isValidDataProvider
      */
     public function testIsValid(bool $cmsItemVisible, bool $isValid): void

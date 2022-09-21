@@ -44,6 +44,7 @@ final class HtmlTypeTest extends TestCase
      * @param mixed[] $resolvedOptions
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::configureOptions
+     *
      * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -56,6 +57,7 @@ final class HtmlTypeTest extends TestCase
      * @param mixed[] $options
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::configureOptions
+     *
      * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
@@ -91,6 +93,7 @@ final class HtmlTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -119,6 +122,7 @@ final class HtmlTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

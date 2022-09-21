@@ -42,6 +42,7 @@ final class LayoutValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutCreateStruct
+     *
      * @dataProvider validateLayoutCreateStructDataProvider
      */
     public function testValidateLayoutCreateStruct(array $params, bool $isValid): void
@@ -63,6 +64,7 @@ final class LayoutValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutUpdateStruct
+     *
      * @dataProvider validateLayoutUpdateStructDataProvider
      */
     public function testValidateLayoutUpdateStruct(array $params, bool $isValid): void
@@ -84,6 +86,7 @@ final class LayoutValidatorTest extends TestCase
      * @param array<string, mixed> $params
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutCopyStruct
+     *
      * @dataProvider validateLayoutCopyStructDataProvider
      */
     public function testValidateLayoutCopyStruct(array $params, bool $isValid): void
@@ -105,6 +108,7 @@ final class LayoutValidatorTest extends TestCase
      * @param array<string, string[]> $zoneMapping
      *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
+     *
      * @dataProvider validateChangeLayoutTypeDataProvider
      */
     public function testValidateChangeLayoutType(array $zoneMapping): void

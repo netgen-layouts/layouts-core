@@ -57,6 +57,7 @@ final class LinkTypeTest extends TestCase
      * @param mixed[] $resolvedOptions
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::configureOptions
+     *
      * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -69,6 +70,7 @@ final class LinkTypeTest extends TestCase
      * @param mixed[] $options
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::configureOptions
+     *
      * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
@@ -132,6 +134,7 @@ final class LinkTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getValueConstraints
+     *
      * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isRequired, array $valueTypes, bool $isValid): void
@@ -201,6 +204,7 @@ final class LinkTypeTest extends TestCase
      * @param mixed $convertedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::toHash
+     *
      * @dataProvider toHashDataProvider
      */
     public function testToHash($value, $convertedValue): void
@@ -239,6 +243,7 @@ final class LinkTypeTest extends TestCase
      * @param array<string, mixed> $expectedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::fromHash
+     *
      * @dataProvider fromHashDataProvider
      */
     public function testFromHash($value, array $expectedValue): void
@@ -306,6 +311,7 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::export
+     *
      * @dataProvider exportDataProvider
      */
     public function testExport($value, $convertedValue): void
@@ -424,6 +430,7 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::import
+     *
      * @dataProvider importDataProvider
      */
     public function testImport($value, array $expectedValue): void
@@ -575,6 +582,7 @@ final class LinkTypeTest extends TestCase
      * @param mixed $value
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::isValueEmpty
+     *
      * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
