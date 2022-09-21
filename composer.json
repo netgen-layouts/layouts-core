@@ -66,8 +66,8 @@
         "netgen/layouts-coding-standard": "^1.0 || ^2.0",
         "netgen/layouts-standard": "~1.4.0",
         "phpunit/phpunit": "^8.5 || ^9.5",
-        "symfony/dotenv": "^3.4.47 || ^5.4 || ^6.1",
         "symfony/phpunit-bridge": "^6.1",
+        "symfony/runtime": "^5.4 || ^6.1",
         "symfony/var-dumper": "^3.4.47 || ^5.4 || ^6.1",
         "phpstan/phpstan": "^1.2",
         "phpstan/phpstan-strict-rules": "^1.1",
@@ -96,7 +96,10 @@
         "composer/package-versions-deprecated": "<1.11.99"
     },
     "config": {
-        "process-timeout": 3600
+        "process-timeout": 3600,
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",

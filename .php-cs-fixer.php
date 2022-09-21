@@ -12,7 +12,7 @@ return (new Netgen\Layouts\CodingStandard\PhpCsFixer\Config())
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->exclude(['vendor', 'node_modules'])
+            ->exclude(['vendor', 'node_modules', 'tests/application'])
             ->in(__DIR__)
     )
 ;

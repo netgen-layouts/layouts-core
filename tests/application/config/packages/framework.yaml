@@ -1,13 +1,8 @@
 framework:
     secret: secret
-    http_method_override: false
-    csrf_protection:
-        enabled: true
-    session:
-        storage_factory_id: session.storage.factory.mock_file
-        # storage_id: session.storage.mock_file
-
     test: true
 
-    php_errors:
-        log: true
+    http_method_override: false
+
+    session:
+        storage_factory_id: session.storage.factory.mock_file
