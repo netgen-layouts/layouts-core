@@ -9,11 +9,13 @@
 {% set block_content = (block('content') is defined ? block('content') : '')|trim %}
 
 {% if block_content is not empty or show_empty_wrapper %}
-    <div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
-        {% if set_container %}<div class="container">{% endif %}
+    <ngl-block blockId="{{ block.id }}">
+        <div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
+            {% if set_container %}<div class="container">{% endif %}
 
-        {{ block_content|raw }}
+            {{ block_content|raw }}
 
-        {% if set_container %}</div>{% endif %}
-    </div>
+            {% if set_container %}</div>{% endif %}
+        </div>
+    </ngl-block>
 {% endif %}
