@@ -34,6 +34,7 @@ const addedFormInit = (form) => {
     [...form.querySelectorAll('select[multiple]')].forEach((el) => {
         let l = el.childElementCount;
         l > 10 && (l = 10);
+        l < 5 && (l = 5);
         el.setAttribute('size', l);
     });
     [...form.getElementsByClassName('datetimepicker')].forEach(el => new DateTimePicker(el));
