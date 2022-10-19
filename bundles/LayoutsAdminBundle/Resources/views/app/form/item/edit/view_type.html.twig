@@ -10,7 +10,7 @@
 
 {% block children %}
     {% set block = form.vars.block %}
-    {% set current_view_type = block.definition.viewType(block.viewType) %}
+    {% set current_view_type = block.definition.viewType(block.viewType, block) %}
 
     <p>{{ 'collection_item.edit_view_type.current_view_type'|trans }}: {{ current_view_type.itemViewType(block.itemViewType).name }}</p>
 

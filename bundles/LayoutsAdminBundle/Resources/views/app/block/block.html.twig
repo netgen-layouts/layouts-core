@@ -2,8 +2,8 @@
 
 {% set view_type_name = block.viewType %}
 
-{% if block.definition.hasViewType(view_type_name) %}
-    {% set view_type_name = block.definition.viewType(view_type_name).name %}
+{% if block.definition.hasViewType(view_type_name, block) %}
+    {% set view_type_name = block.definition.viewType(view_type_name, block).name %}
 {% endif %}
 
 {% block controls %}
