@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+use function array_keys;
+
 final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -31,6 +33,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             [
                 'test' => [
                     'enabled' => true,
+                    'priority' => 0,
                     'block_types' => [],
                 ],
             ],
@@ -64,6 +67,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             [
                 'test' => [
                     'enabled' => true,
+                    'priority' => 0,
                     'block_types' => ['test1', 'test2'],
                 ],
             ],
@@ -105,10 +109,12 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             [
                 'test' => [
                     'enabled' => true,
+                    'priority' => 0,
                     'block_types' => ['test1'],
                 ],
                 'custom' => [
                     'enabled' => true,
+                    'priority' => 0,
                     'block_types' => [],
                 ],
             ],
@@ -146,6 +152,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         self::assertSame(
             [
                 'enabled' => true,
+                'priority' => 0,
                 'block_types' => ['test2', 'test3'],
             ],
             $blockTypeGroups['custom'],
@@ -164,6 +171,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             [
                 'test' => [
                     'enabled' => false,
+                    'priority' => 0,
                     'block_types' => [],
                 ],
             ],
@@ -182,10 +190,46 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         self::assertSame(
             [
                 'enabled' => false,
+                'priority' => 0,
                 'block_types' => [],
             ],
             $blockTypeGroups['test'],
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::buildBlockTypeGroups
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
+     */
+    public function testProcessWithSortingGroups(): void
+    {
+        $this->setParameter(
+            'netgen_layouts.block_type_groups',
+            [
+                'first' => [
+                    'enabled' => true,
+                    'priority' => 10,
+                    'block_types' => [],
+                ],
+                'second' => [
+                    'enabled' => true,
+                    'priority' => 20,
+                    'block_types' => [],
+                ],
+            ],
+        );
+
+        $this->setParameter('netgen_layouts.block_types', []);
+
+        $this->setDefinition('netgen_layouts.block.registry.block_type_group', new Definition(null, [[]]));
+
+        $this->compile();
+
+        /** @var array<string, mixed[]> $blockTypeGroups */
+        $blockTypeGroups = $this->container->getParameter('netgen_layouts.block_type_groups');
+
+        self::assertSame(['second', 'first'], array_keys($blockTypeGroups));
     }
 
     /**

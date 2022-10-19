@@ -15,6 +15,7 @@ use function array_keys;
 use function in_array;
 use function iterator_to_array;
 use function sprintf;
+use function uasort;
 
 final class BlockTypeGroupPass implements CompilerPassInterface
 {
@@ -72,6 +73,11 @@ final class BlockTypeGroupPass implements CompilerPassInterface
                 ...$missingBlockTypes,
             ];
         }
+
+        uasort(
+            $blockTypeGroups,
+            static fn (array $group1, array $group2) => $group2['priority'] <=> $group1['priority'],
+        );
 
         return $blockTypeGroups;
     }

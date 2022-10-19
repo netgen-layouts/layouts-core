@@ -28,6 +28,9 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()
+                    ->integerNode('priority')
+                        ->defaultValue(0)
+                    ->end()
                     ->arrayNode('block_types')
                         ->validate()
                             ->always(

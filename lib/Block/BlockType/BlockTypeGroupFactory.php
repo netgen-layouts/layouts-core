@@ -18,6 +18,7 @@ final class BlockTypeGroupFactory
             [
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],
+                'priority' => $config['priority'],
                 'name' => $config['name'],
                 'blockTypes' => $blockTypes,
             ],

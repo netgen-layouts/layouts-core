@@ -23,6 +23,8 @@ class BlockTypeGroup
 
     private bool $isEnabled;
 
+    private int $priority;
+
     private string $name;
 
     /**
@@ -44,6 +46,11 @@ class BlockTypeGroup
     public function isEnabled(): bool
     {
         return $this->isEnabled;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
     }
 
     /**

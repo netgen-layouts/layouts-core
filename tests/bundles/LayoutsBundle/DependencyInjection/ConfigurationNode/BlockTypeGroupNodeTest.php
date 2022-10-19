@@ -37,6 +37,7 @@ final class BlockTypeGroupNodeTest extends TestCase
                 'block_type_group' => [
                     'name' => 'block_type_group',
                     'enabled' => true,
+                    'priority' => 0,
                     'block_types' => [],
                 ],
             ],
@@ -46,6 +47,39 @@ final class BlockTypeGroupNodeTest extends TestCase
             $config,
             $expectedConfig,
             'block_type_groups',
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
+     */
+    public function testBlockTypeGroupsSettingsWithPriority(): void
+    {
+        $config = [
+            [
+                'block_type_groups' => [
+                    'block_type_group' => [
+                        'priority' => 42,
+                    ],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'block_type_groups' => [
+                'block_type_group' => [
+                    'priority' => 42,
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_type_groups.*.priority',
         );
     }
 

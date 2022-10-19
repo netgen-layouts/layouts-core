@@ -25,6 +25,7 @@ final class BlockTypeGroupTest extends TestCase
             [
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,
+                'priority' => 42,
                 'name' => 'Simple blocks',
                 'blockTypes' => [$this->blockType1, $this->blockType2],
             ],
@@ -45,6 +46,14 @@ final class BlockTypeGroupTest extends TestCase
     public function testIsEnabled(): void
     {
         self::assertFalse($this->blockTypeGroup->isEnabled());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getPriority
+     */
+    public function testGetPriority(): void
+    {
+        self::assertSame(42, $this->blockTypeGroup->getPriority());
     }
 
     /**

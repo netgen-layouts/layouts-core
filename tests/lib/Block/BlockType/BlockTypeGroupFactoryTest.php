@@ -25,6 +25,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
             [
                 'enabled' => false,
                 'name' => 'Simple blocks',
+                'priority' => 42,
             ],
             [$blockType],
         );
@@ -35,6 +36,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,
                 'name' => 'Simple blocks',
+                'priority' => 42,
             ],
             $this->exportObject($blockTypeGroup),
         );
