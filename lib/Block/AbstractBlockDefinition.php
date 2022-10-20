@@ -44,11 +44,6 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
     protected array $forms = [];
 
     /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
-     */
-    protected array $viewTypes;
-
-    /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
     protected array $handlerPlugins = [];
@@ -115,32 +110,28 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
 
     public function getViewTypes(?Block $block = null): array
     {
-        $this->viewTypes ??= $this->configProvider->provideViewTypes($block);
-
-        return $this->viewTypes;
+        return $this->configProvider->provideViewTypes($block);
     }
 
     public function getViewTypeIdentifiers(?Block $block = null): array
     {
-        $this->viewTypes ??= $this->configProvider->provideViewTypes($block);
-
-        return array_keys($this->viewTypes);
+        return array_keys($this->configProvider->provideViewTypes($block));
     }
 
     public function hasViewType(string $viewType, ?Block $block = null): bool
     {
-        $this->viewTypes ??= $this->configProvider->provideViewTypes($block);
-
-        return array_key_exists($viewType, $this->viewTypes);
+        return array_key_exists($viewType, $this->configProvider->provideViewTypes($block));
     }
 
     public function getViewType(string $viewType, ?Block $block = null): ViewType
     {
-        if (!$this->hasViewType($viewType, $block)) {
+        $viewTypes = $this->configProvider->provideViewTypes($block);
+
+        if (!array_key_exists($viewType, $viewTypes)) {
             throw BlockDefinitionException::noViewType($this->identifier, $viewType);
         }
 
-        return $this->viewTypes[$viewType];
+        return $viewTypes[$viewType];
     }
 
     public function getDynamicParameters(Block $block): DynamicParameters
