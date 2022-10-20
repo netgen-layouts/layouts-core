@@ -364,6 +364,56 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
+    public function testProcessWithDefaultIconTakenFromBlockDefinition(): void
+    {
+        $this->setParameter(
+            'netgen_layouts.block_types',
+            [
+                'my_title' => [
+                    'enabled' => true,
+                    'icon' => null,
+                    'definition_identifier' => 'title',
+                ],
+            ],
+        );
+
+        $this->setParameter(
+            'netgen_layouts.block_definitions',
+            [
+                'title' => [
+                    'name' => 'Title',
+                    'icon' => '/icon.svg',
+                    'enabled' => true,
+                ],
+            ],
+        );
+
+        $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
+
+        $this->compile();
+
+        $blockTypes = $this->container->getParameter('netgen_layouts.block_types');
+
+        self::assertIsArray($blockTypes);
+        self::assertArrayHasKey('my_title', $blockTypes);
+
+        self::assertSame(
+            [
+                'enabled' => true,
+                'icon' => '/icon.svg',
+                'definition_identifier' => 'title',
+            ],
+            $blockTypes['my_title'],
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
+     */
     public function testProcessWithDisabledBlockDefinitionAndAdditionalBlockType(): void
     {
         $this->setParameter(
