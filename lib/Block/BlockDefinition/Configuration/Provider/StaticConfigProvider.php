@@ -45,7 +45,7 @@ final class StaticConfigProvider implements ConfigProviderInterface
     }
 
     /**
-     * @return array<string, mixed>
+     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
      */
     private function processViewTypes(): array
     {
