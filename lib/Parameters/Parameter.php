@@ -73,7 +73,6 @@ final class Parameter
             return $this->valueObject;
         }
 
-        /** @var \Netgen\Layouts\Parameters\ParameterTypeInterface&\Netgen\Layouts\Parameters\ValueObjectProviderInterface $parameterType */
         $parameterType = $this->parameterDefinition->getType();
         if (!$parameterType instanceof ValueObjectProviderInterface) {
             throw ParameterException::valueObjectNotSupported($this->name, get_class($parameterType));

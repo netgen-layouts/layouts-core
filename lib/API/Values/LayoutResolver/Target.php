@@ -6,7 +6,9 @@ namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Exception\Layout\TargetException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Layout\Resolver\ValueObjectProviderInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
 
@@ -25,6 +27,8 @@ final class Target implements Value
      * @var int|string
      */
     private $value;
+
+    private ?object $valueObject;
 
     public function getId(): UuidInterface
     {
@@ -55,5 +59,18 @@ final class Target implements Value
     public function getValue()
     {
         return $this->value;
+    }
+
+    public function getValueObject(): ?object
+    {
+        if (isset($this->valueObject)) {
+            return $this->valueObject;
+        }
+
+        if (!$this->targetType instanceof ValueObjectProviderInterface) {
+            throw TargetException::valueObjectNotSupported($this->targetType::getType());
+        }
+
+        return $this->valueObject = $this->targetType->getValueObject($this->value);
     }
 }
