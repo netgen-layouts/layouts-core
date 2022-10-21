@@ -24,7 +24,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->routeGenerator = static fn (Block $block, string $collectionIdentifier, int $page): string => '/generated/uri' . '?page=' . $page;
+        $this->routeGenerator = static fn (Block $block, string $collectionIdentifier, int $page): string => '/generated/uri?page=' . $page;
 
         $this->pagerfantaViewMock = $this->createMock(ViewInterface::class);
 
