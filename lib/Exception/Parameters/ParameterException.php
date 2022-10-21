@@ -40,4 +40,15 @@ final class ParameterException extends InvalidArgumentException implements Excep
             ),
         );
     }
+
+    public static function valueObjectNotSupported(string $parameter, string $parameterType): self
+    {
+        return new self(
+            sprintf(
+                'Parameter "%s" of type "%s" does not support value objects.',
+                $parameter,
+                $parameterType,
+            ),
+        );
+    }
 }

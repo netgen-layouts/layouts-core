@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Parameters;
 
+use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Utils\HydratorTrait;
 
+use function get_class;
 use function is_array;
 use function is_object;
 use function method_exists;
@@ -22,6 +24,8 @@ final class Parameter
      * @var mixed
      */
     private $value;
+
+    private ?object $valueObject;
 
     private bool $isEmpty;
 
@@ -61,6 +65,21 @@ final class Parameter
     public function getValue()
     {
         return $this->value;
+    }
+
+    public function getValueObject(): ?object
+    {
+        if (isset($this->valueObject)) {
+            return $this->valueObject;
+        }
+
+        /** @var \Netgen\Layouts\Parameters\ParameterTypeInterface&\Netgen\Layouts\Parameters\ValueObjectProviderInterface $parameterType */
+        $parameterType = $this->parameterDefinition->getType();
+        if (!$parameterType instanceof ValueObjectProviderInterface) {
+            throw ParameterException::valueObjectNotSupported($this->name, get_class($parameterType));
+        }
+
+        return $this->valueObject = $parameterType->getValueObject($this->value);
     }
 
     /**
