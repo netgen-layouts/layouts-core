@@ -42,7 +42,7 @@ final class SlotViewTypeEditType extends AbstractType
                     yield '<No override>' => '';
 
                     $block = $options['block'];
-                    foreach ($block->getDefinition()->getViewType($block->getViewType())->getItemViewTypes() as $itemViewType) {
+                    foreach ($block->getDefinition()->getViewType($block->getViewType(), $block)->getItemViewTypes() as $itemViewType) {
                         yield $itemViewType->getName() => $itemViewType->getIdentifier();
                     }
                 })(),
