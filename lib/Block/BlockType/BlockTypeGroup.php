@@ -48,6 +48,9 @@ class BlockTypeGroup
         return $this->isEnabled;
     }
 
+    /**
+     * Returns the priority of the block type group.
+     */
     public function getPriority(): int
     {
         return $this->priority;
