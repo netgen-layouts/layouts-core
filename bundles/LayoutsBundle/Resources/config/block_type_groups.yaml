@@ -1,3 +1,4 @@
 block_type_groups:
     custom:
         name: 'Custom blocks'
+        priority: -1000
