@@ -60,12 +60,12 @@ final class BlockTypeGroupPass implements CompilerPassInterface
         if (isset($blockTypeGroups['custom'])) {
             foreach (array_keys($blockTypes) as $blockType) {
                 foreach ($blockTypeGroups as $blockTypeGroup) {
-                    if (in_array($blockType, $blockTypeGroup['block_types'], true)) {
+                    if (in_array($blockType, array_column($blockTypeGroup['block_types'], 'identifier'), true)) {
                         continue 2;
                     }
                 }
 
-                $missingBlockTypes[] = $blockType;
+                $missingBlockTypes[] = ['identifier' => $blockType, 'priority' => 0];
             }
 
             $blockTypeGroups['custom']['block_types'] = [
@@ -96,12 +96,19 @@ final class BlockTypeGroupPass implements CompilerPassInterface
             $serviceIdentifier = sprintf('netgen_layouts.block.block_type_group.%s', $identifier);
 
             $blockTypeReferences = [];
-            foreach ($blockTypeGroup['block_types'] as $blockTypeIdentifier) {
-                if (isset($blockTypes[$blockTypeIdentifier])) {
+            $groupBlockTypes = $blockTypeGroup['block_types'];
+
+            uasort(
+                $groupBlockTypes,
+                static fn (array $type1, array $type2) => $type2['priority'] <=> $type1['priority'],
+            );
+
+            foreach ($groupBlockTypes as $groupBlockType) {
+                if (isset($blockTypes[$groupBlockType['identifier']])) {
                     $blockTypeReferences[] = new Reference(
                         sprintf(
                             'netgen_layouts.block.block_type.%s',
-                            $blockTypeIdentifier,
+                            $groupBlockType['identifier'],
                         ),
                     );
                 }
