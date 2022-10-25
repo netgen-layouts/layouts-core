@@ -9,6 +9,8 @@ use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Block\BlockType\BlockType;
 
+use function count;
+
 final class CreateStructBuilder
 {
     private BlockService $blockService;
@@ -32,7 +34,15 @@ final class CreateStructBuilder
             $blockCreateStruct->viewType = $blockType->getDefaultViewType();
         }
 
-        if (!isset($blockCreateStruct->itemViewType) || $blockType->getDefaultItemViewType() !== '') {
+        if ($blockType->getDefaultItemViewType() === '' && $blockDefinition->hasViewType($blockCreateStruct->viewType)) {
+            $itemViewTypes = $blockDefinition
+                ->getViewType($blockCreateStruct->viewType)
+                ->getItemViewTypeIdentifiers();
+
+            if (count($itemViewTypes) > 0) {
+                $blockCreateStruct->itemViewType = $itemViewTypes[0];
+            }
+        } elseif (!isset($blockCreateStruct->itemViewType) || $blockType->getDefaultItemViewType() !== '') {
             $blockCreateStruct->itemViewType = $blockType->getDefaultItemViewType();
         }
 
