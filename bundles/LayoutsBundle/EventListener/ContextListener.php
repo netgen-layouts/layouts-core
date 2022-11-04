@@ -13,7 +13,11 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\UriSigner;
 
+use function count;
+use function http_build_query;
 use function is_array;
+use function sprintf;
+use function urlencode;
 
 final class ContextListener implements EventSubscriberInterface
 {
@@ -86,25 +90,16 @@ final class ContextListener implements EventSubscriberInterface
 
         $context = is_array($context) ? $context : [];
 
-        if (!$this->uriSigner->check($this->getUri($request))) {
+        $signedContext = sprintf(
+            '?%s' . (count($context) > 0 ? '&' : '') . '_hash=%s',
+            http_build_query(['nglContext' => $context]),
+            urlencode($request->query->get('_hash', '')),
+        );
+
+        if (!$this->uriSigner->check($signedContext)) {
             return [];
         }
 
         return $context;
-    }
-
-    /**
-     * Returns the URI with the context from the request. This allows
-     * overriding the URI with a value stored in request attributes if,
-     * for example, there's need to pre-process the URI before checking
-     * the signature.
-     */
-    private function getUri(Request $request): string
-    {
-        if ($request->attributes->has('nglContextUri')) {
-            return $request->attributes->get('nglContextUri');
-        }
-
-        return $request->getRequestUri();
     }
 }

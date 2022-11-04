@@ -12,6 +12,8 @@ services:
             - "@netgen_layouts.layout.resolver"
             - "@netgen_layouts.templating.pagelayout_resolver"
             - "@netgen_layouts.view.view_builder"
+            - "@netgen_layouts.context"
+            - "@uri_signer"
             - "@request_stack"
             - "%netgen_layouts.debug%"
 

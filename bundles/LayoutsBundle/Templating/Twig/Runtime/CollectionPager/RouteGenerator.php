@@ -9,7 +9,11 @@ use Netgen\Layouts\Context\Context;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+use function http_build_query;
+use function mb_substr;
+use function parse_str;
 use function str_contains;
+use function urlencode;
 
 final class RouteGenerator
 {
@@ -34,21 +38,30 @@ final class RouteGenerator
      */
     public function __invoke(Block $block, string $collectionIdentifier, int $page): string
     {
-        $routeParams = [
-            'blockId' => $block->getId()->toString(),
-            'locale' => $block->getLocale(),
-            'collectionIdentifier' => $collectionIdentifier,
-            'nglContext' => $this->context->all(),
-        ];
+        $context = $this->context->all();
 
-        $signedUri = $this->uriSigner->sign(
-            $this->urlGenerator->generate('nglayouts_ajax_block', $routeParams),
+        $uri = $this->urlGenerator->generate(
+            'nglayouts_ajax_block',
+            [
+                'blockId' => $block->getId()->toString(),
+                'locale' => $block->getLocale(),
+                'collectionIdentifier' => $collectionIdentifier,
+                'nglContext' => $context,
+            ],
         );
 
+        $signedContext = $this->uriSigner->sign(
+            '?' . http_build_query(['nglContext' => $context]),
+        );
+
+        parse_str(mb_substr($signedContext, 1), $params);
+
+        $uri .= (!str_contains($uri, '?') ? '?' : '&') . '_hash=' . urlencode($params['_hash']);
+
         if ($page > 1) {
-            $signedUri .= (!str_contains($signedUri, '?') ? '?' : '&') . 'page=' . $page;
+            $uri .= '&page=' . $page;
         }
 
-        return $signedUri;
+        return $uri;
     }
 }

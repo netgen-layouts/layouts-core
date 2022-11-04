@@ -63,8 +63,3 @@ services:
             - "@uri_signer"
         tags:
             - { name: kernel.event_subscriber }
-
-    netgen_layouts.event_listener.ajax_block_request:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\AjaxBlockRequestListener
-        tags:
-            - { name: kernel.event_subscriber }

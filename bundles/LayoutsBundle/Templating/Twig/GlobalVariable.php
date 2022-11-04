@@ -8,13 +8,17 @@ use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolverInterface;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Layout\Resolver\LayoutResolverInterface;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\UriSigner;
 
+use function http_build_query;
+use function mb_substr;
 use function method_exists;
 
 /**
@@ -50,6 +54,10 @@ final class GlobalVariable
 
     private ViewBuilderInterface $viewBuilder;
 
+    private Context $context;
+
+    private UriSigner $uriSigner;
+
     private RequestStack $requestStack;
 
     private bool $debug;
@@ -61,6 +69,8 @@ final class GlobalVariable
         LayoutResolverInterface $layoutResolver,
         PageLayoutResolverInterface $pageLayoutResolver,
         ViewBuilderInterface $viewBuilder,
+        Context $context,
+        UriSigner $uriSigner,
         RequestStack $requestStack,
         bool $debug
     ) {
@@ -68,6 +78,8 @@ final class GlobalVariable
         $this->layoutResolver = $layoutResolver;
         $this->pageLayoutResolver = $pageLayoutResolver;
         $this->viewBuilder = $viewBuilder;
+        $this->context = $context;
+        $this->uriSigner = $uriSigner;
         $this->requestStack = $requestStack;
         $this->debug = $debug;
     }
@@ -177,6 +189,28 @@ final class GlobalVariable
         }
 
         return $layoutView->getTemplate();
+    }
+
+    /**
+     * Returns the value of context in Netgen Layouts.
+     *
+     * @return array<string, mixed>
+     */
+    public function getContext(): array
+    {
+        return $this->context->all();
+    }
+
+    /**
+     * Returns the value of context in Netgen Layouts as a signed query string.
+     */
+    public function getContextString(): string
+    {
+        $signedQueryString = $this->uriSigner->sign(
+            '?' . http_build_query(['nglContext' => $this->context->all()]),
+        );
+
+        return mb_substr($signedQueryString, 1);
     }
 
     /**
