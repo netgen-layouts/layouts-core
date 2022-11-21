@@ -15,5 +15,12 @@ nglayouts_ajax_block:
     defaults:
         _nglayouts_status: published
 
+nglayouts_ajax_block_draft:
+    path: /ajax/block/{blockId}/{locale}/{collectionIdentifier}/draft
+    controller: netgen_layouts.controller.block.view_ajax_block
+    methods: [GET]
+    defaults:
+        _nglayouts_status: draft
+
 nglayouts_root:
     path: /

@@ -41,7 +41,7 @@ final class RouteGenerator
         $context = $this->context->all();
 
         $uri = $this->urlGenerator->generate(
-            'nglayouts_ajax_block',
+            $block->isPublished() ? 'nglayouts_ajax_block' : 'nglayouts_ajax_block_draft',
             [
                 'blockId' => $block->getId()->toString(),
                 'locale' => $block->getLocale(),
