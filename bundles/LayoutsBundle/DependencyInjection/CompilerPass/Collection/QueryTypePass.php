@@ -12,7 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+use function array_merge;
 use function is_string;
+use function krsort;
 use function sprintf;
 
 final class QueryTypePass implements CompilerPassInterface
@@ -77,8 +79,11 @@ final class QueryTypePass implements CompilerPassInterface
 
             $container->setDefinition($queryTypeServiceName, $queryTypeService);
 
-            $queryTypeServices[$type] = new Reference($queryTypeServiceName);
+            $queryTypeServices[$queryType['priority']][$type] = new Reference($queryTypeServiceName);
         }
+
+        krsort($queryTypeServices);
+        $queryTypeServices = array_merge(...$queryTypeServices);
 
         $queryTypeRegistry->replaceArgument(0, $queryTypeServices);
     }
