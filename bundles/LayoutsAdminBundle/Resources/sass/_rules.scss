@@ -299,7 +299,7 @@
             > .nl-rule-cell {
                 > .nl-export-checkbox {
                     > label {
-                        opacity: 1; 
+                        opacity: 1;
                     }
                 }
             }
@@ -326,7 +326,7 @@
                     display: none;
                 }
             }
-    
+
             > .nl-rule-cell {
                 > .nl-export-checkbox {
                     > label {
@@ -354,11 +354,11 @@
                 .icon-rule {
                     display: none;
                 }
-        
+
                 .icon-rule-disabled {
                     display: block;
                     position: relative;
-        
+
                     &:hover {
                         > .disabled-tooltip {
                             visibility: visible;
@@ -392,11 +392,11 @@
         &:hover {
             .nl-rule-head {
                 background-color: #F4F8FE;
-    
+
                 .rule-layout {
                     border-left: 2px solid #2565ED;
                 }
-    
+
                 .hover-actions {
                     background-color: #F4F8FE;
                     display: none;
@@ -434,7 +434,7 @@
 
         &.disabled {
             .nl-rule-head {
-                &:hover {    
+                &:hover {
                     .rule-layout {
                         border-left: 2px solid #E20225;
                     }
@@ -550,7 +550,7 @@
                 padding: 5px 0;
                 border-radius: 6px;
                 font-family: "Roboto", Helvetica, Arial, sans-serif;
-                
+
                 /* Position the tooltip text - see examples below! */
                 position: absolute;
                 z-index: 11;
@@ -719,7 +719,7 @@
                 color: hsl(0, 0, 50);
                 min-height: 85px;
                 margin-top: 3rem;
-        
+
                 p {
                     color: #000000;
                     font-size: 13px;
@@ -1024,11 +1024,11 @@
         > .nl-group-head {
             &:hover {
                 background-color: #FEF8E8;
-    
+
                 .group-title {
                     border-left: 2px solid #F4B81A;
                 }
-    
+
                 .hover-actions {
                     display: flex;
                     background-color: #FEF8E8;
@@ -1045,7 +1045,7 @@
                         visibility: hidden;
                     }
                 }
-    
+
                 > .nl-rule-cell {
                     > .nl-export-checkbox {
                         > label {
@@ -1062,29 +1062,29 @@
             > .nl-group-head {
                 &:hover {
                     background-color: #FCE6E9;
-    
+
                     > .group-title {
                         border-left: 2px solid #E20225;
                     }
-    
+
                     .hover-actions {
                         background-color: #FCE6E9;
                     }
                 }
                 > .group-title {
                     border-left: 2px solid #E20225;
-    
+
                     .icon-group-disabled {
                         display: block;
                         position: relative;
-    
+
                         &:hover {
                             > .disabled-tooltip {
                                 visibility: visible;
                             }
                         }
                     }
-    
+
                     .icon-group, .icon-group-open, .icon-group-disabled-open {
                         display: none;
                     }
@@ -1133,11 +1133,11 @@
             > .nl-group-head {
                 background-color: #F4F8FE;
                 border-bottom: 1px solid white;
-    
+
                 > .group-title {
                     border-left: 2px solid #2565ED;
                 }
-    
+
                 .hover-actions {
                     background-color: #F4F8FE;
                 }
@@ -1154,11 +1154,11 @@
             > .nl-group-content {
                 > .nl-group-head {
                     background-color: #F4F8FE;
-        
+
                     .group-title {
                         border-left: 2px solid #2565ED;
                     }
-        
+
                     .hover-actions {
                         background-color: #F4F8FE;
                         display: none;
@@ -1179,7 +1179,7 @@
             > .nl-group-head {
                 &:hover {
                     background-color: #F8F8F8;
-        
+
                     .group-overlay {
                         .group-controls {
                             background-color: #F8F8F8;
@@ -1189,7 +1189,7 @@
                     .group-title {
                         border-left: 2px solid transparent;
                     }
-    
+
                     > .hover-actions {
                         display: none;
                     }
@@ -1264,7 +1264,7 @@
                     > .icon-group, > .icon-group-disabled, > .icon-group-disabled-open {
                         display: none;
                     }
-    
+
                     > .icon-group-open {
                         display: block;
                     }
@@ -1279,14 +1279,14 @@
                         > .icon-group-disabled-open {
                             display: block;
                             position: relative;
-        
+
                             &:hover {
                                 > .disabled-tooltip {
                                     visibility: visible;
                                 }
                             }
                         }
-        
+
                         > .icon-group, > .icon-group-open, > .icon-group-disabled {
                             display: none;
                         }
@@ -1328,7 +1328,7 @@
                         visibility: hidden;
                     }
                 }
-    
+
                 .rule-conditions {
                     visibility: hidden;
                 }
@@ -1341,7 +1341,7 @@
                     align-self: center;
                     color: black;
                     font-weight: normal;
-                    
+
                     p {
                         line-height: 13px;
                         font-size: 13px;
@@ -1647,7 +1647,7 @@
             padding: 5px 0;
             border-radius: 6px;
             font-family: "Roboto", Helvetica, Arial, sans-serif;
-            
+
             /* Position the tooltip text - see examples below! */
             position: absolute;
             z-index: 11;
