@@ -1,6 +1,7 @@
 {% set css_class = ['ngl-block', 'ngl-' ~ block.definition.identifier, 'ngl-vt-' ~ block.viewType, css_class|default(block.parameter('css_class').value)]|join(' ') %}
 {% set css_id = css_id|default(block.parameter('css_id').value) %}
 {% set set_container = block.parameter('set_container').value %}
+{% set is_preview = app.request.attributes.get('nglayouts_is_preview_request') %}
 
 {% if show_empty_wrapper is not defined %}
     {% set show_empty_wrapper = false %}
@@ -15,13 +16,19 @@
         {% set view_type_name = block.definition.viewType(view_type_name, block).name %}
     {% endif %}
 
-    <ngl-block blockId="{{ block.id }}" blockLocale="{{ block.locale }}" viewTypeName="{{ view_type_name }}">
-        <div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
-            {% if set_container %}<div class="container">{% endif %}
+    {% if is_preview %}
+        <ngl-block blockId="{{ block.id }}" blockLocale="{{ block.locale }}" viewTypeName="{{ view_type_name }}">
+    {% endif %}
 
-            {{ block_content|raw }}
+    <div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
+        {% if set_container %}<div class="container">{% endif %}
 
-            {% if set_container %}</div>{% endif %}
-        </div>
-    </ngl-block>
+        {{ block_content|raw }}
+
+        {% if set_container %}</div>{% endif %}
+    </div>
+
+    {% if is_preview %}
+        </ngl-block>
+    {% endif %}
 {% endif %}
