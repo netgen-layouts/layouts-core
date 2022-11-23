@@ -136,3 +136,7 @@ window.addEventListener('load', () => {
 window.addEventListener('renderAjaxPaging', () => {
   initPaging();
 });
+
+window.addEventListener('ngl:refresh', () => {
+  initPaging();
+});
