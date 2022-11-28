@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Block;
 
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ConfigProviderInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
@@ -162,9 +161,4 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
 
         return false;
     }
-
-    /**
-     * Returns the handler for this block definition.
-     */
-    abstract protected function getHandler(): BlockDefinitionHandlerInterface;
 }

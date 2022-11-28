@@ -13,7 +13,7 @@ class BlockDefinition extends AbstractBlockDefinition
 {
     private BlockDefinitionHandlerInterface $handler;
 
-    protected function getHandler(): BlockDefinitionHandlerInterface
+    public function getHandler(): BlockDefinitionHandlerInterface
     {
         return $this->handler;
     }

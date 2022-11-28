@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Block;
 
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
@@ -32,6 +33,11 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      * Returns the block definition icon.
      */
     public function getIcon(): ?string;
+
+    /**
+     * Returns the handler for this block definition.
+     */
+    public function getHandler(): BlockDefinitionHandlerInterface;
 
     /**
      * Returns if the block will be translatable when created.

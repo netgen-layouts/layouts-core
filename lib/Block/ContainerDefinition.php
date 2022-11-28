@@ -19,7 +19,7 @@ class ContainerDefinition extends AbstractBlockDefinition implements ContainerDe
         return $this->handler->getPlaceholderIdentifiers();
     }
 
-    protected function getHandler(): BlockDefinitionHandlerInterface
+    public function getHandler(): BlockDefinitionHandlerInterface
     {
         return $this->handler;
     }

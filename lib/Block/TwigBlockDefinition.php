@@ -20,7 +20,7 @@ class TwigBlockDefinition extends AbstractBlockDefinition implements TwigBlockDe
         return $this->handler->getTwigBlockNames($block);
     }
 
-    protected function getHandler(): BlockDefinitionHandlerInterface
+    public function getHandler(): BlockDefinitionHandlerInterface
     {
         return $this->handler;
     }
