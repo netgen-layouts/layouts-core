@@ -10,6 +10,16 @@ use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 
 abstract class Plugin implements PluginInterface
 {
+    public static function getExtendedIdentifiers(): iterable
+    {
+        return [];
+    }
+
+    public static function getExtendedHandlers(): iterable
+    {
+        return [];
+    }
+
     public function buildParameters(ParameterBuilderInterface $builder): void
     {
     }

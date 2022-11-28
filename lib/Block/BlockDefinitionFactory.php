@@ -125,7 +125,7 @@ final class BlockDefinitionFactory
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
 
-        $handlerPlugins = $this->handlerPluginRegistry->getPlugins(get_class($handler));
+        $handlerPlugins = $this->handlerPluginRegistry->getPlugins($identifier, get_class($handler));
         foreach ($handlerPlugins as $handlerPlugin) {
             $handlerPlugin->buildParameters($parameterBuilder);
         }

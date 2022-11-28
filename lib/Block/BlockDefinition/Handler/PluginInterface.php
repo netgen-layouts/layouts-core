@@ -23,6 +23,14 @@ interface PluginInterface
     public const GROUP_DESIGN = 'design';
 
     /**
+     * Returns the list of block definition identifiers which this plugin
+     * extends.
+     *
+     * @return iterable<string>
+     */
+    // public static function getExtendedIdentifiers(): iterable;
+
+    /**
      * Returns the list of fully qualified class names of the block definition handlers
      * which this plugin extends. If you wish to extend every existing handler,
      * return the list with FQCN of the block handler interface.
