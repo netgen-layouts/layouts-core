@@ -64,6 +64,11 @@ services:
         tags:
             - { name: netgen_layouts.view_matcher, identifier: block\definition }
 
+    netgen_layouts.view.matcher.block.definition_prefix:
+        class: Netgen\Layouts\View\Matcher\Block\DefinitionPrefix
+        tags:
+            - { name: netgen_layouts.view_matcher, identifier: block\definition\prefix }
+
     netgen_layouts.view.matcher.block.view_type:
         class: Netgen\Layouts\View\Matcher\Block\ViewType
         tags:
