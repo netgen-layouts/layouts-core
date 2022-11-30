@@ -68,8 +68,8 @@ final class BlockTypePass implements CompilerPassInterface
                     'name' => $blockDefinition['name'],
                     'icon' => $blockDefinition['icon'],
                     'enabled' => $blockDefinition['enabled'],
+                    'defaults' => $blockDefinition['defaults'],
                     'definition_identifier' => $identifier,
-                    'defaults' => [],
                 ];
 
                 continue;
@@ -83,6 +83,7 @@ final class BlockTypePass implements CompilerPassInterface
             $blockTypes[$identifier] += [
                 'name' => $blockDefinition['name'],
                 'icon' => $blockDefinition['icon'],
+                'defaults' => $blockDefinition['defaults'],
                 'definition_identifier' => $identifier,
             ];
         }
@@ -96,6 +97,10 @@ final class BlockTypePass implements CompilerPassInterface
 
             if (!isset($blockTypes[$identifier]['icon'])) {
                 $blockTypes[$identifier]['icon'] = $blockDefinitions[$definitionIdentifier]['icon'];
+            }
+
+            if (!isset($blockTypes[$identifier]['defaults'])) {
+                $blockTypes[$identifier]['defaults'] = $blockDefinitions[$definitionIdentifier]['defaults'];
             }
 
             if ($blockDefinitions[$definitionIdentifier]['enabled'] === false) {
