@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Block;
 
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
@@ -107,5 +109,10 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     public function hasPlugin(string $className): bool
     {
         return false;
+    }
+
+    public function getHandler(): BlockDefinitionHandlerInterface
+    {
+        return new class() extends BlockDefinitionHandler {};
     }
 }
