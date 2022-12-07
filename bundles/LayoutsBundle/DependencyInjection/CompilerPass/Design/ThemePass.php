@@ -36,7 +36,9 @@ final class ThemePass implements CompilerPassInterface
         $themeDirs = $this->getThemeDirs($container, $themeList);
 
         foreach ($designList as $designName => $designThemes) {
-            $designThemes[] = 'standard';
+            if ($designName !== 'admin') {
+                $designThemes[] = 'standard';
+            }
 
             foreach ($designThemes as $themeName) {
                 foreach ($themeDirs[$themeName] as $themeDir) {

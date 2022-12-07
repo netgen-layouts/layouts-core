@@ -1,2 +1,4 @@
 design_list:
     standard: ~
+    admin:
+        - admin
