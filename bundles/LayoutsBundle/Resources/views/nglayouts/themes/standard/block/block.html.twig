@@ -17,6 +17,7 @@
     {% endif %}
 
     <ngl-block blockId="{{ block.id }}" blockLocale="{{ block.locale }}" viewTypeName="{{ view_type_name }}">
+        <div class="ngl-slotted-block">
 {% endif %}
 
 {% if block_content is not empty or show_empty_wrapper %}
@@ -30,5 +31,6 @@
 {% endif %}
 
 {% if is_preview %}
+        </div>
     </ngl-block>
 {% endif %}
