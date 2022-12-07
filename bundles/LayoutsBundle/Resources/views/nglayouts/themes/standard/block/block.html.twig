@@ -9,17 +9,17 @@
 
 {% set block_content = (block('content') is defined ? block('content') : '')|trim %}
 
-{% if block_content is not empty or show_empty_wrapper %}
-    {% if is_preview %}
-        {% set view_type_name = block.viewType %}
+{% if is_preview %}
+    {% set view_type_name = block.viewType %}
 
-        {% if block.definition.hasViewType(view_type_name, block) %}
-            {% set view_type_name = block.definition.viewType(view_type_name, block).name %}
-        {% endif %}
-
-        <ngl-block blockId="{{ block.id }}" blockLocale="{{ block.locale }}" viewTypeName="{{ view_type_name }}">
+    {% if block.definition.hasViewType(view_type_name, block) %}
+        {% set view_type_name = block.definition.viewType(view_type_name, block).name %}
     {% endif %}
 
+    <ngl-block blockId="{{ block.id }}" blockLocale="{{ block.locale }}" viewTypeName="{{ view_type_name }}">
+{% endif %}
+
+{% if block_content is not empty or show_empty_wrapper %}
     <div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
         {% if set_container %}<div class="container">{% endif %}
 
@@ -27,8 +27,8 @@
 
         {% if set_container %}</div>{% endif %}
     </div>
+{% endif %}
 
-    {% if is_preview %}
-        </ngl-block>
-    {% endif %}
+{% if is_preview %}
+    </ngl-block>
 {% endif %}
