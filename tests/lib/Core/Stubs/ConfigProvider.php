@@ -12,12 +12,12 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 final class ConfigProvider implements ConfigProviderInterface
 {
     /**
-     * @param array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]> $viewTypes
+     * @var array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType>
      */
     private array $viewTypes;
 
     /**
-     * @param array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]> $viewTypes
+     * @param array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType> $viewTypes
      */
     private function __construct(array $viewTypes)
     {
@@ -49,7 +49,7 @@ final class ConfigProvider implements ConfigProviderInterface
     }
 
     /**
-     * @param array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]> $viewTypes
+     * @param array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType> $viewTypes
      */
     public static function fromFullConfig(array $viewTypes): self
     {

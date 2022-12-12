@@ -182,6 +182,18 @@
             </errorLevel>
         </InvalidOperand>
 
+        <ArgumentTypeCoercion>
+            <errorLevel type="suppress">
+                <referencedFunction name="urlencode" />
+            </errorLevel>
+        </ArgumentTypeCoercion>
+
+        <PossiblyNullArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="urlencode" />
+            </errorLevel>
+        </PossiblyNullArgument>
+
         <!-- Netgen Layouts specifics -->
 
         <PossiblyNullPropertyAssignmentValue>
