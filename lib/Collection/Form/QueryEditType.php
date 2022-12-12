@@ -62,7 +62,6 @@ final class QueryEditType extends AbstractType
                 'property_path' => 'parameterValues',
                 'parameter_definitions' => $queryType,
                 'label_prefix' => 'query.' . $queryType->getType(),
-                'identifier' => $queryType->getType(),
             ],
         );
 

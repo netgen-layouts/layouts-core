@@ -17,8 +17,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_intersect;
 use function count;
-use function sprintf;
-use function str_replace;
 
 final class ParametersType extends AbstractType
 {
@@ -38,7 +36,6 @@ final class ParametersType extends AbstractType
                 'groups',
                 'parameter_definitions',
                 'label_prefix',
-                'identifier',
             ],
         );
 
@@ -46,17 +43,14 @@ final class ParametersType extends AbstractType
         $resolver->setAllowedTypes('parameter_definitions', ParameterDefinitionCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
         $resolver->setAllowedTypes('groups', 'string[]');
-        $resolver->setAllowedTypes('identifier', 'string');
 
         $resolver->setDefault('groups', []);
-        $resolver->setDefault('identifier', '');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var \Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions */
         $parameterDefinitions = $options['parameter_definitions'];
-        $identifier = $options['identifier'];
 
         foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             if (!$this->includeParameter($parameterDefinition, $options['groups'])) {
@@ -68,16 +62,10 @@ final class ParametersType extends AbstractType
 
             $mapper = $this->getMapper($parameterDefinition->getType()::getIdentifier());
 
-            $blockName = $parameterName;
-            if ($identifier !== '') {
-                $blockName = sprintf('%s_%s', $identifier, $parameterName);
-            }
-
             $defaultOptions = [
                 'label' => $parameterLabel ?? $options['label_prefix'] . '.' . $parameterName,
                 'translation_domain' => 'nglayouts',
                 'property_path' => 'parameterValues[' . $parameterName . ']',
-                'block_name' => str_replace([':', '-'], '_', $blockName),
                 'ngl_parameter_definition' => $parameterDefinition,
             ];
 

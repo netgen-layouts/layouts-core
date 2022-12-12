@@ -271,7 +271,6 @@ final class ParametersTypeTest extends FormTestCase
             [
                 'translation_domain' => 'nglayouts',
                 'groups' => [],
-                'identifier' => '',
                 'parameter_definitions' => $parameterDefinitions,
                 'label_prefix' => 'label',
             ],
