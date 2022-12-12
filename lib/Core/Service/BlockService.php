@@ -578,7 +578,7 @@ final class BlockService implements BlockServiceInterface
      * @param iterable<\Netgen\Layouts\Persistence\Values\Block\Block> $blocks
      * @param string[]|null $locales
      *
-     * @return \Generator<\Netgen\Layouts\API\Values\Block\Block>
+     * @return \Generator<int, \Netgen\Layouts\API\Values\Block\Block>
      */
     private function filterUntranslatedBlocks(iterable $blocks, ?array $locales, bool $useMainLocale): Generator
     {

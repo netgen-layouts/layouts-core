@@ -56,7 +56,10 @@ final class RouteGenerator
 
         parse_str(mb_substr($signedContext, 1), $params);
 
-        $uri .= (!str_contains($uri, '?') ? '?' : '&') . '_hash=' . urlencode($params['_hash']);
+        /** @var string $signature */
+        $signature = $params['_hash'];
+
+        $uri .= (!str_contains($uri, '?') ? '?' : '&') . '_hash=' . urlencode($signature);
 
         if ($page > 1) {
             $uri .= '&page=' . $page;

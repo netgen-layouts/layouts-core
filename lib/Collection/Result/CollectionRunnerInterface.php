@@ -13,7 +13,7 @@ interface CollectionRunnerInterface
      * Runs the provided collection with offset and limit and returns
      * the iterator which can be used to iterate over the results.
      *
-     * @return \Iterator<\Netgen\Layouts\Collection\Result\Result>
+     * @return \Iterator<int, \Netgen\Layouts\Collection\Result\Result>
      */
     public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator;
 

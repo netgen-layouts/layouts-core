@@ -82,7 +82,7 @@ final class LayoutResolver implements LayoutResolverInterface
     /**
      * @param string[] $enabledConditions
      *
-     * @return \Generator<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
+     * @return \Generator<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
      */
     private function innerResolveRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): Generator
     {
@@ -113,7 +113,7 @@ final class LayoutResolver implements LayoutResolverInterface
     /**
      * @param string[] $enabledConditions
      *
-     * @return \Generator<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
+     * @return \Generator<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
      */
     private function resolveGroupRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): Generator
     {

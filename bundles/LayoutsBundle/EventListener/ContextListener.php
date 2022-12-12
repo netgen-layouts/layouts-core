@@ -93,7 +93,7 @@ final class ContextListener implements EventSubscriberInterface
         $signedContext = sprintf(
             '?%s' . (count($context) > 0 ? '&' : '') . '_hash=%s',
             http_build_query(['nglContext' => $context]),
-            urlencode($request->query->get('_hash', '')),
+            urlencode((string) ($request->query->get('_hash') ?? '')),
         );
 
         if (!$this->uriSigner->check($signedContext)) {

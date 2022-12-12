@@ -30,6 +30,7 @@
             <errorLevel type="suppress">
                 <referencedMethod name="Symfony\Component\Intl\Intl::getLocaleBundle" />
                 <referencedMethod name="Symfony\Component\HttpKernel\Event\KernelEvent::isMasterRequest" />
+                <referencedMethod name="Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface::getExtendedIdentifiers" />
             </errorLevel>
         </UndefinedMethod>
 
@@ -108,6 +109,7 @@
         <PossiblyInvalidArgument>
             <errorLevel type="suppress">
                 <referencedFunction name="Symfony\Component\Serializer\Encoder\DecoderInterface::decode" />
+                <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::setValue" />
             </errorLevel>
         </PossiblyInvalidArgument>
 
@@ -156,6 +158,30 @@
             </errorLevel>
         </TooManyTemplateParams>
 
+        <PossiblyNullReference>
+            <errorLevel type="suppress">
+                <file name="bundles/LayoutsBundle/Templating/Twig/Runtime/HelpersRuntime.php" />
+            </errorLevel>
+        </PossiblyNullReference>
+
+        <InvalidReturnType>
+            <errorLevel type="suppress">
+                <file name="bundles/LayoutsAdminBundle/Form/Admin/Type/LayoutListTransformer.php" />
+            </errorLevel>
+        </InvalidReturnType>
+
+        <InvalidReturnStatement>
+            <errorLevel type="suppress">
+                <file name="bundles/LayoutsAdminBundle/Form/Admin/Type/LayoutListTransformer.php" />
+            </errorLevel>
+        </InvalidReturnStatement>
+
+        <InvalidOperand>
+            <errorLevel type="suppress">
+                <file name="bundles/LayoutsBundle/DependencyInjection/CompilerPass/Block/BlockTypeGroupPass.php" />
+            </errorLevel>
+        </InvalidOperand>
+
         <!-- Netgen Layouts specifics -->
 
         <PossiblyNullPropertyAssignmentValue>
@@ -169,6 +195,7 @@
                 <directory name="lib/Validator" />
                 <directory name="lib/Core/Validator" />
                 <directory name="lib/Persistence/Doctrine/QueryHandler" />
+                <file name="bundles/LayoutsAdminBundle/Controller/API/Block/Utils/CreateStructBuilder.php" />
             </errorLevel>
         </TypeDoesNotContainType>
 
