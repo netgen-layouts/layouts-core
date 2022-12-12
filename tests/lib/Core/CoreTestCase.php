@@ -11,8 +11,6 @@ use Netgen\Layouts\API\Service\LayoutService as APILayoutService;
 use Netgen\Layouts\API\Service\TransactionService as APITransactionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Block\BlockDefinition;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
@@ -62,6 +60,7 @@ use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHandler;
 use Netgen\Layouts\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Utils\HtmlPurifier;
@@ -404,15 +403,7 @@ abstract class CoreTestCase extends TestCase
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
                 'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => true,
-                'viewTypes' => [
-                    'small' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['small' => ['standard']]),
             ],
         );
 
@@ -422,15 +413,7 @@ abstract class CoreTestCase extends TestCase
                 'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
                 'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => false,
-                'viewTypes' => [
-                    'standard' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['standard' => ['standard']]),
             ],
         );
 
@@ -441,15 +424,7 @@ abstract class CoreTestCase extends TestCase
                 'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => false,
                 'collections' => ['default' => new Collection()],
-                'viewTypes' => [
-                    'standard' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['standard' => ['standard']]),
             ],
         );
 
@@ -460,15 +435,7 @@ abstract class CoreTestCase extends TestCase
                 'configDefinitions' => ['key' => $configDefinition],
                 'isTranslatable' => false,
                 'collections' => ['default' => new Collection()],
-                'viewTypes' => [
-                    'small' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['small' => ['standard']]),
             ],
         );
 
@@ -478,15 +445,7 @@ abstract class CoreTestCase extends TestCase
                 'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['main', 'other']),
                 'isTranslatable' => false,
-                'viewTypes' => [
-                    'column' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['column' => ['standard']]),
             ],
         );
 
@@ -496,15 +455,7 @@ abstract class CoreTestCase extends TestCase
                 'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['left', 'right']),
                 'isTranslatable' => false,
-                'viewTypes' => [
-                    'two_columns_50_50' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['two_columns_50_50' => ['standard']]),
             ],
         );
 

@@ -11,13 +11,12 @@ use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\BlockDefinition;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -55,15 +54,7 @@ final class BlockServiceTest extends TestCase
                 [
                     'identifier' => 'definition',
                     'isTranslatable' => false,
-                    'viewTypes' => [
-                        'default' => ViewType::fromArray(
-                            [
-                                'itemViewTypes' => [
-                                    'standard' => new ItemViewType(),
-                                ],
-                            ],
-                        ),
-                    ],
+                    'configProvider' => ConfigProvider::fromShortConfig(['large' => ['standard']]),
                 ],
             ),
         );
@@ -120,15 +111,7 @@ final class BlockServiceTest extends TestCase
                 [
                     'identifier' => 'definition',
                     'isTranslatable' => false,
-                    'viewTypes' => [
-                        'default' => ViewType::fromArray(
-                            [
-                                'itemViewTypes' => [
-                                    'standard' => new ItemViewType(),
-                                ],
-                            ],
-                        ),
-                    ],
+                    'configProvider' => ConfigProvider::fromShortConfig(['default' => ['standard']]),
                 ],
             ),
         );

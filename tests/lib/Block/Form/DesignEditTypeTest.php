@@ -15,6 +15,7 @@ use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
@@ -48,44 +49,46 @@ final class DesignEditTypeTest extends FormTestCase
                         ],
                     ),
                 ],
-                'viewTypes' => [
-                    'large' => ViewType::fromArray(
-                        [
-                            'identifier' => 'large',
-                            'name' => 'Large',
-                            'validParameters' => null,
-                            'itemViewTypes' => [
-                                'standard' => ItemViewType::fromArray(
-                                    [
-                                        'identifier' => 'standard',
-                                        'name' => 'Standard',
-                                    ],
-                                ),
-                                'other' => ItemViewType::fromArray(
-                                    [
-                                        'identifier' => 'other',
-                                        'name' => 'Other',
-                                    ],
-                                ),
+                'configProvider' => ConfigProvider::fromFullConfig(
+                    [
+                        'large' => ViewType::fromArray(
+                            [
+                                'identifier' => 'large',
+                                'name' => 'Large',
+                                'validParameters' => null,
+                                'itemViewTypes' => [
+                                    'standard' => ItemViewType::fromArray(
+                                        [
+                                            'identifier' => 'standard',
+                                            'name' => 'Standard',
+                                        ],
+                                    ),
+                                    'other' => ItemViewType::fromArray(
+                                        [
+                                            'identifier' => 'other',
+                                            'name' => 'Other',
+                                        ],
+                                    ),
+                                ],
                             ],
-                        ],
-                    ),
-                    'small' => ViewType::fromArray(
-                        [
-                            'identifier' => 'large',
-                            'name' => 'Large',
-                            'validParameters' => null,
-                            'itemViewTypes' => [
-                                'standard' => ItemViewType::fromArray(
-                                    [
-                                        'identifier' => 'standard',
-                                        'name' => 'Standard',
-                                    ],
-                                ),
+                        ),
+                        'small' => ViewType::fromArray(
+                            [
+                                'identifier' => 'large',
+                                'name' => 'Large',
+                                'validParameters' => null,
+                                'itemViewTypes' => [
+                                    'standard' => ItemViewType::fromArray(
+                                        [
+                                            'identifier' => 'standard',
+                                            'name' => 'Standard',
+                                        ],
+                                    ),
+                                ],
                             ],
-                        ],
-                    ),
-                ],
+                        ),
+                    ],
+                ),
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
             ],
         );

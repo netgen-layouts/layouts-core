@@ -10,6 +10,7 @@ use Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolverInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Layout\Resolver\LayoutResolverInterface;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewBuilderInterface;
@@ -18,6 +19,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\UriSigner;
 
 final class GlobalVariableTest extends TestCase
 {
@@ -29,7 +31,11 @@ final class GlobalVariableTest extends TestCase
 
     private MockObject $viewBuilderMock;
 
+    private MockObject $uriSignerMock;
+
     private GlobalVariable $globalVariable;
+
+    private Context $context;
 
     private RequestStack $requestStack;
 
@@ -39,7 +45,9 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock = $this->createMock(LayoutResolverInterface::class);
         $this->pageLayoutResolverMock = $this->createMock(PageLayoutResolverInterface::class);
         $this->viewBuilderMock = $this->createMock(ViewBuilderInterface::class);
+        $this->uriSignerMock = $this->createMock(UriSigner::class);
 
+        $this->context = new Context();
         $this->requestStack = new RequestStack();
 
         $this->globalVariable = new GlobalVariable(
@@ -47,12 +55,15 @@ final class GlobalVariableTest extends TestCase
             $this->layoutResolverMock,
             $this->pageLayoutResolverMock,
             $this->viewBuilderMock,
+            $this->context,
+            $this->uriSignerMock,
             $this->requestStack,
             true,
         );
     }
 
     /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::getPageLayoutTemplate
      */
     public function testGetPageLayoutTemplate(): void
@@ -506,7 +517,36 @@ final class GlobalVariableTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::getContext
+     */
+    public function testGetContext(): void
+    {
+        $this->context->set('foo', 'bar');
+
+        self::assertSame(['foo' => 'bar'], $this->globalVariable->getContext());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::getContextString
+     */
+    public function testGetContextString(): void
+    {
+        $this->context->set('foo', 'bar');
+        $this->context->set('bar', 'baz');
+
+        $this->uriSignerMock
+            ->expects(self::any())
+            ->method('sign')
+            ->with('?nglContext%5Bfoo%5D=bar&nglContext%5Bbar%5D=baz')
+            ->willReturn('?nglContext%5Bfoo%5D=bar&nglContext%5Bbar%5D=baz&_hash=signature');
+
+        self::assertSame(
+            'nglContext%5Bfoo%5D=bar&nglContext%5Bbar%5D=baz&_hash=signature',
+            $this->globalVariable->getContextString(),
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::getConfig
      */
     public function testGetConfig(): void

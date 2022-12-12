@@ -6,13 +6,13 @@ namespace Netgen\Layouts\Tests\Block;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Provider\StaticConfigProvider;
 use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinitionFactory;
 use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Config\ConfigDefinitionInterface;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType\TextLineType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
@@ -73,30 +73,35 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            [
-                'view_types' => [
-                    'disabled' => [
-                        'enabled' => false,
-                        'item_view_types' => [],
-                    ],
-                    'view_type' => [
-                        'enabled' => true,
-                        'name' => 'View type',
-                        'item_view_types' => [
-                            'disabled' => [
-                                'enabled' => false,
-                                'name' => 'Item view type',
-                            ],
-                            'item_view_type' => [
-                                'enabled' => true,
-                                'name' => 'Item view type',
-                            ],
+            new StaticConfigProvider(
+                'definition',
+                [
+                    'view_types' => [
+                        'disabled' => [
+                            'enabled' => false,
+                            'item_view_types' => [],
                         ],
-                        'valid_parameters' => [
-                            'param1', 'param2',
+                        'view_type' => [
+                            'enabled' => true,
+                            'name' => 'View type',
+                            'item_view_types' => [
+                                'disabled' => [
+                                    'enabled' => false,
+                                    'name' => 'Item view type',
+                                ],
+                                'item_view_type' => [
+                                    'enabled' => true,
+                                    'name' => 'Item view type',
+                                ],
+                            ],
+                            'valid_parameters' => [
+                                'param1', 'param2',
+                            ],
                         ],
                     ],
                 ],
+            ),
+            [
                 'forms' => [
                     'disabled' => [
                         'enabled' => false,
@@ -204,14 +209,19 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
             $this->handlerMock,
-            [
-                'translatable' => true,
-                'view_types' => [
-                    'view_type' => [
-                        'enabled' => true,
-                        'item_view_types' => [],
+            new StaticConfigProvider(
+                'definition',
+                [
+                    'view_types' => [
+                        'view_type' => [
+                            'enabled' => true,
+                            'item_view_types' => [],
+                        ],
                     ],
                 ],
+            ),
+            [
+                'translatable' => true,
             ],
             [
                 'test' => new ConfigDefinitionHandler(),
@@ -249,14 +259,19 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
             $this->handlerMock,
-            [
-                'translatable' => false,
-                'view_types' => [
-                    'view_type' => [
-                        'enabled' => true,
-                        'item_view_types' => [],
+            new StaticConfigProvider(
+                'definition',
+                [
+                    'view_types' => [
+                        'view_type' => [
+                            'enabled' => true,
+                            'item_view_types' => [],
+                        ],
                     ],
                 ],
+            ),
+            [
+                'translatable' => false,
             ],
             [
                 'test' => new ConfigDefinitionHandler(),
@@ -276,65 +291,5 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
 
         self::assertSame(['left', 'right'], $blockDefinition->getPlaceholders());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildBlockDefinition
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
-     */
-    public function testBuildConfigWithNoViewTypes(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('You need to specify at least one enabled view type for "definition" block definition.');
-
-        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
-
-        $this->factory->buildBlockDefinition(
-            'definition',
-            $this->handlerMock,
-            [
-                'view_types' => [
-                    'large' => [
-                        'enabled' => false,
-                        'valid_parameters' => null,
-                    ],
-                ],
-            ],
-            [],
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildBlockDefinition
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
-     */
-    public function testBuildConfigWithNoItemViewTypes(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('You need to specify at least one enabled item view type for "large" view type and "definition" block definition.');
-
-        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
-
-        $this->factory->buildBlockDefinition(
-            'definition',
-            $this->handlerMock,
-            [
-                'view_types' => [
-                    'large' => [
-                        'name' => 'Large',
-                        'enabled' => true,
-                        'item_view_types' => [
-                            'standard' => [
-                                'enabled' => false,
-                            ],
-                        ],
-                        'valid_parameters' => null,
-                    ],
-                ],
-            ],
-            [],
-        );
     }
 }

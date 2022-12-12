@@ -89,6 +89,15 @@ final class BlockDefinitionNodeTest extends TestCase
                                 'enabled' => true,
                             ],
                         ],
+                        'defaults' => [
+                            'name' => 'Name',
+                            'view_type' => 'large',
+                            'item_view_type' => 'standard',
+                            'parameters' => [
+                                'param1' => 'value1',
+                                'param2' => 'value2',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -165,6 +174,15 @@ final class BlockDefinitionNodeTest extends TestCase
                                 ],
                             ],
                             'valid_parameters' => null,
+                        ],
+                    ],
+                    'defaults' => [
+                        'name' => 'Name',
+                        'view_type' => 'large',
+                        'item_view_type' => 'standard',
+                        'parameters' => [
+                            'param1' => 'value1',
+                            'param2' => 'value2',
                         ],
                     ],
                 ],
@@ -1280,6 +1298,232 @@ final class BlockDefinitionNodeTest extends TestCase
         ];
 
         $this->assertConfigurationIsInvalid([$config]);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     */
+    public function testBlockDefinitionSettingsWithNoDefaultName(): void
+    {
+        $config = [
+            [
+                'block_definitions' => [
+                    'block_definition' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'block_definitions' => [
+                'block_definition' => [
+                    'defaults' => [
+                        'name' => '',
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.defaults.name',
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     */
+    public function testBlockDefinitionSettingsWithNoDefaultViewType(): void
+    {
+        $config = [
+            [
+                'block_definitions' => [
+                    'block_definition' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'block_definitions' => [
+                'block_definition' => [
+                    'defaults' => [
+                        'view_type' => '',
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.defaults.view_type',
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     */
+    public function testBlockDefinitionSettingsWithNoDefaultItemViewType(): void
+    {
+        $config = [
+            [
+                'block_definitions' => [
+                    'block_definition' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'block_definitions' => [
+                'block_definition' => [
+                    'defaults' => [
+                        'item_view_type' => '',
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.defaults.item_view_type',
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     */
+    public function testBlockDefinitionSettingsWithNoDefaultParameters(): void
+    {
+        $config = [
+            [
+                'block_definitions' => [
+                    'block_definition' => [
+                        'defaults' => [],
+                    ],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'block_definitions' => [
+                'block_definition' => [
+                    'defaults' => [
+                        'parameters' => [],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.defaults.parameters',
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     */
+    public function testBlockDefinitionSettingsWithNoParametersMerge(): void
+    {
+        $config = [
+            [
+                'block_definitions' => [
+                    'block_definition' => [
+                        'defaults' => [
+                            'parameters' => [
+                                'param1' => 'value1',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'block_definitions' => [
+                    'block_definition' => [
+                        'defaults' => [
+                            'parameters' => [
+                                'param2' => 'value2',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'block_definitions' => [
+                'block_definition' => [
+                    'defaults' => [
+                        'parameters' => [
+                            'param2' => 'value2',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.defaults.parameters',
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     */
+    public function testBlockDefinitionSettingsWithNoDefaults(): void
+    {
+        $config = [
+            [
+                'block_definitions' => [
+                    'block_definition' => [],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'block_definitions' => [
+                'block_definition' => [
+                    'defaults' => [
+                        'name' => '',
+                        'view_type' => '',
+                        'item_view_type' => '',
+                        'parameters' => [],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.defaults',
+        );
     }
 
     protected function getConfiguration(): ConfigurationInterface

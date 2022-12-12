@@ -46,6 +46,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -91,11 +92,13 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
+                    'defaults' => [],
                 ],
                 'other' => [
                     'name' => 'Other',
                     'icon' => '/icon.svg',
                     'enabled' => true,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -116,6 +119,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'enabled' => true,
                 'icon' => '/icon2.svg',
                 'definition_identifier' => 'other',
+                'defaults' => [],
             ],
             $blockTypes['test'],
         );
@@ -153,6 +157,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -172,6 +177,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'enabled' => true,
                 'name' => 'Test',
                 'icon' => '/icon.svg',
+                'defaults' => [],
                 'definition_identifier' => 'test',
             ],
             $blockTypes['test'],
@@ -204,6 +210,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Test',
                     'icon' => '/icon.svg',
                     'enabled' => true,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -222,8 +229,8 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'name' => 'Test',
                 'icon' => '/icon.svg',
                 'enabled' => true,
-                'definition_identifier' => 'test',
                 'defaults' => [],
+                'definition_identifier' => 'test',
             ],
             $blockTypes['test'],
         );
@@ -264,6 +271,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'enabled' => true,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -283,6 +291,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'enabled' => false,
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
+                'defaults' => [],
             ],
             $blockTypes['type'],
         );
@@ -324,6 +333,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'enabled' => false,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -344,6 +354,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
                 'name' => 'Title',
+                'defaults' => [],
             ],
             $blockTypes['title'],
         );
@@ -384,6 +395,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'enabled' => true,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -403,6 +415,112 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'enabled' => true,
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
+                'defaults' => [],
+            ],
+            $blockTypes['my_title'],
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
+     */
+    public function testProcessWithDefaultsTakenFromBlockDefinition(): void
+    {
+        $this->setParameter(
+            'netgen_layouts.block_types',
+            [
+                'my_title' => [
+                    'enabled' => true,
+                    'icon' => null,
+                    'definition_identifier' => 'title',
+                ],
+            ],
+        );
+
+        $this->setParameter(
+            'netgen_layouts.block_definitions',
+            [
+                'title' => [
+                    'name' => 'Title',
+                    'icon' => null,
+                    'enabled' => true,
+                    'defaults' => ['defaults'],
+                ],
+            ],
+        );
+
+        $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
+
+        $this->compile();
+
+        $blockTypes = $this->container->getParameter('netgen_layouts.block_types');
+
+        self::assertIsArray($blockTypes);
+        self::assertArrayHasKey('my_title', $blockTypes);
+
+        self::assertSame(
+            [
+                'enabled' => true,
+                'icon' => null,
+                'definition_identifier' => 'title',
+                'defaults' => ['defaults'],
+            ],
+            $blockTypes['my_title'],
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
+     */
+    public function testProcessWithDefaultsKeptFromBlockType(): void
+    {
+        $this->setParameter(
+            'netgen_layouts.block_types',
+            [
+                'my_title' => [
+                    'enabled' => true,
+                    'icon' => null,
+                    'definition_identifier' => 'title',
+                    'defaults' => ['block_type_defaults'],
+                ],
+            ],
+        );
+
+        $this->setParameter(
+            'netgen_layouts.block_definitions',
+            [
+                'title' => [
+                    'name' => 'Title',
+                    'icon' => null,
+                    'enabled' => true,
+                    'defaults' => ['block_definition_defaults'],
+                ],
+            ],
+        );
+
+        $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
+
+        $this->compile();
+
+        $blockTypes = $this->container->getParameter('netgen_layouts.block_types');
+
+        self::assertIsArray($blockTypes);
+        self::assertArrayHasKey('my_title', $blockTypes);
+
+        self::assertSame(
+            [
+                'enabled' => true,
+                'icon' => null,
+                'definition_identifier' => 'title',
+                'defaults' => ['block_type_defaults'],
             ],
             $blockTypes['my_title'],
         );
@@ -434,6 +552,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'name' => 'Title',
                     'icon' => '/icon.svg',
                     'enabled' => false,
+                    'defaults' => [],
                 ],
             ],
         );
@@ -453,6 +572,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'enabled' => false,
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
+                'defaults' => [],
             ],
             $blockTypes['type'],
         );

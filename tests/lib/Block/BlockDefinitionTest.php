@@ -15,6 +15,7 @@ use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -59,10 +60,12 @@ final class BlockDefinitionTest extends TestCase
                 'collections' => [
                     'collection' => $this->collection,
                 ],
-                'viewTypes' => [
-                    'large' => $this->viewType1,
-                    'small' => $this->viewType2,
-                ],
+                'configProvider' => ConfigProvider::fromFullConfig(
+                    [
+                        'large' => $this->viewType1,
+                        'small' => $this->viewType2,
+                    ],
+                ),
                 'configDefinitions' => ['config' => $this->configDefinition],
             ],
         );

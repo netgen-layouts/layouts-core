@@ -809,6 +809,7 @@ final class ParameterBuilderTest extends TestCase
             'test',
             ParameterType\TextType::class,
             [
+                'readonly' => true,
                 'required' => true,
                 'default_value' => 'test value',
                 'label' => null,
@@ -821,6 +822,7 @@ final class ParameterBuilderTest extends TestCase
             'compound',
             ParameterType\Compound\BooleanType::class,
             [
+                'readonly' => false,
                 'required' => false,
                 'default_value' => true,
                 'label' => false,
@@ -832,6 +834,7 @@ final class ParameterBuilderTest extends TestCase
             'test2',
             ParameterType\TextType::class,
             [
+                'readonly' => false,
                 'required' => true,
                 'default_value' => 'test value 2',
                 'label' => 'Custom label',
@@ -862,6 +865,7 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => $constraints,
                 'defaultValue' => 'test value',
                 'groups' => ['group'],
+                'isReadOnly' => true,
                 'isRequired' => true,
                 'label' => null,
                 'name' => 'test',
@@ -876,6 +880,7 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => [],
                 'defaultValue' => true,
                 'groups' => ['group 2'],
+                'isReadOnly' => false,
                 'isRequired' => false,
                 'label' => false,
                 'name' => 'compound',
@@ -891,6 +896,7 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => [],
                 'defaultValue' => 'test value 2',
                 'groups' => ['group 2'],
+                'isReadOnly' => false,
                 'isRequired' => true,
                 'label' => 'Custom label',
                 'name' => 'test2',
@@ -916,6 +922,7 @@ final class ParameterBuilderTest extends TestCase
             'test',
             ParameterType\TextType::class,
             [
+                'readonly' => false,
                 'constraints' => $constraints,
                 'default_value' => 'test value',
                 'groups' => ['group'],
@@ -936,6 +943,7 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => $constraints,
                 'defaultValue' => 'test value',
                 'groups' => ['group'],
+                'isReadOnly' => false,
                 'isRequired' => true,
                 'label' => null,
                 'name' => 'test',
@@ -967,6 +975,7 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => [],
                 'defaultValue' => null,
                 'groups' => [],
+                'isReadOnly' => false,
                 'isRequired' => false,
                 'label' => null,
                 'name' => 'test',
@@ -994,6 +1003,29 @@ final class ParameterBuilderTest extends TestCase
             ParameterType\TextType::class,
             [
                 'required' => 'true',
+            ],
+        );
+
+        $this->builder->buildParameterDefinitions();
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
+     */
+    public function testBuildParameterDefinitionsWithInvalidReadOnlyOption(): void
+    {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "readonly" with value "true" is expected to be of type "bool", but is of type "string".');
+
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            [
+                'readonly' => 'true',
             ],
         );
 

@@ -68,7 +68,16 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                 'test' => [
                     'enabled' => true,
                     'priority' => 0,
-                    'block_types' => ['test1', 'test2'],
+                    'block_types' => [
+                        'test1' => [
+                            'identifier' => 'test1',
+                            'priority' => 0,
+                        ],
+                        'test2' => [
+                            'identifier' => 'test2',
+                            'priority' => 0,
+                        ],
+                    ],
                 ],
             ],
         );
@@ -78,6 +87,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             [
                 'test1' => [
                     'enabled' => true,
+                    'priority' => 0,
                 ],
             ],
         );
@@ -110,7 +120,12 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                 'test' => [
                     'enabled' => true,
                     'priority' => 0,
-                    'block_types' => ['test1'],
+                    'block_types' => [
+                        'test1' => [
+                            'identifier' => 'test1',
+                            'priority' => 0,
+                        ],
+                    ],
                 ],
                 'custom' => [
                     'enabled' => true,
@@ -126,14 +141,17 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                 'test1' => [
                     'enabled' => true,
                     'definition_identifier' => 'test',
+                    'priority' => 0,
                 ],
                 'test2' => [
                     'enabled' => false,
                     'definition_identifier' => 'test',
+                    'priority' => 0,
                 ],
                 'test3' => [
                     'enabled' => true,
                     'definition_identifier' => 'test',
+                    'priority' => 0,
                 ],
             ],
         );
@@ -153,7 +171,16 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             [
                 'enabled' => true,
                 'priority' => 0,
-                'block_types' => ['test2', 'test3'],
+                'block_types' => [
+                    0 => [
+                        'identifier' => 'test2',
+                        'priority' => 0,
+                    ],
+                    1 => [
+                        'identifier' => 'test3',
+                        'priority' => 0,
+                    ],
+                ],
             ],
             $blockTypeGroups['custom'],
         );

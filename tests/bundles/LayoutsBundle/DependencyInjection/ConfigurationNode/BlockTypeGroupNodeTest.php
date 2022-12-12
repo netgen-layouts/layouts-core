@@ -112,7 +112,20 @@ final class BlockTypeGroupNodeTest extends TestCase
         $expectedConfig = [
             'block_type_groups' => [
                 'block_type_group' => [
-                    'block_types' => ['title', 'text', 'image'],
+                    'block_types' => [
+                        [
+                            'identifier' => 'title',
+                            'priority' => 0,
+                        ],
+                        [
+                            'identifier' => 'text',
+                            'priority' => 0,
+                        ],
+                        [
+                            'identifier' => 'image',
+                            'priority' => 0,
+                        ],
+                    ],
                 ],
             ],
         ];
@@ -145,40 +158,16 @@ final class BlockTypeGroupNodeTest extends TestCase
         $expectedConfig = [
             'block_type_groups' => [
                 'block_type_group' => [
-                    'block_types' => ['title', 'image'],
-                ],
-            ],
-        ];
-
-        $this->assertProcessedConfigurationEquals(
-            $config,
-            $expectedConfig,
-            'block_type_groups.*.block_types',
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
-     */
-    public function testBlockTypeGroupsSettingsWithNonUniqueBlockTypes(): void
-    {
-        $config = [
-            [
-                'block_type_groups' => [
-                    'block_type_group' => [
-                        'block_types' => ['title', 'image', 'title'],
+                    'block_types' => [
+                        [
+                            'identifier' => 'title',
+                            'priority' => 0,
+                        ],
+                        [
+                            'identifier' => 'image',
+                            'priority' => 0,
+                        ],
                     ],
-                ],
-            ],
-        ];
-
-        $expectedConfig = [
-            'block_type_groups' => [
-                'block_type_group' => [
-                    'block_types' => ['title', 'image'],
                 ],
             ],
         ];

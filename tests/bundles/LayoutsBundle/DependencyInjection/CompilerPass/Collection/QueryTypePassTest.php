@@ -26,7 +26,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
      */
     public function testProcess(): void
     {
-        $queryTypes = ['query_type' => ['config']];
+        $queryTypes = ['query_type' => ['priority' => 0]];
         $this->setParameter('netgen_layouts.query_types', $queryTypes);
 
         $this->setDefinition('netgen_layouts.collection.query_type_factory', new Definition());
@@ -56,7 +56,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
      */
     public function testProcessWithCustomHandler(): void
     {
-        $queryTypes = ['query_type' => ['handler' => 'custom']];
+        $queryTypes = ['query_type' => ['handler' => 'custom', 'priority' => 0]];
         $this->setParameter('netgen_layouts.query_types', $queryTypes);
 
         $this->setDefinition('netgen_layouts.collection.query_type_factory', new Definition());
@@ -89,7 +89,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Query type handler for "query_type" query type does not exist.');
 
-        $queryTypes = ['query_type' => ['config']];
+        $queryTypes = ['query_type' => ['priority' => 0]];
         $this->setParameter('netgen_layouts.query_types', $queryTypes);
 
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition());
@@ -109,7 +109,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Query type handler for "query_type" query type does not exist.');
 
-        $queryTypes = ['query_type' => ['config']];
+        $queryTypes = ['query_type' => ['priority' => 0]];
         $this->setParameter('netgen_layouts.query_types', $queryTypes);
 
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition());
@@ -129,7 +129,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Query type handler for "query_type" query type does not exist.');
 
-        $queryTypes = ['query_type' => ['handler' => 'custom']];
+        $queryTypes = ['query_type' => ['handler' => 'custom', 'priority' => 0]];
         $this->setParameter('netgen_layouts.query_types', $queryTypes);
 
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition());

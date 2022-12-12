@@ -70,7 +70,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.block.block_definition.block_definition',
-            3,
+            4,
             [
                 'key' => new Reference('netgen_layouts.block.block_config_handler.key'),
             ],

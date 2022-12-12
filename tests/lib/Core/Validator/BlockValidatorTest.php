@@ -9,8 +9,6 @@ use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Block\BlockDefinition;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
@@ -20,6 +18,7 @@ use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
@@ -172,66 +171,6 @@ final class BlockValidatorTest extends TestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'nonexistent',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => '',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'nonexistent',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => '',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [
@@ -729,15 +668,7 @@ final class BlockValidatorTest extends TestCase
         return BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-                'viewTypes' => [
-                    'large' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['large' => ['standard']]),
             ],
         );
     }
@@ -749,15 +680,7 @@ final class BlockValidatorTest extends TestCase
         return ContainerDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-                'viewTypes' => [
-                    'large' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['large' => ['standard']]),
             ],
         );
     }

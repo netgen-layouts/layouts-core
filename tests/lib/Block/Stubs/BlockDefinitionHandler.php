@@ -39,6 +39,7 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => true,
+                    'isReadOnly' => false,
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
                     'options' => [
@@ -51,6 +52,7 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
+                    'isReadOnly' => false,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,

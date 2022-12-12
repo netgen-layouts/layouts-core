@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime\CollectionPa
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Context\Context;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -44,12 +45,13 @@ final class RouteGeneratorTest extends TestCase
      *
      * @dataProvider invokeDataProvider
      */
-    public function testInvoke(int $page, string $signedUri, string $signedUriSuffix): void
+    public function testInvoke(int $page, string $generatedUri, string $finalUri): void
     {
         $block = Block::fromArray(
             [
                 'id' => Uuid::uuid4(),
                 'locale' => 'en',
+                'status' => Value::STATUS_PUBLISHED,
             ],
         );
 
@@ -68,33 +70,33 @@ final class RouteGeneratorTest extends TestCase
                     ],
                 ),
             )
-            ->willReturn('/generated/uri');
+            ->willReturn($generatedUri);
 
         $this->uriSignerMock->expects(self::once())
             ->method('sign')
-            ->with(self::identicalTo('/generated/uri'))
-            ->willReturn($signedUri);
+            ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
+            ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');
 
         $url = call_user_func($this->routeGenerator, $block, 'default', $page);
 
-        self::assertSame($signedUri . $signedUriSuffix, $url);
+        self::assertSame($finalUri, $url);
     }
 
     public function invokeDataProvider(): array
     {
         return [
-            [-5, '/signed/uri', ''],
-            [-1, '/signed/uri', ''],
-            [0, '/signed/uri', ''],
-            [1, '/signed/uri', ''],
-            [2, '/signed/uri', '?page=2'],
-            [5, '/signed/uri', '?page=5'],
-            [-5, '/signed/uri?foo', ''],
-            [-1, '/signed/uri?foo', ''],
-            [0, '/signed/uri?foo', ''],
-            [1, '/signed/uri?foo', ''],
-            [2, '/signed/uri?foo', '&page=2'],
-            [5, '/signed/uri?foo', '&page=5'],
+            [-5, '/generated/uri', '/generated/uri?_hash=signature'],
+            [-1, '/generated/uri', '/generated/uri?_hash=signature'],
+            [0, '/generated/uri', '/generated/uri?_hash=signature'],
+            [1, '/generated/uri', '/generated/uri?_hash=signature'],
+            [2, '/generated/uri', '/generated/uri?_hash=signature&page=2'],
+            [5, '/generated/uri', '/generated/uri?_hash=signature&page=5'],
+            [-5, '/generated/uri?foo', '/generated/uri?foo&_hash=signature'],
+            [-1, '/generated/uri?foo', '/generated/uri?foo&_hash=signature'],
+            [0, '/generated/uri?foo', '/generated/uri?foo&_hash=signature'],
+            [1, '/generated/uri?foo', '/generated/uri?foo&_hash=signature'],
+            [2, '/generated/uri?foo', '/generated/uri?foo&_hash=signature&page=2'],
+            [5, '/generated/uri?foo', '/generated/uri?foo&_hash=signature&page=5'],
         ];
     }
 }

@@ -14,6 +14,7 @@ use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
@@ -38,38 +39,40 @@ final class FullEditTypeTest extends FormTestCase
             [
                 'identifier' => 'definition',
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-                'viewTypes' => [
-                    'large' => ViewType::fromArray(
-                        [
-                            'name' => 'large',
-                            'identifier' => 'large',
-                            'validParameters' => null,
-                            'itemViewTypes' => [
-                                'standard' => ItemViewType::fromArray(
-                                    [
-                                        'name' => 'standard',
-                                        'identifier' => 'standard',
-                                    ],
-                                ),
+                'configProvider' => ConfigProvider::fromFullConfig(
+                    [
+                        'large' => ViewType::fromArray(
+                            [
+                                'name' => 'large',
+                                'identifier' => 'large',
+                                'validParameters' => null,
+                                'itemViewTypes' => [
+                                    'standard' => ItemViewType::fromArray(
+                                        [
+                                            'name' => 'standard',
+                                            'identifier' => 'standard',
+                                        ],
+                                    ),
+                                ],
                             ],
-                        ],
-                    ),
-                    'small' => ViewType::fromArray(
-                        [
-                            'name' => 'small',
-                            'identifier' => 'small',
-                            'validParameters' => null,
-                            'itemViewTypes' => [
-                                'standard' => ItemViewType::fromArray(
-                                    [
-                                        'name' => 'standard',
-                                        'identifier' => 'standard',
-                                    ],
-                                ),
+                        ),
+                        'small' => ViewType::fromArray(
+                            [
+                                'name' => 'small',
+                                'identifier' => 'small',
+                                'validParameters' => null,
+                                'itemViewTypes' => [
+                                    'standard' => ItemViewType::fromArray(
+                                        [
+                                            'name' => 'standard',
+                                            'identifier' => 'standard',
+                                        ],
+                                    ),
+                                ],
                             ],
-                        ],
-                    ),
-                ],
+                        ),
+                    ],
+                ),
             ],
         );
 

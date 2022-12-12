@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Validator;
 
 use Netgen\Layouts\Block\BlockDefinition;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\BlockViewTypeValidator;
 use Netgen\Layouts\Validator\Constraint\BlockViewType;
@@ -24,9 +24,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
     {
         $this->blockDefinition = BlockDefinition::fromArray(
             [
-                'viewTypes' => [
-                    'large' => new ViewType(),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['large' => []]),
             ],
         );
 

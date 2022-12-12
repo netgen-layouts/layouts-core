@@ -6,13 +6,12 @@ namespace Netgen\Layouts\Tests\Validator\Structs;
 
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Block\BlockDefinition;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
@@ -84,6 +83,8 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 false,
+            ],
+            [
                 [
                     'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
@@ -96,6 +97,8 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 false,
+            ],
+            [
                 [
                     'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
@@ -108,6 +111,8 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 false,
+            ],
+            [
                 [
                     'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
@@ -120,6 +125,8 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 false,
+            ],
+            [
                 [
                     'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
@@ -133,66 +140,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'nonexistent',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => '',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'nonexistent',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => '',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [
@@ -383,15 +330,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         return BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-                'viewTypes' => [
-                    'large' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['large' => ['standard']]),
             ],
         );
     }
@@ -403,15 +342,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         return ContainerDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-                'viewTypes' => [
-                    'large' => ViewType::fromArray(
-                        [
-                            'itemViewTypes' => [
-                                'standard' => new ItemViewType(),
-                            ],
-                        ],
-                    ),
-                ],
+                'configProvider' => ConfigProvider::fromShortConfig(['large' => ['standard']]),
             ],
         );
     }

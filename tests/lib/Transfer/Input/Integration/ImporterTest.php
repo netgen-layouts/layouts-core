@@ -8,6 +8,7 @@ use Coduo\PHPMatcher\PHPMatcher;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Provider\StaticConfigProvider;
 use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Block\BlockDefinitionFactory;
@@ -372,7 +373,7 @@ abstract class ImporterTest extends CoreTestCase
 
     protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry
     {
-        $data = ['translatable' => true, 'view_types' => ['view_type' => ['enabled' => true]]];
+        $data = ['translatable' => true];
         $configHandlers = ['key' => new ConfigHandler()];
 
         $handlerPluginRegistry = new HandlerPluginRegistry(
@@ -397,6 +398,7 @@ abstract class ImporterTest extends CoreTestCase
         $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
             'title',
             new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []),
+            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
             $data,
             $configHandlers,
         );
@@ -404,6 +406,7 @@ abstract class ImporterTest extends CoreTestCase
         $blockDefinition2 = $blockDefinitionFactory->buildBlockDefinition(
             'text',
             new TextHandler(),
+            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
             $data,
             $configHandlers,
         );
@@ -411,6 +414,7 @@ abstract class ImporterTest extends CoreTestCase
         $blockDefinition3 = $blockDefinitionFactory->buildBlockDefinition(
             'list',
             new ListHandler([2 => '2', 3 => '3', 4 => '4', 6 => '6']),
+            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
             $data,
             $configHandlers,
         );
@@ -418,6 +422,7 @@ abstract class ImporterTest extends CoreTestCase
         $blockDefinition4 = $blockDefinitionFactory->buildContainerDefinition(
             'column',
             new ColumnHandler(),
+            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
             $data,
             $configHandlers,
         );
@@ -425,6 +430,7 @@ abstract class ImporterTest extends CoreTestCase
         $blockDefinition5 = $blockDefinitionFactory->buildContainerDefinition(
             'two_columns',
             new TwoColumnsHandler(),
+            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
             $data,
             $configHandlers,
         );

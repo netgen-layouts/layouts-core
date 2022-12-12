@@ -28,6 +28,7 @@ final class QueryTypeNodeTest extends TestCase
                     'type' => [
                         'name' => 'Type',
                         'handler' => 'handler',
+                        'priority' => 100,
                     ],
                 ],
             ],
@@ -39,6 +40,7 @@ final class QueryTypeNodeTest extends TestCase
                     'enabled' => true,
                     'name' => 'Type',
                     'handler' => 'handler',
+                    'priority' => 100,
                 ],
             ],
         ];
@@ -47,6 +49,36 @@ final class QueryTypeNodeTest extends TestCase
             $config,
             $expectedConfig,
             'query_types',
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
+     */
+    public function testQueryTypeSettingsWithDefaultPriority(): void
+    {
+        $config = [
+            [
+                'query_types' => [
+                    'type' => [],
+                ],
+            ],
+        ];
+
+        $expectedConfig = [
+            'query_types' => [
+                'type' => [
+                    'priority' => 0,
+                ],
+            ],
+        ];
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'query_types.*.priority',
         );
     }
 

@@ -75,34 +75,6 @@ final class ContextListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::getUri
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::getUriContext
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::onKernelRequest
-     */
-    public function testOnKernelRequestWithContextFromUri(): void
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $request->query->set('nglContext', ['var' => 'value']);
-
-        $this->contextBuilderMock
-            ->expects(self::never())
-            ->method('buildContext');
-
-        $this->uriSignerMock
-            ->expects(self::once())
-            ->method('check')
-            ->with(self::identicalTo($request->getRequestUri()))
-            ->willReturn(true);
-
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
-
-        self::assertSame(['var' => 'value'], $this->context->all());
-    }
-
-    /**
      * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::onKernelRequest
      */
     public function testOnKernelRequestWithContextFromAttributes(): void
@@ -124,34 +96,6 @@ final class ContextListenerTest extends TestCase
         $this->listener->onKernelRequest($event);
 
         self::assertSame(['var' => 'value'], $this->context->all());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::getUri
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::getUriContext
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::onKernelRequest
-     */
-    public function testOnKernelRequestWithContextFromUriAndFailedHashCheck(): void
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $request->query->set('nglContext', ['var' => 'value']);
-
-        $this->contextBuilderMock
-            ->expects(self::never())
-            ->method('buildContext');
-
-        $this->uriSignerMock
-            ->expects(self::once())
-            ->method('check')
-            ->with(self::identicalTo($request->getRequestUri()))
-            ->willReturn(false);
-
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
-
-        self::assertSame([], $this->context->all());
     }
 
     /**
