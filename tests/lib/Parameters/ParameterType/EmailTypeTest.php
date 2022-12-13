@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterType\EmailType;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -86,7 +87,10 @@ final class EmailTypeTest extends TestCase
     public function testValidation($value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
-        $validator = Validation::createValidator();
+
+        $validator = Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         self::assertSame($isValid, $errors->count() === 0);

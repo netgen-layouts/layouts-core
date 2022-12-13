@@ -9,7 +9,10 @@ use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Validator;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\EmailValidator;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
@@ -92,6 +95,11 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
 
         if ($name === 'nglayouts_config_aware_struct') {
             return new Validator\Structs\ConfigAwareStructValidator();
+        }
+
+        if ($name === EmailValidator::class && Kernel::VERSION_ID >= 60200 && Kernel::VERSION_ID < 70000) {
+            // Default email validator option `loose` is deprecated since 6.2
+            return new EmailValidator(Email::VALIDATION_MODE_STRICT);
         }
 
         return $this->baseValidatorFactory->getInstance($constraint);
