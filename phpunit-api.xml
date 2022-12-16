@@ -6,7 +6,6 @@
     colors="true"
     forceCoversAnnotation="true"
     beStrictAboutOutputDuringTests="true"
-    beStrictAboutTodoAnnotatedTests="true"
     beStrictAboutChangesToGlobalState="true"
 >
     <php>
