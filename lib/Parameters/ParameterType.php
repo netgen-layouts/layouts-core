@@ -111,7 +111,7 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @param mixed $value
      *
-     * @return list<\Symfony\Component\Validator\Constraint>
+     * @return \Symfony\Component\Validator\Constraint[]
      */
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
@@ -135,7 +135,7 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @param mixed $value
      *
-     * @return list<\Symfony\Component\Validator\Constraint>
+     * @return \Symfony\Component\Validator\Constraint[]
      */
     abstract protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array;
 }
