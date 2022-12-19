@@ -35,7 +35,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     public function getIcon(): ?string;
 
     /**
-     * Returns the handler for this block definition.
+     * Returns the handler object of this block definition.
      */
     public function getHandler(): BlockDefinitionHandlerInterface;
 
