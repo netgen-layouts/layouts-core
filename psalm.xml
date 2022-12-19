@@ -182,6 +182,12 @@
             </errorLevel>
         </InvalidOperand>
 
+        <NamedArgumentNotAllowed>
+            <errorLevel type="suppress">
+                <file name="bundles/LayoutsBundle/DependencyInjection/CompilerPass/Collection/QueryTypePass.php" />
+            </errorLevel>
+        </NamedArgumentNotAllowed>
+
         <ArgumentTypeCoercion>
             <errorLevel type="suppress">
                 <referencedFunction name="urlencode" />
