@@ -103,6 +103,20 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\Layouts\Core\Service\BlockService::filterUntranslatedBlocks
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadPlaceholderBlocks
+     */
+    public function testLoadPlaceholderBlocks(): void
+    {
+        $blocks = $this->blockService->loadPlaceholderBlocks(
+            $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+            'left',
+        );
+
+        self::assertCount(1, $blocks);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\BlockService::filterUntranslatedBlocks
      * @covers \Netgen\Layouts\Core\Service\BlockService::loadLayoutBlocks
      */
     public function testLoadLayoutBlocks(): void

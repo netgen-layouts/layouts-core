@@ -144,6 +144,24 @@ final class BlockService implements BlockServiceInterface
         );
     }
 
+    public function loadPlaceholderBlocks(Block $block, string $placeholder, ?array $locales = null, bool $useMainLocale = true): BlockList
+    {
+        $persistenceBlock = $this->blockHandler->loadBlock(
+            $block->getId(),
+            $block->getStatus(),
+        );
+
+        return new BlockList(
+            [
+                ...$this->filterUntranslatedBlocks(
+                    $this->blockHandler->loadChildBlocks($persistenceBlock, $placeholder),
+                    $locales,
+                    $useMainLocale,
+                ),
+            ],
+        );
+    }
+
     public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): BlockList
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(

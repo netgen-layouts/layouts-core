@@ -48,7 +48,8 @@ interface BlockService extends TransactionService
     public function loadBlockDraft(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
     /**
-     * Loads all blocks belonging to provided zone.
+     * Loads all blocks belonging to provided zone. This method DOES NOT load
+     * child blocks.
      *
      * By default, block is loaded in main locale.
      *
@@ -60,6 +61,20 @@ interface BlockService extends TransactionService
      * @param string[]|null $locales
      */
     public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): BlockList;
+
+    /**
+     * Loads all blocks belonging to provided placeholder.
+     *
+     * By default, block is loaded in main locale.
+     *
+     * If $locales is an array of strings, the first available locale will
+     * be returned. If the block is always available and $useMainLocale is
+     * set to true, block in main locale will be returned if none of the
+     * locales in $locales array are found.
+     *
+     * @param string[]|null $locales
+     */
+    public function loadPlaceholderBlocks(Block $block, string $placeholder, ?array $locales = null, bool $useMainLocale = true): BlockList;
 
     /**
      * Loads all blocks belonging to provided layout.
