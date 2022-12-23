@@ -57,7 +57,7 @@
         "knplabs/knp-menu-bundle": "^2.3 || ^3.2",
         "swaggest/json-schema": "^0.12.41",
         "friendsofsymfony/http-cache-bundle": "^1.3.16 || ^2.11",
-        "pagerfanta/pagerfanta": "^2.7 || ^3.7",
+        "pagerfanta/pagerfanta": "^2.7 || ^3.6",
         "jean85/pretty-package-versions": "^1.6 || ^2.0",
         "emodric/twig-package-versions": "^1.1",
         "nikolaposa/version": "^4.1"
