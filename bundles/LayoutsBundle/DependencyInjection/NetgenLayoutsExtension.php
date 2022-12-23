@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection;
 
 use Jean85\PrettyVersions;
+use Netgen\Layouts\Attribute;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
 use Netgen\Layouts\Collection\Item\VisibilityVoterInterface;
@@ -31,6 +32,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
@@ -43,7 +45,10 @@ use function file_get_contents;
 use function get_class;
 use function implode;
 use function in_array;
+use function method_exists;
 use function sprintf;
+
+use const PHP_VERSION_ID;
 
 final class NetgenLayoutsExtension extends Extension implements PrependExtensionInterface
 {
@@ -132,6 +137,10 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         }
 
         $this->registerAutoConfiguration($container);
+
+        if (PHP_VERSION_ID >= 80000 && method_exists($container, 'registerAttributeForAutoconfiguration')) {
+            $this->registerAttributeAutoConfiguration($container);
+        }
 
         $container->setParameter('netgen_layouts.edition', 'Open Source Edition');
     }
@@ -298,5 +307,64 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         $container
             ->registerForAutoconfiguration(MatcherInterface::class)
             ->addTag('netgen_layouts.view_matcher');
+    }
+
+    private function registerAttributeAutoConfiguration(ContainerBuilder $container): void
+    {
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsBlockDefinitionHandler::class,
+            static function (ChildDefinition $definition, Attribute\AsBlockDefinitionHandler $attribute): void {
+                $definition->addTag('netgen_layouts.block_definition_handler', ['identifier' => $attribute->identifier]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsBlockPlugin::class,
+            static function (ChildDefinition $definition, Attribute\AsBlockPlugin $attribute): void {
+                $definition->addTag('netgen_layouts.block_definition_handler.plugin', ['priority' => $attribute->priority]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsQueryTypeHandler::class,
+            static function (ChildDefinition $definition, Attribute\AsQueryTypeHandler $attribute): void {
+                $definition->addTag('netgen_layouts.query_type_handler', ['type' => $attribute->type]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsParameterType::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen_layouts.parameter_type');
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsParameterTypeFormMapper::class,
+            static function (ChildDefinition $definition, Attribute\AsParameterTypeFormMapper $attribute): void {
+                $definition->addTag('netgen_layouts.parameter_type.form_mapper', ['type' => $attribute->type]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsCmsValueLoader::class,
+            static function (ChildDefinition $definition, Attribute\AsCmsValueLoader $attribute): void {
+                $definition->addTag('netgen_layouts.cms_value_loader', ['value_type' => $attribute->valueType]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsCmsValueConverter::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen_layouts.cms_value_converter');
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsCmsValueUrlGenerator::class,
+            static function (ChildDefinition $definition, Attribute\AsCmsValueUrlGenerator $attribute): void {
+                $definition->addTag('netgen_layouts.cms_value_url_generator', ['value_type' => $attribute->valueType]);
+            },
+        );
     }
 }
