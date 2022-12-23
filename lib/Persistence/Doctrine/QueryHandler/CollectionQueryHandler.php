@@ -48,6 +48,8 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $block->id, 'bc.block_id');
         $this->applyStatusCondition($query, $block->status, 'bc.block_status');
 
+        $query->orderBy('bc.identifier', 'ASC');
+
         return $query->execute()->fetchAllAssociative();
     }
 
