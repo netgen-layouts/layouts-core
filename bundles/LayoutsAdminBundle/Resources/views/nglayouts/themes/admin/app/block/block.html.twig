@@ -1,0 +1,40 @@
+{% trans_default_domain 'nglayouts_app' %}
+
+{% set view_type_name = block.viewType %}
+
+{% if block.definition.hasViewType(view_type_name, block) %}
+    {% set view_type_name = block.definition.viewType(view_type_name, block).name %}
+{% endif %}
+
+{% block controls %}
+    <div class="block-header">
+        <div class="handle" title="{{ 'layout.block.move'|trans }}"><i class="material-icons">drag_handle</i></div>
+        <div class="template_name">{{ view_type_name }}</div>
+        <div class="name">{{ block.name }}</div>
+
+        {{ nglayouts_template_plugin('app.block.status') }}
+
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li class="js-modal-mode"><a title="{{ 'layout.block.maximize'|trans }}">{{ 'layout.block.maximize'|trans }}</a></li>
+
+                {% if is_granted('nglayouts:block:edit', {block_definition: block.definition, layout: block.layoutId.toString}) %}
+                    <li class="js-revert"><a title="{{ 'layout.block.revert'|trans }}">{{ 'layout.block.revert'|trans }}<span class="note">{{ 'layout.block.revert_note'|trans }}</span></a></li>
+                {% endif %}
+
+                {% if is_granted('nglayouts:block:add', {block_definition: block.definition, layout: block.layoutId.toString}) %}
+                    <li class="js-copy"><a title="{{ 'layout.block.copy'|trans }}">{{ 'layout.block.copy'|trans }}</a></li>
+                {% endif %}
+
+                {% if is_granted('nglayouts:block:delete', {block_definition: block.definition, layout: block.layoutId.toString}) %}
+                    <li class="js-destroy"><a title="{{ 'layout.block.delete'|trans }}">{{ 'layout.block.delete'|trans }}</a></li>
+                {% endif %}
+
+                {{ nglayouts_template_plugin('app.block.controls') }}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}{% endblock %}
