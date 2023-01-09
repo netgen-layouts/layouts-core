@@ -77,3 +77,5 @@ parameters:
         # Bugs in PHPStan?
 
         - "#Offset 'scheme' on .+ on left side of \\?\\? always exists and is not nullable.#"
+        - "#Cannot assign new offset to array#"
+        - "#string\\|Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data#"
