@@ -1,3 +1,13 @@
+{% set is_preview = app.request.attributes.get('nglayouts_is_preview_request') %}
+
+{% if is_preview %}
+    <ngl-placeholder isMarked="false" {% if placeholder|length == 0 %}isEmpty{% endif %}>
+{% endif %}
+
 {% for placeholder_block in placeholder %}
     {{ nglayouts_render_block(placeholder_block) }}
 {% endfor %}
+
+{% if is_preview %}
+    </ngl-placeholder>
+{% endif %}
