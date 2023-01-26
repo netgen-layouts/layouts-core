@@ -72,15 +72,17 @@
 {% block head %}
     {{ parent() }}
 
-    <style type="text/css">
-        .container {
-            max-width:100%;
-        }
+    {% if constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION_ID') < 60200 %}
+        <style type="text/css">
+            .container {
+                max-width:100%;
+            }
 
-        .nl-container {
-            max-width:1060px;
-        }
-    </style>
+            .nl-container {
+                max-width:1060px;
+            }
+        </style>
+    {% endif %}
 {% endblock %}
 
 {% block menu %}
