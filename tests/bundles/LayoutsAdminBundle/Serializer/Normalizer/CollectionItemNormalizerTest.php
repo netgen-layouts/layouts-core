@@ -73,7 +73,7 @@ final class CollectionItemNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
-            ->with(self::identicalTo($item->getCmsItem()))
+            ->with(self::identicalTo($item->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
 
         self::assertSame(

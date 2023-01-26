@@ -41,6 +41,17 @@ final class ItemException extends InvalidArgumentException implements Exception
         );
     }
 
+    public static function invalidUrlType(string $valueType, string $type): self
+    {
+        return new self(
+            sprintf(
+                '"%s" URL type is invalid for "%s" value type.',
+                $type,
+                $valueType,
+            ),
+        );
+    }
+
     /**
      * @param int|string $value
      */

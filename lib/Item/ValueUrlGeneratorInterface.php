@@ -19,6 +19,10 @@ interface ValueUrlGeneratorInterface
      *
      * If the path cannot be generated, this can return null.
      *
+     * @deprecated Will be removed in 2.0. Implement
+     * ExtendedValueUrlGeneratorInterface and use generateDefaultUrl method
+     * instead.
+     *
      * @param T $object
      */
     public function generate(object $object): ?string;

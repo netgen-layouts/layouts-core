@@ -11,7 +11,7 @@
     {% elseif value.linkType is constant('LINK_TYPE_PHONE', value) %}
         {% set link = 'tel:' ~ value.link ~ value.linkSuffix %}
     {% elseif value.linkType is constant('LINK_TYPE_INTERNAL', value) %}
-        {% set link = nglayouts_item_path(value.link) ~ value.linkSuffix %}
+        {% set link = nglayouts_item_path(value.link, 'default') ~ value.linkSuffix %}
     {% endif %}
 
     {% if link is not empty %}

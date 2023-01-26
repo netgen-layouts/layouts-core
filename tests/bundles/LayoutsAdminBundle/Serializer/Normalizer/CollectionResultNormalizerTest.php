@@ -75,7 +75,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()))
+            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -137,7 +137,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()))
+            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -184,7 +184,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
-            ->with(self::identicalTo($item))
+            ->with(self::identicalTo($item), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -249,7 +249,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()))
+            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
 
         self::assertSame(

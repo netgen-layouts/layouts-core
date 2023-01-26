@@ -49,6 +49,19 @@ final class ItemExceptionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Exception\Item\ItemException::invalidUrlType
+     */
+    public function testInvalidUrlType(): void
+    {
+        $exception = ItemException::invalidUrlType('type', 'unknown');
+
+        self::assertSame(
+            '"unknown" URL type is invalid for "type" value type.',
+            $exception->getMessage(),
+        );
+    }
+
+    /**
      * @covers \Netgen\Layouts\Exception\Item\ItemException::noValue
      */
     public function testNoValue(): void

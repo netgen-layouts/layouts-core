@@ -7,6 +7,8 @@ namespace Netgen\Layouts\Item;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Psr\Container\ContainerInterface;
 
+use function in_array;
+
 final class UrlGenerator implements UrlGeneratorInterface
 {
     private ContainerInterface $valueUrlGenerators;
@@ -16,14 +18,26 @@ final class UrlGenerator implements UrlGeneratorInterface
         $this->valueUrlGenerators = $valueUrlGenerators;
     }
 
-    public function generate(CmsItemInterface $item): string
+    public function generate(CmsItemInterface $item, string $type = self::TYPE_DEFAULT): string
     {
+        if (!in_array($type, [self::TYPE_DEFAULT, self::TYPE_ADMIN], true)) {
+            throw ItemException::invalidUrlType($item->getValueType(), $type);
+        }
+
         $object = $item->getObject();
         if ($item instanceof NullCmsItem || $object === null) {
             return '';
         }
 
         $valueUrlGenerator = $this->getValueUrlGenerator($item->getValueType());
+
+        if ($valueUrlGenerator instanceof ExtendedValueUrlGeneratorInterface) {
+            if ($type === self::TYPE_ADMIN) {
+                return $valueUrlGenerator->generateAdminUrl($object) ?? '';
+            }
+
+            return $valueUrlGenerator->generateDefaultUrl($object) ?? '';
+        }
 
         return $valueUrlGenerator->generate($object) ?? '';
     }

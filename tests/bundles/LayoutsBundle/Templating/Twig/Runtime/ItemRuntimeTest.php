@@ -54,10 +54,10 @@ final class ItemRuntimeTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
-            ->with(self::identicalTo($cmsItem))
+            ->with(self::identicalTo($cmsItem), self::identicalTo('type'))
             ->willReturn('/item/path');
 
-        $itemPath = $this->runtime->getItemPath(42, 'value');
+        $itemPath = $this->runtime->getItemPath([42, 'value'], 'type');
 
         self::assertSame('/item/path', $itemPath);
     }
@@ -78,10 +78,10 @@ final class ItemRuntimeTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
-            ->with(self::identicalTo($cmsItem))
+            ->with(self::identicalTo($cmsItem), self::identicalTo('type'))
             ->willReturn('/item/path');
 
-        $itemPath = $this->runtime->getItemPath('value://42');
+        $itemPath = $this->runtime->getItemPath('value://42', 'type');
 
         self::assertSame('/item/path', $itemPath);
     }
@@ -100,7 +100,29 @@ final class ItemRuntimeTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
-            ->with(self::identicalTo($cmsItem))
+            ->with(self::identicalTo($cmsItem), self::identicalTo('type'))
+            ->willReturn('/item/path');
+
+        $itemPath = $this->runtime->getItemPath($cmsItem, 'type');
+
+        self::assertSame('/item/path', $itemPath);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
+     */
+    public function testGetItemPathWithDefaultType(): void
+    {
+        $cmsItem = new CmsItem();
+
+        $this->cmsItemLoaderMock
+            ->expects(self::never())
+            ->method('load');
+
+        $this->urlGeneratorMock
+            ->expects(self::once())
+            ->method('generate')
+            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlGeneratorInterface::TYPE_DEFAULT))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath($cmsItem);
@@ -121,7 +143,7 @@ final class ItemRuntimeTest extends TestCase
             ->expects(self::never())
             ->method('generate');
 
-        self::assertSame('', $this->runtime->getItemPath('value'));
+        self::assertSame('', $this->runtime->getItemPath('value', 'type'));
     }
 
     /**
@@ -137,23 +159,7 @@ final class ItemRuntimeTest extends TestCase
             ->expects(self::never())
             ->method('generate');
 
-        self::assertSame('', $this->runtime->getItemPath(42));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
-    public function testGetItemPathWithObjectAndValueType(): void
-    {
-        $this->cmsItemLoaderMock
-            ->expects(self::never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects(self::never())
-            ->method('generate');
-
-        self::assertSame('', $this->runtime->getItemPath(new stdClass(), 'value'));
+        self::assertSame('', $this->runtime->getItemPath(42, 'type'));
     }
 
     /**
@@ -174,7 +180,7 @@ final class ItemRuntimeTest extends TestCase
             ->expects(self::never())
             ->method('generate');
 
-        $this->runtime->getItemPath('value');
+        $this->runtime->getItemPath('value', 'type');
     }
 
     /**
@@ -195,6 +201,6 @@ final class ItemRuntimeTest extends TestCase
             ->expects(self::never())
             ->method('generate');
 
-        $this->runtime->getItemPath(new stdClass());
+        $this->runtime->getItemPath(new stdClass(), 'type');
     }
 }

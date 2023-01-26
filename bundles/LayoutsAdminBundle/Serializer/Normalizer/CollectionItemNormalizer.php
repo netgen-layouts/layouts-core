@@ -61,7 +61,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
         ];
 
         try {
-            $data['cms_url'] = $this->urlGenerator->generate($cmsItem);
+            $data['cms_url'] = $this->urlGenerator->generate($cmsItem, UrlGeneratorInterface::TYPE_ADMIN);
         } catch (ItemException $e) {
             // Do nothing
         }

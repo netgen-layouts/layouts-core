@@ -9,10 +9,14 @@ namespace Netgen\Layouts\Item;
  */
 interface UrlGeneratorInterface
 {
+    public const TYPE_DEFAULT = 'default';
+
+    public const TYPE_ADMIN = 'admin';
+
     /**
-     * Returns the CMS item path.
+     * Returns the item path.
      *
      * @throws \Netgen\Layouts\Exception\Item\ItemException if URL could not be generated
      */
-    public function generate(CmsItemInterface $item): string;
+    public function generate(CmsItemInterface $item, string $type = self::TYPE_DEFAULT): string;
 }
