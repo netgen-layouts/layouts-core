@@ -9,7 +9,7 @@
         "item_view_type": null,
         "name": "Value with ID #72",
         "cms_visible": true,
-        "cms_url": "/value/72/some/url",
+        "cms_url": "/admin/value/72/some/url",
         "config": []
     },
     {
@@ -22,7 +22,7 @@
         "item_view_type": null,
         "name": "Value with ID #73",
         "cms_visible": true,
-        "cms_url": "/value/73/some/url",
+        "cms_url": "/admin/value/73/some/url",
         "config": []
     },
     {
@@ -35,7 +35,7 @@
         "item_view_type": null,
         "name": "Value with ID #74",
         "cms_visible": true,
-        "cms_url": "/value/74/some/url",
+        "cms_url": "/admin/value/74/some/url",
         "config": []
     }
 ]

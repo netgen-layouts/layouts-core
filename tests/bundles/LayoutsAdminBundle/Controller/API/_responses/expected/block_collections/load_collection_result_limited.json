@@ -13,7 +13,7 @@
             "item_view_type": null,
             "name": "Value with ID #72",
             "cms_visible": true,
-            "cms_url": "/value/72/some/url"
+            "cms_url": "/admin/value/72/some/url"
         },
         {
             "id": 11,
@@ -28,7 +28,7 @@
             "item_view_type": null,
             "name": "Value with ID #73",
             "cms_visible": true,
-            "cms_url": "/value/73/some/url"
+            "cms_url": "/admin/value/73/some/url"
         }
     ],
     "overflow_items": []
