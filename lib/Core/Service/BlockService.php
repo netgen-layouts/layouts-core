@@ -144,6 +144,9 @@ final class BlockService implements BlockServiceInterface
         );
     }
 
+    /**
+     * @param string[]|null $locales
+     */
     public function loadPlaceholderBlocks(Block $block, string $placeholder, ?array $locales = null, bool $useMainLocale = true): BlockList
     {
         $persistenceBlock = $this->blockHandler->loadBlock(
