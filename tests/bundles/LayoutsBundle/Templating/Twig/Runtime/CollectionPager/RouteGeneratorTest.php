@@ -82,7 +82,7 @@ final class RouteGeneratorTest extends TestCase
         self::assertSame($finalUri, $url);
     }
 
-    public function invokeDataProvider(): array
+    public static function invokeDataProvider(): array
     {
         return [
             [-5, '/generated/uri', '/generated/uri?_hash=signature'],

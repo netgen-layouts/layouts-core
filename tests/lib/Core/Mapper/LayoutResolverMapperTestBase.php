@@ -18,7 +18,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class LayoutResolverMapperTest extends CoreTestCase
+abstract class LayoutResolverMapperTestBase extends CoreTestCase
 {
     private LayoutResolverMapper $mapper;
 

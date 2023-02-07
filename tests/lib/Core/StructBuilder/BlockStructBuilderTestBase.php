@@ -10,7 +10,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Ramsey\Uuid\Uuid;
 
-abstract class BlockStructBuilderTest extends CoreTestCase
+abstract class BlockStructBuilderTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
 

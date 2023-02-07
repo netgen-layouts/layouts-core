@@ -42,7 +42,7 @@ final class StatusStringTraitTest extends TestCase
         $this->visitor->visit(Value::fromArray(['status' => 9999]), new OutputVisitor([]));
     }
 
-    public function visitDataProvider(): array
+    public static function visitDataProvider(): array
     {
         return [
             [Value::STATUS_DRAFT, ['status' => 'DRAFT']],

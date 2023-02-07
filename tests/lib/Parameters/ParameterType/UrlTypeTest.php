@@ -57,7 +57,7 @@ final class UrlTypeTest extends TestCase
     /**
      * Provider for testing valid parameter attributes.
      */
-    public function validOptionsDataProvider(): array
+    public static function validOptionsDataProvider(): array
     {
         return [
             [
@@ -70,7 +70,7 @@ final class UrlTypeTest extends TestCase
     /**
      * Provider for testing invalid parameter attributes.
      */
-    public function invalidOptionsDataProvider(): array
+    public static function invalidOptionsDataProvider(): array
     {
         return [
             [
@@ -98,7 +98,7 @@ final class UrlTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public function validationDataProvider(): array
+    public static function validationDataProvider(): array
     {
         return [
             [null, true],
@@ -119,7 +119,7 @@ final class UrlTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public function emptyDataProvider(): array
+    public static function emptyDataProvider(): array
     {
         return [
             [null, true],

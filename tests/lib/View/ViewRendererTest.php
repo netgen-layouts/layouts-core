@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View;
 
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRenderer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpKernel\Kernel;
 use Twig\Environment;
-
-use function array_reverse;
-use function sprintf;
 
 final class ViewRendererTest extends TestCase
 {
@@ -51,32 +45,6 @@ final class ViewRendererTest extends TestCase
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
 
-        $args = [
-            self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(LayoutsEvents::RENDER_VIEW),
-        ];
-
-        if (Kernel::VERSION_ID < 40300) {
-            $args = array_reverse($args);
-        }
-
-        $consecutiveArgs = [$args];
-
-        $args = [
-            self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'stub')),
-        ];
-
-        if (Kernel::VERSION_ID < 40300) {
-            $args = array_reverse($args);
-        }
-
-        $consecutiveArgs[] = $args;
-
-        $this->eventDispatcherMock
-            ->method('dispatch')
-            ->withConsecutive(...$consecutiveArgs);
-
         $this->twigEnvironmentMock
             ->expects(self::once())
             ->method('render')
@@ -104,32 +72,6 @@ final class ViewRendererTest extends TestCase
     {
         $view = new View(new Value());
         $view->addParameter('some_param', 'some_value');
-
-        $args = [
-            self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(LayoutsEvents::RENDER_VIEW),
-        ];
-
-        if (Kernel::VERSION_ID < 40300) {
-            $args = array_reverse($args);
-        }
-
-        $consecutiveArgs = [$args];
-
-        $args = [
-            self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'stub')),
-        ];
-
-        if (Kernel::VERSION_ID < 40300) {
-            $args = array_reverse($args);
-        }
-
-        $consecutiveArgs[] = $args;
-
-        $this->eventDispatcherMock
-            ->method('dispatch')
-            ->withConsecutive(...$consecutiveArgs);
 
         $this->twigEnvironmentMock
             ->expects(self::never())

@@ -141,7 +141,7 @@ final class ExceptionSerializerListenerTest extends TestCase
         );
     }
 
-    public function onExceptionWithHttpExceptionDataProvider(): array
+    public static function onExceptionWithHttpExceptionDataProvider(): array
     {
         return [
             [450, false],

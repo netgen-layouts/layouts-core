@@ -10,7 +10,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormConfigBuilder;
 use Symfony\Component\Form\FormInterface;
 
-abstract class DataMapperTest extends TestCase
+abstract class DataMapperTestBase extends TestCase
 {
     /**
      * @param mixed $formData

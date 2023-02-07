@@ -58,7 +58,7 @@ final class BlockViewProviderTest extends TestCase
         self::assertSame($supports, $this->blockViewProvider->supports($value));
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
             [new Value(), false],

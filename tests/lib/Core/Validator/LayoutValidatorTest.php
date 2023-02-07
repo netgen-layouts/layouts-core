@@ -118,7 +118,7 @@ final class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
-            $this->getLayoutType(),
+            self::getLayoutType(),
             $zoneMapping,
         );
     }
@@ -133,7 +133,7 @@ final class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
-            $this->getLayoutType(),
+            self::getLayoutType(),
             ['left' => ['top', 'shared']],
             false,
         );
@@ -149,7 +149,7 @@ final class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
-            $this->getLayoutType(),
+            self::getLayoutType(),
             ['unknown' => []],
         );
     }
@@ -164,7 +164,7 @@ final class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
-            $this->getLayoutType(),
+            self::getLayoutType(),
             ['left' => 42],
         );
     }
@@ -179,7 +179,7 @@ final class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
-            $this->getLayoutType(),
+            self::getLayoutType(),
             ['left' => ['top'], 'right' => ['top']],
         );
     }
@@ -194,7 +194,7 @@ final class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
-            $this->getLayoutType(),
+            self::getLayoutType(),
             ['left' => ['unknown']],
         );
     }
@@ -209,12 +209,12 @@ final class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
-            $this->getLayoutType(),
+            self::getLayoutType(),
             ['left' => ['top', 'shared']],
         );
     }
 
-    public function validateLayoutCreateStructDataProvider(): array
+    public static function validateLayoutCreateStructDataProvider(): array
     {
         return [
             [
@@ -230,7 +230,7 @@ final class LayoutValidatorTest extends TestCase
             [
                 [
                     'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
+                    'layoutType' => self::getLayoutType(),
                     'description' => 'Description',
                     'mainLocale' => 'en',
                     'shared' => false,
@@ -240,7 +240,7 @@ final class LayoutValidatorTest extends TestCase
             [
                 [
                     'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
+                    'layoutType' => self::getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'shared' => false,
@@ -250,7 +250,7 @@ final class LayoutValidatorTest extends TestCase
             [
                 [
                     'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
+                    'layoutType' => self::getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
@@ -261,7 +261,7 @@ final class LayoutValidatorTest extends TestCase
             [
                 [
                     'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
+                    'layoutType' => self::getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
@@ -272,7 +272,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public function validateLayoutUpdateStructDataProvider(): array
+    public static function validateLayoutUpdateStructDataProvider(): array
     {
         return [
             [
@@ -326,7 +326,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public function validateLayoutCopyStructDataProvider(): array
+    public static function validateLayoutCopyStructDataProvider(): array
     {
         return [
             [['description' => 'New description'], false],
@@ -337,7 +337,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public function validateChangeLayoutTypeDataProvider(): array
+    public static function validateChangeLayoutTypeDataProvider(): array
     {
         return [
             [
@@ -393,7 +393,7 @@ final class LayoutValidatorTest extends TestCase
         );
     }
 
-    private function getLayoutType(): LayoutTypeInterface
+    private static function getLayoutType(): LayoutTypeInterface
     {
         return LayoutType::fromArray(
             [

@@ -123,7 +123,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         if ($message !== null) {
             $message !== '' && $message[0] === '/' && $message[-1] === '/' ?
-                self::assertMatchesRegularExpression($message, $responseContent['message']) :
+                self::assertPatternMatchesRegularExpression($message, $responseContent['message']) :
                 self::assertSame($message, $responseContent['message']);
         }
     }

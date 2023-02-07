@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormInterface;
 
 use function date_default_timezone_get;
 
-final class DateTimeDataMapperTest extends DataMapperTest
+final class DateTimeDataMapperTest extends DataMapperTestBase
 {
     private DateTimeDataMapper $mapper;
 
@@ -76,7 +76,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
         self::assertSame($timeZone, $timeZoneForm->getData());
     }
 
-    public function mapDataToFormsWithArrayDataProvider(): array
+    public static function mapDataToFormsWithArrayDataProvider(): array
     {
         return [
             [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], '2018-02-01 15:00:00', 'Antarctica/Casey'],

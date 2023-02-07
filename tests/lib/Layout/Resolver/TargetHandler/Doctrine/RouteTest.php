@@ -9,7 +9,7 @@ use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\Value;
 
-final class RouteTest extends AbstractTargetHandlerTest
+final class RouteTest extends TargetHandlerTestBase
 {
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route::handleQuery

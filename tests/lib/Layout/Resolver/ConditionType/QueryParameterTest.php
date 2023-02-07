@@ -56,7 +56,7 @@ final class QueryParameterTest extends TestCase
         self::assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
-    public function validationDataProvider(): array
+    public static function validationDataProvider(): array
     {
         return [
             [['parameter_name' => 'name', 'parameter_values' => ['one', 'two']], true],
@@ -82,7 +82,7 @@ final class QueryParameterTest extends TestCase
         ];
     }
 
-    public function matchesDataProvider(): array
+    public static function matchesDataProvider(): array
     {
         return [
             ['not_array', false],

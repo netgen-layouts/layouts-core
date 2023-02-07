@@ -80,7 +80,7 @@ final class LinkTypeTest extends TestCase
         $this->getParameterDefinition($options);
     }
 
-    public function validOptionsDataProvider(): array
+    public static function validOptionsDataProvider(): array
     {
         return [
             [
@@ -102,7 +102,7 @@ final class LinkTypeTest extends TestCase
         ];
     }
 
-    public function invalidOptionsDataProvider(): array
+    public static function invalidOptionsDataProvider(): array
     {
         return [
             [
@@ -148,7 +148,7 @@ final class LinkTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public function validationDataProvider(): array
+    public static function validationDataProvider(): array
     {
         return [
             [null, true, [], true],
@@ -212,7 +212,7 @@ final class LinkTypeTest extends TestCase
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
-    public function toHashDataProvider(): array
+    public static function toHashDataProvider(): array
     {
         return [
             [
@@ -254,7 +254,7 @@ final class LinkTypeTest extends TestCase
         self::assertSame($expectedValue, $this->exportObject($convertedValue));
     }
 
-    public function fromHashDataProvider(): array
+    public static function fromHashDataProvider(): array
     {
         return [
             [
@@ -365,7 +365,7 @@ final class LinkTypeTest extends TestCase
         );
     }
 
-    public function exportDataProvider(): array
+    public static function exportDataProvider(): array
     {
         return [
             [
@@ -489,7 +489,7 @@ final class LinkTypeTest extends TestCase
         );
     }
 
-    public function importDataProvider(): array
+    public static function importDataProvider(): array
     {
         return [
             [
@@ -590,7 +590,7 @@ final class LinkTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public function emptyDataProvider(): array
+    public static function emptyDataProvider(): array
     {
         return [
             [null, true],

@@ -86,23 +86,11 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->resultBuilderMock
             ->method('build')
-            ->withConsecutive(
+            ->willReturnMap(
                 [
-                    self::identicalTo($collection1),
-                    self::identicalTo(3),
-                    self::identicalTo(5),
-                    self::identicalTo(0),
+                    [$collection1, 3, 5, 0, ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0])],
+                    [$collection2, 5, 10, 0, ResultSet::fromArray(['collection' => $collection2, 'totalCount' => 0])],
                 ],
-                [
-                    self::identicalTo($collection2),
-                    self::identicalTo(5),
-                    self::identicalTo(10),
-                    self::identicalTo(0),
-                ],
-            )
-            ->willReturnOnConsecutiveCalls(
-                ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0]),
-                ResultSet::fromArray(['collection' => $collection2, 'totalCount' => 0]),
             );
 
         $this->listener->onRenderView($event);

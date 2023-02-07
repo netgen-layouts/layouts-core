@@ -12,7 +12,7 @@ use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
-abstract class ConfigStructBuilderTest extends CoreTestCase
+abstract class ConfigStructBuilderTestBase extends CoreTestCase
 {
     private ConfigStructBuilder $structBuilder;
 

@@ -18,7 +18,7 @@ use Ramsey\Uuid\Uuid;
 
 use function count;
 
-abstract class CollectionServiceTest extends CoreTestCase
+abstract class CollectionServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
 

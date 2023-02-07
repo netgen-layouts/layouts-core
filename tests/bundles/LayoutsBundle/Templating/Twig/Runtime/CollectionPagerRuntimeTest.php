@@ -139,7 +139,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         );
     }
 
-    public function invalidPageDataProvider(): array
+    public static function invalidPageDataProvider(): array
     {
         return [
             [-5],

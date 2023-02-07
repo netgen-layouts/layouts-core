@@ -74,7 +74,7 @@ final class TypeTest extends TestCase
         self::assertFalse($this->matcher->match($view, ['test']));
     }
 
-    public function matchDataProvider(): array
+    public static function matchDataProvider(): array
     {
         return [
             [[], false],

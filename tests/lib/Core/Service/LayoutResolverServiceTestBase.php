@@ -14,7 +14,7 @@ use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class LayoutResolverServiceTest extends CoreTestCase
+abstract class LayoutResolverServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
     use UuidGeneratorTrait;

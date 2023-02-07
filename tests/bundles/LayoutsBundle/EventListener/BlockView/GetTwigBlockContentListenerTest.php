@@ -111,12 +111,13 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         $twigTemplateMock
             ->method('hasBlock')
-            ->withConsecutive(
-                [self::identicalTo('block1')],
-                [self::identicalTo('block2')],
-                [self::identicalTo('block2')],
-            )
-            ->willReturnOnConsecutiveCalls(false, true, true);
+            ->willReturnMap(
+                [
+                    ['block1', [], [], false],
+                    ['block2', [], [], true],
+                    ['block2', [], [], true],
+                ],
+            );
 
         $twigTemplateMock
             ->expects(self::once())
@@ -160,10 +161,6 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         $twigTemplateMock
             ->method('hasBlock')
-            ->withConsecutive(
-                [self::identicalTo('block1')],
-                [self::identicalTo('block2')],
-            )
             ->willReturn(false);
 
         $twigTemplateMock

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\StructBuilder\Doctrine;
 
-use Netgen\Layouts\Tests\Core\StructBuilder\LayoutStructBuilderTest as BaseLayoutStructBuilderTest;
+use Netgen\Layouts\Tests\Core\StructBuilder\LayoutStructBuilderTestBase;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 
-final class LayoutStructBuilderTest extends BaseLayoutStructBuilderTest
+final class LayoutStructBuilderTest extends LayoutStructBuilderTestBase
 {
     use TestCaseTrait;
 

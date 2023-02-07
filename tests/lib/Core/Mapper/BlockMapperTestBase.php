@@ -12,7 +12,7 @@ use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class BlockMapperTest extends CoreTestCase
+abstract class BlockMapperTestBase extends CoreTestCase
 {
     private BlockMapper $mapper;
 

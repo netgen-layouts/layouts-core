@@ -116,7 +116,7 @@ final class ValidatorTraitTest extends TestCase
         $this->validator->validateLocale($locale);
     }
 
-    public function validateIdDataProvider(): array
+    public static function validateIdDataProvider(): array
     {
         return [
             [24, true],
@@ -127,7 +127,7 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
-    public function validateIdentifierDataProvider(): array
+    public static function validateIdentifierDataProvider(): array
     {
         return [
             ['a', true],
@@ -143,7 +143,7 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
-    public function validatePositionDataProvider(): array
+    public static function validatePositionDataProvider(): array
     {
         return [
             [-5, false, false],
@@ -159,7 +159,7 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
-    public function validateOffsetAndLimitDataProvider(): array
+    public static function validateOffsetAndLimitDataProvider(): array
     {
         return [
             [0, null, true],
@@ -171,7 +171,7 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
-    public function validateLocaleDataProvider(): array
+    public static function validateLocaleDataProvider(): array
     {
         return [
             ['en', true],

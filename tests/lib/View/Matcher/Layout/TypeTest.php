@@ -89,7 +89,7 @@ final class TypeTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    public function matchDataProvider(): array
+    public static function matchDataProvider(): array
     {
         return [
             [[], false],
@@ -100,7 +100,7 @@ final class TypeTest extends TestCase
         ];
     }
 
-    public function matchLayoutTypeDataProvider(): array
+    public static function matchLayoutTypeDataProvider(): array
     {
         return [
             [[], false],

@@ -12,11 +12,11 @@ use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
-use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
+use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTestBase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Symfony\Component\Form\FormInterface;
 
-final class LinkDataMapperTest extends DataMapperTest
+final class LinkDataMapperTest extends DataMapperTestBase
 {
     use ExportObjectTrait;
 

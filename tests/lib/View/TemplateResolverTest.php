@@ -40,11 +40,12 @@ final class TemplateResolverTest extends TestCase
 
         $matcherMock
             ->method('match')
-            ->withConsecutive(
-                [self::identicalTo($this->view), self::identicalTo(['value'])],
-                [self::identicalTo($this->view), self::identicalTo(['value2'])],
-            )
-            ->willReturnOnConsecutiveCalls(false, true);
+            ->willReturnMap(
+                [
+                    [$this->view, ['value'], false],
+                    [$this->view, ['value2'], true],
+                ],
+            );
 
         $viewConfiguration = [
             'stub_view' => [

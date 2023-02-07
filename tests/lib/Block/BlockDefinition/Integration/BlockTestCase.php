@@ -22,7 +22,7 @@ use function array_keys;
 use function count;
 use function in_array;
 
-abstract class BlockTest extends CoreTestCase
+abstract class BlockTestCase extends CoreTestCase
 {
     /**
      * @param array<string, mixed> $parameters
@@ -94,9 +94,9 @@ abstract class BlockTest extends CoreTestCase
         return false;
     }
 
-    abstract public function parametersDataProvider(): array;
+    abstract public static function parametersDataProvider(): array;
 
-    abstract public function invalidParametersDataProvider(): array;
+    abstract public static function invalidParametersDataProvider(): array;
 
     abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
 

@@ -12,16 +12,16 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\Block\Placeholder>
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTestBase<\Netgen\Layouts\API\Values\Block\Placeholder>
  */
-abstract class PlaceholderVisitorTest extends VisitorTest
+abstract class PlaceholderVisitorTestBase extends VisitorTestBase
 {
     public function getVisitor(): VisitorInterface
     {
         return new PlaceholderVisitor();
     }
 
-    public function acceptDataProvider(): array
+    public static function acceptDataProvider(): array
     {
         return [
             [new Placeholder(), true],
@@ -30,7 +30,7 @@ abstract class PlaceholderVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitDataProvider(): array
+    public static function visitDataProvider(): array
     {
         return [
             [fn (): Placeholder => $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))->getPlaceholder('left'), 'placeholder/block_33_left.json'],

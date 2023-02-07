@@ -46,10 +46,6 @@ final class LayoutResolverTest extends TestCase
             ->method('loadRuleGroups')
             ->willReturn(new RuleGroupList());
 
-        $this->layoutResolverServiceMock
-            ->method('loadRuleGroup')
-            ->willReturn(new RuleGroup());
-
         $this->requestStack = new RequestStack();
         $this->requestStack->push(Request::create('/'));
 
@@ -109,15 +105,19 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->withConsecutive(
-                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42)],
-                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84)],
-            )
-            ->willReturnOnConsecutiveCalls(
-                new RuleList([$rule1, $rule2]),
-                new RuleList([$rule3, $rule4]),
+            ->willReturnMap(
+                [
+                    [$ruleGroup, 'target1', 42, new RuleList([$rule1, $rule2])],
+                    [$ruleGroup, 'target2', 84, new RuleList([$rule3, $rule4])],
+                ],
             );
 
         $resolvedRules = $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest());
@@ -161,9 +161,15 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
@@ -200,9 +206,15 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
@@ -239,9 +251,15 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame([], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
@@ -283,9 +301,15 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
@@ -306,6 +330,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->createLayoutResolver();
+
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
             ->expects(self::never())
@@ -355,10 +385,16 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame(
@@ -397,10 +433,16 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule]));
 
         self::assertSame(
@@ -465,15 +507,19 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->withConsecutive(
-                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42)],
-                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84)],
-            )
-            ->willReturnOnConsecutiveCalls(
-                new RuleList([$rule1, $rule2]),
-                new RuleList([$rule3, $rule4]),
+            ->willReturnMap(
+                [
+                    [$ruleGroup, 'target1', 42, new RuleList([$rule1, $rule2])],
+                    [$ruleGroup, 'target2', 84, new RuleList([$rule3, $rule4])],
+                ],
             );
 
         self::assertSame($rule3, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
@@ -510,9 +556,15 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame($rule1, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
@@ -549,9 +601,15 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertNull($this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
@@ -593,9 +651,15 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame($rule2, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
@@ -616,6 +680,12 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->createLayoutResolver();
+
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
             ->expects(self::never())
@@ -654,10 +724,16 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule]));
 
         self::assertSame(
@@ -699,10 +775,16 @@ final class LayoutResolverTest extends TestCase
             ],
         );
 
+        $ruleGroup = new RuleGroup();
+
+        $this->layoutResolverServiceMock
+            ->method('loadRuleGroup')
+            ->willReturn($ruleGroup);
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('matchRules')
-            ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
+            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule]));
 
         self::assertSame($resolved ? $rule : null, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
@@ -735,7 +817,7 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
     }
 
-    public function resolveRulesWithRuleConditionsDataProvider(): array
+    public static function resolveRulesWithRuleConditionsDataProvider(): array
     {
         return [
             [[], true],
@@ -748,7 +830,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public function resolveRulesWithPartialRuleConditionsDataProvider(): array
+    public static function resolveRulesWithPartialRuleConditionsDataProvider(): array
     {
         return [
             [[], true],
@@ -761,7 +843,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public function matchesDataProvider(): array
+    public static function matchesDataProvider(): array
     {
         return [
             [[], true],

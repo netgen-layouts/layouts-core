@@ -54,7 +54,7 @@ final class TextTypeTest extends TestCase
         $this->getParameterDefinition($options);
     }
 
-    public function validOptionsDataProvider(): array
+    public static function validOptionsDataProvider(): array
     {
         return [
             [
@@ -64,7 +64,7 @@ final class TextTypeTest extends TestCase
         ];
     }
 
-    public function invalidOptionsDataProvider(): array
+    public static function invalidOptionsDataProvider(): array
     {
         return [
             [
@@ -92,7 +92,7 @@ final class TextTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public function validationDataProvider(): array
+    public static function validationDataProvider(): array
     {
         return [
             ['test', true],
@@ -117,7 +117,7 @@ final class TextTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public function emptyDataProvider(): array
+    public static function emptyDataProvider(): array
     {
         return [
             [null, true],

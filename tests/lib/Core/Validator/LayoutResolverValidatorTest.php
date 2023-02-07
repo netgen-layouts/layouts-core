@@ -214,7 +214,7 @@ final class LayoutResolverValidatorTest extends TestCase
         );
     }
 
-    public function validateRuleUpdateStructDataProvider(): array
+    public static function validateRuleUpdateStructDataProvider(): array
     {
         return [
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => 'Description'], true],
@@ -227,7 +227,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateRuleGroupCreateStructDataProvider(): array
+    public static function validateRuleGroupCreateStructDataProvider(): array
     {
         return [
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
@@ -239,7 +239,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateRuleGroupUpdateStructDataProvider(): array
+    public static function validateRuleGroupUpdateStructDataProvider(): array
     {
         return [
             [['name' => 'Name', 'description' => 'Description'], true],
@@ -251,7 +251,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateTargetCreateStructDataProvider(): array
+    public static function validateTargetCreateStructDataProvider(): array
     {
         return [
             [['type' => 'target1', 'value' => 42], true],
@@ -263,7 +263,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateTargetUpdateStructDataProvider(): array
+    public static function validateTargetUpdateStructDataProvider(): array
     {
         return [
             [['value' => 42], true],
@@ -275,7 +275,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateConditionCreateStructDataProvider(): array
+    public static function validateConditionCreateStructDataProvider(): array
     {
         return [
             [['type' => 'condition1', 'value' => 42], true],
@@ -287,7 +287,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateConditionUpdateStructDataProvider(): array
+    public static function validateConditionUpdateStructDataProvider(): array
     {
         return [
             [['value' => 42], true],

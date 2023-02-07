@@ -82,7 +82,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider(): array
+    public static function validateDataProvider(): array
     {
         return [
             [

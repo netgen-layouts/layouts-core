@@ -7,10 +7,10 @@ namespace Netgen\Layouts\Tests\Collection\Form;
 use ArrayIterator;
 use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Collection\Form\CollectionDataMapper;
-use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
+use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTestBase;
 use Symfony\Component\Form\FormInterface;
 
-final class CollectionDataMapperTest extends DataMapperTest
+final class CollectionDataMapperTest extends DataMapperTestBase
 {
     private CollectionDataMapper $mapper;
 

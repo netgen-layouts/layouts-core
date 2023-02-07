@@ -7,22 +7,27 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Plugin;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\SimplePlugin;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 final class RendererTest extends TestCase
 {
-    private MockObject $twigMock;
-
     private Renderer $renderer;
 
     protected function setUp(): void
     {
-        $this->twigMock = $this->createMock(Environment::class);
+        $twig = new Environment(
+            new ArrayLoader(
+                [
+                    'template1.html.twig' => '{{param}}',
+                    'template2.html.twig' => '{{param}}{{param2}}',
+                ],
+            ),
+        );
 
         $this->renderer = new Renderer(
-            $this->twigMock,
+            $twig,
             [
                 'plugin' => [
                     new SimplePlugin('template1.html.twig'),
@@ -38,34 +43,7 @@ final class RendererTest extends TestCase
      */
     public function testRenderPlugins(): void
     {
-        $mock = $this->twigMock
-            ->method('display');
-
-        $mock
-            ->withConsecutive(
-                [
-                    self::identicalTo('template1.html.twig'),
-                    self::identicalTo(['param' => 'value']),
-                ],
-                [
-                    self::identicalTo('template2.html.twig'),
-                    self::identicalTo(['param2' => 'value2', 'param' => 'value3']),
-                ],
-            )
-            ->willReturnOnConsecutiveCalls(
-                self::returnCallback(
-                    static function (): void {
-                        echo 'rendered1';
-                    },
-                ),
-                self::returnCallback(
-                    static function (): void {
-                        echo 'rendered2';
-                    },
-                ),
-            );
-
-        self::assertSame('rendered1rendered2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));
+        self::assertSame('valuevalue3value2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));
     }
 
     /**
@@ -73,10 +51,6 @@ final class RendererTest extends TestCase
      */
     public function testRenderPluginsWithUnknownPlugin(): void
     {
-        $this->twigMock
-            ->expects(self::never())
-            ->method('display');
-
         self::assertSame('', $this->renderer->renderPlugins('unknown'));
     }
 
@@ -88,10 +62,21 @@ final class RendererTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception message');
 
-        $this->twigMock
+        $twigMock = $this->createMock(Environment::class);
+
+        $twigMock
             ->method('display')
             ->willThrowException(new Exception('Test exception message'));
 
-        $this->renderer->renderPlugins('plugin');
+        $renderer = new Renderer(
+            $twigMock,
+            [
+                'plugin' => [
+                    new SimplePlugin('template.html.twig'),
+                ],
+            ],
+        );
+
+        $renderer->renderPlugins('plugin');
     }
 }

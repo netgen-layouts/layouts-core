@@ -55,7 +55,7 @@ final class RouteTest extends TestCase
         );
     }
 
-    public function validationDataProvider(): array
+    public static function validationDataProvider(): array
     {
         return [
             ['route_name', true],

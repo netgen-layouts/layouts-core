@@ -43,13 +43,11 @@ final class InvalidatorTest extends TestCase
 
         $this->idProviderMock
             ->method('provideIds')
-            ->withConsecutive(
-                [self::identicalTo($uuid1->toString())],
-                [self::identicalTo($uuid2->toString())],
-            )
-            ->willReturnOnConsecutiveCalls(
-                [$uuid1->toString(), $uuid3->toString(), $uuid4->toString()],
-                [$uuid2->toString()],
+            ->willReturnMap(
+                [
+                    [$uuid1->toString(), [$uuid1->toString(), $uuid3->toString(), $uuid4->toString()]],
+                    [$uuid2->toString(), [$uuid2->toString()]],
+                ],
             );
 
         $this->clientMock

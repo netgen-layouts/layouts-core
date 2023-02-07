@@ -17,7 +17,7 @@ use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use Ramsey\Uuid\Uuid;
 
-abstract class BlockServiceTest extends CoreTestCase
+abstract class BlockServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
     use UuidGeneratorTrait;

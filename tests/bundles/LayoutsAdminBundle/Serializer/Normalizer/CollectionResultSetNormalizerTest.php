@@ -75,7 +75,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    public function supportsNormalizationDataProvider(): array
+    public static function supportsNormalizationDataProvider(): array
     {
         return [
             [null, false],

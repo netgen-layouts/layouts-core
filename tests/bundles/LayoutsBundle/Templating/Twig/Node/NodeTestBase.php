@@ -8,7 +8,7 @@ use Twig\Test\NodeTestCase;
 
 use function sprintf;
 
-abstract class NodeTest extends NodeTestCase
+abstract class NodeTestBase extends NodeTestCase
 {
     protected function getNodeGetter(string $name, int $lineNo = 0): string
     {

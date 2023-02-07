@@ -77,7 +77,7 @@ final class ItemViewProviderTest extends TestCase
         self::assertSame($supports, $this->itemViewProvider->supports($value));
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
             [new Value(), false],

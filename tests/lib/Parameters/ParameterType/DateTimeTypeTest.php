@@ -40,7 +40,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public function emptyDataProvider(): array
+    public static function emptyDataProvider(): array
     {
         return [
             [null, true],
@@ -64,7 +64,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
-    public function toHashDataProvider(): array
+    public static function toHashDataProvider(): array
     {
         return [
             [42, null],
@@ -112,7 +112,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
-    public function invalidFromHashDataProvider(): array
+    public static function invalidFromHashDataProvider(): array
     {
         return [
             [null, null],
@@ -144,7 +144,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public function validationDataProvider(): array
+    public static function validationDataProvider(): array
     {
         return [
             [null, true],

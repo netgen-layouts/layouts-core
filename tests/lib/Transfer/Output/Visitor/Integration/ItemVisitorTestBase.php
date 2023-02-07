@@ -13,9 +13,9 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\Collection\Item>
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTestBase<\Netgen\Layouts\API\Values\Collection\Item>
  */
-abstract class ItemVisitorTest extends VisitorTest
+abstract class ItemVisitorTestBase extends VisitorTestBase
 {
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ abstract class ItemVisitorTest extends VisitorTest
         return new ItemVisitor();
     }
 
-    public function acceptDataProvider(): array
+    public static function acceptDataProvider(): array
     {
         return [
             [new Item(), true],
@@ -41,7 +41,7 @@ abstract class ItemVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitDataProvider(): array
+    public static function visitDataProvider(): array
     {
         return [
             [fn (): Item => $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')), 'item/item_4.json'],

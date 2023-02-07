@@ -46,7 +46,7 @@ final class PagerFactoryTest extends TestCase
         self::assertSame(200, $pager->getNbPages());
     }
 
-    public function getPagerDataProvider(): array
+    public static function getPagerDataProvider(): array
     {
         return [
             [-5, 1],
@@ -76,7 +76,7 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($nbPages, $pager->getNbPages());
     }
 
-    public function getMaxPagesPagerDataProvider(): array
+    public static function getMaxPagesPagerDataProvider(): array
     {
         return [
             [-2, 2, 200],
@@ -110,7 +110,7 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($nbPages, $pager->getNbPages());
     }
 
-    public function getPagerWithCollectionLimitDataProvider(): array
+    public static function getPagerWithCollectionLimitDataProvider(): array
     {
         return [
             [100, null, 100, 10],

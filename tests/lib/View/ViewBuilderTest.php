@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View;
 
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
@@ -15,10 +13,6 @@ use Netgen\Layouts\View\ViewBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpKernel\Kernel;
-
-use function array_reverse;
-use function sprintf;
 
 final class ViewBuilderTest extends TestCase
 {
@@ -70,32 +64,6 @@ final class ViewBuilderTest extends TestCase
             ->expects(self::once())
             ->method('resolveTemplate')
             ->with(self::identicalTo($view));
-
-        $args = [
-            self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(LayoutsEvents::BUILD_VIEW),
-        ];
-
-        if (Kernel::VERSION_ID < 40300) {
-            $args = array_reverse($args);
-        }
-
-        $consecutiveArgs = [$args];
-
-        $args = [
-            self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'stub')),
-        ];
-
-        if (Kernel::VERSION_ID < 40300) {
-            $args = array_reverse($args);
-        }
-
-        $consecutiveArgs[] = $args;
-
-        $this->eventDispatcherMock
-            ->method('dispatch')
-            ->withConsecutive(...$consecutiveArgs);
 
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,

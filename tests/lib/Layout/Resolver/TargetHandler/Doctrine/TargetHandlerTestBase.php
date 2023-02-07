@@ -14,7 +14,7 @@ use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTargetHandlerTest extends TestCase
+abstract class TargetHandlerTestBase extends TestCase
 {
     use TestCaseTrait;
 

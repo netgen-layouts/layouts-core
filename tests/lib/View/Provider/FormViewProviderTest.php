@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\FormViewProvider;
 use Netgen\Layouts\View\View\FormViewInterface;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
@@ -48,7 +47,7 @@ final class FormViewProviderTest extends TestCase
     }
 
     /**
-     * @param mixed $value
+     * @param class-string $value
      *
      * @covers \Netgen\Layouts\View\Provider\FormViewProvider::supports
      *
@@ -56,15 +55,14 @@ final class FormViewProviderTest extends TestCase
      */
     public function testSupports($value, bool $supports): void
     {
-        self::assertSame($supports, $this->formViewProvider->supports($value));
+        self::assertSame($supports, $this->formViewProvider->supports($this->createMock($value)));
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
-            [new Value(), false],
-            [$this->createMock(FormInterface::class), true],
-            [new Layout(), false],
+            [stdClass::class, false],
+            [FormInterface::class, true],
         ];
     }
 }

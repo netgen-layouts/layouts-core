@@ -12,7 +12,7 @@ use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
-abstract class LayoutMapperTest extends CoreTestCase
+abstract class LayoutMapperTestBase extends CoreTestCase
 {
     private LayoutMapper $mapper;
 

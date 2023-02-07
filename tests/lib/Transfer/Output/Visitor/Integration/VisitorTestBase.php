@@ -28,7 +28,7 @@ use const PHP_EOL;
 /**
  * @template T of object
  */
-abstract class VisitorTest extends CoreTestCase
+abstract class VisitorTestBase extends CoreTestCase
 {
     /**
      * @param mixed $value
@@ -87,10 +87,10 @@ abstract class VisitorTest extends CoreTestCase
     /**
      * Provides data for testing VisitorInterface::accept method.
      */
-    abstract public function acceptDataProvider(): array;
+    abstract public static function acceptDataProvider(): array;
 
     /**
      * Provides data for testing VisitorInterface::visit method.
      */
-    abstract public function visitDataProvider(): array;
+    abstract public static function visitDataProvider(): array;
 }

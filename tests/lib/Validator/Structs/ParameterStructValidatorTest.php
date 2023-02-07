@@ -185,7 +185,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider(): array
+    public static function validateDataProvider(): array
     {
         return [
             [['css_id' => 'ID', 'checkbox' => true, 'param' => 'value'], true, true],
@@ -239,7 +239,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         ];
     }
 
-    public function validateWithRuntimeConstraintsDataProvider(): array
+    public static function validateWithRuntimeConstraintsDataProvider(): array
     {
         return [
             [['css_id' => 'fo'], true, false],

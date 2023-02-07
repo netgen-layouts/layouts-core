@@ -62,7 +62,7 @@ final class TimeTest extends TestCase
         ClockMock::withClockMock(false);
     }
 
-    public function validationDataProvider(): array
+    public static function validationDataProvider(): array
     {
         return [
             [['from' => [], 'to' => []], false],
@@ -91,7 +91,7 @@ final class TimeTest extends TestCase
         ];
     }
 
-    public function matchesDataProvider(): array
+    public static function matchesDataProvider(): array
     {
         return [
             [['from' => [], 'to' => []], true],

@@ -10,7 +10,7 @@ use function method_exists;
 
 trait LegacyTestCaseTrait
 {
-    public static function assertMatchesRegularExpression(string $pattern, string $string, string $message = ''): void
+    public static function assertPatternMatchesRegularExpression(string $pattern, string $string, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertMatchesRegularExpression')) {
             Assert::assertMatchesRegularExpression($pattern, $string, $message);
@@ -18,6 +18,8 @@ trait LegacyTestCaseTrait
             return;
         }
 
-        Assert::assertRegExp($pattern, $string, $message);
+        if (method_exists(Assert::class, 'assertRegExp')) {
+            Assert::assertRegExp($pattern, $string, $message);
+        }
     }
 }

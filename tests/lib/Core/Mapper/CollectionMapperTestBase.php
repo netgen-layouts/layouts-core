@@ -18,7 +18,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
-abstract class CollectionMapperTest extends CoreTestCase
+abstract class CollectionMapperTestBase extends CoreTestCase
 {
     private CollectionMapper $mapper;
 

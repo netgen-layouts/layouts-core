@@ -6,10 +6,10 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Type\DataMapper;
 
 use ArrayIterator;
 use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
-use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
+use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTestBase;
 use Symfony\Component\Form\FormInterface;
 
-final class ItemLinkDataMapperTest extends DataMapperTest
+final class ItemLinkDataMapperTest extends DataMapperTestBase
 {
     private ItemLinkDataMapper $mapper;
 

@@ -16,7 +16,7 @@ use Twig\Node\Expression\NameExpression;
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compile
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compileContextNode
  */
-final class RenderZoneTest extends NodeTest
+final class RenderZoneTest extends NodeTestBase
 {
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::__construct

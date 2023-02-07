@@ -8,7 +8,7 @@ use Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Value;
 
-final class RoutePrefixTest extends AbstractTargetHandlerTest
+final class RoutePrefixTest extends TargetHandlerTestBase
 {
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix::handleQuery

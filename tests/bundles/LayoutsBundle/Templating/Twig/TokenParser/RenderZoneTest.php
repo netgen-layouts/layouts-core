@@ -65,7 +65,7 @@ final class RenderZoneTest extends TestCase
         $this->parser->parse($stream);
     }
 
-    public function compileDataProvider(): array
+    public static function compileDataProvider(): array
     {
         return [
             [

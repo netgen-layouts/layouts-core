@@ -93,7 +93,7 @@ final class ZoneViewProviderTest extends TestCase
         self::assertSame($supports, $this->ZoneViewProvider->supports($value));
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
             [new Value(), false],

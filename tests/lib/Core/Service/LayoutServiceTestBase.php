@@ -17,7 +17,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Ramsey\Uuid\Uuid;
 
-abstract class LayoutServiceTest extends CoreTestCase
+abstract class LayoutServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
 

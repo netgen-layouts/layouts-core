@@ -54,7 +54,7 @@ final class RuleTargetProviderTest extends TestCase
         self::assertSame($supports, $this->ruleTargetViewProvider->supports($value));
     }
 
-    public function supportsDataProvider(): array
+    public static function supportsDataProvider(): array
     {
         return [
             [new Target(), true],

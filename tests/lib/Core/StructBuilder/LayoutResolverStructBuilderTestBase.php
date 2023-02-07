@@ -8,7 +8,7 @@ use Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
-abstract class LayoutResolverStructBuilderTest extends CoreTestCase
+abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
 

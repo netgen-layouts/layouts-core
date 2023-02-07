@@ -75,7 +75,7 @@ final class ManualCollectionRunnerTest extends TestCase
      *
      * IDs are identifiers of 3rd party values (for example eZ content)
      */
-    public function manualCollectionDataProvider(): array
+    public static function manualCollectionDataProvider(): array
     {
         return [
             [

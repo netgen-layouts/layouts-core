@@ -52,7 +52,7 @@ final class LocaleTest extends TestCase
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
-    public function matchDataProvider(): array
+    public static function matchDataProvider(): array
     {
         return [
             [[], false],

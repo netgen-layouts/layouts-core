@@ -11,7 +11,7 @@ use Twig\Node\Expression\NameExpression;
 /**
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext::compile
  */
-final class DefaultContextTest extends NodeTest
+final class DefaultContextTest extends NodeTestBase
 {
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext::__construct

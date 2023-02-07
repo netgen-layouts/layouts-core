@@ -10,7 +10,7 @@ use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\Value;
 
-final class TargetHandlerTest extends AbstractTargetHandlerTest
+final class TargetHandlerTest extends TargetHandlerTestBase
 {
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules

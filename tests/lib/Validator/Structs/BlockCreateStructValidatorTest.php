@@ -67,12 +67,12 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
-    public function validateDataProvider(): array
+    public static function validateDataProvider(): array
     {
         return [
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
@@ -86,7 +86,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'name' => 'My block',
                     'isTranslatable' => false,
@@ -100,7 +100,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -114,7 +114,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -128,7 +128,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -143,7 +143,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
@@ -158,7 +158,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
@@ -173,7 +173,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -188,7 +188,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -203,7 +203,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -218,7 +218,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -232,7 +232,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -247,7 +247,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -262,7 +262,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -276,7 +276,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -287,7 +287,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'definition' => $this->getBlockDefinition(),
+                    'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -302,7 +302,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
 
             [
                 [
-                    'definition' => $this->getContainerDefinition(),
+                    'definition' => self::getContainerDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -323,7 +323,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         return new BlockCreateStructValidator();
     }
 
-    private function getBlockDefinition(): BlockDefinitionInterface
+    private static function getBlockDefinition(): BlockDefinitionInterface
     {
         $handler = new BlockDefinitionHandlerWithRequiredParameter();
 
@@ -335,7 +335,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         );
     }
 
-    private function getContainerDefinition(): ContainerDefinitionInterface
+    private static function getContainerDefinition(): ContainerDefinitionInterface
     {
         $handler = new ContainerDefinitionHandler([], ['main']);
 

@@ -96,7 +96,7 @@ final class DefinitionTest extends TestCase
         self::assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 
-    public function matchDataProvider(): array
+    public static function matchDataProvider(): array
     {
         return [
             [[], false],

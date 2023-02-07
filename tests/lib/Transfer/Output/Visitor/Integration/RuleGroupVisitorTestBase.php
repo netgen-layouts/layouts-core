@@ -12,16 +12,16 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\LayoutResolver\RuleGroup>
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTestBase<\Netgen\Layouts\API\Values\LayoutResolver\RuleGroup>
  */
-abstract class RuleGroupVisitorTest extends VisitorTest
+abstract class RuleGroupVisitorTestBase extends VisitorTestBase
 {
     public function getVisitor(): VisitorInterface
     {
         return new RuleGroupVisitor($this->layoutResolverService);
     }
 
-    public function acceptDataProvider(): array
+    public static function acceptDataProvider(): array
     {
         return [
             [new RuleGroup(), true],
@@ -30,7 +30,7 @@ abstract class RuleGroupVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitDataProvider(): array
+    public static function visitDataProvider(): array
     {
         return [
             [fn (): RuleGroup => $this->layoutResolverService->loadRuleGroup(Uuid::fromString('00000000-0000-0000-0000-000000000000')), 'rule_group/rule_group_1.json'],
