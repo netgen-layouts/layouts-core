@@ -63,9 +63,9 @@
         "nikolaposa/version": "^4.1"
     },
     "require-dev": {
-        "netgen/layouts-coding-standard": "^1.0 || ^2.0",
+        "netgen/layouts-coding-standard": "^2.0",
         "netgen/layouts-standard": "~1.4.0",
-        "phpunit/phpunit": "^8.5 || ^9.5",
+        "phpunit/phpunit": "^8.5 || ^9.6",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/runtime": "^5.4 || ^6.2",
         "symfony/var-dumper": "^3.4.47 || ^5.4 || ^6.2",
@@ -75,7 +75,7 @@
         "phpstan/phpstan-phpunit": "^1.3",
         "vimeo/psalm": "^4.30 || ^5.4",
         "coduo/php-matcher": "^3.2 || ^6.0",
-        "sebastian/diff": "^3.0 || ^4.0",
+        "sebastian/diff": "^3.0 || ^4.0 || ^5.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.2",
         "matthiasnoback/symfony-config-test": "^4.2",
         "lchrusciel/api-test-case": "^4.1 || ^5.2",
