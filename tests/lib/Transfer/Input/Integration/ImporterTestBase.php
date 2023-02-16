@@ -51,7 +51,7 @@ use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 use const PHP_EOL;
 
-abstract class ImporterTest extends CoreTestCase
+abstract class ImporterTestBase extends CoreTestCase
 {
     private Importer $importer;
 
