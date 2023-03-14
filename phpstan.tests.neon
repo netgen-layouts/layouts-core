@@ -39,12 +39,6 @@ parameters:
 
         - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type array.#'
 
-        # Disable errors about values inferred from iterable typehints
-
-        -
-            message: '#Call to static method PHPUnit\\Framework\\Assert::assert\w+\(\) with .+ will always evaluate to true.#'
-            path: tests/lib/Utils/DateTimeUtilsTest.php
-
         # Disable errors for various tests that verify values have correct types or arrays not having certain elements
         - '/Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given./'
         - '/Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given./'

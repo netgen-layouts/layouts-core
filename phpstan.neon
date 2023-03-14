@@ -44,8 +44,6 @@ parameters:
         - "#Call to an undefined method Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent::isMasterRequest\\(\\).#"
         - "#Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack::getMasterRequest\\(\\).#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
-        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
-        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack and 'getMainRequest' will always evaluate to true.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent and 'isMainRequest' will always evaluate to true.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpFoundation\\\\Request and 'getContentTypeFormat' will always evaluate to true.#"
@@ -60,13 +58,6 @@ parameters:
         - "#Call to function method_exists\\(\\) with Netgen\\\\Layouts\\\\Layout\\\\Resolver\\\\(Condition|Target)TypeInterface and '(export|import)' will always evaluate to true.#"
 
         -
-            message: '#Call to function is_string\(\) with non-empty-string will always evaluate to true.#'
-            path: lib/Utils/DateTimeUtils.php
-
-        - '#Call to function is_array\(\) with array\<Swaggest\\JsonSchema\\InvalidValue\> will always evaluate to true.#'
-        - '#Instanceof between Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition and Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition will always evaluate to true.#'
-
-        -
             message: '#Variable property access on object.#'
             path: lib/Utils/Hydrator.php
 
@@ -74,8 +65,9 @@ parameters:
             message: '#Unsafe usage of new static\(\).#'
             path: lib/Utils/HydratorTrait.php
 
+        - "#Static call to instance method stdClass::getExtendedIdentifiers#"
+
         # Bugs in PHPStan?
 
-        - "#Offset 'scheme' on .+ on left side of \\?\\? always exists and is not nullable.#"
         - "#Cannot assign new offset to array#"
         - "#string\\|Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data#"
