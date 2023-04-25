@@ -73,6 +73,7 @@ services:
             - "@netgen_layouts.context"
             - "@uri_signer"
             - "@router"
+            - "@request_stack"
 
     netgen_layouts.templating.twig.extension.item:
         class: Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\ItemExtension

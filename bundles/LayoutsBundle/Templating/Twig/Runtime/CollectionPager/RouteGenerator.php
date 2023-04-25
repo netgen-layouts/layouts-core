@@ -6,6 +6,8 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Context\Context;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -23,14 +25,18 @@ final class RouteGenerator
 
     private UrlGeneratorInterface $urlGenerator;
 
+    private RequestStack $requestStack;
+
     public function __construct(
         Context $context,
         UriSigner $uriSigner,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        RequestStack $requestStack
     ) {
         $this->context = $context;
         $this->uriSigner = $uriSigner;
         $this->urlGenerator = $urlGenerator;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -39,15 +45,22 @@ final class RouteGenerator
     public function __invoke(Block $block, string $collectionIdentifier, int $page): string
     {
         $context = $this->context->all();
+        $currentRequest = $this->requestStack->getCurrentRequest();
+
+        $routeParams = [
+            'blockId' => $block->getId()->toString(),
+            'locale' => $block->getLocale(),
+            'collectionIdentifier' => $collectionIdentifier,
+            'nglContext' => $context,
+        ];
+
+        if ($currentRequest instanceof Request) {
+            $routeParams += $currentRequest->query->all();
+        }
 
         $uri = $this->urlGenerator->generate(
             $block->isPublished() ? 'nglayouts_ajax_block' : 'nglayouts_ajax_block_draft',
-            [
-                'blockId' => $block->getId()->toString(),
-                'locale' => $block->getLocale(),
-                'collectionIdentifier' => $collectionIdentifier,
-                'nglContext' => $context,
-            ],
+            $routeParams,
         );
 
         $signedContext = $this->uriSigner->sign(
