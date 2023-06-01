@@ -13,6 +13,8 @@ use function str_starts_with;
 
 /**
  * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (ROLE_NGLAYOUTS_*).
+ *
+ * @extends \Symfony\Component\Security\Core\Authorization\Voter\Voter<string, mixed>
  */
 final class PolicyToRoleMapVoter extends Voter
 {

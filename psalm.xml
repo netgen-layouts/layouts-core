@@ -28,6 +28,9 @@
 
         <UndefinedMethod>
             <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::addDefaultsIfNotSet" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::requiresAtLeastOneElement" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
                 <referencedMethod name="Symfony\Component\Intl\Intl::getLocaleBundle" />
                 <referencedMethod name="Symfony\Component\HttpKernel\Event\KernelEvent::isMasterRequest" />
                 <referencedMethod name="Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface::getExtendedIdentifiers" />
@@ -86,14 +89,6 @@
         </UndefinedInterfaceMethod>
 
         <!-- Symfony -->
-
-        <PossiblyUndefinedMethod>
-            <errorLevel type="suppress">
-                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::addDefaultsIfNotSet" />
-                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::requiresAtLeastOneElement" />
-                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
-            </errorLevel>
-        </PossiblyUndefinedMethod>
 
         <MissingParamType>
             <errorLevel type="suppress">

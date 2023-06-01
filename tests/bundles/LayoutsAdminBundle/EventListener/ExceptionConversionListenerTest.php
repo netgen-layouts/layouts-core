@@ -8,13 +8,11 @@ use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener\Stubs\ExceptionStub;
 use Netgen\Layouts\Exception\API\ConfigException;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Exception\View\ViewException;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +21,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -80,10 +77,7 @@ final class ExceptionConversionListenerTest extends TestCase
         self::assertInstanceOf($convertedClass, $eventException);
         self::assertSame($exception->getMessage(), $eventException->getMessage());
         self::assertSame($exception->getCode(), $eventException->getCode());
-
-        if ($eventException instanceof HttpExceptionInterface) {
-            self::assertSame($statusCode, $eventException->getStatusCode());
-        }
+        self::assertSame($statusCode, $eventException->getStatusCode());
 
         $converted ?
             self::assertSame($exception, $eventException->getPrevious()) :
@@ -195,18 +189,6 @@ final class ExceptionConversionListenerTest extends TestCase
                 true,
             ],
             [
-                new ExceptionStub('Some error'),
-                ExceptionStub::class,
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                false,
-            ],
-            [
-                new Exception('Some error'),
-                Exception::class,
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                false,
-            ],
-            [
                 new AccessDeniedException('Some error'),
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
@@ -217,18 +199,6 @@ final class ExceptionConversionListenerTest extends TestCase
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
                 true,
-            ],
-            [
-                new ViewException('Some error'),
-                ViewException::class,
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                false,
-            ],
-            [
-                new RuntimeException('Some error'),
-                RuntimeException::class,
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                false,
             ],
             [
                 new AccessDeniedHttpException('Some error'),
