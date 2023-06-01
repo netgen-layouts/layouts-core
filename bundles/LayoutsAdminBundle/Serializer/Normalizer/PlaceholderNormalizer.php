@@ -49,6 +49,16 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
     }
 
     /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
+
+    /**
      * Builds the list of View objects for provided list of values.
      *
      * @param iterable<object> $values

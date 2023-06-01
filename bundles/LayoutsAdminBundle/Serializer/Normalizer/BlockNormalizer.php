@@ -90,6 +90,16 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     }
 
     /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
+
+    /**
      * @return \Generator<array<string, mixed>>
      */
     private function getBlockCollections(Block $block): Generator

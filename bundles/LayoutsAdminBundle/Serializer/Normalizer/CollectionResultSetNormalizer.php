@@ -52,6 +52,16 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
     }
 
     /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
+
+    /**
      * Returns all items from the collection which are overflown. Overflown items
      * are those NOT included in the provided result set, as defined by collection
      * offset and limit.

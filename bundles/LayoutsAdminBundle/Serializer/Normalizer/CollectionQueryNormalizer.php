@@ -53,6 +53,16 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
     }
 
     /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
+
+    /**
      * Builds the list of Value objects for provided list of values.
      *
      * @param iterable<object> $values

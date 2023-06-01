@@ -28,4 +28,14 @@ final class NormalizerStub implements NormalizerInterface
     {
         return is_object($data) && !$data instanceof Generator;
     }
+
+    /**
+     * @return array<string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            '*' => false,
+        ];
+    }
 }

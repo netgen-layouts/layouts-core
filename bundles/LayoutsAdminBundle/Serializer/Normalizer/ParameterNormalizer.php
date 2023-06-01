@@ -37,4 +37,14 @@ final class ParameterNormalizer implements NormalizerInterface
 
         return $data->getValue() instanceof Parameter;
     }
+
+    /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
 }

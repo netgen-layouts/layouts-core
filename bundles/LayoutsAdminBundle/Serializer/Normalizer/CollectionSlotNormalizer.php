@@ -42,4 +42,14 @@ final class CollectionSlotNormalizer implements NormalizerInterface
 
         return $data->getValue() instanceof Slot;
     }
+
+    /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
 }

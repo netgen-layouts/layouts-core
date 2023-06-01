@@ -69,4 +69,14 @@ final class ExceptionNormalizer implements NormalizerInterface
     {
         return $data instanceof Exception;
     }
+
+    /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Exception::class => false,
+        ];
+    }
 }

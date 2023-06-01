@@ -79,6 +79,16 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     }
 
     /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
+
+    /**
      * Normalizes the provided result item into an array.
      *
      * @param array<string, mixed> $context

@@ -97,6 +97,16 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     }
 
     /**
+     * @return array<class-string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            Value::class => false,
+        ];
+    }
+
+    /**
      * Returns the array with layout zones.
      *
      * @return \Generator<array<string, mixed>>
