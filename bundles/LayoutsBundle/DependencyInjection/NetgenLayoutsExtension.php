@@ -41,6 +41,7 @@ use Symfony\Component\Yaml\Yaml;
 
 use function array_keys;
 use function array_reverse;
+use function file_exists;
 use function file_get_contents;
 use function get_class;
 use function implode;
@@ -175,7 +176,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
 
         /** @var string $configFile */
         foreach (array_reverse($prependConfigs) as $configFile => $prependConfig) {
-            if ($configFile[0] !== '/') {
+            if (!file_exists($configFile)) {
                 $configFile = __DIR__ . '/../Resources/config/' . $configFile;
             }
 
