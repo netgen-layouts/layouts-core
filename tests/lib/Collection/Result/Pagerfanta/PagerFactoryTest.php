@@ -21,7 +21,7 @@ final class PagerFactoryTest extends TestCase
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
-        $this->resultBuilderMock->expects(self::any())
+        $this->resultBuilderMock
             ->method('build')
             ->willReturn(ResultSet::fromArray(['totalCount' => 1000]));
 

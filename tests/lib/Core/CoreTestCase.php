@@ -149,7 +149,7 @@ abstract class CoreTestCase extends TestCase
     {
         $validator = $this->createMock(ValidatorInterface::class);
 
-        $validator->expects(self::any())
+        $validator
             ->method('validate')
             ->willReturn(new ConstraintViolationList());
 

@@ -62,7 +62,7 @@ final class LocaleProviderTest extends TestCase
         $localeProvider = new LocaleProvider();
 
         $requestMock = $this->createMock(Request::class);
-        $requestMock->expects(self::any())
+        $requestMock
             ->method('getLocale')
             ->willReturn('en');
 
@@ -77,7 +77,7 @@ final class LocaleProviderTest extends TestCase
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
         $requestMock = $this->createMock(Request::class);
-        $requestMock->expects(self::any())
+        $requestMock
             ->method('getLocale')
             ->willReturn('en');
 
@@ -92,7 +92,7 @@ final class LocaleProviderTest extends TestCase
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
         $requestMock = $this->createMock(Request::class);
-        $requestMock->expects(self::any())
+        $requestMock
             ->method('getLocale')
             ->willReturn('de');
 

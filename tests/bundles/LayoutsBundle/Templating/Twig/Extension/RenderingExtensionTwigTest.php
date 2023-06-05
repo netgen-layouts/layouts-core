@@ -143,7 +143,6 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
 
         $request instanceof Request ?
             $this->localeProviderMock
-                ->expects(self::any())
                 ->method('getRequestLocales')
                 ->with(self::identicalTo($request))
                 ->willReturn(['en']) :

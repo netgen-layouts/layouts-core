@@ -30,12 +30,12 @@ trait UuidGeneratorTrait
         $factoryMock = $this->createMock(UuidFactoryInterface::class);
 
         if (method_exists(UuidFactoryInterface::class, 'getValidator')) {
-            $factoryMock->expects(self::any())
+            $factoryMock
                 ->method('getValidator')
                 ->willReturn($originalFactory->getValidator());
         }
 
-        $factoryMock->expects(self::any())
+        $factoryMock
             ->method('fromString')
             ->willReturnCallback(
                 static fn (string $uuid): UuidInterface => $originalFactory->fromString($uuid),

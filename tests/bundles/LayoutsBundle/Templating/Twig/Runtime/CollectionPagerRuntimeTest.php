@@ -102,7 +102,7 @@ final class CollectionPagerRuntimeTest extends TestCase
     public function testGetCollectionPageUrl(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
-        $pagerfanta->expects(self::any())
+        $pagerfanta
             ->method('getNbPages')
             ->willReturn(5);
 
@@ -127,7 +127,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         $this->expectExceptionMessageMatches('/^Argument "page" has an invalid value\\. Page -?\\d+ is out of bounds$/');
 
         $pagerfanta = $this->createMock(Pagerfanta::class);
-        $pagerfanta->expects(self::any())
+        $pagerfanta
             ->method('getNbPages')
             ->willReturn(5);
 
