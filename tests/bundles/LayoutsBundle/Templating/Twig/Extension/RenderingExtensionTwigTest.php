@@ -152,7 +152,6 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                 ->method('getRequestLocales');
 
         $this->blockServiceMock
-            ->expects(self::any())
             ->method('loadZoneBlocks')
             ->with(
                 self::isInstanceOf(Zone::class),
@@ -161,7 +160,6 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->willReturn(new BlockList());
 
         $this->rendererMock
-            ->expects(self::any())
             ->method('renderValue')
             ->willReturnCallback(
                 static fn (ZoneReference $zoneReference, string $context): string => $context === 'json' ?

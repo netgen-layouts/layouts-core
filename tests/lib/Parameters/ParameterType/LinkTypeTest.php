@@ -317,7 +317,6 @@ final class LinkTypeTest extends TestCase
     public function testExport($value, $convertedValue): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -339,7 +338,6 @@ final class LinkTypeTest extends TestCase
     public function testExportWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('24'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));
@@ -436,7 +434,6 @@ final class LinkTypeTest extends TestCase
     public function testImport($value, array $expectedValue): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -461,7 +458,6 @@ final class LinkTypeTest extends TestCase
     public function testImportWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('loadByRemoteId')
             ->with(self::identicalTo('def'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));

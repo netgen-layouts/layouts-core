@@ -64,7 +64,6 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $twigTemplateMock = $this->createMock(Template::class);
 
         $twigTemplateMock
-            ->expects(self::any())
             ->method('hasBlock')
             ->with(self::identicalTo('twig_block'))
             ->willReturn(true);

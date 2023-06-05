@@ -35,7 +35,6 @@ final class DynamicCollectionRunnerTest extends TestCase
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
         $this->cmsItemBuilderMock
-            ->expects(self::any())
             ->method('build')
             ->willReturnCallback(
                 static fn ($value): CmsItemInterface => CmsItem::fromArray(['value' => $value, 'isVisible' => true]),

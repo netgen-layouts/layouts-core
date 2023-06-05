@@ -261,7 +261,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('12'), self::identicalTo('my_value_type'))
             ->willReturn($cmsItem);
@@ -362,7 +361,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $cmsItem = new NullCmsItem('value');
 
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('12'), self::identicalTo('null'))
             ->willReturn($cmsItem);

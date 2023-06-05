@@ -25,7 +25,6 @@ final class FilesystemLoaderTest extends TestCase
         $this->configurationMock = $this->createMock(ConfigurationInterface::class);
 
         $this->configurationMock
-            ->expects(self::any())
             ->method('getParameter')
             ->with(self::identicalTo('design'))
             ->willReturn('test');

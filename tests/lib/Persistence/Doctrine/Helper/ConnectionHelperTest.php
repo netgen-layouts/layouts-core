@@ -30,7 +30,6 @@ final class ConnectionHelperTest extends TestCase
         $helper = new ConnectionHelper($connectionMock);
 
         $connectionMock
-            ->expects(self::any())
             ->method('getDatabasePlatform')
             ->willReturn($platform);
 
@@ -50,7 +49,6 @@ final class ConnectionHelperTest extends TestCase
         $helper = new ConnectionHelper($connectionMock);
 
         $connectionMock
-            ->expects(self::any())
             ->method('getDatabasePlatform')
             ->willReturn($platform);
 
@@ -69,12 +67,10 @@ final class ConnectionHelperTest extends TestCase
         $helper = new ConnectionHelper($connectionMock);
 
         $connectionMock
-            ->expects(self::any())
             ->method('getDatabasePlatform')
             ->willReturn($platform);
 
         $connectionMock
-            ->expects(self::any())
             ->method('lastInsertId')
             ->with(self::identicalTo('table'))
             ->willReturn(42);
@@ -95,12 +91,10 @@ final class ConnectionHelperTest extends TestCase
         $helper = new ConnectionHelper($connectionMock);
 
         $connectionMock
-            ->expects(self::any())
             ->method('getDatabasePlatform')
             ->willReturn($platform);
 
         $connectionMock
-            ->expects(self::any())
             ->method('lastInsertId')
             ->with(self::identicalTo('table_id_seq'))
             ->willReturn('43');

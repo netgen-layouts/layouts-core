@@ -535,7 +535,6 @@ final class GlobalVariableTest extends TestCase
         $this->context->set('bar', 'baz');
 
         $this->uriSignerMock
-            ->expects(self::any())
             ->method('sign')
             ->with('?nglContext%5Bfoo%5D=bar&nglContext%5Bbar%5D=baz')
             ->willReturn('?nglContext%5Bfoo%5D=bar&nglContext%5Bbar%5D=baz&_hash=signature');

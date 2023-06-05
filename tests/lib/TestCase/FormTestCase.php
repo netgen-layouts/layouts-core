@@ -35,7 +35,6 @@ abstract class FormTestCase extends TestCase
 
         $this->validatorMock = $this->createMock(ValidatorInterface::class);
         $this->validatorMock
-            ->expects(self::any())
             ->method('validate')
             ->willReturn(new ConstraintViolationList());
 

@@ -73,7 +73,6 @@ final class CollectionResultNormalizerTest extends TestCase
         $slotUuid = Uuid::uuid4();
         $result = new Result(3, new ManualItem($collectionItem), null, Slot::fromArray(['id' => $slotUuid, 'viewType' => 'standard']));
         $this->urlGeneratorMock
-            ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
@@ -135,7 +134,6 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $result = new Result(3, new ManualItem($collectionItem));
         $this->urlGeneratorMock
-            ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
@@ -182,7 +180,6 @@ final class CollectionResultNormalizerTest extends TestCase
             ->willReturn([]);
 
         $this->urlGeneratorMock
-            ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($item), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');
@@ -247,7 +244,6 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $result = new Result(3, new ManualItem($collectionItem), $item);
         $this->urlGeneratorMock
-            ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
             ->willReturn('/some/url');

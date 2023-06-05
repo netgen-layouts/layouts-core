@@ -58,7 +58,6 @@ final class ValidatorTraitTest extends TestCase
 
         $validatorMock = $this->createMock(ValidatorInterface::class);
         $validatorMock
-            ->expects(self::any())
             ->method('validate')
             ->willThrowException(new Exception());
 

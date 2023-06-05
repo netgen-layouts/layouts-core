@@ -31,7 +31,6 @@ final class RemoteIdConverterTest extends TestCase
     public function testCovertToRemoteId(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -60,7 +59,6 @@ final class RemoteIdConverterTest extends TestCase
     public function testConvertToRemoteIdWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));
@@ -74,7 +72,6 @@ final class RemoteIdConverterTest extends TestCase
     public function testConvertFromRemoteId(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -103,7 +100,6 @@ final class RemoteIdConverterTest extends TestCase
     public function testConvertFromRemoteIdWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));

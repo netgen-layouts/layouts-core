@@ -62,7 +62,6 @@ abstract class ImporterTestBase extends CoreTestCase
         parent::setUp();
 
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('loadByRemoteId')
             ->willReturnCallback(
                 static fn ($remoteId): CmsItemInterface => CmsItem::fromArray(
@@ -74,7 +73,6 @@ abstract class ImporterTestBase extends CoreTestCase
             );
 
         $this->cmsItemLoaderMock
-            ->expects(self::any())
             ->method('load')
             ->willReturnCallback(
                 static fn ($value): CmsItemInterface => CmsItem::fromArray(

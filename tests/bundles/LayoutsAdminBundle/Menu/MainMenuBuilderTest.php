@@ -24,7 +24,6 @@ final class MainMenuBuilderTest extends TestCase
     {
         $urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
         $urlGeneratorMock
-            ->expects(self::any())
             ->method('generate')
             ->willReturnCallback(
                 static fn (string $route): string => $route,
@@ -49,7 +48,6 @@ final class MainMenuBuilderTest extends TestCase
     public function testCreateMenu(): void
     {
         $this->authorizationCheckerMock
-            ->expects(self::any())
             ->method('isGranted')
             ->with(self::identicalTo('nglayouts:ui:access'))
             ->willReturn(true);
@@ -89,7 +87,6 @@ final class MainMenuBuilderTest extends TestCase
     public function testCreateMenuWithNoAccess(): void
     {
         $this->authorizationCheckerMock
-            ->expects(self::any())
             ->method('isGranted')
             ->with(self::identicalTo('nglayouts:ui:access'))
             ->willReturn(false);

@@ -54,7 +54,6 @@ final class CmsItemLoaderTest extends TestCase
         );
 
         $this->cmsItemBuilderMock
-            ->expects(self::any())
             ->method('build')
             ->willReturn($item);
 
@@ -115,7 +114,6 @@ final class CmsItemLoaderTest extends TestCase
         );
 
         $this->cmsItemBuilderMock
-            ->expects(self::any())
             ->method('build')
             ->willReturn($item);
 
