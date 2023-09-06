@@ -22,4 +22,8 @@ final class ErrorHandler implements ErrorHandlerInterface
             throw $throwable;
         }
     }
+
+    public function logError(Throwable $throwable, ?string $message = null, array $context = []): void
+    {
+    }
 }

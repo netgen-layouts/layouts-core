@@ -198,4 +198,81 @@ final class DebugErrorHandlerTest extends TestCase
 
         $this->errorHandler->handleError($exception, null, ['value' => 42]);
     }
+
+    /**
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::__construct
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     */
+    public function testLogError(): void
+    {
+        $exception = new Exception('Test message');
+
+        $this->loggerMock
+            ->expects(self::once())
+            ->method('critical')
+            ->with(
+                self::identicalTo('Test message'),
+                self::identicalTo(['error' => $exception]),
+            );
+
+        $this->errorHandler->logError($exception);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     */
+    public function testLogErrorWithCustomMessage(): void
+    {
+        $exception = new Exception('Test message');
+
+        $this->loggerMock
+            ->expects(self::once())
+            ->method('critical')
+            ->with(
+                self::identicalTo('Custom message'),
+                self::identicalTo(['error' => $exception]),
+            );
+
+        $this->errorHandler->logError($exception, 'Custom message');
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     */
+    public function testLogErrorWithEmptyMessage(): void
+    {
+        $exception = new Exception('Test message');
+
+        $this->loggerMock
+            ->expects(self::once())
+            ->method('critical')
+            ->with(
+                self::identicalTo(''),
+                self::identicalTo(['error' => $exception]),
+            );
+
+        $this->errorHandler->logError($exception, '');
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
+     */
+    public function testLogErrorWithContext(): void
+    {
+        $exception = new Exception('Test message');
+
+        $this->loggerMock
+            ->expects(self::once())
+            ->method('critical')
+            ->with(
+                self::identicalTo('Test message'),
+                self::identicalTo(['value' => 42, 'error' => $exception]),
+            );
+
+        $this->errorHandler->logError($exception, null, ['value' => 42]);
+    }
 }
