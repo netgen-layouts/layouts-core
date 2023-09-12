@@ -21,7 +21,7 @@ abstract class RuleVisitorTestBase extends VisitorTestBase
         return new RuleVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Rule(), true],
@@ -30,7 +30,7 @@ abstract class RuleVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Rule => $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')), 'rule/rule_2.json'],

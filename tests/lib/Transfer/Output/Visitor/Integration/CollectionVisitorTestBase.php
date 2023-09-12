@@ -21,7 +21,7 @@ abstract class CollectionVisitorTestBase extends VisitorTestBase
         return new CollectionVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Collection(), true],
@@ -30,7 +30,7 @@ abstract class CollectionVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Collection => $this->collectionService->loadCollection(Uuid::fromString('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a')), 'collection/collection_2.json'],

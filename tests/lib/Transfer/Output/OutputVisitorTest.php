@@ -44,7 +44,7 @@ final class OutputVisitorTest extends TestCase
         $this->visitor->visit(new Block());
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Zone(), true],

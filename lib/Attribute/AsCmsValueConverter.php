@@ -10,6 +10,4 @@ use Attribute;
  * Service tag to autoconfigure value converters.
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class AsCmsValueConverter
-{
-}
+final class AsCmsValueConverter {}

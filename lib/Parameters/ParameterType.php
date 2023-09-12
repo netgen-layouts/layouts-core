@@ -10,9 +10,7 @@ use Symfony\Component\Validator\Constraints;
 
 abstract class ParameterType implements ParameterTypeInterface
 {
-    public function configureOptions(OptionsResolver $optionsResolver): void
-    {
-    }
+    public function configureOptions(OptionsResolver $optionsResolver): void {}
 
     public function getConstraints(ParameterDefinition $parameterDefinition, $value): array
     {

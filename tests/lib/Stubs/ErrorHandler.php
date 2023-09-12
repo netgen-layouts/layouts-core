@@ -23,7 +23,5 @@ final class ErrorHandler implements ErrorHandlerInterface
         }
     }
 
-    public function logError(Throwable $throwable, ?string $message = null, array $context = []): void
-    {
-    }
+    public function logError(Throwable $throwable, ?string $message = null, array $context = []): void {}
 }

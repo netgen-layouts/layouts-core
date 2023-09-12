@@ -10,6 +10,4 @@ use Attribute;
  * Service tag to autoconfigure parameter types.
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class AsParameterType
-{
-}
+final class AsParameterType {}

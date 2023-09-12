@@ -54,7 +54,7 @@ final class PathInfoPrefixTest extends TestCase
         );
     }
 
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             ['/some/route', true],

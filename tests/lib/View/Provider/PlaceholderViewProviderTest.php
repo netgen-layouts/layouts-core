@@ -84,7 +84,7 @@ final class PlaceholderViewProviderTest extends TestCase
         self::assertSame($supports, $this->placeholderViewProvider->supports($value));
     }
 
-    public static function supportsDataProvider(): array
+    public static function supportsDataProvider(): iterable
     {
         return [
             [new Value(), false],

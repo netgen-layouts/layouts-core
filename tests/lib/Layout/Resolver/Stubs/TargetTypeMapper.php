@@ -20,7 +20,5 @@ final class TargetTypeMapper implements MapperInterface
         return [];
     }
 
-    public function handleForm(FormBuilderInterface $builder): void
-    {
-    }
+    public function handleForm(FormBuilderInterface $builder): void {}
 }

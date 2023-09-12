@@ -35,7 +35,7 @@ final class IsGroupConditionTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    public static function matchWithRuleConditionDataProvider(): array
+    public static function matchWithRuleConditionDataProvider(): iterable
     {
         return [
             [[], false],
@@ -60,7 +60,7 @@ final class IsGroupConditionTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    public static function matchWithRuleGroupConditionDataProvider(): array
+    public static function matchWithRuleGroupConditionDataProvider(): iterable
     {
         return [
             [[], false],

@@ -233,7 +233,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    public static function processDataProvider(): array
+    public static function processDataProvider(): iterable
     {
         return [
             ['%test.class%', BlockDefinition::class],

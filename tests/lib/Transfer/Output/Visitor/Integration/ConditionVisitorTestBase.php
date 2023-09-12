@@ -21,7 +21,7 @@ abstract class ConditionVisitorTestBase extends VisitorTestBase
         return new ConditionVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new RuleCondition(), true],
@@ -30,7 +30,7 @@ abstract class ConditionVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): RuleCondition => $this->layoutResolverService->loadRuleCondition(Uuid::fromString('35f4594c-6674-5815-add6-07f288b79686')), 'condition/condition_1.json'],

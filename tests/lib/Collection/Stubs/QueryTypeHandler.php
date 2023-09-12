@@ -34,9 +34,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
         $this->isContextual = $isContextual;
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder): void
-    {
-    }
+    public function buildParameters(ParameterBuilderInterface $builder): void {}
 
     /**
      * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>

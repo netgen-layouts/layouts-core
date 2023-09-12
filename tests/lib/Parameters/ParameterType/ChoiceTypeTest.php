@@ -73,7 +73,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing default parameter values.
      */
-    public static function defaultValueDataProvider(): array
+    public static function defaultValueDataProvider(): iterable
     {
         $optionsClosure = static fn (): array => ['Option' => 'option'];
 
@@ -92,7 +92,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing valid parameter attributes.
      */
-    public static function validOptionsDataProvider(): array
+    public static function validOptionsDataProvider(): iterable
     {
         $closure = static function (): void {};
 
@@ -197,7 +197,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing invalid parameter attributes.
      */
-    public static function invalidOptionsDataProvider(): array
+    public static function invalidOptionsDataProvider(): iterable
     {
         return [
             [
@@ -278,7 +278,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing valid parameter values.
      */
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             [1, false, true],
@@ -321,7 +321,7 @@ final class ChoiceTypeTest extends TestCase
         );
     }
 
-    public static function fromHashDataProvider(): array
+    public static function fromHashDataProvider(): iterable
     {
         return [
             [
@@ -379,7 +379,7 @@ final class ChoiceTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
-    public static function emptyDataProvider(): array
+    public static function emptyDataProvider(): iterable
     {
         return [
             [null, true],

@@ -21,7 +21,7 @@ abstract class ZoneVisitorTestBase extends VisitorTestBase
         return new ZoneVisitor($this->blockService);
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Zone(), true],
@@ -30,7 +30,7 @@ abstract class ZoneVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Zone => $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top'), 'zone/zone_2_top.json'],

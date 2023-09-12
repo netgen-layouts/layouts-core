@@ -87,10 +87,10 @@ abstract class VisitorTestBase extends CoreTestCase
     /**
      * Provides data for testing VisitorInterface::accept method.
      */
-    abstract public static function acceptDataProvider(): array;
+    abstract public static function acceptDataProvider(): iterable;
 
     /**
      * Provides data for testing VisitorInterface::visit method.
      */
-    abstract public static function visitDataProvider(): array;
+    abstract public static function visitDataProvider(): iterable;
 }

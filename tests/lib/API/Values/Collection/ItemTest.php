@@ -87,7 +87,7 @@ final class ItemTest extends TestCase
         self::assertFalse($item->isValid());
     }
 
-    public static function isValidDataProvider(): array
+    public static function isValidDataProvider(): iterable
     {
         return [
             [true, true],

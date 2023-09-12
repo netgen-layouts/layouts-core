@@ -6,6 +6,4 @@ namespace Netgen\Layouts\Behat\Exception;
 
 use Exception;
 
-final class PageException extends Exception
-{
-}
+final class PageException extends Exception {}

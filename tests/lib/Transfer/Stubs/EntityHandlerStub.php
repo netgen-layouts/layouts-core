@@ -21,9 +21,7 @@ final class EntityHandlerStub implements EntityHandlerInterface
         return false;
     }
 
-    public function deleteEntity(UuidInterface $uuid): void
-    {
-    }
+    public function deleteEntity(UuidInterface $uuid): void {}
 
     public function importEntity(array $data, bool $keepUuid): APIValue
     {

@@ -21,7 +21,7 @@ abstract class SlotVisitorTestBase extends VisitorTestBase
         return new SlotVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Slot(), true],
@@ -30,7 +30,7 @@ abstract class SlotVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Slot => $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014')), 'slot/slot_3.json'],

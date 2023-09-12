@@ -109,7 +109,7 @@ final class ExceptionTest extends TestCase
         self::assertFalse($this->conditionType->matches($request, [404]));
     }
 
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             [[200], false],
@@ -129,7 +129,7 @@ final class ExceptionTest extends TestCase
         ];
     }
 
-    public static function matchesDataProvider(): array
+    public static function matchesDataProvider(): iterable
     {
         return [
             ['not_array', false],

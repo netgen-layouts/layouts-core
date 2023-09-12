@@ -6,9 +6,7 @@ namespace Netgen\Layouts\HttpCache;
 
 final class NullClient implements ClientInterface
 {
-    public function purge(array $tags): void
-    {
-    }
+    public function purge(array $tags): void {}
 
     public function commit(): bool
     {

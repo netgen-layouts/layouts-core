@@ -6,6 +6,4 @@ namespace Netgen\Layouts\Exception;
 
 use BadMethodCallException as BaseBadMethodCallException;
 
-final class BadMethodCallException extends BaseBadMethodCallException implements Exception
-{
-}
+final class BadMethodCallException extends BaseBadMethodCallException implements Exception {}

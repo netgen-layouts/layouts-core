@@ -14,11 +14,7 @@ use function class_exists;
 // Remove when support for Symfony 3.4 and lower ends.
 
 if (Kernel::VERSION_ID >= 40400) {
-    abstract class Event extends ContractsEvent
-    {
-    }
+    abstract class Event extends ContractsEvent {}
 } elseif (class_exists(LegacyEvent::class)) {
-    abstract class Event extends LegacyEvent
-    {
-    }
+    abstract class Event extends LegacyEvent {}
 }

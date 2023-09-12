@@ -214,7 +214,7 @@ final class LayoutValidatorTest extends TestCase
         );
     }
 
-    public static function validateLayoutCreateStructDataProvider(): array
+    public static function validateLayoutCreateStructDataProvider(): iterable
     {
         return [
             [
@@ -272,7 +272,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public static function validateLayoutUpdateStructDataProvider(): array
+    public static function validateLayoutUpdateStructDataProvider(): iterable
     {
         return [
             [
@@ -326,7 +326,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public static function validateLayoutCopyStructDataProvider(): array
+    public static function validateLayoutCopyStructDataProvider(): iterable
     {
         return [
             [['description' => 'New description'], false],
@@ -337,7 +337,7 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
-    public static function validateChangeLayoutTypeDataProvider(): array
+    public static function validateChangeLayoutTypeDataProvider(): iterable
     {
         return [
             [

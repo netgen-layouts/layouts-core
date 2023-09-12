@@ -47,7 +47,7 @@ final class ConfigKeyTest extends TestCase
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
-    public static function matchDataProvider(): array
+    public static function matchDataProvider(): iterable
     {
         return [
             [[], false],

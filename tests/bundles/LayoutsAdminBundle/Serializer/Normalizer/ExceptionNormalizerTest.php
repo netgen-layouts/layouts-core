@@ -92,7 +92,7 @@ final class ExceptionNormalizerTest extends TestCase
         self::assertSame($expected, $this->exceptionNormalizer->supportsNormalization($data));
     }
 
-    public static function supportsNormalizationDataProvider(): array
+    public static function supportsNormalizationDataProvider(): iterable
     {
         return [
             [null, false],

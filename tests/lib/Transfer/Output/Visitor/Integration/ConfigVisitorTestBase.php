@@ -21,7 +21,7 @@ abstract class ConfigVisitorTestBase extends VisitorTestBase
         return new ConfigVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Config(), true],
@@ -30,7 +30,7 @@ abstract class ConfigVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Config => $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'))->getConfig('key'), 'config/block_31.json'],

@@ -338,9 +338,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * Configures the parameter options.
      */
-    protected function configureOptions(OptionsResolver $optionsResolver): void
-    {
-    }
+    protected function configureOptions(OptionsResolver $optionsResolver): void {}
 
     /**
      * Builds the parameter definition.

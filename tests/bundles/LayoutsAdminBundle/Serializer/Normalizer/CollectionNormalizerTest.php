@@ -62,7 +62,7 @@ final class CollectionNormalizerTest extends TestCase
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    public static function supportsNormalizationDataProvider(): array
+    public static function supportsNormalizationDataProvider(): iterable
     {
         return [
             [null, false],

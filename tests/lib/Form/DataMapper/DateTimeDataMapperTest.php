@@ -76,7 +76,7 @@ final class DateTimeDataMapperTest extends DataMapperTestBase
         self::assertSame($timeZone, $timeZoneForm->getData());
     }
 
-    public static function mapDataToFormsWithArrayDataProvider(): array
+    public static function mapDataToFormsWithArrayDataProvider(): iterable
     {
         return [
             [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], '2018-02-01 15:00:00', 'Antarctica/Casey'],

@@ -7,6 +7,4 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Values;
 /**
  * Represents a serialized value with a view.
  */
-final class View extends AbstractValue
-{
-}
+final class View extends AbstractValue {}

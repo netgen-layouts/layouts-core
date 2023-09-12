@@ -817,7 +817,7 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
     }
 
-    public static function resolveRulesWithRuleConditionsDataProvider(): array
+    public static function resolveRulesWithRuleConditionsDataProvider(): iterable
     {
         return [
             [[], true],
@@ -830,7 +830,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public static function resolveRulesWithPartialRuleConditionsDataProvider(): array
+    public static function resolveRulesWithPartialRuleConditionsDataProvider(): iterable
     {
         return [
             [[], true],
@@ -843,7 +843,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public static function matchesDataProvider(): array
+    public static function matchesDataProvider(): iterable
     {
         return [
             [[], true],

@@ -65,7 +65,7 @@ final class DefaultContextTest extends TestCase
         $this->parser->parse($stream);
     }
 
-    public static function compileDataProvider(): array
+    public static function compileDataProvider(): iterable
     {
         return [
             [

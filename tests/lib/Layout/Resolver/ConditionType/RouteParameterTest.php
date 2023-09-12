@@ -61,7 +61,7 @@ final class RouteParameterTest extends TestCase
         self::assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             [['parameter_name' => 'name', 'parameter_values' => ['one', 'two']], true],
@@ -87,7 +87,7 @@ final class RouteParameterTest extends TestCase
         ];
     }
 
-    public static function matchesDataProvider(): array
+    public static function matchesDataProvider(): iterable
     {
         return [
             ['not_array', false],

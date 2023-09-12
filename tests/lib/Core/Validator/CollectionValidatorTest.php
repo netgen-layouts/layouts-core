@@ -192,7 +192,7 @@ final class CollectionValidatorTest extends TestCase
         );
     }
 
-    public static function validateCollectionCreateStructDataProvider(): array
+    public static function validateCollectionCreateStructDataProvider(): iterable
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('test'));
         $queryCreateStruct->setParameterValues(['param' => 'value']);
@@ -263,7 +263,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public static function validateCollectionUpdateStructDataProvider(): array
+    public static function validateCollectionUpdateStructDataProvider(): iterable
     {
         return [
             [
@@ -381,7 +381,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public static function validateItemCreateStructDataProvider(): array
+    public static function validateItemCreateStructDataProvider(): iterable
     {
         return [
             [
@@ -415,7 +415,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public static function validateItemUpdateStructDataProvider(): array
+    public static function validateItemUpdateStructDataProvider(): iterable
     {
         return [
             [
@@ -465,7 +465,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public static function validateQueryCreateStructDataProvider(): array
+    public static function validateQueryCreateStructDataProvider(): iterable
     {
         return [
             [
@@ -505,7 +505,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public static function validateQueryUpdateStructDataProvider(): array
+    public static function validateQueryUpdateStructDataProvider(): iterable
     {
         return [
             [

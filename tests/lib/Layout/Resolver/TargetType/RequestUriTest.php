@@ -54,7 +54,7 @@ final class RequestUriTest extends TestCase
         );
     }
 
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             ['/some/route?id=42', true],

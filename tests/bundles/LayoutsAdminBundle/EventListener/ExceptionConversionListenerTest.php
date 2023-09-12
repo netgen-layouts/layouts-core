@@ -155,7 +155,7 @@ final class ExceptionConversionListenerTest extends TestCase
         self::assertSame($exception, $eventException);
     }
 
-    public static function onExceptionDataProvider(): array
+    public static function onExceptionDataProvider(): iterable
     {
         return [
             [

@@ -54,7 +54,7 @@ final class RuleViewProviderTest extends TestCase
         self::assertSame($supports, $this->ruleViewProvider->supports($value));
     }
 
-    public static function supportsDataProvider(): array
+    public static function supportsDataProvider(): iterable
     {
         return [
             [new Value(), false],

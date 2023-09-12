@@ -21,7 +21,7 @@ abstract class PlaceholderVisitorTestBase extends VisitorTestBase
         return new PlaceholderVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Placeholder(), true],
@@ -30,7 +30,7 @@ abstract class PlaceholderVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Placeholder => $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))->getPlaceholder('left'), 'placeholder/block_33_left.json'],

@@ -58,7 +58,7 @@ final class FormViewProviderTest extends TestCase
         self::assertSame($supports, $this->formViewProvider->supports($this->createMock($value)));
     }
 
-    public static function supportsDataProvider(): array
+    public static function supportsDataProvider(): iterable
     {
         return [
             [stdClass::class, false],

@@ -55,7 +55,7 @@ final class ParameterViewProviderTest extends TestCase
         self::assertSame($supports, $this->parameterViewProvider->supports($value));
     }
 
-    public static function supportsDataProvider(): array
+    public static function supportsDataProvider(): iterable
     {
         return [
             [new Value(), false],

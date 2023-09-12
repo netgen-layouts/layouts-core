@@ -25,7 +25,7 @@ final class VisibilityResolverTest extends TestCase
         self::assertSame($result, $visibilityResolver->isVisible(new Item()));
     }
 
-    public static function isVisibleDataProvider(): array
+    public static function isVisibleDataProvider(): iterable
     {
         return [
             [

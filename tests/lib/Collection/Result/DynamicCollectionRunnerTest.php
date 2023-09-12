@@ -106,7 +106,7 @@ final class DynamicCollectionRunnerTest extends TestCase
     /**
      * Builds data providers for building result from dynamic collection.
      */
-    public static function dynamicCollectionDataProvider(): array
+    public static function dynamicCollectionDataProvider(): iterable
     {
         return [
             [

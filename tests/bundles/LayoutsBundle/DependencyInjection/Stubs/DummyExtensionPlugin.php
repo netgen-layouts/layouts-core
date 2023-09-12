@@ -9,9 +9,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 final class DummyExtensionPlugin extends BaseExtensionPlugin
 {
-    public function addConfiguration(ArrayNodeDefinition $rootNode): void
-    {
-    }
+    public function addConfiguration(ArrayNodeDefinition $rootNode): void {}
 
     public function appendConfigurationFiles(): array
     {

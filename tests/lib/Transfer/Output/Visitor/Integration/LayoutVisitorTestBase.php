@@ -21,7 +21,7 @@ abstract class LayoutVisitorTestBase extends VisitorTestBase
         return new LayoutVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Layout(), true],
@@ -30,7 +30,7 @@ abstract class LayoutVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Layout => $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')), 'layout/layout_1.json'],

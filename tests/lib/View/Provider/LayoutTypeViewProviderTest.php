@@ -54,7 +54,7 @@ final class LayoutTypeViewProviderTest extends TestCase
         self::assertSame($supports, $this->layoutViewProvider->supports($value));
     }
 
-    public static function supportsDataProvider(): array
+    public static function supportsDataProvider(): iterable
     {
         return [
             [new Value(), false],

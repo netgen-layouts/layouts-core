@@ -31,7 +31,7 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
         return new ItemVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Item(), true],
@@ -40,7 +40,7 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Item => $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')), 'item/item_4.json'],

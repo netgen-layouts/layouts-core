@@ -65,7 +65,7 @@ final class DateTimeUtilsTest extends TestCase
         self::assertSame($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }
 
-    public static function isBetweenDatesDataProvider(): array
+    public static function isBetweenDatesDataProvider(): iterable
     {
         return [
             [new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true],
@@ -109,7 +109,7 @@ final class DateTimeUtilsTest extends TestCase
         self::assertSame($input['timezone'], $dateTime->getTimezone()->getName());
     }
 
-    public static function createFromArrayDataProvider(): array
+    public static function createFromArrayDataProvider(): iterable
     {
         return [
             [['datetime' => '2018-03-31 11:00:00', 'timezone' => 'Antarctica/Casey'], true],

@@ -21,7 +21,7 @@ abstract class TargetVisitorTestBase extends VisitorTestBase
         return new TargetVisitor();
     }
 
-    public static function acceptDataProvider(): array
+    public static function acceptDataProvider(): iterable
     {
         return [
             [new Target(), true],
@@ -30,7 +30,7 @@ abstract class TargetVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): array
+    public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Target => $this->layoutResolverService->loadTarget(Uuid::fromString('c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46')), 'target/target_1.json'],

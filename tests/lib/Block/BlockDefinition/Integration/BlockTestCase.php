@@ -94,9 +94,9 @@ abstract class BlockTestCase extends CoreTestCase
         return false;
     }
 
-    abstract public static function parametersDataProvider(): array;
+    abstract public static function parametersDataProvider(): iterable;
 
-    abstract public static function invalidParametersDataProvider(): array;
+    abstract public static function invalidParametersDataProvider(): iterable;
 
     abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
 

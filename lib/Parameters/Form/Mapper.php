@@ -14,7 +14,5 @@ abstract class Mapper implements MapperInterface
         return [];
     }
 
-    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition): void
-    {
-    }
+    public function handleForm(FormBuilderInterface $form, ParameterDefinition $parameterDefinition): void {}
 }

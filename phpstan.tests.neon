@@ -37,7 +37,7 @@ parameters:
 
         # Disable errors about missing value types in PHPUnit data providers
 
-        - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type array.#'
+        - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'
 
         # Disable errors for various tests that verify values have correct types or arrays not having certain elements
         - '/Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given./'

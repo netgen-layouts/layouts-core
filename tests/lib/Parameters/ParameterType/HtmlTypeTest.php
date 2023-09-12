@@ -67,7 +67,7 @@ final class HtmlTypeTest extends TestCase
         $this->getParameterDefinition($options);
     }
 
-    public static function validOptionsDataProvider(): array
+    public static function validOptionsDataProvider(): iterable
     {
         return [
             [
@@ -77,7 +77,7 @@ final class HtmlTypeTest extends TestCase
         ];
     }
 
-    public static function invalidOptionsDataProvider(): array
+    public static function invalidOptionsDataProvider(): iterable
     {
         return [
             [
@@ -105,7 +105,7 @@ final class HtmlTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             ['test', true],
@@ -130,7 +130,7 @@ final class HtmlTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public static function emptyDataProvider(): array
+    public static function emptyDataProvider(): iterable
     {
         return [
             [null, true],

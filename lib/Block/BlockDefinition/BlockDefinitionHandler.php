@@ -10,13 +10,9 @@ use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 
 abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
-    public function buildParameters(ParameterBuilderInterface $builder): void
-    {
-    }
+    public function buildParameters(ParameterBuilderInterface $builder): void {}
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block): void
-    {
-    }
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void {}
 
     public function isContextual(Block $block): bool
     {

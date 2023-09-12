@@ -34,7 +34,5 @@ final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
         ];
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder): void
-    {
-    }
+    public function buildParameters(ParameterBuilderInterface $builder): void {}
 }

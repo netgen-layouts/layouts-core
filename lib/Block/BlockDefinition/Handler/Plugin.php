@@ -23,11 +23,7 @@ abstract class Plugin implements PluginInterface
         return [];
     }
 
-    public function buildParameters(ParameterBuilderInterface $builder): void
-    {
-    }
+    public function buildParameters(ParameterBuilderInterface $builder): void {}
 
-    public function getDynamicParameters(DynamicParameters $params, Block $block): void
-    {
-    }
+    public function getDynamicParameters(DynamicParameters $params, Block $block): void {}
 }

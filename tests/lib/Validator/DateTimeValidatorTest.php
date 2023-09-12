@@ -84,7 +84,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, []);
     }
 
-    public static function validateDataProvider(): array
+    public static function validateDataProvider(): iterable
     {
         return [
             [null, true],

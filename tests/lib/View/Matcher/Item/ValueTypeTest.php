@@ -55,7 +55,7 @@ final class ValueTypeTest extends TestCase
         self::assertFalse($this->matcher->match($view, ['test']));
     }
 
-    public static function matchDataProvider(): array
+    public static function matchDataProvider(): iterable
     {
         return [
             [[], false],

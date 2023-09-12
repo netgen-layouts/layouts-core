@@ -6,6 +6,4 @@ namespace Netgen\Layouts\Exception;
 
 use RuntimeException as BaseRuntimeException;
 
-final class RuntimeException extends BaseRuntimeException implements Exception
-{
-}
+final class RuntimeException extends BaseRuntimeException implements Exception {}

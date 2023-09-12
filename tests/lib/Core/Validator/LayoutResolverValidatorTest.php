@@ -214,7 +214,7 @@ final class LayoutResolverValidatorTest extends TestCase
         );
     }
 
-    public static function validateRuleUpdateStructDataProvider(): array
+    public static function validateRuleUpdateStructDataProvider(): iterable
     {
         return [
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => 'Description'], true],
@@ -227,7 +227,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public static function validateRuleGroupCreateStructDataProvider(): array
+    public static function validateRuleGroupCreateStructDataProvider(): iterable
     {
         return [
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
@@ -239,7 +239,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public static function validateRuleGroupUpdateStructDataProvider(): array
+    public static function validateRuleGroupUpdateStructDataProvider(): iterable
     {
         return [
             [['name' => 'Name', 'description' => 'Description'], true],
@@ -251,7 +251,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public static function validateTargetCreateStructDataProvider(): array
+    public static function validateTargetCreateStructDataProvider(): iterable
     {
         return [
             [['type' => 'target1', 'value' => 42], true],
@@ -263,7 +263,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public static function validateTargetUpdateStructDataProvider(): array
+    public static function validateTargetUpdateStructDataProvider(): iterable
     {
         return [
             [['value' => 42], true],
@@ -275,7 +275,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public static function validateConditionCreateStructDataProvider(): array
+    public static function validateConditionCreateStructDataProvider(): iterable
     {
         return [
             [['type' => 'condition1', 'value' => 42], true],
@@ -287,7 +287,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public static function validateConditionUpdateStructDataProvider(): array
+    public static function validateConditionUpdateStructDataProvider(): iterable
     {
         return [
             [['value' => 42], true],

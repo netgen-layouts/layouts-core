@@ -93,7 +93,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
-    public static function validateDataProvider(): array
+    public static function validateDataProvider(): iterable
     {
         return [
             ['large', 'standard', true],

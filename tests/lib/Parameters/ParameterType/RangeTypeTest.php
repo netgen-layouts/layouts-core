@@ -70,7 +70,7 @@ final class RangeTypeTest extends TestCase
         $this->getParameterDefinition($options);
     }
 
-    public static function defaultValueDataProvider(): array
+    public static function defaultValueDataProvider(): iterable
     {
         return [
             [['min' => 3, 'max' => 5], true, null, 3],
@@ -80,7 +80,7 @@ final class RangeTypeTest extends TestCase
         ];
     }
 
-    public static function validOptionsDataProvider(): array
+    public static function validOptionsDataProvider(): iterable
     {
         return [
             [
@@ -106,7 +106,7 @@ final class RangeTypeTest extends TestCase
         ];
     }
 
-    public static function invalidOptionsDataProvider(): array
+    public static function invalidOptionsDataProvider(): iterable
     {
         return [
             [
@@ -173,7 +173,7 @@ final class RangeTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             ['12', false, false],
@@ -208,7 +208,7 @@ final class RangeTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
-    public static function emptyDataProvider(): array
+    public static function emptyDataProvider(): iterable
     {
         return [
             [null, true],

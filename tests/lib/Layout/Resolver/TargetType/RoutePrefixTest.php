@@ -55,7 +55,7 @@ final class RoutePrefixTest extends TestCase
         );
     }
 
-    public static function validationDataProvider(): array
+    public static function validationDataProvider(): iterable
     {
         return [
             ['route_name', true],
