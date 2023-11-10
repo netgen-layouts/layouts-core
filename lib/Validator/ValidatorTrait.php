@@ -99,12 +99,12 @@ trait ValidatorTrait
             throw ValidationException::validationFailed($propertyPath ?? '', $t->getMessage(), $t);
         }
 
-        if (count($violations) === 0) {
+        if (!$violations->has(0)) {
             return;
         }
 
-        $propertyPath = sprintf('%s%s', $propertyPath ?? '', $violations[0]->getPropertyPath());
+        $propertyPath = sprintf('%s%s', $propertyPath ?? '', $violations->get(0)->getPropertyPath());
 
-        throw ValidationException::validationFailed($propertyPath, (string) $violations[0]->getMessage());
+        throw ValidationException::validationFailed($propertyPath, (string) $violations->get(0)->getMessage());
     }
 }
