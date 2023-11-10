@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Throwable;
 
-use function count;
 use function sprintf;
 
 trait ValidatorTrait
