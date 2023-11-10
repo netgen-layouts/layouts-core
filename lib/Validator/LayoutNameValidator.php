@@ -34,7 +34,7 @@ final class LayoutNameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, LayoutName::class);
         }
 
-        if ($value === null) {
+        if ($value === null || $value === '') {
             return;
         }
 

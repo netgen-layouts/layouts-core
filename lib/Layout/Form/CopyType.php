@@ -32,6 +32,7 @@ final class CopyType extends AbstractType
             TextType::class,
             [
                 'label' => 'layout.name',
+                'empty_data' => '',
                 'constraints' => [
                     new Constraints\NotBlank(),
                     new LayoutName(),
