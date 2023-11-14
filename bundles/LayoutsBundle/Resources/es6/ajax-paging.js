@@ -31,7 +31,7 @@ class AjaxPaging {
     this.loadInitial = this.el.hasAttribute('data-load-initial');
     this.baseUrl = this.el.dataset.baseUrl;
 
-    el.ajaxPaging = this;
+    this.el.ajaxPaging = this;
 
     this.init();
   }
