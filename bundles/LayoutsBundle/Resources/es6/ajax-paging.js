@@ -31,6 +31,8 @@ class AjaxPaging {
     this.loadInitial = this.el.hasAttribute('data-load-initial');
     this.baseUrl = this.el.dataset.baseUrl;
 
+    this.el.ajaxPaging = this;
+
     this.init();
   }
 
@@ -47,10 +49,6 @@ class AjaxPaging {
 
     if (this.totalPages > 1) {
       this.renderNavigation();
-    } else {
-      this.nav.forEach((pager) => {
-        pager.removeAttribute('data-template');
-      });
     }
 
     this.setupEvents();
@@ -58,7 +56,6 @@ class AjaxPaging {
 
   renderNavigation() {
     this.nav.forEach((pager) => {
-      pager.removeAttribute('data-template');
       pager.innerHTML = templateEngine(this.pagerData.template, { pages: this.totalPages, page: this.page, url: this.generateUrl.bind(this) }); // eslint-disable-line no-param-reassign
     });
   }
