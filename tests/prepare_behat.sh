@@ -7,10 +7,11 @@ fi
 
 if [ ! -f vendor/bin/chromedriver ]; then
     MAJOR_CHROME_VERSION=$(google-chrome --product-version | grep -o '^[0-9]\+')
-    LATEST_CHROMEDRIVER=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR_CHROME_VERSION)
-    curl https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER/chromedriver_linux64.zip > chromedriver.zip
+    LATEST_CHROMEDRIVER=$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_$MAJOR_CHROME_VERSION)
+    curl https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$LATEST_CHROMEDRIVER/linux64/chromedriver-linux64.zip > chromedriver.zip
     unzip chromedriver.zip && rm chromedriver.zip
-    mv -f chromedriver vendor/bin/
+    mv -f chromedriver-linux64/chromedriver vendor/bin/
+    rm -rf chromedriver-linux64
 fi
 
 vendor/bin/symfony server:start --no-tls --daemon --port=4242 --document-root=tests/application/public
