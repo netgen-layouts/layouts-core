@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
     bootstrap="tests/bootstrap.php"
     colors="true"
-    forceCoversAnnotation="true"
+    requireCoverageMetadata="true"
     beStrictAboutOutputDuringTests="true"
     beStrictAboutChangesToGlobalState="true"
 >
@@ -25,7 +25,7 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <source>
         <include>
             <directory suffix=".php">lib</directory>
             <directory suffix=".php">bundles/LayoutsBundle</directory>
@@ -40,5 +40,5 @@
             <file>bundles/LayoutsAdminBundle/DependencyInjection/ExtensionPlugin.php</file>
             <file>bundles/LayoutsAdminBundle/DependencyInjection/NetgenLayoutsAdminExtension.php</file>
         </exclude>
-    </coverage>
+    </source>
 </phpunit>
