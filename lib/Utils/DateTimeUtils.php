@@ -26,12 +26,10 @@ final class DateTimeUtils
      */
     public static function create(?int $timestamp = null, ?string $timeZone = null): DateTimeInterface
     {
-        $dateTimeZone = is_string($timeZone) ? new DateTimeZone($timeZone) : null;
+        $dateTimeZone = is_string($timeZone) && $timeZone !== '' ? new DateTimeZone($timeZone) : null;
         $timestamp = is_int($timestamp) ? $timestamp : time();
 
-        $dateTime = new DateTimeImmutable('now', $dateTimeZone);
-
-        return $dateTime->setTimestamp($timestamp);
+        return (new DateTimeImmutable('now', $dateTimeZone))->setTimestamp($timestamp);
     }
 
     /**
