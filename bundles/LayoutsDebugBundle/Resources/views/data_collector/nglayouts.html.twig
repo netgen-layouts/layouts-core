@@ -1,8 +1,6 @@
 {% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
-    {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
-
     {% set layout = collector.data.layout %}
     {% set rule = collector.data.rule %}
 
@@ -30,7 +28,7 @@
                 <b>Resolved layout</b>
 
                 <span>
-                    <a href="{{ macros.layout_path(layout.id) }}" target="_blank">
+                    <a href="{{ layout.path }}" target="_blank">
                         {{ layout.name }}
                     </a>
                 </span>
@@ -96,8 +94,6 @@
 {% endblock %}
 
 {% block panel %}
-    {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
-
     {% set layout = collector.data.layout %}
     {% set rule = collector.data.rule %}
     {% set blocks = collector.data.blocks %}
@@ -116,7 +112,7 @@
 
                         <div class="metric">
                             <span class="value">
-                                <a href="{{ macros.layout_path(layout.id) }}" target="_blank">
+                                <a href="{{ layout.path }}" target="_blank">
                                     {{ layout.name }}
                                 </a>
                             </span>
@@ -238,7 +234,11 @@
                         {% for block in blocks %}
                             <tr>
                                 <th>{{ block.id }}</th>
-                                <td class="font-normal"><a href="{{ macros.layout_path(block.layout_id) }}">{{ block.layout_name }}</a></td>
+                                <td class="font-normal">
+                                    <a href="{{ block.layout_path }}">
+                                        {{ block.layout_name }}
+                                    </a>
+                                </td>
                                 <td class="font-normal">
                                     {% if block.name is not empty %}
                                         <div class="metadata">

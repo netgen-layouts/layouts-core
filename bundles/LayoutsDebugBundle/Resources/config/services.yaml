@@ -2,11 +2,18 @@ parameters:
     netgen_layouts.debug.block_collector.enabled_contexts: ['default']
 
 services:
+    netgen_layouts.debug.data_collector.layout_url_generator:
+        class: Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutUrlGenerator
+        arguments:
+            - "@router"
+            - "%netgen_layouts.debug%"
+
     netgen_layouts.debug.data_collector:
         class: Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutsDataCollector
         arguments:
             - "@netgen_layouts.persistence.layout.handler"
             - "@netgen_layouts.templating.global_variable"
+            - "@netgen_layouts.debug.data_collector.layout_url_generator"
             - "@twig"
             - "%netgen_layouts.edition%"
         tags:

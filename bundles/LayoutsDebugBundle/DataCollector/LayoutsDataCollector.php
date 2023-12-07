@@ -27,6 +27,8 @@ final class LayoutsDataCollector extends DataCollector
 
     private GlobalVariable $globalVariable;
 
+    private LayoutUrlGeneratorInterface $layoutUrlGenerator;
+
     private Environment $twig;
 
     /**
@@ -34,10 +36,16 @@ final class LayoutsDataCollector extends DataCollector
      */
     private array $layoutCache = [];
 
-    public function __construct(LayoutHandler $layoutHandler, GlobalVariable $globalVariable, Environment $twig, string $edition)
-    {
+    public function __construct(
+        LayoutHandler $layoutHandler,
+        GlobalVariable $globalVariable,
+        LayoutUrlGeneratorInterface $layoutUrlGenerator,
+        Environment $twig,
+        string $edition
+    ) {
         $this->layoutHandler = $layoutHandler;
         $this->globalVariable = $globalVariable;
+        $this->layoutUrlGenerator = $layoutUrlGenerator;
         $this->twig = $twig;
 
         $coreVersion = PrettyVersions::getVersion('netgen/layouts-core')->getPrettyVersion();
@@ -90,6 +98,7 @@ final class LayoutsDataCollector extends DataCollector
 
         $this->data['layout'] = [
             'id' => $layout->getId()->toString(),
+            'path' => $this->layoutUrlGenerator->generateLayoutUrl($layout->getId()),
             'name' => $layout->getName(),
             'type' => $layout->getLayoutType()->getName(),
             'context' => $layoutView->getContext(),
@@ -148,6 +157,7 @@ final class LayoutsDataCollector extends DataCollector
             'id' => $block->getId()->toString(),
             'name' => $block->getName(),
             'layout_id' => $layoutId,
+            'layout_path' => $this->layoutUrlGenerator->generateLayoutUrl($block->getLayoutId()),
             'layout_name' => $this->layoutCache[$layoutId]->name,
             'definition' => $blockDefinition->getName(),
             'view_type' => $blockDefinition->hasViewType($block->getViewType(), $block) ?
