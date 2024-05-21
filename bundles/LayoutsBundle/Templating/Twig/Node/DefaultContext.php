@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Node;
 
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Node;
 
+#[YieldReady]
 final class DefaultContext extends Node
 {
     public function __construct(AbstractExpression $expr, int $line = 0, ?string $tag = null)

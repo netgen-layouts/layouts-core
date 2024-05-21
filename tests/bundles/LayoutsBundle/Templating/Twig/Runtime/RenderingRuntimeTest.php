@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\Slot;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Collection\Result\ManualItem;
@@ -21,6 +25,7 @@ use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -57,6 +62,54 @@ final class RenderingRuntimeTest extends TestCase
             new RequestStack(),
             $this->errorHandler,
             new Environment(new ArrayLoader()),
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
+     */
+    public function testRenderZone(): void
+    {
+        $zone = Zone::fromArray([]);
+        $blocks = new BlockList();
+        $layout = Layout::fromArray(['zones' => new ArrayCollection(['zone' => $zone])]);
+
+        $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
+
+        $this->blockServiceMock
+            ->expects(self::once())
+            ->method('loadZoneBlocks')
+            ->with(
+                self::identicalTo($zone),
+                self::isNull(),
+            )
+            ->willReturn($blocks);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::isInstanceOf(ZoneReference::class),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(
+                    [
+                        'blocks' => $blocks,
+                        'twig_template' => $twigTemplate,
+                    ],
+                ),
+            )
+            ->willReturn('rendered zone');
+
+        self::assertSame(
+            'rendered zone',
+            $this->runtime->renderZone(
+                $layout,
+                'zone',
+                ViewInterface::CONTEXT_DEFAULT,
+                $twigTemplate,
+            ),
         );
     }
 

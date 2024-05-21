@@ -9,15 +9,24 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\ViewInterface;
+use Twig\Environment;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
 
 /**
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compile
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compileContextNode
+ * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compileRenderNode
  */
 final class RenderZoneTest extends NodeTestBase
 {
+    protected function setUp(): void
+    {
+        if (Environment::MAJOR_VERSION === 2) {
+            self::markTestSkipped('Test requires twig/twig 3.9 to run');
+        }
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::__construct
      */
@@ -69,7 +78,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
                 \$nglContext = {$contextNodeGetter};
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
                 EOT,
                 $environment,
             ],
@@ -81,7 +90,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
                 \$nglContext = {$contextNodeGetter};
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
                 EOT,
                 $environment,
             ],
@@ -93,7 +102,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
                 \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
                 EOT,
                 $environment,
             ],
@@ -105,7 +114,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
                 \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
                 EOT,
                 $environment,
             ],

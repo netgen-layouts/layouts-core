@@ -7,6 +7,7 @@ parameters:
     treatPhpDocTypesAsCertain: false
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
+        - Twig\Environment::VERSION_ID
 
     ignoreErrors:
         # Doctrine DBAL
@@ -48,10 +49,6 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent and 'isMainRequest' will always evaluate to true.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpFoundation\\\\Request and 'getContentTypeFormat' will always evaluate to true.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder and 'registerAttributeFo…' will always evaluate to true.#"
-
-        -
-            message: '#twig_date_converter not found.#'
-            path: bundles/LayoutsBundle/Templating/Twig/Runtime/HelpersRuntime.php
 
         # Netgen Layouts specifics
 

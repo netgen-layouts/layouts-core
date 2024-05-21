@@ -159,9 +159,9 @@ final class RenderingRuntime
     }
 
     /**
-     * Displays the provided zone.
+     * Renders the provided zone.
      */
-    public function displayZone(Layout $layout, string $zoneIdentifier, string $viewContext, ContextualizedTwigTemplate $twigTemplate): void
+    public function renderZone(Layout $layout, string $zoneIdentifier, string $viewContext, ContextualizedTwigTemplate $twigTemplate): string
     {
         $locales = null;
 
@@ -178,7 +178,7 @@ final class RenderingRuntime
             $locales,
         );
 
-        echo $this->renderValue(
+        return $this->renderValue(
             [],
             new ZoneReference($layout, $zoneIdentifier),
             [
