@@ -156,6 +156,8 @@
         <PossiblyNullReference>
             <errorLevel type="suppress">
                 <file name="bundles/LayoutsBundle/Templating/Twig/Runtime/HelpersRuntime.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/ItemLinkDataMapper.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/LinkDataMapper.php" />
             </errorLevel>
         </PossiblyNullReference>
 
@@ -194,6 +196,12 @@
                 <referencedFunction name="urlencode" />
             </errorLevel>
         </PossiblyNullArgument>
+
+        <ParamNameMismatch>
+            <errorLevel type="suppress">
+                <directory name="lib/API/Values" />
+            </errorLevel>
+        </ParamNameMismatch>
 
         <!-- Netgen Layouts specifics -->
 
