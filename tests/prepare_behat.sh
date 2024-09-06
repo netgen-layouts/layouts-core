@@ -15,4 +15,4 @@ if [ ! -f vendor/bin/chromedriver ]; then
 fi
 
 vendor/bin/symfony server:start --no-tls --daemon --port=4242 --document-root=tests/application/public
-vendor/bin/chromedriver
+vendor/bin/chromedriver --port=9515
