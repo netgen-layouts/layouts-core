@@ -12,6 +12,9 @@ final class Form
 
     private string $identifier;
 
+    /**
+     * @var class-string<\Symfony\Component\Form\FormTypeInterface>
+     */
     private string $type;
 
     /**
@@ -24,6 +27,8 @@ final class Form
 
     /**
      * Returns the form type.
+     *
+     * @return class-string<\Symfony\Component\Form\FormTypeInterface>
      */
     public function getType(): string
     {
