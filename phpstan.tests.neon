@@ -9,6 +9,7 @@ parameters:
     treatPhpDocTypesAsCertain: false
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
+        - Twig\Environment::MAJOR_VERSION
 
     excludePaths:
         - tests/application/public/bundles/
@@ -52,6 +53,8 @@ parameters:
         -
             message: '#Undefined variable: \$this#'
             path: tests/lib/Transfer/Output/Visitor/Integration
+
+        - "#Call to function method_exists\\(\\) with .* and 'setNodeTag' will always evaluate to true.#"
 
         -
             message: "#Offset 'db' does not exist on array#"

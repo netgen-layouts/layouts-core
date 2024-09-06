@@ -15,6 +15,8 @@ use Twig\Node\Expression\NameExpression;
 use Twig\Parser;
 use Twig\Source;
 
+use function method_exists;
+
 final class DefaultContextTest extends TestCase
 {
     private Environment $environment;
@@ -42,9 +44,13 @@ final class DefaultContextTest extends TestCase
      *
      * @dataProvider compileDataProvider
      */
-    public function testCompile(string $source, DefaultContextNode $node): void
+    public function testCompile(string $source, DefaultContextNode $node, string $tag): void
     {
         $stream = $this->environment->tokenize(new Source($source, ''));
+
+        if (method_exists($node, 'setNodeTag')) {
+            $node->setNodeTag($tag);
+        }
 
         self::assertSame((string) $node, (string) $this->parser->parse($stream)->getNode('body')->getNode('0'));
     }
@@ -73,16 +79,16 @@ final class DefaultContextTest extends TestCase
                 new DefaultContextNode(
                     new NameExpression('foo', 1),
                     1,
-                    'nglayouts_default_context',
                 ),
+                'nglayouts_default_context',
             ],
             [
                 '{% nglayouts_default_context "foo" %}',
                 new DefaultContextNode(
                     new ConstantExpression('foo', 1),
                     1,
-                    'nglayouts_default_context',
                 ),
+                'nglayouts_default_context',
             ],
         ];
     }

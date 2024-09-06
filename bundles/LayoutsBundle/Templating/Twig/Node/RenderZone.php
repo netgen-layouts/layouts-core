@@ -19,14 +19,14 @@ use const PHP_EOL;
 #[YieldReady]
 final class RenderZone extends Node
 {
-    public function __construct(AbstractExpression $zone, ?AbstractExpression $context = null, int $line = 0, ?string $tag = null)
+    public function __construct(AbstractExpression $zone, ?AbstractExpression $context = null, int $line = 0)
     {
         $nodes = ['zone' => $zone];
         if ($context instanceof AbstractExpression) {
             $nodes['context'] = $context;
         }
 
-        parent::__construct($nodes, [], $line, $tag);
+        parent::__construct($nodes, [], $line);
     }
 
     public function compile(Compiler $compiler): void

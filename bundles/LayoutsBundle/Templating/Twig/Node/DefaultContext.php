@@ -12,9 +12,9 @@ use Twig\Node\Node;
 #[YieldReady]
 final class DefaultContext extends Node
 {
-    public function __construct(AbstractExpression $expr, int $line = 0, ?string $tag = null)
+    public function __construct(AbstractExpression $expr, int $line = 0)
     {
-        parent::__construct(['expr' => $expr], [], $line, $tag);
+        parent::__construct(['expr' => $expr], [], $line);
     }
 
     public function compile(Compiler $compiler): void
