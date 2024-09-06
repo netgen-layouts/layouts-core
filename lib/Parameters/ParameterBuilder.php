@@ -442,7 +442,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             $resolvedOptions['default_value'],
             $resolvedOptions['label'],
             $resolvedOptions['groups'],
-            $resolvedOptions['constraints']
+            $resolvedOptions['constraints'],
         );
 
         return $resolvedOptions;

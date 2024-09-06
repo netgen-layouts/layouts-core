@@ -76,7 +76,7 @@ final class ZoneViewProviderTest extends TestCase
     public function testProvideViewThrowsViewProviderExceptionOnInvalidBlocks(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('To build the zone view, "blocks" parameter needs to be of "Netgen\\Layouts\\API\\Values\\Block\\BlockList" type.');
+        $this->expectExceptionMessage('To build the zone view, "blocks" parameter needs to be of "Netgen\Layouts\API\Values\Block\BlockList" type.');
 
         $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'), ['blocks' => 42]);
     }

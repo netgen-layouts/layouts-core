@@ -52,7 +52,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\QueryUpdateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct", "Symfony\Component\Validator\Constraints\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new QueryUpdateStruct());
@@ -64,7 +64,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\Collection\\Query", "stdClass" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\API\Values\Collection\Query", "stdClass" given');
 
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new QueryUpdateStruct());
@@ -76,7 +76,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\\Layouts\\\\API\\\\Values\\\\Collection\\\\QueryUpdateStruct", "int(eger)?" given$/');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\Layouts\\\API\\\Values\\\Collection\\\QueryUpdateStruct", "int(eger)?" given$/');
 
         $this->constraint->payload = new Query();
         $this->assertValid(true, 42);

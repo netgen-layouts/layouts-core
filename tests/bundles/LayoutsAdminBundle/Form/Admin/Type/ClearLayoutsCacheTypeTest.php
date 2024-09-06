@@ -97,7 +97,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidLayouts(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "layouts" with value array is expected to be of type "Netgen\\Layouts\\API\\Values\\Layout\\LayoutList", but is of type "array".');
+        $this->expectExceptionMessage('The option "layouts" with value array is expected to be of type "Netgen\Layouts\API\Values\Layout\LayoutList", but is of type "array".');
 
         $optionsResolver = new OptionsResolver();
 

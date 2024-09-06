@@ -70,8 +70,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglContext = {$contextNodeGetter};
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-                EOT
-                ,
+                EOT,
                 $environment,
             ],
             [
@@ -83,8 +82,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglContext = {$contextNodeGetter};
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-                EOT
-                ,
+                EOT,
                 $environment,
             ],
             [
@@ -96,8 +94,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-                EOT
-                ,
+                EOT,
                 $environment,
             ],
             [
@@ -109,8 +106,7 @@ final class RenderZoneTest extends NodeTestBase
                 \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-                EOT
-                ,
+                EOT,
                 $environment,
             ],
         ];

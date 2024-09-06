@@ -124,7 +124,7 @@ final class CollectionPagerRuntimeTest extends TestCase
     public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithInvalidPage(int $page): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/^Argument "page" has an invalid value\\. Page -?\\d+ is out of bounds$/');
+        $this->expectExceptionMessageMatches('/^Argument "page" has an invalid value\. Page -?\d+ is out of bounds$/');
 
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta

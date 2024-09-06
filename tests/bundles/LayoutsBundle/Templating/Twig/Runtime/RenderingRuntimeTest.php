@@ -1100,7 +1100,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderStringTemplate(): void
     {
         $objectWithoutCast = Block::fromArray(['id' => Uuid::uuid4()]);
-        $objectWithCast = new class() {
+        $objectWithCast = new class {
             public function __toString(): string
             {
                 return 'foo';

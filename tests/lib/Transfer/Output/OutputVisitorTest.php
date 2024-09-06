@@ -37,7 +37,7 @@ final class OutputVisitorTest extends TestCase
     public function testVisitWithNoAcceptedVisitorThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No visitor available for value of type \'Netgen\\Layouts\\API\\Values\\Block\\Block\'');
+        $this->expectExceptionMessage('No visitor available for value of type \'Netgen\Layouts\API\Values\Block\Block\'');
 
         $this->visitor = new OutputVisitor([]);
 

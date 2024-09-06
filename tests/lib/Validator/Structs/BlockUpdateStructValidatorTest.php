@@ -62,7 +62,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\BlockUpdateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct", "Symfony\Component\Validator\Constraints\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockUpdateStruct());
@@ -74,7 +74,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\Block\\Block", "stdClass" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\API\Values\Block\Block", "stdClass" given');
 
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new BlockUpdateStruct());
@@ -86,7 +86,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\\Layouts\\\\API\\\\Values\\\\Block\\\\BlockUpdateStruct", "int(eger)?" given$/');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\Layouts\\\API\\\Values\\\Block\\\BlockUpdateStruct", "int(eger)?" given$/');
 
         $this->constraint->payload = new Block();
         $this->assertValid(true, 42);

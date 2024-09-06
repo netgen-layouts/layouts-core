@@ -109,7 +109,7 @@ final class CollectionViewTest extends TestCase
     public function testRenderThrowsInvalidArgumentExceptionWithNoBlock(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\Layouts\\API\\Values\\Block\\Block');
+        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\Layouts\API\Values\Block\Block');
 
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 
@@ -131,7 +131,7 @@ final class CollectionViewTest extends TestCase
     public function testRenderThrowsInvalidArgumentExceptionWithInvalidBlock(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\Layouts\\API\\Values\\Block\\Block');
+        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\Layouts\API\Values\Block\Block');
 
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 

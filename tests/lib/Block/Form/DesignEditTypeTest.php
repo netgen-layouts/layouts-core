@@ -255,7 +255,7 @@ final class DesignEditTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidBlock(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "block" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Block\\Block", but is of type "string".');
+        $this->expectExceptionMessage('The option "block" with value "" is expected to be of type "Netgen\Layouts\API\Values\Block\Block", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -275,7 +275,7 @@ final class DesignEditTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Block\\BlockUpdateStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Block\BlockUpdateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

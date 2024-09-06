@@ -176,7 +176,7 @@ final class QueryEditTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidQueryType(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "query" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Collection\\Query", but is of type "string".');
+        $this->expectExceptionMessage('The option "query" with value "" is expected to be of type "Netgen\Layouts\API\Values\Collection\Query", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -196,7 +196,7 @@ final class QueryEditTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Collection\\QueryUpdateStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Collection\QueryUpdateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

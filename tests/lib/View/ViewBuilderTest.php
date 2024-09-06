@@ -92,7 +92,7 @@ final class ViewBuilderTest extends TestCase
     public function testBuildViewWithNoViewProviders(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('No view providers found for "Netgen\\Layouts\\Tests\\API\\Stubs\\Value" value.');
+        $this->expectExceptionMessage('No view providers found for "Netgen\Layouts\Tests\API\Stubs\Value" value.');
 
         $value = new Value();
 
@@ -116,7 +116,7 @@ final class ViewBuilderTest extends TestCase
     public function testBuildViewWithNoViewProvidersThatSupportValue(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('No view providers found for "Netgen\\Layouts\\Tests\\API\\Stubs\\Value" value.');
+        $this->expectExceptionMessage('No view providers found for "Netgen\Layouts\Tests\API\Stubs\Value" value.');
 
         $value = new Value();
 

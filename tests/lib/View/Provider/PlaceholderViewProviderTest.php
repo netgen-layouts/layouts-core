@@ -67,7 +67,7 @@ final class PlaceholderViewProviderTest extends TestCase
     public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('To build the placeholder view, "block" parameter needs to be of "Netgen\\Layouts\\API\\Values\\Block\\Block" type.');
+        $this->expectExceptionMessage('To build the placeholder view, "block" parameter needs to be of "Netgen\Layouts\API\Values\Block\Block" type.');
 
         $this->placeholderViewProvider->provideView(new Placeholder(), ['block' => 42]);
     }

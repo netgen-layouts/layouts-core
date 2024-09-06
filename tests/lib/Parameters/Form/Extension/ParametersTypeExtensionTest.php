@@ -115,7 +115,7 @@ final class ParametersTypeExtensionTest extends TestCase
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "ngl_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\\Layouts\\Parameters\\ParameterDefinition", but is of type "string".');
+        $this->expectExceptionMessage('The option "ngl_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\Layouts\Parameters\ParameterDefinition", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);

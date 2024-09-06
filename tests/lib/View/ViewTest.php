@@ -135,7 +135,7 @@ final class ViewTest extends TestCase
     public function testGetParameterThrowsViewException(): void
     {
         $this->expectException(ViewException::class);
-        $this->expectExceptionMessage('Parameter with "other_param" name was not found in "Netgen\\Layouts\\Tests\\View\\Stubs\\View" view.');
+        $this->expectExceptionMessage('Parameter with "other_param" name was not found in "Netgen\Layouts\Tests\View\Stubs\View" view.');
 
         $this->view->addParameter('param', 'value');
 

@@ -113,6 +113,6 @@ final class NullBlockDefinition implements BlockDefinitionInterface
 
     public function getHandler(): BlockDefinitionHandlerInterface
     {
-        return new class() extends BlockDefinitionHandler {};
+        return new class extends BlockDefinitionHandler {};
     }
 }

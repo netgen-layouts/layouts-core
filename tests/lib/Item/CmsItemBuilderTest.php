@@ -49,7 +49,7 @@ final class CmsItemBuilderTest extends TestCase
     public function testBuildThrowsValueException(): void
     {
         $this->expectException(ValueException::class);
-        $this->expectExceptionMessage('Value converter for "Netgen\\Layouts\\Tests\\Item\\Stubs\\Value" type does not exist.');
+        $this->expectExceptionMessage('Value converter for "Netgen\Layouts\Tests\Item\Stubs\Value" type does not exist.');
 
         /** @var iterable<\Netgen\Layouts\Item\ValueConverterInterface<object>> $valueConverters */
         $valueConverters = [new UnsupportedValueConverter()];

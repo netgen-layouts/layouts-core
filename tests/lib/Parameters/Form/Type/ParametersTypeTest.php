@@ -300,7 +300,7 @@ final class ParametersTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessageMatches('/^The option "parameter_definitions" with value null is expected to be of type "Netgen\\\\Layouts\\\\Parameters\\\\ParameterDefinitionCollectionInterface", but is of type "(NULL|null)".$/');
+        $this->expectExceptionMessageMatches('/^The option "parameter_definitions" with value null is expected to be of type "Netgen\\\Layouts\\\Parameters\\\ParameterDefinitionCollectionInterface", but is of type "(NULL|null)".$/');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

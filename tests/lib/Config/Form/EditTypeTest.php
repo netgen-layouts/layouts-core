@@ -224,7 +224,7 @@ final class EditTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidValue(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "configurable" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Config\\ConfigAwareValue", but is of type "string".');
+        $this->expectExceptionMessage('The option "configurable" with value "" is expected to be of type "Netgen\Layouts\API\Values\Config\ConfigAwareValue", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -286,7 +286,7 @@ final class EditTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Config\\ConfigAwareStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Config\ConfigAwareStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

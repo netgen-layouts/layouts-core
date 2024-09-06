@@ -63,7 +63,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\ConfigAwareStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct", "Symfony\Component\Validator\Constraints\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockUpdateStruct());
@@ -75,7 +75,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidPayload(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Config\\ConfigDefinitionAwareInterface or array", "stdClass" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\Config\ConfigDefinitionAwareInterface or array", "stdClass" given');
 
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new BlockUpdateStruct());
@@ -87,7 +87,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\\Layouts\\\\API\\\\Values\\\\Config\\\\ConfigAwareStruct", "int(eger)?" given$/');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\Layouts\\\API\\\Values\\\Config\\\ConfigAwareStruct", "int(eger)?" given$/');
 
         $this->constraint->payload = new BlockDefinition();
         $this->assertValid(true, 42);
