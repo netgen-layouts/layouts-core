@@ -19,9 +19,11 @@ use Netgen\Layouts\Utils\FlagGenerator;
 use Ramsey\Uuid\Uuid;
 use Throwable;
 use Twig\Environment;
+use Twig\Extension\CoreExtension;
 
 use function array_unshift;
 use function is_string;
+use function method_exists;
 use function twig_date_converter;
 
 final class HelpersRuntime
@@ -121,7 +123,11 @@ final class HelpersRuntime
      */
     public function formatDateTime(Environment $twig, $dateTime, string $dateFormat = 'medium', string $timeFormat = 'medium'): string
     {
-        $dateTime = twig_date_converter($twig, $dateTime);
+        $coreExtension = $twig->getExtension(CoreExtension::class);
+
+        $dateTime = method_exists($coreExtension, 'convertDate') ?
+            $coreExtension->convertDate($dateTime) :
+            twig_date_converter($twig, $dateTime);
 
         $formatValues = [
             'none' => IntlDateFormatter::NONE,

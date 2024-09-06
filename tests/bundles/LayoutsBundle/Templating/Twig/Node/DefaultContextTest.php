@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Node;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext;
+use Twig\Environment;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
 
@@ -13,6 +14,13 @@ use Twig\Node\Expression\NameExpression;
  */
 final class DefaultContextTest extends NodeTestBase
 {
+    protected function setUp(): void
+    {
+        if (Environment::MAJOR_VERSION === 2) {
+            self::markTestSkipped('Test requires twig/twig 3.9 to run');
+        }
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext::__construct
      */

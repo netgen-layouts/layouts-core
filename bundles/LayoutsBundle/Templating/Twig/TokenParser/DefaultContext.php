@@ -17,7 +17,7 @@ final class DefaultContext extends AbstractTokenParser
 
         $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
-        return new DefaultContextNode($expression, $token->getLine(), $this->getTag());
+        return new DefaultContextNode($expression, $token->getLine());
     }
 
     public function getTag(): string

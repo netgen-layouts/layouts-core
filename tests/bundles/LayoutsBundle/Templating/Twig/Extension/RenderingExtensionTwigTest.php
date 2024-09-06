@@ -54,7 +54,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
      *
      * @dataProvider getTests
      *
@@ -74,7 +74,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
      *
      * @dataProvider getTests
      *
@@ -97,7 +97,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
      *
      * @dataProvider getLegacyTests
      *

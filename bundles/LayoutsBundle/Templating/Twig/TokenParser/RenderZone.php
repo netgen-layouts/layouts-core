@@ -45,7 +45,7 @@ final class RenderZone extends AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new RenderZoneNode($zone, $context, $token->getLine(), $this->getTag());
+        return new RenderZoneNode($zone, $context, $token->getLine());
     }
 
     public function getTag(): string
