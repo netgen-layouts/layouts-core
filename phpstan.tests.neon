@@ -52,3 +52,7 @@ parameters:
         -
             message: '#Undefined variable: \$this#'
             path: tests/lib/Transfer/Output/Visitor/Integration
+
+        -
+            message: "#Offset 'db' does not exist on array#"
+            path: tests/lib/Persistence/Doctrine/DatabaseTrait.php

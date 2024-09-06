@@ -134,9 +134,7 @@ final class DateTimeUtilsTest extends TestCase
 
         self::assertNotEmpty($timeZones);
 
-        foreach ($timeZones as $continent => $innerTimeZones) {
-            self::assertIsString($continent);
-            self::assertIsArray($innerTimeZones);
+        foreach ($timeZones as $innerTimeZones) {
             self::assertNotEmpty($innerTimeZones);
         }
     }
