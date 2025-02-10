@@ -73,4 +73,17 @@ final class BlockDefinitionExceptionTest extends TestCase
             $exception->getMessage(),
         );
     }
+
+    /**
+     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noPlugin
+     */
+    public function testNoPlugin(): void
+    {
+        $exception = BlockDefinitionException::noPlugin('def', 'ClassName');
+
+        self::assertSame(
+            'Block definition with "def" identifier does not have a plugin with "ClassName" class.',
+            $exception->getMessage(),
+        );
+    }
 }

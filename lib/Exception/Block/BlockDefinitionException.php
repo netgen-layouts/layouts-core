@@ -64,4 +64,15 @@ final class BlockDefinitionException extends InvalidArgumentException implements
             ),
         );
     }
+
+    public static function noPlugin(string $identifier, string $pluginClass): self
+    {
+        return new self(
+            sprintf(
+                'Block definition with "%s" identifier does not have a plugin with "%s" class.',
+                $identifier,
+                $pluginClass,
+            ),
+        );
+    }
 }

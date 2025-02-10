@@ -11,6 +11,8 @@ use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function sprintf;
+
 final class NullBlockDefinitionTest extends TestCase
 {
     private NullBlockDefinition $blockDefinition;
@@ -174,5 +176,24 @@ final class NullBlockDefinitionTest extends TestCase
     public function testHasPluginWithUnknownPlugin(): void
     {
         self::assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getPlugin
+     */
+    public function testGetPlugin(): void
+    {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage(sprintf('Block definition with "%s" identifier does not have a plugin with "%s" class.', 'definition', HandlerPlugin::class));
+
+        $this->blockDefinition->getPlugin(HandlerPlugin::class);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getPlugins
+     */
+    public function testGetPlugins(): void
+    {
+        self::assertCount(0, $this->blockDefinition->getPlugins());
     }
 }

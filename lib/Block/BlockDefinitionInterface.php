@@ -9,6 +9,7 @@ use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
 use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
@@ -124,4 +125,18 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      * @param class-string $className
      */
     public function hasPlugin(string $className): bool;
+
+    /**
+     * Returns the block definition plugin with provided FQCN.
+     *
+     * @param class-string $className
+     */
+    public function getPlugin(string $className): PluginInterface;
+
+    /**
+     * Returns all block definition plugins.
+     *
+     * @return \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
+     */
+    public function getPlugins(): array;
 }

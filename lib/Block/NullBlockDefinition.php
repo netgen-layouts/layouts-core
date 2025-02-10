@@ -10,6 +10,7 @@ use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
 use Netgen\Layouts\Config\ConfigDefinitionAwareTrait;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
@@ -109,6 +110,16 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     public function hasPlugin(string $className): bool
     {
         return false;
+    }
+
+    public function getPlugin(string $className): PluginInterface
+    {
+        throw BlockDefinitionException::noPlugin($this->identifier, $className);
+    }
+
+    public function getPlugins(): array
+    {
+        return [];
     }
 
     public function getHandler(): BlockDefinitionHandlerInterface

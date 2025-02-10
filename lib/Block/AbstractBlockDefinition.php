@@ -9,6 +9,7 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ConfigProviderInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
 use Netgen\Layouts\Config\ConfigDefinitionAwareTrait;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
@@ -160,5 +161,26 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         }
 
         return false;
+    }
+
+    /**
+     * Returns the block definition plugin with provided FQCN.
+     *
+     * @param class-string $className
+     */
+    public function getPlugin(string $className): PluginInterface
+    {
+        foreach ($this->handlerPlugins as $handlerPlugin) {
+            if (is_a($handlerPlugin, $className, true)) {
+                return $handlerPlugin;
+            }
+        }
+
+        throw BlockDefinitionException::noPlugin($this->identifier, $className);
+    }
+
+    public function getPlugins(): array
+    {
+        return $this->handlerPlugins;
     }
 }
