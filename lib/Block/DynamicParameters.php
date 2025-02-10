@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Block;
 
 use ArrayAccess;
+use ArrayIterator;
 use Closure;
 use Countable;
+use IteratorAggregate;
+use Traversable;
 
 use function array_key_exists;
 use function count;
 
 /**
  * @implements \ArrayAccess<mixed, mixed>
+ * @implements \IteratorAggregate<mixed, mixed>
  */
-final class DynamicParameters implements ArrayAccess, Countable
+final class DynamicParameters implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @var array<mixed, mixed>
@@ -72,5 +76,10 @@ final class DynamicParameters implements ArrayAccess, Countable
         }
 
         unset($this->dynamicParameters[$offset]);
+    }
+
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->dynamicParameters);
     }
 }
