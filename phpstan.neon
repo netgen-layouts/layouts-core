@@ -67,4 +67,3 @@ parameters:
         # Bugs in PHPStan?
 
         - "#Cannot assign new offset to array#"
-        - "#string\\|Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\Data#"
