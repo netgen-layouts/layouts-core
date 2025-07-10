@@ -43,6 +43,9 @@
         "sortablejs": "^1.10.1",
         "whatwg-fetch": "^3.0.0"
     },
+    "resolutions": {
+        "minimatch": "^9.0.0"
+    },
     "scripts": {
         "admin:dev": "webpack --mode=development --config webpack.config.admin.js",
         "admin:prod": "webpack --mode=production --config webpack.config.admin.js",
