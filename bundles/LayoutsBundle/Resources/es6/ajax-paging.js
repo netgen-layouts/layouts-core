@@ -69,6 +69,7 @@ class AjaxPaging {
       pager.addEventListener('click', (e) => {
         if (e.target.tagName === 'A') {
           e.preventDefault();
+          this.container?.setAttribute('aria-busy', 'true');
           this.getPage(e.target.href);
         }
       });
@@ -103,13 +104,23 @@ class AjaxPaging {
   }
 
   renderNewPage(html) {
+    const domParser = new DOMParser();
+    const doc = domParser.parseFromString(html, 'text/html');
+    const newItems = doc.body.children;
+    const firstNewItemRef = newItems[0];
+
     switch (this.pagerData.type) {
       case 'load_more':
-        this.container.insertAdjacentHTML('beforeend', html);
+        this.container?.append(...newItems);
+        firstNewItemRef?.setAttribute('tabindex', '0');
+        firstNewItemRef?.focus();
+        firstNewItemRef?.removeAttribute('tabindex');
         break;
       default:
-        this.container.innerHTML = html;
+        this.container?.replaceChildren(...newItems);
     }
+    this.container?.setAttribute('aria-busy', 'false');
+
     this.el.dispatchEvent(new CustomEvent('ajax-paging-added', { bubbles: true, cancelable: true, detail: { instance: this } }));
   }
 
