@@ -16,6 +16,7 @@ use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Parser;
 use Twig\Source;
 
+use function class_exists;
 use function method_exists;
 
 final class RenderZoneTest extends TestCase
@@ -78,7 +79,7 @@ final class RenderZoneTest extends TestCase
             [
                 '{% nglayouts_render_zone zone %}',
                 new RenderZoneNode(
-                    Environment::VERSION_ID >= 31500 ?
+                    class_exists(ContextVariable::class) ?
                         new ContextVariable('zone', 1) :
                         new NameExpression('zone', 1),
                     null,
@@ -89,7 +90,7 @@ final class RenderZoneTest extends TestCase
             [
                 '{% nglayouts_render_zone zone context="json" %}',
                 new RenderZoneNode(
-                    Environment::VERSION_ID >= 31500 ?
+                    class_exists(ContextVariable::class) ?
                         new ContextVariable('zone', 1) :
                         new NameExpression('zone', 1),
                     new ConstantExpression('json', 1),

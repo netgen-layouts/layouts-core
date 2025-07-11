@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone as RenderZoneNode;
-use Twig\Environment;
 use Twig\Error\SyntaxError;
 use Twig\Node\Node;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
+use function method_exists;
 use function sprintf;
 
 final class RenderZone extends AbstractTokenParser
 {
     public function parse(Token $token): Node
     {
-        $expressionParser = Environment::VERSION_ID >= 32100 ?
+        $expressionParser = method_exists($this->parser, 'parseExpression') ?
             $this->parser :
             $this->parser->getExpressionParser();
 
@@ -40,7 +40,7 @@ final class RenderZone extends AbstractTokenParser
             throw new SyntaxError(
                 sprintf(
                     'Unexpected token "%s" of value "%s".',
-                    Environment::VERSION_ID >= 31900 ?
+                    method_exists($token, 'toEnglish') ?
                         $token->toEnglish() :
                         Token::typeToEnglish($token->getType()),
                     $token->getValue(),

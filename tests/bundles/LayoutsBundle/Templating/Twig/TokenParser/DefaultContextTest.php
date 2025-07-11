@@ -16,6 +16,7 @@ use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Parser;
 use Twig\Source;
 
+use function class_exists;
 use function method_exists;
 
 final class DefaultContextTest extends TestCase
@@ -78,7 +79,7 @@ final class DefaultContextTest extends TestCase
             [
                 '{% nglayouts_default_context foo %}',
                 new DefaultContextNode(
-                    Environment::VERSION_ID >= 31500 ?
+                    class_exists(ContextVariable::class) ?
                         new ContextVariable('foo', 1) :
                         new NameExpression('foo', 1),
                     1,

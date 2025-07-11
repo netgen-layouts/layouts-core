@@ -19,6 +19,7 @@ use Twig\Node\Node;
 use Twig\Node\SetNode;
 use Twig\NodeVisitor\NodeVisitorInterface;
 
+use function class_exists;
 use function hash;
 use function mt_rand;
 use function sprintf;
@@ -57,11 +58,11 @@ final class DefaultContext implements NodeVisitorInterface
 
             $var = $this->getVarName();
 
-            $assignContextVariable = Environment::VERSION_ID >= 31500 ?
+            $assignContextVariable = class_exists(AssignContextVariable::class) ?
                 new AssignContextVariable($var, $node->getTemplateLine()) :
                 new AssignNameExpression($var, $node->getTemplateLine());
 
-            $contextVariable = Environment::VERSION_ID >= 31500 ?
+            $contextVariable = class_exists(ContextVariable::class) ?
                 new ContextVariable($var, $node->getTemplateLine()) :
                 new NameExpression($var, $node->getTemplateLine());
 

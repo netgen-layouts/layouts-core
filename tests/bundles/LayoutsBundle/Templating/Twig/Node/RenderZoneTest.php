@@ -14,6 +14,8 @@ use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\Variable\ContextVariable;
 
+use function class_exists;
+
 /**
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compile
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compileContextNode
@@ -21,7 +23,7 @@ use Twig\Node\Expression\Variable\ContextVariable;
  */
 final class RenderZoneTest extends NodeTestBase
 {
-    private static string $contextVariableClass = ContextVariable::class;
+    private static string $contextVariableClass = NameExpression::class;
 
     protected function setUp(): void
     {
@@ -29,8 +31,8 @@ final class RenderZoneTest extends NodeTestBase
             self::markTestSkipped('Test requires twig/twig 3.9 to run');
         }
 
-        if (Environment::VERSION_ID < 31500) {
-            self::$contextVariableClass = NameExpression::class;
+        if (class_exists(ContextVariable::class)) {
+            self::$contextVariableClass = ContextVariable::class;
         }
     }
 
