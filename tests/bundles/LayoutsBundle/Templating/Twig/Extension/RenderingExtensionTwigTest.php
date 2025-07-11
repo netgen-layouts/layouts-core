@@ -137,6 +137,11 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         return __DIR__ . '/_fixtures/';
     }
 
+    protected static function getFixturesDirectory(): string
+    {
+        return __DIR__ . '/_fixtures/';
+    }
+
     private function configureMocks(): void
     {
         $request = $this->requestStack->getCurrentRequest();

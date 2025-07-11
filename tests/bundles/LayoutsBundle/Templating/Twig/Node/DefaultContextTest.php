@@ -8,16 +8,23 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext;
 use Twig\Environment;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
+use Twig\Node\Expression\Variable\ContextVariable;
 
 /**
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext::compile
  */
 final class DefaultContextTest extends NodeTestBase
 {
+    private static string $contextVariableClass = ContextVariable::class;
+
     protected function setUp(): void
     {
         if (Environment::MAJOR_VERSION === 2) {
             self::markTestSkipped('Test requires twig/twig 3.9 to run');
+        }
+
+        if (Environment::VERSION_ID < 31500) {
+            self::$contextVariableClass = NameExpression::class;
         }
     }
 
@@ -26,7 +33,7 @@ final class DefaultContextTest extends NodeTestBase
      */
     public function testConstructor(): void
     {
-        $var = new NameExpression('foo', 1);
+        $var = new self::$contextVariableClass('foo', 1);
         $node = new DefaultContext($var, 1);
 
         self::assertSame($var, $node->getNode('expr'));
@@ -48,7 +55,7 @@ final class DefaultContextTest extends NodeTestBase
         $environment = self::getEnvironment();
         $environment->enableStrictVariables();
 
-        $var = new NameExpression('foo', 1);
+        $var = new self::$contextVariableClass('foo', 1);
         $string = new ConstantExpression('foo', 1);
 
         return [

@@ -12,6 +12,7 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\LoaderInterface;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
+use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Parser;
 use Twig\Source;
 
@@ -77,7 +78,9 @@ final class RenderZoneTest extends TestCase
             [
                 '{% nglayouts_render_zone zone %}',
                 new RenderZoneNode(
-                    new NameExpression('zone', 1),
+                    Environment::VERSION_ID >= 31500 ?
+                        new ContextVariable('zone', 1) :
+                        new NameExpression('zone', 1),
                     null,
                     1,
                 ),
@@ -86,7 +89,9 @@ final class RenderZoneTest extends TestCase
             [
                 '{% nglayouts_render_zone zone context="json" %}',
                 new RenderZoneNode(
-                    new NameExpression('zone', 1),
+                    Environment::VERSION_ID >= 31500 ?
+                        new ContextVariable('zone', 1) :
+                        new NameExpression('zone', 1),
                     new ConstantExpression('json', 1),
                     1,
                 ),

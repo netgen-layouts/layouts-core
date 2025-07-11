@@ -12,6 +12,8 @@ use Twig\Node\BlockNode;
 use Twig\Node\Expression\AssignNameExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
+use Twig\Node\Expression\Variable\AssignContextVariable;
+use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\ModuleNode;
 use Twig\Node\Node;
 use Twig\Node\SetNode;
@@ -54,10 +56,23 @@ final class DefaultContext implements NodeVisitorInterface
             }
 
             $var = $this->getVarName();
-            $name = new AssignNameExpression($var, $node->getTemplateLine());
-            $this->scope->set('context', new NameExpression($var, $node->getTemplateLine()));
 
-            return new SetNode(false, new Node([$name]), new Node([$node->getNode('expr')]), $node->getTemplateLine());
+            $assignContextVariable = Environment::VERSION_ID >= 31500 ?
+                new AssignContextVariable($var, $node->getTemplateLine()) :
+                new AssignNameExpression($var, $node->getTemplateLine());
+
+            $contextVariable = Environment::VERSION_ID >= 31500 ?
+                new ContextVariable($var, $node->getTemplateLine()) :
+                new NameExpression($var, $node->getTemplateLine());
+
+            $this->scope->set('context', $contextVariable);
+
+            return new SetNode(
+                false,
+                new Node([$assignContextVariable]),
+                new Node([$node->getNode('expr')]),
+                $node->getTemplateLine(),
+            );
         }
 
         if (!$this->scope->has('context')) {

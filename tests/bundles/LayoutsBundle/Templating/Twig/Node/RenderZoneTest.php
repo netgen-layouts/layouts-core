@@ -12,6 +12,7 @@ use Netgen\Layouts\View\ViewInterface;
 use Twig\Environment;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
+use Twig\Node\Expression\Variable\ContextVariable;
 
 /**
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compile
@@ -20,10 +21,16 @@ use Twig\Node\Expression\NameExpression;
  */
 final class RenderZoneTest extends NodeTestBase
 {
+    private static string $contextVariableClass = ContextVariable::class;
+
     protected function setUp(): void
     {
         if (Environment::MAJOR_VERSION === 2) {
             self::markTestSkipped('Test requires twig/twig 3.9 to run');
+        }
+
+        if (Environment::VERSION_ID < 31500) {
+            self::$contextVariableClass = NameExpression::class;
         }
     }
 
@@ -32,8 +39,8 @@ final class RenderZoneTest extends NodeTestBase
      */
     public function testConstructor(): void
     {
-        $zone = new NameExpression('zone', 1);
-        $context = new NameExpression('context', 1);
+        $zone = new self::$contextVariableClass('zone', 1);
+        $context = new self::$contextVariableClass('context', 1);
         $node = new RenderZone($zone, $context, 1);
 
         self::assertSame($zone, $node->getNode('zone'));
@@ -45,7 +52,7 @@ final class RenderZoneTest extends NodeTestBase
      */
     public function testConstructorWithNoContext(): void
     {
-        $zone = new NameExpression('zone', 1);
+        $zone = new self::$contextVariableClass('zone', 1);
         $node = new RenderZone($zone, null, 1);
 
         self::assertSame($zone, $node->getNode('zone'));
@@ -62,9 +69,9 @@ final class RenderZoneTest extends NodeTestBase
         $templateClass = ContextualizedTwigTemplate::class;
         $viewInterface = ViewInterface::class;
 
-        $zone = new NameExpression('zone', 1);
+        $zone = new self::$contextVariableClass('zone', 1);
         $zoneName = new ConstantExpression('zone', 1);
-        $context = new NameExpression('context', 1);
+        $context = new self::$contextVariableClass('context', 1);
 
         $zoneNodeGetter = self::getNodeGetter('zone');
         $contextNodeGetter = self::getNodeGetter('context');

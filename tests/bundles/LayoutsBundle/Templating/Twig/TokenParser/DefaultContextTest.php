@@ -12,6 +12,7 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\LoaderInterface;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
+use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Parser;
 use Twig\Source;
 
@@ -77,7 +78,9 @@ final class DefaultContextTest extends TestCase
             [
                 '{% nglayouts_default_context foo %}',
                 new DefaultContextNode(
-                    new NameExpression('foo', 1),
+                    Environment::VERSION_ID >= 31500 ?
+                        new ContextVariable('foo', 1) :
+                        new NameExpression('foo', 1),
                     1,
                 ),
                 'nglayouts_default_context',
