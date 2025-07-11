@@ -44,7 +44,7 @@
         "whatwg-fetch": "^3.0.0"
     },
     "resolutions": {
-        "minimatch": "^9.0.0"
+        "minimatch": "^3.0.0"
     },
     "scripts": {
         "admin:dev": "webpack --mode=development --config webpack.config.admin.js",
