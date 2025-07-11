@@ -33,6 +33,7 @@ final class DefaultContextTest extends NodeTestBase
      */
     public function testConstructor(): void
     {
+        /** @var \Twig\Node\Expression\AbstractExpression $var */
         $var = new self::$contextVariableClass('foo', 1);
         $node = new DefaultContext($var, 1);
 
@@ -55,6 +56,7 @@ final class DefaultContextTest extends NodeTestBase
         $environment = self::getEnvironment();
         $environment->enableStrictVariables();
 
+        /** @var \Twig\Node\Expression\AbstractExpression $var */
         $var = new self::$contextVariableClass('foo', 1);
         $string = new ConstantExpression('foo', 1);
 

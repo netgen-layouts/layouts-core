@@ -39,7 +39,10 @@ final class RenderZoneTest extends NodeTestBase
      */
     public function testConstructor(): void
     {
+        /** @var \Twig\Node\Expression\AbstractExpression $zone */
         $zone = new self::$contextVariableClass('zone', 1);
+
+        /** @var \Twig\Node\Expression\AbstractExpression $context */
         $context = new self::$contextVariableClass('context', 1);
         $node = new RenderZone($zone, $context, 1);
 
@@ -52,6 +55,7 @@ final class RenderZoneTest extends NodeTestBase
      */
     public function testConstructorWithNoContext(): void
     {
+        /** @var \Twig\Node\Expression\AbstractExpression $zone */
         $zone = new self::$contextVariableClass('zone', 1);
         $node = new RenderZone($zone, null, 1);
 
@@ -69,8 +73,11 @@ final class RenderZoneTest extends NodeTestBase
         $templateClass = ContextualizedTwigTemplate::class;
         $viewInterface = ViewInterface::class;
 
+        /** @var \Twig\Node\Expression\AbstractExpression $zone */
         $zone = new self::$contextVariableClass('zone', 1);
         $zoneName = new ConstantExpression('zone', 1);
+
+        /** @var \Twig\Node\Expression\AbstractExpression $context */
         $context = new self::$contextVariableClass('context', 1);
 
         $zoneNodeGetter = self::getNodeGetter('zone');
