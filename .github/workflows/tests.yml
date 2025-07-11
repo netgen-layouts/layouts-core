@@ -75,6 +75,12 @@ jobs:
           MYSQL_DATABASE: testdb
         ports:
           - '3306:3306'
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+          --tmpfs /var/lib/mysql
 
       postgres:
         image: 'postgres:latest'
