@@ -79,9 +79,9 @@ $ chrome behat-headless
 
 ### Static analysis
 
-All code is statically analysed with PHPStan and Psalm. Make sure that both tools
-give the OK for the entire codebase after your changes. Run the following commands to
-run PHPStan and Psalm for the library/bundle code and for tests code, respectively:
+All code is statically analysed with PHPStan. Make sure that it gives the OK for
+the entire codebase after your changes. Run the following commands to run PHPStan
+for the library/bundle code and for tests code, respectively:
 
 ```
 $ composer phpstan
@@ -89,10 +89,6 @@ $ composer phpstan
 
 ```
 $ composer phpstan-tests
-```
-
-```
-$ composer psalm
 ```
 
 ### Coding standards
