@@ -19,10 +19,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.4'
           coverage: none
-          # PHP 8.1 FPM segfaults with JIT enabled
-          ini-values: opcache.jit=disable
 
       # Install Flex as a global dependency to enable usage of extra.symfony.require
       # while keeping Flex recipes from applying
