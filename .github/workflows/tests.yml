@@ -12,7 +12,7 @@ env:
 
 jobs:
   tests:
-    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.phpunit }} / ${{ matrix.db }}
+    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.script }} / ${{ matrix.db }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,45 +20,45 @@ jobs:
       matrix:
         php: ['7.4', '8.4']
         symfony: ['~5.4.0', '~6.4.0']
-        phpunit: ['phpunit.xml', 'phpunit-api.xml']
+        script: ['test', 'test-api']
         db: ['sqlite']
         deps: ['normal']
         include:
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit.xml'
+            script: 'test'
             db: 'sqlite'
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit-api-legacy.xml'
+            script: 'test-api-legacy'
             db: 'sqlite'
 
           - php: '7.4'
             symfony: '~5.4.0'
-            phpunit: 'phpunit.xml'
+            script: 'test'
             db: 'mysql'
           - php: '7.4'
             symfony: '~5.4.0'
-            phpunit: 'phpunit-api.xml'
+            script: 'test-api'
             db: 'mysql'
 
           - php: '8.4'
             symfony: '~6.4.0'
-            phpunit: 'phpunit.xml'
+            script: 'test'
             db: 'postgres'
           - php: '8.4'
             symfony: '~6.4.0'
-            phpunit: 'phpunit-api.xml'
+            script: 'test-api'
             db: 'postgres'
 
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit.xml'
+            script: 'test'
             db: 'sqlite'
             deps: 'low'
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit-api-legacy.xml'
+            script: 'test-api-legacy'
             db: 'sqlite'
             deps: 'low'
         exclude:
@@ -114,7 +114,7 @@ jobs:
 
       - run: composer config extra.symfony.require ${{ matrix.symfony }}
 
-      # Adds a dependency required for Symfony 3.4 tests due to incompatibility
+      # Adds a dependency required for Symfony 3.4 script due to incompatibility
       # of symfony/proxy-manager-bridge and laminas/laminas-code
       - run: composer require --dev --no-update laminas/laminas-zendframework-bridge
         if: ${{ matrix.symfony == '~3.4.0' }}
@@ -127,4 +127,4 @@ jobs:
         run: composer update --prefer-dist --prefer-lowest --prefer-stable
         if: ${{ matrix.deps == 'low' }}
 
-      - run: vendor/bin/phpunit -c ${{ matrix.phpunit }} --colors=always
+      - run: composer ${{ matrix.script }}

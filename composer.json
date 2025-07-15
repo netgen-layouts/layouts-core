@@ -105,6 +105,7 @@
         "pre-command-run": "@putenv SYMFONY_DEPRECATIONS_HELPER=max[self]=0&quiet[]=indirect&quiet[]=other",
         "test": "@php vendor/bin/phpunit --colors=always",
         "test-api": "@php vendor/bin/phpunit -c phpunit-api.xml --colors=always",
+        "test-api-legacy": "@php vendor/bin/phpunit -c phpunit-api-legacy.xml --colors=always",
         "coverage": "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html=coverage --colors=always",
         "coverage-api": "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit -c phpunit-api.xml --coverage-html=coverage_api --colors=always",
         "coverage-clover": "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit --coverage-clover=coverage.xml --colors=always",
