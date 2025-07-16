@@ -156,9 +156,9 @@ final class LinkDataMapperTest extends DataMapperTestBase
 
         self::assertSame(
             [
-                'link' => null,
-                'linkSuffix' => null,
-                'linkType' => null,
+                'link' => '',
+                'linkSuffix' => '',
+                'linkType' => '',
                 'newWindow' => false,
             ],
             $this->exportObject($data),

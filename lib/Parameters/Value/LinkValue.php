@@ -7,6 +7,8 @@ namespace Netgen\Layouts\Parameters\Value;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Stringable;
 
+use function sprintf;
+
 final class LinkValue implements Stringable
 {
     use HydratorTrait;
@@ -21,23 +23,23 @@ final class LinkValue implements Stringable
 
     public const LINK_TYPE_INTERNAL = 'internal';
 
-    private ?string $linkType = null;
+    private string $linkType = '';
 
-    private ?string $link = null;
+    private string $link = '';
 
-    private ?string $linkSuffix = null;
+    private string $linkSuffix = '';
 
     private bool $newWindow = false;
 
     public function __toString(): string
     {
-        return ($this->link ?? '') . ($this->linkSuffix ?? '');
+        return sprintf('%s%s', $this->link, $this->linkSuffix);
     }
 
     /**
      * Returns the link type.
      */
-    public function getLinkType(): ?string
+    public function getLinkType(): string
     {
         return $this->linkType;
     }
@@ -45,7 +47,7 @@ final class LinkValue implements Stringable
     /**
      * Returns the link value.
      */
-    public function getLink(): ?string
+    public function getLink(): string
     {
         return $this->link;
     }
@@ -53,7 +55,7 @@ final class LinkValue implements Stringable
     /**
      * Returns the link suffix.
      */
-    public function getLinkSuffix(): ?string
+    public function getLinkSuffix(): string
     {
         return $this->linkSuffix;
     }

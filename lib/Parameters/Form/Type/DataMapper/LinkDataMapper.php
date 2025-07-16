@@ -8,7 +8,6 @@ use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 
-use function is_string;
 use function iterator_to_array;
 
 /**
@@ -36,7 +35,7 @@ final class LinkDataMapper implements DataMapperInterface
         $forms['link_suffix']->setData($viewData->getLinkSuffix());
         $forms['new_window']->setData($viewData->getNewWindow());
 
-        if (is_string($linkType) && isset($forms[$linkType])) {
+        if (isset($forms[$linkType])) {
             $forms[$linkType]->setData($viewData->getLink());
         }
     }
@@ -50,8 +49,8 @@ final class LinkDataMapper implements DataMapperInterface
         if ($linkType !== '') {
             $viewData = [
                 'link_type' => $linkType,
-                'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : null,
-                'link_suffix' => $forms['link_suffix']->getData(),
+                'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : '',
+                'link_suffix' => $forms['link_suffix']->getData() ?? '',
                 'new_window' => (bool) $forms['new_window']->getData(),
             ];
         }

@@ -437,9 +437,9 @@
                                     "title": "Title",
                                     "use_link": null,
                                     "link": {
-                                        "link_type": null,
-                                        "link": null,
-                                        "link_suffix": null,
+                                        "link_type": "",
+                                        "link": "",
+                                        "link_suffix": "",
                                         "new_window": false
                                     },
                                     "css_class": null,

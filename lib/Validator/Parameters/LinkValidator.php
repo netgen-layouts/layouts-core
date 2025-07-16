@@ -49,6 +49,7 @@ final class LinkValidator extends ConstraintValidator
                 new Constraints\Choice(
                     [
                         'choices' => [
+                            '',
                             LinkValue::LINK_TYPE_URL,
                             LinkValue::LINK_TYPE_RELATIVE_URL,
                             LinkValue::LINK_TYPE_EMAIL,
@@ -62,13 +63,15 @@ final class LinkValidator extends ConstraintValidator
         );
 
         $linkConstraints = [];
-        if ($linkType === null) {
-            $linkConstraints[] = new Constraints\IsNull();
+        if ($linkType === '') {
+            $linkConstraints[] = new Constraints\IdenticalTo('');
         } elseif ($constraint->required) {
             $linkConstraints[] = new Constraints\NotBlank();
         }
 
-        if ($linkType !== null) {
+        if ($linkType !== '') {
+            $linkConstraints[] = new Constraints\NotNull();
+
             if ($linkType === LinkValue::LINK_TYPE_URL) {
                 $linkConstraints[] = new Constraints\Url();
             } elseif ($linkType === LinkValue::LINK_TYPE_RELATIVE_URL) {
@@ -93,6 +96,7 @@ final class LinkValidator extends ConstraintValidator
         $validator->atPath('linkSuffix')->validate(
             $value->getLinkSuffix(),
             [
+                new Constraints\NotNull(),
                 new Constraints\Type(['type' => 'string']),
             ],
         );

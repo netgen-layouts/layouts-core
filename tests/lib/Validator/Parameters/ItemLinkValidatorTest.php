@@ -38,7 +38,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     {
         $this->constraint->valueTypes = $valueTypes;
 
-        if ($value !== null && $isValid) {
+        if ($value !== null && $value !== '' && $isValid) {
             $this->cmsItemLoaderMock
                 ->expects(self::once())
                 ->method('load')
@@ -87,7 +87,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     public static function validateDataProvider(): iterable
     {
         return [
-            ['', [], false],
+            ['', [], true],
             ['value', [], false],
             ['other', [], false],
             ['value:', [], false],

@@ -36,7 +36,7 @@ final class ItemLinkValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if ($value === null) {
+        if ($value === null || $value === '') {
             return;
         }
 

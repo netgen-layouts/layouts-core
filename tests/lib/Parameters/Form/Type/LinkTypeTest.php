@@ -124,9 +124,9 @@ final class LinkTypeTest extends FormTestCase
 
         self::assertSame(
             [
-                'link' => null,
-                'linkSuffix' => null,
-                'linkType' => null,
+                'link' => '',
+                'linkSuffix' => '',
+                'linkType' => '',
                 'newWindow' => false,
             ],
             $this->exportObject($formData),
