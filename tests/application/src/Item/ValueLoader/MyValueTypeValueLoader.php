@@ -9,12 +9,12 @@ use Netgen\Layouts\Tests\App\Item\Value;
 
 final class MyValueTypeValueLoader implements ValueLoaderInterface
 {
-    public function load($id): ?Value
+    public function load($id): Value
     {
         return new Value((int) $id);
     }
 
-    public function loadByRemoteId($remoteId): ?Value
+    public function loadByRemoteId($remoteId): Value
     {
         return new Value((int) $remoteId);
     }

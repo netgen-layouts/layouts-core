@@ -21,12 +21,12 @@ final class UnsupportedValueConverter implements ValueConverterInterface
         return 'value';
     }
 
-    public function getId(object $object)
+    public function getId(object $object): int
     {
         return $object->getId();
     }
 
-    public function getRemoteId(object $object)
+    public function getRemoteId(object $object): string
     {
         return $object->getRemoteId();
     }

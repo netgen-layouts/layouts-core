@@ -16,9 +16,7 @@ trait TranslatableTypeTrait
     private function disableUntranslatableForms(FormBuilderInterface $builder): void
     {
         foreach ($builder as $form) {
-            /** @var \Symfony\Component\Form\FormBuilderInterface $form */
-            $innerType = $form->getType()->getInnerType();
-            $disabled = !$innerType instanceof ParametersType;
+            $disabled = !$form->getType()->getInnerType() instanceof ParametersType;
 
             $parameterDefinition = $form->getOption('ngl_parameter_definition');
             if ($parameterDefinition instanceof ParameterDefinition) {

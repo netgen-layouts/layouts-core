@@ -62,7 +62,7 @@ final class DynamicParametersTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetUnset()
+     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetUnset
      */
     public function testOffsetUnset(): void
     {

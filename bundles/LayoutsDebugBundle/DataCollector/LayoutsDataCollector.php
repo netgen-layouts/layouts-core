@@ -119,23 +119,25 @@ final class LayoutsDataCollector extends DataCollector
      */
     public function collectRule(Rule $rule): void
     {
-        $this->data['rule'] = [
+        $ruleData = [
             'id' => $rule->getId()->toString(),
         ];
 
         foreach ($rule->getTargets() as $target) {
-            $this->data['rule']['targets'][] = [
+            $ruleData['targets'][] = [
                 'type' => $target->getTargetType()::getType(),
                 'value' => $this->cloneVar($target->getValue()),
             ];
         }
 
         foreach ($rule->getConditions() as $condition) {
-            $this->data['rule']['conditions'][] = [
+            $ruleData['conditions'][] = [
                 'type' => $condition->getConditionType()::getType(),
                 'value' => $this->cloneVar($condition->getValue()),
             ];
         }
+
+        $this->data['rule'] = $ruleData;
     }
 
     /**

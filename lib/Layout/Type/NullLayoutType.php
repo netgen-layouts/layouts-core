@@ -31,7 +31,7 @@ final class NullLayoutType implements LayoutTypeInterface
         return 'Invalid layout type';
     }
 
-    public function getIcon(): ?string
+    public function getIcon(): string
     {
         return '';
     }

@@ -14,7 +14,7 @@ use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @method BlockList loadPlaceholderBlocks(Block $block, string $placeholder, ?array $locales = null, bool $useMainLocale = true)
+ * @method BlockList loadPlaceholderBlocks(Block $block, string $placeholder, ?string[] $locales = null, bool $useMainLocale = true)
  */
 interface BlockService extends TransactionService
 {

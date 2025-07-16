@@ -143,10 +143,7 @@ final class LinkType extends AbstractType
 
         $targetForm = $form->get($linkType);
 
-        /** @var \Symfony\Component\Form\FormError[] $linkErrors */
-        $linkErrors = $form->get('link')->getErrors();
-
-        foreach ($linkErrors as $linkError) {
+        foreach ($form->get('link')->getErrors() as $linkError) {
             $targetForm->addError($linkError);
         }
     }

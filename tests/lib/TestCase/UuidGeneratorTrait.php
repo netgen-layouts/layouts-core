@@ -15,7 +15,7 @@ use function method_exists;
 trait UuidGeneratorTrait
 {
     /**
-     * @param string[] $uuids
+     * @param array<int, string> $uuids
      *
      * @return mixed
      */

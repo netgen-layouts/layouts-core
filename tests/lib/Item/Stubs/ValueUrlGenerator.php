@@ -11,17 +11,17 @@ use Netgen\Layouts\Item\ExtendedValueUrlGeneratorInterface;
  */
 final class ValueUrlGenerator implements ExtendedValueUrlGeneratorInterface
 {
-    public function generateDefaultUrl(object $object): ?string
+    public function generateDefaultUrl(object $object): string
     {
         return '/item-url';
     }
 
-    public function generateAdminUrl(object $object): ?string
+    public function generateAdminUrl(object $object): string
     {
         return '/admin/item-url';
     }
 
-    public function generate(object $object): ?string
+    public function generate(object $object): string
     {
         return $this->generateDefaultUrl($object);
     }

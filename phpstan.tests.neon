@@ -13,7 +13,6 @@ parameters:
 
     excludePaths:
         - tests/application/public/bundles/
-        - tests/application/config/bootstrap.php
         - tests/application/src/Kernel.php
         - tests/application/src/LegacyKernel.php
 
@@ -33,17 +32,22 @@ parameters:
 
         # PHPUnit 8
 
-        - "#Call to function method_exists\\(\\) with 'PHPUnit\\\\\\\\Framework\\\\\\\\Assert'#"
-        - "#Call to function method_exists\\(\\) with 'Ramsey\\\\\\\\Uuid\\\\\\\\UuidFactoryInterface' and 'getValidator' will always evaluate to true.#"
+        - '#Call to function method_exists\(\) with ''PHPUnit\\\\Framework\\\\Assert''#'
+        - '#Call to function method_exists\(\) with ''Ramsey\\\\Uuid\\\\UuidFactoryInterface'' and ''getValidator'' will always evaluate to true.#'
 
         # Disable errors about missing value types in PHPUnit data providers
 
         - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'
 
         # Disable errors for various tests that verify values have correct types or arrays not having certain elements
-        - '/Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given./'
-        - '/Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given./'
+        - '#Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given.#'
+        - '#Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given.#'
         - '#expects array<Closure\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'
+
+        # Symfony
+
+        - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
+        - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
 
         # Disable errors for various "only read/written" properties
         - '#\$\w+ is never (written|read), only (read|written).#'
@@ -54,8 +58,4 @@ parameters:
             message: '#Undefined variable: \$this#'
             path: tests/lib/Transfer/Output/Visitor/Integration
 
-        - "#Call to function method_exists\\(\\) with .* and 'setNodeTag' will always evaluate to true.#"
-
-        -
-            message: "#Offset 'db' does not exist on array#"
-            path: tests/lib/Persistence/Doctrine/DatabaseTrait.php
+        - '#Call to function method_exists\(\) with .* and ''setNodeTag'' will always evaluate to true.#'

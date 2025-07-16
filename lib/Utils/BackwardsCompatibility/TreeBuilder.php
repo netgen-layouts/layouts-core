@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 
+use ReflectionClass;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder as BaseTreeBuilder;
-
-use function is_callable;
 
 /**
  * BC layer for Symfony 4.2 which deprecated building TreeBuilder objects without root node
@@ -18,7 +17,9 @@ final class TreeBuilder extends BaseTreeBuilder
 {
     public function __construct(string $name, string $type = 'array', ?NodeBuilder $builder = null)
     {
-        if (is_callable([BaseTreeBuilder::class, '__construct'])) {
+        $treeBuilderReflection = new ReflectionClass(BaseTreeBuilder::class);
+
+        if ($treeBuilderReflection->hasMethod('__construct')) {
             parent::__construct($name, $type, $builder);
 
             return;

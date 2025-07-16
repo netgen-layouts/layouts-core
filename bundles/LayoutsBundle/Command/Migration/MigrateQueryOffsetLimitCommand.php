@@ -116,7 +116,6 @@ final class MigrateQueryOffsetLimitCommand extends Command
             }
 
             do {
-                /** @var array<string, string|null> $mapping */
                 $mapping = iterator_to_array($this->askForOffsetAndLimitParameter($queryType));
             } while (
                 !$this->io->confirm(

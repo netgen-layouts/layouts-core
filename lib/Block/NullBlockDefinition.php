@@ -37,7 +37,7 @@ final class NullBlockDefinition implements BlockDefinitionInterface
         return 'Invalid block definition';
     }
 
-    public function getIcon(): ?string
+    public function getIcon(): string
     {
         return '';
     }

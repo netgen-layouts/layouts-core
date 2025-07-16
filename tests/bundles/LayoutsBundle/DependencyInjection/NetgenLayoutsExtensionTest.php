@@ -110,7 +110,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::load
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::validateCurrentDesign
      */
     public function testNonExistingCurrentDesign(): void
@@ -122,7 +121,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::load
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::validateCurrentDesign
      */
     public function testStandardAsCurrentDesign(): void
@@ -134,7 +132,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::load
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::validateCurrentDesign
      */
     public function testCustomDesignAsCurrentDesign(): void

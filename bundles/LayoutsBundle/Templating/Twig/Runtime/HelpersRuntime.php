@@ -49,7 +49,7 @@ final class HelpersRuntime
      *
      * If $displayLocale is specified, name translated in that locale will be returned.
      */
-    public function getLocaleName(string $locale, ?string $displayLocale = null): ?string
+    public function getLocaleName(string $locale, ?string $displayLocale = null): string
     {
         return Locales::getName($locale, $displayLocale);
     }

@@ -54,15 +54,18 @@ trait DatabaseTrait
 
     private function createDatabaseConnection(): Connection
     {
+        $this->databaseServer = 'sqlite';
         $this->databaseUri = $this->inMemoryDsn;
 
         $databaseUri = getenv('DATABASE');
         if (is_string($databaseUri) && $databaseUri !== '') {
-            $this->databaseUri = $databaseUri;
-        }
+            preg_match('/^(?<db>.+):\/+/', $databaseUri, $matches);
 
-        preg_match('/^(?<db>.+):\/+/', $this->databaseUri, $matches);
-        $this->databaseServer = $matches['db'];
+            if (isset($matches['db'])) {
+                $this->databaseServer = $matches['db'];
+                $this->databaseUri = $databaseUri;
+            }
+        }
 
         $this->databaseConnection = DriverManager::getConnection(
             [
