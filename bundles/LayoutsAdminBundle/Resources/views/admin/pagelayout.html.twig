@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#02a6f2">
 
-    {% include '@NetgenLayoutsAdmin/admin/head.html.twig' %}
-    {% include '@NetgenLayoutsAdmin/admin/favicons.html.twig' %}
+    {{ include('@NetgenLayoutsAdmin/admin/head.html.twig') }}
+    {{ include('@NetgenLayoutsAdmin/admin/favicons.html.twig') }}
 
     <title>
         {% block title %}
@@ -18,11 +18,11 @@
     </title>
 
     {% block stylesheets %}
-        {% include '@NetgenLayoutsAdmin/admin/stylesheets.html.twig' %}
+        {{ include('@NetgenLayoutsAdmin/admin/stylesheets.html.twig') }}
     {% endblock %}
 
     {% block javascripts %}
-        {% include '@NetgenLayoutsAdmin/admin/javascripts.html.twig' %}
+        {{ include('@NetgenLayoutsAdmin/admin/javascripts.html.twig') }}
     {% endblock %}
 </head>
 <body>
@@ -33,7 +33,7 @@
                     <div class="logo" title="{{ pretty_package_version('netgen/layouts-core') }} {{ nglayouts.config.parameter('edition') }}"></div>
                 </div>
                 <div class="main-menu">
-                    {% include '@NetgenLayoutsAdmin/admin/main_menu.html.twig' %}
+                    {{ include('@NetgenLayoutsAdmin/admin/main_menu.html.twig') }}
                 </div>
             </div>
 

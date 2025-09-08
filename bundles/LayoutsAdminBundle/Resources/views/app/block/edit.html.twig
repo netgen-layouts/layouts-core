@@ -4,15 +4,15 @@
 
 <section>
     {% if block_definition.hasForm('full') %}
-        {% include '@NetgenLayoutsAdmin/app/block/edit/collection_type.html.twig' %}
+        {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_type.html.twig') }}
 
         <div data-form="{{ path('nglayouts_app_block_form_edit', {'blockId': block.id.toString, 'locale': block.locale, 'formName': 'full'}) }}"></div>
 
-        {% include '@NetgenLayoutsAdmin/app/block/edit/collection_query.html.twig' %}
+        {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_query.html.twig') }}
 
-        {% include '@NetgenLayoutsAdmin/app/block/edit/collection.html.twig' %}
+        {{ include('@NetgenLayoutsAdmin/app/block/edit/collection.html.twig') }}
 
-        {% include '@NetgenLayoutsAdmin/app/block/edit/collection_items.html.twig' %}
+        {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_items.html.twig') }}
     {% elseif block_definition.hasForm('design') and block_definition.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
@@ -30,15 +30,15 @@
                         <div class="collapse in" id="collapseSettings">
                             <div data-form="{{ path('nglayouts_app_block_form_edit', {'blockId': block.id.toString, 'locale': block.locale, 'formName': 'content'}) }}"></div>
 
-                            {% include '@NetgenLayoutsAdmin/app/block/edit/collection_type.html.twig' %}
+                            {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_type.html.twig') }}
 
-                            {% include '@NetgenLayoutsAdmin/app/block/edit/collection_query.html.twig' %}
+                            {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_query.html.twig') }}
 
-                            {% include '@NetgenLayoutsAdmin/app/block/edit/collection.html.twig' %}
+                            {{ include('@NetgenLayoutsAdmin/app/block/edit/collection.html.twig') }}
                         </div>
                     </div>
 
-                    {% include '@NetgenLayoutsAdmin/app/block/edit/collection_items.html.twig' %}
+                    {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_items.html.twig') }}
                 {% else %}
                     <div data-form="{{ path('nglayouts_app_block_form_edit', {'blockId': block.id.toString, 'locale': block.locale, 'formName': 'content'}) }}"></div>
                 {% endif %}

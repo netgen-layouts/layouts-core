@@ -54,7 +54,7 @@
     <script src="{{ asset('ckeditor/ckeditor.js', 'nglayouts_app_vendor') }}" defer></script>
     <script src="{{ asset('ace-editor/ace.js', 'nglayouts_app_vendor') }}" defer></script>
 
-    {% include '@NetgenLayouts/google_maps.html.twig' %}
+    {{ include('@NetgenLayouts/google_maps.html.twig') }}
 
     {% block custom_javascripts %}
         {% for javascript in nglayouts.config.parameter('app').javascripts %}
