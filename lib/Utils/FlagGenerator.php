@@ -51,7 +51,6 @@ final class FlagGenerator
 
         $flag = '';
 
-        /** @var string[] $characters */
         $characters = mb_str_split(mb_strtolower($countryCode));
 
         foreach ($characters as $character) {
