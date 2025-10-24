@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Values\Block;
 
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Utils\HydratorTrait;
 
 final class BlockCreateStruct
@@ -13,7 +14,7 @@ final class BlockCreateStruct
     /**
      * Status of the new block.
      */
-    public int $status;
+    public Status $status;
 
     /**
      * Position of the new block.

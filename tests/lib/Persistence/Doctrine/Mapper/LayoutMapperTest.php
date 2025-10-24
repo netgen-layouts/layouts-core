@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -49,7 +49,7 @@ final class LayoutMapperTest extends TestCase
                 'description' => 'My other layout description',
                 'created' => 789,
                 'modified' => 111,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published->value,
                 'main_locale' => 'en',
                 'locale' => 'en',
                 'shared' => false,
@@ -66,7 +66,7 @@ final class LayoutMapperTest extends TestCase
                 'modified' => 456,
                 'name' => 'My layout',
                 'shared' => true,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => '4_zones_a',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
@@ -79,7 +79,7 @@ final class LayoutMapperTest extends TestCase
                 'modified' => 111,
                 'name' => 'My other layout',
                 'shared' => false,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => '4_zones_b',
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
             ],
@@ -109,7 +109,7 @@ final class LayoutMapperTest extends TestCase
             [
                 'identifier' => 'right',
                 'layout_id' => 1,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published->value,
                 'root_block_id' => 4,
                 'linked_layout_uuid' => null,
                 'linked_zone_identifier' => null,
@@ -125,7 +125,7 @@ final class LayoutMapperTest extends TestCase
                 'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'top',
                 'rootBlockId' => 3,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
             'right' => [
                 'identifier' => 'right',
@@ -134,7 +134,7 @@ final class LayoutMapperTest extends TestCase
                 'linkedLayoutUuid' => null,
                 'linkedZoneIdentifier' => null,
                 'rootBlockId' => 4,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         ];
 

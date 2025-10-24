@@ -9,6 +9,7 @@ use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Status;
 
 interface BlockHandlerInterface
 {
@@ -21,7 +22,7 @@ interface BlockHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
      */
-    public function loadBlock($blockId, int $status): Block;
+    public function loadBlock($blockId, Status $status): Block;
 
     /**
      * Returns if block with specified ID exists.
@@ -30,7 +31,7 @@ interface BlockHandlerInterface
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $blockId
      */
-    public function blockExists($blockId, int $status): bool;
+    public function blockExists($blockId, Status $status): bool;
 
     /**
      * Loads all blocks from specified layout.
@@ -111,14 +112,14 @@ interface BlockHandlerInterface
      * This method does not create new status for sub-blocks,
      * so any process that works with this method needs to take care of that.
      */
-    public function createBlockStatus(Block $block, int $newStatus): Block;
+    public function createBlockStatus(Block $block, Status $newStatus): Block;
 
     /**
      * Restores all block data (except placement and position) from the specified status.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If block is already in provided status
      */
-    public function restoreBlock(Block $block, int $fromStatus): Block;
+    public function restoreBlock(Block $block, Status $fromStatus): Block;
 
     /**
      * Deletes a block with specified ID.
@@ -136,7 +137,7 @@ interface BlockHandlerInterface
     /**
      * Deletes all blocks belonging to specified layout.
      */
-    public function deleteLayoutBlocks(int $layoutId, ?int $status = null): void;
+    public function deleteLayoutBlocks(int $layoutId, ?Status $status = null): void;
 
     /**
      * Deletes provided blocks.
@@ -147,5 +148,5 @@ interface BlockHandlerInterface
      *
      * @param int[] $blockIds
      */
-    public function deleteBlocks(array $blockIds, ?int $status = null): void;
+    public function deleteBlocks(array $blockIds, ?Status $status = null): void;
 }

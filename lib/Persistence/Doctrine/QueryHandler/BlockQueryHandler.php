@@ -9,6 +9,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function array_column;
 use function array_map;
@@ -23,7 +24,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadBlockData($blockId, int $status): array
+    public function loadBlockData($blockId, Status $status): array
     {
         $query = $this->getBlockWithLayoutSelectQuery();
 
@@ -138,7 +139,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @param int|string $blockId
      */
-    public function blockExists($blockId, int $status): bool
+    public function blockExists($blockId, Status $status): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -181,7 +182,7 @@ final class BlockQueryHandler extends QueryHandler
                 ],
             )
             ->setValue('id', $block->id ?? $this->connectionHelper->nextId('nglayouts_block'))
-            ->setParameter('status', $block->status, Types::INTEGER)
+            ->setParameter('status', $block->status->value, Types::INTEGER)
             ->setParameter('uuid', $block->uuid, Types::STRING)
             ->setParameter('layout_id', $block->layoutId, Types::INTEGER)
             ->setParameter('depth', $block->depth, Types::STRING)
@@ -244,7 +245,7 @@ final class BlockQueryHandler extends QueryHandler
                 ],
             )
             ->setParameter('block_id', $block->id, Types::INTEGER)
-            ->setParameter('status', $block->status, Types::INTEGER)
+            ->setParameter('status', $block->status->value, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING)
             ->setParameter('parameters', $block->parameters[$locale], Types::JSON);
 
@@ -376,7 +377,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @param int[] $blockIds
      */
-    public function deleteBlocks(array $blockIds, ?int $status = null): void
+    public function deleteBlocks(array $blockIds, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -398,7 +399,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @param int[] $blockIds
      */
-    public function deleteBlockTranslations(array $blockIds, ?int $status = null, ?string $locale = null): void
+    public function deleteBlockTranslations(array $blockIds, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -426,7 +427,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return int[]
      */
-    public function loadSubBlockIds(int $blockId, ?int $status = null): array
+    public function loadSubBlockIds(int $blockId, ?Status $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -450,7 +451,7 @@ final class BlockQueryHandler extends QueryHandler
      *
      * @return int[]
      */
-    public function loadLayoutBlockIds(int $layoutId, ?int $status = null): array
+    public function loadLayoutBlockIds(int $layoutId, ?Status $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')

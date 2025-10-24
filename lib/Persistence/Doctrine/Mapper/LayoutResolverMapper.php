@@ -9,6 +9,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function json_decode;
 
@@ -30,7 +31,7 @@ final class LayoutResolverMapper
                 [
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                     'ruleGroupId' => (int) $dataItem['rule_group_id'],
                     'layoutUuid' => $dataItem['layout_uuid'] ?? null,
                     'enabled' => (bool) $dataItem['enabled'],
@@ -59,7 +60,7 @@ final class LayoutResolverMapper
                 [
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                     'depth' => (int) $dataItem['depth'],
                     'path' => $dataItem['path'],
                     'parentId' => $dataItem['parent_id'] > 0 ? (int) $dataItem['parent_id'] : null,
@@ -91,7 +92,7 @@ final class LayoutResolverMapper
                 [
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                     'ruleId' => (int) $dataItem['rule_id'],
                     'ruleUuid' => $dataItem['rule_uuid'],
                     'type' => $dataItem['type'],
@@ -119,7 +120,7 @@ final class LayoutResolverMapper
                 [
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                     'ruleId' => (int) $dataItem['rule_id'],
                     'ruleUuid' => $dataItem['rule_uuid'],
                     'type' => $dataItem['type'],
@@ -147,7 +148,7 @@ final class LayoutResolverMapper
                 [
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                     'ruleGroupId' => (int) $dataItem['rule_group_id'],
                     'ruleGroupUuid' => $dataItem['rule_group_uuid'],
                     'type' => $dataItem['type'],

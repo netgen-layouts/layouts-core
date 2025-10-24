@@ -92,7 +92,7 @@ final class CollectionMapper
         $collectionData = [
             'id' => Uuid::fromString($collection->uuid),
             'blockId' => Uuid::fromString($collection->blockUuid),
-            'status' => $collection->status,
+            'status' => $collection->status->value,
             'offset' => $collection->offset,
             'limit' => $collection->limit,
             'items' => new LazyCollection(
@@ -139,7 +139,7 @@ final class CollectionMapper
 
         $itemData = [
             'id' => Uuid::fromString($item->uuid),
-            'status' => $item->status,
+            'status' => $item->status->value,
             'definition' => $itemDefinition,
             'collectionId' => Uuid::fromString($item->collectionUuid),
             'position' => $item->position,
@@ -209,7 +209,7 @@ final class CollectionMapper
 
         $queryData = [
             'id' => Uuid::fromString($query->uuid),
-            'status' => $query->status,
+            'status' => $query->status->value,
             'collectionId' => Uuid::fromString($query->collectionUuid),
             'queryType' => $queryType,
             'isTranslatable' => $query->isTranslatable,
@@ -235,7 +235,7 @@ final class CollectionMapper
     {
         $slotData = [
             'id' => Uuid::fromString($slot->uuid),
-            'status' => $slot->status,
+            'status' => $slot->status->value,
             'collectionId' => Uuid::fromString($slot->collectionUuid),
             'position' => $slot->position,
             'viewType' => $slot->viewType,

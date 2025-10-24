@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
 use Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 
 final class RoutePrefixTest extends TargetHandlerTestBase
 {
@@ -18,7 +18,7 @@ final class RoutePrefixTest extends TargetHandlerTestBase
     public function testMatchRules(): void
     {
         $rules = $this->handler->matchRules(
-            $this->handler->loadRuleGroup('91139748-3bf0-4c25-b45c-d3be6596c399', Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup('91139748-3bf0-4c25-b45c-d3be6596c399', Status::Published),
             $this->getTargetIdentifier(),
             'my_fifth_cool_route',
         );

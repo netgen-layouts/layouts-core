@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\LayoutResolver;
 
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class RuleConditionTest extends TestCase
@@ -23,7 +23,7 @@ final class RuleConditionTest extends TestCase
                 'ruleUuid' => 'f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee',
                 'type' => 'condition',
                 'value' => 32,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         );
 
@@ -33,6 +33,6 @@ final class RuleConditionTest extends TestCase
         self::assertSame('f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee', $condition->ruleUuid);
         self::assertSame('condition', $condition->type);
         self::assertSame(32, $condition->value);
-        self::assertSame(Value::STATUS_PUBLISHED, $condition->status);
+        self::assertSame(Status::Published, $condition->status);
     }
 }

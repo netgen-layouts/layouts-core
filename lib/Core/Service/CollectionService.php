@@ -17,7 +17,6 @@ use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStru
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Collection\SlotCreateStruct as APISlotCreateStruct;
 use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct as APISlotUpdateStruct;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Core\Mapper\CollectionMapper;
@@ -39,6 +38,7 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Ramsey\Uuid\UuidInterface;
 
 use function array_search;
@@ -87,7 +87,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
-                Value::STATUS_PUBLISHED,
+                PersistenceStatus::Published,
             ),
             $locales,
             $useMainLocale,
@@ -99,7 +99,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
-                Value::STATUS_DRAFT,
+                PersistenceStatus::Draft,
             ),
             $locales,
             $useMainLocale,
@@ -112,7 +112,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('collection', 'Only draft collections can be updated.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
         $this->validator->validateCollectionUpdateStruct($collection, $collectionUpdateStruct);
 
@@ -136,7 +136,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
                 $itemId,
-                Value::STATUS_PUBLISHED,
+                PersistenceStatus::Published,
             ),
         );
     }
@@ -146,7 +146,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
                 $itemId,
-                Value::STATUS_DRAFT,
+                PersistenceStatus::Draft,
             ),
         );
     }
@@ -156,7 +156,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
                 $queryId,
-                Value::STATUS_PUBLISHED,
+                PersistenceStatus::Published,
             ),
             $locales,
             $useMainLocale,
@@ -168,7 +168,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
                 $queryId,
-                Value::STATUS_DRAFT,
+                PersistenceStatus::Draft,
             ),
             $locales,
             $useMainLocale,
@@ -180,7 +180,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapSlot(
             $this->collectionHandler->loadSlot(
                 $slotId,
-                Value::STATUS_PUBLISHED,
+                PersistenceStatus::Published,
             ),
         );
     }
@@ -190,7 +190,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapSlot(
             $this->collectionHandler->loadSlot(
                 $slotId,
-                Value::STATUS_DRAFT,
+                PersistenceStatus::Draft,
             ),
         );
     }
@@ -201,7 +201,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
         if (!in_array($newType, [Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC], true)) {
             throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
@@ -252,7 +252,7 @@ final class CollectionService implements APICollectionService
             },
         );
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
         return $this->mapper->mapCollection($persistenceCollection, [$collection->getLocale()]);
     }
@@ -263,7 +263,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
         $this->validator->validatePosition(
             $position,
@@ -302,7 +302,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('item', 'Only draft items can be updated.');
         }
 
-        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), Value::STATUS_DRAFT);
+        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), PersistenceStatus::Draft);
 
         $this->validator->validateItemUpdateStruct($item, $itemUpdateStruct);
 
@@ -335,7 +335,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('item', 'Only draft items can be moved.');
         }
 
-        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), Value::STATUS_DRAFT);
+        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), PersistenceStatus::Draft);
 
         $this->validator->validatePosition($position, 'position', true);
 
@@ -355,7 +355,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('item', 'Only draft items can be deleted.');
         }
 
-        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), Value::STATUS_DRAFT);
+        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), PersistenceStatus::Draft);
 
         $this->transaction(
             function () use ($persistenceItem): void {
@@ -370,7 +370,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
         $updatedCollection = $this->transaction(
             fn (): PersistenceCollection => $this->collectionHandler->deleteItems($persistenceCollection),
@@ -385,7 +385,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('query', 'Only draft queries can be updated.');
         }
 
-        $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Value::STATUS_DRAFT);
+        $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), PersistenceStatus::Draft);
 
         $this->validator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
@@ -412,7 +412,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('collection', 'Slots can only be added to draft collections.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
         $this->validator->validatePosition($position, 'position', true);
 
@@ -437,7 +437,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('slot', 'Only draft slots can be updated.');
         }
 
-        $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), Value::STATUS_DRAFT);
+        $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), PersistenceStatus::Draft);
 
         $updatedSlot = $this->transaction(
             fn (): PersistenceSlot => $this->collectionHandler->updateSlot(
@@ -459,7 +459,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('slot', 'Only draft slots can be deleted.');
         }
 
-        $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), Value::STATUS_DRAFT);
+        $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), PersistenceStatus::Draft);
 
         $this->transaction(
             function () use ($persistenceSlot): void {
@@ -474,7 +474,7 @@ final class CollectionService implements APICollectionService
             throw new BadStateException('collection', 'Only slots in draft collections can be deleted.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
         $updatedCollection = $this->transaction(
             fn (): PersistenceCollection => $this->collectionHandler->deleteSlots($persistenceCollection),

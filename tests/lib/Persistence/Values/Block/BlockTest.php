@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\Block;
 
 use Netgen\Layouts\Persistence\Values\Block\Block;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
@@ -41,7 +41,7 @@ final class BlockTest extends TestCase
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
             ],
         );
 
@@ -63,7 +63,7 @@ final class BlockTest extends TestCase
         self::assertTrue($block->isTranslatable);
         self::assertTrue($block->alwaysAvailable);
         self::assertSame(['en'], $block->availableLocales);
-        self::assertSame(Value::STATUS_DRAFT, $block->status);
+        self::assertSame(Status::Draft, $block->status);
 
         self::assertSame(
             [

@@ -21,6 +21,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Status;
 
 interface LayoutResolverHandlerInterface
 {
@@ -33,7 +34,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
      */
-    public function loadRule($ruleId, int $status): Rule;
+    public function loadRule($ruleId, Status $status): Rule;
 
     /**
      * Loads a rule group with specified ID.
@@ -44,7 +45,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified ID does not exist
      */
-    public function loadRuleGroup($ruleGroupId, int $status): RuleGroup;
+    public function loadRuleGroup($ruleGroupId, Status $status): RuleGroup;
 
     /**
      * Loads all rules mapped to provided layout.
@@ -106,7 +107,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
      */
-    public function loadTarget($targetId, int $status): Target;
+    public function loadTarget($targetId, Status $status): Target;
 
     /**
      * Loads all targets that belong to rule with specified ID.
@@ -129,7 +130,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      */
-    public function loadRuleCondition($conditionId, int $status): RuleCondition;
+    public function loadRuleCondition($conditionId, Status $status): RuleCondition;
 
     /**
      * Loads a rule group condition with specified ID.
@@ -140,7 +141,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      */
-    public function loadRuleGroupCondition($conditionId, int $status): RuleGroupCondition;
+    public function loadRuleGroupCondition($conditionId, Status $status): RuleGroupCondition;
 
     /**
      * Loads all conditions that belong to rule with specified ID.
@@ -163,7 +164,7 @@ interface LayoutResolverHandlerInterface
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
      */
-    public function ruleExists($ruleId, ?int $status = null): bool;
+    public function ruleExists($ruleId, ?Status $status = null): bool;
 
     /**
      * Creates a rule.
@@ -193,12 +194,12 @@ interface LayoutResolverHandlerInterface
     /**
      * Creates a new rule status.
      */
-    public function createRuleStatus(Rule $rule, int $newStatus): Rule;
+    public function createRuleStatus(Rule $rule, Status $newStatus): Rule;
 
     /**
      * Deletes a rule with specified ID.
      */
-    public function deleteRule(int $ruleId, ?int $status = null): void;
+    public function deleteRule(int $ruleId, ?Status $status = null): void;
 
     /**
      * Returns if rule group with specified ID exists.
@@ -207,7 +208,7 @@ interface LayoutResolverHandlerInterface
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $ruleGroupId
      */
-    public function ruleGroupExists($ruleGroupId, ?int $status = null): bool;
+    public function ruleGroupExists($ruleGroupId, ?Status $status = null): bool;
 
     /**
      * Creates a rule group.
@@ -239,12 +240,12 @@ interface LayoutResolverHandlerInterface
     /**
      * Creates a new rule group status.
      */
-    public function createRuleGroupStatus(RuleGroup $ruleGroup, int $newStatus): RuleGroup;
+    public function createRuleGroupStatus(RuleGroup $ruleGroup, Status $newStatus): RuleGroup;
 
     /**
      * Deletes a rule group with specified ID.
      */
-    public function deleteRuleGroup(int $ruleGroupId, ?int $status = null): void;
+    public function deleteRuleGroup(int $ruleGroupId, ?Status $status = null): void;
 
     /**
      * Adds a target to rule.

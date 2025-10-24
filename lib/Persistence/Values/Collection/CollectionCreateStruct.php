@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Values\Collection;
 
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Utils\HydratorTrait;
 
 final class CollectionCreateStruct
@@ -13,7 +14,7 @@ final class CollectionCreateStruct
     /**
      * Status of the new collection.
      */
-    public int $status;
+    public Status $status;
 
     /**
      * Starting offset for the collection results.

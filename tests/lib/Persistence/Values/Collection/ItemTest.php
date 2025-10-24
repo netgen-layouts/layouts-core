@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\Collection;
 
 use Netgen\Layouts\Persistence\Values\Collection\Item;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
@@ -26,7 +26,7 @@ final class ItemTest extends TestCase
                 'valueType' => 'my_value_type',
                 'viewType' => 'my_view_type',
                 'config' => ['key' => ['param' => 'value']],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         );
 
@@ -39,6 +39,6 @@ final class ItemTest extends TestCase
         self::assertSame('my_value_type', $item->valueType);
         self::assertSame('my_view_type', $item->viewType);
         self::assertSame(['key' => ['param' => 'value']], $item->config);
-        self::assertSame(Value::STATUS_PUBLISHED, $item->status);
+        self::assertSame(Status::Published, $item->status);
     }
 }

@@ -18,7 +18,7 @@ use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -48,7 +48,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $this->layoutMapper = $layoutMapper;
     }
 
-    public function loadLayout($layoutId, int $status): Layout
+    public function loadLayout($layoutId, Status $status): Layout
     {
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
         $data = $this->queryHandler->loadLayoutData($layoutId, $status);
@@ -60,7 +60,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapLayouts($data)[0];
     }
 
-    public function loadZone($layoutId, int $status, string $identifier): Zone
+    public function loadZone($layoutId, Status $status, string $identifier): Zone
     {
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
         $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
@@ -123,7 +123,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->queryHandler->getRelatedLayoutsCount($sharedLayout);
     }
 
-    public function layoutExists($layoutId, ?int $status = null): bool
+    public function layoutExists($layoutId, ?Status $status = null): bool
     {
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
 
@@ -345,7 +345,7 @@ final class LayoutHandler implements LayoutHandlerInterface
                 try {
                     $linkedZone = $this->loadZone(
                         $layoutZone->linkedLayoutUuid,
-                        Value::STATUS_PUBLISHED,
+                        Status::Published,
                         $layoutZone->linkedZoneIdentifier,
                     );
                 } catch (NotFoundException $e) {
@@ -450,7 +450,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    public function createLayoutStatus(Layout $layout, int $newStatus): Layout
+    public function createLayoutStatus(Layout $layout, Status $newStatus): Layout
     {
         $newLayout = clone $layout;
         $newLayout->status = $newStatus;
@@ -477,7 +477,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    public function deleteLayout(int $layoutId, ?int $status = null): void
+    public function deleteLayout(int $layoutId, ?Status $status = null): void
     {
         $this->queryHandler->deleteLayoutZones($layoutId, $status);
         $this->blockHandler->deleteLayoutBlocks($layoutId, $status);

@@ -113,7 +113,7 @@ final class BlockMapper
                 Uuid::fromString($block->parentUuid) :
                 null,
             'parentPlaceholder' => $block->depth > 1 ? $block->placeholder : null,
-            'status' => $block->status,
+            'status' => $block->status->value,
             'placeholders' => iterator_to_array($this->mapPlaceholders($block, $blockDefinition, $locales)),
             'collections' => new LazyCollection(
                 fn (): array => array_map(

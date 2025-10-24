@@ -18,6 +18,7 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Status;
 
 interface CollectionHandlerInterface
 {
@@ -30,7 +31,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
      */
-    public function loadCollection($collectionId, int $status): Collection;
+    public function loadCollection($collectionId, Status $status): Collection;
 
     /**
      * Loads all collections belonging to the provided block.
@@ -62,7 +63,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
      */
-    public function loadItem($itemId, int $status): Item;
+    public function loadItem($itemId, Status $status): Item;
 
     /**
      * Loads an item with specified position in specified collection.
@@ -87,7 +88,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
      */
-    public function loadQuery($queryId, int $status): Query;
+    public function loadQuery($queryId, Status $status): Query;
 
     /**
      * Loads the query that belongs to collection with specified ID.
@@ -105,7 +106,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified ID does not exist
      */
-    public function loadSlot($slotId, int $status): Slot;
+    public function loadSlot($slotId, Status $status): Slot;
 
     /**
      * Loads the slots that belong to specified collection.
@@ -121,7 +122,7 @@ interface CollectionHandlerInterface
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $collectionId
      */
-    public function collectionExists($collectionId, int $status): bool;
+    public function collectionExists($collectionId, Status $status): bool;
 
     /**
      * Creates a collection in the specified block.
@@ -161,19 +162,19 @@ interface CollectionHandlerInterface
     /**
      * Creates a new collection status.
      */
-    public function createCollectionStatus(Collection $collection, int $newStatus): Collection;
+    public function createCollectionStatus(Collection $collection, Status $newStatus): Collection;
 
     /**
      * Deletes a collection with specified ID.
      */
-    public function deleteCollection(int $collectionId, ?int $status = null): void;
+    public function deleteCollection(int $collectionId, ?Status $status = null): void;
 
     /**
      * Deletes block collections with specified block IDs.
      *
      * @param int[] $blockIds
      */
-    public function deleteBlockCollections(array $blockIds, ?int $status = null): void;
+    public function deleteBlockCollections(array $blockIds, ?Status $status = null): void;
 
     /**
      * Deletes provided collection translation.

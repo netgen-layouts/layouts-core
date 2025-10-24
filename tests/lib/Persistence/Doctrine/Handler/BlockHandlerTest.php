@@ -14,7 +14,7 @@ use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
@@ -62,7 +62,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testLoadBlock(): void
     {
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
+        $block = $this->blockHandler->loadBlock(31, Status::Published);
 
         self::assertSame(
             [
@@ -91,7 +91,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'grid',
             ],
@@ -110,7 +110,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "999"');
 
-        $this->blockHandler->loadBlock(999, Value::STATUS_PUBLISHED);
+        $this->blockHandler->loadBlock(999, Status::Published);
     }
 
     /**
@@ -119,7 +119,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testBlockExists(): void
     {
-        self::assertTrue($this->blockHandler->blockExists(31, Value::STATUS_PUBLISHED));
+        self::assertTrue($this->blockHandler->blockExists(31, Status::Published));
     }
 
     /**
@@ -128,7 +128,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExists(): void
     {
-        self::assertFalse($this->blockHandler->blockExists(999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->blockHandler->blockExists(999, Status::Published));
     }
 
     /**
@@ -137,7 +137,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExistsInStatus(): void
     {
-        self::assertFalse($this->blockHandler->blockExists(36, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->blockHandler->blockExists(36, Status::Published));
     }
 
     /**
@@ -148,7 +148,7 @@ final class BlockHandlerTest extends TestCase
     public function testLoadLayoutBlocks(): void
     {
         $blocks = $this->blockHandler->loadLayoutBlocks(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
+            $this->layoutHandler->loadLayout(1, Status::Published),
         );
 
         self::assertCount(7, $blocks);
@@ -162,7 +162,7 @@ final class BlockHandlerTest extends TestCase
     public function testLoadChildBlocks(): void
     {
         $blocks = $this->blockHandler->loadChildBlocks(
-            $this->blockHandler->loadBlock(3, Value::STATUS_PUBLISHED),
+            $this->blockHandler->loadBlock(3, Status::Published),
         );
 
         self::assertContainsOnlyInstancesOf(Block::class, $blocks);
@@ -195,7 +195,7 @@ final class BlockHandlerTest extends TestCase
                     'path' => '/3/31/',
                     'placeholder' => 'root',
                     'position' => 0,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                     'viewType' => 'grid',
                 ],
@@ -222,7 +222,7 @@ final class BlockHandlerTest extends TestCase
                     'path' => '/3/35/',
                     'placeholder' => 'root',
                     'position' => 1,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'uuid' => 'c2a30ea3-95ef-55b0-a584-fbcfd93cec9e',
                     'viewType' => 'grid',
                 ],
@@ -239,7 +239,7 @@ final class BlockHandlerTest extends TestCase
     public function testLoadChildBlocksInPlaceholder(): void
     {
         $blocks = $this->blockHandler->loadChildBlocks(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
             'left',
         );
 
@@ -270,7 +270,7 @@ final class BlockHandlerTest extends TestCase
                     'path' => '/7/33/37/',
                     'placeholder' => 'left',
                     'position' => 0,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => '129f51de-a535-5094-8517-45d672e06302',
                     'viewType' => 'text',
                 ],
@@ -288,7 +288,7 @@ final class BlockHandlerTest extends TestCase
     {
         self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(33, Status::Draft),
                 'unknown',
             ),
         );
@@ -305,7 +305,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
-        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
         $blockCreateStruct->viewType = 'large';
@@ -325,8 +325,8 @@ final class BlockHandlerTest extends TestCase
         $createdBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                $this->layoutHandler->loadLayout(1, Status::Draft),
+                $this->blockHandler->loadBlock(3, Status::Draft),
                 'root',
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -363,14 +363,14 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/39/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'large',
             ],
             $this->exportObject($createdBlock),
         );
 
-        $secondBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $secondBlock = $this->blockHandler->loadBlock(31, Status::Draft);
         self::assertSame(1, $secondBlock->position);
     }
 
@@ -381,7 +381,7 @@ final class BlockHandlerTest extends TestCase
     public function testCreateBlockTranslation(): void
     {
         $block = $this->blockHandler->createBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'de',
             'en',
         );
@@ -421,7 +421,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'list',
             ],
@@ -436,7 +436,7 @@ final class BlockHandlerTest extends TestCase
     public function testCreateBlockTranslationWithNonMainSourceLocale(): void
     {
         $block = $this->blockHandler->createBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'de',
             'hr',
         );
@@ -475,7 +475,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'list',
             ],
@@ -493,7 +493,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Block already has the provided locale.');
 
         $this->blockHandler->createBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'en',
             'hr',
         );
@@ -509,7 +509,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Block does not have the provided source locale.');
 
         $this->blockHandler->createBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'de',
             'fr',
         );
@@ -525,7 +525,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = false;
         $blockCreateStruct->alwaysAvailable = true;
-        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
         $blockCreateStruct->viewType = 'large';
@@ -545,7 +545,7 @@ final class BlockHandlerTest extends TestCase
         $block = $this->withUuids(
             fn (): Block => $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+                $this->layoutHandler->loadLayout(1, Status::Draft),
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
@@ -578,7 +578,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/39/',
                 'placeholder' => null,
                 'position' => null,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'large',
             ],
@@ -597,7 +597,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->position = null;
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
-        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
@@ -616,8 +616,8 @@ final class BlockHandlerTest extends TestCase
         $block = $this->withUuids(
             fn (): Block => $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                $this->layoutHandler->loadLayout(1, Status::Draft),
+                $this->blockHandler->loadBlock(3, Status::Draft),
                 'root',
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -654,7 +654,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/39/',
                 'placeholder' => 'root',
                 'position' => 2,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'large',
             ],
@@ -674,7 +674,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
-        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
         $blockCreateStruct->viewType = 'large';
@@ -687,8 +687,8 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(5, Value::STATUS_DRAFT),
+            $this->layoutHandler->loadLayout(1, Status::Draft),
+            $this->blockHandler->loadBlock(5, Status::Draft),
             'root',
         );
     }
@@ -705,7 +705,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
-        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = -5;
         $blockCreateStruct->viewType = 'large';
@@ -718,8 +718,8 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            $this->layoutHandler->loadLayout(1, Status::Draft),
+            $this->blockHandler->loadBlock(3, Status::Draft),
             'root',
         );
     }
@@ -736,7 +736,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
-        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 9999;
         $blockCreateStruct->viewType = 'large';
@@ -749,8 +749,8 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            $this->layoutHandler->loadLayout(1, Status::Draft),
+            $this->blockHandler->loadBlock(3, Status::Draft),
             'root',
         );
     }
@@ -774,7 +774,7 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $updatedBlock = $this->blockHandler->updateBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             $blockUpdateStruct,
         );
 
@@ -812,7 +812,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'large',
             ],
@@ -829,7 +829,7 @@ final class BlockHandlerTest extends TestCase
         $blockUpdateStruct = new BlockUpdateStruct();
 
         $updatedBlock = $this->blockHandler->updateBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             $blockUpdateStruct,
         );
 
@@ -863,7 +863,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'list',
             ],
@@ -885,7 +885,7 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $updatedBlock = $this->blockHandler->updateBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'en',
             $translationUpdateStruct,
         );
@@ -919,7 +919,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'list',
             ],
@@ -936,7 +936,7 @@ final class BlockHandlerTest extends TestCase
         $translationUpdateStruct = new BlockTranslationUpdateStruct();
 
         $updatedBlock = $this->blockHandler->updateBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'en',
             $translationUpdateStruct,
         );
@@ -971,7 +971,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'list',
             ],
@@ -989,7 +989,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Block does not have the provided locale.');
 
         $this->blockHandler->updateBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'de',
             new BlockTranslationUpdateStruct(),
         );
@@ -1001,7 +1001,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testSetMainTranslation(): void
     {
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(31, Status::Draft);
         $block = $this->blockHandler->setMainTranslation($block, 'hr');
 
         self::assertSame('hr', $block->mainLocale);
@@ -1015,7 +1015,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "mainLocale" has an invalid state. Block does not have the provided locale.');
 
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(31, Status::Draft);
         $this->blockHandler->setMainTranslation($block, 'de');
     }
 
@@ -1030,8 +1030,8 @@ final class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(31, Status::Draft),
+                $this->blockHandler->loadBlock(3, Status::Draft),
                 'root',
             ),
             [
@@ -1082,7 +1082,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/39/',
                 'placeholder' => 'root',
                 'position' => 2,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'list',
             ],
@@ -1093,16 +1093,16 @@ final class BlockHandlerTest extends TestCase
             [
                 [
                     'blockId' => 39,
-                    'blockStatus' => Value::STATUS_DRAFT,
+                    'blockStatus' => Status::Draft,
                     'collectionId' => 7,
-                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'collectionStatus' => Status::Draft,
                     'identifier' => 'default',
                 ],
                 [
                     'blockId' => 39,
-                    'blockStatus' => Value::STATUS_DRAFT,
+                    'blockStatus' => Status::Draft,
                     'collectionId' => 8,
-                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'collectionStatus' => Status::Draft,
                     'identifier' => 'featured',
                 ],
             ],
@@ -1123,8 +1123,8 @@ final class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(31, Status::Draft),
+                $this->blockHandler->loadBlock(3, Status::Draft),
                 'root',
                 1,
             ),
@@ -1176,7 +1176,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/39/',
                 'placeholder' => 'root',
                 'position' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'list',
             ],
@@ -1195,8 +1195,8 @@ final class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(31, Status::Draft),
+                $this->blockHandler->loadBlock(3, Status::Draft),
                 'root',
                 0,
             ),
@@ -1248,7 +1248,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/39/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'list',
             ],
@@ -1267,8 +1267,8 @@ final class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(31, Status::Draft),
+                $this->blockHandler->loadBlock(3, Status::Draft),
                 'root',
                 2,
             ),
@@ -1320,7 +1320,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/39/',
                 'placeholder' => 'root',
                 'position' => 2,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'list',
             ],
@@ -1339,8 +1339,8 @@ final class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(35, Status::Draft),
+                $this->blockHandler->loadBlock(3, Status::Draft),
                 'root',
                 0,
             ),
@@ -1378,7 +1378,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/39/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'grid',
             ],
@@ -1395,8 +1395,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
 
         $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
+            $this->blockHandler->loadBlock(3, Status::Draft),
             'root',
             -1,
         );
@@ -1411,8 +1411,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
+            $this->blockHandler->loadBlock(3, Status::Draft),
             'root',
             9999,
         );
@@ -1429,8 +1429,8 @@ final class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(33, Status::Draft),
+                $this->blockHandler->loadBlock(7, Status::Draft),
                 'root',
             ),
             [
@@ -1462,14 +1462,14 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/7/39/',
                 'placeholder' => 'root',
                 'position' => 3,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'two_columns_50_50',
             ],
             $this->exportObject($copiedBlock),
         );
 
-        $copiedSubBlock = $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT);
+        $copiedSubBlock = $this->blockHandler->loadBlock(40, Status::Draft);
 
         self::assertSame(
             [
@@ -1495,7 +1495,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/7/39/40/',
                 'placeholder' => 'left',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'viewType' => 'text',
             ],
@@ -1506,9 +1506,9 @@ final class BlockHandlerTest extends TestCase
             [
                 [
                     'blockId' => 40,
-                    'blockStatus' => Value::STATUS_DRAFT,
+                    'blockStatus' => Status::Draft,
                     'collectionId' => 7,
-                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'collectionStatus' => Status::Draft,
                     'identifier' => 'default',
                 ],
             ],
@@ -1529,8 +1529,8 @@ final class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockHandler->copyBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                $this->blockHandler->loadBlock(8, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(31, Status::Draft),
+                $this->blockHandler->loadBlock(8, Status::Draft),
                 'root',
             ),
             [
@@ -1581,7 +1581,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/8/39/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'list',
             ],
@@ -1592,16 +1592,16 @@ final class BlockHandlerTest extends TestCase
             [
                 [
                     'blockId' => 39,
-                    'blockStatus' => Value::STATUS_DRAFT,
+                    'blockStatus' => Status::Draft,
                     'collectionId' => 7,
-                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'collectionStatus' => Status::Draft,
                     'identifier' => 'default',
                 ],
                 [
                     'blockId' => 39,
-                    'blockStatus' => Value::STATUS_DRAFT,
+                    'blockStatus' => Status::Draft,
                     'collectionId' => 8,
-                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'collectionStatus' => Status::Draft,
                     'identifier' => 'featured',
                 ],
             ],
@@ -1618,8 +1618,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.');
 
         $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
+            $this->blockHandler->loadBlock(33, Status::Draft),
             'main',
         );
     }
@@ -1633,8 +1633,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.');
 
         $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
+            $this->blockHandler->loadBlock(37, Status::Draft),
             'main',
         );
     }
@@ -1647,8 +1647,8 @@ final class BlockHandlerTest extends TestCase
     public function testMoveBlock(): void
     {
         $movedBlock = $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
+            $this->blockHandler->loadBlock(4, Status::Draft),
             'root',
             0,
         );
@@ -1675,7 +1675,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/4/33/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'e666109d-f1db-5fd5-97fa-346f50e9ae59',
                 'viewType' => 'two_columns_50_50',
             ],
@@ -1706,11 +1706,11 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/4/33/37/',
                 'placeholder' => 'left',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '129f51de-a535-5094-8517-45d672e06302',
                 'viewType' => 'text',
             ],
-            $this->exportObject($this->blockHandler->loadBlock(37, Value::STATUS_DRAFT)),
+            $this->exportObject($this->blockHandler->loadBlock(37, Status::Draft)),
         );
     }
 
@@ -1723,8 +1723,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block is already in specified target block and placeholder.');
 
         $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
+            $this->blockHandler->loadBlock(7, Status::Draft),
             'root',
             0,
         );
@@ -1739,8 +1739,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.');
 
         $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
+            $this->blockHandler->loadBlock(33, Status::Draft),
             'main',
             0,
         );
@@ -1755,8 +1755,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.');
 
         $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
+            $this->blockHandler->loadBlock(37, Status::Draft),
             'main',
             0,
         );
@@ -1771,8 +1771,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
 
         $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
+            $this->blockHandler->loadBlock(4, Status::Draft),
             'root',
             -1,
         );
@@ -1787,8 +1787,8 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
+            $this->blockHandler->loadBlock(4, Status::Draft),
             'root',
             9999,
         );
@@ -1802,7 +1802,7 @@ final class BlockHandlerTest extends TestCase
     public function testMoveBlockToPosition(): void
     {
         $movedBlock = $this->blockHandler->moveBlockToPosition(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             1,
         );
 
@@ -1836,14 +1836,14 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'list',
             ],
             $this->exportObject($movedBlock),
         );
 
-        $firstBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
+        $firstBlock = $this->blockHandler->loadBlock(32, Status::Draft);
         self::assertSame(0, $firstBlock->position);
     }
 
@@ -1855,7 +1855,7 @@ final class BlockHandlerTest extends TestCase
     public function testMoveBlockToLowerPosition(): void
     {
         $movedBlock = $this->blockHandler->moveBlockToPosition(
-            $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(35, Status::Draft),
             0,
         );
 
@@ -1883,14 +1883,14 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/35/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'c2a30ea3-95ef-55b0-a584-fbcfd93cec9e',
                 'viewType' => 'grid',
             ],
             $this->exportObject($movedBlock),
         );
 
-        $firstBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $firstBlock = $this->blockHandler->loadBlock(31, Status::Draft);
         self::assertSame(1, $firstBlock->position);
     }
 
@@ -1905,7 +1905,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Root blocks cannot be moved.');
 
         $this->blockHandler->moveBlockToPosition(
-            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(1, Status::Draft),
             1,
         );
     }
@@ -1920,7 +1920,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
 
         $this->blockHandler->moveBlockToPosition(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             -1,
         );
     }
@@ -1935,7 +1935,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->blockHandler->moveBlockToPosition(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             9999,
         );
     }
@@ -1947,12 +1947,12 @@ final class BlockHandlerTest extends TestCase
     public function testCreateBlockStatus(): void
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
         );
 
         $block = $this->blockHandler->createBlockStatus(
-            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED),
-            Value::STATUS_DRAFT,
+            $this->blockHandler->loadBlock(31, Status::Published),
+            Status::Draft,
         );
 
         self::assertSame(
@@ -1982,7 +1982,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'grid',
             ],
@@ -2007,16 +2007,16 @@ final class BlockHandlerTest extends TestCase
      */
     public function testRestoreBlock(): void
     {
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(31, Status::Draft);
 
         $movedBlock = $this->blockHandler->moveBlock(
             $block,
-            $this->blockHandler->loadBlock(2, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(2, Status::Draft),
             'root',
             1,
         );
 
-        $restoredBlock = $this->blockHandler->restoreBlock($movedBlock, Value::STATUS_PUBLISHED);
+        $restoredBlock = $this->blockHandler->restoreBlock($movedBlock, Status::Published);
 
         self::assertSame(
             [
@@ -2045,7 +2045,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/2/31/',
                 'placeholder' => 'root',
                 'position' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'grid',
             ],
@@ -2061,9 +2061,9 @@ final class BlockHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Block is already in provided status.');
 
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(31, Status::Draft);
 
-        $this->blockHandler->restoreBlock($block, Value::STATUS_DRAFT);
+        $this->blockHandler->restoreBlock($block, Status::Draft);
     }
 
     /**
@@ -2075,28 +2075,28 @@ final class BlockHandlerTest extends TestCase
     public function testDeleteBlock(): void
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
         );
 
-        $secondBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
+        $secondBlock = $this->blockHandler->loadBlock(32, Status::Draft);
         self::assertSame(0, $secondBlock->position);
 
         try {
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+            $this->blockHandler->loadBlock(31, Status::Draft);
             self::fail('Block still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         try {
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+            $this->collectionHandler->loadCollection(1, Status::Draft);
             self::fail('Collection still exists after deleting a block.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         // Verify that shared collection still exists
-        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(3, Status::Published);
     }
 
     /**
@@ -2109,25 +2109,25 @@ final class BlockHandlerTest extends TestCase
     public function testDeleteBlockWithSubBlocks(): void
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(33, Status::Draft),
         );
 
         try {
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT);
+            $this->blockHandler->loadBlock(33, Status::Draft);
             self::fail('Block still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         try {
-            $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT);
+            $this->blockHandler->loadBlock(37, Status::Draft);
             self::fail('Sub-block still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
         }
 
         try {
-            $this->collectionHandler->loadCollection(6, Value::STATUS_DRAFT);
+            $this->collectionHandler->loadCollection(6, Status::Draft);
             self::fail('Collection still exists after deleting a sub-block.');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2141,7 +2141,7 @@ final class BlockHandlerTest extends TestCase
     public function testDeleteBlockTranslation(): void
     {
         $block = $this->blockHandler->deleteBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'hr',
         );
 
@@ -2171,7 +2171,7 @@ final class BlockHandlerTest extends TestCase
                 'path' => '/3/31/',
                 'placeholder' => 'root',
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'viewType' => 'list',
             ],
@@ -2189,7 +2189,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Block does not have the provided locale.');
 
         $this->blockHandler->deleteBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'de',
         );
     }
@@ -2204,7 +2204,7 @@ final class BlockHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Main translation cannot be removed from the block.');
 
         $this->blockHandler->deleteBlockTranslation(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'en',
         );
     }
@@ -2218,7 +2218,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testDeleteLayoutBlocks(): void
     {
-        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+        $layout = $this->layoutHandler->loadLayout(1, Status::Draft);
 
         // First we need to delete all zones to correctly delete the blocks
         $query = $this->databaseConnection->createQueryBuilder();
@@ -2231,7 +2231,7 @@ final class BlockHandlerTest extends TestCase
                 ),
             )
             ->setParameter('layout_id', $layout->id, Types::INTEGER)
-            ->setParameter('status', $layout->status, Types::INTEGER);
+            ->setParameter('status', $layout->status->value, Types::INTEGER);
 
         $query->execute();
 
@@ -2254,7 +2254,7 @@ final class BlockHandlerTest extends TestCase
         $this->blockHandler->deleteBlocks([31, 32]);
 
         try {
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+            $this->blockHandler->loadBlock(31, Status::Draft);
             self::fail(
                 sprintf(
                     'Draft block %d still available after deleting',
@@ -2266,7 +2266,7 @@ final class BlockHandlerTest extends TestCase
         }
 
         try {
-            $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
+            $this->blockHandler->loadBlock(32, Status::Draft);
             self::fail(
                 sprintf(
                     'Draft block %d still available after deleting',
@@ -2278,7 +2278,7 @@ final class BlockHandlerTest extends TestCase
         }
 
         try {
-            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
+            $this->blockHandler->loadBlock(31, Status::Published);
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
@@ -2290,7 +2290,7 @@ final class BlockHandlerTest extends TestCase
         }
 
         try {
-            $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED);
+            $this->blockHandler->loadBlock(32, Status::Published);
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
@@ -2311,13 +2311,13 @@ final class BlockHandlerTest extends TestCase
      */
     public function testDeleteBlocksInStatus(): void
     {
-        $this->blockHandler->deleteBlocks([31, 32], Value::STATUS_PUBLISHED);
+        $this->blockHandler->deleteBlocks([31, 32], Status::Published);
 
-        $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
+        $this->blockHandler->loadBlock(31, Status::Draft);
+        $this->blockHandler->loadBlock(32, Status::Draft);
 
         try {
-            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
+            $this->blockHandler->loadBlock(31, Status::Published);
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
@@ -2329,7 +2329,7 @@ final class BlockHandlerTest extends TestCase
         }
 
         try {
-            $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED);
+            $this->blockHandler->loadBlock(32, Status::Published);
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',

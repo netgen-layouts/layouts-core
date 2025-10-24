@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Values\LayoutResolver;
 
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Utils\HydratorTrait;
 
 final class RuleCreateStruct
@@ -37,7 +38,7 @@ final class RuleCreateStruct
     public string $description;
 
     /**
-     * Rule status. One of self::STATUS_* flags.
+     * Rule status.
      */
-    public int $status;
+    public Status $status;
 }

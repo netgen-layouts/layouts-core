@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
 use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function array_map;
 use function array_values;
@@ -48,7 +49,7 @@ final class BlockMapper
                 'isTranslatable' => (bool) $dataItem['translatable'],
                 'mainLocale' => $dataItem['main_locale'],
                 'alwaysAvailable' => (bool) $dataItem['always_available'],
-                'status' => (int) $dataItem['status'],
+                'status' => Status::from((int) $dataItem['status']),
                 'config' => $this->buildParameters((string) $dataItem['config']),
                 'parameters' => [],
                 'availableLocales' => [],

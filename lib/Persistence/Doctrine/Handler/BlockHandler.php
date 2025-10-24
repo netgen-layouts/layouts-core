@@ -17,6 +17,7 @@ use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Status;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -50,7 +51,7 @@ final class BlockHandler implements BlockHandlerInterface
         $this->positionHelper = $positionHelper;
     }
 
-    public function loadBlock($blockId, int $status): Block
+    public function loadBlock($blockId, Status $status): Block
     {
         $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
         $data = $this->queryHandler->loadBlockData($blockId, $status);
@@ -62,7 +63,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->blockMapper->mapBlocks($data)[0];
     }
 
-    public function blockExists($blockId, int $status): bool
+    public function blockExists($blockId, Status $status): bool
     {
         $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
 
@@ -347,7 +348,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $movedBlock;
     }
 
-    public function createBlockStatus(Block $block, int $newStatus): Block
+    public function createBlockStatus(Block $block, Status $newStatus): Block
     {
         $newBlock = clone $block;
         $newBlock->status = $newStatus;
@@ -381,7 +382,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $newBlock;
     }
 
-    public function restoreBlock(Block $block, int $fromStatus): Block
+    public function restoreBlock(Block $block, Status $fromStatus): Block
     {
         if ($block->status === $fromStatus) {
             throw new BadStateException('block', 'Block is already in provided status.');
@@ -444,13 +445,13 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->loadBlock($block->id, $block->status);
     }
 
-    public function deleteLayoutBlocks(int $layoutId, ?int $status = null): void
+    public function deleteLayoutBlocks(int $layoutId, ?Status $status = null): void
     {
         $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
         $this->deleteBlocks($blockIds, $status);
     }
 
-    public function deleteBlocks(array $blockIds, ?int $status = null): void
+    public function deleteBlocks(array $blockIds, ?Status $status = null): void
     {
         $this->collectionHandler->deleteBlockCollections($blockIds, $status);
         $this->queryHandler->deleteBlockTranslations($blockIds, $status);
@@ -479,14 +480,14 @@ final class BlockHandler implements BlockHandlerInterface
      *
      * @return array<string, mixed>
      */
-    private function getPositionHelperConditions(int $parentId, int $status, string $placeholder): array
+    private function getPositionHelperConditions(int $parentId, Status $status, string $placeholder): array
     {
         return [
             'table' => 'nglayouts_block',
             'column' => 'position',
             'conditions' => [
                 'parent_id' => $parentId,
-                'status' => $status,
+                'status' => $status->value,
                 'placeholder' => $placeholder,
             ],
         ];

@@ -9,6 +9,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function array_map;
 use function array_values;
@@ -41,7 +42,7 @@ final class CollectionMapper
                 'uuid' => $dataItem['uuid'],
                 'blockId' => (int) $dataItem['block_id'],
                 'blockUuid' => $blockUuid ?? $dataItem['block_uuid'] ?? '',
-                'status' => (int) $dataItem['status'],
+                'status' => Status::from((int) $dataItem['status']),
                 'offset' => (int) $dataItem['start'],
                 'limit' => $dataItem['length'] !== null ? (int) $dataItem['length'] : null,
                 'isTranslatable' => (bool) $dataItem['translatable'],
@@ -80,9 +81,9 @@ final class CollectionMapper
             $collectionReferences[] = CollectionReference::fromArray(
                 [
                     'blockId' => (int) $dataItem['block_id'],
-                    'blockStatus' => (int) $dataItem['block_status'],
+                    'blockStatus' => Status::from((int) $dataItem['block_status']),
                     'collectionId' => (int) $dataItem['collection_id'],
-                    'collectionStatus' => (int) $dataItem['collection_status'],
+                    'collectionStatus' => Status::from((int) $dataItem['collection_status']),
                     'identifier' => $dataItem['identifier'],
                 ],
             );
@@ -113,7 +114,7 @@ final class CollectionMapper
                     'value' => $dataItem['value'],
                     'valueType' => $dataItem['value_type'],
                     'viewType' => $dataItem['view_type'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                     'config' => $this->buildParameters((string) $dataItem['config']),
                 ],
             );
@@ -145,7 +146,7 @@ final class CollectionMapper
                 'collectionId' => (int) $dataItem['collection_id'],
                 'collectionUuid' => $dataItem['collection_uuid'],
                 'type' => $dataItem['type'],
-                'status' => (int) $dataItem['status'],
+                'status' => Status::from((int) $dataItem['status']),
                 'availableLocales' => [],
                 'parameters' => [],
             ];
@@ -188,7 +189,7 @@ final class CollectionMapper
                     'collectionUuid' => $dataItem['collection_uuid'],
                     'position' => $position,
                     'viewType' => $dataItem['view_type'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                 ],
             );
         }

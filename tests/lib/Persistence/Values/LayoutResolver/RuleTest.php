@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\LayoutResolver;
 
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class RuleTest extends TestCase
@@ -24,7 +24,7 @@ final class RuleTest extends TestCase
                 'enabled' => true,
                 'priority' => 3,
                 'description' => 'Description',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
             ],
         );
 
@@ -35,6 +35,6 @@ final class RuleTest extends TestCase
         self::assertTrue($rule->enabled);
         self::assertSame(3, $rule->priority);
         self::assertSame('Description', $rule->description);
-        self::assertSame(Value::STATUS_DRAFT, $rule->status);
+        self::assertSame(Status::Draft, $rule->status);
     }
 }

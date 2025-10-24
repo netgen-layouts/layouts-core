@@ -11,6 +11,7 @@ use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Status;
 
 interface LayoutHandlerInterface
 {
@@ -23,7 +24,7 @@ interface LayoutHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
      */
-    public function loadLayout($layoutId, int $status): Layout;
+    public function loadLayout($layoutId, Status $status): Layout;
 
     /**
      * Loads a zone with specified identifier.
@@ -34,7 +35,7 @@ interface LayoutHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      */
-    public function loadZone($layoutId, int $status, string $identifier): Zone;
+    public function loadZone($layoutId, Status $status, string $identifier): Zone;
 
     /**
      * Loads all non-shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -97,7 +98,7 @@ interface LayoutHandlerInterface
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
      */
-    public function layoutExists($layoutId, ?int $status = null): bool;
+    public function layoutExists($layoutId, ?Status $status = null): bool;
 
     /**
      * Loads all zones that belong to provided layout.
@@ -165,12 +166,12 @@ interface LayoutHandlerInterface
     /**
      * Creates a new layout status.
      */
-    public function createLayoutStatus(Layout $layout, int $newStatus): Layout;
+    public function createLayoutStatus(Layout $layout, Status $newStatus): Layout;
 
     /**
      * Deletes a layout with specified ID.
      */
-    public function deleteLayout(int $layoutId, ?int $status = null): void;
+    public function deleteLayout(int $layoutId, ?Status $status = null): void;
 
     /**
      * Deletes provided layout translation.

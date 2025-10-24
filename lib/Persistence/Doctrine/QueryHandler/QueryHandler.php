@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function is_int;
 use function is_string;
@@ -47,10 +48,10 @@ abstract class QueryHandler
     /**
      * Applies status condition to the query.
      */
-    public function applyStatusCondition(QueryBuilder $query, ?int $status, string $statusColumn = 'status', string $paramName = 'status'): void
+    public function applyStatusCondition(QueryBuilder $query, Status $status, string $statusColumn = 'status', string $paramName = 'status'): void
     {
         $query->andWhere($query->expr()->eq($statusColumn, ':' . $paramName))
-            ->setParameter($paramName, $status, Types::INTEGER);
+            ->setParameter($paramName, $status->value, Types::INTEGER);
     }
 
     /**

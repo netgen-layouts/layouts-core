@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\QueryHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -62,9 +63,9 @@ final class QueryHandlerTest extends TestCase
     public function testApplyStatusCondition(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
-        $this->queryHandler->applyStatusCondition($query, 1);
+        $this->queryHandler->applyStatusCondition($query, Status::Published);
 
-        self::assertSame(['status' => 1], $query->getParameters());
+        self::assertSame(['status' => Status::Published->value], $query->getParameters());
     }
 
     /**

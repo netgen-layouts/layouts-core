@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\TargetHandler\Doctrine;
 use Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 
 final class RouteTest extends TargetHandlerTestBase
 {
@@ -19,7 +19,7 @@ final class RouteTest extends TargetHandlerTestBase
     public function testMatchRules(): void
     {
         $rules = $this->handler->matchRules(
-            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published),
             $this->getTargetIdentifier(),
             'my_cool_route',
         );

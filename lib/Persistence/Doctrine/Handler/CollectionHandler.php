@@ -24,6 +24,7 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Status;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -55,7 +56,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $this->positionHelper = $positionHelper;
     }
 
-    public function loadCollection($collectionId, int $status): Collection
+    public function loadCollection($collectionId, Status $status): Collection
     {
         $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
@@ -107,7 +108,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->collectionMapper->mapCollectionReferences($data);
     }
 
-    public function loadItem($itemId, int $status): Item
+    public function loadItem($itemId, Status $status): Item
     {
         $itemId = $itemId instanceof UuidInterface ? $itemId->toString() : $itemId;
         $data = $this->queryHandler->loadItemData($itemId, $status);
@@ -143,7 +144,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    public function loadQuery($queryId, int $status): Query
+    public function loadQuery($queryId, Status $status): Query
     {
         $queryId = $queryId instanceof UuidInterface ? $queryId->toString() : $queryId;
         $data = $this->queryHandler->loadQueryData($queryId, $status);
@@ -180,7 +181,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $query;
     }
 
-    public function loadSlot($slotId, int $status): Slot
+    public function loadSlot($slotId, Status $status): Slot
     {
         $slotId = $slotId instanceof UuidInterface ? $slotId->toString() : $slotId;
         $data = $this->queryHandler->loadSlotData($slotId, $status);
@@ -201,7 +202,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    public function collectionExists($collectionId, int $status): bool
+    public function collectionExists($collectionId, Status $status): bool
     {
         $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
 
@@ -433,7 +434,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->loadCollection($newCollection->id, $newCollection->status);
     }
 
-    public function createCollectionStatus(Collection $collection, int $newStatus): Collection
+    public function createCollectionStatus(Collection $collection, Status $newStatus): Collection
     {
         $newCollection = clone $collection;
         $newCollection->status = $newStatus;
@@ -484,7 +485,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    public function deleteCollection(int $collectionId, ?int $status = null): void
+    public function deleteCollection(int $collectionId, ?Status $status = null): void
     {
         $this->queryHandler->deleteCollectionSlots($collectionId, $status);
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
@@ -515,7 +516,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->loadCollection($collection->id, $collection->status);
     }
 
-    public function deleteBlockCollections(array $blockIds, ?int $status = null): void
+    public function deleteBlockCollections(array $blockIds, ?Status $status = null): void
     {
         $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
         foreach ($collectionIds as $collectionId) {
@@ -864,14 +865,14 @@ final class CollectionHandler implements CollectionHandlerInterface
      *
      * @return array<string, mixed>
      */
-    private function getPositionHelperItemConditions(int $collectionId, int $status): array
+    private function getPositionHelperItemConditions(int $collectionId, Status $status): array
     {
         return [
             'table' => 'nglayouts_collection_item',
             'column' => 'position',
             'conditions' => [
                 'collection_id' => $collectionId,
-                'status' => $status,
+                'status' => $status->value,
             ],
         ];
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Collection\Query as APIQuery;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use Netgen\Layouts\Collection\QueryType\NullQueryType;
 use Netgen\Layouts\Core\Mapper\CollectionMapper;
@@ -16,6 +15,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class CollectionMapperTestBase extends CoreTestCase
@@ -47,7 +47,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
             ],
         );
 
@@ -78,7 +78,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 2,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'blockId' => 42,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
@@ -106,7 +106,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 2,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'blockId' => 42,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
@@ -134,7 +134,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 2,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'blockId' => 42,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
@@ -213,7 +213,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
             ],
         );
 
@@ -242,7 +242,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 1,
@@ -293,7 +293,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 1,
@@ -342,7 +342,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 1,
@@ -388,7 +388,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
@@ -437,7 +437,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'alwaysAvailable' => false,
@@ -463,7 +463,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'alwaysAvailable' => false,
@@ -489,7 +489,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'alwaysAvailable' => true,
@@ -563,7 +563,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'unknown',
@@ -606,7 +606,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 1,

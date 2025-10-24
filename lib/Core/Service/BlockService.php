@@ -13,7 +13,6 @@ use Netgen\Layouts\API\Values\Block\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Core\Mapper\BlockMapper;
@@ -37,6 +36,7 @@ use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Ramsey\Uuid\UuidInterface;
 
 use function array_filter;
@@ -98,7 +98,7 @@ final class BlockService implements BlockServiceInterface
 
     public function loadBlock(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
-        $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_PUBLISHED);
+        $block = $this->blockHandler->loadBlock($blockId, PersistenceStatus::Published);
 
         if ($block->parentId === null) {
             // We do not allow loading root zone blocks
@@ -110,7 +110,7 @@ final class BlockService implements BlockServiceInterface
 
     public function loadBlockDraft(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
-        $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock($blockId, PersistenceStatus::Draft);
 
         if ($block->parentId === null) {
             // We do not allow loading root zone blocks
@@ -124,7 +124,7 @@ final class BlockService implements BlockServiceInterface
     {
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->getLayoutId(),
-            $zone->getStatus(),
+            PersistenceStatus::from($zone->getStatus()),
             $zone->getIdentifier(),
         );
 
@@ -151,7 +151,7 @@ final class BlockService implements BlockServiceInterface
     {
         $persistenceBlock = $this->blockHandler->loadBlock(
             $block->getId(),
-            $block->getStatus(),
+            PersistenceStatus::from($block->getStatus()),
         );
 
         return new BlockList(
@@ -169,7 +169,7 @@ final class BlockService implements BlockServiceInterface
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
-            $layout->getStatus(),
+            PersistenceStatus::from($layout->getStatus()),
         );
 
         // We filter out all root blocks, since we do not allow loading those
@@ -191,7 +191,7 @@ final class BlockService implements BlockServiceInterface
 
     public function hasPublishedState(Block $block): bool
     {
-        return $this->blockHandler->blockExists($block->getId(), Value::STATUS_PUBLISHED);
+        return $this->blockHandler->blockExists($block->getId(), PersistenceStatus::Published);
     }
 
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, string $placeholder, ?int $position = null): Block
@@ -222,8 +222,8 @@ final class BlockService implements BlockServiceInterface
             $blockCreateStruct->isTranslatable = false;
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($targetBlock->getLayoutId(), Value::STATUS_DRAFT);
-        $persistenceBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($targetBlock->getLayoutId(), PersistenceStatus::Draft);
+        $persistenceBlock = $this->blockHandler->loadBlock($targetBlock->getId(), PersistenceStatus::Draft);
 
         return $this->internalCreateBlock($blockCreateStruct, $persistenceLayout, $persistenceBlock, $placeholder, $position);
     }
@@ -234,8 +234,8 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('zone', 'Blocks can only be created in zones in draft status.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), PersistenceStatus::Draft);
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), PersistenceStatus::Draft, $zone->getIdentifier());
 
         $this->validator->validatePosition($position, 'position');
         $this->validator->validateBlockCreateStruct($blockCreateStruct);
@@ -265,7 +265,7 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'Only draft blocks can be updated.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
 
         $this->validator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
@@ -324,8 +324,8 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'You can only copy blocks to draft blocks.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
+        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), PersistenceStatus::Draft);
 
         if ($persistenceBlock->layoutId !== $persistenceTargetBlock->layoutId) {
             throw new BadStateException('targetBlock', 'You can only copy block to blocks in the same layout.');
@@ -365,9 +365,9 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('zone', 'You can only copy blocks in draft zones.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), PersistenceStatus::Draft);
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), PersistenceStatus::Draft, $zone->getIdentifier());
 
         if ($persistenceBlock->layoutId !== $persistenceZone->layoutId) {
             throw new BadStateException('zone', 'You can only copy block to zone in the same layout.');
@@ -400,8 +400,8 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'You can only move blocks to draft blocks.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
+        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), PersistenceStatus::Draft);
 
         if ($persistenceBlock->layoutId !== $persistenceTargetBlock->layoutId) {
             throw new BadStateException('targetBlock', 'You can only move block to blocks in the same layout.');
@@ -441,9 +441,9 @@ final class BlockService implements BlockServiceInterface
 
         $this->validator->validatePosition($position, 'position', true);
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), PersistenceStatus::Draft);
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), PersistenceStatus::Draft, $zone->getIdentifier());
 
         if ($persistenceBlock->layoutId !== $persistenceZone->layoutId) {
             throw new BadStateException('zone', 'You can only move block to zone in the same layout.');
@@ -468,12 +468,12 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'Only draft blocks can be restored.');
         }
 
-        $draftBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $draftLayout = $this->layoutHandler->loadLayout($draftBlock->layoutId, Value::STATUS_DRAFT);
+        $draftBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
+        $draftLayout = $this->layoutHandler->loadLayout($draftBlock->layoutId, PersistenceStatus::Draft);
 
         $draftBlock = $this->transaction(
             function () use ($draftBlock, $draftLayout): PersistenceBlock {
-                $draftBlock = $this->blockHandler->restoreBlock($draftBlock, Value::STATUS_PUBLISHED);
+                $draftBlock = $this->blockHandler->restoreBlock($draftBlock, PersistenceStatus::Published);
 
                 foreach ($draftLayout->availableLocales as $locale) {
                     if (!in_array($locale, $draftBlock->availableLocales, true)) {
@@ -506,20 +506,20 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'You can only enable translations for draft blocks.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
 
         if ($persistenceBlock->isTranslatable) {
             throw new BadStateException('block', 'Block is already translatable.');
         }
 
         if ($persistenceBlock->parentId !== null) {
-            $parentBlock = $this->blockHandler->loadBlock($persistenceBlock->parentId, Value::STATUS_DRAFT);
+            $parentBlock = $this->blockHandler->loadBlock($persistenceBlock->parentId, PersistenceStatus::Draft);
             if ($parentBlock->depth > 0 && !$parentBlock->isTranslatable) {
                 throw new BadStateException('block', 'You can only enable translations if parent block is also translatable.');
             }
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($persistenceBlock->layoutId, Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($persistenceBlock->layoutId, PersistenceStatus::Draft);
 
         $updatedBlock = $this->transaction(
             function () use ($persistenceBlock, $persistenceLayout): PersistenceBlock {
@@ -555,7 +555,7 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'You can only disable translations for draft blocks.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
 
         if (!$persistenceBlock->isTranslatable) {
             throw new BadStateException('block', 'Block is not translatable.');
@@ -574,7 +574,7 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('block', 'Only draft blocks can be deleted.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), PersistenceStatus::Draft);
 
         $this->transaction(
             function () use ($persistenceBlock): void {
@@ -708,7 +708,7 @@ final class BlockService implements BlockServiceInterface
                         $createdCollection = $this->collectionHandler->createCollection(
                             CollectionCreateStruct::fromArray(
                                 [
-                                    'status' => Value::STATUS_DRAFT,
+                                    'status' => PersistenceStatus::Draft,
                                     'offset' => $collectionCreateStruct->offset,
                                     'limit' => $collectionCreateStruct->limit,
                                     'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,

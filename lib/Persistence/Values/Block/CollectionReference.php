@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Values\Block;
 
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Utils\HydratorTrait;
 
 final class CollectionReference
@@ -18,7 +19,7 @@ final class CollectionReference
     /**
      * Block status.
      */
-    public int $blockStatus;
+    public Status $blockStatus;
 
     /**
      * Collection ID.
@@ -28,7 +29,7 @@ final class CollectionReference
     /**
      * Collection status.
      */
-    public int $collectionStatus;
+    public Status $collectionStatus;
 
     /**
      * Identifier of the collection reference.

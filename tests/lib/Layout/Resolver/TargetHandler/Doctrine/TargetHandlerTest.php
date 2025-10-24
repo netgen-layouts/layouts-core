@@ -8,7 +8,7 @@ use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
 use Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 
 final class TargetHandlerTest extends TargetHandlerTestBase
 {
@@ -19,7 +19,7 @@ final class TargetHandlerTest extends TargetHandlerTestBase
     public function testMatchRulesWithNoTargetMatch(): void
     {
         $rules = $this->handler->matchRules(
-            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published),
             $this->getTargetIdentifier(),
             'some_non_existent_route',
         );
@@ -37,7 +37,7 @@ final class TargetHandlerTest extends TargetHandlerTestBase
         $this->expectExceptionMessage('Doctrine target handler for "non_existent" target type does not exist.');
 
         $this->handler->matchRules(
-            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published),
             'non_existent',
             'value',
         );

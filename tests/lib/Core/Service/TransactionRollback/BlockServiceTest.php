@@ -15,6 +15,7 @@ use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Ramsey\Uuid\Uuid;
@@ -39,7 +40,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['status' => Value::STATUS_PUBLISHED]));
+            ->willReturn(PersistenceBlock::fromArray(['status' => PersistenceStatus::Published]));
 
         $this->blockHandler
             ->method('createBlock')
@@ -92,11 +93,11 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left', 'rootBlockId' => 42]));
+            ->willReturn(PersistenceZone::fromArray(['status' => PersistenceStatus::Draft, 'identifier' => 'left', 'rootBlockId' => 42]));
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['status' => Value::STATUS_PUBLISHED]));
+            ->willReturn(PersistenceBlock::fromArray(['status' => PersistenceStatus::Published]));
 
         $this->blockHandler
             ->method('createBlock')
@@ -226,7 +227,7 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left', 'layoutId' => 42, 'rootBlockId' => 24]));
+            ->willReturn(PersistenceZone::fromArray(['status' => PersistenceStatus::Draft, 'identifier' => 'left', 'layoutId' => 42, 'rootBlockId' => 24]));
 
         $this->blockHandler
             ->method('loadBlock')
@@ -310,7 +311,7 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left', 'layoutId' => 42, 'rootBlockId' => 24]));
+            ->willReturn(PersistenceZone::fromArray(['status' => PersistenceStatus::Draft, 'identifier' => 'left', 'layoutId' => 42, 'rootBlockId' => 24]));
 
         $this->blockHandler
             ->method('moveBlockToPosition')

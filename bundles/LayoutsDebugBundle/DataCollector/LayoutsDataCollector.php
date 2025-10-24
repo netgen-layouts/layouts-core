@@ -8,6 +8,7 @@ use Jean85\PrettyVersions;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -152,7 +153,7 @@ final class LayoutsDataCollector extends DataCollector
         $layoutId = $block->getLayoutId()->toString();
         $this->layoutCache[$layoutId] ??= $this->layoutHandler->loadLayout(
             $block->getLayoutId(),
-            $block->getStatus(),
+            Status::from($block->getStatus()),
         );
 
         $blockData = [

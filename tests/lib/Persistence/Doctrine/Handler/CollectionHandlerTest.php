@@ -21,7 +21,7 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
@@ -62,7 +62,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadCollection(): void
     {
-        $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+        $collection = $this->collectionHandler->loadCollection(1, Status::Draft);
 
         self::assertSame(
             [
@@ -75,7 +75,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($collection),
@@ -91,7 +91,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find collection with identifier "999"');
 
-        $this->collectionHandler->loadCollection(999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(999, Status::Published);
     }
 
     /**
@@ -102,7 +102,7 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadCollections(): void
     {
         $collections = $this->collectionHandler->loadCollections(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
         );
 
         self::assertSame(
@@ -117,7 +117,7 @@ final class CollectionHandlerTest extends TestCase
                     'limit' => null,
                     'mainLocale' => 'en',
                     'offset' => 0,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 ],
                 'featured' => [
@@ -130,7 +130,7 @@ final class CollectionHandlerTest extends TestCase
                     'limit' => 2,
                     'mainLocale' => 'en',
                     'offset' => 4,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 ],
             ],
@@ -145,16 +145,16 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadCollectionReference(): void
     {
         $reference = $this->collectionHandler->loadCollectionReference(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'default',
         );
 
         self::assertSame(
             [
                 'blockId' => 31,
-                'blockStatus' => Value::STATUS_DRAFT,
+                'blockStatus' => Status::Draft,
                 'collectionId' => 1,
-                'collectionStatus' => Value::STATUS_DRAFT,
+                'collectionStatus' => Status::Draft,
                 'identifier' => 'default',
             ],
             $this->exportObject($reference),
@@ -171,7 +171,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find collection reference with identifier "non_existing"');
 
         $this->collectionHandler->loadCollectionReference(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
             'non_existing',
         );
     }
@@ -183,7 +183,7 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadCollectionReferences(): void
     {
         $references = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(31, Status::Draft),
         );
 
         self::assertContainsOnlyInstancesOf(CollectionReference::class, $references);
@@ -192,16 +192,16 @@ final class CollectionHandlerTest extends TestCase
             [
                 [
                     'blockId' => 31,
-                    'blockStatus' => Value::STATUS_DRAFT,
+                    'blockStatus' => Status::Draft,
                     'collectionId' => 1,
-                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'collectionStatus' => Status::Draft,
                     'identifier' => 'default',
                 ],
                 [
                     'blockId' => 31,
-                    'blockStatus' => Value::STATUS_DRAFT,
+                    'blockStatus' => Status::Draft,
                     'collectionId' => 3,
-                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'collectionStatus' => Status::Draft,
                     'identifier' => 'featured',
                 ],
             ],
@@ -216,7 +216,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadItem(): void
     {
-        $item = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
+        $item = $this->collectionHandler->loadItem(1, Status::Draft);
 
         self::assertSame(
             [
@@ -225,7 +225,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -244,7 +244,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find item with identifier "999"');
 
-        $this->collectionHandler->loadItem(999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadItem(999, Status::Published);
     }
 
     /**
@@ -255,7 +255,7 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadItemWithPosition(): void
     {
         $item = $this->collectionHandler->loadItemWithPosition(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             0,
         );
 
@@ -266,7 +266,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -286,7 +286,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find item in collection with ID "1" at position 9999');
 
         $this->collectionHandler->loadItemWithPosition(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             9999,
         );
     }
@@ -298,7 +298,7 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadCollectionItems(): void
     {
         $items = $this->collectionHandler->loadCollectionItems(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
         );
 
         self::assertNotEmpty($items);
@@ -312,7 +312,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadQuery(): void
     {
-        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+        $query = $this->collectionHandler->loadQuery(1, Status::Published);
 
         self::assertSame(
             [
@@ -337,7 +337,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
@@ -354,7 +354,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find query with identifier "999"');
 
-        $this->collectionHandler->loadQuery(999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadQuery(999, Status::Published);
     }
 
     /**
@@ -364,7 +364,7 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadCollectionQuery(): void
     {
         $query = $this->collectionHandler->loadCollectionQuery(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
         );
 
         self::assertSame(
@@ -390,7 +390,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
@@ -408,7 +408,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find query for collection with identifier "1"');
 
         $this->collectionHandler->loadCollectionQuery(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
         );
     }
 
@@ -419,7 +419,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testLoadSlot(): void
     {
-        $slot = $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT);
+        $slot = $this->collectionHandler->loadSlot(1, Status::Draft);
 
         self::assertSame(
             [
@@ -427,7 +427,7 @@ final class CollectionHandlerTest extends TestCase
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                 'viewType' => 'standard',
             ],
@@ -444,7 +444,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find slot with identifier "999"');
 
-        $this->collectionHandler->loadSlot(999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadSlot(999, Status::Published);
     }
 
     /**
@@ -454,7 +454,7 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadCollectionSlots(): void
     {
         $slots = $this->collectionHandler->loadCollectionSlots(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
         );
 
         self::assertNotEmpty($slots);
@@ -467,7 +467,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCollectionExists(): void
     {
-        self::assertTrue($this->collectionHandler->collectionExists(1, Value::STATUS_DRAFT));
+        self::assertTrue($this->collectionHandler->collectionExists(1, Status::Draft));
     }
 
     /**
@@ -476,7 +476,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNotExists(): void
     {
-        self::assertFalse($this->collectionHandler->collectionExists(999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->collectionHandler->collectionExists(999, Status::Published));
     }
 
     /**
@@ -485,7 +485,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNotExistsInStatus(): void
     {
-        self::assertFalse($this->collectionHandler->collectionExists(1, Value::STATUS_ARCHIVED));
+        self::assertFalse($this->collectionHandler->collectionExists(1, Status::Archived));
     }
 
     /**
@@ -493,10 +493,10 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCreateCollection(): void
     {
-        $block = $this->blockHandler->loadBlock(38, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(38, Status::Draft);
 
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->status = Value::STATUS_DRAFT;
+        $collectionCreateStruct->status = Status::Draft;
         $collectionCreateStruct->offset = 5;
         $collectionCreateStruct->limit = 10;
         $collectionCreateStruct->mainLocale = 'en';
@@ -519,7 +519,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => 10,
                 'mainLocale' => 'en',
                 'offset' => 5,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($createdCollection),
@@ -535,10 +535,10 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Collections can only be created in blocks with the same status.');
 
-        $block = $this->blockHandler->loadBlock(38, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(38, Status::Draft);
 
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->status = Value::STATUS_PUBLISHED;
+        $collectionCreateStruct->status = Status::Published;
         $collectionCreateStruct->offset = 5;
         $collectionCreateStruct->limit = 10;
         $collectionCreateStruct->mainLocale = 'en';
@@ -556,7 +556,7 @@ final class CollectionHandlerTest extends TestCase
     public function testCreateCollectionTranslation(): void
     {
         $collection = $this->collectionHandler->createCollectionTranslation(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
             'de',
             'en',
         );
@@ -572,13 +572,13 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
             ],
             $this->exportObject($collection),
         );
 
-        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+        $query = $this->collectionHandler->loadQuery(1, Status::Published);
 
         self::assertSame(
             [
@@ -609,7 +609,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
@@ -624,7 +624,7 @@ final class CollectionHandlerTest extends TestCase
     public function testCreateCollectionTranslationWithNonMainSourceLocale(): void
     {
         $collection = $this->collectionHandler->createCollectionTranslation(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
             'de',
             'hr',
         );
@@ -640,13 +640,13 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
             ],
             $this->exportObject($collection),
         );
 
-        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+        $query = $this->collectionHandler->loadQuery(1, Status::Published);
 
         self::assertSame(
             [
@@ -677,7 +677,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
@@ -692,7 +692,7 @@ final class CollectionHandlerTest extends TestCase
     public function testCreateCollectionTranslationForCollectionWithNoQuery(): void
     {
         $collection = $this->collectionHandler->createCollectionTranslation(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             'de',
             'en',
         );
@@ -708,7 +708,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($collection),
@@ -725,7 +725,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Collection already has the provided locale.');
 
         $this->collectionHandler->createCollectionTranslation(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
             'en',
             'hr',
         );
@@ -741,7 +741,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Collection does not have the provided source locale.');
 
         $this->collectionHandler->createCollectionTranslation(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
             'de',
             'fr',
         );
@@ -753,8 +753,8 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCreateCollectionReference(): void
     {
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+        $block = $this->blockHandler->loadBlock(31, Status::Draft);
+        $collection = $this->collectionHandler->loadCollection(2, Status::Published);
 
         $reference = $this->collectionHandler->createCollectionReference(
             $collection,
@@ -780,12 +780,12 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testSetMainTranslation(): void
     {
-        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+        $collection = $this->collectionHandler->loadCollection(2, Status::Published);
         $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
 
         self::assertSame('hr', $collection->mainLocale);
 
-        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+        $query = $this->collectionHandler->loadQuery(1, Status::Published);
         self::assertSame('hr', $query->mainLocale);
     }
 
@@ -795,7 +795,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testSetMainTranslationForCollectionWithNoQuery(): void
     {
-        $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+        $collection = $this->collectionHandler->loadCollection(1, Status::Draft);
         $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
 
         self::assertSame('hr', $collection->mainLocale);
@@ -809,7 +809,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "mainLocale" has an invalid state. Collection does not have the provided locale.');
 
-        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+        $collection = $this->collectionHandler->loadCollection(2, Status::Published);
         $this->collectionHandler->setMainTranslation($collection, 'de');
     }
 
@@ -826,7 +826,7 @@ final class CollectionHandlerTest extends TestCase
         $collectionUpdateStruct->alwaysAvailable = false;
 
         $updatedCollection = $this->collectionHandler->updateCollection(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             $collectionUpdateStruct,
         );
 
@@ -841,7 +841,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => 10,
                 'mainLocale' => 'en',
                 'offset' => 5,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($updatedCollection),
@@ -859,7 +859,7 @@ final class CollectionHandlerTest extends TestCase
         $collectionUpdateStruct->limit = 0;
 
         $updatedCollection = $this->collectionHandler->updateCollection(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(3, Status::Draft),
             $collectionUpdateStruct,
         );
 
@@ -874,7 +874,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 5,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
             ],
             $this->exportObject($updatedCollection),
@@ -890,7 +890,7 @@ final class CollectionHandlerTest extends TestCase
         $collectionUpdateStruct = new CollectionUpdateStruct();
 
         $updatedCollection = $this->collectionHandler->updateCollection(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             $collectionUpdateStruct,
         );
 
@@ -905,7 +905,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($updatedCollection),
@@ -923,11 +923,11 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCopyCollection(): void
     {
-        $block = $this->blockHandler->loadBlock(34, Value::STATUS_PUBLISHED);
+        $block = $this->blockHandler->loadBlock(34, Status::Published);
 
         $copiedCollection = $this->withUuids(
             fn (): Collection => $this->collectionHandler->copyCollection(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+                $this->collectionHandler->loadCollection(3, Status::Published),
                 $block,
                 'default',
             ),
@@ -953,7 +953,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => 2,
                 'mainLocale' => 'en',
                 'offset' => 4,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($copiedCollection),
@@ -967,7 +967,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 13,
                     'position' => 2,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -979,7 +979,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 14,
                     'position' => 3,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -991,7 +991,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 15,
                     'position' => 5,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -1028,7 +1028,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
             ],
@@ -1042,7 +1042,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => $copiedCollection->uuid,
                     'id' => 7,
                     'position' => 3,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
                     'viewType' => 'standard',
                 ],
@@ -1051,7 +1051,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => $copiedCollection->uuid,
                     'id' => 8,
                     'position' => 5,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                     'viewType' => 'overlay',
                 ],
@@ -1071,11 +1071,11 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCopyCollectionWithoutQuery(): void
     {
-        $block = $this->blockHandler->loadBlock(34, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(34, Status::Draft);
 
         $copiedCollection = $this->withUuids(
             fn (): Collection => $this->collectionHandler->copyCollection(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(1, Status::Draft),
                 $block,
                 'default',
             ),
@@ -1100,7 +1100,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($copiedCollection),
@@ -1114,7 +1114,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 13,
                     'position' => 0,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -1126,7 +1126,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 14,
                     'position' => 1,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -1138,7 +1138,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 15,
                     'position' => 2,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -1157,7 +1157,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => $copiedCollection->uuid,
                     'id' => 7,
                     'position' => 0,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
                     'viewType' => 'standard',
                 ],
@@ -1166,7 +1166,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => $copiedCollection->uuid,
                     'id' => 8,
                     'position' => 2,
-                    'status' => Value::STATUS_DRAFT,
+                    'status' => Status::Draft,
                     'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                     'viewType' => 'overlay',
                 ],
@@ -1185,10 +1185,10 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Collections can only be copied to blocks with the same status.');
 
-        $block = $this->blockHandler->loadBlock(34, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->loadBlock(34, Status::Draft);
 
         $this->collectionHandler->copyCollection(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(3, Status::Published),
             $block,
             'default',
         );
@@ -1206,8 +1206,8 @@ final class CollectionHandlerTest extends TestCase
     public function testCreateCollectionStatus(): void
     {
         $copiedCollection = $this->collectionHandler->createCollectionStatus(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-            Value::STATUS_ARCHIVED,
+            $this->collectionHandler->loadCollection(3, Status::Published),
+            Status::Archived,
         );
 
         self::assertSame(
@@ -1221,7 +1221,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => 2,
                 'mainLocale' => 'en',
                 'offset' => 4,
-                'status' => Value::STATUS_ARCHIVED,
+                'status' => Status::Archived,
                 'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
             ],
             $this->exportObject($copiedCollection),
@@ -1235,7 +1235,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 7,
                     'position' => 2,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -1247,7 +1247,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 8,
                     'position' => 3,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -1259,7 +1259,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 9,
                     'position' => 5,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => '9701e116-51f4-5ff6-b9b5-5660cb2ab21d',
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -1294,7 +1294,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_ARCHIVED,
+                'status' => Status::Archived,
                 'type' => 'my_query_type',
                 'uuid' => '0303abc4-c894-59b5-ba95-5cf330b99c66',
             ],
@@ -1310,7 +1310,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'id' => 5,
                     'position' => 3,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => 'd0c55af8-5a45-4221-84e6-c7e4b975db0e',
                     'viewType' => 'standard',
                 ],
@@ -1319,7 +1319,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'id' => 6,
                     'position' => 5,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => 'f520bcc4-e977-4c51-85cb-f68c79884e81',
                     'viewType' => 'overlay',
                 ],
@@ -1340,8 +1340,8 @@ final class CollectionHandlerTest extends TestCase
     public function testCreateCollectionStatusWithoutQuery(): void
     {
         $copiedCollection = $this->collectionHandler->createCollectionStatus(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-            Value::STATUS_ARCHIVED,
+            $this->collectionHandler->loadCollection(1, Status::Draft),
+            Status::Archived,
         );
 
         self::assertSame(
@@ -1355,7 +1355,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_ARCHIVED,
+                'status' => Status::Archived,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($copiedCollection),
@@ -1369,7 +1369,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 1,
                     'position' => 0,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -1381,7 +1381,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 2,
                     'position' => 1,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -1393,7 +1393,7 @@ final class CollectionHandlerTest extends TestCase
                     'config' => [],
                     'id' => 3,
                     'position' => 2,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -1412,7 +1412,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'id' => 1,
                     'position' => 0,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                     'viewType' => 'standard',
                 ],
@@ -1421,7 +1421,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'id' => 2,
                     'position' => 2,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'uuid' => 'ee232f5b-478c-4513-a4b4-19e7e8b03aab',
                     'viewType' => 'overlay',
                 ],
@@ -1446,7 +1446,7 @@ final class CollectionHandlerTest extends TestCase
 
         $this->collectionHandler->deleteCollection(3);
 
-        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(3, Status::Published);
     }
 
     /**
@@ -1463,7 +1463,7 @@ final class CollectionHandlerTest extends TestCase
 
         $this->collectionHandler->deleteCollection(1);
 
-        $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+        $this->collectionHandler->loadCollection(1, Status::Draft);
     }
 
     /**
@@ -1478,16 +1478,16 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find collection with identifier "3"');
 
-        $this->collectionHandler->deleteCollection(3, Value::STATUS_DRAFT);
+        $this->collectionHandler->deleteCollection(3, Status::Draft);
 
         // First, verify that NOT all collection statuses are deleted
         try {
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+            $this->collectionHandler->loadCollection(3, Status::Published);
         } catch (NotFoundException $e) {
             self::fail('Deleting the collection in draft status deleted other/all statuses.');
         }
 
-        $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);
+        $this->collectionHandler->loadCollection(3, Status::Draft);
     }
 
     /**
@@ -1499,7 +1499,7 @@ final class CollectionHandlerTest extends TestCase
     public function testDeleteCollectionTranslation(): void
     {
         $collection = $this->collectionHandler->deleteCollectionTranslation(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
             'hr',
         );
 
@@ -1514,13 +1514,13 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
             ],
             $this->exportObject($collection),
         );
 
-        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+        $query = $this->collectionHandler->loadQuery(1, Status::Published);
 
         self::assertSame(
             [
@@ -1539,7 +1539,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
@@ -1554,7 +1554,7 @@ final class CollectionHandlerTest extends TestCase
     public function testDeleteCollectionTranslationForCollectionWithNoQuery(): void
     {
         $collection = $this->collectionHandler->deleteCollectionTranslation(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             'hr',
         );
 
@@ -1569,7 +1569,7 @@ final class CollectionHandlerTest extends TestCase
                 'limit' => null,
                 'mainLocale' => 'en',
                 'offset' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
             ],
             $this->exportObject($collection),
@@ -1586,7 +1586,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Collection does not have the provided locale.');
 
         $this->collectionHandler->deleteCollectionTranslation(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
             'de',
         );
     }
@@ -1601,7 +1601,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Main translation cannot be removed from the collection.');
 
         $this->collectionHandler->deleteCollectionTranslation(
-            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(2, Status::Published),
             'en',
         );
     }
@@ -1624,7 +1624,7 @@ final class CollectionHandlerTest extends TestCase
 
         $item = $this->withUuids(
             fn (): Item => $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(1, Status::Draft),
                 $itemCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -1637,7 +1637,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => ['config' => ['value' => 42]],
                 'id' => 13,
                 'position' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1646,7 +1646,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($item),
         );
 
-        $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(2, Status::Draft);
         self::assertSame(2, $secondItem->position);
     }
 
@@ -1668,7 +1668,7 @@ final class CollectionHandlerTest extends TestCase
 
         $item = $this->withUuids(
             fn (): Item => $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(3, Status::Draft),
                 $itemCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -1681,7 +1681,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => ['config' => ['value' => 42]],
                 'id' => 13,
                 'position' => 2,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1690,13 +1690,13 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($item),
         );
 
-        $secondItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(7, Status::Draft);
         self::assertSame(3, $secondItem->position);
 
-        $thirdItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
+        $thirdItem = $this->collectionHandler->loadItem(8, Status::Draft);
         self::assertSame(4, $thirdItem->position);
 
-        $fourthItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
+        $fourthItem = $this->collectionHandler->loadItem(9, Status::Draft);
         self::assertSame(5, $fourthItem->position);
     }
 
@@ -1718,7 +1718,7 @@ final class CollectionHandlerTest extends TestCase
 
         $item = $this->withUuids(
             fn (): Item => $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(3, Status::Draft),
                 $itemCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -1731,7 +1731,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => ['config' => ['value' => 42]],
                 'id' => 13,
                 'position' => 4,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1740,7 +1740,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($item),
         );
 
-        $secondItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(9, Status::Draft);
         self::assertSame(5, $secondItem->position);
     }
 
@@ -1762,7 +1762,7 @@ final class CollectionHandlerTest extends TestCase
 
         $item = $this->withUuids(
             fn (): Item => $this->collectionHandler->addItem(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(1, Status::Draft),
                 $itemCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -1775,7 +1775,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => ['config' => ['value' => 42]],
                 'id' => 13,
                 'position' => 3,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1804,7 +1804,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->viewType = null;
 
         $this->collectionHandler->addItem(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(3, Status::Draft),
             $itemCreateStruct,
         );
     }
@@ -1828,7 +1828,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             $itemCreateStruct,
         );
     }
@@ -1852,7 +1852,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             $itemCreateStruct,
         );
     }
@@ -1872,7 +1872,7 @@ final class CollectionHandlerTest extends TestCase
         ];
 
         $item = $this->collectionHandler->updateItem(
-            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(1, Status::Draft),
             $itemUpdateStruct,
         );
 
@@ -1883,7 +1883,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => ['new_config' => ['val' => 24]],
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -1903,7 +1903,7 @@ final class CollectionHandlerTest extends TestCase
         $itemUpdateStruct->viewType = '';
 
         $item = $this->collectionHandler->updateItem(
-            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(1, Status::Draft),
             $itemUpdateStruct,
         );
 
@@ -1914,7 +1914,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -1935,7 +1935,7 @@ final class CollectionHandlerTest extends TestCase
     public function testMoveItem(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(12, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(12, Status::Draft),
             2,
         );
 
@@ -1946,7 +1946,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 12,
                 'position' => 2,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '3562a253-72d1-54d1-8b31-ef1b55409cb5',
                 'value' => '74',
                 'valueType' => 'my_value_type',
@@ -1955,10 +1955,10 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($movedItem),
         );
 
-        $firstItem = $this->collectionHandler->loadItem(10, Value::STATUS_DRAFT);
+        $firstItem = $this->collectionHandler->loadItem(10, Status::Draft);
         self::assertSame(3, $firstItem->position);
 
-        $secondItem = $this->collectionHandler->loadItem(11, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(11, Status::Draft);
         self::assertSame(4, $secondItem->position);
     }
 
@@ -1973,7 +1973,7 @@ final class CollectionHandlerTest extends TestCase
     public function testMoveItemWithSwitchingPositions(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(1, Status::Draft),
             1,
         );
 
@@ -1984,7 +1984,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 1,
                 'position' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -1993,10 +1993,10 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($movedItem),
         );
 
-        $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $firstItem = $this->collectionHandler->loadItem(2, Status::Draft);
         self::assertSame(0, $firstItem->position);
 
-        $secondItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(3, Status::Draft);
         self::assertSame(2, $secondItem->position);
     }
 
@@ -2011,7 +2011,7 @@ final class CollectionHandlerTest extends TestCase
     public function testMoveItemToSamePosition(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(1, Status::Draft),
             0,
         );
 
@@ -2022,7 +2022,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -2031,10 +2031,10 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($movedItem),
         );
 
-        $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $firstItem = $this->collectionHandler->loadItem(2, Status::Draft);
         self::assertSame(1, $firstItem->position);
 
-        $firstItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+        $firstItem = $this->collectionHandler->loadItem(3, Status::Draft);
         self::assertSame(2, $firstItem->position);
     }
 
@@ -2049,7 +2049,7 @@ final class CollectionHandlerTest extends TestCase
     public function testMoveItemToLowerPosition(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(2, Status::Draft),
             0,
         );
 
@@ -2060,7 +2060,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 2,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                 'value' => '73',
                 'valueType' => 'my_value_type',
@@ -2069,7 +2069,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($movedItem),
         );
 
-        $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
+        $firstItem = $this->collectionHandler->loadItem(1, Status::Draft);
         self::assertSame(1, $firstItem->position);
     }
 
@@ -2084,7 +2084,7 @@ final class CollectionHandlerTest extends TestCase
     public function testMoveItemToLowerPositionWithSwitchingPositions(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(3, Status::Draft),
             1,
         );
 
@@ -2095,7 +2095,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 3,
                 'position' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                 'value' => '74',
                 'valueType' => 'my_value_type',
@@ -2104,10 +2104,10 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($movedItem),
         );
 
-        $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
+        $firstItem = $this->collectionHandler->loadItem(1, Status::Draft);
         self::assertSame(0, $firstItem->position);
 
-        $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(2, Status::Draft);
         self::assertSame(2, $secondItem->position);
     }
 
@@ -2122,7 +2122,7 @@ final class CollectionHandlerTest extends TestCase
     public function testMoveItemInDynamicCollection(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(7, Status::Draft),
             4,
         );
 
@@ -2133,7 +2133,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 7,
                 'position' => 4,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -2142,10 +2142,10 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($movedItem),
         );
 
-        $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(8, Status::Draft);
         self::assertSame(3, $secondItem->position);
 
-        $thirdItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
+        $thirdItem = $this->collectionHandler->loadItem(9, Status::Draft);
         self::assertSame(5, $thirdItem->position);
     }
 
@@ -2160,7 +2160,7 @@ final class CollectionHandlerTest extends TestCase
     public function testMoveItemToLowerPositionInDynamicCollection(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(8, Status::Draft),
             2,
         );
 
@@ -2171,7 +2171,7 @@ final class CollectionHandlerTest extends TestCase
                 'config' => [],
                 'id' => 8,
                 'position' => 2,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                 'value' => '73',
                 'valueType' => 'my_value_type',
@@ -2180,7 +2180,7 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObject($movedItem),
         );
 
-        $firstItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
+        $firstItem = $this->collectionHandler->loadItem(7, Status::Draft);
         self::assertSame(3, $firstItem->position);
     }
 
@@ -2197,7 +2197,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
 
         $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(1, Status::Draft),
             -1,
         );
     }
@@ -2215,7 +2215,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->collectionHandler->moveItem(
-            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(1, Status::Draft),
             9999,
         );
     }
@@ -2227,13 +2227,13 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testSwitchItemPositions(): void
     {
-        $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $item2 = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+        $item1 = $this->collectionHandler->loadItem(2, Status::Draft);
+        $item2 = $this->collectionHandler->loadItem(3, Status::Draft);
 
         $this->collectionHandler->switchItemPositions($item1, $item2);
 
-        $updatedItem1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $updatedItem2 = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+        $updatedItem1 = $this->collectionHandler->loadItem(2, Status::Draft);
+        $updatedItem2 = $this->collectionHandler->loadItem(3, Status::Draft);
 
         self::assertSame($item2->position, $updatedItem1->position);
         self::assertSame($item1->position, $updatedItem2->position);
@@ -2247,8 +2247,8 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('First and second items are the same.');
 
-        $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $item2 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $item1 = $this->collectionHandler->loadItem(2, Status::Draft);
+        $item2 = $this->collectionHandler->loadItem(2, Status::Draft);
 
         $this->collectionHandler->switchItemPositions($item1, $item2);
     }
@@ -2261,8 +2261,8 @@ final class CollectionHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Positions can be switched only for items within the same collection.');
 
-        $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
-        $item2 = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
+        $item1 = $this->collectionHandler->loadItem(2, Status::Draft);
+        $item2 = $this->collectionHandler->loadItem(7, Status::Draft);
 
         $this->collectionHandler->switchItemPositions($item1, $item2);
     }
@@ -2276,14 +2276,14 @@ final class CollectionHandlerTest extends TestCase
     public function testDeleteItem(): void
     {
         $this->collectionHandler->deleteItem(
-            $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(2, Status::Draft),
         );
 
-        $secondItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(3, Status::Draft);
         self::assertSame(1, $secondItem->position);
 
         try {
-            $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+            $this->collectionHandler->loadItem(2, Status::Draft);
             self::fail('Item still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2299,14 +2299,14 @@ final class CollectionHandlerTest extends TestCase
     public function testDeleteItemFromDynamicCollection(): void
     {
         $this->collectionHandler->deleteItem(
-            $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadItem(7, Status::Draft),
         );
 
-        $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
+        $secondItem = $this->collectionHandler->loadItem(8, Status::Draft);
         self::assertSame(3, $secondItem->position);
 
         try {
-            $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
+            $this->collectionHandler->loadItem(7, Status::Draft);
             self::fail('Item still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2320,7 +2320,7 @@ final class CollectionHandlerTest extends TestCase
     public function testDeleteItems(): void
     {
         $collection = $this->collectionHandler->deleteItems(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(3, Status::Draft),
         );
 
         self::assertCount(0, $this->collectionHandler->loadCollectionItems($collection));
@@ -2332,7 +2332,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCreateQuery(): void
     {
-        $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+        $collection = $this->collectionHandler->loadCollection(1, Status::Draft);
 
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->type = 'my_query_type';
@@ -2365,7 +2365,7 @@ final class CollectionHandlerTest extends TestCase
                         'param' => 'value',
                     ],
                 ],
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'type' => 'my_query_type',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
@@ -2389,7 +2389,7 @@ final class CollectionHandlerTest extends TestCase
         ];
 
         $this->collectionHandler->createQuery(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(3, Status::Published),
             $queryCreateStruct,
         );
     }
@@ -2408,7 +2408,7 @@ final class CollectionHandlerTest extends TestCase
         ];
 
         $updatedQuery = $this->collectionHandler->updateQueryTranslation(
-            $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadQuery(1, Status::Published),
             'en',
             $translationUpdateStruct,
         );
@@ -2434,7 +2434,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
@@ -2451,7 +2451,7 @@ final class CollectionHandlerTest extends TestCase
         $translationUpdateStruct = new QueryTranslationUpdateStruct();
 
         $updatedQuery = $this->collectionHandler->updateQueryTranslation(
-            $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadQuery(1, Status::Published),
             'en',
             $translationUpdateStruct,
         );
@@ -2479,7 +2479,7 @@ final class CollectionHandlerTest extends TestCase
                         'query_type' => 'list',
                     ],
                 ],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'my_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
@@ -2497,7 +2497,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Query does not have the provided locale.');
 
         $this->collectionHandler->updateQueryTranslation(
-            $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadQuery(1, Status::Published),
             'de',
             new QueryTranslationUpdateStruct(),
         );
@@ -2514,11 +2514,11 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find query with identifier "2"');
 
         $this->collectionHandler->deleteCollectionQuery(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(3, Status::Published),
         );
 
         // Query with ID 2 was in the collection with ID 3
-        $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadQuery(2, Status::Published);
     }
 
     /**
@@ -2529,7 +2529,7 @@ final class CollectionHandlerTest extends TestCase
     public function testDeleteCollectionQueryWithNoQuery(): void
     {
         $this->collectionHandler->deleteCollectionQuery(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
         );
 
         $this->addToAssertionCount(1);
@@ -2543,7 +2543,7 @@ final class CollectionHandlerTest extends TestCase
     {
         self::assertTrue(
             $this->collectionHandler->slotWithPositionExists(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(1, Status::Draft),
                 0,
             ),
         );
@@ -2557,7 +2557,7 @@ final class CollectionHandlerTest extends TestCase
     {
         self::assertFalse(
             $this->collectionHandler->slotWithPositionExists(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(1, Status::Draft),
                 999,
             ),
         );
@@ -2575,7 +2575,7 @@ final class CollectionHandlerTest extends TestCase
 
         $slot = $this->withUuids(
             fn (): Slot => $this->collectionHandler->addSlot(
-                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $this->collectionHandler->loadCollection(1, Status::Draft),
                 $slotCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -2587,7 +2587,7 @@ final class CollectionHandlerTest extends TestCase
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'id' => 7,
                 'position' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'my_view_type',
             ],
@@ -2609,7 +2609,7 @@ final class CollectionHandlerTest extends TestCase
         $slotCreateStruct->viewType = 'my_view_type';
 
         $this->collectionHandler->addSlot(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
             $slotCreateStruct,
         );
     }
@@ -2624,7 +2624,7 @@ final class CollectionHandlerTest extends TestCase
         $slotUpdateStruct->viewType = 'new_view_type';
 
         $slot = $this->collectionHandler->updateSlot(
-            $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadSlot(1, Status::Draft),
             $slotUpdateStruct,
         );
 
@@ -2634,7 +2634,7 @@ final class CollectionHandlerTest extends TestCase
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                 'viewType' => 'new_view_type',
             ],
@@ -2652,7 +2652,7 @@ final class CollectionHandlerTest extends TestCase
         $slotUpdateStruct->viewType = '';
 
         $slot = $this->collectionHandler->updateSlot(
-            $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadSlot(1, Status::Draft),
             $slotUpdateStruct,
         );
 
@@ -2662,7 +2662,7 @@ final class CollectionHandlerTest extends TestCase
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'id' => 1,
                 'position' => 0,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
                 'viewType' => null,
             ],
@@ -2680,10 +2680,10 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find slot with identifier "1"');
 
         $this->collectionHandler->deleteSlot(
-            $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadSlot(1, Status::Draft),
         );
 
-        $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT);
+        $this->collectionHandler->loadSlot(1, Status::Draft);
     }
 
     /**
@@ -2693,7 +2693,7 @@ final class CollectionHandlerTest extends TestCase
     public function testDeleteSlots(): void
     {
         $collection = $this->collectionHandler->deleteSlots(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $this->collectionHandler->loadCollection(1, Status::Draft),
         );
 
         self::assertCount(0, $this->collectionHandler->loadCollectionSlots($collection));

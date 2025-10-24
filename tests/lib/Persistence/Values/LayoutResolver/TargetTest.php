@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\LayoutResolver;
 
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class TargetTest extends TestCase
@@ -23,7 +23,7 @@ final class TargetTest extends TestCase
                 'ruleUuid' => 'f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee',
                 'type' => 'target',
                 'value' => 32,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         );
 
@@ -33,6 +33,6 @@ final class TargetTest extends TestCase
         self::assertSame('f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee', $target->ruleUuid);
         self::assertSame('target', $target->type);
         self::assertSame(32, $target->value);
-        self::assertSame(Value::STATUS_PUBLISHED, $target->status);
+        self::assertSame(Status::Published, $target->status);
     }
 }

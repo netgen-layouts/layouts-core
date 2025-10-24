@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -172,7 +172,7 @@ final class PositionHelperTest extends TestCase
                 ),
             )
             ->setParameter('id', 2, Types::INTEGER)
-            ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER);
+            ->setParameter('status', Status::Draft->value, Types::INTEGER);
 
         $query->execute();
 
@@ -205,7 +205,7 @@ final class PositionHelperTest extends TestCase
             'column' => 'position',
             'conditions' => [
                 'collection_id' => 1,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft->value,
             ],
         ];
     }
@@ -227,7 +227,7 @@ final class PositionHelperTest extends TestCase
                 ),
             )
             ->setParameter('collection_id', 1, Types::INTEGER)
-            ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER)
+            ->setParameter('status', Status::Draft->value, Types::INTEGER)
             ->orderBy('position', 'ASC');
 
         $result = $query->execute()->fetchAllAssociative();

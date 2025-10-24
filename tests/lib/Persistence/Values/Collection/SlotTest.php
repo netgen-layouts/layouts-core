@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\Collection;
 
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class SlotTest extends TestCase
@@ -23,7 +23,7 @@ final class SlotTest extends TestCase
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 3,
                 'viewType' => 'my_view_type',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         );
 
@@ -33,6 +33,6 @@ final class SlotTest extends TestCase
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $slot->collectionUuid);
         self::assertSame(3, $slot->position);
         self::assertSame('my_view_type', $slot->viewType);
-        self::assertSame(Value::STATUS_PUBLISHED, $slot->status);
+        self::assertSame(Status::Published, $slot->status);
     }
 }

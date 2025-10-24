@@ -10,7 +10,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -48,7 +48,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'enabled' => '0',
                 'priority' => '3',
                 'description' => '',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft->value,
                 'layout_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
             ],
         ];
@@ -61,7 +61,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'priority' => 2,
                 'ruleGroupId' => 62,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
@@ -71,7 +71,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'priority' => 3,
                 'ruleGroupId' => 64,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
             ],
         ];
@@ -112,7 +112,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'description' => '',
                 'enabled' => '0',
                 'priority' => '3',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft->value,
             ],
         ];
 
@@ -127,7 +127,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'parentUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'path' => '/62/43/',
                 'priority' => 2,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
@@ -140,7 +140,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'parentUuid' => null,
                 'path' => '/43/',
                 'priority' => 3,
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
             ],
         ];
@@ -173,7 +173,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'rule_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'type' => 'target2',
                 'value' => '42',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft->value,
             ],
         ];
 
@@ -182,7 +182,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'id' => 42,
                 'ruleId' => 1,
                 'ruleUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'target',
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'value' => '32',
@@ -191,7 +191,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'id' => 43,
                 'ruleId' => 2,
                 'ruleUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'type' => 'target2',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
@@ -226,7 +226,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'rule_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'type' => 'condition2',
                 'value' => '{"param":"value"}',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft->value,
             ],
         ];
 
@@ -235,7 +235,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'id' => 42,
                 'ruleId' => 1,
                 'ruleUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'condition',
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'value' => 24,
@@ -244,7 +244,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'id' => 43,
                 'ruleId' => 2,
                 'ruleUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'type' => 'condition2',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => [
@@ -281,7 +281,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'rule_group_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'type' => 'condition2',
                 'value' => '{"param":"value"}',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft->value,
             ],
         ];
 
@@ -290,7 +290,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'id' => 42,
                 'ruleGroupId' => 1,
                 'ruleGroupUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'condition',
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'value' => 24,
@@ -299,7 +299,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'id' => 43,
                 'ruleGroupId' => 2,
                 'ruleGroupUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
-                'status' => Value::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'type' => 'condition2',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => [

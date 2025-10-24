@@ -27,7 +27,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -56,7 +56,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->mapper = $mapper;
     }
 
-    public function loadRule($ruleId, int $status): Rule
+    public function loadRule($ruleId, Status $status): Rule
     {
         $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
         $data = $this->queryHandler->loadRuleData($ruleId, $status);
@@ -68,7 +68,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data)[0];
     }
 
-    public function loadRuleGroup($ruleGroupId, int $status): RuleGroup
+    public function loadRuleGroup($ruleGroupId, Status $status): RuleGroup
     {
         $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
         $data = $this->queryHandler->loadRuleGroupData($ruleGroupId, $status);
@@ -89,7 +89,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function getRuleCountForLayout(Layout $layout): int
     {
-        return $this->queryHandler->getRuleCountForLayout(Value::STATUS_PUBLISHED, $layout);
+        return $this->queryHandler->getRuleCountForLayout(Status::Published, $layout);
     }
 
     public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): array
@@ -127,7 +127,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data);
     }
 
-    public function loadTarget($targetId, int $status): Target
+    public function loadTarget($targetId, Status $status): Target
     {
         $targetId = $targetId instanceof UuidInterface ? $targetId->toString() : $targetId;
         $data = $this->queryHandler->loadTargetData($targetId, $status);
@@ -151,7 +151,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->getRuleTargetCount($rule);
     }
 
-    public function loadRuleCondition($conditionId, int $status): RuleCondition
+    public function loadRuleCondition($conditionId, Status $status): RuleCondition
     {
         $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadRuleConditionData($conditionId, $status);
@@ -163,7 +163,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRuleConditions($data)[0];
     }
 
-    public function loadRuleGroupCondition($conditionId, int $status): RuleGroupCondition
+    public function loadRuleGroupCondition($conditionId, Status $status): RuleGroupCondition
     {
         $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadRuleGroupConditionData($conditionId, $status);
@@ -189,7 +189,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    public function ruleExists($ruleId, ?int $status = null): bool
+    public function ruleExists($ruleId, ?Status $status = null): bool
     {
         $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
 
@@ -204,7 +204,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         $layout = null;
         if ($ruleCreateStruct->layoutId !== null) {
-            $layout = $this->layoutHandler->loadLayout($ruleCreateStruct->layoutId, Value::STATUS_PUBLISHED);
+            $layout = $this->layoutHandler->loadLayout($ruleCreateStruct->layoutId, Status::Published);
         }
 
         $newRule = Rule::fromArray(
@@ -229,7 +229,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $updatedRule = clone $rule;
 
         if ($ruleUpdateStruct->layoutId !== null && !is_bool($ruleUpdateStruct->layoutId)) {
-            $layout = $this->layoutHandler->loadLayout($ruleUpdateStruct->layoutId, Value::STATUS_PUBLISHED);
+            $layout = $this->layoutHandler->loadLayout($ruleUpdateStruct->layoutId, Status::Published);
 
             $updatedRule->layoutUuid = $layout->uuid;
         } elseif ($ruleUpdateStruct->layoutId === false) {
@@ -321,7 +321,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->loadRule($rule->id, $rule->status);
     }
 
-    public function createRuleStatus(Rule $rule, int $newStatus): Rule
+    public function createRuleStatus(Rule $rule, Status $newStatus): Rule
     {
         // First copy the rule
 
@@ -355,14 +355,14 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRule;
     }
 
-    public function deleteRule(int $ruleId, ?int $status = null): void
+    public function deleteRule(int $ruleId, ?Status $status = null): void
     {
         $this->queryHandler->deleteRuleTargets([$ruleId], $status);
         $this->queryHandler->deleteRuleConditions([$ruleId], $status);
         $this->queryHandler->deleteRule($ruleId, $status);
     }
 
-    public function ruleGroupExists($ruleGroupId, ?int $status = null): bool
+    public function ruleGroupExists($ruleGroupId, ?Status $status = null): bool
     {
         $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
 
@@ -506,7 +506,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->loadRuleGroup($ruleGroup->id, $ruleGroup->status);
     }
 
-    public function createRuleGroupStatus(RuleGroup $ruleGroup, int $newStatus): RuleGroup
+    public function createRuleGroupStatus(RuleGroup $ruleGroup, Status $newStatus): RuleGroup
     {
         // First copy the rule group
 
@@ -529,7 +529,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRuleGroup;
     }
 
-    public function deleteRuleGroup(int $ruleGroupId, ?int $status = null): void
+    public function deleteRuleGroup(int $ruleGroupId, ?Status $status = null): void
     {
         $this->queryHandler->deleteRuleGroupConditions([$ruleGroupId], $status);
         $this->queryHandler->deleteRuleGroup($ruleGroupId, $status);

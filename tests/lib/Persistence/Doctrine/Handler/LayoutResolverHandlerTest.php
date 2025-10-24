@@ -23,7 +23,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
@@ -64,7 +64,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRule(): void
     {
-        $rule = $this->handler->loadRule(1, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRule(1, Status::Published);
 
         self::assertSame(
             [
@@ -74,7 +74,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'priority' => 9,
                 'ruleGroupId' => 1,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
             ],
             $this->exportObject($rule),
@@ -90,7 +90,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule with identifier "999"');
 
-        $this->handler->loadRule(999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRule(999, Status::Published);
     }
 
     /**
@@ -101,7 +101,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRuleGroup(): void
     {
-        $rule = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRuleGroup(2, Status::Published);
 
         self::assertSame(
             [
@@ -114,7 +114,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'parentUuid' => RuleGroup::ROOT_UUID,
                 'path' => '/1/2/',
                 'priority' => 1,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
             ],
             $this->exportObject($rule),
@@ -131,7 +131,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule group with identifier "999"');
 
-        $this->handler->loadRuleGroup(999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleGroup(999, Status::Published);
     }
 
     /**
@@ -141,7 +141,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRulesForLayout(): void
     {
         $rules = $this->handler->loadRulesForLayout(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
+            $this->layoutHandler->loadLayout(1, Status::Published),
         );
 
         self::assertCount(2, $rules);
@@ -164,7 +164,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testGetRuleCountForLayout(): void
     {
         $rules = $this->handler->getRuleCountForLayout(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
+            $this->layoutHandler->loadLayout(1, Status::Published),
         );
 
         self::assertSame(2, $rules);
@@ -177,7 +177,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRulesFromGroup(): void
     {
         $rules = $this->handler->loadRulesFromGroup(
-            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(2, Status::Published),
         );
 
         self::assertCount(2, $rules);
@@ -200,7 +200,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testGetRuleCountFromGroup(): void
     {
         $rules = $this->handler->getRuleCountFromGroup(
-            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(2, Status::Published),
         );
 
         self::assertSame(2, $rules);
@@ -213,7 +213,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleGroups(): void
     {
         $ruleGroups = $this->handler->loadRuleGroups(
-            $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(1, Status::Published),
         );
 
         self::assertCount(2, $ruleGroups);
@@ -236,7 +236,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testGetRuleGroupCount(): void
     {
         $ruleGroups = $this->handler->getRuleGroupCount(
-            $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(1, Status::Published),
         );
 
         self::assertSame(2, $ruleGroups);
@@ -249,14 +249,14 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadTarget(): void
     {
-        $target = $this->handler->loadTarget(1, Value::STATUS_PUBLISHED);
+        $target = $this->handler->loadTarget(1, Status::Published);
 
         self::assertSame(
             [
                 'id' => 1,
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'route',
                 'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
                 'value' => 'my_cool_route',
@@ -274,7 +274,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find target with identifier "999"');
 
-        $this->handler->loadTarget(999, Value::STATUS_PUBLISHED);
+        $this->handler->loadTarget(999, Status::Published);
     }
 
     /**
@@ -284,7 +284,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleTargets(): void
     {
         $targets = $this->handler->loadRuleTargets(
-            $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
+            $this->handler->loadRule(1, Status::Published),
         );
 
         self::assertNotEmpty($targets);
@@ -298,7 +298,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testGetRuleTargetCount(): void
     {
         $targets = $this->handler->getRuleTargetCount(
-            $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
+            $this->handler->loadRule(1, Status::Published),
         );
 
         self::assertSame(2, $targets);
@@ -311,14 +311,14 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRuleCondition(): void
     {
-        $condition = $this->handler->loadRuleCondition(1, Value::STATUS_PUBLISHED);
+        $condition = $this->handler->loadRuleCondition(1, Status::Published);
 
         self::assertSame(
             [
                 'id' => 1,
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'route_parameter',
                 'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'value' => [
@@ -339,7 +339,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "999"');
 
-        $this->handler->loadRuleCondition(999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleCondition(999, Status::Published);
     }
 
     /**
@@ -349,14 +349,14 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testLoadRuleGroupCondition(): void
     {
-        $condition = $this->handler->loadRuleGroupCondition(5, Value::STATUS_PUBLISHED);
+        $condition = $this->handler->loadRuleGroupCondition(5, Status::Published);
 
         self::assertSame(
             [
                 'id' => 5,
                 'ruleGroupId' => 2,
                 'ruleGroupUuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'condition1',
                 'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
                 'value' => [
@@ -376,7 +376,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "999"');
 
-        $this->handler->loadRuleGroupCondition(999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleGroupCondition(999, Status::Published);
     }
 
     /**
@@ -386,7 +386,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleConditions(): void
     {
         $conditions = $this->handler->loadRuleConditions(
-            $this->handler->loadRule(2, Value::STATUS_PUBLISHED),
+            $this->handler->loadRule(2, Status::Published),
         );
 
         self::assertNotEmpty($conditions);
@@ -400,7 +400,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleGroupConditions(): void
     {
         $conditions = $this->handler->loadRuleGroupConditions(
-            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(2, Status::Published),
         );
 
         self::assertNotEmpty($conditions);
@@ -413,7 +413,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleExists(): void
     {
-        self::assertTrue($this->handler->ruleExists(1, Value::STATUS_PUBLISHED));
+        self::assertTrue($this->handler->ruleExists(1, Status::Published));
     }
 
     /**
@@ -422,7 +422,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExists(): void
     {
-        self::assertFalse($this->handler->ruleExists(999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->handler->ruleExists(999, Status::Published));
     }
 
     /**
@@ -431,7 +431,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExistsInStatus(): void
     {
-        self::assertFalse($this->handler->ruleExists(1, Value::STATUS_ARCHIVED));
+        self::assertFalse($this->handler->ruleExists(1, Status::Archived));
     }
 
     /**
@@ -448,9 +448,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleCreateStruct->priority = 5;
         $ruleCreateStruct->enabled = true;
         $ruleCreateStruct->description = 'My rule';
-        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleCreateStruct->status = Status::Draft;
 
-        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $createdRule = $this->withUuids(
             fn (): Rule => $this->handler->createRule($ruleCreateStruct, $ruleGroup),
@@ -464,7 +464,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(5, $createdRule->priority);
         self::assertTrue($createdRule->enabled);
         self::assertSame('My rule', $createdRule->description);
-        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
+        self::assertSame(Status::Draft, $createdRule->status);
     }
 
     /**
@@ -481,9 +481,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleCreateStruct->priority = 5;
         $ruleCreateStruct->enabled = true;
         $ruleCreateStruct->description = 'My rule';
-        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleCreateStruct->status = Status::Draft;
 
-        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $createdRule = $this->handler->createRule($ruleCreateStruct, $ruleGroup);
 
@@ -494,7 +494,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(5, $createdRule->priority);
         self::assertTrue($createdRule->enabled);
         self::assertSame('My rule', $createdRule->description);
-        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
+        self::assertSame(Status::Draft, $createdRule->status);
     }
 
     /**
@@ -508,7 +508,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule with provided UUID already exists.');
 
-        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $ruleCreateStruct = new RuleCreateStruct();
         $ruleCreateStruct->uuid = '26768324-03dd-5952-8a55-4b449d6cd634';
@@ -516,7 +516,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleCreateStruct->priority = 5;
         $ruleCreateStruct->enabled = true;
         $ruleCreateStruct->description = 'My rule';
-        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleCreateStruct->status = Status::Draft;
 
         $this->handler->createRule($ruleCreateStruct, $ruleGroup);
     }
@@ -535,9 +535,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleCreateStruct->priority = null;
         $ruleCreateStruct->enabled = false;
         $ruleCreateStruct->description = '';
-        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleCreateStruct->status = Status::Draft;
 
-        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $createdRule = $this->withUuids(
             fn (): Rule => $this->handler->createRule($ruleCreateStruct, $ruleGroup),
@@ -551,7 +551,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(-11, $createdRule->priority);
         self::assertFalse($createdRule->enabled);
         self::assertSame('', $createdRule->description);
-        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
+        self::assertSame(Status::Draft, $createdRule->status);
     }
 
     /**
@@ -564,7 +564,7 @@ final class LayoutResolverHandlerTest extends TestCase
     {
         // First delete all rules
         $rules = $this->handler->loadRulesFromGroup(
-            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published),
         );
 
         foreach ($rules as $rule) {
@@ -577,14 +577,14 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleCreateStruct->priority = null;
         $ruleCreateStruct->enabled = false;
         $ruleCreateStruct->description = '';
-        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleCreateStruct->status = Status::Draft;
 
-        $ruleGroup = $this->handler->loadRuleGroup('eb6311eb-24f6-4143-b476-99979a885a7e', Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup('eb6311eb-24f6-4143-b476-99979a885a7e', Status::Published);
 
         $createdRule = $this->handler->createRule($ruleCreateStruct, $ruleGroup);
 
         self::assertSame(0, $createdRule->priority);
-        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
+        self::assertSame(Status::Draft, $createdRule->status);
     }
 
     /**
@@ -598,7 +598,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleUpdateStruct->description = 'New description';
 
         $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+            $this->handler->loadRule(3, Status::Published),
             $ruleUpdateStruct,
         );
 
@@ -607,7 +607,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(2, $updatedRule->ruleGroupId);
         self::assertSame('7900306c-0351-5f0a-9b33-5d4f5a1f3943', $updatedRule->layoutUuid);
         self::assertSame('New description', $updatedRule->description);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(Status::Published, $updatedRule->status);
     }
 
     /**
@@ -620,7 +620,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleUpdateStruct->layoutId = false;
 
         $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+            $this->handler->loadRule(3, Status::Published),
             $ruleUpdateStruct,
         );
 
@@ -628,7 +628,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $updatedRule->uuid);
         self::assertSame(2, $updatedRule->ruleGroupId);
         self::assertNull($updatedRule->layoutUuid);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(Status::Published, $updatedRule->status);
     }
 
     /**
@@ -637,7 +637,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testUpdateRuleWithDefaultValues(): void
     {
-        $rule = $this->handler->loadRule(3, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRule(3, Status::Published);
         $ruleUpdateStruct = new RuleUpdateStruct();
 
         $updatedRule = $this->handler->updateRule($rule, $ruleUpdateStruct);
@@ -647,7 +647,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($rule->ruleGroupId, $updatedRule->ruleGroupId);
         self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $updatedRule->layoutUuid);
         self::assertSame($rule->description, $updatedRule->description);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(Status::Published, $updatedRule->status);
     }
 
     /**
@@ -657,7 +657,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testUpdateRuleMetadata(): void
     {
         $updatedRule = $this->handler->updateRuleMetadata(
-            $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
+            $this->handler->loadRule(5, Status::Published),
             RuleMetadataUpdateStruct::fromArray(
                 [
                     'enabled' => false,
@@ -668,7 +668,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(50, $updatedRule->priority);
         self::assertFalse($updatedRule->enabled);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(Status::Published, $updatedRule->status);
     }
 
     /**
@@ -678,13 +678,13 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testUpdateRuleMetadataWithDefaultValues(): void
     {
         $updatedRule = $this->handler->updateRuleMetadata(
-            $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
+            $this->handler->loadRule(5, Status::Published),
             new RuleMetadataUpdateStruct(),
         );
 
         self::assertSame(5, $updatedRule->priority);
         self::assertTrue($updatedRule->enabled);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
+        self::assertSame(Status::Published, $updatedRule->status);
     }
 
     /**
@@ -699,8 +699,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCopyRule(): void
     {
-        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRule(5, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(1, Status::Published);
 
         $copiedRule = $this->withUuids(
             fn (): Rule => $this->handler->copyRule($rule, $targetGroup),
@@ -727,7 +727,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 21,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
                     'value' => 'my_second_cool_',
@@ -736,7 +736,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 22,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
                     'value' => 'my_third_cool_',
@@ -753,7 +753,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 7,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
                     'value' => ['some_value'],
@@ -777,8 +777,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCopyRuleToOtherGroup(): void
     {
-        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRule(5, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(2, Status::Published);
 
         $copiedRule = $this->withUuids(
             fn (): Rule => $this->handler->copyRule($rule, $targetGroup),
@@ -805,7 +805,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 21,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
                     'value' => 'my_second_cool_',
@@ -814,7 +814,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 22,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
                     'value' => 'my_third_cool_',
@@ -831,7 +831,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 7,
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
                     'value' => ['some_value'],
@@ -849,8 +849,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testMoveRule(): void
     {
-        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRule(5, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(4, Status::Published);
 
         $movedRule = $this->handler->moveRule($rule, $targetGroup);
 
@@ -869,7 +869,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 9,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
                     'value' => 'my_second_cool_',
@@ -878,7 +878,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 10,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
                     'value' => 'my_third_cool_',
@@ -895,7 +895,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 4,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
                     'value' => ['some_value'],
@@ -913,8 +913,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testMoveRuleWithSpecifiedPriority(): void
     {
-        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRule(5, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(4, Status::Published);
 
         $movedRule = $this->handler->moveRule($rule, $targetGroup, 42);
 
@@ -933,7 +933,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 9,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
                     'value' => 'my_second_cool_',
@@ -942,7 +942,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 10,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'route_prefix',
                     'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
                     'value' => 'my_third_cool_',
@@ -959,7 +959,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 4,
                     'ruleId' => $movedRule->id,
                     'ruleUuid' => $movedRule->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
                     'value' => ['some_value'],
@@ -979,8 +979,8 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Rule is already in specified target group.');
 
-        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+        $rule = $this->handler->loadRule(5, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(1, Status::Published);
 
         $this->handler->moveRule($rule, $targetGroup);
     }
@@ -997,8 +997,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCreateRuleStatus(): void
     {
-        $rule = $this->handler->loadRule(3, Value::STATUS_PUBLISHED);
-        $copiedRule = $this->handler->createRuleStatus($rule, Value::STATUS_ARCHIVED);
+        $rule = $this->handler->loadRule(3, Status::Published);
+        $copiedRule = $this->handler->createRuleStatus($rule, Status::Archived);
 
         self::assertSame($rule->id, $copiedRule->id);
         self::assertSame($rule->uuid, $copiedRule->uuid);
@@ -1007,7 +1007,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($rule->priority, $copiedRule->priority);
         self::assertSame($rule->enabled, $copiedRule->enabled);
         self::assertSame($rule->description, $copiedRule->description);
-        self::assertSame(Value::STATUS_ARCHIVED, $copiedRule->status);
+        self::assertSame(Status::Archived, $copiedRule->status);
 
         self::assertSame(
             [
@@ -1015,7 +1015,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 5,
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'type' => 'route',
                     'uuid' => '445e885e-1ad5-584b-b51b-263fb66805c2',
                     'value' => 'my_fourth_cool_route',
@@ -1024,7 +1024,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 6,
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'type' => 'route',
                     'uuid' => 'feee231e-4fee-514a-a938-a2769036c07b',
                     'value' => 'my_fifth_cool_route',
@@ -1041,7 +1041,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 2,
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'type' => 'route_parameter',
                     'uuid' => '9a6c8459-5fda-5d4b-b06e-06f637ab6e01',
                     'value' => [
@@ -1053,7 +1053,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 3,
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'type' => 'route_parameter',
                     'uuid' => 'dd49afcd-aab0-5970-b7b8-413238faf539',
                     'value' => [
@@ -1082,7 +1082,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->handler->deleteRule(3);
 
-        $this->handler->loadRule(3, Value::STATUS_PUBLISHED);
+        $this->handler->loadRule(3, Status::Published);
     }
 
     /**
@@ -1097,16 +1097,16 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule with identifier "5"');
 
-        $this->handler->deleteRule(5, Value::STATUS_DRAFT);
+        $this->handler->deleteRule(5, Status::Draft);
 
         // First, verify that NOT all rule statuses are deleted
         try {
-            $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
+            $this->handler->loadRule(5, Status::Published);
         } catch (NotFoundException $e) {
             self::fail('Deleting the rule in draft status deleted other/all statuses.');
         }
 
-        $this->handler->loadRule(5, Value::STATUS_DRAFT);
+        $this->handler->loadRule(5, Status::Draft);
     }
 
     /**
@@ -1115,7 +1115,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleGroupExists(): void
     {
-        self::assertTrue($this->handler->ruleGroupExists(1, Value::STATUS_PUBLISHED));
+        self::assertTrue($this->handler->ruleGroupExists(1, Status::Published));
     }
 
     /**
@@ -1124,7 +1124,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleGroupNotExists(): void
     {
-        self::assertFalse($this->handler->ruleGroupExists(999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->handler->ruleGroupExists(999, Status::Published));
     }
 
     /**
@@ -1133,7 +1133,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleGroupNotExistsInStatus(): void
     {
-        self::assertFalse($this->handler->ruleGroupExists(1, Value::STATUS_ARCHIVED));
+        self::assertFalse($this->handler->ruleGroupExists(1, Status::Archived));
     }
 
     /**
@@ -1150,9 +1150,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleGroupCreateStruct->status = Status::Draft;
 
-        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $createdRuleGroup = $this->withUuids(
             fn (): RuleGroup => $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup),
@@ -1169,7 +1169,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame('My rule group', $createdRuleGroup->description);
         self::assertSame(5, $createdRuleGroup->priority);
         self::assertTrue($createdRuleGroup->enabled);
-        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+        self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
     /**
@@ -1186,9 +1186,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleGroupCreateStruct->status = Status::Draft;
 
-        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $createdRuleGroup = $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup);
 
@@ -1202,7 +1202,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame('My rule group', $createdRuleGroup->description);
         self::assertSame(5, $createdRuleGroup->priority);
         self::assertTrue($createdRuleGroup->enabled);
-        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+        self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
     /**
@@ -1219,9 +1219,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct->description = '';
         $ruleGroupCreateStruct->priority = null;
         $ruleGroupCreateStruct->enabled = false;
-        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleGroupCreateStruct->status = Status::Draft;
 
-        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $createdRuleGroup = $this->withUuids(
             fn (): RuleGroup => $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup),
@@ -1238,7 +1238,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame('', $createdRuleGroup->description);
         self::assertSame(-11, $createdRuleGroup->priority);
         self::assertFalse($createdRuleGroup->enabled);
-        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+        self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
     /**
@@ -1255,14 +1255,14 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct->description = '';
         $ruleGroupCreateStruct->priority = null;
         $ruleGroupCreateStruct->enabled = false;
-        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleGroupCreateStruct->status = Status::Draft;
 
-        $ruleGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(3, Status::Published);
 
         $createdRuleGroup = $this->handler->createRuleGroup($ruleGroupCreateStruct, $ruleGroup);
 
         self::assertSame(0, $createdRuleGroup->priority);
-        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+        self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
     /**
@@ -1281,7 +1281,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleGroupCreateStruct->status = Status::Draft;
 
         $this->handler->createRuleGroup($ruleGroupCreateStruct);
     }
@@ -1297,7 +1297,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule group with provided UUID already exists.');
 
-        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Status::Published);
 
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
         $ruleGroupCreateStruct->uuid = 'b4f85f38-de3f-4af7-9a5f-21df63a49da9';
@@ -1305,7 +1305,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+        $ruleGroupCreateStruct->status = Status::Draft;
 
         $this->handler->createRuleGroup($ruleGroupCreateStruct, $ruleGroup);
     }
@@ -1321,7 +1321,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupUpdateStruct->description = 'New description';
 
         $updatedRuleGroup = $this->handler->updateRuleGroup(
-            $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(3, Status::Published),
             $ruleGroupUpdateStruct,
         );
 
@@ -1329,7 +1329,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame('eb6311eb-24f6-4143-b476-99979a885a7e', $updatedRuleGroup->uuid);
         self::assertSame('New name', $updatedRuleGroup->name);
         self::assertSame('New description', $updatedRuleGroup->description);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+        self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
     /**
@@ -1338,7 +1338,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testUpdateRuleGroupWithDefaultValues(): void
     {
-        $ruleGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(3, Status::Published);
         $ruleGroupUpdateStruct = new RuleGroupUpdateStruct();
 
         $updatedRuleGroup = $this->handler->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
@@ -1347,7 +1347,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame('eb6311eb-24f6-4143-b476-99979a885a7e', $updatedRuleGroup->uuid);
         self::assertSame($ruleGroup->name, $updatedRuleGroup->name);
         self::assertSame($ruleGroup->description, $updatedRuleGroup->description);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+        self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
     /**
@@ -1357,7 +1357,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testUpdateRuleGroupMetadata(): void
     {
         $updatedRuleGroup = $this->handler->updateRuleGroupMetadata(
-            $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(3, Status::Published),
             RuleGroupMetadataUpdateStruct::fromArray(
                 [
                     'enabled' => false,
@@ -1368,7 +1368,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(50, $updatedRuleGroup->priority);
         self::assertFalse($updatedRuleGroup->enabled);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+        self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
     /**
@@ -1378,13 +1378,13 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testUpdateRuleGroupMetadataWithDefaultValues(): void
     {
         $updatedRuleGroup = $this->handler->updateRuleGroupMetadata(
-            $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleGroup(3, Status::Published),
             new RuleGroupMetadataUpdateStruct(),
         );
 
         self::assertSame(2, $updatedRuleGroup->priority);
         self::assertFalse($updatedRuleGroup->enabled);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+        self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
     /**
@@ -1398,8 +1398,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCopyRuleGroup(): void
     {
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(1, Status::Published);
 
         $copiedRuleGroup = $this->withUuids(
             fn (): RuleGroup => $this->handler->copyRuleGroup($ruleGroup, $targetGroup),
@@ -1428,7 +1428,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 7,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
                     'value' => ['some_other_value'],
@@ -1437,7 +1437,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 8,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
                     'value' => ['some_third_value'],
@@ -1460,8 +1460,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCopyRuleGroupWithChildren(): void
     {
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(1, Status::Published);
 
         $copiedRuleGroup = $this->withUuids(
             fn (): RuleGroup => $this->handler->copyRuleGroup($ruleGroup, $targetGroup, true),
@@ -1502,7 +1502,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 7,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
                     'value' => ['some_other_value'],
@@ -1511,7 +1511,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 8,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
                     'value' => ['some_third_value'],
@@ -1524,7 +1524,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(1, $this->handler->getRuleGroupCount($copiedRuleGroup));
 
-        $copiedSubGroup = $this->handler->loadRuleGroup('ce747405-4641-436a-8fe2-7969354e6452', Value::STATUS_PUBLISHED);
+        $copiedSubGroup = $this->handler->loadRuleGroup('ce747405-4641-436a-8fe2-7969354e6452', Status::Published);
 
         self::assertSame(2, $this->handler->getRuleCountFromGroup($copiedRuleGroup));
         self::assertSame(1, $this->handler->getRuleCountFromGroup($copiedSubGroup));
@@ -1538,8 +1538,8 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Rule group cannot be copied below itself or its children.');
 
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(4, Status::Published);
 
         $this->handler->copyRuleGroup($ruleGroup, $targetGroup);
     }
@@ -1550,8 +1550,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testMoveRuleGroup(): void
     {
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(3, Status::Published);
 
         $movedRuleGroup = $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
 
@@ -1573,7 +1573,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 5,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
                     'value' => ['some_other_value'],
@@ -1582,7 +1582,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 6,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
                     'value' => ['some_third_value'],
@@ -1600,8 +1600,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testMoveRuleGroupWithPriority(): void
     {
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(3, Status::Published);
 
         $movedRuleGroup = $this->handler->moveRuleGroup($ruleGroup, $targetGroup, 42);
 
@@ -1623,7 +1623,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 5,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
                     'value' => ['some_other_value'],
@@ -1632,7 +1632,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 6,
                     'ruleGroupId' => $movedRuleGroup->id,
                     'ruleGroupUuid' => $movedRuleGroup->uuid,
-                    'status' => Value::STATUS_PUBLISHED,
+                    'status' => Status::Published,
                     'type' => 'condition1',
                     'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
                     'value' => ['some_third_value'],
@@ -1652,8 +1652,8 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Rule group is already in specified target group.');
 
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(1, Status::Published);
 
         $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
     }
@@ -1666,8 +1666,8 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Rule group cannot be moved below itself or its children.');
 
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $targetGroup = $this->handler->loadRuleGroup(4, Status::Published);
 
         $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
     }
@@ -1683,8 +1683,8 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testCreateRuleGroupStatus(): void
     {
-        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
-        $copiedRuleGroup = $this->handler->createRuleGroupStatus($ruleGroup, Value::STATUS_ARCHIVED);
+        $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
+        $copiedRuleGroup = $this->handler->createRuleGroupStatus($ruleGroup, Status::Archived);
 
         self::assertSame($ruleGroup->id, $copiedRuleGroup->id);
         self::assertSame($ruleGroup->uuid, $copiedRuleGroup->uuid);
@@ -1696,7 +1696,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($ruleGroup->description, $copiedRuleGroup->description);
         self::assertSame($ruleGroup->priority, $copiedRuleGroup->priority);
         self::assertSame($ruleGroup->enabled, $copiedRuleGroup->enabled);
-        self::assertSame(Value::STATUS_ARCHIVED, $copiedRuleGroup->status);
+        self::assertSame(Status::Archived, $copiedRuleGroup->status);
 
         self::assertSame(
             [
@@ -1704,7 +1704,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 5,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'type' => 'condition1',
                     'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
                     'value' => [
@@ -1715,7 +1715,7 @@ final class LayoutResolverHandlerTest extends TestCase
                     'id' => 6,
                     'ruleGroupId' => $copiedRuleGroup->id,
                     'ruleGroupUuid' => $copiedRuleGroup->uuid,
-                    'status' => Value::STATUS_ARCHIVED,
+                    'status' => Status::Archived,
                     'type' => 'condition1',
                     'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
                     'value' => [
@@ -1747,7 +1747,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $this->handler->deleteRuleGroup(2);
 
-        $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleGroup(2, Status::Published);
     }
 
     /**
@@ -1766,16 +1766,16 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule group with identifier "2"');
 
-        $this->handler->deleteRuleGroup(2, Value::STATUS_DRAFT);
+        $this->handler->deleteRuleGroup(2, Status::Draft);
 
         // First, verify that NOT all rule group statuses are deleted
         try {
-            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+            $this->handler->loadRuleGroup(2, Status::Published);
         } catch (NotFoundException $e) {
             self::fail('Deleting the rule group in draft status deleted other/all statuses.');
         }
 
-        $this->handler->loadRuleGroup(2, Value::STATUS_DRAFT);
+        $this->handler->loadRuleGroup(2, Status::Draft);
     }
 
     /**
@@ -1790,7 +1790,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $target = $this->withUuids(
             fn (): Target => $this->handler->addTarget(
-                $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
+                $this->handler->loadRule(1, Status::Published),
                 $targetCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -1801,7 +1801,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'id' => 21,
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'target',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
@@ -1820,7 +1820,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetUpdateStruct->value = 'my_new_route';
 
         $target = $this->handler->updateTarget(
-            $this->handler->loadTarget(1, Value::STATUS_PUBLISHED),
+            $this->handler->loadTarget(1, Status::Published),
             $targetUpdateStruct,
         );
 
@@ -1829,7 +1829,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'id' => 1,
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'route',
                 'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
                 'value' => 'my_new_route',
@@ -1847,11 +1847,11 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find target with identifier "2"');
 
-        $target = $this->handler->loadTarget(2, Value::STATUS_PUBLISHED);
+        $target = $this->handler->loadTarget(2, Status::Published);
 
         $this->handler->deleteTarget($target);
 
-        $this->handler->loadTarget(2, Value::STATUS_PUBLISHED);
+        $this->handler->loadTarget(2, Status::Published);
     }
 
     /**
@@ -1867,7 +1867,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $condition = $this->withUuids(
             fn (): RuleCondition => $this->handler->addRuleCondition(
-                $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+                $this->handler->loadRule(3, Status::Published),
                 $conditionCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -1878,7 +1878,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'id' => 7,
                 'ruleId' => 3,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'condition',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => ['param' => 'value'],
@@ -1900,7 +1900,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $condition = $this->withUuids(
             fn (): RuleGroupCondition => $this->handler->addRuleGroupCondition(
-                $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+                $this->handler->loadRuleGroup(3, Status::Published),
                 $conditionCreateStruct,
             ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -1911,7 +1911,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'id' => 7,
                 'ruleGroupId' => 3,
                 'ruleGroupUuid' => 'eb6311eb-24f6-4143-b476-99979a885a7e',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'condition',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => ['param' => 'value'],
@@ -1930,7 +1930,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $conditionUpdateStruct->value = ['new_param' => 'new_value'];
 
         $condition = $this->handler->updateCondition(
-            $this->handler->loadRuleCondition(1, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleCondition(1, Status::Published),
             $conditionUpdateStruct,
         );
 
@@ -1939,7 +1939,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'id' => 1,
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'type' => 'route_parameter',
                 'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'value' => ['new_param' => 'new_value'],
@@ -1958,9 +1958,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find condition with identifier "2"');
 
         $this->handler->deleteCondition(
-            $this->handler->loadRuleCondition(2, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleCondition(2, Status::Published),
         );
 
-        $this->handler->loadRuleCondition(2, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleCondition(2, Status::Published);
     }
 }

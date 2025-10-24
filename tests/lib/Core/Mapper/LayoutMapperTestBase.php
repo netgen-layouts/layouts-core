@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Core\Mapper\LayoutMapper;
 use Netgen\Layouts\Layout\Type\NullLayoutType;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class LayoutMapperTestBase extends CoreTestCase
@@ -34,7 +34,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'rootBlockId' => 3,
                 'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'right',
@@ -62,7 +62,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'rootBlockId' => 3,
                 'linkedLayoutUuid' => null,
                 'linkedZoneIdentifier' => null,
@@ -87,7 +87,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'rootBlockId' => 3,
                 'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'unknown',
@@ -116,7 +116,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
                 'description' => 'My description',
                 'created' => 1_447_065_813,
                 'modified' => 1_447_065_813,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'shared' => true,
@@ -154,7 +154,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
                 'description' => 'My description',
                 'created' => 1_447_065_813,
                 'modified' => 1_447_065_813,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'shared' => true,

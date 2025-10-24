@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\Layouts\Persistence\Values\Block\Block;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -71,7 +71,7 @@ final class BlockMapperTest extends TestCase
                 'locale' => 'en',
                 'main_locale' => 'en',
                 'always_available' => true,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published->value,
                 'layout_uuid' => '63e2737f-c31f-594a-bd46-2172f117f650',
             ],
         ];
@@ -102,7 +102,7 @@ final class BlockMapperTest extends TestCase
                 'path' => '/22/42/',
                 'placeholder' => 'root',
                 'position' => 4,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'viewType' => 'default',
             ],
@@ -131,7 +131,7 @@ final class BlockMapperTest extends TestCase
                 'path' => '/23/84/',
                 'placeholder' => 'root',
                 'position' => 3,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'viewType' => 'small',
             ],
@@ -201,7 +201,7 @@ final class BlockMapperTest extends TestCase
                 'path' => '/22/42/',
                 'placeholder' => 'root',
                 'position' => 4,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'uuid' => '01f0c14e-2e15-54a1-8b41-58a3a8a9a917',
                 'viewType' => 'default',
             ],

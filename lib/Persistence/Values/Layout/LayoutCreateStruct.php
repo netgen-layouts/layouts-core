@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Values\Layout;
 
+use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Utils\HydratorTrait;
 
 final class LayoutCreateStruct
@@ -32,9 +33,9 @@ final class LayoutCreateStruct
     public string $description;
 
     /**
-     * Status of the new layout. One of self::STATUS_* flags.
+     * Status of the new layout.
      */
-    public int $status;
+    public Status $status;
 
     /**
      * Flag indicating if the layout will be shared.

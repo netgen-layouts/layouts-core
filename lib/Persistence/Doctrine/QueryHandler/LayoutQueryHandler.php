@@ -9,7 +9,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function array_column;
 use function array_map;
@@ -25,7 +25,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadLayoutData($layoutId, int $status): array
+    public function loadLayoutData($layoutId, Status $status): array
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -80,7 +80,7 @@ final class LayoutQueryHandler extends QueryHandler
             $query->setParameter('shared', $shared, Types::BOOLEAN);
         }
 
-        $query->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER);
+        $query->setParameter('status', Status::Published->value, Types::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('l.name', 'ASC');
@@ -133,7 +133,7 @@ final class LayoutQueryHandler extends QueryHandler
             $query->setParameter('shared', $shared, Types::BOOLEAN);
         }
 
-        $query->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER);
+        $query->setParameter('status', Status::Published->value, Types::INTEGER);
 
         $data = $query->execute()->fetchAllAssociative();
 
@@ -179,7 +179,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query->andWhere($statusExpr);
 
         $query->setParameter('layout_ids', $layoutIds, Connection::PARAM_INT_ARRAY);
-        $query->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER);
+        $query->setParameter('status', Status::Published->value, Types::INTEGER);
 
         $query->orderBy('l.name', 'ASC');
 
@@ -212,7 +212,7 @@ final class LayoutQueryHandler extends QueryHandler
             ),
         )
         ->setParameter('shared', false, Types::BOOLEAN)
-        ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
+        ->setParameter('status', Status::Published->value, Types::INTEGER)
         ->setParameter('linked_layout_uuid', $sharedLayout->uuid, Types::STRING);
 
         $query->orderBy('l.name', 'ASC');
@@ -245,7 +245,7 @@ final class LayoutQueryHandler extends QueryHandler
                 ),
             )
             ->setParameter('shared', false, Types::BOOLEAN)
-            ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
+            ->setParameter('status', Status::Published->value, Types::INTEGER)
             ->setParameter('linked_layout_uuid', $sharedLayout->uuid, Types::STRING);
 
         $data = $query->execute()->fetchAllAssociative();
@@ -260,7 +260,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadZoneData($layoutId, int $status, string $identifier): array
+    public function loadZoneData($layoutId, Status $status, string $identifier): array
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
@@ -298,7 +298,7 @@ final class LayoutQueryHandler extends QueryHandler
      *
      * @param int|string $layoutId
      */
-    public function layoutExists($layoutId, ?int $status = null): bool
+    public function layoutExists($layoutId, ?Status $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -373,7 +373,7 @@ final class LayoutQueryHandler extends QueryHandler
                 ],
             )
             ->setValue('id', $layout->id ?? $this->connectionHelper->nextId('nglayouts_layout'))
-            ->setParameter('status', $layout->status, Types::INTEGER)
+            ->setParameter('status', $layout->status->value, Types::INTEGER)
             ->setParameter('uuid', $layout->uuid, Types::STRING)
             ->setParameter('type', $layout->type, Types::STRING)
             ->setParameter('name', $layout->name, Types::STRING)
@@ -405,7 +405,7 @@ final class LayoutQueryHandler extends QueryHandler
                 ],
             )
             ->setParameter('layout_id', $layout->id, Types::INTEGER)
-            ->setParameter('status', $layout->status, Types::INTEGER)
+            ->setParameter('status', $layout->status->value, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING);
 
         $query->execute();
@@ -430,7 +430,7 @@ final class LayoutQueryHandler extends QueryHandler
             )
             ->setParameter('identifier', $zone->identifier, Types::STRING)
             ->setParameter('layout_id', $zone->layoutId, Types::INTEGER)
-            ->setParameter('status', $zone->status, Types::INTEGER)
+            ->setParameter('status', $zone->status->value, Types::INTEGER)
             ->setParameter('root_block_id', $zone->rootBlockId, Types::INTEGER)
             ->setParameter('linked_layout_uuid', $zone->linkedLayoutUuid, Types::STRING)
             ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Types::STRING);
@@ -503,7 +503,7 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Deletes all layout zones.
      */
-    public function deleteLayoutZones(int $layoutId, ?int $status = null): void
+    public function deleteLayoutZones(int $layoutId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_zone')
@@ -522,7 +522,7 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Deletes the layout.
      */
-    public function deleteLayout(int $layoutId, ?int $status = null): void
+    public function deleteLayout(int $layoutId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_layout')
@@ -541,7 +541,7 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Deletes the zone.
      */
-    public function deleteZone(int $layoutId, string $zoneIdentifier, ?int $status = null): void
+    public function deleteZone(int $layoutId, string $zoneIdentifier, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_zone')
@@ -564,7 +564,7 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Deletes layout translations.
      */
-    public function deleteLayoutTranslations(int $layoutId, ?int $status = null, ?string $locale = null): void
+    public function deleteLayoutTranslations(int $layoutId, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 

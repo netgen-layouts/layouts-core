@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function array_map;
 use function array_values;
@@ -36,7 +37,7 @@ final class LayoutMapper
                 'description' => $dataItem['description'],
                 'created' => (int) $dataItem['created'],
                 'modified' => (int) $dataItem['modified'],
-                'status' => (int) $dataItem['status'],
+                'status' => Status::from((int) $dataItem['status']),
                 'shared' => (bool) $dataItem['shared'],
                 'mainLocale' => $dataItem['main_locale'],
                 'availableLocales' => [],
@@ -74,7 +75,7 @@ final class LayoutMapper
                     'identifier' => $dataItem['identifier'],
                     'layoutId' => (int) $dataItem['layout_id'],
                     'layoutUuid' => $dataItem['layout_uuid'],
-                    'status' => (int) $dataItem['status'],
+                    'status' => Status::from((int) $dataItem['status']),
                     'rootBlockId' => (int) $dataItem['root_block_id'],
                     'linkedLayoutUuid' => $dataItem['linked_layout_uuid'],
                     'linkedZoneIdentifier' => $dataItem['linked_zone_identifier'],

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Mapper;
 
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\NullBlockDefinition;
 use Netgen\Layouts\Core\Mapper\BlockMapper;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Ramsey\Uuid\UuidInterface;
 
@@ -48,7 +48,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => [
                     'en' => [
                         'css_class' => 'test',
@@ -124,7 +124,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => ['en' => []],
                 'config' => [],
             ],
@@ -162,7 +162,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
             ],
@@ -199,7 +199,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
             ],
@@ -236,7 +236,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
             ],
@@ -276,7 +276,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
             ],
@@ -337,7 +337,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => [
                     'en' => [
                         'css_class' => 'test',
@@ -395,7 +395,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'itemViewType' => 'standard',
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'two_columns',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'name' => 'My block',
                 'depth' => 1,
                 'position' => 3,
@@ -455,7 +455,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'parameters' => [
                     'en' => [
                         'css_class' => 'test',

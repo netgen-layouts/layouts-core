@@ -14,6 +14,7 @@ use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Ramsey\Uuid\Uuid;
 
 final class LayoutServiceTest extends TestCase
@@ -175,7 +176,7 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => PersistenceStatus::Draft]));
 
         $this->layoutHandler
             ->method('layoutNameExists')
@@ -345,15 +346,15 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_ARCHIVED]));
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => PersistenceStatus::Archived]));
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_PUBLISHED]));
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => PersistenceStatus::Published]));
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => PersistenceStatus::Draft]));
 
         $this->layoutHandler
             ->method('deleteLayout')

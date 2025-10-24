@@ -16,7 +16,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use Psr\Container\ContainerInterface;
 
 use function array_column;
@@ -47,7 +47,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadRuleData($ruleId, int $status): array
+    public function loadRuleData($ruleId, Status $status): array
     {
         $query = $this->getRuleSelectQuery();
 
@@ -81,7 +81,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns the number of rules mapped to provided layout.
      */
-    public function getRuleCountForLayout(int $ruleStatus, Layout $layout): int
+    public function getRuleCountForLayout(Status $ruleStatus, Layout $layout): int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -173,7 +173,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('enabled', true, Types::BOOLEAN)
             ->addOrderBy('rd.priority', 'DESC');
 
-        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'r.status');
+        $this->applyStatusCondition($query, Status::Published, 'r.status');
 
         $targetHandler = $this->getTargetHandler($targetType);
         $targetHandler->handleQuery($query, $targetValue);
@@ -188,7 +188,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadRuleGroupData($ruleGroupId, int $status): array
+    public function loadRuleGroupData($ruleGroupId, Status $status): array
     {
         $query = $this->getRuleGroupSelectQuery();
 
@@ -273,7 +273,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadTargetData($targetId, int $status): array
+    public function loadTargetData($targetId, Status $status): array
     {
         $query = $this->getTargetSelectQuery();
 
@@ -329,7 +329,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadRuleConditionData($conditionId, int $status): array
+    public function loadRuleConditionData($conditionId, Status $status): array
     {
         $query = $this->getRuleConditionSelectQuery();
 
@@ -365,7 +365,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadRuleGroupConditionData($conditionId, int $status): array
+    public function loadRuleGroupConditionData($conditionId, Status $status): array
     {
         $query = $this->getRuleGroupConditionSelectQuery();
 
@@ -399,7 +399,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int|string $ruleId
      */
-    public function ruleExists($ruleId, ?int $status = null): bool
+    public function ruleExists($ruleId, ?Status $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -421,7 +421,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int|string $ruleGroupId
      */
-    public function ruleGroupExists($ruleGroupId, ?int $status = null): bool
+    public function ruleGroupExists($ruleGroupId, ?Status $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -517,7 +517,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setValue('id', $rule->id ?? $this->connectionHelper->nextId('nglayouts_rule'))
             ->setParameter('uuid', $rule->uuid, Types::STRING)
-            ->setParameter('status', $rule->status, Types::INTEGER)
+            ->setParameter('status', $rule->status->value, Types::INTEGER)
             ->setParameter('rule_group_id', $rule->ruleGroupId, Types::INTEGER)
             ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
             ->setParameter('description', $rule->description, Types::STRING);
@@ -646,7 +646,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setValue('id', $ruleGroup->id ?? $this->connectionHelper->nextId('nglayouts_rule_group'))
             ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
-            ->setParameter('status', $ruleGroup->status, Types::INTEGER)
+            ->setParameter('status', $ruleGroup->status->value, Types::INTEGER)
             ->setParameter('depth', $ruleGroup->depth, Types::INTEGER)
             // Materialized path is updated after rule group is created
             ->setParameter('path', $ruleGroup->path, Types::STRING)
@@ -810,7 +810,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int[] $ruleIds
      */
-    public function deleteRuleTargets(array $ruleIds, ?int $status = null): void
+    public function deleteRuleTargets(array $ruleIds, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -832,7 +832,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int[] $ruleIds
      */
-    public function deleteRuleConditions(array $ruleIds, ?int $status = null): void
+    public function deleteRuleConditions(array $ruleIds, ?Status $status = null): void
     {
         $conditionIds = $this->loadRuleConditionIds($ruleIds);
 
@@ -872,7 +872,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Deletes a rule.
      */
-    public function deleteRule(int $ruleId, ?int $status = null): void
+    public function deleteRule(int $ruleId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_rule')
@@ -972,7 +972,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int[] $ruleGroupIds
      */
-    public function deleteRuleGroupConditions(array $ruleGroupIds, ?int $status = null): void
+    public function deleteRuleGroupConditions(array $ruleGroupIds, ?Status $status = null): void
     {
         $conditionIds = $this->loadRuleGroupConditionIds($ruleGroupIds);
 
@@ -1012,7 +1012,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Deletes a rule group.
      */
-    public function deleteRuleGroup(int $ruleGroupId, ?int $status = null): void
+    public function deleteRuleGroup(int $ruleGroupId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_rule_group')
@@ -1086,7 +1086,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setValue('id', $target->id ?? $this->connectionHelper->nextId('nglayouts_rule_target'))
             ->setParameter('uuid', $target->uuid, Types::STRING)
-            ->setParameter('status', $target->status, Types::INTEGER)
+            ->setParameter('status', $target->status->value, Types::INTEGER)
             ->setParameter('rule_id', $target->ruleId, Types::INTEGER)
             ->setParameter('type', $target->type, Types::STRING)
             ->setParameter('value', $target->value, is_array($target->value) ? Types::JSON : Types::STRING);
@@ -1127,7 +1127,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Deletes a target.
      */
-    public function deleteTarget(int $targetId, int $status): void
+    public function deleteTarget(int $targetId, Status $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -1161,9 +1161,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ],
             )
             ->setParameter('condition_id', $ruleCondition->id, Types::INTEGER)
-            ->setParameter('condition_status', $ruleCondition->status, Types::INTEGER)
+            ->setParameter('condition_status', $ruleCondition->status->value, Types::INTEGER)
             ->setParameter('rule_id', $ruleCondition->ruleId, Types::INTEGER)
-            ->setParameter('rule_status', $ruleCondition->status, Types::INTEGER);
+            ->setParameter('rule_status', $ruleCondition->status->value, Types::INTEGER);
 
         $query->execute();
 
@@ -1189,9 +1189,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ],
             )
             ->setParameter('condition_id', $ruleGroupCondition->id, Types::INTEGER)
-            ->setParameter('condition_status', $ruleGroupCondition->status, Types::INTEGER)
+            ->setParameter('condition_status', $ruleGroupCondition->status->value, Types::INTEGER)
             ->setParameter('rule_group_id', $ruleGroupCondition->ruleGroupId, Types::INTEGER)
-            ->setParameter('rule_group_status', $ruleGroupCondition->status, Types::INTEGER);
+            ->setParameter('rule_group_status', $ruleGroupCondition->status->value, Types::INTEGER);
 
         $query->execute();
 
@@ -1225,7 +1225,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Deletes a condition.
      */
-    public function deleteCondition(int $conditionId, int $status): void
+    public function deleteCondition(int $conditionId, Status $status): void
     {
         // Delete connection between condition and rule
 
@@ -1288,7 +1288,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setValue('id', $condition->id ?? $this->connectionHelper->nextId('nglayouts_rule_condition'))
             ->setParameter('uuid', $condition->uuid, Types::STRING)
-            ->setParameter('status', $condition->status, Types::INTEGER)
+            ->setParameter('status', $condition->status->value, Types::INTEGER)
             ->setParameter('type', $condition->type, Types::STRING)
             ->setParameter('value', json_encode($condition->value), Types::STRING);
 
@@ -1389,7 +1389,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'l',
                 $query->expr()->and(
                     $query->expr()->eq('r.layout_uuid', 'l.uuid'),
-                    $query->expr()->eq('l.status', Value::STATUS_PUBLISHED),
+                    $query->expr()->eq('l.status', Status::Published->value),
                 ),
             );
 

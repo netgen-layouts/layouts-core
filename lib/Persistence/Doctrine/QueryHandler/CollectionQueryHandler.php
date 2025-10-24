@@ -13,6 +13,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
+use Netgen\Layouts\Persistence\Values\Status;
 
 use function array_column;
 use function array_map;
@@ -26,7 +27,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadCollectionData($collectionId, int $status): array
+    public function loadCollectionData($collectionId, Status $status): array
     {
         $query = $this->getCollectionWithBlockSelectQuery();
 
@@ -86,7 +87,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadItemData($itemId, int $status): array
+    public function loadItemData($itemId, Status $status): array
     {
         $query = $this->getItemSelectQuery();
 
@@ -145,7 +146,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadQueryData($queryId, int $status): array
+    public function loadQueryData($queryId, Status $status): array
     {
         $query = $this->getQuerySelectQuery();
 
@@ -160,7 +161,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return int[]
      */
-    public function loadCollectionQueryIds(int $collectionId, ?int $status = null): array
+    public function loadCollectionQueryIds(int $collectionId, ?Status $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -204,7 +205,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadSlotData($slotId, int $status): array
+    public function loadSlotData($slotId, Status $status): array
     {
         $query = $this->getSlotSelectQuery();
 
@@ -239,7 +240,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @param int|string $collectionId
      */
-    public function collectionExists($collectionId, int $status): bool
+    public function collectionExists($collectionId, Status $status): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -274,7 +275,7 @@ final class CollectionQueryHandler extends QueryHandler
             )
             ->setValue('id', $collection->id ?? $this->connectionHelper->nextId('nglayouts_collection'))
             ->setParameter('uuid', $collection->uuid, Types::STRING)
-            ->setParameter('status', $collection->status, Types::INTEGER)
+            ->setParameter('status', $collection->status->value, Types::INTEGER)
             ->setParameter('start', $collection->offset, Types::INTEGER)
             ->setParameter('length', $collection->limit, Types::INTEGER)
             ->setParameter('translatable', $collection->isTranslatable, Types::BOOLEAN)
@@ -303,7 +304,7 @@ final class CollectionQueryHandler extends QueryHandler
                 ],
             )
             ->setParameter('collection_id', $collection->id, Types::INTEGER)
-            ->setParameter('status', $collection->status, Types::INTEGER)
+            ->setParameter('status', $collection->status->value, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING);
 
         $query->execute();
@@ -327,9 +328,9 @@ final class CollectionQueryHandler extends QueryHandler
                 ],
             )
             ->setParameter('block_id', $collectionReference->blockId, Types::INTEGER)
-            ->setParameter('block_status', $collectionReference->blockStatus, Types::INTEGER)
+            ->setParameter('block_status', $collectionReference->blockStatus->value, Types::INTEGER)
             ->setParameter('collection_id', $collectionReference->collectionId, Types::INTEGER)
-            ->setParameter('collection_status', $collectionReference->collectionStatus, Types::INTEGER)
+            ->setParameter('collection_status', $collectionReference->collectionStatus->value, Types::INTEGER)
             ->setParameter('identifier', $collectionReference->identifier, Types::STRING);
 
         $query->execute();
@@ -368,7 +369,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes a collection.
      */
-    public function deleteCollection(int $collectionId, ?int $status = null): void
+    public function deleteCollection(int $collectionId, ?Status $status = null): void
     {
         // Delete all connections between blocks and collections
 
@@ -405,7 +406,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes collection translations.
      */
-    public function deleteCollectionTranslations(int $collectionId, ?int $status = null, ?string $locale = null): void
+    public function deleteCollectionTranslations(int $collectionId, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -433,7 +434,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @param int[] $blockIds
      */
-    public function deleteCollectionReferences(array $blockIds, ?int $status = null): void
+    public function deleteCollectionReferences(array $blockIds, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -472,7 +473,7 @@ final class CollectionQueryHandler extends QueryHandler
             )
             ->setValue('id', $item->id ?? $this->connectionHelper->nextId('nglayouts_collection_item'))
             ->setParameter('uuid', $item->uuid, Types::STRING)
-            ->setParameter('status', $item->status, Types::INTEGER)
+            ->setParameter('status', $item->status->value, Types::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Types::INTEGER)
             ->setParameter('position', $item->position, Types::INTEGER)
             ->setParameter('value', $item->value, Types::STRING)
@@ -530,7 +531,7 @@ final class CollectionQueryHandler extends QueryHandler
             )
             ->setValue('id', $slot->id ?? $this->connectionHelper->nextId('nglayouts_collection_slot'))
             ->setParameter('uuid', $slot->uuid, Types::STRING)
-            ->setParameter('status', $slot->status, Types::INTEGER)
+            ->setParameter('status', $slot->status->value, Types::INTEGER)
             ->setParameter('collection_id', $slot->collectionId, Types::INTEGER)
             ->setParameter('position', $slot->position, Types::INTEGER)
             ->setParameter('view_type', $slot->viewType, Types::STRING);
@@ -605,7 +606,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes an item.
      */
-    public function deleteItem(int $itemId, int $status): void
+    public function deleteItem(int $itemId, Status $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -623,7 +624,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes all collection items.
      */
-    public function deleteCollectionItems(int $collectionId, ?int $status = null): void
+    public function deleteCollectionItems(int $collectionId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -643,7 +644,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes a slot.
      */
-    public function deleteSlot(int $slotId, int $status): void
+    public function deleteSlot(int $slotId, Status $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -661,7 +662,7 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Deletes all collection slots.
      */
-    public function deleteCollectionSlots(int $collectionId, ?int $status = null): void
+    public function deleteCollectionSlots(int $collectionId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -696,7 +697,7 @@ final class CollectionQueryHandler extends QueryHandler
             )
             ->setValue('id', $query->id ?? $this->connectionHelper->nextId('nglayouts_collection_query'))
             ->setParameter('uuid', $query->uuid, Types::STRING)
-            ->setParameter('status', $query->status, Types::INTEGER)
+            ->setParameter('status', $query->status->value, Types::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Types::INTEGER)
             ->setParameter('type', $query->type, Types::STRING);
 
@@ -723,7 +724,7 @@ final class CollectionQueryHandler extends QueryHandler
                 ],
             )
             ->setParameter('query_id', $query->id, Types::INTEGER)
-            ->setParameter('status', $query->status, Types::INTEGER)
+            ->setParameter('status', $query->status->value, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING)
             ->setParameter('parameters', $query->parameters[$locale], Types::JSON);
 
@@ -760,7 +761,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @param int[] $queryIds
      */
-    public function deleteQuery(array $queryIds, ?int $status = null): void
+    public function deleteQuery(array $queryIds, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -782,7 +783,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @param int[] $queryIds
      */
-    public function deleteQueryTranslations(array $queryIds, ?int $status = null, ?string $locale = null): void
+    public function deleteQueryTranslations(array $queryIds, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -812,7 +813,7 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * @return int[]
      */
-    public function loadBlockCollectionIds(array $blockIds, ?int $status = null): array
+    public function loadBlockCollectionIds(array $blockIds, ?Status $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT bc.collection_id')

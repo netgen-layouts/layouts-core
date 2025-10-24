@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\Collection;
 
 use Netgen\Layouts\Persistence\Values\Collection\Query;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class QueryTest extends TestCase
@@ -23,7 +23,7 @@ final class QueryTest extends TestCase
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'parameters' => ['en' => ['param' => 'value']],
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
@@ -37,7 +37,7 @@ final class QueryTest extends TestCase
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->collectionUuid);
         self::assertSame('my_query_type', $query->type);
         self::assertSame(['en' => ['param' => 'value']], $query->parameters);
-        self::assertSame(Value::STATUS_PUBLISHED, $query->status);
+        self::assertSame(Status::Published, $query->status);
         self::assertSame('en', $query->mainLocale);
         self::assertTrue($query->isTranslatable);
         self::assertTrue($query->alwaysAvailable);

@@ -25,7 +25,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition as Persistenc
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as PersistenceRuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Ramsey\Uuid\Uuid;
 
 use function array_map;
@@ -59,11 +59,11 @@ final class LayoutResolverMapper
     {
         $ruleData = [
             'id' => Uuid::fromString($rule->uuid),
-            'status' => $rule->status,
+            'status' => $rule->status->value,
             'ruleGroupId' => Uuid::fromString(
                 $this->layoutResolverHandler->loadRuleGroup(
                     $rule->ruleGroupId,
-                    Value::STATUS_PUBLISHED,
+                    PersistenceStatus::Published,
                 )->uuid,
             ),
             'layout' => function () use ($rule): ?Layout {
@@ -106,7 +106,7 @@ final class LayoutResolverMapper
             'parentId' => $ruleGroup->parentUuid !== null ?
                 Uuid::fromString($ruleGroup->parentUuid) :
                 null,
-            'status' => $ruleGroup->status,
+            'status' => $ruleGroup->status->value,
             'name' => $ruleGroup->name,
             'description' => $ruleGroup->description,
             'enabled' => $ruleGroup->enabled,
@@ -143,7 +143,7 @@ final class LayoutResolverMapper
 
         $targetData = [
             'id' => Uuid::fromString($target->uuid),
-            'status' => $target->status,
+            'status' => $target->status->value,
             'ruleId' => Uuid::fromString($target->ruleUuid),
             'targetType' => $targetType,
             'value' => $target->value,
@@ -167,7 +167,7 @@ final class LayoutResolverMapper
 
         $conditionData = [
             'id' => Uuid::fromString($condition->uuid),
-            'status' => $condition->status,
+            'status' => $condition->status->value,
             'ruleId' => Uuid::fromString($condition->ruleUuid),
             'conditionType' => $conditionType,
             'value' => $condition->value,
@@ -191,7 +191,7 @@ final class LayoutResolverMapper
 
         $conditionData = [
             'id' => Uuid::fromString($condition->uuid),
-            'status' => $condition->status,
+            'status' => $condition->status->value,
             'ruleGroupId' => Uuid::fromString($condition->ruleGroupUuid),
             'conditionType' => $conditionType,
             'value' => $condition->value,

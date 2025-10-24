@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Core\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
@@ -14,6 +13,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -39,7 +39,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 3,
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'enabled' => true,
@@ -72,7 +72,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 3,
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 1,
                 'layoutUuid' => Uuid::uuid4()->toString(),
                 'enabled' => true,
@@ -96,7 +96,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 2,
                 'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'depth' => 1,
                 'path' => '/1/2/',
                 'parentId' => 1,
@@ -132,7 +132,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'target1',
@@ -162,7 +162,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'unknown',
@@ -189,7 +189,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'condition1',
@@ -219,7 +219,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'unknown',
@@ -246,7 +246,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 42,
                 'ruleGroupUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'condition1',
@@ -276,7 +276,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 42,
                 'ruleGroupUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'unknown',

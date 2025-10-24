@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Values\Layout;
 
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
-use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Status;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTest extends TestCase
@@ -25,7 +25,7 @@ final class LayoutTest extends TestCase
                 'shared' => true,
                 'created' => 123,
                 'modified' => 456,
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         );
 
@@ -37,6 +37,6 @@ final class LayoutTest extends TestCase
         self::assertTrue($layout->shared);
         self::assertSame(123, $layout->created);
         self::assertSame(456, $layout->modified);
-        self::assertSame(Value::STATUS_PUBLISHED, $layout->status);
+        self::assertSame(Status::Published, $layout->status);
     }
 }

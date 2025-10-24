@@ -28,6 +28,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition as Persistenc
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as PersistenceRuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Ramsey\Uuid\Uuid;
 
 final class LayoutResolverServiceTest extends TestCase
@@ -268,11 +269,11 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverHandler
             ->method('loadRule')
-            ->willReturn(PersistenceRule::fromArray(['id' => 42, 'status' => Value::STATUS_ARCHIVED]));
+            ->willReturn(PersistenceRule::fromArray(['id' => 42, 'status' => PersistenceStatus::Archived]));
 
         $this->layoutResolverHandler
             ->method('loadRule')
-            ->willReturn(PersistenceRule::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
+            ->willReturn(PersistenceRule::fromArray(['id' => 42, 'status' => PersistenceStatus::Draft]));
 
         $this->layoutResolverHandler
             ->method('deleteRule')
@@ -604,11 +605,11 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverHandler
             ->method('loadRuleGroup')
-            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42, 'status' => Value::STATUS_ARCHIVED]));
+            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42, 'status' => PersistenceStatus::Archived]));
 
         $this->layoutResolverHandler
             ->method('loadRuleGroup')
-            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
+            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42, 'status' => PersistenceStatus::Draft]));
 
         $this->layoutResolverHandler
             ->method('deleteRuleGroup')

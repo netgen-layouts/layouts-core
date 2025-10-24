@@ -14,7 +14,7 @@ use Netgen\Layouts\Layout\Type\NullLayoutType;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
-use Netgen\Layouts\Persistence\Values\Value as PersistenceValue;
+use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use Ramsey\Uuid\Uuid;
 
@@ -40,7 +40,7 @@ final class LayoutMapper
         $zoneData = [
             'identifier' => $zone->identifier,
             'layoutId' => Uuid::fromString($zone->layoutUuid),
-            'status' => $zone->status,
+            'status' => $zone->status->value,
             'linkedZone' => function () use ($zone): ?Zone {
                 if ($zone->linkedLayoutUuid === null || $zone->linkedZoneIdentifier === null) {
                     return null;
@@ -50,7 +50,7 @@ final class LayoutMapper
                     // We're always using published versions of linked zones
                     $linkedZone = $this->layoutHandler->loadZone(
                         $zone->linkedLayoutUuid,
-                        PersistenceValue::STATUS_PUBLISHED,
+                        PersistenceStatus::Published,
                         $zone->linkedZoneIdentifier,
                     );
 
@@ -82,7 +82,7 @@ final class LayoutMapper
             'description' => $layout->description,
             'created' => DateTimeUtils::create($layout->created),
             'modified' => DateTimeUtils::create($layout->modified),
-            'status' => $layout->status,
+            'status' => $layout->status->value,
             'shared' => $layout->shared,
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
