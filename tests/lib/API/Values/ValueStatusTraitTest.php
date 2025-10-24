@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values;
 
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +18,7 @@ final class ValueStatusTraitTest extends TestCase
      *
      * @dataProvider statusDataProvider
      */
-    public function testStatus(int $status, bool $isDraft, bool $isPublished, bool $isArchived): void
+    public function testStatus(Status $status, bool $isDraft, bool $isPublished, bool $isArchived): void
     {
         $value = Value::fromArray(['status' => $status]);
 
@@ -30,9 +31,9 @@ final class ValueStatusTraitTest extends TestCase
     public static function statusDataProvider(): iterable
     {
         return [
-            [Value::STATUS_DRAFT, true, false, false],
-            [Value::STATUS_PUBLISHED, false, true, false],
-            [Value::STATUS_ARCHIVED, false, false, true],
+            [Status::Draft, true, false, false],
+            [Status::Published, false, true, false],
+            [Status::Archived, false, false, true],
         ];
     }
 }

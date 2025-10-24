@@ -15,6 +15,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
@@ -89,7 +90,7 @@ final class LayoutNormalizerTest extends TestCase
             [
                 'id' => $uuid1,
                 'layoutType' => $this->layoutType,
-                'status' => APIValue::STATUS_DRAFT,
+                'status' => Status::Draft,
                 'created' => $date1,
                 'modified' => $date1,
                 'shared' => true,
@@ -136,7 +137,7 @@ final class LayoutNormalizerTest extends TestCase
 
         $this->layoutServiceMock
             ->method('layoutExists')
-            ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
+            ->with(self::identicalTo($layout->getId()), self::identicalTo(Status::Published))
             ->willReturn(true);
 
         $this->layoutServiceMock
@@ -211,7 +212,7 @@ final class LayoutNormalizerTest extends TestCase
             [
                 'id' => $uuid,
                 'layoutType' => $this->layoutType,
-                'status' => APIValue::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'created' => $date1,
                 'modified' => $date1,
                 'shared' => true,
@@ -227,7 +228,7 @@ final class LayoutNormalizerTest extends TestCase
             [
                 'id' => $uuid,
                 'layoutType' => $this->layoutType,
-                'status' => APIValue::STATUS_ARCHIVED,
+                'status' => Status::Archived,
                 'created' => $date2,
                 'modified' => $date2,
                 'shared' => true,
@@ -241,7 +242,7 @@ final class LayoutNormalizerTest extends TestCase
 
         $this->layoutServiceMock
             ->method('layoutExists')
-            ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
+            ->with(self::identicalTo($layout->getId()), self::identicalTo(Status::Published))
             ->willReturn(true);
 
         $this->layoutServiceMock

@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\LayoutsBundle\Tests\Stubs\ParamConverter;
 use Netgen\Bundle\LayoutsBundle\Tests\Stubs\Value;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
@@ -37,7 +38,7 @@ final class ParamConverterTest extends TestCase
 
         self::assertInstanceOf(Value::class, $value);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
-        self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
+        self::assertSame(Status::Draft, $value->getStatus());
     }
 
     /**
@@ -59,7 +60,7 @@ final class ParamConverterTest extends TestCase
         self::assertInstanceOf(Value::class, $value);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame('en', $value->getLocale());
-        self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
+        self::assertSame(Status::Draft, $value->getStatus());
     }
 
     /**
@@ -80,7 +81,7 @@ final class ParamConverterTest extends TestCase
 
         self::assertInstanceOf(Value::class, $value);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
-        self::assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
+        self::assertSame(Status::Published, $value->getStatus());
     }
 
     /**
@@ -101,7 +102,7 @@ final class ParamConverterTest extends TestCase
 
         self::assertInstanceOf(Value::class, $value);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
-        self::assertSame(Value::STATUS_ARCHIVED, $value->getStatus());
+        self::assertSame(Status::Archived, $value->getStatus());
     }
 
     /**
@@ -122,7 +123,7 @@ final class ParamConverterTest extends TestCase
 
         self::assertInstanceOf(Value::class, $value);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
-        self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
+        self::assertSame(Status::Draft, $value->getStatus());
     }
 
     /**
@@ -143,7 +144,7 @@ final class ParamConverterTest extends TestCase
 
         self::assertInstanceOf(Value::class, $value);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
-        self::assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
+        self::assertSame(Status::Published, $value->getStatus());
     }
 
     /**
@@ -164,7 +165,7 @@ final class ParamConverterTest extends TestCase
 
         self::assertInstanceOf(Value::class, $value);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
-        self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
+        self::assertSame(Status::Draft, $value->getStatus());
     }
 
     /**

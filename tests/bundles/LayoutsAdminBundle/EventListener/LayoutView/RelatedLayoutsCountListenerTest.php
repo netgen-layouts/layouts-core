@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener\LayoutView;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Event\CollectViewParametersEvent;
 use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Tests\API\Stubs\Value;
@@ -48,7 +49,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildView(): void
     {
-        $layout = Layout::fromArray(['shared' => true, 'status' => Layout::STATUS_PUBLISHED]);
+        $layout = Layout::fromArray(['shared' => true, 'status' => Status::Published]);
         $view = new LayoutView($layout);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
@@ -74,7 +75,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithDraftLayout(): void
     {
-        $view = new LayoutView(Layout::fromArray(['shared' => true, 'status' => Layout::STATUS_DRAFT]));
+        $view = new LayoutView(Layout::fromArray(['shared' => true, 'status' => Status::Draft]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -97,7 +98,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithNonSharedLayout(): void
     {
-        $view = new LayoutView(Layout::fromArray(['shared' => false, 'status' => Layout::STATUS_PUBLISHED]));
+        $view = new LayoutView(Layout::fromArray(['shared' => false, 'status' => Status::Published]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 

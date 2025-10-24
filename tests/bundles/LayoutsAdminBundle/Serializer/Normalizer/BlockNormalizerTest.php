@@ -13,6 +13,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Parameters\Parameter;
@@ -52,7 +53,7 @@ final class BlockNormalizerTest extends TestCase
         $collection = Collection::fromArray(
             [
                 'id' => Uuid::uuid4(),
-                'status' => APIValue::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'offset' => 10,
                 'limit' => 5,
             ],
@@ -69,7 +70,7 @@ final class BlockNormalizerTest extends TestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'position' => 3,
-                'status' => APIValue::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
@@ -154,7 +155,7 @@ final class BlockNormalizerTest extends TestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'position' => 3,
-                'status' => APIValue::STATUS_PUBLISHED,
+                'status' => Status::Published,
                 'placeholders' => [],
                 'collections' => new ArrayCollection(),
                 'isTranslatable' => true,

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Stubs;
 
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter as BaseParamConverter;
-use Netgen\Layouts\API\Values\Value as APIValue;
+use Netgen\Layouts\API\Values\Status;
 use Ramsey\Uuid\Uuid;
 
 final class ParamConverter extends BaseParamConverter
@@ -27,11 +27,11 @@ final class ParamConverter extends BaseParamConverter
 
     public function loadValue(array $values): Value
     {
-        $status = APIValue::STATUS_DRAFT;
+        $status = Status::Draft;
         if ($values['status'] === 'published') {
-            $status = APIValue::STATUS_PUBLISHED;
+            $status = Status::Published;
         } elseif ($values['status'] === 'archived') {
-            $status = APIValue::STATUS_ARCHIVED;
+            $status = Status::Archived;
         }
 
         unset($values['status']);

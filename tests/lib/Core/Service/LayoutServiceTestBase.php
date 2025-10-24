@@ -7,9 +7,9 @@ namespace Netgen\Layouts\Tests\Core\Service;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutType;
@@ -267,7 +267,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
      */
     public function testHasStatus(): void
     {
-        self::assertTrue($this->layoutService->hasStatus(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), Layout::STATUS_PUBLISHED));
+        self::assertTrue($this->layoutService->hasStatus(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), Status::Published));
     }
 
     /**
@@ -275,7 +275,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
      */
     public function testHasStatusReturnsFalse(): void
     {
-        self::assertFalse($this->layoutService->hasStatus(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce'), Layout::STATUS_PUBLISHED));
+        self::assertFalse($this->layoutService->hasStatus(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce'), Status::Published));
     }
 
     /**

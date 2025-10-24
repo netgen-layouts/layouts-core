@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\Status;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -115,7 +115,7 @@ final class MigrateUuidCommand extends Command
 
         $layoutNames = [];
         foreach ($data as $layoutData) {
-            if ((int) $layoutData['status'] === Value::STATUS_PUBLISHED) {
+            if ((int) $layoutData['status'] === Status::Published->value) {
                 $layoutNames[$layoutData['id']] = $layoutData['name'];
             }
         }

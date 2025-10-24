@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -93,12 +94,12 @@ interface LayoutService extends TransactionService
      *
      * @deprecated Will be removed in 2.0. Use LayoutService::layoutExists.
      */
-    public function hasStatus(UuidInterface $layoutId, int $status): bool;
+    public function hasStatus(UuidInterface $layoutId, Status $status): bool;
 
     /**
      * Returns if layout with provided UUID, and optionally status, exists.
      */
-    public function layoutExists(UuidInterface $layoutId, ?int $status = null): bool;
+    public function layoutExists(UuidInterface $layoutId, ?Status $status = null): bool;
 
     /**
      * Returns if layout with provided name exists.

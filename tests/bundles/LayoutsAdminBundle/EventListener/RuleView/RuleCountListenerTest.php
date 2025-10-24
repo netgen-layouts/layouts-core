@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Event\CollectViewParametersEvent;
 use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Tests\API\Stubs\Value;
@@ -49,7 +50,7 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildView(): void
     {
-        $layout = Layout::fromArray(['status' => Layout::STATUS_PUBLISHED]);
+        $layout = Layout::fromArray(['status' => Status::Published]);
         $view = new RuleView(Rule::fromArray(['layout' => $layout]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
@@ -75,7 +76,7 @@ final class RuleCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithDraftLayout(): void
     {
-        $view = new RuleView(Rule::fromArray(['layout' => Layout::fromArray(['status' => Layout::STATUS_DRAFT])]));
+        $view = new RuleView(Rule::fromArray(['layout' => Layout::fromArray(['status' => Status::Draft])]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 

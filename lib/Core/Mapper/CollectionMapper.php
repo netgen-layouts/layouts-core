@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use Netgen\Layouts\Collection\QueryType\NullQueryType;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
@@ -92,7 +93,7 @@ final class CollectionMapper
         $collectionData = [
             'id' => Uuid::fromString($collection->uuid),
             'blockId' => Uuid::fromString($collection->blockUuid),
-            'status' => $collection->status->value,
+            'status' => Status::from($collection->status->value),
             'offset' => $collection->offset,
             'limit' => $collection->limit,
             'items' => new LazyCollection(
@@ -139,7 +140,7 @@ final class CollectionMapper
 
         $itemData = [
             'id' => Uuid::fromString($item->uuid),
-            'status' => $item->status->value,
+            'status' => Status::from($item->status->value),
             'definition' => $itemDefinition,
             'collectionId' => Uuid::fromString($item->collectionUuid),
             'position' => $item->position,
@@ -209,7 +210,7 @@ final class CollectionMapper
 
         $queryData = [
             'id' => Uuid::fromString($query->uuid),
-            'status' => $query->status->value,
+            'status' => Status::from($query->status->value),
             'collectionId' => Uuid::fromString($query->collectionUuid),
             'queryType' => $queryType,
             'isTranslatable' => $query->isTranslatable,
@@ -235,7 +236,7 @@ final class CollectionMapper
     {
         $slotData = [
             'id' => Uuid::fromString($slot->uuid),
-            'status' => $slot->status->value,
+            'status' => Status::from($slot->status->value),
             'collectionId' => Uuid::fromString($slot->collectionUuid),
             'position' => $slot->position,
             'viewType' => $slot->viewType,

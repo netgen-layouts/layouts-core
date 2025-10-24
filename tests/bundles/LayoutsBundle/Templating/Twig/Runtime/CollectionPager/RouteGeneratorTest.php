@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime\CollectionPa
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Context\Context;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -57,7 +57,7 @@ final class RouteGeneratorTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'locale' => 'en',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         );
 
@@ -106,7 +106,7 @@ final class RouteGeneratorTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'locale' => 'en',
-                'status' => Value::STATUS_PUBLISHED,
+                'status' => Status::Published,
             ],
         );
 

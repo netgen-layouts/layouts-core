@@ -153,7 +153,7 @@ final class LayoutsDataCollector extends DataCollector
         $layoutId = $block->getLayoutId()->toString();
         $this->layoutCache[$layoutId] ??= $this->layoutHandler->loadLayout(
             $block->getLayoutId(),
-            Status::from($block->getStatus()),
+            Status::from($block->getStatus()->value),
         );
 
         $blockData = [

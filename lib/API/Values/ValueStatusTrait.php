@@ -6,25 +6,25 @@ namespace Netgen\Layouts\API\Values;
 
 trait ValueStatusTrait
 {
-    private int $status;
+    private Status $status;
 
-    public function getStatus(): int
+    public function getStatus(): Status
     {
         return $this->status;
     }
 
     public function isDraft(): bool
     {
-        return $this->status === Value::STATUS_DRAFT;
+        return $this->status === Status::Draft;
     }
 
     public function isPublished(): bool
     {
-        return $this->status === Value::STATUS_PUBLISHED;
+        return $this->status === Status::Published;
     }
 
     public function isArchived(): bool
     {
-        return $this->status === Value::STATUS_ARCHIVED;
+        return $this->status === Status::Archived;
     }
 }

@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Block\NullBlockDefinition;
@@ -113,7 +114,7 @@ final class BlockMapper
                 Uuid::fromString($block->parentUuid) :
                 null,
             'parentPlaceholder' => $block->depth > 1 ? $block->placeholder : null,
-            'status' => $block->status->value,
+            'status' => Status::from($block->status->value),
             'placeholders' => iterator_to_array($this->mapPlaceholders($block, $blockDefinition, $locales)),
             'collections' => new LazyCollection(
                 fn (): array => array_map(

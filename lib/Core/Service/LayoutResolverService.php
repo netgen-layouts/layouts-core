@@ -24,6 +24,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpdateSt
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct as APITargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Core\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\Layouts\Core\Validator\LayoutResolverValidator;
@@ -297,7 +298,7 @@ final class LayoutResolverService implements APILayoutResolverService
     {
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
             $ruleGroup->getId(),
-            PersistenceStatus::from($ruleGroup->getStatus()),
+            PersistenceStatus::from($ruleGroup->getStatus()->value),
         );
 
         return new RuleList(
@@ -378,9 +379,9 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function ruleExists(UuidInterface $ruleId, ?int $status = null): bool
+    public function ruleExists(UuidInterface $ruleId, ?Status $status = null): bool
     {
-        return $this->layoutResolverHandler->ruleExists($ruleId, PersistenceStatus::tryFrom($status ?? -1));
+        return $this->layoutResolverHandler->ruleExists($ruleId, PersistenceStatus::tryFrom($status->value ?? -1));
     }
 
     public function createRule(APIRuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): Rule
@@ -635,7 +636,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function deleteRule(Rule $rule): void
     {
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::from($rule->getStatus()));
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::from($rule->getStatus()->value));
 
         $this->transaction(
             function () use ($persistenceRule): void {
@@ -646,9 +647,9 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function ruleGroupExists(UuidInterface $ruleGroupId, ?int $status = null): bool
+    public function ruleGroupExists(UuidInterface $ruleGroupId, ?Status $status = null): bool
     {
-        return $this->layoutResolverHandler->ruleGroupExists($ruleGroupId, PersistenceStatus::tryFrom($status ?? -1));
+        return $this->layoutResolverHandler->ruleGroupExists($ruleGroupId, PersistenceStatus::tryFrom($status->value ?? -1));
     }
 
     public function createRuleGroup(APIRuleGroupCreateStruct $ruleGroupCreateStruct, ?RuleGroup $parentGroup = null): RuleGroup
@@ -879,7 +880,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function deleteRuleGroup(RuleGroup $ruleGroup): void
     {
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::from($ruleGroup->getStatus()));
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::from($ruleGroup->getStatus()->value));
 
         $this->transaction(
             function () use ($persistenceRuleGroup): void {

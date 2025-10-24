@@ -23,6 +23,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\API\Values\Status;
 use Ramsey\Uuid\UuidInterface;
 
 interface LayoutResolverService extends TransactionService
@@ -201,7 +202,7 @@ interface LayoutResolverService extends TransactionService
     /**
      * Returns if rule with provided UUID, and optionally status, exists.
      */
-    public function ruleExists(UuidInterface $ruleId, ?int $status = null): bool;
+    public function ruleExists(UuidInterface $ruleId, ?Status $status = null): bool;
 
     /**
      * Creates a rule.
@@ -299,7 +300,7 @@ interface LayoutResolverService extends TransactionService
     /**
      * Returns if rule group with provided UUID, and optionally status, exists.
      */
-    public function ruleGroupExists(UuidInterface $ruleGroupId, ?int $status = null): bool;
+    public function ruleGroupExists(UuidInterface $ruleGroupId, ?Status $status = null): bool;
 
     /**
      * Creates a rule group.

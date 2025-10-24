@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Core\Mapper;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
@@ -40,7 +41,7 @@ final class LayoutMapper
         $zoneData = [
             'identifier' => $zone->identifier,
             'layoutId' => Uuid::fromString($zone->layoutUuid),
-            'status' => $zone->status->value,
+            'status' => Status::from($zone->status->value),
             'linkedZone' => function () use ($zone): ?Zone {
                 if ($zone->linkedLayoutUuid === null || $zone->linkedZoneIdentifier === null) {
                     return null;
@@ -82,7 +83,7 @@ final class LayoutMapper
             'description' => $layout->description,
             'created' => DateTimeUtils::create($layout->created),
             'modified' => DateTimeUtils::create($layout->modified),
-            'status' => $layout->status->value,
+            'status' => Status::from($layout->status->value),
             'shared' => $layout->shared,
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,

@@ -8,12 +8,6 @@ use Ramsey\Uuid\UuidInterface;
 
 interface Value
 {
-    public const STATUS_DRAFT = 0;
-
-    public const STATUS_PUBLISHED = 1;
-
-    public const STATUS_ARCHIVED = 2;
-
     /**
      * Returns the value UUID.
      */
@@ -24,7 +18,7 @@ interface Value
      *
      * A value can have one of three statuses: draft, published or archived.
      */
-    public function getStatus(): int;
+    public function getStatus(): Status;
 
     /**
      * Returns if the value is a draft.
