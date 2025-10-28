@@ -8,6 +8,7 @@ use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\FormViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 
+use function array_any;
 use function is_a;
 
 /**
@@ -29,12 +30,9 @@ final class ValueType implements MatcherInterface
 
         $value = $view->getForm()->getConfig()->getOption('configurable');
 
-        foreach ($config as $configItem) {
-            if (is_a($value, $configItem, true)) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(
+            $config,
+            static fn (string $configItem): bool => is_a($value, $configItem, true),
+        );
     }
 }

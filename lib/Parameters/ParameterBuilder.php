@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraint;
 
+use function array_all;
 use function array_filter;
 use function array_key_exists;
 use function count;
@@ -435,12 +436,9 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     private function validateConstraints(array $constraints): bool
     {
-        foreach ($constraints as $constraint) {
-            if (!$constraint instanceof Closure && !$constraint instanceof Constraint) {
-                return false;
-            }
-        }
-
-        return true;
+        return array_all(
+            $constraints,
+            static fn (mixed $constraint): bool => $constraint instanceof Closure || $constraint instanceof Constraint,
+        );
     }
 }

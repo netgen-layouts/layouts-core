@@ -8,6 +8,7 @@ use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 
+use function array_any;
 use function str_starts_with;
 
 /**
@@ -26,12 +27,9 @@ final class DefinitionPrefix implements MatcherInterface
 
         $identifier = $view->getBlock()->getDefinition()->getIdentifier();
 
-        foreach ($config as $configItem) {
-            if (str_starts_with($identifier, $configItem)) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(
+            $config,
+            static fn (string $configItem): bool => str_starts_with($identifier, $configItem),
+        );
     }
 }
