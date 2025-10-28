@@ -18,25 +18,25 @@ use function sprintf;
 
 final class MigrateUuidCommand extends Command
 {
-    private const NAMESPACE_LAYOUT = 'a3468550-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_LAYOUT = 'a3468550-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_BLOCK = 'a3468551-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_BLOCK = 'a3468551-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_RULE = 'a3468552-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_RULE = 'a3468552-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_TARGET = 'a3468553-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_TARGET = 'a3468553-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_CONDITION = 'a3468554-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_CONDITION = 'a3468554-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_COLLECTION = 'a3468555-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_COLLECTION = 'a3468555-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_ITEM = 'a3468556-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_ITEM = 'a3468556-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_QUERY = 'a3468557-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_QUERY = 'a3468557-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_ROLE = 'a3468558-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_ROLE = 'a3468558-de48-4cc3-818d-7a3350ee5d40';
 
-    private const NAMESPACE_POLICY = 'a3468559-de48-4cc3-818d-7a3350ee5d40';
+    private const string NAMESPACE_POLICY = 'a3468559-de48-4cc3-818d-7a3350ee5d40';
 
     private Connection $connection;
 

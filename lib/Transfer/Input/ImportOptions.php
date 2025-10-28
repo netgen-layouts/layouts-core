@@ -11,11 +11,11 @@ use function sprintf;
 
 final class ImportOptions
 {
-    public const MODE_COPY = 'copy';
+    public const string MODE_COPY = 'copy';
 
-    public const MODE_OVERWRITE = 'overwrite';
+    public const string MODE_OVERWRITE = 'overwrite';
 
-    public const MODE_SKIP = 'skip';
+    public const string MODE_SKIP = 'skip';
 
     /**
      * @var string[]

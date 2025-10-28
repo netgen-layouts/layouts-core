@@ -16,8 +16,8 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_layouts.persistence.doctrine.layout_resolver.query_handler';
-    private const TAG_NAME = 'netgen_layouts.target_type.doctrine_handler';
+    private const string SERVICE_NAME = 'netgen_layouts.persistence.doctrine.layout_resolver.query_handler';
+    private const string TAG_NAME = 'netgen_layouts.target_type.doctrine_handler';
 
     public function process(ContainerBuilder $container): void
     {

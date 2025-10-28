@@ -16,7 +16,7 @@ final class RuleGroup extends Value
      *
      * Only one root rule group can exist and all other rule groups are below it.
      */
-    public const ROOT_UUID = '00000000-0000-0000-0000-000000000000';
+    public const string ROOT_UUID = '00000000-0000-0000-0000-000000000000';
 
     /**
      * Rule group ID.

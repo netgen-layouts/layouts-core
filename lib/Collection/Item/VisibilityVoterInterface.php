@@ -11,17 +11,17 @@ interface VisibilityVoterInterface
     /**
      * Returned by the voter if the item is not visible.
      */
-    public const NO = 0;
+    public const int NO = 0;
 
     /**
      * Returned by the voter if the item is visible.
      */
-    public const YES = 1;
+    public const int YES = 1;
 
     /**
      * Returned by the voter if it cannot decide if the item is visible or not.
      */
-    public const ABSTAIN = 2;
+    public const int ABSTAIN = 2;
 
     /**
      * Returns if the item is visible. One of self::YES, self::NO or self::ABSTAIN constants

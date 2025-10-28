@@ -27,7 +27,7 @@ use const JSON_THROW_ON_ERROR;
  */
 final class Importer implements ImporterInterface
 {
-    private const SCHEMA_FILE = __DIR__ . '/../../../resources/schemas/import.json';
+    private const string SCHEMA_FILE = __DIR__ . '/../../../resources/schemas/import.json';
 
     private TransactionService $transactionService;
 

@@ -19,8 +19,8 @@ final class CmsItemLoaderPass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_layouts.item.item_loader';
-    private const TAG_NAME = 'netgen_layouts.cms_value_loader';
+    private const string SERVICE_NAME = 'netgen_layouts.item.item_loader';
+    private const string TAG_NAME = 'netgen_layouts.cms_value_loader';
 
     public function process(ContainerBuilder $container): void
     {

@@ -9,10 +9,10 @@ final class LayoutsAdminEvents
     /**
      * This event will be dispatched when the request is matched as being an admin interface request.
      */
-    public const ADMIN_MATCH = 'nglayouts.admin.match';
+    public const string ADMIN_MATCH = 'nglayouts.admin.match';
 
     /**
      * This event will be dispatched when the admin menu is being built.
      */
-    public const CONFIGURE_MENU = 'nglayouts.admin.configure_menu';
+    public const string CONFIGURE_MENU = 'nglayouts.admin.configure_menu';
 }

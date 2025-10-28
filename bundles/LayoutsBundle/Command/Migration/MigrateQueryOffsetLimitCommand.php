@@ -22,7 +22,7 @@ use function sprintf;
 
 final class MigrateQueryOffsetLimitCommand extends Command
 {
-    private const KNOWN_QUERY_TYPES = [
+    private const array KNOWN_QUERY_TYPES = [
         'ezcontent_search' => [
             'offset' => 'offset',
             'limit' => 'limit',

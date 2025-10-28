@@ -13,7 +13,7 @@ use function str_replace;
 
 final class RemoteIdConverter
 {
-    private const NULL_LINK = 'null://0';
+    private const string NULL_LINK = 'null://0';
 
     private CmsItemLoaderInterface $cmsItemLoader;
 

@@ -33,7 +33,7 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
      * If specified, the result will include any invalid items,
      * i.e. those that don't exist in backend or are invisible.
      */
-    public const INCLUDE_INVALID_ITEMS = 1;
+    public const int INCLUDE_INVALID_ITEMS = 1;
 
     /**
      * If provided, any items not currently known will be shown as placeholders.
@@ -42,12 +42,12 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
      * meaning that it cannot run when there's no real frontend request,
      * e.g. in layout editing app.
      */
-    public const INCLUDE_UNKNOWN_ITEMS = 2;
+    public const int INCLUDE_UNKNOWN_ITEMS = 2;
 
     /**
      * If provided, will include all items, without any filters.
      */
-    public const INCLUDE_ALL_ITEMS = PHP_INT_MAX;
+    public const int INCLUDE_ALL_ITEMS = PHP_INT_MAX;
 
     private Collection $collection;
 

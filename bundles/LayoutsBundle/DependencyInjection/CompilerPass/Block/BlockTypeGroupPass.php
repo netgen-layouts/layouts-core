@@ -20,7 +20,7 @@ use function uasort;
 
 final class BlockTypeGroupPass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.block.registry.block_type_group';
+    private const string SERVICE_NAME = 'netgen_layouts.block.registry.block_type_group';
 
     public function process(ContainerBuilder $container): void
     {

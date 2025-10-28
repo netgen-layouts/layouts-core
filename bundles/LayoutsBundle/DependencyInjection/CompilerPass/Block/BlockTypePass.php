@@ -17,7 +17,7 @@ use function sprintf;
 
 final class BlockTypePass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.block.registry.block_type';
+    private const string SERVICE_NAME = 'netgen_layouts.block.registry.block_type';
 
     public function process(ContainerBuilder $container): void
     {

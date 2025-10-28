@@ -21,12 +21,12 @@ final class Collection implements Value
     /**
      * Denotes that the collection is manual, i.e., does not have a query.
      */
-    public const TYPE_MANUAL = 0;
+    public const int TYPE_MANUAL = 0;
 
     /**
      * Denotes that the collection is dynamic, i.e., that it has a query.
      */
-    public const TYPE_DYNAMIC = 1;
+    public const int TYPE_DYNAMIC = 1;
 
     private UuidInterface $id;
 

@@ -11,22 +11,22 @@ interface ViewInterface
     /**
      * Context used to render the values in the frontend.
      */
-    public const CONTEXT_DEFAULT = 'default';
+    public const string CONTEXT_DEFAULT = 'default';
 
     /**
      * Context used to render the values (mostly blocks) via AJAX based controller.
      */
-    public const CONTEXT_AJAX = 'ajax';
+    public const string CONTEXT_AJAX = 'ajax';
 
     /**
      * Context used to render the values in administration interface.
      */
-    public const CONTEXT_ADMIN = 'admin';
+    public const string CONTEXT_ADMIN = 'admin';
 
     /**
      * Context used to render the values in the layout editing app.
      */
-    public const CONTEXT_APP = 'app';
+    public const string CONTEXT_APP = 'app';
 
     /**
      * Returns the view identifier.

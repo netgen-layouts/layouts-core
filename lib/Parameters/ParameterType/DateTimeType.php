@@ -20,7 +20,7 @@ use function is_array;
  */
 final class DateTimeType extends ParameterType
 {
-    private const STORAGE_FORMAT = 'Y-m-d H:i:s.u';
+    private const string STORAGE_FORMAT = 'Y-m-d H:i:s.u';
 
     public static function getIdentifier(): string
     {

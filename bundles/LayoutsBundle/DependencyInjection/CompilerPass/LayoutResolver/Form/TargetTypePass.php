@@ -16,8 +16,8 @@ final class TargetTypePass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_layouts.layout.resolver.form.target_type';
-    private const TAG_NAME = 'netgen_layouts.target_type.form_mapper';
+    private const string SERVICE_NAME = 'netgen_layouts.layout.resolver.form.target_type';
+    private const string TAG_NAME = 'netgen_layouts.target_type.form_mapper';
 
     public function process(ContainerBuilder $container): void
     {

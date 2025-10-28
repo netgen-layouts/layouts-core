@@ -16,7 +16,7 @@ use function count;
 
 final class DateTimeType extends AbstractType
 {
-    private const HTML5_FORMAT = "yyyy-MM-dd'T'HH:mm";
+    private const string HTML5_FORMAT = "yyyy-MM-dd'T'HH:mm";
 
     /**
      * @var array<string, array<string, string>>

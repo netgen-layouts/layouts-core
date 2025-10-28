@@ -14,7 +14,7 @@ use function sprintf;
 
 final class FlagGenerator
 {
-    private const CHARACTER_MAP = [
+    private const array CHARACTER_MAP = [
         'a' => '&#x1F1E6;',
         'b' => '&#x1F1E7;',
         'c' => '&#x1F1E8;',

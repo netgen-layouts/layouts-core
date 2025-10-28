@@ -16,12 +16,12 @@ use function preg_match;
 
 final class EntityHandlerPass implements CompilerPassInterface
 {
-    private const SERVICE_NAMES = [
+    private const array SERVICE_NAMES = [
         'netgen_layouts.transfer.importer',
         'netgen_layouts.transfer.serializer',
     ];
 
-    private const TAG_NAME = 'netgen_layouts.transfer.entity_handler';
+    private const string TAG_NAME = 'netgen_layouts.transfer.entity_handler';
 
     public function process(ContainerBuilder $container): void
     {

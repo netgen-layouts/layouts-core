@@ -13,7 +13,7 @@ final class LayoutsEvents
      * the event is called "nglayouts.view.build_view.block" that is being dispatched
      * after the main event.
      */
-    public const BUILD_VIEW = 'nglayouts.view.build_view';
+    public const string BUILD_VIEW = 'nglayouts.view.build_view';
 
     /**
      * This event will be dispatched when the view object is being rendered.
@@ -22,5 +22,5 @@ final class LayoutsEvents
      * the event is called "nglayouts.view.render_view.block" that is being dispatched
      * after the main event.
      */
-    public const RENDER_VIEW = 'nglayouts.view.render_view';
+    public const string RENDER_VIEW = 'nglayouts.view.render_view';
 }

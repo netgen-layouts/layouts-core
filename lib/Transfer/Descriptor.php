@@ -12,5 +12,5 @@ abstract class Descriptor
     /**
      * Format version.
      */
-    public const FORMAT_VERSION = 1;
+    public const int FORMAT_VERSION = 1;
 }

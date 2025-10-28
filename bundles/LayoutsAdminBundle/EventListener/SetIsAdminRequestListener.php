@@ -19,9 +19,9 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    public const ADMIN_FLAG_NAME = 'nglayouts_is_admin_request';
+    public const string ADMIN_FLAG_NAME = 'nglayouts_is_admin_request';
 
-    private const ADMIN_ROUTE_PREFIX = 'nglayouts_admin_';
+    private const string ADMIN_ROUTE_PREFIX = 'nglayouts_admin_';
 
     private EventDispatcherProxy $eventDispatcher;
 

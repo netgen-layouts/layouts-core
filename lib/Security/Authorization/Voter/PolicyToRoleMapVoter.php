@@ -21,7 +21,7 @@ final class PolicyToRoleMapVoter extends Voter
     /**
      * Map of supported permissions to their respective roles.
      */
-    private const POLICY_TO_ROLE_MAP = [
+    private const array POLICY_TO_ROLE_MAP = [
         'nglayouts:block:add' => self::ROLE_EDITOR,
         'nglayouts:block:edit' => self::ROLE_EDITOR,
         'nglayouts:block:delete' => self::ROLE_EDITOR,
@@ -46,19 +46,19 @@ final class PolicyToRoleMapVoter extends Voter
      * The identifier of the admin role. Users having this role
      * have full and unrestricted access to the entire system.
      */
-    private const ROLE_ADMIN = 'ROLE_NGLAYOUTS_ADMIN';
+    private const string ROLE_ADMIN = 'ROLE_NGLAYOUTS_ADMIN';
 
     /**
      * The identifier of the editor role. Users having this role
      * have full access only to the layout editing interface.
      */
-    private const ROLE_EDITOR = 'ROLE_NGLAYOUTS_EDITOR';
+    private const string ROLE_EDITOR = 'ROLE_NGLAYOUTS_EDITOR';
 
     /**
      * The identifier of the API role. Users having this role
      * have access to read only data of the API endpoints.
      */
-    private const ROLE_API = 'ROLE_NGLAYOUTS_API';
+    private const string ROLE_API = 'ROLE_NGLAYOUTS_API';
 
     private AccessDecisionManagerInterface $accessDecisionManager;
 

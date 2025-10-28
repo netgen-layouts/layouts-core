@@ -18,7 +18,7 @@ use function sprintf;
 
 final class ItemDefinitionPass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.collection.registry.item_definition';
+    private const string SERVICE_NAME = 'netgen_layouts.collection.registry.item_definition';
 
     public function process(ContainerBuilder $container): void
     {

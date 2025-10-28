@@ -14,13 +14,13 @@ interface PluginInterface
      * Use this group in the parameters you wish to show
      * in the Content part of the block edit interface.
      */
-    public const GROUP_CONTENT = 'content';
+    public const string GROUP_CONTENT = 'content';
 
     /**
      * Use this group in the parameters you wish to show
      * in the Design part of the block edit interface.
      */
-    public const GROUP_DESIGN = 'design';
+    public const string GROUP_DESIGN = 'design';
 
     /**
      * Returns the list of block definition identifiers which this plugin

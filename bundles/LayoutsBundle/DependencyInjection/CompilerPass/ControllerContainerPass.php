@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class ControllerContainerPass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.controller.base';
+    private const string SERVICE_NAME = 'netgen_layouts.controller.base';
 
     public function process(ContainerBuilder $container): void
     {

@@ -14,13 +14,13 @@ use function is_a;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
-    protected const STATUS_PUBLISHED = 'published';
+    protected const string STATUS_PUBLISHED = 'published';
 
-    protected const STATUS_DRAFT = 'draft';
+    protected const string STATUS_DRAFT = 'draft';
 
-    protected const STATUS_ARCHIVED = 'archived';
+    protected const string STATUS_ARCHIVED = 'archived';
 
-    private const ROUTE_STATUS_PARAM = '_nglayouts_status';
+    private const string ROUTE_STATUS_PARAM = '_nglayouts_status';
 
     public function apply(Request $request, ParamConverterConfiguration $configuration): bool
     {

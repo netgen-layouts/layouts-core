@@ -17,7 +17,7 @@ use function sprintf;
 
 final class ValueTypePass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.item.registry.value_type';
+    private const string SERVICE_NAME = 'netgen_layouts.item.registry.value_type';
 
     public function process(ContainerBuilder $container): void
     {

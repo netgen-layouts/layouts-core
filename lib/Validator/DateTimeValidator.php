@@ -24,7 +24,7 @@ use function sprintf;
  */
 final class DateTimeValidator extends ConstraintValidator
 {
-    private const DATE_FORMAT = 'Y-m-d H:i:s';
+    private const string DATE_FORMAT = 'Y-m-d H:i:s';
 
     public function validate(mixed $value, Constraint $constraint): void
     {

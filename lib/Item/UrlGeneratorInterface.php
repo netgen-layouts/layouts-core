@@ -9,9 +9,9 @@ namespace Netgen\Layouts\Item;
  */
 interface UrlGeneratorInterface
 {
-    public const TYPE_DEFAULT = 'default';
+    public const string TYPE_DEFAULT = 'default';
 
-    public const TYPE_ADMIN = 'admin';
+    public const string TYPE_ADMIN = 'admin';
 
     /**
      * Returns the item path.

@@ -23,7 +23,7 @@ final class LayoutVisitor implements VisitorInterface
 {
     use StatusStringTrait;
 
-    private const ENTITY_TYPE = 'layout';
+    private const string ENTITY_TYPE = 'layout';
 
     public function accept(object $value): bool
     {

@@ -17,7 +17,7 @@ use function sprintf;
 
 final class LayoutTypePass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.layout.registry.layout_type';
+    private const string SERVICE_NAME = 'netgen_layouts.layout.registry.layout_type';
 
     public function process(ContainerBuilder $container): void
     {

@@ -16,8 +16,8 @@ final class TemplateResolverPass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_layouts.view.template_resolver';
-    private const TAG_NAME = 'netgen_layouts.view_matcher';
+    private const string SERVICE_NAME = 'netgen_layouts.view.template_resolver';
+    private const string TAG_NAME = 'netgen_layouts.view_matcher';
 
     public function process(ContainerBuilder $container): void
     {

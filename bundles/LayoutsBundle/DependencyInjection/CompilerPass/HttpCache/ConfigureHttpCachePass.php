@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class ConfigureHttpCachePass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.http_cache.client';
+    private const string SERVICE_NAME = 'netgen_layouts.http_cache.client';
 
     public function process(ContainerBuilder $container): void
     {

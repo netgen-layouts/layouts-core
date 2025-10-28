@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface CsrfTokenValidatorInterface
 {
-    public const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
+    public const string CSRF_TOKEN_HEADER = 'X-CSRF-Token';
 
     /**
      * Returns if the provided request has a valid CSRF token with provided ID.
