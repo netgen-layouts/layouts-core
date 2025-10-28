@@ -104,7 +104,7 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
         $this->set((string) $offset, $value);
     }
 
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset(mixed $offset): never
     {
         throw new RuntimeException('Method call not supported.');
     }

@@ -101,12 +101,12 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
         return $this->getTargetType($offset);
     }
 
-    public function offsetSet(mixed $offset, mixed $value): void
+    public function offsetSet(mixed $offset, mixed $value): never
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset(mixed $offset): never
     {
         throw new RuntimeException('Method call not supported.');
     }
