@@ -20,12 +20,9 @@ use Symfony\Component\Validator\Constraints;
 
 final class CreateType extends AbstractType
 {
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
-    public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
-    {
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-    }
+    public function __construct(
+        private LayoutTypeRegistry $layoutTypeRegistry,
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

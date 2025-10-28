@@ -18,12 +18,9 @@ final class CreateSlot extends AbstractController
 {
     use ValidatorTrait;
 
-    private CollectionService $collectionService;
-
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private CollectionService $collectionService,
+    ) {}
 
     /**
      * Creates a slot in the provided collection.

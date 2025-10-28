@@ -15,17 +15,11 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class CommonParametersPlugin extends Plugin
 {
     /**
-     * @var string[]
-     */
-    private array $defaultGroups;
-
-    /**
      * @param string[] $defaultGroups
      */
-    public function __construct(array $defaultGroups)
-    {
-        $this->defaultGroups = $defaultGroups;
-    }
+    public function __construct(
+        private array $defaultGroups,
+    ) {}
 
     public static function getExtendedHandlers(): iterable
     {

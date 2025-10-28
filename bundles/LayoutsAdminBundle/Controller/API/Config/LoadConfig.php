@@ -11,17 +11,10 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class LoadConfig extends AbstractController
 {
-    private ConfigurationInterface $configuration;
-
-    private CsrfTokenManagerInterface $csrfTokenManager;
-
     public function __construct(
-        ConfigurationInterface $configuration,
-        CsrfTokenManagerInterface $csrfTokenManager,
-    ) {
-        $this->configuration = $configuration;
-        $this->csrfTokenManager = $csrfTokenManager;
-    }
+        private ConfigurationInterface $configuration,
+        private CsrfTokenManagerInterface $csrfTokenManager,
+    ) {}
 
     /**
      * Returns the general config.

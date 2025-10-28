@@ -11,12 +11,9 @@ use Netgen\Layouts\View\ViewInterface;
 
 final class DeleteTarget extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     /**
      * Deletes a rule target.

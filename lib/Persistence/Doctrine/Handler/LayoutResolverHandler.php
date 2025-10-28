@@ -40,21 +40,11 @@ use function trim;
 
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
-    private LayoutHandlerInterface $layoutHandler;
-
-    private LayoutResolverQueryHandler $queryHandler;
-
-    private LayoutResolverMapper $mapper;
-
     public function __construct(
-        LayoutHandlerInterface $layoutHandler,
-        LayoutResolverQueryHandler $queryHandler,
-        LayoutResolverMapper $mapper,
-    ) {
-        $this->layoutHandler = $layoutHandler;
-        $this->queryHandler = $queryHandler;
-        $this->mapper = $mapper;
-    }
+        private LayoutHandlerInterface $layoutHandler,
+        private LayoutResolverQueryHandler $queryHandler,
+        private LayoutResolverMapper $mapper,
+    ) {}
 
     public function loadRule(int|string|UuidInterface $ruleId, Status $status): Rule
     {

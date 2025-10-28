@@ -14,12 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditRuleConditionForm extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     /**
      * Displays the rule condition edit form.

@@ -10,12 +10,9 @@ use Symfony\Component\Validator\Constraints;
 
 final class TargetType2 extends TargetType
 {
-    private ?int $value;
-
-    public function __construct(?int $value = null)
-    {
-        $this->value = $value;
-    }
+    public function __construct(
+        private ?int $value = null,
+    ) {}
 
     public static function getType(): string
     {

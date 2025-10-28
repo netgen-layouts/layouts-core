@@ -33,14 +33,11 @@ use function sprintf;
  */
 final class ImportCommand extends Command
 {
-    private ImporterInterface $importer;
-
     private SymfonyStyle $io;
 
-    public function __construct(ImporterInterface $importer)
-    {
-        $this->importer = $importer;
-
+    public function __construct(
+        private ImporterInterface $importer,
+    ) {
         // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
     }

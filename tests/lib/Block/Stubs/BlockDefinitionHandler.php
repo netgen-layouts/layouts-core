@@ -13,20 +13,12 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 {
     /**
-     * @var string[]
-     */
-    private array $parameterGroups;
-
-    private bool $isContextual;
-
-    /**
      * @param string[] $parameterGroups
      */
-    public function __construct(array $parameterGroups = [], bool $isContextual = false)
-    {
-        $this->parameterGroups = $parameterGroups;
-        $this->isContextual = $isContextual;
-    }
+    public function __construct(
+        private array $parameterGroups = [],
+        private bool $isContextual = false,
+    ) {}
 
     /**
      * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>

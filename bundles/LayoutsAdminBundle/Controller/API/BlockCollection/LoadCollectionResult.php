@@ -12,12 +12,9 @@ use Netgen\Layouts\Collection\Result\ResultSet;
 
 final class LoadCollectionResult extends AbstractController
 {
-    private PagerFactory $pagerFactory;
-
-    public function __construct(PagerFactory $pagerFactory)
-    {
-        $this->pagerFactory = $pagerFactory;
-    }
+    public function __construct(
+        private PagerFactory $pagerFactory,
+    ) {}
 
     /**
      * Returns the collection result.

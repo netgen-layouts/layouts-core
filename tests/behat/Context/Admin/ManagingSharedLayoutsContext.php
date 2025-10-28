@@ -12,18 +12,11 @@ use Webmozart\Assert\Assert;
 
 final class ManagingSharedLayoutsContext extends AdminContext
 {
-    private IndexPage $indexPage;
-
-    private AppIndexPage $appPage;
-
-    private LayoutContext $layoutContext;
-
-    public function __construct(IndexPage $indexPage, AppIndexPage $appPage, LayoutContext $layoutContext)
-    {
-        $this->indexPage = $indexPage;
-        $this->appPage = $appPage;
-        $this->layoutContext = $layoutContext;
-    }
+    public function __construct(
+        private IndexPage $indexPage,
+        private AppIndexPage $appPage,
+        private LayoutContext $layoutContext,
+    ) {}
 
     /**
      * @When /^I create a new shared layout$/

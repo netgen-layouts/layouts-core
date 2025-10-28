@@ -15,15 +15,10 @@ use Throwable;
 
 final class ViewRendererListener implements EventSubscriberInterface
 {
-    private ViewRendererInterface $viewRenderer;
-
-    private ErrorHandlerInterface $errorHandler;
-
-    public function __construct(ViewRendererInterface $viewRenderer, ErrorHandlerInterface $errorHandler)
-    {
-        $this->viewRenderer = $viewRenderer;
-        $this->errorHandler = $errorHandler;
-    }
+    public function __construct(
+        private ViewRendererInterface $viewRenderer,
+        private ErrorHandlerInterface $errorHandler,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

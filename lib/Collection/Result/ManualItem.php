@@ -9,12 +9,9 @@ use Netgen\Layouts\Item\CmsItemInterface;
 
 final class ManualItem implements CmsItemInterface
 {
-    private Item $collectionItem;
-
-    public function __construct(Item $collectionItem)
-    {
-        $this->collectionItem = $collectionItem;
-    }
+    public function __construct(
+        private Item $collectionItem,
+    ) {}
 
     /**
      * Returns the collection item that was used to generate this manual item.

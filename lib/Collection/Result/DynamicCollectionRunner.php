@@ -14,15 +14,10 @@ use Netgen\Layouts\Item\CmsItemInterface;
 
 final class DynamicCollectionRunner implements CollectionRunnerInterface
 {
-    private QueryRunnerInterface $queryRunner;
-
-    private VisibilityResolverInterface $visibilityResolver;
-
-    public function __construct(QueryRunnerInterface $queryRunner, VisibilityResolverInterface $visibilityResolver)
-    {
-        $this->queryRunner = $queryRunner;
-        $this->visibilityResolver = $visibilityResolver;
-    }
+    public function __construct(
+        private QueryRunnerInterface $queryRunner,
+        private VisibilityResolverInterface $visibilityResolver,
+    ) {}
 
     public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator
     {

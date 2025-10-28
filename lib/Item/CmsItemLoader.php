@@ -9,15 +9,10 @@ use Psr\Container\ContainerInterface;
 
 final class CmsItemLoader implements CmsItemLoaderInterface
 {
-    private CmsItemBuilderInterface $cmsItemBuilder;
-
-    private ContainerInterface $valueLoaders;
-
-    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, ContainerInterface $valueLoaders)
-    {
-        $this->cmsItemBuilder = $cmsItemBuilder;
-        $this->valueLoaders = $valueLoaders;
-    }
+    public function __construct(
+        private CmsItemBuilderInterface $cmsItemBuilder,
+        private ContainerInterface $valueLoaders,
+    ) {}
 
     public function load(int|string $id, string $valueType): CmsItemInterface
     {

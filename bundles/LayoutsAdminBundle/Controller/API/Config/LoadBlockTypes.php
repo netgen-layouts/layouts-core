@@ -14,17 +14,10 @@ use function count;
 
 final class LoadBlockTypes extends AbstractController
 {
-    private BlockTypeRegistry $blockTypeRegistry;
-
-    private BlockTypeGroupRegistry $blockTypeGroupRegistry;
-
     public function __construct(
-        BlockTypeRegistry $blockTypeRegistry,
-        BlockTypeGroupRegistry $blockTypeGroupRegistry,
-    ) {
-        $this->blockTypeRegistry = $blockTypeRegistry;
-        $this->blockTypeGroupRegistry = $blockTypeGroupRegistry;
-    }
+        private BlockTypeRegistry $blockTypeRegistry,
+        private BlockTypeGroupRegistry $blockTypeGroupRegistry,
+    ) {}
 
     /**
      * Serializes the block types.

@@ -9,15 +9,10 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 
 final class ZoneReference
 {
-    private Layout $layout;
-
-    private string $zoneIdentifier;
-
-    public function __construct(Layout $layout, string $zoneIdentifier)
-    {
-        $this->layout = $layout;
-        $this->zoneIdentifier = $zoneIdentifier;
-    }
+    public function __construct(
+        private Layout $layout,
+        private string $zoneIdentifier,
+    ) {}
 
     public function getLayout(): Layout
     {

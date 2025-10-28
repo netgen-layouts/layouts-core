@@ -18,12 +18,9 @@ use function trim;
  */
 final class LayoutNameValidator extends ConstraintValidator
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     public function validate(mixed $value, Constraint $constraint): void
     {

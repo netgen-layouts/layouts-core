@@ -14,24 +14,13 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class ContainerDefinitionHandler extends BlockDefinitionHandler implements ContainerDefinitionHandlerInterface
 {
     /**
-     * @var string[]
-     */
-    private array $parameterGroups;
-
-    /**
-     * @var string[]
-     */
-    private array $placeholderIdentifiers;
-
-    /**
      * @param string[] $parameterGroups
      * @param string[] $placeholderIdentifiers
      */
-    public function __construct(array $parameterGroups = [], array $placeholderIdentifiers = ['left', 'right'])
-    {
-        $this->parameterGroups = $parameterGroups;
-        $this->placeholderIdentifiers = $placeholderIdentifiers;
-    }
+    public function __construct(
+        private array $parameterGroups = [],
+        private array $placeholderIdentifiers = ['left', 'right'],
+    ) {}
 
     /**
      * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>

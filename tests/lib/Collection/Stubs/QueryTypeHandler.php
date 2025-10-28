@@ -16,23 +16,13 @@ use function count;
 final class QueryTypeHandler implements QueryTypeHandlerInterface
 {
     /**
-     * @var mixed[]
-     */
-    private array $values;
-
-    private ?int $count;
-
-    private bool $isContextual;
-
-    /**
      * @param mixed[] $values
      */
-    public function __construct(array $values = [], ?int $count = null, bool $isContextual = false)
-    {
-        $this->values = $values;
-        $this->count = $count;
-        $this->isContextual = $isContextual;
-    }
+    public function __construct(
+        private array $values = [],
+        private ?int $count = null,
+        private bool $isContextual = false,
+    ) {}
 
     public function buildParameters(ParameterBuilderInterface $builder): void {}
 

@@ -13,12 +13,9 @@ use Netgen\Layouts\Exception\NotFoundException;
 
 final class LoadLayoutBlocks extends AbstractController
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     /**
      * Loads all layout blocks.

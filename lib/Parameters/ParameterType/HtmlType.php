@@ -16,12 +16,9 @@ use Symfony\Component\Validator\Constraints;
  */
 final class HtmlType extends ParameterType
 {
-    private HtmlPurifier $htmlPurifier;
-
-    public function __construct(HtmlPurifier $htmlPurifier)
-    {
-        $this->htmlPurifier = $htmlPurifier;
-    }
+    public function __construct(
+        private HtmlPurifier $htmlPurifier,
+    ) {}
 
     public static function getIdentifier(): string
     {

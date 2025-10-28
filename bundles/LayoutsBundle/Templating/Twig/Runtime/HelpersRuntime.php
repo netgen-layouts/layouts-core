@@ -29,21 +29,11 @@ use function twig_date_converter;
 
 final class HelpersRuntime
 {
-    private LayoutService $layoutService;
-
-    private LayoutResolverService $layoutResolverService;
-
-    private ValueTypeRegistry $valueTypeRegistry;
-
     public function __construct(
-        LayoutService $layoutService,
-        LayoutResolverService $layoutResolverService,
-        ValueTypeRegistry $valueTypeRegistry,
-    ) {
-        $this->layoutService = $layoutService;
-        $this->layoutResolverService = $layoutResolverService;
-        $this->valueTypeRegistry = $valueTypeRegistry;
-    }
+        private LayoutService $layoutService,
+        private LayoutResolverService $layoutResolverService,
+        private ValueTypeRegistry $valueTypeRegistry,
+    ) {}
 
     /**
      * Returns the locale name in specified locale.

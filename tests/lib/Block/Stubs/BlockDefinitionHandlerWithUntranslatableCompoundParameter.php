@@ -14,17 +14,11 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBlockDefinitionHandler
 {
     /**
-     * @var string[]
-     */
-    private array $parameterGroups;
-
-    /**
      * @param string[] $parameterGroups
      */
-    public function __construct(array $parameterGroups = [])
-    {
-        $this->parameterGroups = $parameterGroups;
-    }
+    public function __construct(
+        private array $parameterGroups = [],
+    ) {}
 
     /**
      * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>

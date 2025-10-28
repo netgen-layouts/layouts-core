@@ -22,17 +22,10 @@ final class ChangeCollectionType extends AbstractController
 {
     use ValidatorTrait;
 
-    private CollectionService $collectionService;
-
-    private QueryTypeRegistry $queryTypeRegistry;
-
     public function __construct(
-        CollectionService $collectionService,
-        QueryTypeRegistry $queryTypeRegistry,
-    ) {
-        $this->collectionService = $collectionService;
-        $this->queryTypeRegistry = $queryTypeRegistry;
-    }
+        private CollectionService $collectionService,
+        private QueryTypeRegistry $queryTypeRegistry,
+    ) {}
 
     /**
      * Changes the collection type within the block.

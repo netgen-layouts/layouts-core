@@ -11,12 +11,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class SetAdminPageLayoutListener implements EventSubscriberInterface
 {
-    private GlobalVariable $globalVariable;
-
-    public function __construct(GlobalVariable $globalVariable)
-    {
-        $this->globalVariable = $globalVariable;
-    }
+    public function __construct(
+        private GlobalVariable $globalVariable,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

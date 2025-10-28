@@ -15,28 +15,18 @@ use function array_flip;
 final class PagedCollectionsPlugin extends Plugin
 {
     /**
-     * The list of pager types available in the plugin.
-     *
-     * Keys should be pager identifiers, and values should be human readable names.
-     *
-     * @var string[]
-     */
-    private array $pagerTypes;
-
-    /**
-     * @var string[]
-     */
-    private array $defaultGroups;
-
-    /**
      * @param string[] $pagerTypes
      * @param string[] $defaultGroups
      */
-    public function __construct(array $pagerTypes, array $defaultGroups)
-    {
-        $this->pagerTypes = $pagerTypes;
-        $this->defaultGroups = $defaultGroups;
-    }
+    public function __construct(
+        /**
+         * The list of pager types available in the plugin.
+         *
+         * Keys should be pager identifiers, and values should be human readable names.
+         */
+        private array $pagerTypes,
+        private array $defaultGroups,
+    ) {}
 
     public static function getExtendedHandlers(): iterable
     {

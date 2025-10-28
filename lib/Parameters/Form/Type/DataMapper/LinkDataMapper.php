@@ -16,12 +16,9 @@ use function iterator_to_array;
  */
 final class LinkDataMapper implements DataMapperInterface
 {
-    private ParameterDefinition $parameterDefinition;
-
-    public function __construct(ParameterDefinition $parameterDefinition)
-    {
-        $this->parameterDefinition = $parameterDefinition;
-    }
+    public function __construct(
+        private ParameterDefinition $parameterDefinition,
+    ) {}
 
     public function mapDataToForms(mixed $viewData, Traversable $forms): void
     {

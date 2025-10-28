@@ -8,15 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractValue
 {
-    private mixed $value;
-
-    private int $statusCode;
-
-    public function __construct(mixed $value, int $statusCode = Response::HTTP_OK)
-    {
-        $this->value = $value;
-        $this->statusCode = $statusCode;
-    }
+    public function __construct(
+        private mixed $value,
+        private int $statusCode = Response::HTTP_OK,
+    ) {}
 
     /**
      * Returns the serialized value.

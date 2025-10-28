@@ -22,12 +22,9 @@ use function ksort;
  */
 final class BlockVisitor implements VisitorInterface
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     public function accept(object $value): bool
     {

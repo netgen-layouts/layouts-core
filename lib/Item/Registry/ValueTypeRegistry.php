@@ -23,17 +23,13 @@ use function count;
 final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\Layouts\Item\ValueType\ValueType>
-     */
-    private array $valueTypes;
-
-    /**
      * @param array<string, \Netgen\Layouts\Item\ValueType\ValueType> $valueTypes
      */
-    public function __construct(array $valueTypes)
-    {
+    public function __construct(
+        private array $valueTypes,
+    ) {
         $this->valueTypes = array_filter(
-            $valueTypes,
+            $this->valueTypes,
             static fn (ValueType $valueType): bool => true,
         );
     }

@@ -16,17 +16,14 @@ use function is_a;
 
 final class ConnectionHelper implements ConnectionHelperInterface
 {
-    private Connection $connection;
-
     /**
      * @var array<class-string, \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface>
      */
     private array $databaseSpecificHelpers;
 
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-
+    public function __construct(
+        private Connection $connection,
+    ) {
         $this->databaseSpecificHelpers = [
             SqlitePlatform::class => new Sqlite($this->connection),
             PostgreSQLPlatform::class => new Postgres($this->connection),

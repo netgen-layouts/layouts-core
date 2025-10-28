@@ -14,19 +14,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class MainMenuBuilder
 {
-    private FactoryInterface $factory;
-
-    private AuthorizationCheckerInterface $authorizationChecker;
-
     private EventDispatcherProxy $eventDispatcher;
 
     public function __construct(
-        FactoryInterface $factory,
-        AuthorizationCheckerInterface $authorizationChecker,
+        private FactoryInterface $factory,
+        private AuthorizationCheckerInterface $authorizationChecker,
         EventDispatcherInterface $eventDispatcher,
     ) {
-        $this->factory = $factory;
-        $this->authorizationChecker = $authorizationChecker;
         $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
     }
 

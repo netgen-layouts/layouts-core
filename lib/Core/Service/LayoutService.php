@@ -40,27 +40,14 @@ final class LayoutService implements LayoutServiceInterface
 {
     use TransactionTrait;
 
-    private LayoutValidator $validator;
-
-    private LayoutMapper $mapper;
-
-    private LayoutStructBuilder $structBuilder;
-
-    private LayoutHandlerInterface $layoutHandler;
-
     public function __construct(
         TransactionHandlerInterface $transactionHandler,
-        LayoutValidator $validator,
-        LayoutMapper $mapper,
-        LayoutStructBuilder $structBuilder,
-        LayoutHandlerInterface $layoutHandler,
+        private LayoutValidator $validator,
+        private LayoutMapper $mapper,
+        private LayoutStructBuilder $structBuilder,
+        private LayoutHandlerInterface $layoutHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
-
-        $this->validator = $validator;
-        $this->mapper = $mapper;
-        $this->structBuilder = $structBuilder;
-        $this->layoutHandler = $layoutHandler;
     }
 
     public function loadLayout(UuidInterface $layoutId): Layout

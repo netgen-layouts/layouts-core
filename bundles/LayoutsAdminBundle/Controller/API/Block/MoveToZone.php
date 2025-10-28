@@ -20,15 +20,10 @@ final class MoveToZone extends AbstractController
 {
     use ValidatorTrait;
 
-    private BlockService $blockService;
-
-    private LayoutService $layoutService;
-
-    public function __construct(BlockService $blockService, LayoutService $layoutService)
-    {
-        $this->blockService = $blockService;
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+        private LayoutService $layoutService,
+    ) {}
 
     /**
      * Moves the block draft to specified zone.

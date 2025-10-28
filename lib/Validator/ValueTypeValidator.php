@@ -17,12 +17,9 @@ use function is_string;
  */
 final class ValueTypeValidator extends ConstraintValidator
 {
-    private ValueTypeRegistry $valueTypeRegistry;
-
-    public function __construct(ValueTypeRegistry $valueTypeRegistry)
-    {
-        $this->valueTypeRegistry = $valueTypeRegistry;
-    }
+    public function __construct(
+        private ValueTypeRegistry $valueTypeRegistry,
+    ) {}
 
     public function validate(mixed $value, Constraint $constraint): void
     {

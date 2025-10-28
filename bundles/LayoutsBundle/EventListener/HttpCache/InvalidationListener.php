@@ -14,12 +14,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class InvalidationListener implements EventSubscriberInterface
 {
-    private InvalidatorInterface $invalidator;
-
-    public function __construct(InvalidatorInterface $invalidator)
-    {
-        $this->invalidator = $invalidator;
-    }
+    public function __construct(
+        private InvalidatorInterface $invalidator,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

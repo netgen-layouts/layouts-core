@@ -28,14 +28,11 @@ use const JSON_THROW_ON_ERROR;
  */
 final class ExportCommand extends Command
 {
-    private SerializerInterface $serializer;
-
     private SymfonyStyle $io;
 
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-
+    public function __construct(
+        private SerializerInterface $serializer,
+    ) {
         // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
     }

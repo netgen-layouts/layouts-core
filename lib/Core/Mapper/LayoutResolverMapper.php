@@ -33,25 +33,12 @@ use function array_map;
 
 final class LayoutResolverMapper
 {
-    private LayoutResolverHandlerInterface $layoutResolverHandler;
-
-    private TargetTypeRegistry $targetTypeRegistry;
-
-    private ConditionTypeRegistry $conditionTypeRegistry;
-
-    private LayoutService $layoutService;
-
     public function __construct(
-        LayoutResolverHandlerInterface $layoutResolverHandler,
-        TargetTypeRegistry $targetTypeRegistry,
-        ConditionTypeRegistry $conditionTypeRegistry,
-        LayoutService $layoutService,
-    ) {
-        $this->layoutResolverHandler = $layoutResolverHandler;
-        $this->targetTypeRegistry = $targetTypeRegistry;
-        $this->conditionTypeRegistry = $conditionTypeRegistry;
-        $this->layoutService = $layoutService;
-    }
+        private LayoutResolverHandlerInterface $layoutResolverHandler,
+        private TargetTypeRegistry $targetTypeRegistry,
+        private ConditionTypeRegistry $conditionTypeRegistry,
+        private LayoutService $layoutService,
+    ) {}
 
     /**
      * Builds the API rule value from persistence one.

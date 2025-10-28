@@ -37,33 +37,14 @@ use function iterator_to_array;
 
 final class CollectionMapper
 {
-    private CollectionHandlerInterface $collectionHandler;
-
-    private ParameterMapper $parameterMapper;
-
-    private ConfigMapper $configMapper;
-
-    private ItemDefinitionRegistry $itemDefinitionRegistry;
-
-    private QueryTypeRegistry $queryTypeRegistry;
-
-    private CmsItemLoaderInterface $cmsItemLoader;
-
     public function __construct(
-        CollectionHandlerInterface $collectionHandler,
-        ParameterMapper $parameterMapper,
-        ConfigMapper $configMapper,
-        ItemDefinitionRegistry $itemDefinitionRegistry,
-        QueryTypeRegistry $queryTypeRegistry,
-        CmsItemLoaderInterface $cmsItemLoader,
-    ) {
-        $this->collectionHandler = $collectionHandler;
-        $this->parameterMapper = $parameterMapper;
-        $this->configMapper = $configMapper;
-        $this->itemDefinitionRegistry = $itemDefinitionRegistry;
-        $this->queryTypeRegistry = $queryTypeRegistry;
-        $this->cmsItemLoader = $cmsItemLoader;
-    }
+        private CollectionHandlerInterface $collectionHandler,
+        private ParameterMapper $parameterMapper,
+        private ConfigMapper $configMapper,
+        private ItemDefinitionRegistry $itemDefinitionRegistry,
+        private QueryTypeRegistry $queryTypeRegistry,
+        private CmsItemLoaderInterface $cmsItemLoader,
+    ) {}
 
     /**
      * Builds the API collection value from persistence one.

@@ -18,12 +18,9 @@ use function sprintf;
 
 final class Delete extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     /**
      * Deletes the provided list of rules and groups.

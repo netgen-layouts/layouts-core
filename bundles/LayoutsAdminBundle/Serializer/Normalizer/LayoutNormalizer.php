@@ -26,15 +26,10 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
 {
     use NormalizerAwareTrait;
 
-    private LayoutService $layoutService;
-
-    private BlockService $blockService;
-
-    public function __construct(LayoutService $layoutService, BlockService $blockService)
-    {
-        $this->layoutService = $layoutService;
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+        private BlockService $blockService,
+    ) {}
 
     /**
      * @return array<string, mixed>

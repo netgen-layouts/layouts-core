@@ -63,31 +63,15 @@ final class LayoutResolverService implements APILayoutResolverService
 {
     use TransactionTrait;
 
-    private LayoutResolverValidator $validator;
-
-    private LayoutResolverMapper $mapper;
-
-    private LayoutResolverStructBuilder $structBuilder;
-
-    private LayoutResolverHandlerInterface $layoutResolverHandler;
-
-    private LayoutHandlerInterface $layoutHandler;
-
     public function __construct(
         TransactionHandlerInterface $transactionHandler,
-        LayoutResolverValidator $validator,
-        LayoutResolverMapper $mapper,
-        LayoutResolverStructBuilder $structBuilder,
-        LayoutResolverHandlerInterface $layoutResolverHandler,
-        LayoutHandlerInterface $layoutHandler,
+        private LayoutResolverValidator $validator,
+        private LayoutResolverMapper $mapper,
+        private LayoutResolverStructBuilder $structBuilder,
+        private LayoutResolverHandlerInterface $layoutResolverHandler,
+        private LayoutHandlerInterface $layoutHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
-
-        $this->validator = $validator;
-        $this->mapper = $mapper;
-        $this->structBuilder = $structBuilder;
-        $this->layoutResolverHandler = $layoutResolverHandler;
-        $this->layoutHandler = $layoutHandler;
     }
 
     public function loadRule(UuidInterface $ruleId): Rule

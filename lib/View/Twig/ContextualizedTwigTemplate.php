@@ -18,28 +18,15 @@ use function ob_start;
  */
 final class ContextualizedTwigTemplate
 {
-    private Template $template;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $context;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $blocks;
-
     /**
      * @param array<string, mixed> $context
      * @param array<string, mixed> $blocks
      */
-    public function __construct(Template $template, array $context = [], array $blocks = [])
-    {
-        $this->template = $template;
-        $this->context = $context;
-        $this->blocks = $blocks;
-    }
+    public function __construct(
+        private Template $template,
+        private array $context = [],
+        private array $blocks = [],
+    ) {}
 
     /**
      * Returns the context for this template.

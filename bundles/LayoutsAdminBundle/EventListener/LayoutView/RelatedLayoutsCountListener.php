@@ -15,12 +15,9 @@ use function sprintf;
 
 final class RelatedLayoutsCountListener implements EventSubscriberInterface
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

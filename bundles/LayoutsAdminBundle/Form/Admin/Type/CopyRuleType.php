@@ -15,12 +15,9 @@ use Symfony\Component\Validator\Constraints;
 
 final class CopyRuleType extends AbstractType
 {
-    private AuthorizationCheckerInterface $authorizationChecker;
-
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
-    {
-        $this->authorizationChecker = $authorizationChecker;
-    }
+    public function __construct(
+        private AuthorizationCheckerInterface $authorizationChecker,
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

@@ -19,13 +19,11 @@ use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class ValidatorFactory implements ConstraintValidatorFactoryInterface
 {
-    private TestCase $testCase;
-
     private ConstraintValidatorFactory $baseValidatorFactory;
 
-    public function __construct(TestCase $testCase)
-    {
-        $this->testCase = $testCase;
+    public function __construct(
+        private TestCase $testCase,
+    ) {
         $this->baseValidatorFactory = new ConstraintValidatorFactory();
     }
 

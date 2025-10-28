@@ -14,12 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditQueryForm extends AbstractController
 {
-    private CollectionService $collectionService;
-
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private CollectionService $collectionService,
+    ) {}
 
     /**
      * Displays and processes query draft edit form.

@@ -23,17 +23,13 @@ use function count;
 final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
-     */
-    private array $queryTypes;
-
-    /**
      * @param array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface> $queryTypes
      */
-    public function __construct(array $queryTypes)
-    {
+    public function __construct(
+        private array $queryTypes,
+    ) {
         $this->queryTypes = array_filter(
-            $queryTypes,
+            $this->queryTypes,
             static fn (QueryTypeInterface $queryType): bool => true,
         );
     }

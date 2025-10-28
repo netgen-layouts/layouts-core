@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class LayoutParamConverter extends ParamConverter
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {

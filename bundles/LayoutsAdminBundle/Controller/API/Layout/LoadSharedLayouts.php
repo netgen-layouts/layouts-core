@@ -11,12 +11,9 @@ use Netgen\Layouts\API\Service\LayoutService;
 
 final class LoadSharedLayouts extends AbstractController
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     /**
      * Loads all shared layouts.

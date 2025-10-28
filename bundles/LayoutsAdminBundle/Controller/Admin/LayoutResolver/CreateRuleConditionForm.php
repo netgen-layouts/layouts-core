@@ -15,17 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CreateRuleConditionForm extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    private ConditionTypeRegistry $conditionTypeRegistry;
-
     public function __construct(
-        LayoutResolverService $layoutResolverService,
-        ConditionTypeRegistry $conditionTypeRegistry,
-    ) {
-        $this->layoutResolverService = $layoutResolverService;
-        $this->conditionTypeRegistry = $conditionTypeRegistry;
-    }
+        private LayoutResolverService $layoutResolverService,
+        private ConditionTypeRegistry $conditionTypeRegistry,
+    ) {}
 
     /**
      * Displays the rule condition create form.

@@ -18,12 +18,9 @@ use function file_get_contents;
 
 final class Import extends AbstractController
 {
-    private ImporterInterface $importer;
-
-    public function __construct(ImporterInterface $importer)
-    {
-        $this->importer = $importer;
-    }
+    public function __construct(
+        private ImporterInterface $importer,
+    ) {}
 
     /**
      * Displays and processes the form for importing various entities.

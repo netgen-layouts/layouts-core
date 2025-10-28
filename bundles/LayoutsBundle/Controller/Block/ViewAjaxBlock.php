@@ -15,12 +15,9 @@ use function sprintf;
 
 final class ViewAjaxBlock extends AbstractController
 {
-    private ErrorHandlerInterface $errorHandler;
-
-    public function __construct(ErrorHandlerInterface $errorHandler)
-    {
-        $this->errorHandler = $errorHandler;
-    }
+    public function __construct(
+        private ErrorHandlerInterface $errorHandler,
+    ) {}
 
     /**
      * Renders the provided block with the AJAX view.

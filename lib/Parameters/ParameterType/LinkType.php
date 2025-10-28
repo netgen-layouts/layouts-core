@@ -24,15 +24,10 @@ use function is_array;
  */
 final class LinkType extends ParameterType
 {
-    private ValueTypeRegistry $valueTypeRegistry;
-
-    private RemoteIdConverter $remoteIdConverter;
-
-    public function __construct(ValueTypeRegistry $valueTypeRegistry, RemoteIdConverter $remoteIdConverter)
-    {
-        $this->valueTypeRegistry = $valueTypeRegistry;
-        $this->remoteIdConverter = $remoteIdConverter;
-    }
+    public function __construct(
+        private ValueTypeRegistry $valueTypeRegistry,
+        private RemoteIdConverter $remoteIdConverter,
+    ) {}
 
     public static function getIdentifier(): string
     {

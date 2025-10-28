@@ -36,41 +36,16 @@ use function sprintf;
 
 final class LayoutEntityHandler implements EntityHandlerInterface
 {
-    private BlockService $blockService;
-
-    private CollectionService $collectionService;
-
-    private LayoutService $layoutService;
-
-    private BlockDefinitionRegistry $blockDefinitionRegistry;
-
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
-    private ItemDefinitionRegistry $itemDefinitionRegistry;
-
-    private QueryTypeRegistry $queryTypeRegistry;
-
-    private CmsItemLoaderInterface $cmsItemLoader;
-
     public function __construct(
-        BlockService $blockService,
-        CollectionService $collectionService,
-        LayoutService $layoutService,
-        BlockDefinitionRegistry $blockDefinitionRegistry,
-        LayoutTypeRegistry $layoutTypeRegistry,
-        ItemDefinitionRegistry $itemDefinitionRegistry,
-        QueryTypeRegistry $queryTypeRegistry,
-        CmsItemLoaderInterface $cmsItemLoader,
-    ) {
-        $this->blockService = $blockService;
-        $this->collectionService = $collectionService;
-        $this->layoutService = $layoutService;
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-        $this->itemDefinitionRegistry = $itemDefinitionRegistry;
-        $this->queryTypeRegistry = $queryTypeRegistry;
-        $this->cmsItemLoader = $cmsItemLoader;
-    }
+        private BlockService $blockService,
+        private CollectionService $collectionService,
+        private LayoutService $layoutService,
+        private BlockDefinitionRegistry $blockDefinitionRegistry,
+        private LayoutTypeRegistry $layoutTypeRegistry,
+        private ItemDefinitionRegistry $itemDefinitionRegistry,
+        private QueryTypeRegistry $queryTypeRegistry,
+        private CmsItemLoaderInterface $cmsItemLoader,
+    ) {}
 
     public function loadEntity(UuidInterface $uuid): Layout
     {

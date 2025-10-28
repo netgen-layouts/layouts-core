@@ -16,8 +16,6 @@ use function sprintf;
 
 final class ViewBuilder implements ViewBuilderInterface
 {
-    private TemplateResolverInterface $templateResolver;
-
     private EventDispatcherProxy $eventDispatcher;
 
     /**
@@ -28,9 +26,11 @@ final class ViewBuilder implements ViewBuilderInterface
     /**
      * @param iterable<\Netgen\Layouts\View\Provider\ViewProviderInterface> $viewProviders
      */
-    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, iterable $viewProviders)
-    {
-        $this->templateResolver = $templateResolver;
+    public function __construct(
+        private TemplateResolverInterface $templateResolver,
+        EventDispatcherInterface $eventDispatcher,
+        iterable $viewProviders,
+    ) {
         $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
 
         foreach ($viewProviders as $viewProvider) {

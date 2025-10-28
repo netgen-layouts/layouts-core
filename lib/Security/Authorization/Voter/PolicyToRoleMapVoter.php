@@ -60,12 +60,9 @@ final class PolicyToRoleMapVoter extends Voter
      */
     private const string ROLE_API = 'ROLE_NGLAYOUTS_API';
 
-    private AccessDecisionManagerInterface $accessDecisionManager;
-
-    public function __construct(AccessDecisionManagerInterface $accessDecisionManager)
-    {
-        $this->accessDecisionManager = $accessDecisionManager;
-    }
+    public function __construct(
+        private AccessDecisionManagerInterface $accessDecisionManager,
+    ) {}
 
     protected function supports(mixed $attribute, mixed $subject): bool
     {

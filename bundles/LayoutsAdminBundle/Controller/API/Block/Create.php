@@ -22,21 +22,11 @@ final class Create extends AbstractController
 {
     use ValidatorTrait;
 
-    private BlockService $blockService;
-
-    private CreateStructBuilder $createStructBuilder;
-
-    private BlockTypeRegistry $blockTypeRegistry;
-
     public function __construct(
-        BlockService $blockService,
-        CreateStructBuilder $createStructBuilder,
-        BlockTypeRegistry $blockTypeRegistry,
-    ) {
-        $this->blockService = $blockService;
-        $this->createStructBuilder = $createStructBuilder;
-        $this->blockTypeRegistry = $blockTypeRegistry;
-    }
+        private BlockService $blockService,
+        private CreateStructBuilder $createStructBuilder,
+        private BlockTypeRegistry $blockTypeRegistry,
+    ) {}
 
     /**
      * Creates the block in specified block.

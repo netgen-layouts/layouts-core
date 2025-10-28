@@ -23,17 +23,13 @@ use function count;
 final class BlockDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\Layouts\Block\BlockDefinitionInterface>
-     */
-    private array $blockDefinitions;
-
-    /**
      * @param array<string, \Netgen\Layouts\Block\BlockDefinitionInterface> $blockDefinitions
      */
-    public function __construct(array $blockDefinitions)
-    {
+    public function __construct(
+        private array $blockDefinitions,
+    ) {
         $this->blockDefinitions = array_filter(
-            $blockDefinitions,
+            $this->blockDefinitions,
             static fn (BlockDefinitionInterface $blockDefinition): bool => true,
         );
     }

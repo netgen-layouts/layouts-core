@@ -40,21 +40,11 @@ use function sprintf;
 
 final class CollectionHandler implements CollectionHandlerInterface
 {
-    private CollectionQueryHandler $queryHandler;
-
-    private CollectionMapper $collectionMapper;
-
-    private PositionHelper $positionHelper;
-
     public function __construct(
-        CollectionQueryHandler $queryHandler,
-        CollectionMapper $collectionMapper,
-        PositionHelper $positionHelper,
-    ) {
-        $this->queryHandler = $queryHandler;
-        $this->collectionMapper = $collectionMapper;
-        $this->positionHelper = $positionHelper;
-    }
+        private CollectionQueryHandler $queryHandler,
+        private CollectionMapper $collectionMapper,
+        private PositionHelper $positionHelper,
+    ) {}
 
     public function loadCollection(int|string|UuidInterface $collectionId, Status $status): Collection
     {

@@ -31,25 +31,12 @@ use function trim;
 
 final class BlockHandler implements BlockHandlerInterface
 {
-    private BlockQueryHandler $queryHandler;
-
-    private CollectionHandlerInterface $collectionHandler;
-
-    private BlockMapper $blockMapper;
-
-    private PositionHelper $positionHelper;
-
     public function __construct(
-        BlockQueryHandler $queryHandler,
-        CollectionHandlerInterface $collectionHandler,
-        BlockMapper $blockMapper,
-        PositionHelper $positionHelper,
-    ) {
-        $this->queryHandler = $queryHandler;
-        $this->collectionHandler = $collectionHandler;
-        $this->blockMapper = $blockMapper;
-        $this->positionHelper = $positionHelper;
-    }
+        private BlockQueryHandler $queryHandler,
+        private CollectionHandlerInterface $collectionHandler,
+        private BlockMapper $blockMapper,
+        private PositionHelper $positionHelper,
+    ) {}
 
     public function loadBlock(int|string|UuidInterface $blockId, Status $status): Block
     {

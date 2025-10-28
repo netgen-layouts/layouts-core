@@ -12,12 +12,9 @@ use function iterator_to_array;
 
 final class ConfigMapper
 {
-    private ParameterMapper $parameterMapper;
-
-    public function __construct(ParameterMapper $parameterMapper)
-    {
-        $this->parameterMapper = $parameterMapper;
-    }
+    public function __construct(
+        private ParameterMapper $parameterMapper,
+    ) {}
 
     /**
      * Maps the provided config array to API values according to provided config definitions.

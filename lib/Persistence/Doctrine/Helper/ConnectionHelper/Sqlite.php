@@ -9,12 +9,9 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 
 final class Sqlite implements ConnectionHelperInterface
 {
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-    }
+    public function __construct(
+        private Connection $connection,
+    ) {}
 
     public function nextId(string $table, string $column = 'id'): int
     {

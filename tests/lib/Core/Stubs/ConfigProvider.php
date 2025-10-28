@@ -12,17 +12,11 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 final class ConfigProvider implements ConfigProviderInterface
 {
     /**
-     * @var array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType>
-     */
-    private array $viewTypes;
-
-    /**
      * @param array<string, \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType> $viewTypes
      */
-    private function __construct(array $viewTypes)
-    {
-        $this->viewTypes = $viewTypes;
-    }
+    private function __construct(
+        private array $viewTypes,
+    ) {}
 
     /**
      * @param array<string, string[]> $viewTypes

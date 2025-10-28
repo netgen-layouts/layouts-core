@@ -9,17 +9,11 @@ use Netgen\Layouts\API\Values\Collection\Item;
 final class VisibilityResolver implements VisibilityResolverInterface
 {
     /**
-     * @var iterable|\Netgen\Layouts\Collection\Item\VisibilityVoterInterface[]
-     */
-    private iterable $voters;
-
-    /**
      * @param iterable|\Netgen\Layouts\Collection\Item\VisibilityVoterInterface[] $voters
      */
-    public function __construct(iterable $voters)
-    {
-        $this->voters = $voters;
-    }
+    public function __construct(
+        private iterable $voters,
+    ) {}
 
     public function isVisible(Item $item): bool
     {

@@ -19,17 +19,10 @@ use Ramsey\Uuid\Uuid;
  */
 final class Serializer implements SerializerInterface
 {
-    private OutputVisitor $visitor;
-
-    private ContainerInterface $entityHandlers;
-
     public function __construct(
-        OutputVisitor $visitor,
-        ContainerInterface $entityHandlers,
-    ) {
-        $this->visitor = $visitor;
-        $this->entityHandlers = $entityHandlers;
-    }
+        private OutputVisitor $visitor,
+        private ContainerInterface $entityHandlers,
+    ) {}
 
     public function serialize(array $entityIds): array
     {

@@ -8,12 +8,9 @@ use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
 final class QueryTypeFactory
 {
-    private ParameterBuilderFactoryInterface $parameterBuilderFactory;
-
-    public function __construct(ParameterBuilderFactoryInterface $parameterBuilderFactory)
-    {
-        $this->parameterBuilderFactory = $parameterBuilderFactory;
-    }
+    public function __construct(
+        private ParameterBuilderFactoryInterface $parameterBuilderFactory,
+    ) {}
 
     /**
      * Builds the query type.

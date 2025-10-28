@@ -8,12 +8,9 @@ use Netgen\Layouts\Item\ValueLoaderInterface;
 
 final class ValueLoader implements ValueLoaderInterface
 {
-    private bool $exists;
-
-    public function __construct(bool $exists)
-    {
-        $this->exists = $exists;
-    }
+    public function __construct(
+        private bool $exists,
+    ) {}
 
     public function load(int|string $id): ?Value
     {

@@ -21,17 +21,10 @@ final class Create extends AbstractController
 {
     use ValidatorTrait;
 
-    private LayoutService $layoutService;
-
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
     public function __construct(
-        LayoutService $layoutService,
-        LayoutTypeRegistry $layoutTypeRegistry,
-    ) {
-        $this->layoutService = $layoutService;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-    }
+        private LayoutService $layoutService,
+        private LayoutTypeRegistry $layoutTypeRegistry,
+    ) {}
 
     /**
      * Creates the layout.

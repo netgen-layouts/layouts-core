@@ -19,21 +19,11 @@ use function str_replace;
 
 final class ItemRuntime
 {
-    private CmsItemLoaderInterface $cmsItemLoader;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private ErrorHandlerInterface $errorHandler;
-
     public function __construct(
-        CmsItemLoaderInterface $cmsItemLoader,
-        UrlGeneratorInterface $urlGenerator,
-        ErrorHandlerInterface $errorHandler,
-    ) {
-        $this->cmsItemLoader = $cmsItemLoader;
-        $this->urlGenerator = $urlGenerator;
-        $this->errorHandler = $errorHandler;
-    }
+        private CmsItemLoaderInterface $cmsItemLoader,
+        private UrlGeneratorInterface $urlGenerator,
+        private ErrorHandlerInterface $errorHandler,
+    ) {}
 
     /**
      * The method returns the full path of provided item.

@@ -18,12 +18,9 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
 {
     use NormalizerAwareTrait;
 
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     /**
      * @return array<string, mixed>

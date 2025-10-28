@@ -8,12 +8,9 @@ use Netgen\Layouts\Config\ConfigDefinitionFactory;
 
 final class ItemDefinitionFactory
 {
-    private ConfigDefinitionFactory $configDefinitionFactory;
-
-    public function __construct(ConfigDefinitionFactory $configDefinitionFactory)
-    {
-        $this->configDefinitionFactory = $configDefinitionFactory;
-    }
+    public function __construct(
+        private ConfigDefinitionFactory $configDefinitionFactory,
+    ) {}
 
     /**
      * Builds the item definition.

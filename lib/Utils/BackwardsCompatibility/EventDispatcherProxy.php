@@ -9,12 +9,9 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class EventDispatcherProxy
 {
-    private EventDispatcherInterface $eventDispatcher;
-
-    public function __construct(EventDispatcherInterface $eventDispatcher)
-    {
-        $this->eventDispatcher = $eventDispatcher;
-    }
+    public function __construct(
+        private EventDispatcherInterface $eventDispatcher,
+    ) {}
 
     public function dispatch(object $event, string $eventName): ?object
     {

@@ -15,12 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class UnlinkLayout extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     /**
      * Unlinks the layout from the rule.

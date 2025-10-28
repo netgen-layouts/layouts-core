@@ -13,12 +13,9 @@ use function count;
 
 final class BlockStructBuilder
 {
-    private ConfigStructBuilder $configStructBuilder;
-
-    public function __construct(ConfigStructBuilder $configStructBuilder)
-    {
-        $this->configStructBuilder = $configStructBuilder;
-    }
+    public function __construct(
+        private ConfigStructBuilder $configStructBuilder,
+    ) {}
 
     /**
      * Creates a new block create struct from data found in provided block definition.

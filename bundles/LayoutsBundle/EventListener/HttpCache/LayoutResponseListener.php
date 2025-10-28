@@ -16,14 +16,11 @@ final class LayoutResponseListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private TaggerInterface $tagger;
-
     private bool $isExceptionResponse = false;
 
-    public function __construct(TaggerInterface $tagger)
-    {
-        $this->tagger = $tagger;
-    }
+    public function __construct(
+        private TaggerInterface $tagger,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

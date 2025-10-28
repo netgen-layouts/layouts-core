@@ -16,12 +16,9 @@ use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
  */
 final class ManualCollectionRunner implements CollectionRunnerInterface
 {
-    private VisibilityResolverInterface $visibilityResolver;
-
-    public function __construct(VisibilityResolverInterface $visibilityResolver)
-    {
-        $this->visibilityResolver = $visibilityResolver;
-    }
+    public function __construct(
+        private VisibilityResolverInterface $visibilityResolver,
+    ) {}
 
     public function runCollection(Collection $collection, int $offset, int $limit, int $flags = 0): Iterator
     {

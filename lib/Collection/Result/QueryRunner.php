@@ -10,12 +10,9 @@ use Netgen\Layouts\Item\CmsItemBuilderInterface;
 
 final class QueryRunner implements QueryRunnerInterface
 {
-    private CmsItemBuilderInterface $cmsItemBuilder;
-
-    public function __construct(CmsItemBuilderInterface $cmsItemBuilder)
-    {
-        $this->cmsItemBuilder = $cmsItemBuilder;
-    }
+    public function __construct(
+        private CmsItemBuilderInterface $cmsItemBuilder,
+    ) {}
 
     public function runQuery(Query $query, int $offset = 0, ?int $limit = null): Iterator
     {

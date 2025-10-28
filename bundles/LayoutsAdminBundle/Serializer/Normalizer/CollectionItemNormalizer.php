@@ -18,15 +18,10 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
 {
     use NormalizerAwareTrait;
 
-    private UrlGeneratorInterface $urlGenerator;
-
-    private VisibilityResolverInterface $visibilityResolver;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, VisibilityResolverInterface $visibilityResolver)
-    {
-        $this->urlGenerator = $urlGenerator;
-        $this->visibilityResolver = $visibilityResolver;
-    }
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator,
+        private VisibilityResolverInterface $visibilityResolver,
+    ) {}
 
     /**
      * @return array<string, mixed>

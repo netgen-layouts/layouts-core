@@ -24,21 +24,11 @@ final class ContextListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private Context $context;
-
-    private ContextBuilderInterface $contextBuilder;
-
-    private UriSigner $uriSigner;
-
     public function __construct(
-        Context $context,
-        ContextBuilderInterface $contextBuilder,
-        UriSigner $uriSigner,
-    ) {
-        $this->context = $context;
-        $this->contextBuilder = $contextBuilder;
-        $this->uriSigner = $uriSigner;
-    }
+        private Context $context,
+        private ContextBuilderInterface $contextBuilder,
+        private UriSigner $uriSigner,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

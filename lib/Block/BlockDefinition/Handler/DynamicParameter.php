@@ -9,10 +9,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
 final class DynamicParameter
 {
-    public string $parameterName;
-
-    public function __construct(string $parameterName)
-    {
-        $this->parameterName = $parameterName;
-    }
+    public function __construct(
+        public string $parameterName,
+    ) {}
 }

@@ -27,15 +27,11 @@ use function min;
 
 final class LayoutResolverQueryHandler extends QueryHandler
 {
-    private ContainerInterface $targetHandlers;
-
     public function __construct(
         Connection $connection,
         ConnectionHelperInterface $connectionHelper,
-        ContainerInterface $targetHandlers,
+        private ContainerInterface $targetHandlers,
     ) {
-        $this->targetHandlers = $targetHandlers;
-
         parent::__construct($connection, $connectionHelper);
     }
 

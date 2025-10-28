@@ -23,17 +23,13 @@ use function count;
 final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
-     */
-    private array $layoutTypes;
-
-    /**
      * @param array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface> $layoutTypes
      */
-    public function __construct(array $layoutTypes)
-    {
+    public function __construct(
+        private array $layoutTypes,
+    ) {
         $this->layoutTypes = array_filter(
-            $layoutTypes,
+            $this->layoutTypes,
             static fn (LayoutTypeInterface $layoutType): bool => true,
         );
     }

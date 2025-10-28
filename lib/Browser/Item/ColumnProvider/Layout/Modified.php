@@ -10,12 +10,9 @@ use Netgen\Layouts\Browser\Item\Layout\LayoutInterface;
 
 final class Modified implements ColumnValueProviderInterface
 {
-    private string $dateFormat;
-
-    public function __construct(string $dateFormat)
-    {
-        $this->dateFormat = $dateFormat;
-    }
+    public function __construct(
+        private string $dateFormat,
+    ) {}
 
     public function getValue(ItemInterface $item): ?string
     {

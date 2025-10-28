@@ -9,17 +9,10 @@ namespace Netgen\Layouts\View;
  */
 class Renderer implements RendererInterface
 {
-    private ViewBuilderInterface $viewBuilder;
-
-    private ViewRendererInterface $viewRenderer;
-
     public function __construct(
-        ViewBuilderInterface $viewBuilder,
-        ViewRendererInterface $viewRenderer,
-    ) {
-        $this->viewBuilder = $viewBuilder;
-        $this->viewRenderer = $viewRenderer;
-    }
+        private ViewBuilderInterface $viewBuilder,
+        private ViewRendererInterface $viewRenderer,
+    ) {}
 
     public function renderValue(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string
     {

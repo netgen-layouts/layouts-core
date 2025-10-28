@@ -16,13 +16,6 @@ use function sprintf;
 
 final class StaticConfigProvider implements ConfigProviderInterface
 {
-    private string $blockDefinitionIdentifier;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $config;
-
     /**
      * @var array<string, mixed>
      */
@@ -31,11 +24,10 @@ final class StaticConfigProvider implements ConfigProviderInterface
     /**
      * @param array<string, mixed> $config
      */
-    public function __construct(string $blockDefinitionIdentifier, array $config)
-    {
-        $this->blockDefinitionIdentifier = $blockDefinitionIdentifier;
-        $this->config = $config;
-    }
+    public function __construct(
+        private string $blockDefinitionIdentifier,
+        private array $config,
+    ) {}
 
     public function provideViewTypes(?Block $block = null): array
     {

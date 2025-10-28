@@ -8,12 +8,9 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 
 final class GlobalVariable
 {
-    private Layout $layout;
-
-    public function __construct(Layout $layout)
-    {
-        $this->layout = $layout;
-    }
+    public function __construct(
+        private Layout $layout,
+    ) {}
 
     public function getLayout(): Layout
     {

@@ -15,21 +15,18 @@ use Netgen\Layouts\View\ViewInterface;
 final class CollectViewParametersEvent extends Event
 {
     /**
-     * Returns the view object that is being built.
-     */
-    private ViewInterface $view;
-
-    /**
      * Parameters to be injected into the view.
      *
      * @var array<string, mixed>
      */
     private array $parameters = [];
 
-    public function __construct(ViewInterface $view)
-    {
-        $this->view = $view;
-    }
+    public function __construct(
+        /**
+         * The view object that is being built.
+         */
+        private ViewInterface $view,
+    ) {}
 
     /**
      * Returns the parameters that will be injected into the View.

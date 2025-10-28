@@ -36,33 +36,14 @@ use function sprintf;
 
 final class RenderingRuntime
 {
-    private BlockService $blockService;
-
-    private RendererInterface $renderer;
-
-    private LocaleProviderInterface $localeProvider;
-
-    private RequestStack $requestStack;
-
-    private ErrorHandlerInterface $errorHandler;
-
-    private Environment $simpleTwig;
-
     public function __construct(
-        BlockService $blockService,
-        RendererInterface $renderer,
-        LocaleProviderInterface $localeProvider,
-        RequestStack $requestStack,
-        ErrorHandlerInterface $errorHandler,
-        Environment $simpleTwig,
-    ) {
-        $this->blockService = $blockService;
-        $this->renderer = $renderer;
-        $this->localeProvider = $localeProvider;
-        $this->requestStack = $requestStack;
-        $this->errorHandler = $errorHandler;
-        $this->simpleTwig = $simpleTwig;
-    }
+        private BlockService $blockService,
+        private RendererInterface $renderer,
+        private LocaleProviderInterface $localeProvider,
+        private RequestStack $requestStack,
+        private ErrorHandlerInterface $errorHandler,
+        private Environment $simpleTwig,
+    ) {}
 
     /**
      * Renders the provided item.

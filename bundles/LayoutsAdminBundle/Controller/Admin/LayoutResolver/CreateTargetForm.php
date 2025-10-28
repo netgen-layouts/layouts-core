@@ -15,17 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CreateTargetForm extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    private TargetTypeRegistry $targetTypeRegistry;
-
     public function __construct(
-        LayoutResolverService $layoutResolverService,
-        TargetTypeRegistry $targetTypeRegistry,
-    ) {
-        $this->layoutResolverService = $layoutResolverService;
-        $this->targetTypeRegistry = $targetTypeRegistry;
-    }
+        private LayoutResolverService $layoutResolverService,
+        private TargetTypeRegistry $targetTypeRegistry,
+    ) {}
 
     /**
      * Displays the target create form.

@@ -32,21 +32,11 @@ use function trim;
 
 final class LayoutHandler implements LayoutHandlerInterface
 {
-    private LayoutQueryHandler $queryHandler;
-
-    private BlockHandlerInterface $blockHandler;
-
-    private LayoutMapper $layoutMapper;
-
     public function __construct(
-        LayoutQueryHandler $queryHandler,
-        BlockHandlerInterface $blockHandler,
-        LayoutMapper $layoutMapper,
-    ) {
-        $this->queryHandler = $queryHandler;
-        $this->blockHandler = $blockHandler;
-        $this->layoutMapper = $layoutMapper;
-    }
+        private LayoutQueryHandler $queryHandler,
+        private BlockHandlerInterface $blockHandler,
+        private LayoutMapper $layoutMapper,
+    ) {}
 
     public function loadLayout(int|string|UuidInterface $layoutId, Status $status): Layout
     {

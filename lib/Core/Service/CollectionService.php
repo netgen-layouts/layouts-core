@@ -51,35 +51,16 @@ final class CollectionService implements APICollectionService
 {
     use TransactionTrait;
 
-    private CollectionValidator $validator;
-
-    private CollectionMapper $mapper;
-
-    private CollectionStructBuilder $structBuilder;
-
-    private ParameterMapper $parameterMapper;
-
-    private ConfigMapper $configMapper;
-
-    private CollectionHandlerInterface $collectionHandler;
-
     public function __construct(
         TransactionHandlerInterface $transactionHandler,
-        CollectionValidator $validator,
-        CollectionMapper $mapper,
-        CollectionStructBuilder $structBuilder,
-        ParameterMapper $parameterMapper,
-        ConfigMapper $configMapper,
-        CollectionHandlerInterface $collectionHandler,
+        private CollectionValidator $validator,
+        private CollectionMapper $mapper,
+        private CollectionStructBuilder $structBuilder,
+        private ParameterMapper $parameterMapper,
+        private ConfigMapper $configMapper,
+        private CollectionHandlerInterface $collectionHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
-
-        $this->validator = $validator;
-        $this->mapper = $mapper;
-        $this->structBuilder = $structBuilder;
-        $this->parameterMapper = $parameterMapper;
-        $this->configMapper = $configMapper;
-        $this->collectionHandler = $collectionHandler;
     }
 
     public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection

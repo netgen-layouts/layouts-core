@@ -11,12 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class RestoreFromArchive extends AbstractController
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     /**
      * Restores the layout from archive to a draft.

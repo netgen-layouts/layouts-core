@@ -9,12 +9,9 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 
 final class Item implements ItemInterface, LayoutInterface
 {
-    private Layout $layout;
-
-    public function __construct(Layout $layout)
-    {
-        $this->layout = $layout;
-    }
+    public function __construct(
+        private Layout $layout,
+    ) {}
 
     public function getValue(): string
     {

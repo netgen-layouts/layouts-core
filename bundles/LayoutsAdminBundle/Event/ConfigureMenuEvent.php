@@ -10,15 +10,10 @@ use Netgen\Layouts\Utils\BackwardsCompatibility\Event;
 
 final class ConfigureMenuEvent extends Event
 {
-    private FactoryInterface $factory;
-
-    private ItemInterface $menu;
-
-    public function __construct(FactoryInterface $factory, ItemInterface $menu)
-    {
-        $this->factory = $factory;
-        $this->menu = $menu;
-    }
+    public function __construct(
+        private FactoryInterface $factory,
+        private ItemInterface $menu,
+    ) {}
 
     /**
      * Returns the factory which is used to build the menu.

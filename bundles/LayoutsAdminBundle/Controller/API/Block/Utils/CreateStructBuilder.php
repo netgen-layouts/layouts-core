@@ -13,12 +13,9 @@ use function count;
 
 final class CreateStructBuilder
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     /**
      * Creates a new block create struct.

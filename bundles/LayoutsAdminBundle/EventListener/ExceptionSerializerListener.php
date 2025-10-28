@@ -23,15 +23,10 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     use ExceptionEventThrowableTrait;
     use MainRequestEventTrait;
 
-    private SerializerInterface $serializer;
-
-    private LoggerInterface $logger;
-
-    public function __construct(SerializerInterface $serializer, ?LoggerInterface $logger = null)
-    {
-        $this->serializer = $serializer;
-        $this->logger = $logger ?? new NullLogger();
-    }
+    public function __construct(
+        private SerializerInterface $serializer,
+        private LoggerInterface $logger = new NullLogger(),
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

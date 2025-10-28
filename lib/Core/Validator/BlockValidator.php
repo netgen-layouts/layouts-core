@@ -18,12 +18,9 @@ final class BlockValidator
 {
     use ValidatorTrait;
 
-    private CollectionValidator $collectionValidator;
-
-    public function __construct(CollectionValidator $collectionValidator)
-    {
-        $this->collectionValidator = $collectionValidator;
-    }
+    public function __construct(
+        private CollectionValidator $collectionValidator,
+    ) {}
 
     /**
      * Validates the provided block create struct.

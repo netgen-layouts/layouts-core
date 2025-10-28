@@ -45,21 +45,16 @@ final class MigrateQueryOffsetLimitCommand extends Command
         ],
     ];
 
-    private QueryTypeRegistry $queryTypeRegistry;
-
-    private Connection $connection;
-
     private InputInterface $input;
 
     private OutputInterface $output;
 
     private SymfonyStyle $io;
 
-    public function __construct(QueryTypeRegistry $queryTypeRegistry, Connection $connection)
-    {
-        $this->queryTypeRegistry = $queryTypeRegistry;
-        $this->connection = $connection;
-
+    public function __construct(
+        private QueryTypeRegistry $queryTypeRegistry,
+        private Connection $connection,
+    ) {
         // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
     }

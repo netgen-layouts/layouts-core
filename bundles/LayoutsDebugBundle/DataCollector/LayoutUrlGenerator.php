@@ -11,15 +11,10 @@ use function sprintf;
 
 final class LayoutUrlGenerator implements LayoutUrlGeneratorInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    private bool $isDebug;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator, bool $isDebug = false)
-    {
-        $this->urlGenerator = $urlGenerator;
-        $this->isDebug = $isDebug;
-    }
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator,
+        private bool $isDebug = false,
+    ) {}
 
     public function generateLayoutUrl(UuidInterface $layoutId, array $parameters = []): string
     {

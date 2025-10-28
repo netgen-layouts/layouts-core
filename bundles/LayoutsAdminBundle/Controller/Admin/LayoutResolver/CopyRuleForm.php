@@ -17,15 +17,10 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 final class CopyRuleForm extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutResolverService $layoutResolverService, LayoutService $layoutService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+        private LayoutService $layoutService,
+    ) {}
 
     /**
      * Copies a rule together with the mapped layout (if selected). Rule is added

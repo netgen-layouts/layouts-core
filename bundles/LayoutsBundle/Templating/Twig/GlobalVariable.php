@@ -46,43 +46,18 @@ use function method_exists;
  */
 final class GlobalVariable
 {
-    private ConfigurationInterface $configuration;
-
-    private LayoutResolverInterface $layoutResolver;
-
-    private PageLayoutResolverInterface $pageLayoutResolver;
-
-    private ViewBuilderInterface $viewBuilder;
-
-    private Context $context;
-
-    private UriSigner $uriSigner;
-
-    private RequestStack $requestStack;
-
-    private bool $debug;
-
     private string $pageLayoutTemplate;
 
     public function __construct(
-        ConfigurationInterface $configuration,
-        LayoutResolverInterface $layoutResolver,
-        PageLayoutResolverInterface $pageLayoutResolver,
-        ViewBuilderInterface $viewBuilder,
-        Context $context,
-        UriSigner $uriSigner,
-        RequestStack $requestStack,
-        bool $debug,
-    ) {
-        $this->configuration = $configuration;
-        $this->layoutResolver = $layoutResolver;
-        $this->pageLayoutResolver = $pageLayoutResolver;
-        $this->viewBuilder = $viewBuilder;
-        $this->context = $context;
-        $this->uriSigner = $uriSigner;
-        $this->requestStack = $requestStack;
-        $this->debug = $debug;
-    }
+        private ConfigurationInterface $configuration,
+        private LayoutResolverInterface $layoutResolver,
+        private PageLayoutResolverInterface $pageLayoutResolver,
+        private ViewBuilderInterface $viewBuilder,
+        private Context $context,
+        private UriSigner $uriSigner,
+        private RequestStack $requestStack,
+        private bool $debug,
+    ) {}
 
     /**
      * Returns the currently resolved layout view.

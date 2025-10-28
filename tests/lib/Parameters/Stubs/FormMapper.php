@@ -10,12 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 final class FormMapper extends BaseMapper
 {
-    private bool $compound;
-
-    public function __construct(bool $compound = false)
-    {
-        $this->compound = $compound;
-    }
+    public function __construct(
+        private bool $compound = false,
+    ) {}
 
     public function getFormType(): string
     {

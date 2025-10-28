@@ -12,15 +12,10 @@ use function count;
 
 final class Invalidator implements InvalidatorInterface
 {
-    private ClientInterface $client;
-
-    private IdProviderInterface $layoutIdProvider;
-
-    public function __construct(ClientInterface $client, IdProviderInterface $layoutIdProvider)
-    {
-        $this->client = $client;
-        $this->layoutIdProvider = $layoutIdProvider;
-    }
+    public function __construct(
+        private ClientInterface $client,
+        private IdProviderInterface $layoutIdProvider,
+    ) {}
 
     public function invalidateLayouts(array $layoutIds): void
     {

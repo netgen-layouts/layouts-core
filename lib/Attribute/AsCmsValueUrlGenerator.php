@@ -12,10 +12,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 final class AsCmsValueUrlGenerator
 {
-    public string $valueType;
-
-    public function __construct(string $valueType)
-    {
-        $this->valueType = $valueType;
-    }
+    public function __construct(
+        public string $valueType,
+    ) {}
 }

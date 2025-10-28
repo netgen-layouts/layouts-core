@@ -53,47 +53,19 @@ final class BlockService implements BlockServiceInterface
 {
     use TransactionTrait;
 
-    private BlockValidator $validator;
-
-    private BlockMapper $mapper;
-
-    private BlockStructBuilder $structBuilder;
-
-    private ParameterMapper $parameterMapper;
-
-    private ConfigMapper $configMapper;
-
-    private BlockHandlerInterface $blockHandler;
-
-    private LayoutHandlerInterface $layoutHandler;
-
-    private CollectionHandlerInterface $collectionHandler;
-
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
     public function __construct(
         TransactionHandlerInterface $transactionHandler,
-        BlockValidator $validator,
-        BlockMapper $mapper,
-        BlockStructBuilder $structBuilder,
-        ParameterMapper $parameterMapper,
-        ConfigMapper $configMapper,
-        LayoutTypeRegistry $layoutTypeRegistry,
-        BlockHandlerInterface $blockHandler,
-        LayoutHandlerInterface $layoutHandler,
-        CollectionHandlerInterface $collectionHandler,
+        private BlockValidator $validator,
+        private BlockMapper $mapper,
+        private BlockStructBuilder $structBuilder,
+        private ParameterMapper $parameterMapper,
+        private ConfigMapper $configMapper,
+        private LayoutTypeRegistry $layoutTypeRegistry,
+        private BlockHandlerInterface $blockHandler,
+        private LayoutHandlerInterface $layoutHandler,
+        private CollectionHandlerInterface $collectionHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
-
-        $this->validator = $validator;
-        $this->mapper = $mapper;
-        $this->structBuilder = $structBuilder;
-        $this->parameterMapper = $parameterMapper;
-        $this->configMapper = $configMapper;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-        $this->blockHandler = $blockHandler;
-        $this->layoutHandler = $layoutHandler;
-        $this->collectionHandler = $collectionHandler;
     }
 
     public function loadBlock(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block

@@ -13,15 +13,10 @@ use function array_values;
 
 final class LayoutContext implements Context
 {
-    private LayoutService $layoutService;
-
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
-    public function __construct(LayoutService $layoutService, LayoutTypeRegistry $layoutTypeRegistry)
-    {
-        $this->layoutService = $layoutService;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+        private LayoutTypeRegistry $layoutTypeRegistry,
+    ) {}
 
     /**
      * @Given /^there is a layout called "([^"]+)"$/

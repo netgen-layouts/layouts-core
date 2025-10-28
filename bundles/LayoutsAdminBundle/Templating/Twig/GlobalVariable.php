@@ -6,12 +6,9 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Templating\Twig;
 
 final class GlobalVariable
 {
-    private string $pageLayoutTemplate;
-
-    public function __construct(string $defaultTemplate)
-    {
-        $this->pageLayoutTemplate = $defaultTemplate;
-    }
+    public function __construct(
+        private string $pageLayoutTemplate,
+    ) {}
 
     /**
      * Sets the pagelayout template.

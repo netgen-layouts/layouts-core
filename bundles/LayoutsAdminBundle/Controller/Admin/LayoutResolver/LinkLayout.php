@@ -19,15 +19,10 @@ use function sprintf;
 
 final class LinkLayout extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutResolverService $layoutResolverService, LayoutService $layoutService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+        private LayoutService $layoutService,
+    ) {}
 
     /**
      * Updates the linked layout of the rule.

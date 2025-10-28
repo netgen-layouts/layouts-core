@@ -18,12 +18,9 @@ use function array_map;
  */
 final class IdProvider implements IdProviderInterface
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     public function provideIds(string $layoutId): array
     {

@@ -19,15 +19,10 @@ use function count;
 
 final class CreateForm extends AbstractController
 {
-    private LayoutService $layoutService;
-
-    private LocaleProviderInterface $localeProvider;
-
-    public function __construct(LayoutService $layoutService, LocaleProviderInterface $localeProvider)
-    {
-        $this->layoutService = $layoutService;
-        $this->localeProvider = $localeProvider;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+        private LocaleProviderInterface $localeProvider,
+    ) {}
 
     /**
      * Displays and processes layout create form.

@@ -21,12 +21,9 @@ use function iterator_to_array;
  */
 final class ZoneVisitor implements VisitorInterface
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     public function accept(object $value): bool
     {

@@ -16,12 +16,9 @@ final class SerializerListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private SerializerInterface $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-    }
+    public function __construct(
+        private SerializerInterface $serializer,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

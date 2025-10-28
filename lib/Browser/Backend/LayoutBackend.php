@@ -25,15 +25,10 @@ use function sprintf;
 
 final class LayoutBackend implements BackendInterface
 {
-    private LayoutService $layoutService;
-
-    private Configuration $config;
-
-    public function __construct(LayoutService $layoutService, Configuration $config)
-    {
-        $this->layoutService = $layoutService;
-        $this->config = $config;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+        private Configuration $config,
+    ) {}
 
     public function getSections(): iterable
     {

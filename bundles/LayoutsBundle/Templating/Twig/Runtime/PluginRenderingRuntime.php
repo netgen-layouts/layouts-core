@@ -10,15 +10,10 @@ use Throwable;
 
 final class PluginRenderingRuntime
 {
-    private RendererInterface $pluginRenderer;
-
-    private ErrorHandlerInterface $errorHandler;
-
-    public function __construct(RendererInterface $pluginRenderer, ErrorHandlerInterface $errorHandler)
-    {
-        $this->pluginRenderer = $pluginRenderer;
-        $this->errorHandler = $errorHandler;
-    }
+    public function __construct(
+        private RendererInterface $pluginRenderer,
+        private ErrorHandlerInterface $errorHandler,
+    ) {}
 
     /**
      * Renders all the template plugins with provided name.

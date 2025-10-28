@@ -11,12 +11,9 @@ use function in_array;
 
 final class UrlGenerator implements UrlGeneratorInterface
 {
-    private ContainerInterface $valueUrlGenerators;
-
-    public function __construct(ContainerInterface $valueUrlGenerators)
-    {
-        $this->valueUrlGenerators = $valueUrlGenerators;
-    }
+    public function __construct(
+        private ContainerInterface $valueUrlGenerators,
+    ) {}
 
     public function generate(CmsItemInterface $item, string $type = self::TYPE_DEFAULT): string
     {

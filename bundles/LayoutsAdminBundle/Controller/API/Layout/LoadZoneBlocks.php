@@ -14,15 +14,10 @@ use Netgen\Layouts\Exception\NotFoundException;
 
 final class LoadZoneBlocks extends AbstractController
 {
-    private LayoutService $layoutService;
-
-    private BlockService $blockService;
-
-    public function __construct(LayoutService $layoutService, BlockService $blockService)
-    {
-        $this->layoutService = $layoutService;
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+        private BlockService $blockService,
+    ) {}
 
     /**
      * Loads all zone blocks.

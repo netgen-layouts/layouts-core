@@ -17,21 +17,11 @@ use Ramsey\Uuid\UuidInterface;
 
 final class RuleEntityHandler implements EntityHandlerInterface
 {
-    private LayoutResolverService $layoutResolverService;
-
-    private TargetTypeRegistry $targetTypeRegistry;
-
-    private ConditionTypeRegistry $conditionTypeRegistry;
-
     public function __construct(
-        LayoutResolverService $layoutResolverService,
-        TargetTypeRegistry $targetTypeRegistry,
-        ConditionTypeRegistry $conditionTypeRegistry,
-    ) {
-        $this->layoutResolverService = $layoutResolverService;
-        $this->targetTypeRegistry = $targetTypeRegistry;
-        $this->conditionTypeRegistry = $conditionTypeRegistry;
-    }
+        private LayoutResolverService $layoutResolverService,
+        private TargetTypeRegistry $targetTypeRegistry,
+        private ConditionTypeRegistry $conditionTypeRegistry,
+    ) {}
 
     public function loadEntity(UuidInterface $uuid): Rule
     {

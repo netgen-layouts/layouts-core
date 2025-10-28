@@ -10,21 +10,15 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 final class Tagger implements TaggerInterface
 {
     /**
-     * @var \FOS\HttpCache\ResponseTagger|null
-     */
-    private $responseTagger;
-
-    /**
      * Typehint is not specified to support FOS HTTP Cache Bundle 1.x, which uses a different class.
      *
      * @deprecated Add the typehint when support for FOS HTTP Cache Bundle 1.x ends.
      *
      * @param \FOS\HttpCache\ResponseTagger|null $responseTagger
      */
-    public function __construct(/* ResponseTagger */ $responseTagger = null)
-    {
-        $this->responseTagger = $responseTagger;
-    }
+    public function __construct(
+        private $responseTagger = null,
+    ) {}
 
     public function tagLayout(Layout $layout): void
     {

@@ -12,10 +12,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 final class AsBlockPlugin
 {
-    public int $priority;
-
-    public function __construct(int $priority = 0)
-    {
-        $this->priority = $priority;
-    }
+    public function __construct(
+        public int $priority = 0,
+    ) {}
 }

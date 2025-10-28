@@ -10,12 +10,9 @@ use Symfony\Component\Validator\Constraints;
 
 final class ConditionType3 extends ConditionType
 {
-    private bool $matches;
-
-    public function __construct(bool $matches = true)
-    {
-        $this->matches = $matches;
-    }
+    public function __construct(
+        private bool $matches = true,
+    ) {}
 
     public static function getType(): string
     {

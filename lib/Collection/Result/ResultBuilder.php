@@ -16,21 +16,11 @@ use function max;
  */
 final class ResultBuilder implements ResultBuilderInterface
 {
-    private CollectionRunnerFactory $runnerFactory;
-
-    private int $contextualLimit;
-
-    private int $maxLimit;
-
     public function __construct(
-        CollectionRunnerFactory $runnerFactory,
-        int $contextualLimit,
-        int $maxLimit,
-    ) {
-        $this->runnerFactory = $runnerFactory;
-        $this->contextualLimit = $contextualLimit;
-        $this->maxLimit = $maxLimit;
-    }
+        private CollectionRunnerFactory $runnerFactory,
+        private int $contextualLimit,
+        private int $maxLimit,
+    ) {}
 
     public function build(Collection $collection, int $offset = 0, ?int $limit = null, int $flags = 0): ResultSet
     {

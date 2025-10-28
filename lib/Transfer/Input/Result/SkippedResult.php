@@ -8,24 +8,14 @@ use Ramsey\Uuid\UuidInterface;
 
 final class SkippedResult implements ResultInterface
 {
-    private string $entityType;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $data;
-
-    private UuidInterface $entityId;
-
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(string $entityType, array $data, UuidInterface $entityId)
-    {
-        $this->entityType = $entityType;
-        $this->data = $data;
-        $this->entityId = $entityId;
-    }
+    public function __construct(
+        private string $entityType,
+        private array $data,
+        private UuidInterface $entityId,
+    ) {}
 
     public function getEntityType(): string
     {

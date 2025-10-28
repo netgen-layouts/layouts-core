@@ -14,12 +14,9 @@ use function sprintf;
  */
 final class PageLayoutResolver implements PageLayoutResolverInterface
 {
-    private string $pageLayout;
-
-    public function __construct(string $pageLayout)
-    {
-        $this->pageLayout = $pageLayout;
-    }
+    public function __construct(
+        private string $pageLayout,
+    ) {}
 
     public function resolvePageLayout(): string
     {

@@ -23,17 +23,13 @@ use function count;
 final class ItemDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
-     */
-    private array $itemDefinitions;
-
-    /**
      * @param array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface> $itemDefinitions
      */
-    public function __construct(array $itemDefinitions)
-    {
+    public function __construct(
+        private array $itemDefinitions,
+    ) {
         $this->itemDefinitions = array_filter(
-            $itemDefinitions,
+            $this->itemDefinitions,
             static fn (ItemDefinitionInterface $itemDefinition): bool => true,
         );
     }

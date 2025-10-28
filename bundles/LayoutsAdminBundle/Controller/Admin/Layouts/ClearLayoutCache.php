@@ -12,12 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ClearLayoutCache extends AbstractController
 {
-    private InvalidatorInterface $invalidator;
-
-    public function __construct(InvalidatorInterface $invalidator)
-    {
-        $this->invalidator = $invalidator;
-    }
+    public function __construct(
+        private InvalidatorInterface $invalidator,
+    ) {}
 
     /**
      * Clears the HTTP cache for provided layout.

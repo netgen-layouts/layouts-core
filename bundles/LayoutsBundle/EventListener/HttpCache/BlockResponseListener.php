@@ -15,12 +15,9 @@ final class BlockResponseListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private TaggerInterface $tagger;
-
-    public function __construct(TaggerInterface $tagger)
-    {
-        $this->tagger = $tagger;
-    }
+    public function __construct(
+        private TaggerInterface $tagger,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

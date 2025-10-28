@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class BlockParamConverter extends ParamConverter
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {

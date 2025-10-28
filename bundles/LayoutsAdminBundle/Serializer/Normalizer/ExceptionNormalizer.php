@@ -15,12 +15,9 @@ use function class_exists;
 
 final class ExceptionNormalizer implements NormalizerInterface
 {
-    private bool $outputDebugInfo;
-
-    public function __construct(bool $outputDebugInfo)
-    {
-        $this->outputDebugInfo = $outputDebugInfo;
-    }
+    public function __construct(
+        private bool $outputDebugInfo,
+    ) {}
 
     /**
      * @return array<string, mixed>

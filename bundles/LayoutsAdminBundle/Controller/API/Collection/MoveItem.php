@@ -17,12 +17,9 @@ final class MoveItem extends AbstractController
 {
     use ValidatorTrait;
 
-    private CollectionService $collectionService;
-
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private CollectionService $collectionService,
+    ) {}
 
     /**
      * Moves the item inside the collection.

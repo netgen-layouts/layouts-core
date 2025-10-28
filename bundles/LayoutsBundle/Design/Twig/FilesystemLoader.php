@@ -13,20 +13,15 @@ use function str_starts_with;
 
 final class FilesystemLoader implements LoaderInterface
 {
-    private LoaderInterface $innerLoader;
-
-    private ConfigurationInterface $configuration;
-
     /**
      * @var array<string, string>
      */
     private array $templateMap = [];
 
-    public function __construct(LoaderInterface $innerLoader, ConfigurationInterface $configuration)
-    {
-        $this->innerLoader = $innerLoader;
-        $this->configuration = $configuration;
-    }
+    public function __construct(
+        private LoaderInterface $innerLoader,
+        private ConfigurationInterface $configuration,
+    ) {}
 
     public function getSourceContext(string $name): Source
     {

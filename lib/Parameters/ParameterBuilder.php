@@ -20,14 +20,6 @@ use function is_bool;
 
 class ParameterBuilder implements ParameterBuilderInterface
 {
-    protected ?string $name;
-
-    protected ?ParameterBuilderInterface $parentBuilder;
-
-    private ParameterBuilderFactoryInterface $builderFactory;
-
-    private ?ParameterTypeInterface $type;
-
     /**
      * @var array<string, mixed>
      */
@@ -67,18 +59,12 @@ class ParameterBuilder implements ParameterBuilderInterface
      * @param array<string, mixed> $options
      */
     public function __construct(
-        ParameterBuilderFactoryInterface $builderFactory,
-        ?string $name = null,
-        ?ParameterTypeInterface $type = null,
+        private ParameterBuilderFactoryInterface $builderFactory,
+        protected ?string $name = null,
+        private ?ParameterTypeInterface $type = null,
         array $options = [],
-        ?ParameterBuilderInterface $parentBuilder = null,
+        protected ?ParameterBuilderInterface $parentBuilder = null,
     ) {
-        $this->builderFactory = $builderFactory;
-
-        $this->name = $name;
-        $this->type = $type;
-        $this->parentBuilder = $parentBuilder;
-
         $this->options = $this->resolveOptions($options);
     }
 

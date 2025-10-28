@@ -15,15 +15,10 @@ final class AdminCsrfValidationListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private CsrfTokenValidatorInterface $csrfTokenValidator;
-
-    private string $csrfTokenId;
-
-    public function __construct(CsrfTokenValidatorInterface $csrfTokenValidator, string $csrfTokenId)
-    {
-        $this->csrfTokenValidator = $csrfTokenValidator;
-        $this->csrfTokenId = $csrfTokenId;
-    }
+    public function __construct(
+        private CsrfTokenValidatorInterface $csrfTokenValidator,
+        private string $csrfTokenId,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

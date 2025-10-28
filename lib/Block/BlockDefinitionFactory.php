@@ -17,21 +17,11 @@ use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
 final class BlockDefinitionFactory
 {
-    private ParameterBuilderFactoryInterface $parameterBuilderFactory;
-
-    private HandlerPluginRegistry $handlerPluginRegistry;
-
-    private ConfigDefinitionFactory $configDefinitionFactory;
-
     public function __construct(
-        ParameterBuilderFactoryInterface $parameterBuilderFactory,
-        HandlerPluginRegistry $handlerPluginRegistry,
-        ConfigDefinitionFactory $configDefinitionFactory,
-    ) {
-        $this->parameterBuilderFactory = $parameterBuilderFactory;
-        $this->handlerPluginRegistry = $handlerPluginRegistry;
-        $this->configDefinitionFactory = $configDefinitionFactory;
-    }
+        private ParameterBuilderFactoryInterface $parameterBuilderFactory,
+        private HandlerPluginRegistry $handlerPluginRegistry,
+        private ConfigDefinitionFactory $configDefinitionFactory,
+    ) {}
 
     /**
      * Builds the block definition.

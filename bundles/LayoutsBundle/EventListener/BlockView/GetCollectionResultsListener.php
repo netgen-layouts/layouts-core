@@ -19,21 +19,13 @@ use function sprintf;
 
 final class GetCollectionResultsListener implements EventSubscriberInterface
 {
-    private PagerFactory $pagerFactory;
-
-    /**
-     * @var string[]
-     */
-    private array $enabledContexts;
-
     /**
      * @param string[] $enabledContexts
      */
-    public function __construct(PagerFactory $pagerFactory, array $enabledContexts)
-    {
-        $this->pagerFactory = $pagerFactory;
-        $this->enabledContexts = $enabledContexts;
-    }
+    public function __construct(
+        private PagerFactory $pagerFactory,
+        private array $enabledContexts,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

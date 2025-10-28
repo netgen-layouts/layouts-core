@@ -11,17 +11,11 @@ use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 final class TwigBlockDefinitionHandler extends BaseBlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
     /**
-     * @var string[]
-     */
-    private array $twigBlocks;
-
-    /**
      * @param string[] $twigBlocks
      */
-    public function __construct(array $twigBlocks = ['twig_block'])
-    {
-        $this->twigBlocks = $twigBlocks;
-    }
+    public function __construct(
+        private array $twigBlocks = ['twig_block'],
+    ) {}
 
     public function getTwigBlockNames(Block $block): array
     {

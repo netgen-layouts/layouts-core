@@ -11,15 +11,10 @@ use Netgen\Layouts\Item\CmsItemBuilderInterface;
 
 final class CollectionRunnerFactory
 {
-    private CmsItemBuilderInterface $cmsItemBuilder;
-
-    private VisibilityResolverInterface $visibilityResolver;
-
-    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, VisibilityResolverInterface $visibilityResolver)
-    {
-        $this->cmsItemBuilder = $cmsItemBuilder;
-        $this->visibilityResolver = $visibilityResolver;
-    }
+    public function __construct(
+        private CmsItemBuilderInterface $cmsItemBuilder,
+        private VisibilityResolverInterface $visibilityResolver,
+    ) {}
 
     /**
      * Builds and returns the collection runner for provided collection.

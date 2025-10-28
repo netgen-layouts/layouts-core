@@ -16,12 +16,11 @@ final class ViewRenderer implements ViewRendererInterface
 {
     private EventDispatcherProxy $eventDispatcher;
 
-    private Environment $twig;
-
-    public function __construct(EventDispatcherInterface $eventDispatcher, Environment $twig)
-    {
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        private Environment $twig,
+    ) {
         $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
-        $this->twig = $twig;
     }
 
     public function renderView(ViewInterface $view): string

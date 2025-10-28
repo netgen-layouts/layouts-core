@@ -23,17 +23,13 @@ use function count;
 final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\Layouts\Block\BlockType\BlockType>
-     */
-    private array $blockTypes;
-
-    /**
      * @param array<string, \Netgen\Layouts\Block\BlockType\BlockType> $blockTypes
      */
-    public function __construct(array $blockTypes)
-    {
+    public function __construct(
+        private array $blockTypes,
+    ) {
         $this->blockTypes = array_filter(
-            $blockTypes,
+            $this->blockTypes,
             static fn (BlockType $blockType): bool => true,
         );
     }

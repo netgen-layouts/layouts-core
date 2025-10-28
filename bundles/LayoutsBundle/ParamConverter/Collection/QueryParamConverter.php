@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class QueryParamConverter extends ParamConverter
 {
-    private CollectionService $collectionService;
-
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private CollectionService $collectionService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {

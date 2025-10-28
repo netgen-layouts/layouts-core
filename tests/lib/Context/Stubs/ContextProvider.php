@@ -10,17 +10,11 @@ use Netgen\Layouts\Context\ContextProviderInterface;
 final class ContextProvider implements ContextProviderInterface
 {
     /**
-     * @var array<string, mixed>
-     */
-    private array $variables;
-
-    /**
      * @param array<string, mixed> $variables
      */
-    public function __construct(array $variables)
-    {
-        $this->variables = $variables;
-    }
+    public function __construct(
+        private array $variables,
+    ) {}
 
     public function provideContext(Context $context): void
     {

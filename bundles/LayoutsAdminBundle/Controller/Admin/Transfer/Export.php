@@ -24,12 +24,9 @@ use const JSON_THROW_ON_ERROR;
 
 final class Export extends AbstractController
 {
-    private SerializerInterface $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-    }
+    public function __construct(
+        private SerializerInterface $serializer,
+    ) {}
 
     /**
      * Exports the provided list of entities.

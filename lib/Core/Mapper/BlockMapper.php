@@ -32,33 +32,14 @@ use function iterator_to_array;
 
 final class BlockMapper
 {
-    private BlockHandlerInterface $blockHandler;
-
-    private CollectionHandlerInterface $collectionHandler;
-
-    private CollectionMapper $collectionMapper;
-
-    private ParameterMapper $parameterMapper;
-
-    private ConfigMapper $configMapper;
-
-    private BlockDefinitionRegistry $blockDefinitionRegistry;
-
     public function __construct(
-        BlockHandlerInterface $blockHandler,
-        CollectionHandlerInterface $collectionHandler,
-        CollectionMapper $collectionMapper,
-        ParameterMapper $parameterMapper,
-        ConfigMapper $configMapper,
-        BlockDefinitionRegistry $blockDefinitionRegistry,
-    ) {
-        $this->blockHandler = $blockHandler;
-        $this->collectionHandler = $collectionHandler;
-        $this->collectionMapper = $collectionMapper;
-        $this->parameterMapper = $parameterMapper;
-        $this->configMapper = $configMapper;
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
-    }
+        private BlockHandlerInterface $blockHandler,
+        private CollectionHandlerInterface $collectionHandler,
+        private CollectionMapper $collectionMapper,
+        private ParameterMapper $parameterMapper,
+        private ConfigMapper $configMapper,
+        private BlockDefinitionRegistry $blockDefinitionRegistry,
+    ) {}
 
     /**
      * Builds the API block value from persistence one.

@@ -6,21 +6,13 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Plugin;
 
 final class SimplePlugin implements PluginInterface
 {
-    private string $templateName;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $parameters;
-
     /**
      * @param array<string, mixed> $parameters
      */
-    public function __construct(string $templateName, array $parameters = [])
-    {
-        $this->templateName = $templateName;
-        $this->parameters = $parameters;
-    }
+    public function __construct(
+        private string $templateName,
+        private array $parameters = [],
+    ) {}
 
     public function getTemplateName(): string
     {

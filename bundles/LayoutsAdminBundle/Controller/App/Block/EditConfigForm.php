@@ -14,12 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditConfigForm extends AbstractController
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     /**
      * Displays and processes block config edit form.

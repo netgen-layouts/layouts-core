@@ -23,20 +23,12 @@ use function str_starts_with;
 class TemplateResolver implements TemplateResolverInterface
 {
     /**
-     * @var mixed[]
-     */
-    private array $viewConfig;
-
-    private ContainerInterface $matchers;
-
-    /**
      * @param mixed[] $viewConfig
      */
-    public function __construct(array $viewConfig, ContainerInterface $matchers)
-    {
-        $this->viewConfig = $viewConfig;
-        $this->matchers = $matchers;
-    }
+    public function __construct(
+        private array $viewConfig,
+        private ContainerInterface $matchers,
+    ) {}
 
     public function resolveTemplate(ViewInterface $view): void
     {

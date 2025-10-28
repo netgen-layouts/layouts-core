@@ -11,12 +11,9 @@ use Netgen\Layouts\API\Values\Block\Block;
 
 final class Restore extends AbstractController
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     /**
      * Restores the block draft to the published state.

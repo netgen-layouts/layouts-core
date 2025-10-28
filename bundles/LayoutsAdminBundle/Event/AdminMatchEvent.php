@@ -10,26 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 final class AdminMatchEvent extends Event
 {
     /**
-     * The request the kernel is currently processing.
-     */
-    private Request $request;
-
-    /**
-     * The request type the kernel is currently processing.  One of
-     * HttpKernelInterface::MAIN_REQUEST and HttpKernelInterface::SUB_REQUEST.
-     */
-    private int $requestType;
-
-    /**
      * Pagelayout template to be used by admin interface.
      */
     private ?string $pageLayoutTemplate = null;
 
-    public function __construct(Request $request, int $requestType)
-    {
-        $this->request = $request;
-        $this->requestType = $requestType;
-    }
+    public function __construct(
+        /**
+         * The request the kernel is currently processing.
+         */
+        private Request $request,
+        /**
+         * The request type the kernel is currently processing.  One of
+         * HttpKernelInterface::MAIN_REQUEST and HttpKernelInterface::SUB_REQUEST.
+         */
+        private int $requestType,
+    ) {}
 
     /**
      * Returns the request the kernel is currently processing.

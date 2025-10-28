@@ -14,21 +14,13 @@ use function is_int;
 
 final class PagerFactory
 {
-    private ResultBuilderInterface $resultBuilder;
-
-    /**
-     * @var int<1, max>
-     */
-    private int $maxLimit;
-
     /**
      * @param int<1, max> $maxLimit
      */
-    public function __construct(ResultBuilderInterface $resultBuilder, int $maxLimit)
-    {
-        $this->resultBuilder = $resultBuilder;
-        $this->maxLimit = $maxLimit;
-    }
+    public function __construct(
+        private ResultBuilderInterface $resultBuilder,
+        private int $maxLimit,
+    ) {}
 
     /**
      * Builds and returns the Pagerfanta pager for provided collection.

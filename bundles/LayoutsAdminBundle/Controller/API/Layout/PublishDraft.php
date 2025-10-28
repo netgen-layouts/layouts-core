@@ -13,21 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class PublishDraft extends AbstractController
 {
-    private LayoutService $layoutService;
-
-    private InvalidatorInterface $invalidator;
-
-    private bool $automaticCacheClear;
-
     public function __construct(
-        LayoutService $layoutService,
-        InvalidatorInterface $invalidator,
-        bool $automaticCacheClear,
-    ) {
-        $this->layoutService = $layoutService;
-        $this->invalidator = $invalidator;
-        $this->automaticCacheClear = $automaticCacheClear;
-    }
+        private LayoutService $layoutService,
+        private InvalidatorInterface $invalidator,
+        private bool $automaticCacheClear,
+    ) {}
 
     /**
      * Publishes a layout draft.

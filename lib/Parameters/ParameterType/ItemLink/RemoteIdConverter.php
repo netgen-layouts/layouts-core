@@ -15,12 +15,9 @@ final class RemoteIdConverter
 {
     private const string NULL_LINK = 'null://0';
 
-    private CmsItemLoaderInterface $cmsItemLoader;
-
-    public function __construct(CmsItemLoaderInterface $cmsItemLoader)
-    {
-        $this->cmsItemLoader = $cmsItemLoader;
-    }
+    public function __construct(
+        private CmsItemLoaderInterface $cmsItemLoader,
+    ) {}
 
     /**
      * Converts the value_type://value format of the item reference to value_type://remote_id.

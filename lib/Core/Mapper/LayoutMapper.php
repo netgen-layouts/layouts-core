@@ -23,15 +23,10 @@ use function array_map;
 
 final class LayoutMapper
 {
-    private LayoutHandlerInterface $layoutHandler;
-
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
-    public function __construct(LayoutHandlerInterface $layoutHandler, LayoutTypeRegistry $layoutTypeRegistry)
-    {
-        $this->layoutHandler = $layoutHandler;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-    }
+    public function __construct(
+        private LayoutHandlerInterface $layoutHandler,
+        private LayoutTypeRegistry $layoutTypeRegistry,
+    ) {}
 
     /**
      * Builds the API zone value from persistence one.

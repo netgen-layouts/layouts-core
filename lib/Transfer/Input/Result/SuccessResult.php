@@ -9,27 +9,15 @@ use Ramsey\Uuid\UuidInterface;
 
 final class SuccessResult implements ResultInterface
 {
-    private string $entityType;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $data;
-
-    private UuidInterface $entityId;
-
-    private Value $entity;
-
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(string $entityType, array $data, UuidInterface $entityId, Value $entity)
-    {
-        $this->entityType = $entityType;
-        $this->data = $data;
-        $this->entityId = $entityId;
-        $this->entity = $entity;
-    }
+    public function __construct(
+        private string $entityType,
+        private array $data,
+        private UuidInterface $entityId,
+        private Value $entity,
+    ) {}
 
     public function getEntityType(): string
     {

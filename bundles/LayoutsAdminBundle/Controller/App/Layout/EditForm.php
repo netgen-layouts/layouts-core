@@ -14,12 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditForm extends AbstractController
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     /**
      * Displays and processes layout update form.

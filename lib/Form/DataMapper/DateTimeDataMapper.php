@@ -18,12 +18,9 @@ use function iterator_to_array;
  */
 final class DateTimeDataMapper implements DataMapperInterface
 {
-    private bool $useDateTime;
-
-    public function __construct(bool $useDateTime = true)
-    {
-        $this->useDateTime = $useDateTime;
-    }
+    public function __construct(
+        private bool $useDateTime = true,
+    ) {}
 
     public function mapDataToForms(mixed $viewData, Traversable $forms): void
     {

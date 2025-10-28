@@ -17,12 +17,11 @@ final class CollectionPagerRuntime
 {
     private Closure $routeGenerator;
 
-    private ViewInterface $pagerfantaView;
-
-    public function __construct(callable $routeGenerator, ViewInterface $pagerfantaView)
-    {
+    public function __construct(
+        callable $routeGenerator,
+        private ViewInterface $pagerfantaView,
+    ) {
         $this->routeGenerator = Closure::fromCallable($routeGenerator);
-        $this->pagerfantaView = $pagerfantaView;
     }
 
     /**

@@ -15,21 +15,13 @@ use function sprintf;
 
 final class BlockViewListener implements EventSubscriberInterface
 {
-    private LayoutsDataCollector $dataCollector;
-
-    /**
-     * @var string[]
-     */
-    private array $enabledContexts;
-
     /**
      * @param string[] $enabledContexts
      */
-    public function __construct(LayoutsDataCollector $dataCollector, array $enabledContexts)
-    {
-        $this->dataCollector = $dataCollector;
-        $this->enabledContexts = $enabledContexts;
-    }
+    public function __construct(
+        private LayoutsDataCollector $dataCollector,
+        private array $enabledContexts,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

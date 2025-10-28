@@ -50,11 +50,6 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     public bool $alwaysAvailable;
 
     /**
-     * Block definition to create the new block from.
-     */
-    private BlockDefinitionInterface $definition;
-
-    /**
      * The list of collections to create in the block.
      *
      * The keys are collection identifiers, while the values are instances of CollectionCreateStruct objects.
@@ -63,9 +58,9 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
      */
     private array $collectionCreateStructs = [];
 
-    public function __construct(BlockDefinitionInterface $definition)
-    {
-        $this->definition = $definition;
+    public function __construct(
+        private BlockDefinitionInterface $definition,
+    ) {
         $this->fillDefault($this->definition);
     }
 

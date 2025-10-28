@@ -18,21 +18,13 @@ use function array_key_exists;
  */
 class ContainerConfiguration implements ConfigurationInterface
 {
-    private ContainerInterface $container;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $parameters;
-
     /**
      * @param array<string, mixed> $parameters
      */
-    public function __construct(ContainerInterface $container, array $parameters = [])
-    {
-        $this->container = $container;
-        $this->parameters = $parameters;
-    }
+    public function __construct(
+        private ContainerInterface $container,
+        private array $parameters = [],
+    ) {}
 
     public function hasParameter(string $parameterName): bool
     {

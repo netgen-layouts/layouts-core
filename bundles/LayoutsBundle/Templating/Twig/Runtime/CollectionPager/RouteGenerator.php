@@ -19,25 +19,12 @@ use function urlencode;
 
 final class RouteGenerator
 {
-    private Context $context;
-
-    private UriSigner $uriSigner;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private RequestStack $requestStack;
-
     public function __construct(
-        Context $context,
-        UriSigner $uriSigner,
-        UrlGeneratorInterface $urlGenerator,
-        RequestStack $requestStack,
-    ) {
-        $this->context = $context;
-        $this->uriSigner = $uriSigner;
-        $this->urlGenerator = $urlGenerator;
-        $this->requestStack = $requestStack;
-    }
+        private Context $context,
+        private UriSigner $uriSigner,
+        private UrlGeneratorInterface $urlGenerator,
+        private RequestStack $requestStack,
+    ) {}
 
     /**
      * Generates and signs the URI for provided block, collection and page number.

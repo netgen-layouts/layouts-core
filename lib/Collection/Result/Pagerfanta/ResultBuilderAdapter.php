@@ -16,19 +16,6 @@ use function max;
  */
 final class ResultBuilderAdapter implements AdapterInterface
 {
-    private ResultBuilderInterface $resultBuilder;
-
-    private Collection $collection;
-
-    private int $startingOffset;
-
-    /**
-     * @var int<0, max>|null
-     */
-    private ?int $maxTotalCount;
-
-    private int $flags;
-
     /**
      * @var int<0, max>
      */
@@ -38,18 +25,12 @@ final class ResultBuilderAdapter implements AdapterInterface
      * @param int<0, max>|null $maxTotalCount
      */
     public function __construct(
-        ResultBuilderInterface $resultBuilder,
-        Collection $collection,
-        int $startingOffset = 0,
-        ?int $maxTotalCount = null,
-        int $flags = 0,
-    ) {
-        $this->resultBuilder = $resultBuilder;
-        $this->collection = $collection;
-        $this->startingOffset = $startingOffset;
-        $this->maxTotalCount = $maxTotalCount;
-        $this->flags = $flags;
-    }
+        private ResultBuilderInterface $resultBuilder,
+        private Collection $collection,
+        private int $startingOffset = 0,
+        private ?int $maxTotalCount = null,
+        private int $flags = 0,
+    ) {}
 
     public function getNbResults(): int
     {

@@ -20,12 +20,9 @@ use function count;
 
 final class ParametersType extends AbstractType
 {
-    private ContainerInterface $mappers;
-
-    public function __construct(ContainerInterface $mappers)
-    {
-        $this->mappers = $mappers;
-    }
+    public function __construct(
+        private ContainerInterface $mappers,
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

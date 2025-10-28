@@ -29,21 +29,11 @@ final class Importer implements ImporterInterface
 {
     private const string SCHEMA_FILE = __DIR__ . '/../../../resources/schemas/import.json';
 
-    private TransactionService $transactionService;
-
-    private JsonValidatorInterface $jsonValidator;
-
-    private ContainerInterface $entityHandlers;
-
     public function __construct(
-        TransactionService $transactionService,
-        JsonValidatorInterface $jsonValidator,
-        ContainerInterface $entityHandlers,
-    ) {
-        $this->transactionService = $transactionService;
-        $this->jsonValidator = $jsonValidator;
-        $this->entityHandlers = $entityHandlers;
-    }
+        private TransactionService $transactionService,
+        private JsonValidatorInterface $jsonValidator,
+        private ContainerInterface $entityHandlers,
+    ) {}
 
     public function importData(string $data, ImportOptions $options): Traversable
     {

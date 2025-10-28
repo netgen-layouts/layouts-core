@@ -18,12 +18,9 @@ final class Move extends AbstractController
 {
     use ValidatorTrait;
 
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     /**
      * Moves the block draft to specified block.

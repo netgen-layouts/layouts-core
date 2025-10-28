@@ -22,12 +22,9 @@ use function ksort;
  */
 final class QueryVisitor implements VisitorInterface
 {
-    private CollectionService $collectionService;
-
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private CollectionService $collectionService,
+    ) {}
 
     public function accept(object $value): bool
     {

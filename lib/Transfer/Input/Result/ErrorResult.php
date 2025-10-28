@@ -9,27 +9,15 @@ use Throwable;
 
 final class ErrorResult implements ResultInterface
 {
-    private string $entityType;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $data;
-
-    private UuidInterface $entityId;
-
-    private Throwable $error;
-
     /**
      * @param array<string, mixed> $data
      */
-    public function __construct(string $entityType, array $data, UuidInterface $entityId, Throwable $error)
-    {
-        $this->entityType = $entityType;
-        $this->data = $data;
-        $this->entityId = $entityId;
-        $this->error = $error;
-    }
+    public function __construct(
+        private string $entityType,
+        private array $data,
+        private UuidInterface $entityId,
+        private Throwable $error,
+    ) {}
 
     public function getEntityType(): string
     {

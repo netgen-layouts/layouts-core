@@ -16,12 +16,9 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
 {
     use NormalizerAwareTrait;
 
-    private RendererInterface $viewRenderer;
-
-    public function __construct(RendererInterface $viewRenderer)
-    {
-        $this->viewRenderer = $viewRenderer;
-    }
+    public function __construct(
+        private RendererInterface $viewRenderer,
+    ) {}
 
     /**
      * @return array<string, mixed>

@@ -38,18 +38,15 @@ final class MigrateUuidCommand extends Command
 
     private const string NAMESPACE_POLICY = 'a3468559-de48-4cc3-818d-7a3350ee5d40';
 
-    private Connection $connection;
-
     private InputInterface $input;
 
     private OutputInterface $output;
 
     private SymfonyStyle $io;
 
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-
+    public function __construct(
+        private Connection $connection,
+    ) {
         // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
     }

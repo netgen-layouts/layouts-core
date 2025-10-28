@@ -26,12 +26,9 @@ final class RuleGroupVisitor implements VisitorInterface
 
     private const string ENTITY_TYPE = 'rule_group';
 
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     public function accept(object $value): bool
     {

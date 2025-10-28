@@ -14,8 +14,6 @@ use function ob_start;
 
 final class Renderer implements RendererInterface
 {
-    private Environment $twig;
-
     /**
      * @var array<string, \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection>
      */
@@ -25,11 +23,9 @@ final class Renderer implements RendererInterface
      * @param array<string, \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[]> $pluginsByPluginName
      */
     public function __construct(
-        Environment $twig,
+        private Environment $twig,
         array $pluginsByPluginName,
     ) {
-        $this->twig = $twig;
-
         foreach ($pluginsByPluginName as $pluginName => $plugins) {
             $this->pluginCollections[$pluginName] = new PluginCollection(
                 $pluginName,

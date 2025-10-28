@@ -15,15 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditSlotViewTypeForm extends AbstractController
 {
-    private BlockService $blockService;
-
-    private CollectionService $collectionService;
-
-    public function __construct(BlockService $blockService, CollectionService $collectionService)
-    {
-        $this->blockService = $blockService;
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+        private CollectionService $collectionService,
+    ) {}
 
     /**
      * Displays and processes slot view type edit form.

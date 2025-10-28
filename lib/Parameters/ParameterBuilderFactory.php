@@ -12,12 +12,9 @@ use function is_string;
 
 class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 {
-    private ParameterTypeRegistry $parameterTypeRegistry;
-
-    public function __construct(ParameterTypeRegistry $parameterTypeRegistry)
-    {
-        $this->parameterTypeRegistry = $parameterTypeRegistry;
-    }
+    public function __construct(
+        private ParameterTypeRegistry $parameterTypeRegistry,
+    ) {}
 
     public function createParameterBuilder(array $config = []): ParameterBuilderInterface
     {

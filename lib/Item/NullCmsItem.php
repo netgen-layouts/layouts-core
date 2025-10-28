@@ -10,12 +10,9 @@ namespace Netgen\Layouts\Item;
  */
 final class NullCmsItem implements CmsItemInterface
 {
-    private string $valueType;
-
-    public function __construct(string $valueType)
-    {
-        $this->valueType = $valueType;
-    }
+    public function __construct(
+        private string $valueType,
+    ) {}
 
     public function getValue(): null
     {

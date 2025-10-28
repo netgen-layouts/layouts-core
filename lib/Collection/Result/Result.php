@@ -13,21 +13,12 @@ use Netgen\Layouts\Item\CmsItemInterface;
  */
 final class Result
 {
-    private int $position;
-
-    private CmsItemInterface $item;
-
-    private ?CmsItemInterface $subItem;
-
-    private ?Slot $slot;
-
-    public function __construct(int $position, CmsItemInterface $item, ?CmsItemInterface $subItem = null, ?Slot $slot = null)
-    {
-        $this->position = $position;
-        $this->item = $item;
-        $this->subItem = $subItem;
-        $this->slot = $slot;
-    }
+    public function __construct(
+        private int $position,
+        private CmsItemInterface $item,
+        private ?CmsItemInterface $subItem = null,
+        private ?Slot $slot = null,
+    ) {}
 
     /**
      * Returns the position of the result in the result set.

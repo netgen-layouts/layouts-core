@@ -27,17 +27,10 @@ final class LayoutResolverValidator
 {
     use ValidatorTrait;
 
-    private TargetTypeRegistry $targetTypeRegistry;
-
-    private ConditionTypeRegistry $conditionTypeRegistry;
-
     public function __construct(
-        TargetTypeRegistry $targetTypeRegistry,
-        ConditionTypeRegistry $conditionTypeRegistry,
-    ) {
-        $this->targetTypeRegistry = $targetTypeRegistry;
-        $this->conditionTypeRegistry = $conditionTypeRegistry;
-    }
+        private TargetTypeRegistry $targetTypeRegistry,
+        private ConditionTypeRegistry $conditionTypeRegistry,
+    ) {}
 
     /**
      * Validates the provided rule update struct.

@@ -21,12 +21,9 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
 final class CollectionStructBuilder
 {
-    private ConfigStructBuilder $configStructBuilder;
-
-    public function __construct(ConfigStructBuilder $configStructBuilder)
-    {
-        $this->configStructBuilder = $configStructBuilder;
-    }
+    public function __construct(
+        private ConfigStructBuilder $configStructBuilder,
+    ) {}
 
     /**
      * Creates a new collection create struct.

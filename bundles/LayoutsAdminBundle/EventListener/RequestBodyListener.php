@@ -22,12 +22,9 @@ final class RequestBodyListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private DecoderInterface $decoder;
-
-    public function __construct(DecoderInterface $decoder)
-    {
-        $this->decoder = $decoder;
-    }
+    public function __construct(
+        private DecoderInterface $decoder,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

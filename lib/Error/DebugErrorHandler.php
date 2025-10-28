@@ -13,15 +13,10 @@ use Throwable;
  */
 final class DebugErrorHandler implements ErrorHandlerInterface
 {
-    private LoggerInterface $logger;
-
-    private bool $debug;
-
-    public function __construct(?LoggerInterface $logger = null, bool $debug = false)
-    {
-        $this->logger = $logger ?? new NullLogger();
-        $this->debug = $debug;
-    }
+    public function __construct(
+        private LoggerInterface $logger = new NullLogger(),
+        private bool $debug = false,
+    ) {}
 
     public function handleError(Throwable $throwable, ?string $message = null, array $context = []): void
     {

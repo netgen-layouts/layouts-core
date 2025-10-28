@@ -11,12 +11,9 @@ use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 
 final class LoadLayoutTypes extends AbstractController
 {
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
-    public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
-    {
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-    }
+    public function __construct(
+        private LayoutTypeRegistry $layoutTypeRegistry,
+    ) {}
 
     /**
      * Serializes the layout types.

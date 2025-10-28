@@ -12,10 +12,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 final class AsQueryTypeHandler
 {
-    public string $type;
-
-    public function __construct(string $type)
-    {
-        $this->type = $type;
-    }
+    public function __construct(
+        public string $type,
+    ) {}
 }

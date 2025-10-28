@@ -17,15 +17,10 @@ use function array_map;
 
 final class ClearRelatedLayoutsCache extends AbstractController
 {
-    private LayoutService $layoutService;
-
-    private InvalidatorInterface $invalidator;
-
-    public function __construct(LayoutService $layoutService, InvalidatorInterface $invalidator)
-    {
-        $this->layoutService = $layoutService;
-        $this->invalidator = $invalidator;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+        private InvalidatorInterface $invalidator,
+    ) {}
 
     /**
      * Clears the HTTP caches for layouts related to provided shared layout.

@@ -13,12 +13,9 @@ use function is_int;
 
 final class PositionHelper
 {
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-    }
+    public function __construct(
+        private Connection $connection,
+    ) {}
 
     /**
      * Processes the database table to create space for an item which will

@@ -16,15 +16,10 @@ use function sprintf;
 
 final class CollectionView implements ViewInterface
 {
-    private Environment $twig;
-
-    private string $template;
-
-    public function __construct(Environment $twig, string $template)
-    {
-        $this->twig = $twig;
-        $this->template = $template;
-    }
+    public function __construct(
+        private Environment $twig,
+        private string $template,
+    ) {}
 
     public function getName(): string
     {

@@ -15,12 +15,9 @@ use function sprintf;
 
 final class RuleCountListener implements EventSubscriberInterface
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

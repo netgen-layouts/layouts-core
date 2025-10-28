@@ -24,12 +24,9 @@ use function str_replace;
  */
 final class ItemLinkValidator extends ConstraintValidator
 {
-    private CmsItemLoaderInterface $cmsItemLoader;
-
-    public function __construct(CmsItemLoaderInterface $cmsItemLoader)
-    {
-        $this->cmsItemLoader = $cmsItemLoader;
-    }
+    public function __construct(
+        private CmsItemLoaderInterface $cmsItemLoader,
+    ) {}
 
     public function validate(mixed $value, Constraint $constraint): void
     {

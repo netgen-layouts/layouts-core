@@ -25,31 +25,18 @@ use function sprintf;
 
 final class LayoutsDataCollector extends DataCollector
 {
-    private LayoutHandler $layoutHandler;
-
-    private GlobalVariable $globalVariable;
-
-    private LayoutUrlGeneratorInterface $layoutUrlGenerator;
-
-    private Environment $twig;
-
     /**
      * @var \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     private array $layoutCache = [];
 
     public function __construct(
-        LayoutHandler $layoutHandler,
-        GlobalVariable $globalVariable,
-        LayoutUrlGeneratorInterface $layoutUrlGenerator,
-        Environment $twig,
+        private LayoutHandler $layoutHandler,
+        private GlobalVariable $globalVariable,
+        private LayoutUrlGeneratorInterface $layoutUrlGenerator,
+        private Environment $twig,
         string $edition,
     ) {
-        $this->layoutHandler = $layoutHandler;
-        $this->globalVariable = $globalVariable;
-        $this->layoutUrlGenerator = $layoutUrlGenerator;
-        $this->twig = $twig;
-
         $coreVersion = PrettyVersions::getVersion('netgen/layouts-core')->getPrettyVersion();
         $this->data['version'] = sprintf('%s %s', $coreVersion, $edition);
         $this->data['docs_version'] = 'latest';

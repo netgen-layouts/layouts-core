@@ -18,15 +18,10 @@ final class ChangeType extends AbstractController
 {
     use ValidatorTrait;
 
-    private LayoutService $layoutService;
-
-    private LayoutTypeRegistry $layoutTypeRegistry;
-
-    public function __construct(LayoutService $layoutService, LayoutTypeRegistry $layoutTypeRegistry)
-    {
-        $this->layoutService = $layoutService;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+        private LayoutTypeRegistry $layoutTypeRegistry,
+    ) {}
 
     /**
      * Changes the type of the layout.

@@ -22,21 +22,11 @@ use function usort;
 
 final class LayoutResolver implements LayoutResolverInterface
 {
-    private LayoutResolverService $layoutResolverService;
-
-    private TargetTypeRegistry $targetTypeRegistry;
-
-    private RequestStack $requestStack;
-
     public function __construct(
-        LayoutResolverService $layoutResolverService,
-        TargetTypeRegistry $targetTypeRegistry,
-        RequestStack $requestStack,
-    ) {
-        $this->layoutResolverService = $layoutResolverService;
-        $this->targetTypeRegistry = $targetTypeRegistry;
-        $this->requestStack = $requestStack;
-    }
+        private LayoutResolverService $layoutResolverService,
+        private TargetTypeRegistry $targetTypeRegistry,
+        private RequestStack $requestStack,
+    ) {}
 
     public function resolveRule(?Request $request = null, array $enabledConditions = []): ?Rule
     {

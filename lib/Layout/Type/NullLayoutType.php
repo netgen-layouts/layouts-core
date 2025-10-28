@@ -9,12 +9,9 @@ use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 
 final class NullLayoutType implements LayoutTypeInterface
 {
-    private string $layoutType;
-
-    public function __construct(string $layoutType)
-    {
-        $this->layoutType = $layoutType;
-    }
+    public function __construct(
+        private string $layoutType,
+    ) {}
 
     public function getIdentifier(): string
     {

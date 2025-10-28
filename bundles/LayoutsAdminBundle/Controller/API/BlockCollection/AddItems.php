@@ -21,17 +21,10 @@ final class AddItems extends AbstractController
 {
     use ValidatorTrait;
 
-    private CollectionService $collectionService;
-
-    private ItemDefinitionRegistry $itemDefinitionRegistry;
-
     public function __construct(
-        CollectionService $collectionService,
-        ItemDefinitionRegistry $itemDefinitionRegistry,
-    ) {
-        $this->collectionService = $collectionService;
-        $this->itemDefinitionRegistry = $itemDefinitionRegistry;
-    }
+        private CollectionService $collectionService,
+        private ItemDefinitionRegistry $itemDefinitionRegistry,
+    ) {}
 
     /**
      * Adds an item inside the collection.

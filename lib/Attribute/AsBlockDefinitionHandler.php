@@ -12,10 +12,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 final class AsBlockDefinitionHandler
 {
-    public string $identifier;
-
-    public function __construct(string $identifier)
-    {
-        $this->identifier = $identifier;
-    }
+    public function __construct(
+        public string $identifier,
+    ) {}
 }

@@ -10,12 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends AbstractController
 {
-    private string $pageLayout;
-
-    public function __construct(string $pageLayout)
-    {
-        $this->pageLayout = $pageLayout;
-    }
+    public function __construct(
+        private string $pageLayout,
+    ) {}
 
     /**
      * Displays the Netgen Layouts app index page.

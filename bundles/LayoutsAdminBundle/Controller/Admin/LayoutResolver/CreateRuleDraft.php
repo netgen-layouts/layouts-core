@@ -11,12 +11,9 @@ use Netgen\Layouts\View\ViewInterface;
 
 final class CreateRuleDraft extends AbstractController
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     /**
      * Creates a new rule draft from published state.

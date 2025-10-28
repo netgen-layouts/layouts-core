@@ -13,17 +13,11 @@ use function in_array;
 final class LocaleProvider implements LocaleProviderInterface
 {
     /**
-     * @var string[]
-     */
-    private array $enabledLocales;
-
-    /**
      * @param string[] $enabledLocales
      */
-    public function __construct(array $enabledLocales = [])
-    {
-        $this->enabledLocales = $enabledLocales;
-    }
+    public function __construct(
+        private array $enabledLocales = [],
+    ) {}
 
     public function getAvailableLocales(): array
     {

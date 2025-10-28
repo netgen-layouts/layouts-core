@@ -24,25 +24,12 @@ final class CreateInZone extends AbstractController
 {
     use ValidatorTrait;
 
-    private BlockService $blockService;
-
-    private LayoutService $layoutService;
-
-    private CreateStructBuilder $createStructBuilder;
-
-    private BlockTypeRegistry $blockTypeRegistry;
-
     public function __construct(
-        BlockService $blockService,
-        LayoutService $layoutService,
-        CreateStructBuilder $createStructBuilder,
-        BlockTypeRegistry $blockTypeRegistry,
-    ) {
-        $this->blockService = $blockService;
-        $this->layoutService = $layoutService;
-        $this->createStructBuilder = $createStructBuilder;
-        $this->blockTypeRegistry = $blockTypeRegistry;
-    }
+        private BlockService $blockService,
+        private LayoutService $layoutService,
+        private CreateStructBuilder $createStructBuilder,
+        private BlockTypeRegistry $blockTypeRegistry,
+    ) {}
 
     /**
      * Creates the block in specified zone.

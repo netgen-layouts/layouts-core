@@ -12,14 +12,9 @@ final class QueryCreateStruct implements ParameterStruct
 {
     use ParameterStructTrait;
 
-    /**
-     * Query type for which the new query will be created.
-     */
-    private QueryTypeInterface $queryType;
-
-    public function __construct(QueryTypeInterface $queryType)
-    {
-        $this->queryType = $queryType;
+    public function __construct(
+        private QueryTypeInterface $queryType,
+    ) {
         $this->fillDefault($this->queryType);
     }
 

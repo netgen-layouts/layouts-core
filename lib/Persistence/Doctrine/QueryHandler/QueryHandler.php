@@ -15,15 +15,10 @@ use function is_string;
 
 abstract class QueryHandler
 {
-    protected Connection $connection;
-
-    protected ConnectionHelperInterface $connectionHelper;
-
-    public function __construct(Connection $connection, ConnectionHelperInterface $connectionHelper)
-    {
-        $this->connection = $connection;
-        $this->connectionHelper = $connectionHelper;
-    }
+    public function __construct(
+        protected Connection $connection,
+        protected ConnectionHelperInterface $connectionHelper,
+    ) {}
 
     /**
      * Applies ID condition to the query.

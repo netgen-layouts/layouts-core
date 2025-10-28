@@ -11,12 +11,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
-    private NetgenLayoutsExtension $extension;
-
-    public function __construct(NetgenLayoutsExtension $extension)
-    {
-        $this->extension = $extension;
-    }
+    public function __construct(
+        private NetgenLayoutsExtension $extension,
+    ) {}
 
     public function getConfigTreeBuilder(): BaseTreeBuilder
     {
