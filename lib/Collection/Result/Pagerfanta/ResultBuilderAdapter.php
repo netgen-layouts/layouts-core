@@ -9,6 +9,8 @@ use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use Pagerfanta\Adapter\AdapterInterface;
 
+use function max;
+
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Netgen\Layouts\Collection\Result\Result>
  */
@@ -89,7 +91,7 @@ final class ResultBuilderAdapter implements AdapterInterface
     {
         /** @var int<0, max> $totalCount */
         $totalCount = $result->getTotalCount() - $this->startingOffset;
-        $this->totalCount = $totalCount > 0 ? $totalCount : 0;
+        $this->totalCount = max($totalCount, 0);
 
         if ($this->maxTotalCount !== null && $this->totalCount >= $this->maxTotalCount) {
             $this->totalCount = $this->maxTotalCount;

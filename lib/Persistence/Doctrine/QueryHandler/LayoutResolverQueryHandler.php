@@ -664,7 +664,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         // Update materialized path only after creating the rule group, when we have the ID
 
-        $ruleGroup->path = $ruleGroup->path . $ruleGroup->id . '/';
+        $ruleGroup->path .= $ruleGroup->id . '/';
 
         $query = $this->connection->createQueryBuilder();
         $query

@@ -11,6 +11,7 @@ use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 
+use function array_find;
 use function is_a;
 
 final class ConnectionHelper implements ConnectionHelperInterface
@@ -56,12 +57,9 @@ final class ConnectionHelper implements ConnectionHelperInterface
 
     private function getHandler(AbstractPlatform $platform): ?ConnectionHelperInterface
     {
-        foreach ($this->databaseSpecificHelpers as $class => $helper) {
-            if (is_a($platform, $class)) {
-                return $helper;
-            }
-        }
-
-        return null;
+        return array_find(
+            $this->databaseSpecificHelpers,
+            static fn (ConnectionHelperInterface $helper, string $class): bool => is_a($platform, $class),
+        );
     }
 }

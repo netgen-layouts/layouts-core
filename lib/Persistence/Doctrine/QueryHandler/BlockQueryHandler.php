@@ -206,7 +206,7 @@ final class BlockQueryHandler extends QueryHandler
 
         // Update materialized path only after creating the block, when we have the ID
 
-        $block->path = $block->path . $block->id . '/';
+        $block->path .= $block->id . '/';
 
         $query = $this->connection->createQueryBuilder();
         $query

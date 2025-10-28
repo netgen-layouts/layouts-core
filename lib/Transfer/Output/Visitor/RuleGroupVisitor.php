@@ -24,7 +24,7 @@ final class RuleGroupVisitor implements VisitorInterface
 {
     use StatusStringTrait;
 
-    public const ENTITY_TYPE = 'rule_group';
+    private const ENTITY_TYPE = 'rule_group';
 
     private LayoutResolverService $layoutResolverService;
 

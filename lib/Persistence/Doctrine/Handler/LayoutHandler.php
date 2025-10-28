@@ -165,7 +165,7 @@ final class LayoutHandler implements LayoutHandlerInterface
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
                 'status' => $layoutCreateStruct->status,
-                'shared' => $layoutCreateStruct->shared ? true : false,
+                'shared' => $layoutCreateStruct->shared,
                 'mainLocale' => $layoutCreateStruct->mainLocale,
                 'availableLocales' => [$layoutCreateStruct->mainLocale],
             ],

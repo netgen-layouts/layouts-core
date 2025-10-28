@@ -23,7 +23,7 @@ final class RuleVisitor implements VisitorInterface
 {
     use StatusStringTrait;
 
-    public const ENTITY_TYPE = 'rule';
+    private const ENTITY_TYPE = 'rule';
 
     public function accept(object $value): bool
     {

@@ -7,6 +7,8 @@ namespace Netgen\Layouts\Collection\Result;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Query;
 
+use function max;
+
 /**
  * A builder generates the collection results. Note that in order to disable fetching unlimited
  * number of results (for performance reasons), the number of results is hardcoded to a max limit
@@ -32,7 +34,7 @@ final class ResultBuilder implements ResultBuilderInterface
 
     public function build(Collection $collection, int $offset = 0, ?int $limit = null, int $flags = 0): ResultSet
     {
-        $offset = $offset >= 0 ? $offset : 0;
+        $offset = max($offset, 0);
         if ($limit === null || $limit < 0 || $limit > $this->maxLimit) {
             $limit = $this->maxLimit;
         }

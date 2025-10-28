@@ -215,7 +215,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'status' => $ruleCreateStruct->status,
                 'ruleGroupId' => $targetGroup->id,
                 'layoutUuid' => $layout?->uuid,
-                'enabled' => $ruleCreateStruct->enabled ? true : false,
+                'enabled' => $ruleCreateStruct->enabled,
                 'priority' => $ruleCreateStruct->priority ?? $this->getPriority($targetGroup),
                 'description' => trim($ruleCreateStruct->description),
             ],
@@ -391,7 +391,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'parentUuid' => $parentGroup?->uuid,
                 'name' => trim($ruleGroupCreateStruct->name),
                 'description' => trim($ruleGroupCreateStruct->description),
-                'enabled' => $ruleGroupCreateStruct->enabled ? true : false,
+                'enabled' => $ruleGroupCreateStruct->enabled,
                 'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
             ],
         );
