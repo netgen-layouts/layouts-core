@@ -19,7 +19,7 @@ final class LazyCollection extends AbstractLazyCollection
 
     public function __construct(callable $callable)
     {
-        $this->closure = Closure::fromCallable($callable);
+        $this->closure = $callable(...);
     }
 
     protected function doInitialize(): void

@@ -21,7 +21,7 @@ final class CollectionPagerRuntime
         callable $routeGenerator,
         private ViewInterface $pagerfantaView,
     ) {
-        $this->routeGenerator = Closure::fromCallable($routeGenerator);
+        $this->routeGenerator = $routeGenerator(...);
     }
 
     /**
