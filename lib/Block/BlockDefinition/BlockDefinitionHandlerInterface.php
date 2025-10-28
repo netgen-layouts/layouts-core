@@ -20,13 +20,13 @@ interface BlockDefinitionHandlerInterface
      * Use this group in the parameters you wish to show
      * in the Content part of the block edit interface.
      */
-    public const string GROUP_CONTENT = 'content';
+    final public const string GROUP_CONTENT = 'content';
 
     /**
      * Use this group in the parameters you wish to show
      * in the Design part of the block edit interface.
      */
-    public const string GROUP_DESIGN = 'design';
+    final public const string GROUP_DESIGN = 'design';
 
     /**
      * Builds the parameters by using provided parameter builder.

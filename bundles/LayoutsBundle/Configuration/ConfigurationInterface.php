@@ -14,7 +14,7 @@ namespace Netgen\Bundle\LayoutsBundle\Configuration;
  */
 interface ConfigurationInterface
 {
-    public const string PARAMETER_NAMESPACE = 'netgen_layouts';
+    final public const string PARAMETER_NAMESPACE = 'netgen_layouts';
 
     /**
      * Returns if parameter exists in configuration.

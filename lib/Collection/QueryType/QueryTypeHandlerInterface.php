@@ -19,7 +19,7 @@ interface QueryTypeHandlerInterface
      * Use this group in your parameters if you wish to show them in the
      * Advanced section of query edit interface.
      */
-    public const string GROUP_ADVANCED = 'advanced';
+    final public const string GROUP_ADVANCED = 'advanced';
 
     /**
      * Builds the parameters by using provided parameter builder.

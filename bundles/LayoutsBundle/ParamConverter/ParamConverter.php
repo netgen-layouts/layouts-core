@@ -14,11 +14,11 @@ use function is_a;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
-    protected const string STATUS_PUBLISHED = 'published';
+    final protected const string STATUS_PUBLISHED = 'published';
 
-    protected const string STATUS_DRAFT = 'draft';
+    final protected const string STATUS_DRAFT = 'draft';
 
-    protected const string STATUS_ARCHIVED = 'archived';
+    final protected const string STATUS_ARCHIVED = 'archived';
 
     private const string ROUTE_STATUS_PARAM = '_nglayouts_status';
 
