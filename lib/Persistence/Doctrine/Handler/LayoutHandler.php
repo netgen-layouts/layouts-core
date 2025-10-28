@@ -27,8 +27,8 @@ use function count;
 use function in_array;
 use function is_int;
 use function is_string;
+use function mb_trim;
 use function time;
-use function trim;
 
 final class LayoutHandler implements LayoutHandlerInterface
 {
@@ -150,8 +150,8 @@ final class LayoutHandler implements LayoutHandlerInterface
                     $layoutCreateStruct->uuid :
                     Uuid::uuid4()->toString(),
                 'type' => $layoutCreateStruct->type,
-                'name' => trim($layoutCreateStruct->name),
-                'description' => trim($layoutCreateStruct->description),
+                'name' => mb_trim($layoutCreateStruct->name),
+                'description' => mb_trim($layoutCreateStruct->description),
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
                 'status' => $layoutCreateStruct->status,
@@ -271,7 +271,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $updatedLayout->modified = time();
 
         if (is_string($layoutUpdateStruct->name)) {
-            $updatedLayout->name = trim($layoutUpdateStruct->name);
+            $updatedLayout->name = mb_trim($layoutUpdateStruct->name);
         }
 
         if (is_int($layoutUpdateStruct->modified)) {
@@ -279,7 +279,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         }
 
         if (is_string($layoutUpdateStruct->description)) {
-            $updatedLayout->description = trim($layoutUpdateStruct->description);
+            $updatedLayout->description = mb_trim($layoutUpdateStruct->description);
         }
 
         $this->queryHandler->updateLayout($updatedLayout);
@@ -315,10 +315,10 @@ final class LayoutHandler implements LayoutHandlerInterface
         $currentTimeStamp = time();
         $copiedLayout->created = $currentTimeStamp;
         $copiedLayout->modified = $currentTimeStamp;
-        $copiedLayout->name = trim($layoutCopyStruct->name);
+        $copiedLayout->name = mb_trim($layoutCopyStruct->name);
 
         if (is_string($layoutCopyStruct->description)) {
-            $copiedLayout->description = trim($layoutCopyStruct->description);
+            $copiedLayout->description = mb_trim($layoutCopyStruct->description);
         }
 
         $copiedLayout = $this->queryHandler->createLayout($copiedLayout);

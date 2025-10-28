@@ -10,8 +10,8 @@ use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Node\Node;
 
+use function mb_trim;
 use function sprintf;
-use function trim;
 
 abstract class NodeTestBase extends TestCase
 {
@@ -34,9 +34,9 @@ abstract class NodeTestBase extends TestCase
         $compiler->compile($node);
 
         if ($isPattern) {
-            self::assertStringMatchesFormat($source, trim($compiler->getSource()));
+            self::assertStringMatchesFormat($source, mb_trim($compiler->getSource()));
         } else {
-            self::assertSame($source, trim($compiler->getSource()));
+            self::assertSame($source, mb_trim($compiler->getSource()));
         }
     }
 

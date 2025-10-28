@@ -20,8 +20,8 @@ use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
 use function is_bool;
+use function mb_trim;
 use function sprintf;
-use function trim;
 
 final class LayoutResolverValidator
 {
@@ -62,7 +62,7 @@ final class LayoutResolverValidator
         }
 
         $this->validate(
-            trim($ruleGroupCreateStruct->name),
+            mb_trim($ruleGroupCreateStruct->name),
             [
                 new Constraints\NotBlank(),
             ],
@@ -79,7 +79,7 @@ final class LayoutResolverValidator
     {
         if ($ruleGroupUpdateStruct->name !== null) {
             $this->validate(
-                trim($ruleGroupUpdateStruct->name),
+                mb_trim($ruleGroupUpdateStruct->name),
                 [
                     new Constraints\NotBlank(),
                 ],

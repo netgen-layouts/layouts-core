@@ -66,7 +66,7 @@ final class QueryParameter extends ConditionType
             return false;
         }
 
-        $parameterValues = array_map('trim', $value['parameter_values']);
+        $parameterValues = array_map('mb_trim', $value['parameter_values']);
 
         return count($parameterValues) === 0 || in_array(
             $queryParameters->get($value['parameter_name']),

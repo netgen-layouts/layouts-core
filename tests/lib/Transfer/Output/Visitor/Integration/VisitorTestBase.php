@@ -18,8 +18,8 @@ use function file_exists;
 use function file_get_contents;
 use function json_decode;
 use function json_encode;
+use function mb_trim;
 use function sprintf;
-use function trim;
 
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -57,7 +57,7 @@ abstract class VisitorTestBase extends CoreTestCase
             $value = $value->call($this);
         }
 
-        $expectedData = trim((string) file_get_contents($fixturePath));
+        $expectedData = mb_trim((string) file_get_contents($fixturePath));
         $visitedData = $this->getVisitor()->visit($value, new OutputVisitor([new VisitorStub()]));
 
         $matcher = new PHPMatcher();

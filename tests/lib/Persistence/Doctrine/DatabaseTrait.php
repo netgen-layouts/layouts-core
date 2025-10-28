@@ -19,8 +19,8 @@ use function file_exists;
 use function file_get_contents;
 use function getenv;
 use function is_string;
+use function mb_rtrim;
 use function preg_match;
-use function rtrim;
 use function sprintf;
 
 trait DatabaseTrait
@@ -82,7 +82,7 @@ trait DatabaseTrait
             $this->createDatabaseConnection();
         }
 
-        $schemaPath = rtrim($fixturesPath, '/') . '/schema';
+        $schemaPath = mb_rtrim($fixturesPath, '/') . '/schema';
 
         $this->executeStatements($schemaPath);
         $this->insertDatabaseFixtures($fixturesPath . '/data.php');
@@ -111,7 +111,7 @@ trait DatabaseTrait
             throw new RuntimeException(sprintf('File "%s" is not readable.', $fullPath));
         }
 
-        foreach (array_map('trim', explode(';', $schema)) as $sqlQuery) {
+        foreach (array_map('mb_trim', explode(';', $schema)) as $sqlQuery) {
             if ($sqlQuery !== '') {
                 $this->databaseConnection->executeQuery($sqlQuery);
             }

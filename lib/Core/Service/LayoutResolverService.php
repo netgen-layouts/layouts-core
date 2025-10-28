@@ -55,9 +55,9 @@ use Ramsey\Uuid\UuidInterface;
 
 use function array_map;
 use function count;
+use function mb_trim;
 use function sprintf;
 use function trigger_deprecation;
-use function trim;
 
 final class LayoutResolverService implements APILayoutResolverService
 {
@@ -375,9 +375,9 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $description = '';
-        if (trim($ruleCreateStruct->description) !== '') {
+        if (mb_trim($ruleCreateStruct->description) !== '') {
             $description = $ruleCreateStruct->description;
-        } elseif ($ruleCreateStruct->comment !== null && trim($ruleCreateStruct->comment) !== '') {
+        } elseif ($ruleCreateStruct->comment !== null && mb_trim($ruleCreateStruct->comment) !== '') {
             trigger_deprecation('netgen/layouts-core', '1.3', sprintf('Using %s::$comment property is deprecated. Use RuleCreateStruct::$description instead.', APIRuleCreateStruct::class));
 
             $description = $ruleCreateStruct->comment;

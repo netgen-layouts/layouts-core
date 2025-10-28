@@ -26,8 +26,8 @@ use function in_array;
 use function is_array;
 use function is_bool;
 use function is_string;
+use function mb_trim;
 use function str_starts_with;
-use function trim;
 
 final class BlockHandler implements BlockHandlerInterface
 {
@@ -92,7 +92,7 @@ final class BlockHandler implements BlockHandlerInterface
                 'config' => $blockCreateStruct->config,
                 'viewType' => $blockCreateStruct->viewType,
                 'itemViewType' => $blockCreateStruct->itemViewType,
-                'name' => trim($blockCreateStruct->name),
+                'name' => mb_trim($blockCreateStruct->name),
                 'isTranslatable' => $blockCreateStruct->isTranslatable,
                 'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                 'mainLocale' => $layout->mainLocale,
@@ -171,7 +171,7 @@ final class BlockHandler implements BlockHandlerInterface
         }
 
         if (is_string($blockUpdateStruct->name)) {
-            $updatedBlock->name = trim($blockUpdateStruct->name);
+            $updatedBlock->name = mb_trim($blockUpdateStruct->name);
         }
 
         if (is_array($blockUpdateStruct->config)) {

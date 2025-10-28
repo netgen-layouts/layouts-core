@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 use function is_string;
-use function trim;
+use function mb_trim;
 
 /**
  * Validates if the provided layout name already exists in the system.
@@ -36,7 +36,7 @@ final class LayoutNameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        if ($this->layoutService->layoutNameExists(trim($value), $constraint->excludedLayoutId)) {
+        if ($this->layoutService->layoutNameExists(mb_trim($value), $constraint->excludedLayoutId)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

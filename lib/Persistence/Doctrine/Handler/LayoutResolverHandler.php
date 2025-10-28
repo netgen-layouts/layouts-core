@@ -35,8 +35,8 @@ use function count;
 use function is_bool;
 use function is_int;
 use function is_string;
+use function mb_trim;
 use function str_starts_with;
-use function trim;
 
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
@@ -207,7 +207,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'layoutUuid' => $layout?->uuid,
                 'enabled' => $ruleCreateStruct->enabled,
                 'priority' => $ruleCreateStruct->priority ?? $this->getPriority($targetGroup),
-                'description' => trim($ruleCreateStruct->description),
+                'description' => mb_trim($ruleCreateStruct->description),
             ],
         );
 
@@ -228,7 +228,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         }
 
         if (is_string($ruleUpdateStruct->description)) {
-            $updatedRule->description = trim($ruleUpdateStruct->description);
+            $updatedRule->description = mb_trim($ruleUpdateStruct->description);
         }
 
         $this->queryHandler->updateRule($updatedRule);
@@ -379,8 +379,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'path' => $parentGroup !== null ? $parentGroup->path : '/',
                 'parentId' => $parentGroup?->id,
                 'parentUuid' => $parentGroup?->uuid,
-                'name' => trim($ruleGroupCreateStruct->name),
-                'description' => trim($ruleGroupCreateStruct->description),
+                'name' => mb_trim($ruleGroupCreateStruct->name),
+                'description' => mb_trim($ruleGroupCreateStruct->description),
                 'enabled' => $ruleGroupCreateStruct->enabled,
                 'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
             ],
@@ -401,11 +401,11 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $updatedRuleGroup = clone $ruleGroup;
 
         if (is_string($ruleGroupUpdateStruct->name)) {
-            $updatedRuleGroup->name = trim($ruleGroupUpdateStruct->name);
+            $updatedRuleGroup->name = mb_trim($ruleGroupUpdateStruct->name);
         }
 
         if (is_string($ruleGroupUpdateStruct->description)) {
-            $updatedRuleGroup->description = trim($ruleGroupUpdateStruct->description);
+            $updatedRuleGroup->description = mb_trim($ruleGroupUpdateStruct->description);
         }
 
         $this->queryHandler->updateRuleGroup($updatedRuleGroup);

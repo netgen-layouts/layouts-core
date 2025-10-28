@@ -17,8 +17,8 @@ use Symfony\Component\Validator\Constraints;
 use function count;
 use function in_array;
 use function is_array;
+use function mb_trim;
 use function sprintf;
-use function trim;
 
 final class LayoutValidator
 {
@@ -44,7 +44,7 @@ final class LayoutValidator
         }
 
         $this->validate(
-            trim($layoutCreateStruct->name),
+            mb_trim($layoutCreateStruct->name),
             [
                 new Constraints\NotBlank(),
             ],
@@ -63,7 +63,7 @@ final class LayoutValidator
     {
         if ($layoutUpdateStruct->name !== null) {
             $this->validate(
-                trim($layoutUpdateStruct->name),
+                mb_trim($layoutUpdateStruct->name),
                 [
                     new Constraints\NotBlank(),
                 ],
@@ -84,7 +84,7 @@ final class LayoutValidator
         }
 
         $this->validate(
-            trim($layoutCopyStruct->name),
+            mb_trim($layoutCopyStruct->name),
             [
                 new Constraints\NotBlank(),
             ],

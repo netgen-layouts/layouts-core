@@ -14,7 +14,7 @@ use Netgen\Layouts\Persistence\Values\Status;
 use function array_column;
 use function array_map;
 use function is_string;
-use function trim;
+use function mb_trim;
 
 final class LayoutQueryHandler extends QueryHandler
 {
@@ -322,7 +322,7 @@ final class LayoutQueryHandler extends QueryHandler
                     $query->expr()->eq('name', ':name'),
                 ),
             )
-            ->setParameter('name', trim($name), Types::STRING);
+            ->setParameter('name', mb_trim($name), Types::STRING);
 
         if ($excludedLayoutId !== null) {
             $isUuid = is_string($excludedLayoutId);
