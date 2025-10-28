@@ -38,10 +38,8 @@ final class Item extends Value
 
     /**
      * Value from CMS this item wraps. This is usually the ID of the CMS entity.
-     *
-     * @var int|string|null
      */
-    public $value;
+    public int|string|null $value;
 
     /**
      * Type of value from CMS this item wraps.

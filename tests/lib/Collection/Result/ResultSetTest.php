@@ -71,7 +71,7 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        $result[0] = 'new';
+        $result[0] = new Result(0, new CmsItem());
     }
 
     /**

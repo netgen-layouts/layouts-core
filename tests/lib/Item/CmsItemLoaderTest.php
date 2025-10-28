@@ -18,10 +18,7 @@ use stdClass;
 
 final class CmsItemLoaderTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
-     */
-    private MockObject $cmsItemBuilderMock;
+    private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
 
     private CmsItemLoader $cmsItemLoader;
 

@@ -129,7 +129,6 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
      * @param string[] $valueTypes
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getRequiredConstraints
@@ -137,7 +136,7 @@ final class LinkTypeTest extends TestCase
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isRequired, array $valueTypes, bool $isValid): void
+    public function testValidation(mixed $value, bool $isRequired, array $valueTypes, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['required' => $isRequired, 'value_types' => $valueTypes]);
         $validator = Validation::createValidatorBuilder()
@@ -200,14 +199,11 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     * @param mixed $convertedValue
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::toHash
      *
      * @dataProvider toHashDataProvider
      */
-    public function testToHash($value, $convertedValue): void
+    public function testToHash(mixed $value, mixed $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
@@ -239,14 +235,13 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param array<string, mixed> $value
      * @param array<string, mixed> $expectedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::fromHash
      *
      * @dataProvider fromHashDataProvider
      */
-    public function testFromHash($value, array $expectedValue): void
+    public function testFromHash(mixed $value, array $expectedValue): void
     {
         $convertedValue = $this->type->fromHash($this->getParameterDefinition(), $value);
 
@@ -305,16 +300,13 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     * @param mixed $convertedValue
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::export
      *
      * @dataProvider exportDataProvider
      */
-    public function testExport($value, $convertedValue): void
+    public function testExport(mixed $value, mixed $convertedValue): void
     {
         $this->cmsItemLoaderMock
             ->method('load')
@@ -422,7 +414,6 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
      * @param array<string, mixed>  $expectedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
@@ -431,7 +422,7 @@ final class LinkTypeTest extends TestCase
      *
      * @dataProvider importDataProvider
      */
-    public function testImport($value, array $expectedValue): void
+    public function testImport(mixed $value, array $expectedValue): void
     {
         $this->cmsItemLoaderMock
             ->method('loadByRemoteId')
@@ -575,13 +566,11 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::isValueEmpty
      *
      * @dataProvider emptyDataProvider
      */
-    public function testIsValueEmpty($value, bool $isEmpty): void
+    public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }

@@ -31,15 +31,9 @@ class ParameterDefinition
 
     protected bool $isReadOnly;
 
-    /**
-     * @var mixed
-     */
-    protected $defaultValue;
+    protected mixed $defaultValue;
 
-    /**
-     * @var string|bool|null
-     */
-    protected $label;
+    protected string|false|null $label;
 
     /**
      * @var string[]
@@ -89,10 +83,8 @@ class ParameterDefinition
      * Returns the provided parameter option.
      *
      * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If option does not exist
-     *
-     * @return mixed
      */
-    public function getOption(string $option)
+    public function getOption(string $option): mixed
     {
         if (!$this->hasOption($option)) {
             throw ParameterException::noOption($option);
@@ -119,20 +111,16 @@ class ParameterDefinition
 
     /**
      * Returns the default parameter value.
-     *
-     * @return mixed
      */
-    public function getDefaultValue()
+    public function getDefaultValue(): mixed
     {
         return $this->defaultValue;
     }
 
     /**
      * Returns the parameter label.
-     *
-     * @return string|bool|null
      */
-    public function getLabel()
+    public function getLabel(): string|false|null
     {
         return $this->label;
     }

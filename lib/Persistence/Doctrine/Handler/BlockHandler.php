@@ -51,7 +51,7 @@ final class BlockHandler implements BlockHandlerInterface
         $this->positionHelper = $positionHelper;
     }
 
-    public function loadBlock($blockId, Status $status): Block
+    public function loadBlock(int|string|UuidInterface $blockId, Status $status): Block
     {
         $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
         $data = $this->queryHandler->loadBlockData($blockId, $status);
@@ -63,7 +63,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->blockMapper->mapBlocks($data)[0];
     }
 
-    public function blockExists($blockId, Status $status): bool
+    public function blockExists(int|string|UuidInterface $blockId, Status $status): bool
     {
         $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
 

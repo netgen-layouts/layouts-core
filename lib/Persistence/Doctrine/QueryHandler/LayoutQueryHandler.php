@@ -21,11 +21,9 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layout with specified ID.
      *
-     * @param int|string $layoutId
-     *
      * @return mixed[]
      */
-    public function loadLayoutData($layoutId, Status $status): array
+    public function loadLayoutData(int|string $layoutId, Status $status): array
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -256,11 +254,9 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all zone data with provided identifier.
      *
-     * @param int|string $layoutId
-     *
      * @return mixed[]
      */
-    public function loadZoneData($layoutId, Status $status, string $identifier): array
+    public function loadZoneData(int|string $layoutId, Status $status, string $identifier): array
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
@@ -295,10 +291,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Returns if the layout exists.
-     *
-     * @param int|string $layoutId
      */
-    public function layoutExists($layoutId, ?Status $status = null): bool
+    public function layoutExists(int|string $layoutId, ?Status $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -317,10 +311,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Returns if the layout with provided name exists.
-     *
-     * @param int|string|null $excludedLayoutId
      */
-    public function layoutNameExists(string $name, $excludedLayoutId = null): bool
+    public function layoutNameExists(string $name, int|string|null $excludedLayoutId = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')

@@ -37,6 +37,7 @@ final class TypeTest extends TestCase
                     [
                         'type' => new TextType(),
                         'isRequired' => false,
+                        'defaultValue' => null,
                     ],
                 ),
             ],

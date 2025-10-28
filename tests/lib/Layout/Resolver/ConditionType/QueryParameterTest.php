@@ -27,13 +27,11 @@ final class QueryParameterTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::getConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -44,11 +42,9 @@ final class QueryParameterTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::matches
      *
-     * @param mixed $value
-     *
      * @dataProvider matchesDataProvider
      */
-    public function testMatches($value, bool $matches): void
+    public function testMatches(mixed $value, bool $matches): void
     {
         $request = Request::create('/');
         $request->query->set('the_answer', '42');

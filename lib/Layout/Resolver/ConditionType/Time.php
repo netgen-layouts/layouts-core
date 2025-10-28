@@ -27,7 +27,7 @@ final class Time extends ConditionType
         ];
     }
 
-    public function matches(Request $request, $value): bool
+    public function matches(Request $request, mixed $value): bool
     {
         if (!is_array($value)) {
             return false;

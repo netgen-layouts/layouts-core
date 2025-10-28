@@ -27,17 +27,15 @@ final class ConditionType1 extends ConditionType
         return [new Constraints\NotBlank()];
     }
 
-    public function matches(Request $request, $value): bool
+    public function matches(Request $request, mixed $value): bool
     {
         return $this->matches;
     }
 
     /**
-     * @param mixed $value
-     *
      * @return string[]
      */
-    public function export($value): array
+    public function export(mixed $value): array
     {
         return ['some_value_exported'];
     }

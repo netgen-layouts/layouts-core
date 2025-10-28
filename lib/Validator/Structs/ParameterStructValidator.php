@@ -25,10 +25,7 @@ use function iterator_to_array;
  */
 final class ParameterStructValidator extends ConstraintValidator
 {
-    /**
-     * @param mixed $value
-     */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof ParameterStructConstraint) {
             throw new UnexpectedTypeException($constraint, ParameterStructConstraint::class);
@@ -153,14 +150,13 @@ final class ParameterStructValidator extends ConstraintValidator
     /**
      * Returns all constraints applied on a parameter coming from the parameter definition.
      *
-     * @param mixed $parameterValue
      * @param array<string, mixed> $allParameterValues
      *
      * @return \Generator<\Symfony\Component\Validator\Constraint>
      */
     private function getRuntimeParameterConstraints(
         ParameterDefinition $parameterDefinition,
-        $parameterValue,
+        mixed $parameterValue,
         array $allParameterValues
     ): Generator {
         foreach ($parameterDefinition->getConstraints() as $constraint) {

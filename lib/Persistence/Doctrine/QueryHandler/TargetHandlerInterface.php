@@ -17,8 +17,6 @@ interface TargetHandlerInterface
 {
     /**
      * Handles the query by adding the clause that matches the provided target values.
-     *
-     * @param mixed $value
      */
-    public function handleQuery(QueryBuilder $query, $value): void;
+    public function handleQuery(QueryBuilder $query, mixed $value): void;
 }

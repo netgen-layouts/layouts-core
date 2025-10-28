@@ -48,6 +48,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
                     'type' => new TextLineType(),
                     'isRequired' => true,
                     'defaultValue' => 'value',
+                    'label' => null,
                     'options' => [
                         'translatable' => false,
                     ],
@@ -58,6 +59,8 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
                     'name' => 'param2',
                     'type' => new TextLineType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                     'options' => [
                         'translatable' => true,
                     ],

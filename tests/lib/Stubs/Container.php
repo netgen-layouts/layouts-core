@@ -23,12 +23,12 @@ final class Container implements ContainerInterface
         $this->entries = $entries;
     }
 
-    public function get($id)
+    public function get(string $id): mixed
     {
         return $this->entries[$id];
     }
 
-    public function has($id): bool
+    public function has(string $id): bool
     {
         return array_key_exists($id, $this->entries);
     }

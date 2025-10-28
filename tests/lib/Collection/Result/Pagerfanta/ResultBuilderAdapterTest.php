@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ResultBuilderAdapterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Collection\Result\ResultBuilderInterface
-     */
-    private MockObject $resultBuilderMock;
+    private MockObject&ResultBuilderInterface $resultBuilderMock;
 
     protected function setUp(): void
     {

@@ -37,7 +37,7 @@ abstract class Condition extends Value
      *
      * @final
      *
-     * @var mixed
+     * @var int|string|array<mixed>
      */
-    public $value;
+    public int|string|array $value;
 }

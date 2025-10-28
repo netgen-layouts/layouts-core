@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -23,10 +24,8 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
 
     /**
      * Converts Symfony authentication exceptions to HTTP Access Denied exception.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException($event): void
+    public function onException(ExceptionEvent $event): void
     {
         $attributes = $event->getRequest()->attributes;
         if ($attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME) !== true) {

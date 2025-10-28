@@ -31,10 +31,8 @@ final class CreateForm extends AbstractController
 
     /**
      * Displays and processes layout create form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted('nglayouts:layout:add');
 

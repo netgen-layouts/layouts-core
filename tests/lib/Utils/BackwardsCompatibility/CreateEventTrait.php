@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Throwable;
 
 use function class_exists;
 
@@ -62,11 +63,9 @@ trait CreateEventTrait
     }
 
     /**
-     * @param \Throwable|\Exception $throwable
-     *
      * @return \Symfony\Component\HttpKernel\Event\ExceptionEvent
      */
-    private function createExceptionEvent(HttpKernelInterface $kernel, Request $request, int $requestType, $throwable): object
+    private function createExceptionEvent(HttpKernelInterface $kernel, Request $request, int $requestType, Throwable $throwable): object
     {
         if (class_exists(ExceptionEvent::class)) {
             return new ExceptionEvent($kernel, $request, $requestType, $throwable);
@@ -80,11 +79,9 @@ trait CreateEventTrait
     }
 
     /**
-     * @param mixed $controllerResult
-     *
      * @return \Symfony\Component\HttpKernel\Event\ViewEvent
      */
-    private function createViewEvent(HttpKernelInterface $kernel, Request $request, int $requestType, $controllerResult): object
+    private function createViewEvent(HttpKernelInterface $kernel, Request $request, int $requestType, mixed $controllerResult): object
     {
         if (class_exists(ViewEvent::class)) {
             return new ViewEvent($kernel, $request, $requestType, $controllerResult);

@@ -67,20 +67,12 @@ final class PolicyToRoleMapVoter extends Voter
         $this->accessDecisionManager = $accessDecisionManager;
     }
 
-    /**
-     * @param mixed $attribute
-     * @param mixed $subject
-     */
-    protected function supports($attribute, $subject): bool
+    protected function supports(mixed $attribute, mixed $subject): bool
     {
         return is_string($attribute) && str_starts_with($attribute, 'nglayouts:');
     }
 
-    /**
-     * @param string $attribute
-     * @param mixed $subject
-     */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         if (!isset(self::POLICY_TO_ROLE_MAP[$attribute])) {
             return false;

@@ -13,10 +13,8 @@ trait HydratorTrait
      * and return the object hydrated with provided data.
      *
      * @param array<string, mixed> $data
-     *
-     * @return static
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data): static
     {
         self::initHydrator();
 
@@ -27,10 +25,8 @@ trait HydratorTrait
      * Hydrates the object instance with provided data.
      *
      * @param array<string, mixed> $data
-     *
-     * @return static
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data): static
     {
         self::initHydrator();
 

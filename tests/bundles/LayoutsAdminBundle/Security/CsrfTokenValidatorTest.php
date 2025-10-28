@@ -16,10 +16,7 @@ final class CsrfTokenValidatorTest extends TestCase
 {
     private MockObject $csrfTokenManagerMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Symfony\Component\HttpFoundation\Session\SessionInterface
-     */
-    private MockObject $sessionMock;
+    private MockObject&SessionInterface $sessionMock;
 
     private CsrfTokenValidator $validator;
 

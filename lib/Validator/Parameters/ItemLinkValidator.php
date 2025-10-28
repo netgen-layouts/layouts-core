@@ -31,10 +31,7 @@ final class ItemLinkValidator extends ConstraintValidator
         $this->cmsItemLoader = $cmsItemLoader;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if ($value === null || $value === '') {
             return;

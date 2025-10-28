@@ -72,6 +72,7 @@ final class CollectionServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->value = 42;
         $itemCreateStruct->definition = ItemDefinition::fromArray(['valueType' => 'value_type']);
 
         $this->collectionService->addItem(

@@ -21,7 +21,7 @@ final class NullLayoutType implements LayoutTypeInterface
         return $this->layoutType;
     }
 
-    public function isEnabled(): bool
+    public function isEnabled(): true
     {
         return true;
     }
@@ -56,7 +56,7 @@ final class NullLayoutType implements LayoutTypeInterface
         throw LayoutTypeException::noZone($this->layoutType, $zoneIdentifier);
     }
 
-    public function isBlockAllowedInZone(BlockDefinitionInterface $definition, string $zoneIdentifier): bool
+    public function isBlockAllowedInZone(BlockDefinitionInterface $definition, string $zoneIdentifier): true
     {
         return true;
     }

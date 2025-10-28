@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -41,10 +42,8 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     /**
      * Serializes the exception if SetIsApiRequestListener::API_FLAG_NAME
      * is set to true.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException($event): void
+    public function onException(ExceptionEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

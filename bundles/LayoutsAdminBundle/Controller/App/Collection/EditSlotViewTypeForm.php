@@ -27,10 +27,8 @@ final class EditSlotViewTypeForm extends AbstractController
 
     /**
      * Displays and processes slot view type edit form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Slot $slot, Request $request)
+    public function __invoke(Slot $slot, Request $request): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted('nglayouts:collection:items');
 

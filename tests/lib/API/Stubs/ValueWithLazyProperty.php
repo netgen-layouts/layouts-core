@@ -10,20 +10,14 @@ final class ValueWithLazyProperty
 {
     use LazyPropertyTrait;
 
-    /**
-     * @var mixed
-     */
-    public $value;
+    public mixed $value;
 
     public function __construct(callable $callable)
     {
         $this->value = $callable;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->getLazyProperty($this->value);
     }

@@ -100,10 +100,8 @@ final class GlobalVariable
      * the rendering of the page).
      *
      * All other cases receive the non-error layout if it exists.
-     *
-     * @return \Netgen\Layouts\View\View\LayoutViewInterface|false|null
      */
-    public function getLayoutView()
+    public function getLayoutView(): false|LayoutViewInterface|null
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $mainRequest = method_exists($this->requestStack, 'getMainRequest') ?
@@ -235,10 +233,8 @@ final class GlobalVariable
      * instead of resolving the template.
      *
      * See class docs for more details.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|false|null
      */
-    public function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT, ?Layout $layout = null)
+    public function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT, ?Layout $layout = null): false|ViewInterface|null
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $mainRequest = method_exists($this->requestStack, 'getMainRequest') ?

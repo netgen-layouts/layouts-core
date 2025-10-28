@@ -11,20 +11,12 @@ use function is_object;
 
 final class NormalizerStub implements NormalizerInterface
 {
-    /**
-     * @param mixed $object
-     * @param string|null $format
-     */
-    public function normalize($object, $format = null, array $context = []): string
+    public function normalize(mixed $object, ?string $format = null, array $context = []): string
     {
         return 'data';
     }
 
-    /**
-     * @param mixed $data
-     * @param string|null $format
-     */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null): bool
     {
         return is_object($data) && !$data instanceof Generator;
     }

@@ -12,7 +12,7 @@ use Netgen\Layouts\View\ViewInterface;
 
 final class PlaceholderViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = []): ViewInterface
+    public function provideView(mixed $value, array $parameters = []): ViewInterface
     {
         if (!isset($parameters['block'])) {
             throw ViewProviderException::noParameter('placeholder', 'block');
@@ -25,7 +25,7 @@ final class PlaceholderViewProvider implements ViewProviderInterface
         return new PlaceholderView($value, $parameters['block']);
     }
 
-    public function supports($value): bool
+    public function supports(mixed $value): bool
     {
         return $value instanceof Placeholder;
     }

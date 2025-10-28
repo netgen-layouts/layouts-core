@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
+use Ramsey\Uuid\UuidInterface;
+
 final class RuleUpdateStruct
 {
     /**
      * The UUID of the layout to which the rule will be linked.
      *
      * Set to "false" to remove the mapping.
-     *
-     * @var \Ramsey\Uuid\UuidInterface|bool|null
      */
-    public $layoutId;
+    public UuidInterface|false|null $layoutId = null;
 
     /**
      * Description of the rule.

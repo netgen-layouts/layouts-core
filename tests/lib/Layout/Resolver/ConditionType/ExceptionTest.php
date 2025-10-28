@@ -33,13 +33,11 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::getConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -50,11 +48,9 @@ final class ExceptionTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
      *
-     * @param mixed $value
-     *
      * @dataProvider matchesDataProvider
      */
-    public function testMatches($value, bool $matches): void
+    public function testMatches(mixed $value, bool $matches): void
     {
         $request = Request::create('/');
 
@@ -67,11 +63,9 @@ final class ExceptionTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
      *
-     * @param mixed $value
-     *
      * @dataProvider matchesDataProvider
      */
-    public function testMatchesWithoutHttpException($value, bool $matches): void
+    public function testMatchesWithoutHttpException(mixed $value, bool $matches): void
     {
         $request = Request::create('/');
 

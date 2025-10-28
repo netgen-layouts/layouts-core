@@ -52,6 +52,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cmsItem' => CmsItem::fromArray(
                     [
                         'name' => 'Value name',
+                        'value' => 42,
                         'valueType' => 'value_type',
                         'isVisible' => true,
                     ],
@@ -114,6 +115,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cmsItem' => CmsItem::fromArray(
                     [
                         'name' => 'Value name',
+                        'value' => 42,
                         'valueType' => 'value_type',
                         'isVisible' => true,
                     ],
@@ -168,6 +170,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = CmsItem::fromArray(
             [
                 'name' => 'Value name',
+                'value' => 42,
                 'valueType' => 'value_type',
                 'isVisible' => true,
             ],
@@ -214,6 +217,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = CmsItem::fromArray(
             [
                 'name' => 'Value name',
+                'value' => 42,
                 'valueType' => 'value_type',
                 'isVisible' => true,
             ],
@@ -283,13 +287,11 @@ final class CollectionResultNormalizerTest extends TestCase
     }
 
     /**
-     * @param mixed $data
-     *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultNormalizer::supportsNormalization
      *
      * @dataProvider supportsNormalizationDataProvider
      */
-    public function testSupportsNormalization($data, bool $expected): void
+    public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }

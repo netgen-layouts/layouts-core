@@ -8,6 +8,7 @@ use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
@@ -35,10 +36,8 @@ final class RequestBodyListener implements EventSubscriberInterface
 
     /**
      * Decodes the request data into request parameter bag.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest($event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
 

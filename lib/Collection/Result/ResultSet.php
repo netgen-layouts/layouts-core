@@ -135,35 +135,22 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
         return count($this->results);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->results[$offset]);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetGet($offset): Result
+    public function offsetGet(mixed $offset): Result
     {
         return $this->results[$offset];
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

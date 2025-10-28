@@ -18,7 +18,7 @@ final class RootLocation implements LocationInterface
         return 'All layouts';
     }
 
-    public function getParentId(): ?int
+    public function getParentId(): null
     {
         return null;
     }

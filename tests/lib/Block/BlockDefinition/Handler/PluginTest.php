@@ -15,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PluginTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Block\BlockDefinition\Handler\Plugin
-     */
-    private MockObject $plugin;
+    private MockObject&Plugin $plugin;
 
     private ParameterTypeRegistry $parameterTypeRegistry;
 

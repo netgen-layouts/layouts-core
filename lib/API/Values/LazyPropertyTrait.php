@@ -12,12 +12,8 @@ trait LazyPropertyTrait
      * Lazily loads the provided variable, meaning, if it is callable,
      * it executes it and stores the result of execution into itself,
      * making it lazily loaded for the next run.
-     *
-     * @param mixed $property
-     *
-     * @return mixed
      */
-    private function getLazyProperty(&$property)
+    private function getLazyProperty(mixed &$property): mixed
     {
         if (is_callable($property)) {
             $property = $property();

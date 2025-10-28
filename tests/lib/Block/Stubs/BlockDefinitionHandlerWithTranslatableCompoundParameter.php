@@ -36,6 +36,8 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'isRequired' => false,
+                'defaultValue' => null,
+                'label' => null,
                 'groups' => $this->parameterGroups,
                 'options' => [
                     'translatable' => true,
@@ -46,6 +48,8 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
                             'isRequired' => false,
+                            'defaultValue' => null,
+                            'label' => null,
                             'groups' => $this->parameterGroups,
                             'options' => [
                                 'translatable' => true,
@@ -63,6 +67,7 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'some-class',
+                    'label' => null,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => true,
@@ -74,6 +79,8 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,

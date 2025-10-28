@@ -14,6 +14,7 @@ use Netgen\Layouts\View\View\LayoutViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Throwable;
 use Twig\Environment;
 use Twig\Source;
 use Version\Exception\InvalidVersionString;
@@ -63,10 +64,7 @@ final class LayoutsDataCollector extends DataCollector
         $this->reset();
     }
 
-    /**
-     * @param \Throwable|null $exception
-     */
-    public function collect(Request $request, Response $response, $exception = null): void
+    public function collect(Request $request, Response $response, ?Throwable $exception = null): void
     {
         $rule = $this->globalVariable->getRule();
         $layoutView = $this->globalVariable->getLayoutView();

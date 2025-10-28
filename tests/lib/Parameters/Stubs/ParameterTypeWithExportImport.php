@@ -15,17 +15,17 @@ final class ParameterTypeWithExportImport extends BaseParameterType
         return 'type';
     }
 
-    public function import(ParameterDefinition $parameterDefinition, $value): string
+    public function import(ParameterDefinition $parameterDefinition, mixed $value): string
     {
         return 'import_value';
     }
 
-    public function export(ParameterDefinition $parameterDefinition, $value): string
+    public function export(ParameterDefinition $parameterDefinition, mixed $value): string
     {
         return 'export_value';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [new NotNull()];
     }

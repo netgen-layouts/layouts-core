@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters\Form\Type\DataMapper;
 
 use Symfony\Component\Form\DataMapperInterface;
+use Traversable;
 
 use function is_array;
 use function is_string;
@@ -18,7 +19,7 @@ use function str_replace;
  */
 final class ItemLinkDataMapper implements DataMapperInterface
 {
-    public function mapDataToForms($viewData, $forms): void
+    public function mapDataToForms(mixed $viewData, Traversable $forms): void
     {
         if (!is_string($viewData)) {
             return;
@@ -33,7 +34,7 @@ final class ItemLinkDataMapper implements DataMapperInterface
         }
     }
 
-    public function mapFormsToData($forms, &$viewData): void
+    public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
         $forms = iterator_to_array($forms);
 

@@ -12,10 +12,7 @@ use function sprintf;
 
 final class JsonValidationException extends InvalidArgumentException implements Exception
 {
-    /**
-     * @param int|string $errorCode
-     */
-    public static function parseError(string $errorMessage, $errorCode): self
+    public static function parseError(string $errorMessage, int|string $errorCode): self
     {
         return new self(
             sprintf(

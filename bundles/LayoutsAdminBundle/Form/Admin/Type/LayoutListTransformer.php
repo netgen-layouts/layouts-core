@@ -15,12 +15,15 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 final class LayoutListTransformer implements DataTransformerInterface
 {
-    public function transform($value): ?array
+    /**
+     * @return \Netgen\Layouts\API\Values\Layout\Layout[]|null
+     */
+    public function transform(mixed $value): ?array
     {
-        return $value !== null ? $value->getLayouts() : null;
+        return $value instanceof LayoutList ? $value->getLayouts() : null;
     }
 
-    public function reverseTransform($value): ?LayoutList
+    public function reverseTransform(mixed $value): ?LayoutList
     {
         return $value !== null ? new LayoutList($value) : null;
     }

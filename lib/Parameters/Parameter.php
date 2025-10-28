@@ -20,10 +20,7 @@ final class Parameter
 
     private ParameterDefinition $parameterDefinition;
 
-    /**
-     * @var mixed
-     */
-    private $value;
+    private mixed $value;
 
     private ?object $valueObject;
 
@@ -59,10 +56,8 @@ final class Parameter
 
     /**
      * Returns the parameter value.
-     *
-     * @return mixed
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }

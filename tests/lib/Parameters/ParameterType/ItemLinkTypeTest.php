@@ -148,14 +148,12 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getValueConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation(mixed $value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()
@@ -209,13 +207,11 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::isValueEmpty
      *
      * @dataProvider emptyDataProvider
      */
-    public function testIsValueEmpty($value, bool $isEmpty): void
+    public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }

@@ -82,13 +82,11 @@ final class ZoneViewProviderTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::supports
      *
      * @dataProvider supportsDataProvider
      */
-    public function testSupports($value, bool $supports): void
+    public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->ZoneViewProvider->supports($value));
     }

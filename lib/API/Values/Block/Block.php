@@ -205,10 +205,8 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
 
     /**
      * Returns the specified dynamic parameter value or null if parameter does not exist.
-     *
-     * @return mixed
      */
-    public function getDynamicParameter(string $parameter)
+    public function getDynamicParameter(string $parameter): mixed
     {
         $this->buildDynamicParameters();
 

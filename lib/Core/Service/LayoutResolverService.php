@@ -294,7 +294,7 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->layoutResolverHandler->getRuleGroupCount($persistenceParentGroup);
     }
 
-    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): RuleList
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, mixed $targetValue): RuleList
     {
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
             $ruleGroup->getId(),

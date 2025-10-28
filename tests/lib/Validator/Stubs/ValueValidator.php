@@ -11,10 +11,9 @@ final class ValueValidator
     use ValidatorTrait;
 
     /**
-     * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint[] $constraints
      */
-    public function validateValue($value, $constraints, ?string $propertyPath = null): void
+    public function validateValue(mixed $value, array $constraints, ?string $propertyPath = null): void
     {
         $this->validate($value, $constraints, $propertyPath);
     }

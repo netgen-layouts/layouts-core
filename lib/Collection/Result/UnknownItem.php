@@ -32,12 +32,12 @@ final class UnknownItem implements CmsItemInterface
         return '(UNKNOWN ITEM)';
     }
 
-    public function isVisible(): bool
+    public function isVisible(): true
     {
         return true;
     }
 
-    public function getObject(): ?object
+    public function getObject(): null
     {
         return null;
     }

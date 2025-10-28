@@ -12,10 +12,7 @@ use Symfony\Component\Validator\Validation;
 
 abstract class ValidatorTestCase extends TestCase
 {
-    /**
-     * @var mixed
-     */
-    protected $constraint;
+    protected mixed $constraint;
 
     private ExecutionContext $executionContext;
 
@@ -33,10 +30,7 @@ abstract class ValidatorTestCase extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    /**
-     * @param mixed $value
-     */
-    protected function assertValid(bool $isValid, $value): void
+    protected function assertValid(bool $isValid, mixed $value): void
     {
         $this->executionContext->setConstraint($this->constraint);
         $this->validator->validate($value, $this->constraint);

@@ -45,7 +45,7 @@ class ContainerConfiguration implements ConfigurationInterface
         );
     }
 
-    public function getParameter(string $parameterName)
+    public function getParameter(string $parameterName): mixed
     {
         if (!$this->hasParameter($parameterName)) {
             throw ConfigurationException::noParameter($parameterName);

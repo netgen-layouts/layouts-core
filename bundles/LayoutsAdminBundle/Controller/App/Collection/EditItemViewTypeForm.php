@@ -27,10 +27,8 @@ final class EditItemViewTypeForm extends AbstractController
 
     /**
      * Displays and processes item view type edit form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Item $item, Request $request)
+    public function __invoke(Item $item, Request $request): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted('nglayouts:collection:items');
 

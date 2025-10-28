@@ -18,9 +18,9 @@ abstract class Condition implements Value
     protected ConditionTypeInterface $conditionType;
 
     /**
-     * @var mixed
+     * @var int|string|array<mixed>
      */
-    protected $value;
+    protected int|string|array $value;
 
     public function getId(): UuidInterface
     {
@@ -40,9 +40,9 @@ abstract class Condition implements Value
      *
      * Can be a scalar or a multidimensional array of scalars.
      *
-     * @return mixed
+     * @return int|string|array<mixed>
      */
-    public function getValue()
+    public function getValue(): int|string|array
     {
         return $this->value;
     }

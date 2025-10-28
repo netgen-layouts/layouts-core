@@ -13,7 +13,7 @@ final class ConditionUpdateStruct
     /**
      * Condition value. Can be a scalar or a multidimensional array of scalars.
      *
-     * @var mixed
+     * @var int|string|array<mixed>
      */
-    public $value;
+    public int|string|array $value;
 }

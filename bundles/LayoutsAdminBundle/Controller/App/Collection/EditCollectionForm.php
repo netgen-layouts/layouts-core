@@ -23,10 +23,8 @@ final class EditCollectionForm extends AbstractController
 
     /**
      * Displays and processes collection draft edit form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Collection $collection, Request $request)
+    public function __invoke(Collection $collection, Request $request): ViewInterface|Response
     {
         $updateStruct = $this->collectionService->newCollectionUpdateStruct($collection);
 

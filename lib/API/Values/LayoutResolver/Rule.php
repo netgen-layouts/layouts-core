@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
+use Closure;
 use Doctrine\Common\Collections\Collection;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
@@ -22,10 +23,7 @@ final class Rule implements Value
 
     private UuidInterface $ruleGroupId;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout|\Closure|null
-     */
-    private $layout;
+    private Layout|Closure|null $layout;
 
     private bool $enabled;
 

@@ -27,7 +27,7 @@ final class ConditionType3 extends ConditionType
         return [new Constraints\NotBlank()];
     }
 
-    public function matches(Request $request, $value): bool
+    public function matches(Request $request, mixed $value): bool
     {
         return $this->matches;
     }

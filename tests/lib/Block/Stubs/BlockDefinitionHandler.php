@@ -41,6 +41,7 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     'isRequired' => true,
                     'isReadOnly' => false,
                     'defaultValue' => 'some-class',
+                    'label' => null,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,
@@ -53,6 +54,8 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'isReadOnly' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,

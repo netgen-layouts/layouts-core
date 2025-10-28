@@ -34,10 +34,8 @@ interface ConditionTypeInterface
 
     /**
      * Returns if this request matches the provided value.
-     *
-     * @param mixed $value
      */
-    public function matches(Request $request, $value): bool;
+    public function matches(Request $request, mixed $value): bool;
 
     /*
      * Returns the condition value converted to a format suitable for exporting.
@@ -47,12 +45,8 @@ interface ConditionTypeInterface
      * but as remote IDs.
      *
      * Will be added to the interface in 2.0.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    // public function export($value);
+    // public function export(mixed $value): mixed;
 
     /*
      * Returns the condition value converted from the exported format.
@@ -62,10 +56,6 @@ interface ConditionTypeInterface
      * in contrast to some kind of remote ID which would be stored in the export.
      *
      * Will be added to the interface in 2.0.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    // public function import($value);
+    // public function import(mixed $value): mixed;
 }

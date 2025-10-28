@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\AbstractValue;
 use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -29,10 +30,8 @@ final class SerializerListener implements EventSubscriberInterface
 
     /**
      * Serializes the value provided by the event.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\ViewEvent $event
      */
-    public function onView($event): void
+    public function onView(ViewEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

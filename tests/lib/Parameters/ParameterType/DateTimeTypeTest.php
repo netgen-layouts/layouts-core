@@ -29,13 +29,11 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::isValueEmpty
      *
      * @dataProvider emptyDataProvider
      */
-    public function testIsValueEmpty($value, bool $isEmpty): void
+    public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
@@ -52,14 +50,11 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     * @param mixed $convertedValue
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::toHash
      *
      * @dataProvider toHashDataProvider
      */
-    public function testToHash($value, $convertedValue): void
+    public function testToHash(mixed $value, mixed $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
@@ -100,14 +95,11 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     * @param mixed $convertedValue
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::fromHash
      *
      * @dataProvider invalidFromHashDataProvider
      */
-    public function testFromHashWithInvalidValues($value, $convertedValue): void
+    public function testFromHashWithInvalidValues(mixed $value, mixed $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
@@ -126,14 +118,12 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getValueConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation(mixed $value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()

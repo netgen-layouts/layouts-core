@@ -29,14 +29,12 @@ final class ValidatorTraitTest extends TestCase
     }
 
     /**
-     * @param mixed $identifier
-     *
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validateIdentifier
      *
      * @dataProvider validateIdentifierDataProvider
      */
-    public function testValidateIdentifier($identifier, bool $isValid): void
+    public function testValidateIdentifier(mixed $identifier, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -66,14 +64,12 @@ final class ValidatorTraitTest extends TestCase
     }
 
     /**
-     * @param mixed $position
-     *
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validatePosition
      *
      * @dataProvider validatePositionDataProvider
      */
-    public function testValidatePosition($position, bool $isRequired, bool $isValid): void
+    public function testValidatePosition(mixed $position, bool $isRequired, bool $isValid): void
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);

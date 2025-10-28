@@ -45,6 +45,7 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'some-class',
+                    'label' => null,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,
@@ -56,6 +57,8 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,

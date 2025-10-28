@@ -31,12 +31,10 @@ final class ChoiceTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
      *
      * @param array<string, mixed> $options
-     * @param mixed $defaultValue
-     * @param mixed $expected
      *
      * @dataProvider defaultValueDataProvider
      */
-    public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
+    public function testGetDefaultValue(array $options, bool $required, mixed $defaultValue, mixed $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
         self::assertSame($expected, $parameter->getDefaultValue());
@@ -240,14 +238,12 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isRequired, bool $isValid): void
+    public function testValidation(mixed $value, bool $isRequired, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['options' => ['Null' => null, 'One' => 1, 'Two' => 2]], $isRequired);
         $validator = Validation::createValidator();
@@ -257,14 +253,12 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidationWithClosure($value, bool $isRequired, bool $isValid): void
+    public function testValidationWithClosure(mixed $value, bool $isRequired, bool $isValid): void
     {
         $closure = static fn (): array => ['Null' => null, 'One' => 1, 'Two' => 2];
 
@@ -298,14 +292,11 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     * @param mixed $convertedValue
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::fromHash
      *
      * @dataProvider fromHashDataProvider
      */
-    public function testFromHash($value, $convertedValue, bool $multiple): void
+    public function testFromHash(mixed $value, mixed $convertedValue, bool $multiple): void
     {
         self::assertSame(
             $convertedValue,
@@ -368,13 +359,11 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::isValueEmpty
      *
      * @dataProvider emptyDataProvider
      */
-    public function testIsValueEmpty($value, bool $isEmpty): void
+    public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }

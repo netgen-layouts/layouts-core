@@ -34,10 +34,8 @@ trait ParameterStructTrait
      * Sets the parameter value to the struct.
      *
      * The value needs to be in the domain format of the value for the parameter.
-     *
-     * @param mixed $parameterValue
      */
-    public function setParameterValue(string $parameterName, $parameterValue): void
+    public function setParameterValue(string $parameterName, mixed $parameterValue): void
     {
         $this->parameterValues[$parameterName] = $parameterValue;
     }
@@ -54,10 +52,8 @@ trait ParameterStructTrait
 
     /**
      * Returns the parameter value with provided name or null if parameter does not exist.
-     *
-     * @return mixed
      */
-    public function getParameterValue(string $parameterName)
+    public function getParameterValue(string $parameterName): mixed
     {
         if (!$this->hasParameterValue($parameterName)) {
             return null;

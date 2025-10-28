@@ -87,35 +87,22 @@ final class BlockTypeGroupRegistry implements IteratorAggregate, Countable, Arra
         return count($this->blockTypeGroups);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->hasBlockTypeGroup($offset);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetGet($offset): BlockTypeGroup
+    public function offsetGet(mixed $offset): BlockTypeGroup
     {
         return $this->getBlockTypeGroup($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

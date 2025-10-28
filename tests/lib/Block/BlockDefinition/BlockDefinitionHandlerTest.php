@@ -15,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionHandlerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler
-     */
-    private MockObject $handler;
+    private MockObject&BlockDefinitionHandler $handler;
 
     private ParameterTypeRegistry $parameterTypeRegistry;
 

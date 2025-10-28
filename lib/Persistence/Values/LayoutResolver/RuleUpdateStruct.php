@@ -14,10 +14,8 @@ final class RuleUpdateStruct
      * UUID of the mapped layout.
      *
      * Set to "false" to remove the existing mapping.
-     *
-     * @var string|bool|null
      */
-    public $layoutId;
+    public string|false|null $layoutId = null;
 
     /**
      * Human readable description of the rule.

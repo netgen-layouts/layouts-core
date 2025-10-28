@@ -23,10 +23,8 @@ final class EditConfigForm extends AbstractController
 
     /**
      * Displays and processes block config edit form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request, Block $block, string $locale, ?string $configKey = null)
+    public function __invoke(Request $request, Block $block, string $locale, ?string $configKey = null): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted(
             'nglayouts:block:edit_config',

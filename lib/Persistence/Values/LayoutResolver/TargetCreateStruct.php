@@ -17,8 +17,6 @@ final class TargetCreateStruct
 
     /**
      * Value of the new target.
-     *
-     * @var int|string
      */
-    public $value;
+    public int|string $value;
 }

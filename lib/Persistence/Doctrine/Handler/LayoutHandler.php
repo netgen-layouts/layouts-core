@@ -48,7 +48,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $this->layoutMapper = $layoutMapper;
     }
 
-    public function loadLayout($layoutId, Status $status): Layout
+    public function loadLayout(int|string|UuidInterface $layoutId, Status $status): Layout
     {
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
         $data = $this->queryHandler->loadLayoutData($layoutId, $status);
@@ -60,7 +60,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapLayouts($data)[0];
     }
 
-    public function loadZone($layoutId, Status $status, string $identifier): Zone
+    public function loadZone(int|string|UuidInterface $layoutId, Status $status, string $identifier): Zone
     {
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
         $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
@@ -123,7 +123,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->queryHandler->getRelatedLayoutsCount($sharedLayout);
     }
 
-    public function layoutExists($layoutId, ?Status $status = null): bool
+    public function layoutExists(int|string|UuidInterface $layoutId, ?Status $status = null): bool
     {
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
 
@@ -137,7 +137,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         );
     }
 
-    public function layoutNameExists(string $name, $excludedLayoutId = null): bool
+    public function layoutNameExists(string $name, int|string|UuidInterface|null $excludedLayoutId = null): bool
     {
         $excludedLayoutId = $excludedLayoutId instanceof UuidInterface ?
             $excludedLayoutId->toString() :

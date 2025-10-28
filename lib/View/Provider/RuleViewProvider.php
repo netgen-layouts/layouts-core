@@ -10,12 +10,12 @@ use Netgen\Layouts\View\ViewInterface;
 
 final class RuleViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = []): ViewInterface
+    public function provideView(mixed $value, array $parameters = []): ViewInterface
     {
         return new RuleView($value);
     }
 
-    public function supports($value): bool
+    public function supports(mixed $value): bool
     {
         return $value instanceof Rule;
     }

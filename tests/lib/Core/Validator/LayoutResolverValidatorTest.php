@@ -220,7 +220,6 @@ final class LayoutResolverValidatorTest extends TestCase
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => 'Description'], true],
             [['layoutId' => null, 'description' => 'Description'], true],
             [['layoutId' => false, 'description' => 'Description'], true],
-            [['layoutId' => true, 'description' => 'Description'], false],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => 'Description'], true],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => null], true],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => ''], true],
@@ -256,10 +255,7 @@ final class LayoutResolverValidatorTest extends TestCase
         return [
             [['type' => 'target1', 'value' => 42], true],
             [['type' => 'target1', 'value' => '42'], true],
-            [['type' => 'target1', 'value' => [42]], true],
-            [['type' => 'target1', 'value' => null], false],
             [['type' => 'target1', 'value' => ''], false],
-            [['type' => 'target1', 'value' => []], false],
         ];
     }
 
@@ -268,10 +264,7 @@ final class LayoutResolverValidatorTest extends TestCase
         return [
             [['value' => 42], true],
             [['value' => '42'], true],
-            [['value' => [42]], true],
-            [['value' => null], false],
             [['value' => ''], false],
-            [['value' => []], false],
         ];
     }
 
@@ -281,7 +274,6 @@ final class LayoutResolverValidatorTest extends TestCase
             [['type' => 'condition1', 'value' => 42], true],
             [['type' => 'condition1', 'value' => '42'], true],
             [['type' => 'condition1', 'value' => [42]], true],
-            [['type' => 'condition1', 'value' => null], false],
             [['type' => 'condition1', 'value' => ''], false],
             [['type' => 'condition1', 'value' => []], false],
         ];
@@ -293,7 +285,6 @@ final class LayoutResolverValidatorTest extends TestCase
             [['value' => 42], true],
             [['value' => '42'], true],
             [['value' => [42]], true],
-            [['value' => null], false],
             [['value' => ''], false],
             [['value' => []], false],
         ];

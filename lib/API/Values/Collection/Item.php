@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
+use Closure;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
@@ -30,17 +31,11 @@ final class Item implements Value, ConfigAwareValue
 
     private int $position;
 
-    /**
-     * @var int|string|null
-     */
-    private $value;
+    private int|string|null $value;
 
     private ?string $viewType;
 
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemInterface|\Closure
-     */
-    private $cmsItem;
+    private CmsItemInterface|Closure $cmsItem;
 
     public function getId(): UuidInterface
     {
@@ -73,10 +68,8 @@ final class Item implements Value, ConfigAwareValue
 
     /**
      * Returns the value stored inside the collection item.
-     *
-     * @return int|string|null
      */
-    public function getValue()
+    public function getValue(): int|string|null
     {
         return $this->value;
     }

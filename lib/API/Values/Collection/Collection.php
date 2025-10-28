@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
+use Closure;
 use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
@@ -40,10 +41,7 @@ final class Collection implements Value
      */
     private DoctrineCollection $items;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\Query|\Closure|null
-     */
-    private $query;
+    private Query|Closure|null $query;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Collection\Slot>

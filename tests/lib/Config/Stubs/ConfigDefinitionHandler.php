@@ -22,6 +22,8 @@ final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
                     'name' => 'param',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                 ],
             ),
             'param2' => ParameterDefinition::fromArray(
@@ -29,6 +31,8 @@ final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
                     'name' => 'param2',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                 ],
             ),
         ];

@@ -32,12 +32,9 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     }
 
     /**
-     * @param mixed $object
-     * @param string|null $format
-     *
      * @return array<string, mixed>
      */
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\Result $result */
         $result = $object->getValue();
@@ -65,11 +62,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         return $data;
     }
 
-    /**
-     * @param mixed $data
-     * @param string|null $format
-     */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null): bool
     {
         if (!$data instanceof Value) {
             return false;

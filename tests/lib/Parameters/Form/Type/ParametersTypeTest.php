@@ -62,11 +62,13 @@ final class ParametersTypeTest extends FormTestCase
                 'options' => [
                     'reverse' => false,
                 ],
+                'label' => null,
                 'parameterDefinitions' => [
                     'inner' => ParameterDefinition::fromArray(
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
+                            'label' => null,
                         ],
                     ),
                 ],
@@ -167,6 +169,7 @@ final class ParametersTypeTest extends FormTestCase
                     [
                         'name' => 'test',
                         'type' => new ParameterType\TextType(),
+                        'label' => null,
                     ],
                 ),
             ],
@@ -213,6 +216,7 @@ final class ParametersTypeTest extends FormTestCase
                         'name' => 'excluded',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => ['excluded'],
+                        'label' => null,
                     ],
                 ),
                 'css_id' => ParameterDefinition::fromArray(
@@ -220,6 +224,7 @@ final class ParametersTypeTest extends FormTestCase
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => ['group'],
+                        'label' => null,
                     ],
                 ),
             ],

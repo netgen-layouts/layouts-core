@@ -19,7 +19,7 @@ final class CmsItemLoader implements CmsItemLoaderInterface
         $this->valueLoaders = $valueLoaders;
     }
 
-    public function load($id, string $valueType): CmsItemInterface
+    public function load(int|string $id, string $valueType): CmsItemInterface
     {
         $valueLoader = $this->getValueLoader($valueType);
         $value = $valueLoader->load($id);
@@ -31,7 +31,7 @@ final class CmsItemLoader implements CmsItemLoaderInterface
         return $this->cmsItemBuilder->build($value);
     }
 
-    public function loadByRemoteId($remoteId, string $valueType): CmsItemInterface
+    public function loadByRemoteId(int|string $remoteId, string $valueType): CmsItemInterface
     {
         $valueLoader = $this->getValueLoader($valueType);
         $value = $valueLoader->loadByRemoteId($remoteId);

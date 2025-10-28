@@ -24,12 +24,12 @@ final class ManualItem implements CmsItemInterface
         return $this->collectionItem;
     }
 
-    public function getValue()
+    public function getValue(): int|string|null
     {
         return $this->collectionItem->getCmsItem()->getValue();
     }
 
-    public function getRemoteId()
+    public function getRemoteId(): int|string|null
     {
         return $this->collectionItem->getCmsItem()->getRemoteId();
     }

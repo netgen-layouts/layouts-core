@@ -24,13 +24,11 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
      *
      * @dataProvider validateDataProvider
      */
-    public function testValidate($value, bool $isValid): void
+    public function testValidate(mixed $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }

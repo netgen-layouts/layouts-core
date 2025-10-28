@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class UnlinkLayout extends AbstractController
 {
@@ -25,10 +26,8 @@ final class UnlinkLayout extends AbstractController
      * Unlinks the layout from the rule.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule does not have a linked layout
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Rule $rule, Request $request)
+    public function __invoke(Rule $rule, Request $request): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',

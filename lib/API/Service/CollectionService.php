@@ -222,10 +222,8 @@ interface CollectionService extends TransactionService
 
     /**
      * Creates a new item create struct from provided values.
-     *
-     * @param int|string $value
      */
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): ItemCreateStruct;
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int|string|null $value): ItemCreateStruct;
 
     /**
      * Creates a new item update struct.

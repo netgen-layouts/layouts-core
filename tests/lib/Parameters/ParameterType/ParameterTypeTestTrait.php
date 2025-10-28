@@ -16,9 +16,8 @@ trait ParameterTypeTestTrait
      * Returns the parameter under test.
      *
      * @param array<string, mixed> $options
-     * @param mixed $defaultValue
      */
-    private function getParameterDefinition(array $options = [], bool $required = false, $defaultValue = null): ParameterDefinition
+    private function getParameterDefinition(array $options = [], bool $required = false, mixed $defaultValue = null): ParameterDefinition
     {
         $optionsResolver = new OptionsResolver();
 

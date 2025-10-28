@@ -31,12 +31,10 @@ final class BooleanTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::configureOptions
      *
      * @param array<string, mixed> $options
-     * @param mixed $defaultValue
-     * @param mixed $expected
      *
      * @dataProvider defaultValueDataProvider
      */
-    public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
+    public function testGetDefaultValue(array $options, bool $required, mixed $defaultValue, mixed $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
         self::assertSame($expected, $parameter->getDefaultValue());
@@ -125,14 +123,12 @@ final class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::getValueConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $required, bool $isValid): void
+    public function testValidation(mixed $value, bool $required, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition([], $required);
         $validator = Validation::createValidator();
@@ -158,13 +154,11 @@ final class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType::isValueEmpty
      *
      * @dataProvider emptyDataProvider
      */
-    public function testIsValueEmpty($value, bool $isEmpty): void
+    public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }

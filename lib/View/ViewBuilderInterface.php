@@ -9,8 +9,7 @@ interface ViewBuilderInterface
     /**
      * Builds the view from the provided value in specified context.
      *
-     * @param mixed $value
      * @param array<string, mixed> $parameters
      */
-    public function buildView($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface;
+    public function buildView(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface;
 }

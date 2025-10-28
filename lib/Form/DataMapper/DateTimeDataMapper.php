@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Form\DataMapper;
 use DateTimeInterface;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use Symfony\Component\Form\DataMapperInterface;
+use Traversable;
 
 use function date_default_timezone_get;
 use function is_array;
@@ -24,7 +25,7 @@ final class DateTimeDataMapper implements DataMapperInterface
         $this->useDateTime = $useDateTime;
     }
 
-    public function mapDataToForms($viewData, $forms): void
+    public function mapDataToForms(mixed $viewData, Traversable $forms): void
     {
         $forms = iterator_to_array($forms);
 
@@ -43,7 +44,7 @@ final class DateTimeDataMapper implements DataMapperInterface
         $forms['timezone']->setData($timeZone);
     }
 
-    public function mapFormsToData($forms, &$viewData): void
+    public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
         $forms = iterator_to_array($forms);
         $dateTime = $forms['datetime']->getData();

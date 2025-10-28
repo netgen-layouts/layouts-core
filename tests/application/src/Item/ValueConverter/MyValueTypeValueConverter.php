@@ -37,7 +37,7 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
         return 'Value with ID #' . $object->id;
     }
 
-    public function getIsVisible(object $object): bool
+    public function getIsVisible(object $object): true
     {
         return true;
     }

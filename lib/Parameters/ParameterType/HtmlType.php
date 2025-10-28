@@ -28,17 +28,17 @@ final class HtmlType extends ParameterType
         return 'html';
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool
     {
         return $value === null || $value === '';
     }
 
-    public function toHash(ParameterDefinition $parameterDefinition, $value): string
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): string
     {
         return $this->htmlPurifier->purify($value ?? '');
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
             new Constraints\Type(['type' => 'string']),

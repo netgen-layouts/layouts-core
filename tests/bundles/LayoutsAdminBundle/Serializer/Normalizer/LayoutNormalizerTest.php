@@ -258,13 +258,11 @@ final class LayoutNormalizerTest extends TestCase
     }
 
     /**
-     * @param mixed $data
-     *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::supportsNormalization
      *
      * @dataProvider supportsNormalizationDataProvider
      */
-    public function testSupportsNormalization($data, bool $expected): void
+    public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }

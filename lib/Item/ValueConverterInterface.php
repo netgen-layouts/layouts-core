@@ -29,19 +29,15 @@ interface ValueConverterInterface
      * Returns the object ID.
      *
      * @param T $object
-     *
-     * @return int|string
      */
-    public function getId(object $object);
+    public function getId(object $object): int|string;
 
     /**
      * Returns the object remote ID.
      *
      * @param T $object
-     *
-     * @return int|string
      */
-    public function getRemoteId(object $object);
+    public function getRemoteId(object $object): int|string;
 
     /**
      * Returns the object name.

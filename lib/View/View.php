@@ -76,7 +76,7 @@ abstract class View implements ViewInterface
             || array_key_exists($identifier, $this->customParameters);
     }
 
-    public function getParameter(string $identifier)
+    public function getParameter(string $identifier): mixed
     {
         if (!$this->hasParameter($identifier)) {
             throw ViewException::parameterNotFound($identifier, get_debug_type($this));
@@ -97,7 +97,7 @@ abstract class View implements ViewInterface
         return $this->parameters + $this->customParameters;
     }
 
-    public function addParameter(string $parameterName, $parameterValue): void
+    public function addParameter(string $parameterName, mixed $parameterValue): void
     {
         $this->customParameters[$parameterName] = $parameterValue;
     }

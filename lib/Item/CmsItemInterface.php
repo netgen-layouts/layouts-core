@@ -12,17 +12,13 @@ interface CmsItemInterface
 {
     /**
      * Returns the scalar ID of the value from CMS that this item wraps.
-     *
-     * @return mixed
      */
-    public function getValue();
+    public function getValue(): int|string|null;
 
     /**
      * Returns the scalar remote ID of the value from CMS that this item wraps.
-     *
-     * @return mixed
      */
-    public function getRemoteId();
+    public function getRemoteId(): int|string|null;
 
     /**
      * Returns the type of the value from CMS that this item wraps.

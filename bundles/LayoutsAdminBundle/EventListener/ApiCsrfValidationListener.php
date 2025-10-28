@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -32,11 +33,9 @@ final class ApiCsrfValidationListener implements EventSubscriberInterface
     /**
      * Validates if the current request has a valid token.
      *
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException if no valid token exists
      */
-    public function onKernelRequest($event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

@@ -66,13 +66,11 @@ final class ItemViewProviderTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::supports
      *
      * @dataProvider supportsDataProvider
      */
-    public function testSupports($value, bool $supports): void
+    public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->itemViewProvider->supports($value));
     }

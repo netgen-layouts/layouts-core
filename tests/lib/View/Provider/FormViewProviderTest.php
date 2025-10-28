@@ -53,7 +53,7 @@ final class FormViewProviderTest extends TestCase
      *
      * @dataProvider supportsDataProvider
      */
-    public function testSupports($value, bool $supports): void
+    public function testSupports(string $value, bool $supports): void
     {
         self::assertSame($supports, $this->formViewProvider->supports($this->createMock($value)));
     }

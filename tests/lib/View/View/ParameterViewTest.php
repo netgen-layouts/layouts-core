@@ -25,6 +25,7 @@ final class ParameterViewTest extends TestCase
                     [
                         'type' => new ParameterType(),
                         'isRequired' => false,
+                        'defaultValue' => null,
                     ],
                 ),
             ],

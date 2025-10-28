@@ -29,10 +29,8 @@ final class ClearRelatedLayoutsCache extends AbstractController
 
     /**
      * Clears the HTTP caches for layouts related to provided shared layout.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Layout $layout, Request $request)
+    public function __invoke(Layout $layout, Request $request): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted('nglayouts:layout:clear_cache', $layout);
 

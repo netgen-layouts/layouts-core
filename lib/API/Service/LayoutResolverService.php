@@ -134,10 +134,8 @@ interface LayoutResolverService extends TransactionService
 
     /**
      * Returns all rules from the provided group that match specified target type and value.
-     *
-     * @param int|string $targetValue
      */
-    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): RuleList;
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, mixed $targetValue): RuleList;
 
     /**
      * Loads a target by its' UUID.

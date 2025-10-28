@@ -27,17 +27,15 @@ final class DateTimeType extends ParameterType
         return 'datetime';
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool
     {
         return !$value instanceof DateTimeInterface;
     }
 
     /**
-     * @param mixed $value
-     *
      * @return array<string, string>|null
      */
-    public function toHash(ParameterDefinition $parameterDefinition, $value): ?array
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): ?array
     {
         if (!$value instanceof DateTimeInterface) {
             return null;
@@ -49,12 +47,12 @@ final class DateTimeType extends ParameterType
         ];
     }
 
-    public function fromHash(ParameterDefinition $parameterDefinition, $value): ?DateTimeInterface
+    public function fromHash(ParameterDefinition $parameterDefinition, mixed $value): ?DateTimeInterface
     {
         return is_array($value) ? DateTimeUtils::createFromArray($value) : null;
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
             new DateTimeConstraint(),

@@ -23,7 +23,7 @@ final class NullQueryType implements QueryTypeInterface
         return $this->queryType;
     }
 
-    public function isEnabled(): bool
+    public function isEnabled(): true
     {
         return true;
     }

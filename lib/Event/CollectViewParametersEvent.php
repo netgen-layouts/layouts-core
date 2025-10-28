@@ -43,10 +43,8 @@ final class CollectViewParametersEvent extends Event
 
     /**
      * Adds the parameter to the view.
-     *
-     * @param mixed $parameterValue
      */
-    public function addParameter(string $parameterName, $parameterValue): void
+    public function addParameter(string $parameterName, mixed $parameterValue): void
     {
         $this->parameters[$parameterName] = $parameterValue;
     }

@@ -31,12 +31,10 @@ final class RangeTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::configureOptions
      *
      * @param array<string, mixed> $options
-     * @param mixed $defaultValue
-     * @param mixed $expected
      *
      * @dataProvider defaultValueDataProvider
      */
-    public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
+    public function testGetDefaultValue(array $options, bool $required, mixed $defaultValue, mixed $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
         self::assertSame($expected, $parameter->getDefaultValue());
@@ -158,13 +156,11 @@ final class RangeTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::getValueConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $required, bool $isValid): void
+    public function testValidation(mixed $value, bool $required, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['min' => 5, 'max' => 10], $required);
         $validator = Validation::createValidator();
@@ -197,13 +193,11 @@ final class RangeTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::isValueEmpty
      *
      * @dataProvider emptyDataProvider
      */
-    public function testIsValueEmpty($value, bool $isEmpty): void
+    public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }

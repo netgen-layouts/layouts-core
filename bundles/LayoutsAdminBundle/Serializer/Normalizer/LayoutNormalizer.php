@@ -37,12 +37,9 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     }
 
     /**
-     * @param mixed $object
-     * @param string|null $format
-     *
      * @return array<string, mixed>
      */
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         $layout = $object->getValue();
@@ -84,11 +81,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         return $data;
     }
 
-    /**
-     * @param mixed $data
-     * @param string|null $format
-     */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null): bool
     {
         if (!$data instanceof Value) {
             return false;
@@ -154,9 +147,9 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
      * Returns all allowed block definitions from provided zone or
      * true if all block definitions are allowed.
      *
-     * @return string[]|bool
+     * @return string[]|true
      */
-    private function getAllowedBlocks(Zone $zone, LayoutTypeInterface $layoutType)
+    private function getAllowedBlocks(Zone $zone, LayoutTypeInterface $layoutType): array|true
     {
         if ($layoutType->hasZone($zone->getIdentifier())) {
             $layoutTypeZone = $layoutType->getZone($zone->getIdentifier());

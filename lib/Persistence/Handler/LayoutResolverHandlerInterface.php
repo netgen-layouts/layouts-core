@@ -22,6 +22,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
+use Ramsey\Uuid\UuidInterface;
 
 interface LayoutResolverHandlerInterface
 {
@@ -30,22 +31,18 @@ interface LayoutResolverHandlerInterface
      *
      * Rule ID can be an auto-incremented ID or an UUID.
      *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
      */
-    public function loadRule($ruleId, Status $status): Rule;
+    public function loadRule(int|string|UuidInterface $ruleId, Status $status): Rule;
 
     /**
      * Loads a rule group with specified ID.
      *
      * Rule group ID can be an auto-incremented ID or an UUID.
      *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleGroupId
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified ID does not exist
      */
-    public function loadRuleGroup($ruleGroupId, Status $status): RuleGroup;
+    public function loadRuleGroup(int|string|UuidInterface $ruleGroupId, Status $status): RuleGroup;
 
     /**
      * Loads all rules mapped to provided layout.
@@ -92,22 +89,18 @@ interface LayoutResolverHandlerInterface
     /**
      * Returns all rules from the provided group that match specified target type and value.
      *
-     * @param mixed $targetValue
-     *
      * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): array;
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, mixed $targetValue): array;
 
     /**
      * Loads an target with specified ID.
      *
      * Target ID can be an auto-incremented ID or an UUID.
      *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $targetId
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
      */
-    public function loadTarget($targetId, Status $status): Target;
+    public function loadTarget(int|string|UuidInterface $targetId, Status $status): Target;
 
     /**
      * Loads all targets that belong to rule with specified ID.
@@ -126,22 +119,18 @@ interface LayoutResolverHandlerInterface
      *
      * Condition ID can be an auto-incremented ID or an UUID.
      *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $conditionId
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      */
-    public function loadRuleCondition($conditionId, Status $status): RuleCondition;
+    public function loadRuleCondition(int|string|UuidInterface $conditionId, Status $status): RuleCondition;
 
     /**
      * Loads a rule group condition with specified ID.
      *
      * Condition ID can be an auto-incremented ID or an UUID.
      *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $conditionId
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      */
-    public function loadRuleGroupCondition($conditionId, Status $status): RuleGroupCondition;
+    public function loadRuleGroupCondition(int|string|UuidInterface $conditionId, Status $status): RuleGroupCondition;
 
     /**
      * Loads all conditions that belong to rule with specified ID.
@@ -161,10 +150,8 @@ interface LayoutResolverHandlerInterface
      * Returns if rule with specified ID exists.
      *
      * Rule ID can be an auto-incremented ID or an UUID.
-     *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
      */
-    public function ruleExists($ruleId, ?Status $status = null): bool;
+    public function ruleExists(int|string|UuidInterface $ruleId, ?Status $status = null): bool;
 
     /**
      * Creates a rule.
@@ -205,10 +192,8 @@ interface LayoutResolverHandlerInterface
      * Returns if rule group with specified ID exists.
      *
      * Rule group ID can be an auto-incremented ID or an UUID.
-     *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleGroupId
      */
-    public function ruleGroupExists($ruleGroupId, ?Status $status = null): bool;
+    public function ruleGroupExists(int|string|UuidInterface $ruleGroupId, ?Status $status = null): bool;
 
     /**
      * Creates a rule group.

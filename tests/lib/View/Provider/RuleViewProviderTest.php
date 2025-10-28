@@ -43,13 +43,11 @@ final class RuleViewProviderTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\View\Provider\RuleViewProvider::supports
      *
      * @dataProvider supportsDataProvider
      */
-    public function testSupports($value, bool $supports): void
+    public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->ruleViewProvider->supports($value));
     }

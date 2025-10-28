@@ -27,13 +27,11 @@ final class RouteParameterTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::getConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 
@@ -44,11 +42,9 @@ final class RouteParameterTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::matches
      *
-     * @param mixed $value
-     *
      * @dataProvider matchesDataProvider
      */
-    public function testMatches($value, bool $matches): void
+    public function testMatches(mixed $value, bool $matches): void
     {
         $request = Request::create('/');
         $request->attributes->set(

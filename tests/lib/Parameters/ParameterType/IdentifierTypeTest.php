@@ -76,13 +76,11 @@ final class IdentifierTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::getValueConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $required, bool $isValid): void
+    public function testValidation(mixed $value, bool $required, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition([], $required);
         $validator = Validation::createValidator();
@@ -108,13 +106,11 @@ final class IdentifierTypeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::isValueEmpty
      *
      * @dataProvider emptyDataProvider
      */
-    public function testIsValueEmpty($value, bool $isEmpty): void
+    public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }

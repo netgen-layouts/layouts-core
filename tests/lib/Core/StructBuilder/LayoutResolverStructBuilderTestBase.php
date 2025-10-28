@@ -133,7 +133,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         self::assertSame(
             [
                 'type' => 'target',
-                'value' => null,
             ],
             $this->exportObject($struct),
         );
@@ -146,12 +145,7 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
     {
         $struct = $this->structBuilder->newTargetUpdateStruct();
 
-        self::assertSame(
-            [
-                'value' => null,
-            ],
-            $this->exportObject($struct),
-        );
+        self::assertSame([], $this->exportObject($struct));
     }
 
     /**
@@ -164,7 +158,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         self::assertSame(
             [
                 'type' => 'condition',
-                'value' => null,
             ],
             $this->exportObject($struct),
         );
@@ -177,11 +170,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
     {
         $struct = $this->structBuilder->newConditionUpdateStruct();
 
-        self::assertSame(
-            [
-                'value' => null,
-            ],
-            $this->exportObject($struct),
-        );
+        self::assertSame([], $this->exportObject($struct));
     }
 }

@@ -23,10 +23,7 @@ final class Target implements Value
 
     private TargetTypeInterface $targetType;
 
-    /**
-     * @var int|string
-     */
-    private $value;
+    private int|string $value;
 
     private ?object $valueObject;
 
@@ -53,10 +50,8 @@ final class Target implements Value
 
     /**
      * Returns the target value.
-     *
-     * @return int|string
      */
-    public function getValue()
+    public function getValue(): int|string
     {
         return $this->value;
     }

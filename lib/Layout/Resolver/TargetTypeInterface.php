@@ -39,10 +39,8 @@ interface TargetTypeInterface
      * This is usually a value extracted from a request. The value should
      * be something that uniquely identifies a page in the CMS or a set of
      * pages.
-     *
-     * @return mixed
      */
-    public function provideValue(Request $request);
+    public function provideValue(Request $request): mixed;
 
     /*
      * Returns the target value converted to a format suitable for exporting.
@@ -52,12 +50,8 @@ interface TargetTypeInterface
      * but as remote IDs.
      *
      * Will be added to the interface in 2.0.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    // public function export($value);
+    // public function export(mixed $value): mixed;
 
     /*
      * Returns the target value converted from the exported format.
@@ -67,10 +61,6 @@ interface TargetTypeInterface
      * in contrast to some kind of remote ID which would be stored in the export.
      *
      * Will be added to the interface in 2.0.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    // public function import($value);
+    // public function import(mixed $value): mixed;
 }

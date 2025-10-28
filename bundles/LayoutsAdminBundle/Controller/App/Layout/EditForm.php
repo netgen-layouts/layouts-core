@@ -23,10 +23,8 @@ final class EditForm extends AbstractController
 
     /**
      * Displays and processes layout update form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Layout $layout, Request $request)
+    public function __invoke(Layout $layout, Request $request): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted('nglayouts:layout:edit', $layout);
 

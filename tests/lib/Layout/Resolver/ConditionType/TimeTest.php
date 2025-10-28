@@ -29,13 +29,11 @@ final class TimeTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -48,11 +46,9 @@ final class TimeTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::matches
      *
-     * @param mixed $value
-     *
      * @dataProvider matchesDataProvider
      */
-    public function testMatches($value, bool $matches): void
+    public function testMatches(mixed $value, bool $matches): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
         ClockMock::withClockMock(1_521_800_000);

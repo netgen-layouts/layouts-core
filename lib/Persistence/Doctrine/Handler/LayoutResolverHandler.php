@@ -56,7 +56,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->mapper = $mapper;
     }
 
-    public function loadRule($ruleId, Status $status): Rule
+    public function loadRule(int|string|UuidInterface $ruleId, Status $status): Rule
     {
         $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
         $data = $this->queryHandler->loadRuleData($ruleId, $status);
@@ -68,7 +68,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data)[0];
     }
 
-    public function loadRuleGroup($ruleGroupId, Status $status): RuleGroup
+    public function loadRuleGroup(int|string|UuidInterface $ruleGroupId, Status $status): RuleGroup
     {
         $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
         $data = $this->queryHandler->loadRuleGroupData($ruleGroupId, $status);
@@ -116,7 +116,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->getRuleGroupCount($ruleGroup);
     }
 
-    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): array
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, mixed $targetValue): array
     {
         $data = $this->queryHandler->matchRules($ruleGroup, $targetType, $targetValue);
 
@@ -127,7 +127,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data);
     }
 
-    public function loadTarget($targetId, Status $status): Target
+    public function loadTarget(int|string|UuidInterface $targetId, Status $status): Target
     {
         $targetId = $targetId instanceof UuidInterface ? $targetId->toString() : $targetId;
         $data = $this->queryHandler->loadTargetData($targetId, $status);
@@ -151,7 +151,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->getRuleTargetCount($rule);
     }
 
-    public function loadRuleCondition($conditionId, Status $status): RuleCondition
+    public function loadRuleCondition(int|string|UuidInterface $conditionId, Status $status): RuleCondition
     {
         $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadRuleConditionData($conditionId, $status);
@@ -163,7 +163,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRuleConditions($data)[0];
     }
 
-    public function loadRuleGroupCondition($conditionId, Status $status): RuleGroupCondition
+    public function loadRuleGroupCondition(int|string|UuidInterface $conditionId, Status $status): RuleGroupCondition
     {
         $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadRuleGroupConditionData($conditionId, $status);
@@ -189,7 +189,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    public function ruleExists($ruleId, ?Status $status = null): bool
+    public function ruleExists(int|string|UuidInterface $ruleId, ?Status $status = null): bool
     {
         $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
 
@@ -362,7 +362,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->queryHandler->deleteRule($ruleId, $status);
     }
 
-    public function ruleGroupExists($ruleGroupId, ?Status $status = null): bool
+    public function ruleGroupExists(int|string|UuidInterface $ruleGroupId, ?Status $status = null): bool
     {
         $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
 

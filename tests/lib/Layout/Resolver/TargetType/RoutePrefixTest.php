@@ -27,13 +27,11 @@ final class RoutePrefixTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::getConstraints
      *
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
 

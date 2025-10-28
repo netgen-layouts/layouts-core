@@ -21,10 +21,7 @@ use function array_map;
 
 final class ManualCollectionRunnerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
-     */
-    private MockObject $cmsItemBuilderMock;
+    private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
 
     protected function setUp(): void
     {

@@ -23,10 +23,8 @@ final class EditForm extends AbstractController
 
     /**
      * Displays and processes block draft edit form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Block $block, string $locale, string $formName, Request $request)
+    public function __invoke(Block $block, string $locale, string $formName, Request $request): ViewInterface|View|Response
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 

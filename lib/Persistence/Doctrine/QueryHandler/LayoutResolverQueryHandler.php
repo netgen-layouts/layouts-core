@@ -43,11 +43,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for specified rule.
      *
-     * @param int|string $ruleId
-     *
      * @return mixed[]
      */
-    public function loadRuleData($ruleId, Status $status): array
+    public function loadRuleData(int|string $ruleId, Status $status): array
     {
         $query = $this->getRuleSelectQuery();
 
@@ -144,11 +142,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all rule data for rules from the provided group that match specified target type and value.
      *
-     * @param mixed $targetValue
-     *
      * @return mixed[]
      */
-    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): array
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, mixed $targetValue): array
     {
         $query = $this->getRuleSelectQuery();
         $query
@@ -184,11 +180,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for specified rule group.
      *
-     * @param int|string $ruleGroupId
-     *
      * @return mixed[]
      */
-    public function loadRuleGroupData($ruleGroupId, Status $status): array
+    public function loadRuleGroupData(int|string $ruleGroupId, Status $status): array
     {
         $query = $this->getRuleGroupSelectQuery();
 
@@ -269,11 +263,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for specified target.
      *
-     * @param int|string $targetId
-     *
      * @return mixed[]
      */
-    public function loadTargetData($targetId, Status $status): array
+    public function loadTargetData(int|string $targetId, Status $status): array
     {
         $query = $this->getTargetSelectQuery();
 
@@ -325,11 +317,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for specified rule condition.
      *
-     * @param int|string $conditionId
-     *
      * @return mixed[]
      */
-    public function loadRuleConditionData($conditionId, Status $status): array
+    public function loadRuleConditionData(int|string $conditionId, Status $status): array
     {
         $query = $this->getRuleConditionSelectQuery();
 
@@ -361,11 +351,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for specified rule group condition.
      *
-     * @param int|string $conditionId
-     *
      * @return mixed[]
      */
-    public function loadRuleGroupConditionData($conditionId, Status $status): array
+    public function loadRuleGroupConditionData(int|string $conditionId, Status $status): array
     {
         $query = $this->getRuleGroupConditionSelectQuery();
 
@@ -396,10 +384,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns if the specified rule exists.
-     *
-     * @param int|string $ruleId
      */
-    public function ruleExists($ruleId, ?Status $status = null): bool
+    public function ruleExists(int|string $ruleId, ?Status $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -418,10 +404,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns if the specified rule group exists.
-     *
-     * @param int|string $ruleGroupId
      */
-    public function ruleGroupExists($ruleGroupId, ?Status $status = null): bool
+    public function ruleGroupExists(int|string $ruleGroupId, ?Status $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -1089,7 +1073,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('status', $target->status->value, Types::INTEGER)
             ->setParameter('rule_id', $target->ruleId, Types::INTEGER)
             ->setParameter('type', $target->type, Types::STRING)
-            ->setParameter('value', $target->value, is_array($target->value) ? Types::JSON : Types::STRING);
+            ->setParameter('value', $target->value, Types::STRING);
 
         $query->execute();
 
@@ -1117,7 +1101,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('uuid', $target->uuid, Types::STRING)
             ->setParameter('rule_id', $target->ruleId, Types::INTEGER)
             ->setParameter('type', $target->type, Types::STRING)
-            ->setParameter('value', $target->value, is_array($target->value) ? Types::JSON : Types::STRING);
+            ->setParameter('value', $target->value, Types::STRING);
 
         $this->applyStatusCondition($query, $target->status);
 

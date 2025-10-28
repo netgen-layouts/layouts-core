@@ -21,7 +21,7 @@ class Renderer implements RendererInterface
         $this->viewRenderer = $viewRenderer;
     }
 
-    public function renderValue($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string
+    public function renderValue(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string
     {
         return $this->viewRenderer->renderView(
             $this->viewBuilder->buildView($value, $context, $parameters),

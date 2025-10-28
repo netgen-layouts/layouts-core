@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Layout;
 
+use Closure;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
@@ -19,10 +20,7 @@ final class Zone
 
     private UuidInterface $layoutId;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Zone|\Closure|null
-     */
-    private $linkedZone;
+    private Zone|Closure|null $linkedZone;
 
     /**
      * Returns the zone identifier.

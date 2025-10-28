@@ -40,7 +40,7 @@ final class ViewBuilder implements ViewBuilderInterface
         }
     }
 
-    public function buildView($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface
+    public function buildView(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface
     {
         $viewProvider = $this->getViewProvider($value);
 
@@ -64,10 +64,8 @@ final class ViewBuilder implements ViewBuilderInterface
 
     /**
      * Returns the view provider that supports the given value.
-     *
-     * @param mixed $value
      */
-    private function getViewProvider($value): ViewProviderInterface
+    private function getViewProvider(mixed $value): ViewProviderInterface
     {
         foreach ($this->viewProviders as $viewProvider) {
             if ($viewProvider->supports($value)) {

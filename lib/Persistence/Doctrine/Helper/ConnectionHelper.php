@@ -32,7 +32,7 @@ final class ConnectionHelper implements ConnectionHelperInterface
         ];
     }
 
-    public function nextId(string $table, string $column = 'id')
+    public function nextId(string $table, string $column = 'id'): mixed
     {
         $handler = $this->getHandler($this->connection->getDatabasePlatform());
 
@@ -43,7 +43,7 @@ final class ConnectionHelper implements ConnectionHelperInterface
         return 'null';
     }
 
-    public function lastId(string $table, string $column = 'id')
+    public function lastId(string $table, string $column = 'id'): mixed
     {
         $handler = $this->getHandler($this->connection->getDatabasePlatform());
 

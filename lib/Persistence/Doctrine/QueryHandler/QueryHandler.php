@@ -27,10 +27,8 @@ abstract class QueryHandler
 
     /**
      * Applies ID condition to the query.
-     *
-     * @param int|string $id
      */
-    public function applyIdCondition(QueryBuilder $query, $id, string $idColumn = 'id', string $uuidColumn = 'uuid', string $idParamName = 'id', string $uuidParamName = 'uuid'): void
+    public function applyIdCondition(QueryBuilder $query, int|string $id, string $idColumn = 'id', string $uuidColumn = 'uuid', string $idParamName = 'id', string $uuidParamName = 'uuid'): void
     {
         $isUuid = is_string($id);
 

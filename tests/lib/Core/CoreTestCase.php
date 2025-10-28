@@ -71,10 +71,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class CoreTestCase extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemLoaderInterface
-     */
-    protected MockObject $cmsItemLoaderMock;
+    protected MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
 
     protected LayoutTypeRegistry $layoutTypeRegistry;
 

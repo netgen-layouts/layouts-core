@@ -27,10 +27,8 @@ final class Hydrator
      * Hydrate $object with the provided $data.
      *
      * @param array<string, mixed> $data
-     *
-     * @return mixed
      */
-    public function hydrate(array $data, object $object)
+    public function hydrate(array $data, object $object): mixed
     {
         return (function (array $data) {
             foreach ($data as $property => $value) {

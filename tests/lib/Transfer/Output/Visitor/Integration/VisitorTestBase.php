@@ -31,21 +31,17 @@ use const PHP_EOL;
 abstract class VisitorTestBase extends CoreTestCase
 {
     /**
-     * @param mixed $value
-     *
      * @dataProvider acceptDataProvider
      */
-    public function testAccept($value, bool $accepted): void
+    public function testAccept(mixed $value, bool $accepted): void
     {
         self::assertSame($accepted, $this->getVisitor()->accept($value));
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider visitDataProvider
      */
-    public function testVisit($value, string $fixturePath): void
+    public function testVisit(mixed $value, string $fixturePath): void
     {
         $fixturePath = __DIR__ . '/../../../_fixtures/output/' . $fixturePath;
 

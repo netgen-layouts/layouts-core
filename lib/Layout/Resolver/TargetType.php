@@ -6,22 +6,12 @@ namespace Netgen\Layouts\Layout\Resolver;
 
 abstract class TargetType implements TargetTypeInterface
 {
-    /**
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function export($value)
+    public function export(mixed $value): mixed
     {
         return $value;
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function import($value)
+    public function import(mixed $value): mixed
     {
         return $value;
     }

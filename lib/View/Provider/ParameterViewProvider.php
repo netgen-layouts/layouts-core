@@ -10,7 +10,7 @@ use Netgen\Layouts\View\ViewInterface;
 
 final class ParameterViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = []): ViewInterface
+    public function provideView(mixed $value, array $parameters = []): ViewInterface
     {
         $view = new ParameterView($value);
 
@@ -19,7 +19,7 @@ final class ParameterViewProvider implements ViewProviderInterface
         return $view;
     }
 
-    public function supports($value): bool
+    public function supports(mixed $value): bool
     {
         return $value instanceof Parameter;
     }

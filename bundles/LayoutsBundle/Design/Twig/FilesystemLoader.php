@@ -28,35 +28,22 @@ final class FilesystemLoader implements LoaderInterface
         $this->configuration = $configuration;
     }
 
-    /**
-     * @param string $name
-     */
-    public function getSourceContext($name): Source
+    public function getSourceContext(string $name): Source
     {
         return $this->innerLoader->getSourceContext($this->getRealName($name));
     }
 
-    /**
-     * @param string $name
-     */
-    public function getCacheKey($name): string
+    public function getCacheKey(string $name): string
     {
         return $this->innerLoader->getCacheKey($this->getRealName($name));
     }
 
-    /**
-     * @param string $name
-     * @param int $time
-     */
-    public function isFresh($name, $time): bool
+    public function isFresh(string $name, int $time): bool
     {
         return $this->innerLoader->isFresh($this->getRealName($name), $time);
     }
 
-    /**
-     * @param string $name
-     */
-    public function exists($name): bool
+    public function exists(string $name): bool
     {
         return $this->innerLoader->exists($this->getRealName($name));
     }

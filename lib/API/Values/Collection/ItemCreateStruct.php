@@ -21,10 +21,8 @@ final class ItemCreateStruct implements ConfigAwareStruct
 
     /**
      * The value stored within the item.
-     *
-     * @var int|string|null
      */
-    public $value;
+    public int|string|null $value;
 
     /**
      * View type which will be used to render the item.

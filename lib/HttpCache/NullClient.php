@@ -8,7 +8,7 @@ final class NullClient implements ClientInterface
 {
     public function purge(array $tags): void {}
 
-    public function commit(): bool
+    public function commit(): true
     {
         return true;
     }

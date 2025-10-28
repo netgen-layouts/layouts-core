@@ -10,6 +10,7 @@ use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 use function str_starts_with;
@@ -36,10 +37,8 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 
     /**
      * Sets the self::ADMIN_FLAG_NAME flag if this is a request in admin interface.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest($event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

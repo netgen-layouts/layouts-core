@@ -12,15 +12,11 @@ interface ConnectionHelperInterface
      * Returns the value used for autoincrement tables. Usually this will just
      * be null. In case for sequence based RDBMS, this method can return a
      * proper value for the given column.
-     *
-     * @return mixed
      */
-    public function nextId(string $table, string $column = 'id');
+    public function nextId(string $table, string $column = 'id'): mixed;
 
     /**
      * Returns the last inserted ID.
-     *
-     * @return mixed
      */
-    public function lastId(string $table, string $column = 'id');
+    public function lastId(string $table, string $column = 'id'): mixed;
 }

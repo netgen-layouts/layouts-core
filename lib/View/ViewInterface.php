@@ -89,10 +89,8 @@ interface ViewInterface
      * Returns the view parameter by identifier.
      *
      * @throws \Netgen\Layouts\Exception\View\ViewException If view does not have the parameter
-     *
-     * @return mixed
      */
-    public function getParameter(string $identifier);
+    public function getParameter(string $identifier): mixed;
 
     /**
      * Returns the view parameters.
@@ -103,10 +101,8 @@ interface ViewInterface
 
     /**
      * Adds a parameter to the view.
-     *
-     * @param mixed $parameterValue
      */
-    public function addParameter(string $parameterName, $parameterValue): void;
+    public function addParameter(string $parameterName, mixed $parameterValue): void;
 
     /**
      * Adds parameters to the view.

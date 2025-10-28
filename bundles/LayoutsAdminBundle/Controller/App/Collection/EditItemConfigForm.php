@@ -23,10 +23,8 @@ final class EditItemConfigForm extends AbstractController
 
     /**
      * Displays and processes item config edit form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Request $request, Item $item, ?string $configKey = null)
+    public function __invoke(Request $request, Item $item, ?string $configKey = null): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted('nglayouts:collection:items');
 

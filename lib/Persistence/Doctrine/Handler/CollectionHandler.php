@@ -56,7 +56,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $this->positionHelper = $positionHelper;
     }
 
-    public function loadCollection($collectionId, Status $status): Collection
+    public function loadCollection(int|string|UuidInterface $collectionId, Status $status): Collection
     {
         $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
@@ -108,7 +108,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->collectionMapper->mapCollectionReferences($data);
     }
 
-    public function loadItem($itemId, Status $status): Item
+    public function loadItem(int|string|UuidInterface $itemId, Status $status): Item
     {
         $itemId = $itemId instanceof UuidInterface ? $itemId->toString() : $itemId;
         $data = $this->queryHandler->loadItemData($itemId, $status);
@@ -144,7 +144,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    public function loadQuery($queryId, Status $status): Query
+    public function loadQuery(int|string|UuidInterface $queryId, Status $status): Query
     {
         $queryId = $queryId instanceof UuidInterface ? $queryId->toString() : $queryId;
         $data = $this->queryHandler->loadQueryData($queryId, $status);
@@ -181,7 +181,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $query;
     }
 
-    public function loadSlot($slotId, Status $status): Slot
+    public function loadSlot(int|string|UuidInterface $slotId, Status $status): Slot
     {
         $slotId = $slotId instanceof UuidInterface ? $slotId->toString() : $slotId;
         $data = $this->queryHandler->loadSlotData($slotId, $status);
@@ -202,7 +202,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    public function collectionExists($collectionId, Status $status): bool
+    public function collectionExists(int|string|UuidInterface $collectionId, Status $status): bool
     {
         $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
 

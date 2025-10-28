@@ -20,11 +20,9 @@ final class BlockQueryHandler extends QueryHandler
     /**
      * Loads all block data.
      *
-     * @param int|string $blockId
-     *
      * @return mixed[]
      */
-    public function loadBlockData($blockId, Status $status): array
+    public function loadBlockData(int|string $blockId, Status $status): array
     {
         $query = $this->getBlockWithLayoutSelectQuery();
 
@@ -136,10 +134,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Returns if block exists.
-     *
-     * @param int|string $blockId
      */
-    public function blockExists($blockId, Status $status): bool
+    public function blockExists(int|string $blockId, Status $status): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')

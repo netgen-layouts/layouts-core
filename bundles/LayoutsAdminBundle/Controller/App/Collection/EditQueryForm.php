@@ -23,10 +23,8 @@ final class EditQueryForm extends AbstractController
 
     /**
      * Displays and processes query draft edit form.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Query $query, string $locale, Request $request)
+    public function __invoke(Query $query, string $locale, Request $request): ViewInterface|Response
     {
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
 

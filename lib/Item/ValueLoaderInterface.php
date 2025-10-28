@@ -17,10 +17,8 @@ interface ValueLoaderInterface
      * Any error situations (like non existing values or values which cannot be used
      * due to various conditions) need to be handled by the implementation (e.g. logging)
      * and just return null.
-     *
-     * @param int|string $id
      */
-    public function load($id): ?object;
+    public function load(int|string $id): ?object;
 
     /**
      * Loads the value from provided remote ID or null if value cannot be loaded.
@@ -28,8 +26,6 @@ interface ValueLoaderInterface
      * Any error situations (like non existing values or values which cannot be used
      * due to various conditions) need to be handled by the implementation (e.g. logging)
      * and just return null.
-     *
-     * @param int|string $remoteId
      */
-    public function loadByRemoteId($remoteId): ?object;
+    public function loadByRemoteId(int|string $remoteId): ?object;
 }

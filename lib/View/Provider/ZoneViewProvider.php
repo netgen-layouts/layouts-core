@@ -12,7 +12,7 @@ use Netgen\Layouts\View\ViewInterface;
 
 final class ZoneViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = []): ViewInterface
+    public function provideView(mixed $value, array $parameters = []): ViewInterface
     {
         if (!isset($parameters['blocks'])) {
             throw ViewProviderException::noParameter('zone', 'blocks');
@@ -25,7 +25,7 @@ final class ZoneViewProvider implements ViewProviderInterface
         return new ZoneView($value, $parameters['blocks']);
     }
 
-    public function supports($value): bool
+    public function supports(mixed $value): bool
     {
         return $value instanceof ZoneReference;
     }

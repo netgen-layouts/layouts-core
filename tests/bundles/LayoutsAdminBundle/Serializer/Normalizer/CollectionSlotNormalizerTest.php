@@ -47,13 +47,11 @@ final class CollectionSlotNormalizerTest extends TestCase
     }
 
     /**
-     * @param mixed $data
-     *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionSlotNormalizer::supportsNormalization
      *
      * @dataProvider supportsNormalizationDataProvider
      */
-    public function testSupportsNormalization($data, bool $expected): void
+    public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }

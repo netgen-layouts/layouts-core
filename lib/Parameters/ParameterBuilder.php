@@ -37,15 +37,9 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     private bool $isReadOnly = false;
 
-    /**
-     * @var mixed
-     */
-    private $defaultValue;
+    private mixed $defaultValue;
 
-    /**
-     * @var bool|string|null
-     */
-    private $label;
+    private string|false|null $label;
 
     /**
      * @var string[]
@@ -103,7 +97,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->options;
     }
 
-    public function getOption(string $name)
+    public function getOption(string $name): mixed
     {
         if (!array_key_exists($name, $this->options)) {
             throw ParameterBuilderException::noOption($name, $this->name);
@@ -117,7 +111,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return array_key_exists($name, $this->options);
     }
 
-    public function setOption(string $name, $value): ParameterBuilderInterface
+    public function setOption(string $name, mixed $value): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the options is not possible after parameters have been built.');
@@ -171,12 +165,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function getDefaultValue()
+    public function getDefaultValue(): mixed
     {
         return $this->defaultValue;
     }
 
-    public function setDefaultValue($defaultValue): ParameterBuilderInterface
+    public function setDefaultValue(mixed $defaultValue): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the default value is not possible after parameters have been built.');
@@ -187,12 +181,12 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    public function getLabel()
+    public function getLabel(): string|false|null
     {
         return $this->label;
     }
 
-    public function setLabel($label): ParameterBuilderInterface
+    public function setLabel(string|false|null $label): ParameterBuilderInterface
     {
         if ($this->locked) {
             throw new BadMethodCallException('Setting the label is not possible after parameters have been built.');

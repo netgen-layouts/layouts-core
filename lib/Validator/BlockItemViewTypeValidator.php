@@ -17,10 +17,7 @@ use function is_string;
  */
 final class BlockItemViewTypeValidator extends ConstraintValidator
 {
-    /**
-     * @param mixed $value
-     */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof BlockItemViewType) {
             throw new UnexpectedTypeException($constraint, BlockItemViewType::class);

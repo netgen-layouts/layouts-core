@@ -10,7 +10,7 @@ use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 
 final class RoutePrefix implements TargetHandlerInterface
 {
-    public function handleQuery(QueryBuilder $query, $value): void
+    public function handleQuery(QueryBuilder $query, mixed $value): void
     {
         $databasePlatform = $query->getConnection()->getDatabasePlatform();
 

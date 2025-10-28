@@ -12,6 +12,7 @@ use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
+use Ramsey\Uuid\UuidInterface;
 
 interface LayoutHandlerInterface
 {
@@ -20,22 +21,18 @@ interface LayoutHandlerInterface
      *
      * Layout ID can be an auto-incremented ID or an UUID.
      *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
      */
-    public function loadLayout($layoutId, Status $status): Layout;
+    public function loadLayout(int|string|UuidInterface $layoutId, Status $status): Layout;
 
     /**
      * Loads a zone with specified identifier.
      *
      * Layout ID can be an auto-incremented ID or an UUID.
      *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      */
-    public function loadZone($layoutId, Status $status, string $identifier): Zone;
+    public function loadZone(int|string|UuidInterface $layoutId, Status $status, string $identifier): Zone;
 
     /**
      * Loads all non-shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -95,10 +92,8 @@ interface LayoutHandlerInterface
      * Returns if layout with specified ID exists.
      *
      * Layout ID can be an auto-incremented ID or an UUID.
-     *
-     * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
      */
-    public function layoutExists($layoutId, ?Status $status = null): bool;
+    public function layoutExists(int|string|UuidInterface $layoutId, ?Status $status = null): bool;
 
     /**
      * Loads all zones that belong to provided layout.
@@ -111,10 +106,8 @@ interface LayoutHandlerInterface
      * Returns if layout with provided name exists.
      *
      * Excluded layout ID can be an auto-incremented ID or an UUID.
-     *
-     * @param int|string|\Ramsey\Uuid\UuidInterface|null $excludedLayoutId
      */
-    public function layoutNameExists(string $name, $excludedLayoutId = null): bool;
+    public function layoutNameExists(string $name, int|string|UuidInterface|null $excludedLayoutId = null): bool;
 
     /**
      * Creates a layout.

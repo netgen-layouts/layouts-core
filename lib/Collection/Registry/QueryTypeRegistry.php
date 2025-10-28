@@ -87,35 +87,22 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
         return count($this->queryTypes);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->hasQueryType($offset);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetGet($offset): QueryTypeInterface
+    public function offsetGet(mixed $offset): QueryTypeInterface
     {
         return $this->getQueryType($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

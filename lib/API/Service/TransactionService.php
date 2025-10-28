@@ -8,10 +8,8 @@ interface TransactionService
 {
     /**
      * Runs the provided callable inside a transaction.
-     *
-     * @return mixed
      */
-    public function transaction(callable $callable);
+    public function transaction(callable $callable): mixed;
 
     /**
      * Begins a transaction.

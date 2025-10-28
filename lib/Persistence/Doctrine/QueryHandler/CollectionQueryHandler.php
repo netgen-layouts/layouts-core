@@ -23,11 +23,9 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Loads all collection data for collection with specified ID.
      *
-     * @param int|string $collectionId
-     *
      * @return mixed[]
      */
-    public function loadCollectionData($collectionId, Status $status): array
+    public function loadCollectionData(int|string $collectionId, Status $status): array
     {
         $query = $this->getCollectionWithBlockSelectQuery();
 
@@ -83,11 +81,9 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Loads all data for an item.
      *
-     * @param int|string $itemId
-     *
      * @return mixed[]
      */
-    public function loadItemData($itemId, Status $status): array
+    public function loadItemData(int|string $itemId, Status $status): array
     {
         $query = $this->getItemSelectQuery();
 
@@ -142,11 +138,9 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Loads all data for a query.
      *
-     * @param int|string $queryId
-     *
      * @return mixed[]
      */
-    public function loadQueryData($queryId, Status $status): array
+    public function loadQueryData(int|string $queryId, Status $status): array
     {
         $query = $this->getQuerySelectQuery();
 
@@ -201,11 +195,9 @@ final class CollectionQueryHandler extends QueryHandler
     /**
      * Loads all data for a slot.
      *
-     * @param int|string $slotId
-     *
      * @return mixed[]
      */
-    public function loadSlotData($slotId, Status $status): array
+    public function loadSlotData(int|string $slotId, Status $status): array
     {
         $query = $this->getSlotSelectQuery();
 
@@ -237,10 +229,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Returns if the collection exists.
-     *
-     * @param int|string $collectionId
      */
-    public function collectionExists($collectionId, Status $status): bool
+    public function collectionExists(int|string $collectionId, Status $status): bool
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')

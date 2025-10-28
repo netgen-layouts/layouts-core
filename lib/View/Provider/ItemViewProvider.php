@@ -13,7 +13,7 @@ use function is_string;
 
 final class ItemViewProvider implements ViewProviderInterface
 {
-    public function provideView($value, array $parameters = []): ViewInterface
+    public function provideView(mixed $value, array $parameters = []): ViewInterface
     {
         if (!isset($parameters['view_type'])) {
             throw ViewProviderException::noParameter('item', 'view_type');
@@ -26,7 +26,7 @@ final class ItemViewProvider implements ViewProviderInterface
         return new ItemView($value, $parameters['view_type']);
     }
 
-    public function supports($value): bool
+    public function supports(mixed $value): bool
     {
         return $value instanceof CmsItemInterface;
     }

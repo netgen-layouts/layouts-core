@@ -23,6 +23,8 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => true,
+                    'defaultValue' => null,
+                    'label' => null,
                     'options' => [
                         'translatable' => false,
                     ],
@@ -33,6 +35,8 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                     'options' => [
                         'translatable' => false,
                     ],

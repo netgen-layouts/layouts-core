@@ -29,10 +29,8 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Sets a variable to the context. Variable value needs to be
      * a scalar or an array/hash of scalars.
-     *
-     * @param mixed $value
      */
-    public function set(string $variableName, $value): void
+    public function set(string $variableName, mixed $value): void
     {
         $this->contextVariables[$variableName] = $value;
     }
@@ -61,10 +59,8 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
      * Returns the variable with provided name from the context.
      *
      * @throws \Netgen\Layouts\Exception\Context\ContextException If variable with provided name does not exist
-     *
-     * @return mixed
      */
-    public function get(string $variableName)
+    public function get(string $variableName): mixed
     {
         if (!$this->has($variableName)) {
             throw ContextException::noVariable($variableName);
@@ -93,38 +89,22 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
         return new ArrayIterator($this->contextVariables);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->has($offset);
     }
 
-    /**
-     * @param mixed $offset
-     *
-     * @return mixed
-     */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->get($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->set($offset, $value);
+        $this->set((string) $offset, $value);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

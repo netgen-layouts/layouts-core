@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Parameters\Form\Type\DataMapper;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
+use Traversable;
 
 use function iterator_to_array;
 
@@ -22,7 +23,7 @@ final class LinkDataMapper implements DataMapperInterface
         $this->parameterDefinition = $parameterDefinition;
     }
 
-    public function mapDataToForms($viewData, $forms): void
+    public function mapDataToForms(mixed $viewData, Traversable $forms): void
     {
         if (!$viewData instanceof LinkValue) {
             return;
@@ -40,7 +41,7 @@ final class LinkDataMapper implements DataMapperInterface
         }
     }
 
-    public function mapFormsToData($forms, &$viewData): void
+    public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
         $forms = iterator_to_array($forms);
         $linkType = $forms['link_type']->getData() ?? '';

@@ -10,15 +10,9 @@ final class CmsItem implements CmsItemInterface
 {
     use HydratorTrait;
 
-    /**
-     * @var int|string
-     */
-    private $value;
+    private int|string $value;
 
-    /**
-     * @var int|string
-     */
-    private $remoteId;
+    private int|string $remoteId;
 
     private string $valueType;
 
@@ -28,12 +22,12 @@ final class CmsItem implements CmsItemInterface
 
     private ?object $object;
 
-    public function getValue()
+    public function getValue(): int|string
     {
         return $this->value;
     }
 
-    public function getRemoteId()
+    public function getRemoteId(): int|string
     {
         return $this->remoteId;
     }

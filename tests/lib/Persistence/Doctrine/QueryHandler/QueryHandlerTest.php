@@ -15,10 +15,7 @@ final class QueryHandlerTest extends TestCase
 {
     private Connection $databaseConnection;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler
-     */
-    private MockObject $queryHandler;
+    private MockObject&QueryHandler $queryHandler;
 
     protected function setUp(): void
     {

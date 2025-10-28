@@ -12,8 +12,6 @@ final class TargetUpdateStruct
 
     /**
      * New value of the target.
-     *
-     * @var int|string
      */
-    public $value;
+    public int|string $value;
 }

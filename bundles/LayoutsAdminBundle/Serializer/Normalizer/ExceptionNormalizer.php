@@ -23,12 +23,9 @@ final class ExceptionNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param mixed $object
-     * @param string|null $format
-     *
      * @return array<string, mixed>
      */
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         $data = [
             'code' => $object->getCode(),
@@ -61,11 +58,7 @@ final class ExceptionNormalizer implements NormalizerInterface
         return $data;
     }
 
-    /**
-     * @param mixed $data
-     * @param string|null $format
-     */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null): bool
     {
         return $data instanceof Exception;
     }

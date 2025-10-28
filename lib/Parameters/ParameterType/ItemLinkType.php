@@ -68,7 +68,7 @@ final class ItemLinkType extends ParameterType
         );
     }
 
-    public function export(ParameterDefinition $parameterDefinition, $value): ?string
+    public function export(ParameterDefinition $parameterDefinition, mixed $value): ?string
     {
         if (!is_string($value)) {
             return null;
@@ -77,7 +77,7 @@ final class ItemLinkType extends ParameterType
         return $this->remoteIdConverter->convertToRemoteId($value);
     }
 
-    public function import(ParameterDefinition $parameterDefinition, $value): ?string
+    public function import(ParameterDefinition $parameterDefinition, mixed $value): ?string
     {
         if (!is_string($value)) {
             return null;
@@ -86,7 +86,7 @@ final class ItemLinkType extends ParameterType
         return $this->remoteIdConverter->convertFromRemoteId($value);
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool
     {
         if (!is_string($value)) {
             return true;
@@ -100,7 +100,7 @@ final class ItemLinkType extends ParameterType
         return ($value['scheme'] ?? '') === '' || !isset($value['host']);
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
             new Constraints\Type(['type' => 'string']),

@@ -13,10 +13,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 final class ExtensionPluginTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin
-     */
-    private MockObject $plugin;
+    private MockObject&ExtensionPlugin $plugin;
 
     protected function setUp(): void
     {

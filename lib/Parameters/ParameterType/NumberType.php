@@ -55,7 +55,7 @@ final class NumberType extends ParameterType
         );
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         $min = $parameterDefinition->getOption('min');
         $max = $parameterDefinition->getOption('max');

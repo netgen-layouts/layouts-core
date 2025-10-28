@@ -138,10 +138,9 @@ final class RenderingRuntime
      * Renders the provided value.
      *
      * @param array<string, mixed> $context
-     * @param mixed $value
      * @param array<string, mixed> $parameters
      */
-    public function renderValue(array $context, $value, array $parameters = [], ?string $viewContext = null): string
+    public function renderValue(array $context, mixed $value, array $parameters = [], ?string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(

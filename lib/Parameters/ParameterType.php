@@ -12,7 +12,7 @@ abstract class ParameterType implements ParameterTypeInterface
 {
     public function configureOptions(OptionsResolver $optionsResolver): void {}
 
-    public function getConstraints(ParameterDefinition $parameterDefinition, $value): array
+    public function getConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         if ($parameterDefinition->getType()::getIdentifier() !== $this::getIdentifier()) {
             throw ParameterTypeException::unsupportedParameterType(
@@ -31,12 +31,8 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    public function toHash(ParameterDefinition $parameterDefinition, $value)
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): mixed
     {
         return $value;
     }
@@ -46,12 +42,8 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    public function fromHash(ParameterDefinition $parameterDefinition, $value)
+    public function fromHash(ParameterDefinition $parameterDefinition, mixed $value): mixed
     {
         return $value;
     }
@@ -65,12 +57,8 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * This is a trivial implementation that returns the value in the same format as
      * self::toHash(). Overridden implementations should take care to retain this behaviour.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    public function export(ParameterDefinition $parameterDefinition, $value)
+    public function export(ParameterDefinition $parameterDefinition, mixed $value): mixed
     {
         return $this->toHash($parameterDefinition, $value);
     }
@@ -84,17 +72,13 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * This is a trivial implementation that returns the value in the same format as
      * self::fromHash(). Overridden implementations should take care to retain this behaviour.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
-    public function import(ParameterDefinition $parameterDefinition, $value)
+    public function import(ParameterDefinition $parameterDefinition, mixed $value): mixed
     {
         return $this->fromHash($parameterDefinition, $value);
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool
     {
         return $value === null;
     }
@@ -107,11 +91,9 @@ abstract class ParameterType implements ParameterTypeInterface
      * Boolean parameter types have this overridden due to `false` value being a valid value
      * which would not validated by a `NotBlank` constraint.
      *
-     * @param mixed $value
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         if ($parameterDefinition->isRequired()) {
             return [
@@ -131,9 +113,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * separately, based on if the parameter is specified as a sub-parameter of a compound
      * boolean.
      *
-     * @param mixed $value
-     *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    abstract protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array;
+    abstract protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array;
 }

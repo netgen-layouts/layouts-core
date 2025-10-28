@@ -44,11 +44,11 @@ final class ItemRuntime
      * 2) ID and value type as an array, e.g. [42, 'type']
      * 3) \Netgen\Layouts\Item\CmsItemInterface object
      *
-     * @param mixed $value
+     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $value
      *
      * @throws \Netgen\Layouts\Exception\Item\ItemException If provided item or item reference is not valid
      */
-    public function getItemPath($value, string $type = UrlGeneratorInterface::TYPE_DEFAULT): string
+    public function getItemPath(string|array|CmsItemInterface $value, string $type = UrlGeneratorInterface::TYPE_DEFAULT): string
     {
         try {
             $item = null;

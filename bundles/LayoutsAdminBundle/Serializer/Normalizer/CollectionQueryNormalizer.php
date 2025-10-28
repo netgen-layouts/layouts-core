@@ -16,12 +16,9 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
     use NormalizerAwareTrait;
 
     /**
-     * @param mixed $object
-     * @param string|null $format
-     *
      * @return array<string, mixed>
      */
-    public function normalize($object, $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Query $query */
         $query = $object->getValue();
@@ -39,11 +36,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
         ];
     }
 
-    /**
-     * @param mixed $data
-     * @param string|null $format
-     */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null): bool
     {
         if (!$data instanceof Value) {
             return false;

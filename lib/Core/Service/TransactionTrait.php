@@ -12,7 +12,7 @@ trait TransactionTrait
 {
     private TransactionHandlerInterface $transactionHandler;
 
-    public function transaction(callable $callable)
+    public function transaction(callable $callable): mixed
     {
         $this->beginTransaction();
 

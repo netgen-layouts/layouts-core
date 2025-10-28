@@ -18,11 +18,9 @@ use function array_key_exists;
 final class YamlFileLoader extends BaseYamlFileLoader
 {
     /**
-     * @param string $file
-     *
      * @return mixed[]
      */
-    protected function loadFile($file): array
+    protected function loadFile(string $file): array
     {
         $content = parent::loadFile($file) ?? [];
 

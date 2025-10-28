@@ -8,12 +8,12 @@ use Netgen\Layouts\Item\ValueLoaderInterface;
 
 final class NullValueLoader implements ValueLoaderInterface
 {
-    public function load($id): ?object
+    public function load(int|string $id): null
     {
         return null;
     }
 
-    public function loadByRemoteId($remoteId): ?object
+    public function loadByRemoteId(int|string $remoteId): null
     {
         return null;
     }

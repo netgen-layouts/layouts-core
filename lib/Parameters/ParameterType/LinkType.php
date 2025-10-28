@@ -70,11 +70,9 @@ final class LinkType extends ParameterType
     }
 
     /**
-     * @param mixed $value
-     *
      * @return array<string, mixed>|null
      */
-    public function toHash(ParameterDefinition $parameterDefinition, $value): ?array
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): ?array
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -88,7 +86,7 @@ final class LinkType extends ParameterType
         ];
     }
 
-    public function fromHash(ParameterDefinition $parameterDefinition, $value): LinkValue
+    public function fromHash(ParameterDefinition $parameterDefinition, mixed $value): LinkValue
     {
         if (!is_array($value) || ($value['link_type'] ?? '') === '') {
             return new LinkValue();
@@ -105,11 +103,9 @@ final class LinkType extends ParameterType
     }
 
     /**
-     * @param mixed $value
-     *
      * @return array<string, mixed>|null
      */
-    public function export(ParameterDefinition $parameterDefinition, $value): ?array
+    public function export(ParameterDefinition $parameterDefinition, mixed $value): ?array
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -131,7 +127,7 @@ final class LinkType extends ParameterType
         ];
     }
 
-    public function import(ParameterDefinition $parameterDefinition, $value): LinkValue
+    public function import(ParameterDefinition $parameterDefinition, mixed $value): LinkValue
     {
         if (!is_array($value) || ($value['link_type'] ?? '') === '') {
             return new LinkValue();
@@ -155,7 +151,7 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool
     {
         if (!$value instanceof LinkValue) {
             return true;
@@ -172,7 +168,7 @@ final class LinkType extends ParameterType
         return $value->getLink() === '';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
             new Constraints\Type(['type' => LinkValue::class]),

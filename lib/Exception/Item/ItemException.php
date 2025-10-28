@@ -52,10 +52,7 @@ final class ItemException extends InvalidArgumentException implements Exception
         );
     }
 
-    /**
-     * @param int|string $value
-     */
-    public static function noValue($value): self
+    public static function noValue(int|string $value): self
     {
         return new self(
             sprintf(
@@ -65,10 +62,7 @@ final class ItemException extends InvalidArgumentException implements Exception
         );
     }
 
-    /**
-     * @param int|string $value
-     */
-    public static function invalidValue($value): self
+    public static function invalidValue(int|string $value): self
     {
         return new self(
             sprintf(

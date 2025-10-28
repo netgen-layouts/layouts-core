@@ -22,10 +22,7 @@ use function sprintf;
 
 final class LayoutBackendTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\API\Service\LayoutService
-     */
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
     private LayoutBackend $backend;
 

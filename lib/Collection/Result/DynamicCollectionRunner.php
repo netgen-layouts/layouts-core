@@ -105,10 +105,8 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      * Returns the current value from the query and advances the iterator.
      *
      * @param \Iterator<\Netgen\Layouts\Item\CmsItemInterface> $queryIterator
-     *
-     * @return mixed
      */
-    private function getQueryValue(Iterator $queryIterator)
+    private function getQueryValue(Iterator $queryIterator): mixed
     {
         if (!$queryIterator->valid()) {
             return null;

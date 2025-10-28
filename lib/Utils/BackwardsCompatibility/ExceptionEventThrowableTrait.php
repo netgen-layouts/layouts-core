@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 
 use Exception;
 use Netgen\Layouts\Exception\RuntimeException;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Throwable;
 
 use function method_exists;
@@ -18,10 +19,7 @@ use function method_exists;
  */
 trait ExceptionEventThrowableTrait
 {
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
-     */
-    private function getThrowable($event): Throwable
+    private function getThrowable(ExceptionEvent $event): Throwable
     {
         if (method_exists($event, 'getThrowable')) {
             return $event->getThrowable();
@@ -34,10 +32,7 @@ trait ExceptionEventThrowableTrait
         throw new RuntimeException('Event class missing getThrowable and getException methods.');
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
-     */
-    private function setThrowable($event, Throwable $throwable): void
+    private function setThrowable(ExceptionEvent $event, Throwable $throwable): void
     {
         if (method_exists($event, 'setThrowable')) {
             $event->setThrowable($throwable);

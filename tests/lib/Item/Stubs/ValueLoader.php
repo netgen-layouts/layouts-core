@@ -15,12 +15,12 @@ final class ValueLoader implements ValueLoaderInterface
         $this->exists = $exists;
     }
 
-    public function load($id): ?Value
+    public function load(int|string $id): ?Value
     {
         return $this->exists ? new Value((int) $id, '') : null;
     }
 
-    public function loadByRemoteId($remoteId): ?Value
+    public function loadByRemoteId(int|string $remoteId): ?Value
     {
         return $this->exists ? new Value(0, (string) $remoteId) : null;
     }

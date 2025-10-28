@@ -493,7 +493,7 @@ final class CollectionService implements APICollectionService
         return $this->structBuilder->newCollectionUpdateStruct($collection);
     }
 
-    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): APIItemCreateStruct
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, int|string|null $value): APIItemCreateStruct
     {
         return $this->structBuilder->newItemCreateStruct($itemDefinition, $value);
     }

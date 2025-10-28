@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Validator;
 
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Throwable;
@@ -85,12 +86,11 @@ trait ValidatorTrait
     /**
      * Validates the value against a set of provided constraints.
      *
-     * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint|\Symfony\Component\Validator\Constraint[] $constraints
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
-    private function validate($value, $constraints, ?string $propertyPath = null): void
+    private function validate(mixed $value, Constraint|array $constraints, ?string $propertyPath = null): void
     {
         try {
             $violations = $this->validator->validate($value, $constraints);

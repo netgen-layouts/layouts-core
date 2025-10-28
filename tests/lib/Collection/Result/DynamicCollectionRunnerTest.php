@@ -25,10 +25,7 @@ use function count;
 
 final class DynamicCollectionRunnerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
-     */
-    private MockObject $cmsItemBuilderMock;
+    private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
 
     protected function setUp(): void
     {
@@ -37,7 +34,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $this->cmsItemBuilderMock
             ->method('build')
             ->willReturnCallback(
-                static fn ($value): CmsItemInterface => CmsItem::fromArray(['value' => $value, 'isVisible' => true]),
+                static fn (Value $value): CmsItemInterface => CmsItem::fromArray(['value' => $value->getValue(), 'isVisible' => true]),
             );
     }
 
@@ -67,12 +64,12 @@ final class DynamicCollectionRunnerTest extends TestCase
     ): void {
         $items = [];
         foreach ($itemValues as $position => $itemValue) {
-            $itemValueObject = new Value($itemValue);
+            // $itemValueObject = new Value($itemValue);
             $items[$position] = Item::fromArray(
                 [
-                    'value' => $itemValueObject,
+                    'value' => $itemValue,
                     'cmsItem' => $itemValue !== null ?
-                        CmsItem::fromArray(['value' => $itemValueObject, 'isVisible' => true]) :
+                        CmsItem::fromArray(['value' => $itemValue, 'isVisible' => true]) :
                         new NullCmsItem('value'),
                     'position' => $position,
                 ],
@@ -98,8 +95,8 @@ final class DynamicCollectionRunnerTest extends TestCase
         self::assertCount(count($expected), $result);
 
         foreach ($result as $index => $resultItem) {
-            self::assertInstanceOf(Value::class, $resultItem);
-            self::assertSame($expected[$index], $resultItem->getValue());
+            // self::assertInstanceOf(Value::class, $resultItem);
+            self::assertSame($expected[$index], $resultItem);
         }
     }
 

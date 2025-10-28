@@ -17,10 +17,8 @@ final class ItemCreateStruct
 
     /**
      * Value from CMS for the new item. This is usually the ID of the CMS entity.
-     *
-     * @var int|string|null
      */
-    public $value;
+    public int|string|null $value;
 
     /**
      * Type of value from CMS for the new item.

@@ -12,7 +12,6 @@ use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 final class ItemRuntimeTest extends TestCase
 {
@@ -149,22 +148,6 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
-    public function testGetItemPathWithUnsupportedValue(): void
-    {
-        $this->cmsItemLoaderMock
-            ->expects(self::never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects(self::never())
-            ->method('generate');
-
-        self::assertSame('', $this->runtime->getItemPath(42, 'type'));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPathWithInvalidValueThrowsItemExceptionInDebugMode(): void
     {
         $this->expectException(ItemException::class);
@@ -181,26 +164,5 @@ final class ItemRuntimeTest extends TestCase
             ->method('generate');
 
         $this->runtime->getItemPath('value', 'type');
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
-    public function testGetItemPathWithUnsupportedValueThrowsItemExceptionInDebugMode(): void
-    {
-        $this->expectException(ItemException::class);
-        $this->expectExceptionMessage('Item could not be loaded.');
-
-        $this->errorHandler->setThrow(true);
-
-        $this->cmsItemLoaderMock
-            ->expects(self::never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects(self::never())
-            ->method('generate');
-
-        $this->runtime->getItemPath(new stdClass(), 'type');
     }
 }

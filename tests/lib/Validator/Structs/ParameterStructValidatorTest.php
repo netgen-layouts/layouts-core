@@ -32,12 +32,14 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'isRequired' => false,
+                'defaultValue' => null,
                 'parameterDefinitions' => [
                     'param' => ParameterDefinition::fromArray(
                         [
                             'name' => 'param',
                             'type' => new ParameterType\IdentifierType(),
                             'isRequired' => true,
+                            'defaultValue' => null,
                         ],
                     ),
                 ],
@@ -53,6 +55,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 'name' => 'css_id',
                                 'type' => new ParameterType\TextLineType(),
                                 'isRequired' => true,
+                                'defaultValue' => null,
                             ],
                         ),
                         'checkbox' => $compoundParameter,
@@ -104,12 +107,14 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'isRequired' => false,
+                'defaultValue' => null,
                 'parameterDefinitions' => [
                     'param' => ParameterDefinition::fromArray(
                         [
                             'name' => 'param',
                             'type' => new ParameterType\IdentifierType(),
                             'isRequired' => true,
+                            'defaultValue' => null,
                         ],
                     ),
                 ],
@@ -125,6 +130,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 'name' => 'css_id',
                                 'type' => new ParameterType\TextLineType(),
                                 'isRequired' => true,
+                                'defaultValue' => null,
                                 'constraints' => [
                                     Kernel::VERSION_ID >= 40400 && Kernel::VERSION_ID < 50000 ?
                                         new Length(['max' => 6, 'allowEmptyString' => false]) :

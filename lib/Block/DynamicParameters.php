@@ -30,21 +30,12 @@ final class DynamicParameters implements ArrayAccess, Countable, IteratorAggrega
         return count($this->dynamicParameters);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return array_key_exists($offset, $this->dynamicParameters);
     }
 
-    /**
-     * @param mixed $offset
-     *
-     * @return mixed
-     */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         if (!$this->offsetExists($offset)) {
             return null;
@@ -57,19 +48,12 @@ final class DynamicParameters implements ArrayAccess, Countable, IteratorAggrega
         return $this->dynamicParameters[$offset]();
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->dynamicParameters[$offset] = $value;
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         if (!$this->offsetExists($offset)) {
             return;

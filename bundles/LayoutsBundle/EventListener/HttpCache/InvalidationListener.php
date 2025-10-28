@@ -8,6 +8,8 @@ use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class InvalidationListener implements EventSubscriberInterface
@@ -31,20 +33,16 @@ final class InvalidationListener implements EventSubscriberInterface
 
     /**
      * Commits all the collected invalidation requests.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\TerminateEvent $event
      */
-    public function onKernelTerminate($event): void
+    public function onKernelTerminate(TerminateEvent $event): void
     {
         $this->invalidator->commit();
     }
 
     /**
      * Commits all the collected invalidation requests.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onKernelException($event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
         $this->invalidator->commit();
     }

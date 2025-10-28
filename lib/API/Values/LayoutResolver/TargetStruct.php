@@ -8,8 +8,6 @@ abstract class TargetStruct
 {
     /**
      * The value of the target.
-     *
-     * @var int|string
      */
-    public $value;
+    public int|string $value;
 }

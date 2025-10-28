@@ -22,6 +22,8 @@ final class ConfigHandler implements ConfigDefinitionHandlerInterface
                     'name' => 'param1',
                     'type' => new ParameterType\BooleanType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                 ],
             ),
             'param2' => ParameterDefinition::fromArray(
@@ -29,6 +31,8 @@ final class ConfigHandler implements ConfigDefinitionHandlerInterface
                     'name' => 'param2',
                     'type' => new ParameterType\IntegerType(),
                     'isRequired' => false,
+                    'defaultValue' => null,
+                    'label' => null,
                 ],
             ),
         ];

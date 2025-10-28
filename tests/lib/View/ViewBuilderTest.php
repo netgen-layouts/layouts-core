@@ -16,20 +16,11 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ViewBuilderTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private MockObject $viewProviderMock;
+    private MockObject&ViewProviderInterface $viewProviderMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\TemplateResolverInterface
-     */
-    private MockObject $templateResolverMock;
+    private MockObject&TemplateResolverInterface $templateResolverMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
-    private MockObject $eventDispatcherMock;
+    private MockObject&EventDispatcherInterface $eventDispatcherMock;
 
     protected function setUp(): void
     {

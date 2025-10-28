@@ -28,7 +28,7 @@ final class BooleanType extends ParameterType
         );
     }
 
-    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         if ($parameterDefinition->isRequired()) {
             return [
@@ -39,7 +39,7 @@ final class BooleanType extends ParameterType
         return [];
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
             new Constraints\Type(['type' => 'bool']),

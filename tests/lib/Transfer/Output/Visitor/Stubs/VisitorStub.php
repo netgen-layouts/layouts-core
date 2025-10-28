@@ -12,7 +12,7 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  */
 final class VisitorStub implements VisitorInterface
 {
-    public function accept(object $value): bool
+    public function accept(object $value): true
     {
         return true;
     }

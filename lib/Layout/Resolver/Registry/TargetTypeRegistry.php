@@ -91,35 +91,22 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
         return count($this->targetTypes);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->hasTargetType($offset);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetGet($offset): TargetTypeInterface
+    public function offsetGet(mixed $offset): TargetTypeInterface
     {
         return $this->getTargetType($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

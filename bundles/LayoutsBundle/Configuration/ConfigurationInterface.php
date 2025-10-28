@@ -25,8 +25,6 @@ interface ConfigurationInterface
      * Returns the parameter from configuration.
      *
      * @throws \Netgen\Bundle\LayoutsBundle\Exception\ConfigurationException If parameter is undefined
-     *
-     * @return mixed
      */
-    public function getParameter(string $parameterName);
+    public function getParameter(string $parameterName): mixed;
 }

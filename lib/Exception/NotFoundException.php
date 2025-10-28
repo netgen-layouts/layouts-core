@@ -13,10 +13,8 @@ final class NotFoundException extends BaseException implements Exception
 {
     /**
      * Creates a new not found exception.
-     *
-     * @param int|string $identifier
      */
-    public function __construct(string $what, $identifier = '', ?Throwable $previous = null)
+    public function __construct(string $what, int|string $identifier = '', ?Throwable $previous = null)
     {
         $message = $identifier !== '' ?
             sprintf('Could not find %s with identifier "%s"', $what, $identifier) :

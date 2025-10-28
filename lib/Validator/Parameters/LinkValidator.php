@@ -21,10 +21,7 @@ final class LinkValidator extends ConstraintValidator
 {
     use StrictEmailValidatorTrait;
 
-    /**
-     * @param mixed $value
-     */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if ($value === null) {
             return;

@@ -15,7 +15,7 @@ final class ParameterType extends BaseParameterType
         return 'type';
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [new NotNull()];
     }

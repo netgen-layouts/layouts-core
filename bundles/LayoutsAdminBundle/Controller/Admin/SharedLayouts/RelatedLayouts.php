@@ -7,7 +7,9 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class RelatedLayouts extends AbstractController
 {
@@ -20,10 +22,8 @@ final class RelatedLayouts extends AbstractController
 
     /**
      * Loads and displays all layouts related to a provided layout.
-     *
-     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(Layout $layout, Request $request)
+    public function __invoke(Layout $layout, Request $request): ViewInterface|Response
     {
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 

@@ -29,10 +29,8 @@ interface ParameterBuilderInterface extends Countable
      * Returns the parameter option with provided name.
      *
      * @throws \Netgen\Layouts\Exception\InvalidArgumentException If the option does not exist
-     *
-     * @return mixed
      */
-    public function getOption(string $name);
+    public function getOption(string $name): mixed;
 
     /**
      * Returns if the parameter option with provided name exists.
@@ -47,10 +45,8 @@ interface ParameterBuilderInterface extends Countable
      *
      * The options will keep their existing values (unless the options resolver modifies them
      * according to rules in the parameter type).
-     *
-     * @param mixed $value
      */
-    public function setOption(string $name, $value): self;
+    public function setOption(string $name, mixed $value): self;
 
     /**
      * Returns if the parameter is required.
@@ -74,31 +70,23 @@ interface ParameterBuilderInterface extends Countable
 
     /**
      * Returns the default value of the parameter.
-     *
-     * @return mixed
      */
-    public function getDefaultValue();
+    public function getDefaultValue(): mixed;
 
     /**
      * Sets the default value of the parameter.
-     *
-     * @param mixed $defaultValue
      */
-    public function setDefaultValue($defaultValue): self;
+    public function setDefaultValue(mixed $defaultValue): self;
 
     /**
      * Returns the parameter label.
-     *
-     * @return string|bool|null
      */
-    public function getLabel();
+    public function getLabel(): string|false|null;
 
     /**
      * Sets the parameter label.
-     *
-     * @param string|bool|null $label
      */
-    public function setLabel($label): self;
+    public function setLabel(string|false|null $label): self;
 
     /**
      * Returns the parameter groups.

@@ -28,7 +28,7 @@ final class TwigBlockDefinitionHandler extends BaseBlockDefinitionHandler implem
         return $this->twigBlocks;
     }
 
-    public function isContextual(Block $block): bool
+    public function isContextual(Block $block): true
     {
         return true;
     }

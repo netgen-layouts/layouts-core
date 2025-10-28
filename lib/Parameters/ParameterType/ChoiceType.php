@@ -55,7 +55,7 @@ final class ChoiceType extends ParameterType
         );
     }
 
-    public function fromHash(ParameterDefinition $parameterDefinition, $value)
+    public function fromHash(ParameterDefinition $parameterDefinition, mixed $value): mixed
     {
         if ($value === null || $value === []) {
             return null;
@@ -68,12 +68,12 @@ final class ChoiceType extends ParameterType
         return is_array($value) ? array_values($value)[0] : $value;
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool
     {
         return $value === null || $value === [];
     }
 
-    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         if ($parameterDefinition->isRequired()) {
             return [
@@ -85,7 +85,7 @@ final class ChoiceType extends ParameterType
         return [];
     }
 
-    protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
+    protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         $options = $parameterDefinition->getOption('options');
 

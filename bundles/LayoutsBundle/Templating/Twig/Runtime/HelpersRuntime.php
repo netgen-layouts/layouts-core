@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
+use DateTimeInterface;
 use IntlDateFormatter;
 use IntlTimeZone;
 use Locale;
@@ -118,10 +119,7 @@ final class HelpersRuntime
         }
     }
 
-    /**
-     * @param \DateTimeInterface|string $dateTime
-     */
-    public function formatDateTime(Environment $twig, $dateTime, string $dateFormat = 'medium', string $timeFormat = 'medium'): string
+    public function formatDateTime(Environment $twig, DateTimeInterface|string $dateTime, string $dateFormat = 'medium', string $timeFormat = 'medium'): string
     {
         $coreExtension = $twig->getExtension(CoreExtension::class);
 

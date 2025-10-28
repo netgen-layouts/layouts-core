@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 use function str_starts_with;
@@ -25,10 +26,8 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
     /**
      * Sets the self::API_FLAG_NAME flag if this is a REST API request.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest($event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

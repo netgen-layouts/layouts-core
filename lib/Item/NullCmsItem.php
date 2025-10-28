@@ -17,12 +17,12 @@ final class NullCmsItem implements CmsItemInterface
         $this->valueType = $valueType;
     }
 
-    public function getValue(): ?int
+    public function getValue(): null
     {
         return null;
     }
 
-    public function getRemoteId(): ?int
+    public function getRemoteId(): null
     {
         return null;
     }
@@ -37,12 +37,12 @@ final class NullCmsItem implements CmsItemInterface
         return '(INVALID ITEM)';
     }
 
-    public function isVisible(): bool
+    public function isVisible(): true
     {
         return true;
     }
 
-    public function getObject(): ?object
+    public function getObject(): null
     {
         return null;
     }

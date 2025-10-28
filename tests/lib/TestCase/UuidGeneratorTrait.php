@@ -16,10 +16,8 @@ trait UuidGeneratorTrait
 {
     /**
      * @param array<int, string> $uuids
-     *
-     * @return mixed
      */
-    private function withUuids(callable $callable, array $uuids)
+    private function withUuids(callable $callable, array $uuids): mixed
     {
         $uuids = array_map(
             static fn (string $uuid): UuidInterface => Uuid::fromString($uuid),

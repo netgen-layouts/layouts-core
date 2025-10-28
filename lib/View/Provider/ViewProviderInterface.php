@@ -17,15 +17,12 @@ interface ViewProviderInterface
     /**
      * Provides the view.
      *
-     * @param mixed $value
      * @param array<string, mixed> $parameters
      */
-    public function provideView($value, array $parameters = []): ViewInterface;
+    public function provideView(mixed $value, array $parameters = []): ViewInterface;
 
     /**
      * Returns if this view provider supports the given value.
-     *
-     * @param mixed $value
      */
-    public function supports($value): bool;
+    public function supports(mixed $value): bool;
 }
