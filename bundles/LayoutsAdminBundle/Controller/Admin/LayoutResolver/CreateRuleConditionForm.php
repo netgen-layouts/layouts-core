@@ -21,7 +21,7 @@ final class CreateRuleConditionForm extends AbstractController
 
     public function __construct(
         LayoutResolverService $layoutResolverService,
-        ConditionTypeRegistry $conditionTypeRegistry
+        ConditionTypeRegistry $conditionTypeRegistry,
     ) {
         $this->layoutResolverService = $layoutResolverService;
         $this->conditionTypeRegistry = $conditionTypeRegistry;

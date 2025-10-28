@@ -38,7 +38,7 @@ final class Importer implements ImporterInterface
     public function __construct(
         TransactionService $transactionService,
         JsonValidatorInterface $jsonValidator,
-        ContainerInterface $entityHandlers
+        ContainerInterface $entityHandlers,
     ) {
         $this->transactionService = $transactionService;
         $this->jsonValidator = $jsonValidator;

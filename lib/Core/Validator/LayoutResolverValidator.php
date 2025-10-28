@@ -33,7 +33,7 @@ final class LayoutResolverValidator
 
     public function __construct(
         TargetTypeRegistry $targetTypeRegistry,
-        ConditionTypeRegistry $conditionTypeRegistry
+        ConditionTypeRegistry $conditionTypeRegistry,
     ) {
         $this->targetTypeRegistry = $targetTypeRegistry;
         $this->conditionTypeRegistry = $conditionTypeRegistry;

@@ -38,7 +38,7 @@ final class HelpersRuntime
     public function __construct(
         LayoutService $layoutService,
         LayoutResolverService $layoutResolverService,
-        ValueTypeRegistry $valueTypeRegistry
+        ValueTypeRegistry $valueTypeRegistry,
     ) {
         $this->layoutService = $layoutService;
         $this->layoutResolverService = $layoutResolverService;

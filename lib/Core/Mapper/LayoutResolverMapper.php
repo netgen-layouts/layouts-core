@@ -45,7 +45,7 @@ final class LayoutResolverMapper
         LayoutResolverHandlerInterface $layoutResolverHandler,
         TargetTypeRegistry $targetTypeRegistry,
         ConditionTypeRegistry $conditionTypeRegistry,
-        LayoutService $layoutService
+        LayoutService $layoutService,
     ) {
         $this->layoutResolverHandler = $layoutResolverHandler;
         $this->targetTypeRegistry = $targetTypeRegistry;

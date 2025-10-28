@@ -22,7 +22,7 @@ final class PublishDraft extends AbstractController
     public function __construct(
         LayoutService $layoutService,
         InvalidatorInterface $invalidator,
-        bool $automaticCacheClear
+        bool $automaticCacheClear,
     ) {
         $this->layoutService = $layoutService;
         $this->invalidator = $invalidator;

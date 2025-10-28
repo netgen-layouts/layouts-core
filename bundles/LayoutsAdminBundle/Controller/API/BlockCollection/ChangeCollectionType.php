@@ -28,7 +28,7 @@ final class ChangeCollectionType extends AbstractController
 
     public function __construct(
         CollectionService $collectionService,
-        QueryTypeRegistry $queryTypeRegistry
+        QueryTypeRegistry $queryTypeRegistry,
     ) {
         $this->collectionService = $collectionService;
         $this->queryTypeRegistry = $queryTypeRegistry;

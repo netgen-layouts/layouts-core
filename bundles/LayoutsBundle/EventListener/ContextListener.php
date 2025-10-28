@@ -33,7 +33,7 @@ final class ContextListener implements EventSubscriberInterface
     public function __construct(
         Context $context,
         ContextBuilderInterface $contextBuilder,
-        UriSigner $uriSigner
+        UriSigner $uriSigner,
     ) {
         $this->context = $context;
         $this->contextBuilder = $contextBuilder;

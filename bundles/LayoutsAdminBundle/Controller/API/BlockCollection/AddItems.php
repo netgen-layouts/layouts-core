@@ -27,7 +27,7 @@ final class AddItems extends AbstractController
 
     public function __construct(
         CollectionService $collectionService,
-        ItemDefinitionRegistry $itemDefinitionRegistry
+        ItemDefinitionRegistry $itemDefinitionRegistry,
     ) {
         $this->collectionService = $collectionService;
         $this->itemDefinitionRegistry = $itemDefinitionRegistry;

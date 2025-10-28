@@ -53,7 +53,7 @@ final class LayoutService implements LayoutServiceInterface
         LayoutValidator $validator,
         LayoutMapper $mapper,
         LayoutStructBuilder $structBuilder,
-        LayoutHandlerInterface $layoutHandler
+        LayoutHandlerInterface $layoutHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
 

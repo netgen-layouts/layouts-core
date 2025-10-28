@@ -60,7 +60,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         LayoutTypeRegistry $layoutTypeRegistry,
         ItemDefinitionRegistry $itemDefinitionRegistry,
         QueryTypeRegistry $queryTypeRegistry,
-        CmsItemLoaderInterface $cmsItemLoader
+        CmsItemLoaderInterface $cmsItemLoader,
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
@@ -397,7 +397,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
     private function setConfigStructs(
         ConfigAwareStruct $configAwareStruct,
         ConfigDefinitionAwareInterface $configDefinitionAware,
-        array $configurationData
+        array $configurationData,
     ): void {
         $configDefinitions = $configDefinitionAware->getConfigDefinitions();
 

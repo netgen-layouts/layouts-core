@@ -28,7 +28,7 @@ final class ItemRuntime
     public function __construct(
         CmsItemLoaderInterface $cmsItemLoader,
         UrlGeneratorInterface $urlGenerator,
-        ErrorHandlerInterface $errorHandler
+        ErrorHandlerInterface $errorHandler,
     ) {
         $this->cmsItemLoader = $cmsItemLoader;
         $this->urlGenerator = $urlGenerator;

@@ -50,7 +50,7 @@ final class BlockMapper
         CollectionMapper $collectionMapper,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
-        BlockDefinitionRegistry $blockDefinitionRegistry
+        BlockDefinitionRegistry $blockDefinitionRegistry,
     ) {
         $this->blockHandler = $blockHandler;
         $this->collectionHandler = $collectionHandler;

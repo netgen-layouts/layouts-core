@@ -41,7 +41,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     public function __construct(
         LayoutQueryHandler $queryHandler,
         BlockHandlerInterface $blockHandler,
-        LayoutMapper $layoutMapper
+        LayoutMapper $layoutMapper,
     ) {
         $this->queryHandler = $queryHandler;
         $this->blockHandler = $blockHandler;

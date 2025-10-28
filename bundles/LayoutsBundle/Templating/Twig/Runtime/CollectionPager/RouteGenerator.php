@@ -31,7 +31,7 @@ final class RouteGenerator
         Context $context,
         UriSigner $uriSigner,
         UrlGeneratorInterface $urlGenerator,
-        RequestStack $requestStack
+        RequestStack $requestStack,
     ) {
         $this->context = $context;
         $this->uriSigner = $uriSigner;

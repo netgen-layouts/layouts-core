@@ -27,7 +27,7 @@ final class Create extends AbstractController
 
     public function __construct(
         LayoutService $layoutService,
-        LayoutTypeRegistry $layoutTypeRegistry
+        LayoutTypeRegistry $layoutTypeRegistry,
     ) {
         $this->layoutService = $layoutService;
         $this->layoutTypeRegistry = $layoutTypeRegistry;

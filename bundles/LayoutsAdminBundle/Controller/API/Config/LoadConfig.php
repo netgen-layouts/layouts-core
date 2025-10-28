@@ -17,7 +17,7 @@ final class LoadConfig extends AbstractController
 
     public function __construct(
         ConfigurationInterface $configuration,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
     ) {
         $this->configuration = $configuration;
         $this->csrfTokenManager = $csrfTokenManager;

@@ -19,7 +19,7 @@ final class VarnishClient implements ClientInterface
 
     public function __construct(
         CacheInvalidator $fosInvalidator,
-        HostHeaderProviderInterface $hostHeaderProvider
+        HostHeaderProviderInterface $hostHeaderProvider,
     ) {
         $this->fosInvalidator = $fosInvalidator;
         $this->hostHeaderProvider = $hostHeaderProvider;

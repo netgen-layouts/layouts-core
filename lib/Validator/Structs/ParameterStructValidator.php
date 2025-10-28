@@ -97,7 +97,7 @@ final class ParameterStructValidator extends ConstraintValidator
      */
     private function buildConstraintFields(
         ParameterStruct $parameterStruct,
-        ParameterStructConstraint $constraint
+        ParameterStructConstraint $constraint,
     ): Generator {
         foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
             $constraints = $this->getParameterConstraints($parameterDefinition, $parameterStruct);
@@ -131,7 +131,7 @@ final class ParameterStructValidator extends ConstraintValidator
     private function getParameterConstraints(
         ParameterDefinition $parameterDefinition,
         ParameterStruct $parameterStruct,
-        bool $validateEmptyValue = true
+        bool $validateEmptyValue = true,
     ): array {
         $parameterValue = $parameterStruct->getParameterValue(
             $parameterDefinition->getName(),
@@ -157,7 +157,7 @@ final class ParameterStructValidator extends ConstraintValidator
     private function getRuntimeParameterConstraints(
         ParameterDefinition $parameterDefinition,
         mixed $parameterValue,
-        array $allParameterValues
+        array $allParameterValues,
     ): Generator {
         foreach ($parameterDefinition->getConstraints() as $constraint) {
             if ($constraint instanceof Closure) {
@@ -175,7 +175,7 @@ final class ParameterStructValidator extends ConstraintValidator
      */
     private function getAllValues(
         ParameterDefinitionCollectionInterface $definitions,
-        ParameterStruct $parameterStruct
+        ParameterStruct $parameterStruct,
     ): Generator {
         foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
             yield $parameterDefinition->getName() => null;

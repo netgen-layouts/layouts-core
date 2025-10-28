@@ -26,7 +26,7 @@ final class BlockDefinitionFactory
     public function __construct(
         ParameterBuilderFactoryInterface $parameterBuilderFactory,
         HandlerPluginRegistry $handlerPluginRegistry,
-        ConfigDefinitionFactory $configDefinitionFactory
+        ConfigDefinitionFactory $configDefinitionFactory,
     ) {
         $this->parameterBuilderFactory = $parameterBuilderFactory;
         $this->handlerPluginRegistry = $handlerPluginRegistry;
@@ -44,7 +44,7 @@ final class BlockDefinitionFactory
         BlockDefinitionHandlerInterface $handler,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers
+        array $configDefinitionHandlers,
     ): BlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
@@ -68,7 +68,7 @@ final class BlockDefinitionFactory
         TwigBlockDefinitionHandlerInterface $handler,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers
+        array $configDefinitionHandlers,
     ): TwigBlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
@@ -92,7 +92,7 @@ final class BlockDefinitionFactory
         ContainerDefinitionHandlerInterface $handler,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers
+        array $configDefinitionHandlers,
     ): ContainerDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
@@ -118,7 +118,7 @@ final class BlockDefinitionFactory
         BlockDefinitionHandlerInterface $handler,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers
+        array $configDefinitionHandlers,
     ): array {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);

@@ -71,7 +71,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         ?string $name = null,
         ?ParameterTypeInterface $type = null,
         array $options = [],
-        ?ParameterBuilderInterface $parentBuilder = null
+        ?ParameterBuilderInterface $parentBuilder = null,
     ) {
         $this->builderFactory = $builderFactory;
 

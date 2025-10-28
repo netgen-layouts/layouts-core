@@ -43,7 +43,7 @@ final class BlockHandler implements BlockHandlerInterface
         BlockQueryHandler $queryHandler,
         CollectionHandlerInterface $collectionHandler,
         BlockMapper $blockMapper,
-        PositionHelper $positionHelper
+        PositionHelper $positionHelper,
     ) {
         $this->queryHandler = $queryHandler;
         $this->collectionHandler = $collectionHandler;

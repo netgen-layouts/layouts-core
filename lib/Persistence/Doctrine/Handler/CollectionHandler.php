@@ -49,7 +49,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     public function __construct(
         CollectionQueryHandler $queryHandler,
         CollectionMapper $collectionMapper,
-        PositionHelper $positionHelper
+        PositionHelper $positionHelper,
     ) {
         $this->queryHandler = $queryHandler;
         $this->collectionMapper = $collectionMapper;

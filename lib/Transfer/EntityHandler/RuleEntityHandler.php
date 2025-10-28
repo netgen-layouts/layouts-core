@@ -26,7 +26,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
     public function __construct(
         LayoutResolverService $layoutResolverService,
         TargetTypeRegistry $targetTypeRegistry,
-        ConditionTypeRegistry $conditionTypeRegistry
+        ConditionTypeRegistry $conditionTypeRegistry,
     ) {
         $this->layoutResolverService = $layoutResolverService;
         $this->targetTypeRegistry = $targetTypeRegistry;

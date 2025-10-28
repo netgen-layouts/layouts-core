@@ -81,7 +81,7 @@ final class BlockService implements BlockServiceInterface
         LayoutTypeRegistry $layoutTypeRegistry,
         BlockHandlerInterface $blockHandler,
         LayoutHandlerInterface $layoutHandler,
-        CollectionHandlerInterface $collectionHandler
+        CollectionHandlerInterface $collectionHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
 
@@ -662,7 +662,7 @@ final class BlockService implements BlockServiceInterface
         PersistenceLayout $layout,
         PersistenceBlock $targetBlock,
         string $placeholder,
-        ?int $position = null
+        ?int $position = null,
     ): Block {
         $createdBlock = $this->transaction(
             function () use ($blockCreateStruct, $layout, $targetBlock, $placeholder, $position): PersistenceBlock {
@@ -825,7 +825,7 @@ final class BlockService implements BlockServiceInterface
     private function updateBlockTranslations(
         BlockDefinitionInterface $blockDefinition,
         PersistenceBlock $persistenceBlock,
-        APIBlockUpdateStruct $blockUpdateStruct
+        APIBlockUpdateStruct $blockUpdateStruct,
     ): PersistenceBlock {
         if ($blockUpdateStruct->locale === $persistenceBlock->mainLocale) {
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(

@@ -55,7 +55,7 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
     private function getTwigBlockContent(
         TwigBlockDefinitionInterface $blockDefinition,
         Block $block,
-        array $parameters
+        array $parameters,
     ): string {
         if (!($parameters['twig_template'] ?? null) instanceof ContextualizedTwigTemplate) {
             return '';

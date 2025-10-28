@@ -182,7 +182,7 @@ final class ResultBuilderTest extends TestCase
         array $itemIds,
         array $queryValues = [],
         int $queryCount = 0,
-        bool $contextual = false
+        bool $contextual = false,
     ): Collection {
         $items = [];
 

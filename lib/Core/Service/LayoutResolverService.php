@@ -79,7 +79,7 @@ final class LayoutResolverService implements APILayoutResolverService
         LayoutResolverMapper $mapper,
         LayoutResolverStructBuilder $structBuilder,
         LayoutResolverHandlerInterface $layoutResolverHandler,
-        LayoutHandlerInterface $layoutHandler
+        LayoutHandlerInterface $layoutHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
 

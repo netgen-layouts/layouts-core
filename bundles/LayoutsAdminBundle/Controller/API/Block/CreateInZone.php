@@ -36,7 +36,7 @@ final class CreateInZone extends AbstractController
         BlockService $blockService,
         LayoutService $layoutService,
         CreateStructBuilder $createStructBuilder,
-        BlockTypeRegistry $blockTypeRegistry
+        BlockTypeRegistry $blockTypeRegistry,
     ) {
         $this->blockService = $blockService;
         $this->layoutService = $layoutService;

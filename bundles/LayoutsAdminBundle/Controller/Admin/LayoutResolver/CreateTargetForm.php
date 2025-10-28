@@ -21,7 +21,7 @@ final class CreateTargetForm extends AbstractController
 
     public function __construct(
         LayoutResolverService $layoutResolverService,
-        TargetTypeRegistry $targetTypeRegistry
+        TargetTypeRegistry $targetTypeRegistry,
     ) {
         $this->layoutResolverService = $layoutResolverService;
         $this->targetTypeRegistry = $targetTypeRegistry;

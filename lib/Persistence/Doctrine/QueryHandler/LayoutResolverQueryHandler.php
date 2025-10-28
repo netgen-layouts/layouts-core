@@ -32,7 +32,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function __construct(
         Connection $connection,
         ConnectionHelperInterface $connectionHelper,
-        ContainerInterface $targetHandlers
+        ContainerInterface $targetHandlers,
     ) {
         $this->targetHandlers = $targetHandlers;
 

@@ -31,7 +31,7 @@ final class Create extends AbstractController
     public function __construct(
         BlockService $blockService,
         CreateStructBuilder $createStructBuilder,
-        BlockTypeRegistry $blockTypeRegistry
+        BlockTypeRegistry $blockTypeRegistry,
     ) {
         $this->blockService = $blockService;
         $this->createStructBuilder = $createStructBuilder;

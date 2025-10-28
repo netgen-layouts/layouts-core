@@ -31,7 +31,7 @@ final class LayoutResolver implements LayoutResolverInterface
     public function __construct(
         LayoutResolverService $layoutResolverService,
         TargetTypeRegistry $targetTypeRegistry,
-        RequestStack $requestStack
+        RequestStack $requestStack,
     ) {
         $this->layoutResolverService = $layoutResolverService;
         $this->targetTypeRegistry = $targetTypeRegistry;

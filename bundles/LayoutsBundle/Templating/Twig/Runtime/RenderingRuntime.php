@@ -54,7 +54,7 @@ final class RenderingRuntime
         LocaleProviderInterface $localeProvider,
         RequestStack $requestStack,
         ErrorHandlerInterface $errorHandler,
-        Environment $simpleTwig
+        Environment $simpleTwig,
     ) {
         $this->blockService = $blockService;
         $this->renderer = $renderer;

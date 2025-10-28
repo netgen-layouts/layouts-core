@@ -15,7 +15,7 @@ class Renderer implements RendererInterface
 
     public function __construct(
         ViewBuilderInterface $viewBuilder,
-        ViewRendererInterface $viewRenderer
+        ViewRendererInterface $viewRenderer,
     ) {
         $this->viewBuilder = $viewBuilder;
         $this->viewRenderer = $viewRenderer;

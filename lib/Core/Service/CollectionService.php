@@ -70,7 +70,7 @@ final class CollectionService implements APICollectionService
         CollectionStructBuilder $structBuilder,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
-        CollectionHandlerInterface $collectionHandler
+        CollectionHandlerInterface $collectionHandler,
     ) {
         $this->transactionHandler = $transactionHandler;
 

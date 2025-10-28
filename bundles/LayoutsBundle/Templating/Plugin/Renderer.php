@@ -26,7 +26,7 @@ final class Renderer implements RendererInterface
      */
     public function __construct(
         Environment $twig,
-        array $pluginsByPluginName
+        array $pluginsByPluginName,
     ) {
         $this->twig = $twig;
 

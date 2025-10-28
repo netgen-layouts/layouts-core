@@ -55,7 +55,7 @@ final class CollectionMapper
         ConfigMapper $configMapper,
         ItemDefinitionRegistry $itemDefinitionRegistry,
         QueryTypeRegistry $queryTypeRegistry,
-        CmsItemLoaderInterface $cmsItemLoader
+        CmsItemLoaderInterface $cmsItemLoader,
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->parameterMapper = $parameterMapper;

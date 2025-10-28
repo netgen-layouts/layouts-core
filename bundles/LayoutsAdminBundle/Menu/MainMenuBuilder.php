@@ -23,7 +23,7 @@ final class MainMenuBuilder
     public function __construct(
         FactoryInterface $factory,
         AuthorizationCheckerInterface $authorizationChecker,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
     ) {
         $this->factory = $factory;
         $this->authorizationChecker = $authorizationChecker;

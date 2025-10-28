@@ -34,7 +34,7 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
     public function __construct(
         PagerFactory $pagerFactory,
         RequestStack $requestStack,
-        array $enabledContexts
+        array $enabledContexts,
     ) {
         $this->pagerFactory = $pagerFactory;
         $this->requestStack = $requestStack;

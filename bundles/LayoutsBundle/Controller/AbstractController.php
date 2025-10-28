@@ -27,7 +27,7 @@ abstract class AbstractController extends BaseAbstractController
         mixed $value,
         string $context = ViewInterface::CONTEXT_DEFAULT,
         array $parameters = [],
-        ?Response $response = null
+        ?Response $response = null,
     ): ViewInterface {
         /** @var \Netgen\Layouts\View\ViewBuilderInterface $viewBuilder */
         $viewBuilder = $this->container->get('netgen_layouts.view.view_builder');

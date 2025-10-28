@@ -20,7 +20,7 @@ final class ConfigDefinitionFactory
      */
     public function buildConfigDefinition(
         string $configKey,
-        ConfigDefinitionHandlerInterface $handler
+        ConfigDefinitionHandlerInterface $handler,
     ): ConfigDefinitionInterface {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);

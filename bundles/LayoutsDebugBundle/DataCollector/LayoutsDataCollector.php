@@ -43,7 +43,7 @@ final class LayoutsDataCollector extends DataCollector
         GlobalVariable $globalVariable,
         LayoutUrlGeneratorInterface $layoutUrlGenerator,
         Environment $twig,
-        string $edition
+        string $edition,
     ) {
         $this->layoutHandler = $layoutHandler;
         $this->globalVariable = $globalVariable;

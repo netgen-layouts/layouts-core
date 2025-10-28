@@ -25,7 +25,7 @@ final class ResultBuilder implements ResultBuilderInterface
     public function __construct(
         CollectionRunnerFactory $runnerFactory,
         int $contextualLimit,
-        int $maxLimit
+        int $maxLimit,
     ) {
         $this->runnerFactory = $runnerFactory;
         $this->contextualLimit = $contextualLimit;

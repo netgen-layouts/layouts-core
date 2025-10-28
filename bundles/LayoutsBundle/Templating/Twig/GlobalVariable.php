@@ -72,7 +72,7 @@ final class GlobalVariable
         Context $context,
         UriSigner $uriSigner,
         RequestStack $requestStack,
-        bool $debug
+        bool $debug,
     ) {
         $this->configuration = $configuration;
         $this->layoutResolver = $layoutResolver;

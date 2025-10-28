@@ -90,7 +90,7 @@ trait ParameterStructTrait
      */
     private function fillFromCollection(
         ParameterDefinitionCollectionInterface $definitionCollection,
-        ParameterCollectionInterface $parameters
+        ParameterCollectionInterface $parameters,
     ): void {
         foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
             $value = null;
@@ -129,7 +129,7 @@ trait ParameterStructTrait
     private function fillFromHash(
         ParameterDefinitionCollectionInterface $definitionCollection,
         array $values,
-        bool $doImport = false
+        bool $doImport = false,
     ): void {
         foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
             $value = $definition->getDefaultValue();

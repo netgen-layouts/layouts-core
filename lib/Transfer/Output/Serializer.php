@@ -25,7 +25,7 @@ final class Serializer implements SerializerInterface
 
     public function __construct(
         OutputVisitor $visitor,
-        ContainerInterface $entityHandlers
+        ContainerInterface $entityHandlers,
     ) {
         $this->visitor = $visitor;
         $this->entityHandlers = $entityHandlers;

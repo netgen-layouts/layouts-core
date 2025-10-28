@@ -20,7 +20,7 @@ final class LoadBlockTypes extends AbstractController
 
     public function __construct(
         BlockTypeRegistry $blockTypeRegistry,
-        BlockTypeGroupRegistry $blockTypeGroupRegistry
+        BlockTypeGroupRegistry $blockTypeGroupRegistry,
     ) {
         $this->blockTypeRegistry = $blockTypeRegistry;
         $this->blockTypeGroupRegistry = $blockTypeGroupRegistry;

@@ -60,7 +60,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         array $expected,
         int $totalCount,
         int $offset = 0,
-        int $limit = 200
+        int $limit = 200,
     ): void {
         $items = [];
         foreach ($itemValues as $position => $itemValue) {

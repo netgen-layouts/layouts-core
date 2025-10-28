@@ -49,7 +49,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function __construct(
         LayoutHandlerInterface $layoutHandler,
         LayoutResolverQueryHandler $queryHandler,
-        LayoutResolverMapper $mapper
+        LayoutResolverMapper $mapper,
     ) {
         $this->layoutHandler = $layoutHandler;
         $this->queryHandler = $queryHandler;
