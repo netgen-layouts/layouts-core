@@ -69,23 +69,19 @@ final class LinkValidator extends ConstraintValidator
         if ($linkType !== '') {
             $linkConstraints[] = new Constraints\NotNull();
 
-            if ($linkType === LinkValue::LINK_TYPE_URL) {
-                $linkConstraints[] = new Constraints\Url();
-            } elseif ($linkType === LinkValue::LINK_TYPE_RELATIVE_URL) {
+            $linkConstraints[] = match ($linkType) {
+                LinkValue::LINK_TYPE_URL => new Constraints\Url(),
                 // @deprecated Replace with Url constraint with "relativeProtocol" option when support for Symfony 3.4 ends
-                $linkConstraints[] = new Constraints\Type(['type' => 'string']);
-            } elseif ($linkType === LinkValue::LINK_TYPE_EMAIL) {
-                $linkConstraints[] = new Constraints\Email($this->getStrictEmailValidatorOption());
-            } elseif ($linkType === LinkValue::LINK_TYPE_PHONE) {
-                $linkConstraints[] = new Constraints\Type(['type' => 'string']);
-            } elseif ($linkType === LinkValue::LINK_TYPE_INTERNAL) {
-                $linkConstraints[] = new ItemLink(
+                LinkValue::LINK_TYPE_RELATIVE_URL => new Constraints\Type(['type' => 'string']),
+                LinkValue::LINK_TYPE_EMAIL => new Constraints\Email($this->getStrictEmailValidatorOption()),
+                LinkValue::LINK_TYPE_PHONE => new Constraints\Type(['type' => 'string']),
+                LinkValue::LINK_TYPE_INTERNAL => new ItemLink(
                     [
                         'valueTypes' => $constraint->valueTypes,
                         'allowInvalid' => $constraint->allowInvalidInternal,
                     ],
-                );
-            }
+                ),
+            };
         }
 
         $validator->atPath('link')->validate($value->getLink(), $linkConstraints);

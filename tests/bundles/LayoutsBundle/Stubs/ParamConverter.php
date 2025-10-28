@@ -27,12 +27,11 @@ final class ParamConverter extends BaseParamConverter
 
     public function loadValue(array $values): Value
     {
-        $status = Status::Draft;
-        if ($values['status'] === 'published') {
-            $status = Status::Published;
-        } elseif ($values['status'] === 'archived') {
-            $status = Status::Archived;
-        }
+        $status = match ($values['status']) {
+            'published' => Status::Published,
+            'archived' => Status::Archived,
+            default => Status::Draft,
+        };
 
         unset($values['status']);
 
