@@ -15,8 +15,6 @@ use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
-use function get_class;
-
 final class BlockDefinitionFactory
 {
     private ParameterBuilderFactoryInterface $parameterBuilderFactory;
@@ -125,7 +123,7 @@ final class BlockDefinitionFactory
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
 
-        $handlerPlugins = $this->handlerPluginRegistry->getPlugins($identifier, get_class($handler));
+        $handlerPlugins = $this->handlerPluginRegistry->getPlugins($identifier, $handler::class);
         foreach ($handlerPlugins as $handlerPlugin) {
             $handlerPlugin->buildParameters($parameterBuilder);
         }

@@ -8,8 +8,6 @@ use Netgen\Layouts\View\View;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView as SymfonyFormView;
 
-use function get_class;
-
 final class FormView extends View implements FormViewInterface
 {
     public function __construct(FormInterface $form)
@@ -25,7 +23,7 @@ final class FormView extends View implements FormViewInterface
 
     public function getFormType(): string
     {
-        return get_class($this->getForm()->getConfig()->getType()->getInnerType());
+        return $this->getForm()->getConfig()->getType()->getInnerType()::class;
     }
 
     public function getFormView(): SymfonyFormView

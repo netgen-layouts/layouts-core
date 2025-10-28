@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Parameters;
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Utils\HydratorTrait;
 
-use function get_class;
 use function is_array;
 use function is_object;
 use function method_exists;
@@ -70,7 +69,7 @@ final class Parameter
 
         $parameterType = $this->parameterDefinition->getType();
         if (!$parameterType instanceof ValueObjectProviderInterface) {
-            throw ParameterException::valueObjectNotSupported($this->name, get_class($parameterType));
+            throw ParameterException::valueObjectNotSupported($this->name, $parameterType::class);
         }
 
         return $this->valueObject = $parameterType->getValueObject($this->value);

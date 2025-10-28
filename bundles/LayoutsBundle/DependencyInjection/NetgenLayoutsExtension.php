@@ -43,7 +43,6 @@ use function array_keys;
 use function array_reverse;
 use function file_exists;
 use function file_get_contents;
-use function get_class;
 use function implode;
 use function in_array;
 use function sprintf;
@@ -60,7 +59,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
      */
     public function addPlugin(ExtensionPluginInterface $plugin): void
     {
-        $this->plugins[get_class($plugin)] = $plugin;
+        $this->plugins[$plugin::class] = $plugin;
     }
 
     /**

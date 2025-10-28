@@ -15,7 +15,6 @@ use Traversable;
 
 use function array_key_exists;
 use function count;
-use function get_class;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
@@ -41,7 +40,7 @@ final class ParameterTypeRegistry implements IteratorAggregate, Countable, Array
         foreach ($parameterTypes as $parameterType) {
             if ($parameterType instanceof ParameterTypeInterface) {
                 $this->parameterTypes[$parameterType::getIdentifier()] = $parameterType;
-                $this->parameterTypesByClass[get_class($parameterType)] = $parameterType;
+                $this->parameterTypesByClass[$parameterType::class] = $parameterType;
             }
         }
     }
