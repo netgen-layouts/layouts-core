@@ -42,7 +42,7 @@ final class ConditionListTest extends TestCase
     {
         $conditions = [new RuleCondition(), new RuleCondition()];
 
-        self::assertSame($conditions, (new ConditionList($conditions))->getConditions());
+        self::assertSame($conditions, new ConditionList($conditions)->getConditions());
     }
 
     /**
@@ -55,6 +55,6 @@ final class ConditionListTest extends TestCase
 
         $conditions = [RuleCondition::fromArray(['id' => $uuid1]), RuleCondition::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], (new ConditionList($conditions))->getConditionIds());
+        self::assertSame([$uuid1, $uuid2], new ConditionList($conditions)->getConditionIds());
     }
 }

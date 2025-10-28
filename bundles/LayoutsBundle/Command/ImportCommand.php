@@ -83,7 +83,7 @@ final class ImportCommand extends Command
     private function importData(string $data, string $mode): int
     {
         $errorCount = 0;
-        $importOptions = (new ImportOptions())
+        $importOptions = new ImportOptions()
             ->setMode($mode);
 
         foreach ($this->importer->importData($data, $importOptions) as $index => $result) {

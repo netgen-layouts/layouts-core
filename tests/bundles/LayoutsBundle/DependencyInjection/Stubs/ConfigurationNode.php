@@ -12,6 +12,6 @@ final class ConfigurationNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode(): NodeDefinition
     {
-        return (new TreeBuilder('test'))->getRootNode();
+        return new TreeBuilder('test')->getRootNode();
     }
 }

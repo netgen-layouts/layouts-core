@@ -41,7 +41,7 @@ final class RuleListTest extends TestCase
     {
         $rules = [new Rule(), new Rule()];
 
-        self::assertSame($rules, (new RuleList($rules))->getRules());
+        self::assertSame($rules, new RuleList($rules)->getRules());
     }
 
     /**
@@ -54,6 +54,6 @@ final class RuleListTest extends TestCase
 
         $rules = [Rule::fromArray(['id' => $uuid1]), Rule::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], (new RuleList($rules))->getRuleIds());
+        self::assertSame([$uuid1, $uuid2], new RuleList($rules)->getRuleIds());
     }
 }

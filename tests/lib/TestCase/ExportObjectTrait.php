@@ -17,7 +17,7 @@ trait ExportObjectTrait
      */
     private function exportObject(object $object, bool $recursive = false): array
     {
-        $data = (new Hydrator())->extract($object);
+        $data = new Hydrator()->extract($object);
         ksort($data);
 
         if (!$recursive) {

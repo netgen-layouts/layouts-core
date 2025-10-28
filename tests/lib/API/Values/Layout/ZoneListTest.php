@@ -40,7 +40,7 @@ final class ZoneListTest extends TestCase
     {
         $zones = ['one' => new Zone(), 'two' => new Zone()];
 
-        self::assertSame($zones, (new ZoneList($zones))->getZones());
+        self::assertSame($zones, new ZoneList($zones)->getZones());
     }
 
     /**
@@ -53,6 +53,6 @@ final class ZoneListTest extends TestCase
             'right' => Zone::fromArray(['identifier' => 'right']),
         ];
 
-        self::assertSame(['left', 'right'], (new ZoneList($zones))->getZoneIdentifiers());
+        self::assertSame(['left', 'right'], new ZoneList($zones)->getZoneIdentifiers());
     }
 }

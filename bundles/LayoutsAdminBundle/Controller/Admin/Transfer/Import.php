@@ -45,7 +45,7 @@ final class Import extends AbstractController
             $jsonFile = $form->get('file')->getData();
 
             if ($jsonFile instanceof UploadedFile && $jsonFile->isValid()) {
-                $options = (new ImportOptions())
+                $options = new ImportOptions()
                     ->setMode($form->get('import_mode')->getData());
 
                 $json = (string) file_get_contents($jsonFile->getPathname());

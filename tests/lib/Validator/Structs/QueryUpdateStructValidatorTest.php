@@ -41,7 +41,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidate(array $value, bool $isValid): void
     {
         $queryUpdateStruct = new QueryUpdateStruct();
-        (new Hydrator())->hydrate($value, $queryUpdateStruct);
+        new Hydrator()->hydrate($value, $queryUpdateStruct);
 
         $this->assertValid($isValid, $queryUpdateStruct);
     }

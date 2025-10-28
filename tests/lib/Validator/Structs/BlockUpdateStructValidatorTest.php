@@ -51,7 +51,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidate(array $value, bool $isValid): void
     {
         $blockUpdateStruct = new BlockUpdateStruct();
-        (new Hydrator())->hydrate($value, $blockUpdateStruct);
+        new Hydrator()->hydrate($value, $blockUpdateStruct);
 
         $this->assertValid($isValid, $blockUpdateStruct);
     }

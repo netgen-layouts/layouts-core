@@ -41,7 +41,7 @@ final class RuleGroupListTest extends TestCase
     {
         $ruleGroups = [new RuleGroup(), new RuleGroup()];
 
-        self::assertSame($ruleGroups, (new RuleGroupList($ruleGroups))->getRuleGroups());
+        self::assertSame($ruleGroups, new RuleGroupList($ruleGroups)->getRuleGroups());
     }
 
     /**
@@ -54,6 +54,6 @@ final class RuleGroupListTest extends TestCase
 
         $ruleGroups = [RuleGroup::fromArray(['id' => $uuid1]), RuleGroup::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], (new RuleGroupList($ruleGroups))->getRuleGroupIds());
+        self::assertSame([$uuid1, $uuid2], new RuleGroupList($ruleGroups)->getRuleGroupIds());
     }
 }

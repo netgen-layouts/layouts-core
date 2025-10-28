@@ -39,7 +39,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     public function testValidate(array $value, bool $isValid): void
     {
         $blockCreateStruct = new BlockCreateStruct($value['definition']);
-        (new Hydrator())->hydrate($value, $blockCreateStruct);
+        new Hydrator()->hydrate($value, $blockCreateStruct);
 
         $this->assertValid($isValid, $blockCreateStruct);
     }

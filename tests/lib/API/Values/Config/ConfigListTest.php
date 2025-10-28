@@ -40,7 +40,7 @@ final class ConfigListTest extends TestCase
     {
         $configs = ['key1' => new Config(), 'key2' => new Config()];
 
-        self::assertSame($configs, (new ConfigList($configs))->getConfigs());
+        self::assertSame($configs, new ConfigList($configs)->getConfigs());
     }
 
     /**
@@ -53,6 +53,6 @@ final class ConfigListTest extends TestCase
             'key2' => Config::fromArray(['configKey' => 'key2']),
         ];
 
-        self::assertSame(['key1', 'key2'], (new ConfigList($configs))->getConfigKeys());
+        self::assertSame(['key1', 'key2'], new ConfigList($configs)->getConfigKeys());
     }
 }

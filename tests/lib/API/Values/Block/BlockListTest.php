@@ -41,7 +41,7 @@ final class BlockListTest extends TestCase
     {
         $blocks = [new Block(), new Block()];
 
-        self::assertSame($blocks, (new BlockList($blocks))->getBlocks());
+        self::assertSame($blocks, new BlockList($blocks)->getBlocks());
     }
 
     /**
@@ -54,6 +54,6 @@ final class BlockListTest extends TestCase
 
         $blocks = [Block::fromArray(['id' => $uuid1]), Block::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], (new BlockList($blocks))->getBlockIds());
+        self::assertSame([$uuid1, $uuid2], new BlockList($blocks)->getBlockIds());
     }
 }

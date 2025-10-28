@@ -41,7 +41,7 @@ final class CollectionListTest extends TestCase
     {
         $collections = ['one' => new Collection(), 'two' => new Collection()];
 
-        self::assertSame($collections, (new CollectionList($collections))->getCollections());
+        self::assertSame($collections, new CollectionList($collections)->getCollections());
     }
 
     /**
@@ -57,6 +57,6 @@ final class CollectionListTest extends TestCase
             'two' => Collection::fromArray(['id' => $uuid2]),
         ];
 
-        self::assertSame([$uuid1, $uuid2], (new CollectionList($collections))->getCollectionIds());
+        self::assertSame([$uuid1, $uuid2], new CollectionList($collections)->getCollectionIds());
     }
 }

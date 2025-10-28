@@ -40,7 +40,7 @@ final class PlaceholderListTest extends TestCase
     {
         $placeholders = ['one' => new Placeholder(), 'two' => new Placeholder()];
 
-        self::assertSame($placeholders, (new PlaceholderList($placeholders))->getPlaceholders());
+        self::assertSame($placeholders, new PlaceholderList($placeholders)->getPlaceholders());
     }
 
     /**
@@ -53,6 +53,6 @@ final class PlaceholderListTest extends TestCase
             'right' => Placeholder::fromArray(['identifier' => 'right']),
         ];
 
-        self::assertSame(['left', 'right'], (new PlaceholderList($placeholders))->getPlaceholderIdentifiers());
+        self::assertSame(['left', 'right'], new PlaceholderList($placeholders)->getPlaceholderIdentifiers());
     }
 }

@@ -41,7 +41,7 @@ final class TargetListTest extends TestCase
     {
         $targets = [new Target(), new Target()];
 
-        self::assertSame($targets, (new TargetList($targets))->getTargets());
+        self::assertSame($targets, new TargetList($targets)->getTargets());
     }
 
     /**
@@ -54,6 +54,6 @@ final class TargetListTest extends TestCase
 
         $targets = [Target::fromArray(['id' => $uuid1]), Target::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], (new TargetList($targets))->getTargetIds());
+        self::assertSame([$uuid1, $uuid2], new TargetList($targets)->getTargetIds());
     }
 }

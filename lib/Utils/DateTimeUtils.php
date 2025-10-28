@@ -29,7 +29,7 @@ final class DateTimeUtils
         $dateTimeZone = is_string($timeZone) && $timeZone !== '' ? new DateTimeZone($timeZone) : null;
         $timestamp = is_int($timestamp) ? $timestamp : time();
 
-        return (new DateTimeImmutable('now', $dateTimeZone))->setTimestamp($timestamp);
+        return new DateTimeImmutable('now', $dateTimeZone)->setTimestamp($timestamp);
     }
 
     /**

@@ -41,7 +41,7 @@ final class SlotListTest extends TestCase
     {
         $slots = [new Slot(), new Slot()];
 
-        self::assertSame($slots, (new SlotList($slots))->getSlots());
+        self::assertSame($slots, new SlotList($slots)->getSlots());
     }
 
     /**
@@ -54,6 +54,6 @@ final class SlotListTest extends TestCase
 
         $slots = [Slot::fromArray(['id' => $uuid1]), Slot::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], (new SlotList($slots))->getSlotIds());
+        self::assertSame([$uuid1, $uuid2], new SlotList($slots)->getSlotIds());
     }
 }

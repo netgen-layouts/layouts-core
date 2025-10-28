@@ -68,6 +68,6 @@ final class Export extends AbstractController
      */
     private function getTypePlural(string $type): string
     {
-        return (new EnglishInflector())->pluralize($type)[0] ?? $type;
+        return new EnglishInflector()->pluralize($type)[0] ?? $type;
     }
 }

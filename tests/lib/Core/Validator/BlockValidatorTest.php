@@ -59,7 +59,7 @@ final class BlockValidatorTest extends TestCase
         }
 
         $blockCreateStruct = new BlockCreateStruct($params['definition']);
-        (new Hydrator())->hydrate($params, $blockCreateStruct);
+        new Hydrator()->hydrate($params, $blockCreateStruct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -81,7 +81,7 @@ final class BlockValidatorTest extends TestCase
         }
 
         $blockUpdateStruct = new BlockUpdateStruct();
-        (new Hydrator())->hydrate($params, $blockUpdateStruct);
+        new Hydrator()->hydrate($params, $blockUpdateStruct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);

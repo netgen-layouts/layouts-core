@@ -52,7 +52,7 @@ final class LayoutValidatorTest extends TestCase
         }
 
         $struct = new LayoutCreateStruct();
-        (new Hydrator())->hydrate($params, $struct);
+        new Hydrator()->hydrate($params, $struct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -74,7 +74,7 @@ final class LayoutValidatorTest extends TestCase
         }
 
         $struct = new LayoutUpdateStruct();
-        (new Hydrator())->hydrate($params, $struct);
+        new Hydrator()->hydrate($params, $struct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -96,7 +96,7 @@ final class LayoutValidatorTest extends TestCase
         }
 
         $struct = new LayoutCopyStruct();
-        (new Hydrator())->hydrate($params, $struct);
+        new Hydrator()->hydrate($params, $struct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);

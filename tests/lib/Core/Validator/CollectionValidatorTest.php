@@ -55,7 +55,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new CollectionCreateStruct();
-        (new Hydrator())->hydrate($params, $struct);
+        new Hydrator()->hydrate($params, $struct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -77,7 +77,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new CollectionUpdateStruct();
-        (new Hydrator())->hydrate($params, $struct);
+        new Hydrator()->hydrate($params, $struct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -102,7 +102,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new ItemCreateStruct();
-        (new Hydrator())->hydrate($params, $struct);
+        new Hydrator()->hydrate($params, $struct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -124,7 +124,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new ItemUpdateStruct();
-        (new Hydrator())->hydrate($params, $struct);
+        new Hydrator()->hydrate($params, $struct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -159,7 +159,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $queryCreateStruct = new QueryCreateStruct($params['queryType']);
-        (new Hydrator())->hydrate($params, $queryCreateStruct);
+        new Hydrator()->hydrate($params, $queryCreateStruct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -181,7 +181,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $queryUpdateStruct = new QueryUpdateStruct();
-        (new Hydrator())->hydrate($params, $queryUpdateStruct);
+        new Hydrator()->hydrate($params, $queryUpdateStruct);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);

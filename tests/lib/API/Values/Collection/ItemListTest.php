@@ -41,7 +41,7 @@ final class ItemListTest extends TestCase
     {
         $items = [new Item(), new Item()];
 
-        self::assertSame($items, (new ItemList($items))->getItems());
+        self::assertSame($items, new ItemList($items)->getItems());
     }
 
     /**
@@ -54,6 +54,6 @@ final class ItemListTest extends TestCase
 
         $items = [Item::fromArray(['id' => $uuid1]), Item::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], (new ItemList($items))->getItemIds());
+        self::assertSame([$uuid1, $uuid2], new ItemList($items)->getItemIds());
     }
 }
