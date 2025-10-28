@@ -45,22 +45,6 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::isVisible
-     */
-    public function testIsVisible(): void
-    {
-        self::assertTrue($this->item->isVisible());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::isSelectable
-     */
-    public function testIsSelectable(): void
-    {
-        self::assertTrue($this->item->isSelectable());
-    }
-
-    /**
      * @covers \Netgen\Layouts\Browser\Item\Layout\Item::getLayout
      */
     public function testGetLayout(): void

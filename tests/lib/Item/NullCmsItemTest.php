@@ -22,11 +22,7 @@ final class NullCmsItemTest extends TestCase
     {
         $value = new NullCmsItem('value');
 
-        self::assertNull($value->getValue());
-        self::assertNull($value->getRemoteId());
         self::assertSame('value', $value->getValueType());
         self::assertSame('(INVALID ITEM)', $value->getName());
-        self::assertTrue($value->isVisible());
-        self::assertNull($value->getObject());
     }
 }

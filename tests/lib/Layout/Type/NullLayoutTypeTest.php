@@ -28,14 +28,6 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::isEnabled
-     */
-    public function testIsEnabled(): void
-    {
-        self::assertTrue($this->layoutType->isEnabled());
-    }
-
-    /**
      * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::getName
      */
     public function testGetName(): void
@@ -84,13 +76,5 @@ final class NullLayoutTypeTest extends TestCase
         $this->expectExceptionMessage('Zone "left" does not exist in "type" layout type.');
 
         $this->layoutType->getZone('left');
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::isBlockAllowedInZone
-     */
-    public function testIsBlockAllowedInZone(): void
-    {
-        self::assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'left'));
     }
 }

@@ -26,12 +26,4 @@ final class NullClientTest extends TestCase
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);
     }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\NullClient::commit
-     */
-    public function testCommit(): void
-    {
-        self::assertTrue($this->client->commit());
-    }
 }

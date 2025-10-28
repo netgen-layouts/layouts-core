@@ -26,7 +26,7 @@ class MockerContainer extends Container
     {
         if (!array_key_exists($id, $this->mockedServices)) {
             $service = $this->get($id) ??
-                throw new RuntimeException(sprintf('"%s" service does not exist.', $service));
+                throw new RuntimeException(sprintf('"%s" service does not exist.', $id));
 
             $this->originalServices[$id] = $service;
             $this->mockedServices[$id] = $this->services[$id] = $mock;

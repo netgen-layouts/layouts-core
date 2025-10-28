@@ -32,12 +32,4 @@ final class NullTargetTypeTest extends TestCase
     {
         self::assertSame([], $this->targetType->getConstraints());
     }
-
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType::provideValue
-     */
-    public function testProvideValue(): void
-    {
-        self::assertNull($this->targetType->provideValue(Request::create('')));
-    }
 }

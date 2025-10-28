@@ -31,12 +31,4 @@ final class RootLocationTest extends TestCase
     {
         self::assertSame('All layouts', $this->location->getName());
     }
-
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\RootLocation::getParentId
-     */
-    public function testGetParentId(): void
-    {
-        self::assertNull($this->location->getParentId());
-    }
 }

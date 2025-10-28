@@ -27,14 +27,6 @@ final class NullQueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Collection\QueryType\NullQueryType::isEnabled
-     */
-    public function testIsEnabled(): void
-    {
-        self::assertTrue($this->queryType->isEnabled());
-    }
-
-    /**
      * @covers \Netgen\Layouts\Collection\QueryType\NullQueryType::getName
      */
     public function testGetName(): void

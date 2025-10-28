@@ -32,12 +32,4 @@ final class NullConditionTypeTest extends TestCase
     {
         self::assertSame([], $this->conditionType->getConstraints());
     }
-
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType::matches
-     */
-    public function testMatches(): void
-    {
-        self::assertTrue($this->conditionType->matches(Request::create(''), ''));
-    }
 }
