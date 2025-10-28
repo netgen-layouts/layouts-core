@@ -22,7 +22,6 @@ use Psr\Container\ContainerInterface;
 use function array_column;
 use function array_map;
 use function count;
-use function is_array;
 use function json_encode;
 use function min;
 

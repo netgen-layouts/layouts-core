@@ -149,12 +149,8 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
      */
     public function getZone(string $zoneIdentifier): Zone
     {
-        $zone = $this->zones->get($zoneIdentifier);
-        if ($zone === null) {
+        return $this->zones->get($zoneIdentifier) ??
             throw LayoutException::noZone($zoneIdentifier);
-        }
-
-        return $zone;
     }
 
     /**

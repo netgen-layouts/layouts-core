@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
-use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
@@ -40,7 +39,7 @@ final class RuleVisitor implements VisitorInterface
             'id' => $value->getId()->toString(),
             'status' => $this->getStatusString($value),
             'rule_group_id' => $value->getRuleGroupId()->toString(),
-            'layout_id' => $layout instanceof Layout ? $layout->getId()->toString() : null,
+            'layout_id' => $layout?->getId()->toString(),
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
             'description' => $value->getDescription(),

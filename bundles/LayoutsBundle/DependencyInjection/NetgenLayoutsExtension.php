@@ -82,16 +82,13 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
      */
     public function getPlugin(string $pluginName): ExtensionPluginInterface
     {
-        if (!isset($this->plugins[$pluginName])) {
+        return $this->plugins[$pluginName] ??
             throw new RuntimeException(
                 sprintf(
                     'Extension plugin "%s" does not exist',
                     $pluginName,
                 ),
             );
-        }
-
-        return $this->plugins[$pluginName];
     }
 
     /**

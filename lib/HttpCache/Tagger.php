@@ -28,21 +28,17 @@ final class Tagger implements TaggerInterface
 
     public function tagLayout(Layout $layout): void
     {
-        if ($this->responseTagger !== null) {
-            $this->responseTagger->addTags(['ngl-all', 'ngl-layout-' . $layout->getId()->toString()]);
-        }
+        $this->responseTagger?->addTags(['ngl-all', 'ngl-layout-' . $layout->getId()->toString()]);
     }
 
     public function tagBlock(Block $block): void
     {
-        if ($this->responseTagger !== null) {
-            $this->responseTagger->addTags(
-                [
-                    'ngl-all',
-                    'ngl-block-' . $block->getId()->toString(),
-                    'ngl-origin-layout-' . $block->getLayoutId()->toString(),
-                ],
-            );
-        }
+        $this->responseTagger?->addTags(
+            [
+                'ngl-all',
+                'ngl-block-' . $block->getId()->toString(),
+                'ngl-origin-layout-' . $block->getLayoutId()->toString(),
+            ],
+        );
     }
 }

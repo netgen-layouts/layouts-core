@@ -173,7 +173,7 @@ final class RenderingRuntime
         $linkedZone = $zone->getLinkedZone();
 
         $blocks = $this->blockService->loadZoneBlocks(
-            $linkedZone instanceof Zone ? $linkedZone : $zone,
+            $linkedZone ?? $zone,
             $locales,
         );
 

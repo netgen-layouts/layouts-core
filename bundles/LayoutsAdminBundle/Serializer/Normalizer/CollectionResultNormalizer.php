@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Collection\Slot;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
@@ -103,15 +104,15 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         }
 
         $configuration = (function () use ($collectionItem): Generator {
-            $itemConfigs = $collectionItem !== null ? $collectionItem->getConfigs() : [];
+            $itemConfigs = $collectionItem?->getConfigs() ?? new ConfigList();
             foreach ($itemConfigs as $configKey => $config) {
                 yield $configKey => $this->buildValues($config->getParameters());
             }
         })();
 
         $data = [
-            'id' => $collectionItem !== null ? $collectionItem->getId()->toString() : null,
-            'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId()->toString() : null,
+            'id' => $collectionItem?->getId()->toString(),
+            'collection_id' => $collectionItem?->getCollectionId()->toString(),
             'visible' => $collectionItem !== null ?
                 $this->visibilityResolver->isVisible($collectionItem) :
                 true,
