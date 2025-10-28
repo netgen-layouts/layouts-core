@@ -46,10 +46,7 @@ use function file_get_contents;
 use function get_class;
 use function implode;
 use function in_array;
-use function method_exists;
 use function sprintf;
-
-use const PHP_VERSION_ID;
 
 final class NetgenLayoutsExtension extends Extension implements PrependExtensionInterface
 {
@@ -138,10 +135,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         }
 
         $this->registerAutoConfiguration($container);
-
-        if (PHP_VERSION_ID >= 80000 && method_exists($container, 'registerAttributeForAutoconfiguration')) {
-            $this->registerAttributeAutoConfiguration($container);
-        }
+        $this->registerAttributeAutoConfiguration($container);
 
         $container->setParameter('netgen_layouts.edition', 'Open Source Edition');
     }

@@ -51,7 +51,6 @@ parameters:
         - '#Call to function method_exists\(\) with Symfony\\Component\\HttpFoundation\\RequestStack and ''getMainRequest'' will always evaluate to true.#'
         - '#Call to function method_exists\(\) with Symfony\\Component\\HttpKernel\\Event\\KernelEvent and ''isMainRequest'' will always evaluate to true.#'
         - '#Call to function method_exists\(\) with Symfony\\Component\\HttpFoundation\\Request and ''getContentTypeFormat'' will always evaluate to true.#'
-        - '#Call to function method_exists\(\) with Symfony\\Component\\DependencyInjection\\ContainerBuilder and ''registerAttributeFo…'' will always evaluate to true.#'
         - '#Call to function method_exists\(\) with Symfony\\Component\\Console\\Application and ''renderException'' will always evaluate to false.#'
 
         # Symfony
