@@ -9,6 +9,7 @@ use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -53,10 +54,10 @@ final class ItemRuntimeTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo('type'))
+            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
 
-        $itemPath = $this->runtime->getItemPath([42, 'value'], 'type');
+        $itemPath = $this->runtime->getItemPath([42, 'value'], UrlType::Admin->value);
 
         self::assertSame('/item/path', $itemPath);
     }
@@ -77,10 +78,10 @@ final class ItemRuntimeTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo('type'))
+            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
 
-        $itemPath = $this->runtime->getItemPath('value://42', 'type');
+        $itemPath = $this->runtime->getItemPath('value://42', UrlType::Admin->value);
 
         self::assertSame('/item/path', $itemPath);
     }
@@ -99,10 +100,10 @@ final class ItemRuntimeTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo('type'))
+            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
 
-        $itemPath = $this->runtime->getItemPath($cmsItem, 'type');
+        $itemPath = $this->runtime->getItemPath($cmsItem, UrlType::Admin->value);
 
         self::assertSame('/item/path', $itemPath);
     }
@@ -121,7 +122,7 @@ final class ItemRuntimeTest extends TestCase
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlGeneratorInterface::TYPE_DEFAULT))
+            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Default))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath($cmsItem);

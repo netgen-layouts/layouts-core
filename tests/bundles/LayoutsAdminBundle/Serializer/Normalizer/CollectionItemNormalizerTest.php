@@ -11,6 +11,7 @@ use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -72,7 +73,7 @@ final class CollectionItemNormalizerTest extends TestCase
 
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($item->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
+            ->with(self::identicalTo($item->getCmsItem()), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(

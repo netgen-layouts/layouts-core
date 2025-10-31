@@ -13,6 +13,7 @@ use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -75,7 +76,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, new ManualItem($collectionItem), null, Slot::fromArray(['id' => $slotUuid, 'viewType' => 'standard']));
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
+            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -137,7 +138,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, new ManualItem($collectionItem));
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
+            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -184,7 +185,7 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($item), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
+            ->with(self::identicalTo($item), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -249,7 +250,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, new ManualItem($collectionItem), $item);
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlGeneratorInterface::TYPE_ADMIN))
+            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(

@@ -9,6 +9,7 @@ use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Item\UrlType;
 use Throwable;
 
 use function count;
@@ -38,7 +39,7 @@ final class ItemRuntime
      *
      * @throws \Netgen\Layouts\Exception\Item\ItemException If provided item or item reference is not valid
      */
-    public function getItemPath(string|array|CmsItemInterface $value, string $type = UrlGeneratorInterface::TYPE_DEFAULT): string
+    public function getItemPath(string|array|CmsItemInterface $value, string $type = UrlType::Default->value): string
     {
         try {
             $item = null;
@@ -63,7 +64,7 @@ final class ItemRuntime
                 throw ItemException::canNotLoadItem();
             }
 
-            return $this->urlGenerator->generate($item, $type);
+            return $this->urlGenerator->generate($item, UrlType::from($type));
         } catch (Throwable $t) {
             $this->errorHandler->handleError($t);
         }

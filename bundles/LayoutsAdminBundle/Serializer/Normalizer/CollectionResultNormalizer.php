@@ -14,6 +14,7 @@ use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Item\UrlType;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -122,7 +123,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         ];
 
         try {
-            $data['cms_url'] = $this->urlGenerator->generate($cmsItem, UrlGeneratorInterface::TYPE_ADMIN);
+            $data['cms_url'] = $this->urlGenerator->generate($cmsItem, UrlType::Admin);
         } catch (ItemException) {
             // Do nothing
         }

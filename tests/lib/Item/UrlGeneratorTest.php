@@ -8,7 +8,7 @@ use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Item\UrlGenerator;
-use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\Item\Stubs\ValueUrlGenerator;
 use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,7 @@ final class UrlGeneratorTest extends TestCase
     {
         $url = $this->urlGenerator->generate(
             CmsItem::fromArray(['valueType' => 'value', 'object' => new stdClass()]),
-            UrlGeneratorInterface::TYPE_ADMIN,
+            UrlType::Admin,
         );
 
         self::assertSame('/admin/item-url', $url);
@@ -63,7 +63,7 @@ final class UrlGeneratorTest extends TestCase
     {
         $url = $this->urlGenerator->generate(
             new NullCmsItem('value'),
-            UrlGeneratorInterface::TYPE_ADMIN,
+            UrlType::Admin,
         );
 
         self::assertSame('', $url);
@@ -78,7 +78,7 @@ final class UrlGeneratorTest extends TestCase
     {
         $url = $this->urlGenerator->generate(
             CmsItem::fromArray(['object' => null]),
-            UrlGeneratorInterface::TYPE_ADMIN,
+            UrlType::Admin,
         );
 
         self::assertSame('', $url);
@@ -117,27 +117,6 @@ final class UrlGeneratorTest extends TestCase
             CmsItem::fromArray(
                 ['valueType' => 'value', 'object' => new stdClass()],
             ),
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
-     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
-     */
-    public function testGenerateThrowsItemExceptionWithInvalidUrlType(): void
-    {
-        $this->expectException(ItemException::class);
-        $this->expectExceptionMessage('"unknown" URL type is invalid for "value" value type.');
-
-        $this->urlGenerator = new UrlGenerator(
-            new Container(['value' => new ValueUrlGenerator()]),
-        );
-
-        $this->urlGenerator->generate(
-            CmsItem::fromArray(
-                ['valueType' => 'value', 'object' => new stdClass()],
-            ),
-            'unknown',
         );
     }
 }
