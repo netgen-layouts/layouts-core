@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Request;
 
 final class NullConditionTypeTest extends TestCase
 {

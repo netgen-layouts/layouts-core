@@ -53,8 +53,8 @@ final class ParameterViewTest extends TestCase
     {
         self::assertSame(
             [
-                'parameter' => $this->parameter,
                 'param' => 'value',
+                'parameter' => $this->parameter,
             ],
             $this->view->getParameters(),
         );

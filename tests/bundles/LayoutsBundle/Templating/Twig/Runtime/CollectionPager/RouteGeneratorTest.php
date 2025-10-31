@@ -77,7 +77,9 @@ final class RouteGeneratorTest extends TestCase
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
                         'nglContext' => ['var' => 'value'],
-                    ] + ['foo' => 'bar', 'baz' => 'bat'],
+                        'foo' => 'bar',
+                        'baz' => 'bat',
+                    ],
                 ),
             )
             ->willReturn($generatedUri);

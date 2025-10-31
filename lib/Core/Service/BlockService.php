@@ -853,7 +853,7 @@ final class BlockService implements BlockServiceInterface
                 $locale,
                 BlockTranslationUpdateStruct::fromArray(
                     [
-                        'parameters' => $untranslatableParams + $params,
+                        'parameters' => [...$params, ...$untranslatableParams],
                     ],
                 ),
             );

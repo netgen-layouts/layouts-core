@@ -54,9 +54,9 @@ final class PlaceholderViewTest extends TestCase
     {
         self::assertSame(
             [
+                'param' => 'value',
                 'placeholder' => $this->placeholder,
                 'block' => $this->block,
-                'param' => 'value',
             ],
             $this->view->getParameters(),
         );

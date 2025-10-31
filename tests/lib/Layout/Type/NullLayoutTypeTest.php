@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Layout\Type;
 
-use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Layout\Type\NullLayoutType;
 use PHPUnit\Framework\TestCase;

@@ -69,9 +69,7 @@ final class ParametersType extends AbstractType
             $parameterForm = $builder->create(
                 $parameterName,
                 $mapper->getFormType(),
-                $mapper->mapOptions(
-                    $parameterDefinition,
-                ) + $defaultOptions,
+                [...$defaultOptions, ...$mapper->mapOptions($parameterDefinition)],
             );
 
             $mapper->handleForm($parameterForm, $parameterDefinition);
@@ -79,9 +77,7 @@ final class ParametersType extends AbstractType
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $this->buildForm(
                     $parameterForm,
-                    [
-                        'parameter_definitions' => $parameterDefinition,
-                    ] + $options,
+                    [...$options, ...['parameter_definitions' => $parameterDefinition]],
                 );
             }
 

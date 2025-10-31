@@ -34,8 +34,8 @@ final class RuleConditionViewTest extends TestCase
         self::assertSame($this->condition, $this->view->getCondition());
         self::assertSame(
             [
-                'condition' => $this->condition,
                 'param' => 'value',
+                'condition' => $this->condition,
             ],
             $this->view->getParameters(),
         );

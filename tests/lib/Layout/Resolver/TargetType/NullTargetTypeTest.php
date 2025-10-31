@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\TargetType;
 
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Request;
 
 final class NullTargetTypeTest extends TestCase
 {

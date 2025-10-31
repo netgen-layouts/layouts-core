@@ -163,10 +163,10 @@ final class ViewTest extends TestCase
 
         self::assertSame(
             [
-                'value' => $this->value,
                 'some_param' => 'new_value',
-                'third_param' => 'third_value',
                 'some_other_param' => 'some_other_value',
+                'third_param' => 'third_value',
+                'value' => $this->value,
             ],
             $this->view->getParameters(),
         );

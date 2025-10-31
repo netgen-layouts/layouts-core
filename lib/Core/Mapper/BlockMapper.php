@@ -117,7 +117,7 @@ final class BlockMapper
             'parameters' => iterator_to_array(
                 $this->parameterMapper->mapParameters(
                     $blockDefinition,
-                    $untranslatableParams + $block->parameters[$blockLocale],
+                    [...$block->parameters[$blockLocale], ...$untranslatableParams],
                 ),
             ),
         ];

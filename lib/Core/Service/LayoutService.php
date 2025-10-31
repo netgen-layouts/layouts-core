@@ -31,7 +31,6 @@ use Ramsey\Uuid\UuidInterface;
 
 use function array_fill_keys;
 use function array_map;
-use function array_merge;
 use function count;
 use function sprintf;
 use function trigger_deprecation;
@@ -425,10 +424,10 @@ final class LayoutService implements LayoutServiceInterface
 
         $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
-        $zoneMappings = array_merge(
-            array_fill_keys($targetLayoutType->getZoneIdentifiers(), []),
-            $zoneMappings,
-        );
+        $zoneMappings = [
+            ...array_fill_keys($targetLayoutType->getZoneIdentifiers(), []),
+            ...$zoneMappings,
+        ];
 
         $newLayout = $this->transaction(
             function () use ($persistenceLayout, $layoutZones, $targetLayoutType, $zoneMappings, $preserveSharedZones): PersistenceLayout {

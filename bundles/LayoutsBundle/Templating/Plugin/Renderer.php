@@ -47,7 +47,7 @@ final class Renderer implements RendererInterface
             foreach ($this->pluginCollections[$pluginName]->getPlugins() as $plugin) {
                 $this->twig->display(
                     $plugin->getTemplateName(),
-                    $plugin->getParameters() + $parameters,
+                    [...$parameters, ...$plugin->getParameters()],
                 );
             }
         } catch (Throwable $t) {

@@ -44,7 +44,7 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
      */
     public function add(array $context): void
     {
-        $this->contextVariables = $context + $this->contextVariables;
+        $this->contextVariables = [...$this->contextVariables, ...$context];
     }
 
     /**

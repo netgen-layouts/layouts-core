@@ -7,8 +7,6 @@ namespace Netgen\Layouts\Behat\Page\Admin\Layouts;
 use Behat\Mink\Element\NodeElement;
 use Netgen\Layouts\Behat\Page\Admin\AdminPage;
 
-use function array_merge;
-
 final class IndexPage extends AdminPage
 {
     public function getRouteName(): string
@@ -67,19 +65,16 @@ final class IndexPage extends AdminPage
 
     protected function getDefinedElements(): array
     {
-        return array_merge(
-            parent::getDefinedElements(),
-            [
-                'layout' => '.nl-layout [data-name="%layout-name%"]',
-                'layout_name' => '.nl-layout-name a:contains("%layout-name%")',
+        return [
+            'layout' => '.nl-layout [data-name="%layout-name%"]',
+            'layout_name' => '.nl-layout-name a:contains("%layout-name%")',
 
-                'create_new_layout' => 'a#add-new-button',
+            'create_new_layout' => 'a#add-new-button',
 
-                'actions_dropdown' => '.nl-layout [data-name="%layout-name%"] button.nl-dropdown-toggle',
-                'edit_layout_action' => '.nl-layout [data-name="%layout-name%"] a.js-layout-edit',
-                'copy_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-copy',
-                'delete_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-delete',
-            ],
-        );
+            'actions_dropdown' => '.nl-layout [data-name="%layout-name%"] button.nl-dropdown-toggle',
+            'edit_layout_action' => '.nl-layout [data-name="%layout-name%"] a.js-layout-edit',
+            'copy_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-copy',
+            'delete_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-delete',
+        ] + parent::getDefinedElements();
     }
 }

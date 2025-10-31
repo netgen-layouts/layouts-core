@@ -94,7 +94,7 @@ abstract class View implements ViewInterface
      */
     public function getParameters(): array
     {
-        return $this->parameters + $this->customParameters;
+        return [...$this->customParameters, ...$this->parameters];
     }
 
     public function addParameter(string $parameterName, mixed $parameterValue): void
@@ -107,6 +107,6 @@ abstract class View implements ViewInterface
      */
     public function addParameters(array $parameters): void
     {
-        $this->customParameters = $parameters + $this->customParameters;
+        $this->customParameters = [...$this->customParameters, ...$parameters];
     }
 }

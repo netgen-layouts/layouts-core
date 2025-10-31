@@ -569,7 +569,7 @@ final class CollectionService implements APICollectionService
                 $locale,
                 QueryTranslationUpdateStruct::fromArray(
                     [
-                        'parameters' => $untranslatableParams + $params,
+                        'parameters' => [...$params, ...$untranslatableParams],
                     ],
                 ),
             );

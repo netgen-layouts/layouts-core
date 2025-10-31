@@ -41,8 +41,8 @@ final class BlockViewTest extends TestCase
     {
         self::assertSame(
             [
-                'block' => $this->block,
                 'param' => 'value',
+                'block' => $this->block,
             ],
             $this->view->getParameters(),
         );

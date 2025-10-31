@@ -131,8 +131,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(
                     [
-                        'twig_template' => $twigTemplate,
                         'param' => 'value',
+                        'twig_template' => $twigTemplate,
                     ],
                 ),
             )
@@ -166,8 +166,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(
                     [
-                        'twig_template' => null,
                         'param' => 'value',
+                        'twig_template' => null,
                     ],
                 ),
             )
@@ -200,8 +200,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(
                     [
-                        'twig_template' => $twigTemplate,
                         'param' => 'value',
+                        'twig_template' => $twigTemplate,
                     ],
                 ),
             )
@@ -237,8 +237,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(
                     [
-                        'twig_template' => $twigTemplate,
                         'param' => 'value',
+                        'twig_template' => $twigTemplate,
                     ],
                 ),
             )
@@ -336,8 +336,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(
                     [
                         'block' => $block,
-                        'twig_template' => $twigTemplate,
                         'param' => 'value',
+                        'twig_template' => $twigTemplate,
                     ],
                 ),
             )
@@ -384,8 +384,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(
                     [
                         'block' => $block,
-                        'twig_template' => null,
                         'param' => 'value',
+                        'twig_template' => null,
                     ],
                 ),
             )
@@ -432,8 +432,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(
                     [
                         'block' => $block,
-                        'twig_template' => $twigTemplate,
                         'param' => 'value',
+                        'twig_template' => $twigTemplate,
                     ],
                 ),
             )
@@ -483,8 +483,8 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(
                     [
                         'block' => $block,
-                        'twig_template' => $twigTemplate,
                         'param' => 'value',
+                        'twig_template' => $twigTemplate,
                     ],
                 ),
             )
@@ -574,7 +574,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willReturn('rendered item');
 
@@ -602,7 +602,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willReturn('rendered item');
 
@@ -631,7 +631,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willReturn('rendered item');
 
@@ -661,7 +661,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willThrowException(new Exception());
 
@@ -694,7 +694,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willThrowException(new Exception('Test exception text'));
 
@@ -720,7 +720,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'standard', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'standard']),
             )
             ->willReturn('rendered result');
 
@@ -750,7 +750,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'overlay', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'overlay']),
             )
             ->willReturn('rendered result');
 
@@ -780,7 +780,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willReturn('rendered result');
 
@@ -810,7 +810,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willReturn('rendered result');
 
@@ -890,7 +890,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willReturn('rendered result');
 
@@ -921,7 +921,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willReturn('rendered result');
 
@@ -953,7 +953,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willThrowException(new Exception());
 
@@ -988,7 +988,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
+                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
             )
             ->willThrowException(new Exception('Test exception text'));
 

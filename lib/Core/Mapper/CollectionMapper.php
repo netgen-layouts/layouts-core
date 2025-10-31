@@ -202,7 +202,7 @@ final class CollectionMapper
             'parameters' => iterator_to_array(
                 $this->parameterMapper->mapParameters(
                     $queryType,
-                    $untranslatableParams + $query->parameters[$queryLocale],
+                    [...$query->parameters[$queryLocale], ...$untranslatableParams],
                 ),
             ),
         ];

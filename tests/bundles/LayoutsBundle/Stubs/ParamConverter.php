@@ -35,6 +35,6 @@ final class ParamConverter extends BaseParamConverter
 
         unset($values['status']);
 
-        return Value::fromArray(['id' => Uuid::fromString($values['id']), 'status' => $status] + $values);
+        return Value::fromArray([...$values, ...['id' => Uuid::fromString($values['id']), 'status' => $status]]);
     }
 }

@@ -52,8 +52,8 @@ final class ViewRendererTest extends TestCase
                 self::identicalTo('some_template.html.twig'),
                 self::identicalTo(
                     [
-                        'value' => $value,
                         'some_param' => 'some_value',
+                        'value' => $value,
                     ],
                 ),
             )

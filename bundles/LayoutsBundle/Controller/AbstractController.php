@@ -14,8 +14,9 @@ abstract class AbstractController extends BaseAbstractController
     public static function getSubscribedServices(): array
     {
         return [
-            'netgen_layouts.view.view_builder' => ViewBuilderInterface::class,
-        ] + parent::getSubscribedServices();
+            ...parent::getSubscribedServices(),
+            ...['netgen_layouts.view.view_builder' => ViewBuilderInterface::class],
+        ];
     }
 
     /**

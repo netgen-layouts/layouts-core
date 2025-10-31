@@ -67,10 +67,10 @@ final class ZoneViewTest extends TestCase
     {
         self::assertSame(
             [
-                'layout' => $this->layout,
-                'zone' => $this->zone,
-                'blocks' => $this->blocks,
                 'param' => 'value',
+                'zone' => $this->zone,
+                'layout' => $this->layout,
+                'blocks' => $this->blocks,
             ],
             $this->view->getParameters(),
         );

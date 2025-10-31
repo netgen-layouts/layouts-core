@@ -48,7 +48,7 @@ final class TargetType extends AbstractType
         $valueForm = $builder->create(
             'value',
             $mapper->getFormType(),
-            $mapper->getFormOptions() + $defaultOptions,
+            [...$defaultOptions, ...$mapper->getFormOptions()],
         );
 
         $mapper->handleForm($valueForm);

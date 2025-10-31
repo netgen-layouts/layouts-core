@@ -48,9 +48,9 @@ final class CollectionViewTest extends TestCase
                 self::identicalTo('default_template.html.twig'),
                 self::identicalTo(
                     [
-                        'pager' => $pagerMock,
                         'block' => $block,
                         'collection_identifier' => 'default',
+                        'pager' => $pagerMock,
                     ],
                 ),
             )
@@ -82,9 +82,9 @@ final class CollectionViewTest extends TestCase
                 self::identicalTo('template.html.twig'),
                 self::identicalTo(
                     [
-                        'pager' => $pagerMock,
                         'block' => $block,
                         'collection_identifier' => 'default',
+                        'pager' => $pagerMock,
                     ],
                 ),
             )

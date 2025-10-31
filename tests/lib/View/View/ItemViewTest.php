@@ -38,9 +38,9 @@ final class ItemViewTest extends TestCase
         self::assertSame($this->item, $this->view->getItem());
         self::assertSame(
             [
+                'param' => 'value',
                 'item' => $this->item,
                 'view_type' => 'view_type',
-                'param' => 'value',
             ],
             $this->view->getParameters(),
         );

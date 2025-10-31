@@ -56,9 +56,7 @@ final class CollectionView implements ViewInterface
 
         return $this->twig->render(
             $pagerTemplate,
-            [
-                'pager' => $pagerfanta,
-            ] + $options,
+            [...$options, ...['pager' => $pagerfanta]],
         );
     }
 }

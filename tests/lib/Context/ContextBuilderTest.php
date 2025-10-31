@@ -37,8 +37,8 @@ final class ContextBuilderTest extends TestCase
 
         self::assertSame(
             [
-                'var2' => 'value2',
                 'var1' => 'value1',
+                'var2' => 'value2',
             ],
             $this->context->all(),
         );
