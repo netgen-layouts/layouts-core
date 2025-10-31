@@ -6,6 +6,7 @@ namespace Netgen\Layouts\API\Service;
 
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
@@ -130,7 +131,7 @@ interface CollectionService extends TransactionService
      * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
      *                                                     If collection type cannot be changed
      */
-    public function changeCollectionType(Collection $collection, int $newType, ?QueryCreateStruct $queryCreateStruct = null): Collection;
+    public function changeCollectionType(Collection $collection, CollectionType $newType, ?QueryCreateStruct $queryCreateStruct = null): Collection;
 
     /**
      * Adds an item to collection at specified position.

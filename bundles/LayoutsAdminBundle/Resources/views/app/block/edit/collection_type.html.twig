@@ -40,20 +40,12 @@
 {% if block.hasCollection(collection_identifier) and can_change_collection %}
     {% set collection = block.collection(collection_identifier) %}
 
-    {% set type_manual = constant('TYPE_MANUAL', collection) %}
-    {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}
-
-    {% set collection_types = {
-        (type_manual): 'block.edit.collection_type.manual_collection'|trans,
-        (type_dynamic): 'block.edit.collection_type.dynamic_collection'|trans,
-    } %}
-
     <div class="xeditable" data-input data-xeditable-name="collection_type" {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
         <div class="current">
             <label>{{ 'block.edit.collection_type'|trans }} <span class="ngl-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
 
             <a href="#" class="js-edit">
-                <span class="text">{{ collection_types[collection.hasQuery ? type_dynamic : type_manual] }}</span>
+                <span class="text">{{ 'block.edit.collection_type.' ~ collection.collectionType.value ~ '_collection'|trans }}</span>
                 <span class="icon">{{ 'block.edit.change'|trans }}</span>
             </a>
 
@@ -68,18 +60,22 @@
                 <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <span class="ngl-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
                 <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master js-always-show">
                     {% if allowed_value_types|length > 0 %}
-                        <option {% if not collection.hasQuery %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
+                        <option {% if not collection.hasQuery %} selected="selected" {% endif %} value="{{ enum('Netgen\\Layouts\\API\\Values\\Collection\\CollectionType').Manual.value }}">
+                            {{ 'block.edit.collection_type.manual_collection'|trans }}
+                        </option>
                     {% endif %}
 
                     {% if allowed_query_types|length > 0 %}
-                        <option {% if collection.hasQuery %} selected="selected" {% endif %} value="{{ type_dynamic }}">{{ collection_types[type_dynamic] }}</option>
+                        <option {% if collection.hasQuery %} selected="selected" {% endif %} value="{{ enum('Netgen\\Layouts\\API\\Values\\Collection\\CollectionType').Dynamic.value }}">
+                            {{ 'block.edit.collection_type.dynamic_collection'|trans }}
+                        </option>
                     {% endif %}
                 </select>
                 <p class="input-note">{{ 'block.edit.notice.change_collection_type'|trans }}</p>
             </div>
 
             {% if allowed_query_types|length > 0 %}
-                <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
+                <div class="js-dependable" data-linked-value="{{ enum('Netgen\\Layouts\\API\\Values\\Collection\\CollectionType').Dynamic.value }}">
                     <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
                     <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
                         {% for query_type in query_types %}

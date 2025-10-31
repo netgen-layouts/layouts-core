@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Service;
 
-use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
@@ -257,7 +257,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedCollection = $this->collectionService->changeCollectionType(
             $collection,
-            Collection::TYPE_DYNAMIC,
+            CollectionType::Dynamic,
             $this->collectionService->newQueryCreateStruct(
                 new QueryType('my_query_type'),
             ),
@@ -277,7 +277,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedCollection = $this->collectionService->changeCollectionType(
             $collection,
-            Collection::TYPE_MANUAL,
+            CollectionType::Manual,
         );
 
         self::assertTrue($updatedCollection->isDraft());
@@ -303,26 +303,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $this->collectionService->changeCollectionType(
             $collection,
-            Collection::TYPE_MANUAL,
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
-     */
-    public function testChangeCollectionTypeThrowsBadStateExceptionWithInvalidType(): void
-    {
-        $this->expectException(BadStateException::class);
-        $this->expectExceptionMessage('Argument "newType" has an invalid state. New collection type must be manual or dynamic.');
-
-        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
-
-        $this->collectionService->changeCollectionType(
-            $collection,
-            999,
-            $this->collectionService->newQueryCreateStruct(
-                new QueryType('my_query_type'),
-            ),
+            CollectionType::Manual,
         );
     }
 
@@ -338,7 +319,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $this->collectionService->changeCollectionType(
             $collection,
-            Collection::TYPE_DYNAMIC,
+            CollectionType::Dynamic,
         );
     }
 

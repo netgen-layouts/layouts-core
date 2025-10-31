@@ -18,16 +18,6 @@ final class Collection implements Value
     use LazyPropertyTrait;
     use ValueStatusTrait;
 
-    /**
-     * Denotes that the collection is manual, i.e., does not have a query.
-     */
-    public const int TYPE_MANUAL = 0;
-
-    /**
-     * Denotes that the collection is dynamic, i.e., that it has a query.
-     */
-    public const int TYPE_DYNAMIC = 1;
-
     private UuidInterface $id;
 
     private UuidInterface $blockId;
@@ -141,6 +131,21 @@ final class Collection implements Value
     public function hasQuery(): bool
     {
         return $this->getQuery() instanceof Query;
+    }
+
+    public function getCollectionType(): CollectionType
+    {
+        return $this->hasQuery() ? CollectionType::Dynamic : CollectionType::Manual;
+    }
+
+    public function isManual(): bool
+    {
+        return $this->hasQuery() === false;
+    }
+
+    public function isDynamic(): bool
+    {
+        return $this->hasQuery() === true;
     }
 
     /**

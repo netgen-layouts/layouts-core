@@ -8,7 +8,6 @@ use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -95,7 +94,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
             yield [
                 'identifier' => $identifier,
                 'collection_id' => $collection->getId()->toString(),
-                'collection_type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
+                'collection_type' => $collection->getCollectionType()->value,
                 'offset' => $collection->getOffset(),
                 'limit' => $collection->getLimit(),
             ];

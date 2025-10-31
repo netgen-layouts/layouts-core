@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
 use Exception;
 use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
 use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
@@ -47,7 +48,7 @@ final class CollectionServiceTest extends TestCase
 
         $this->collectionService->changeCollectionType(
             Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'query' => new Query()]),
-            Collection::TYPE_MANUAL,
+            CollectionType::Manual,
         );
     }
 

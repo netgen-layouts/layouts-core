@@ -20,7 +20,7 @@ final class CollectionNormalizer implements NormalizerInterface
 
         return [
             'id' => $collection->getId()->toString(),
-            'type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
+            'type' => $collection->getCollectionType()->value,
             'is_translatable' => $collection->isTranslatable(),
             'main_locale' => $collection->getMainLocale(),
             'always_available' => $collection->isAlwaysAvailable(),

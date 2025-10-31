@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\ValidatorTrait;
@@ -43,14 +43,14 @@ final class ChangeCollectionType extends AbstractController
         $collection = $block->getCollection($collectionIdentifier);
         $queryCreateStruct = null;
 
-        $newType = $requestData->get('new_type');
+        $newType = CollectionType::from($requestData->get('new_type'));
 
-        if ($newType === Collection::TYPE_MANUAL) {
+        if ($newType === CollectionType::Manual) {
             if (!$collection->hasQuery()) {
                 // Noop
                 return new Response(null, Response::HTTP_NO_CONTENT);
             }
-        } elseif ($newType === Collection::TYPE_DYNAMIC) {
+        } elseif ($newType === CollectionType::Dynamic) {
             $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
                 $this->queryTypeRegistry->getQueryType($requestData->get('query_type')),
             );
@@ -68,31 +68,14 @@ final class ChangeCollectionType extends AbstractController
      */
     private function validateRequestData(Block $block, string $collectionIdentifier, ParameterBag $data): void
     {
-        $newType = $data->get('new_type');
+        $newType = CollectionType::from($data->get('new_type'));
         $queryType = $data->get('query_type');
-
-        $this->validate(
-            $newType,
-            [
-                new Constraints\NotBlank(),
-                new Constraints\Choice(
-                    [
-                        'choices' => [
-                            Collection::TYPE_MANUAL,
-                            Collection::TYPE_DYNAMIC,
-                        ],
-                        'strict' => true,
-                    ],
-                ),
-            ],
-            'new_type',
-        );
 
         $queryTypeConstraints = [
             new Constraints\Type(['type' => 'string']),
         ];
 
-        if ($newType === Collection::TYPE_DYNAMIC) {
+        if ($newType === CollectionType::Dynamic) {
             $queryTypeConstraints[] = new Constraints\NotBlank();
         }
 
@@ -105,7 +88,7 @@ final class ChangeCollectionType extends AbstractController
 
         $collectionConfig = $blockDefinition->getCollection($collectionIdentifier);
 
-        if ($newType === Collection::TYPE_DYNAMIC) {
+        if ($newType === CollectionType::Dynamic) {
             if (!$collectionConfig->isValidQueryType($queryType)) {
                 throw ValidationException::validationFailed(
                     'new_type',
@@ -115,7 +98,7 @@ final class ChangeCollectionType extends AbstractController
                     ),
                 );
             }
-        } elseif ($newType === Collection::TYPE_MANUAL) {
+        } elseif ($newType === CollectionType::Manual) {
             if ($collectionConfig->getValidItemTypes() === []) {
                 throw ValidationException::validationFailed(
                     'new_type',

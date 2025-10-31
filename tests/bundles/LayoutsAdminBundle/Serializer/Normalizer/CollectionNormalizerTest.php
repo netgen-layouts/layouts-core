@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Normalizer;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionNormalizer;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
@@ -40,7 +41,7 @@ final class CollectionNormalizerTest extends TestCase
         self::assertSame(
             [
                 'id' => $collection->getId()->toString(),
-                'type' => Collection::TYPE_DYNAMIC,
+                'type' => CollectionType::Dynamic->value,
                 'is_translatable' => $collection->isTranslatable(),
                 'main_locale' => $collection->getMainLocale(),
                 'always_available' => $collection->isAlwaysAvailable(),

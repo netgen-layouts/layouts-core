@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Core\Service;
 use Netgen\Layouts\API\Service\CollectionService as APICollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
@@ -176,7 +177,7 @@ final class CollectionService implements APICollectionService
         );
     }
 
-    public function changeCollectionType(Collection $collection, int $newType, ?APIQueryCreateStruct $queryCreateStruct = null): Collection
+    public function changeCollectionType(Collection $collection, CollectionType $newType, ?APIQueryCreateStruct $queryCreateStruct = null): Collection
     {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
@@ -184,11 +185,7 @@ final class CollectionService implements APICollectionService
 
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), PersistenceStatus::Draft);
 
-        if (!in_array($newType, [Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC], true)) {
-            throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
-        }
-
-        if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
+        if ($newType === CollectionType::Dynamic && $queryCreateStruct === null) {
             throw new BadStateException(
                 'queryCreateStruct',
                 'Query create struct must be defined when converting to dynamic collection.',
@@ -199,7 +196,7 @@ final class CollectionService implements APICollectionService
             function () use ($persistenceCollection, $newType, $queryCreateStruct): void {
                 $this->collectionHandler->deleteCollectionQuery($persistenceCollection);
 
-                if ($newType === Collection::TYPE_MANUAL) {
+                if ($newType === CollectionType::Manual) {
                     $persistenceCollection = $this->collectionHandler->updateCollection(
                         $persistenceCollection,
                         CollectionUpdateStruct::fromArray(
