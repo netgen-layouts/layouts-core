@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Transfer\Input;
 
-use Netgen\Layouts\Exception\InvalidArgumentException;
+use Netgen\Layouts\Transfer\Input\ImportMode;
 use Netgen\Layouts\Transfer\Input\ImportOptions;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +37,7 @@ final class ImportOptionsTest extends TestCase
      */
     public function testCopyMode(): void
     {
-        $this->importOptions->setMode(ImportOptions::MODE_COPY);
+        $this->importOptions->setMode(ImportMode::Copy);
 
         self::assertTrue($this->importOptions->copyExisting());
         self::assertFalse($this->importOptions->overwriteExisting());
@@ -52,7 +52,7 @@ final class ImportOptionsTest extends TestCase
      */
     public function testOverwriteMode(): void
     {
-        $this->importOptions->setMode(ImportOptions::MODE_OVERWRITE);
+        $this->importOptions->setMode(ImportMode::Overwrite);
 
         self::assertFalse($this->importOptions->copyExisting());
         self::assertTrue($this->importOptions->overwriteExisting());
@@ -67,21 +67,10 @@ final class ImportOptionsTest extends TestCase
      */
     public function testSkipMode(): void
     {
-        $this->importOptions->setMode(ImportOptions::MODE_SKIP);
+        $this->importOptions->setMode(ImportMode::Skip);
 
         self::assertFalse($this->importOptions->copyExisting());
         self::assertFalse($this->importOptions->overwriteExisting());
         self::assertTrue($this->importOptions->skipExisting());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::setMode
-     */
-    public function testSetInvalidModeThrowsInvalidArgumentException(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Import mode "invalid" is not supported');
-
-        $this->importOptions->setMode('invalid');
     }
 }

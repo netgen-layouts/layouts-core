@@ -4,36 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Input;
 
-use Netgen\Layouts\Exception\InvalidArgumentException;
-
-use function in_array;
-use function sprintf;
-
 final class ImportOptions
 {
-    public const string MODE_COPY = 'copy';
+    private ImportMode $mode = ImportMode::Copy;
 
-    public const string MODE_OVERWRITE = 'overwrite';
-
-    public const string MODE_SKIP = 'skip';
-
-    /**
-     * @var string[]
-     */
-    private static array $modes = [
-        self::MODE_COPY,
-        self::MODE_OVERWRITE,
-        self::MODE_SKIP,
-    ];
-
-    private string $mode = self::MODE_COPY;
-
-    public function setMode(string $mode): self
+    public function setMode(ImportMode $mode): self
     {
-        if (!in_array($mode, self::$modes, true)) {
-            throw new InvalidArgumentException('mode', sprintf('Import mode "%s" is not supported', $mode));
-        }
-
         $this->mode = $mode;
 
         return $this;
@@ -41,16 +17,16 @@ final class ImportOptions
 
     public function copyExisting(): bool
     {
-        return $this->mode === self::MODE_COPY;
+        return $this->mode === ImportMode::Copy;
     }
 
     public function overwriteExisting(): bool
     {
-        return $this->mode === self::MODE_OVERWRITE;
+        return $this->mode === ImportMode::Overwrite;
     }
 
     public function skipExisting(): bool
     {
-        return $this->mode === self::MODE_SKIP;
+        return $this->mode === ImportMode::Skip;
     }
 }

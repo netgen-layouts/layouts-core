@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Command;
 use Exception;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
+use Netgen\Layouts\Transfer\Input\ImportMode;
 use Netgen\Layouts\Transfer\Input\ImportOptions;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SkippedResult;
@@ -62,12 +63,12 @@ final class ImportCommand extends Command
 
         $importMode = $input->getOption('mode');
         if (!is_string($importMode)) {
-            $importMode = ImportOptions::MODE_COPY;
+            $importMode = ImportMode::Copy->value;
         }
 
         $errorCount = $this->importData(
             (string) file_get_contents($file),
-            $importMode,
+            ImportMode::from($importMode),
         );
 
         $errorCount > 0 ?
@@ -80,7 +81,7 @@ final class ImportCommand extends Command
     /**
      * Import new entities from the given data and returns the error count.
      */
-    private function importData(string $data, string $mode): int
+    private function importData(string $data, ImportMode $mode): int
     {
         $errorCount = 0;
         $importOptions = new ImportOptions()

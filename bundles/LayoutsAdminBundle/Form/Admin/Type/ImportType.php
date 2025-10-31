@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 
-use Netgen\Layouts\Transfer\Input\ImportOptions;
+use Netgen\Layouts\Transfer\Input\ImportMode;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,16 +49,17 @@ final class ImportType extends AbstractType
 
         $builder->add(
             'import_mode',
-            Type\ChoiceType::class,
+            Type\EnumType::class,
             [
                 'label' => 'import.import_mode',
                 'expanded' => true,
                 'data' => $this->importMode,
-                'choices' => [
-                    'import.import_mode.copy' => ImportOptions::MODE_COPY,
-                    'import.import_mode.overwrite' => ImportOptions::MODE_OVERWRITE,
-                    'import.import_mode.skip' => ImportOptions::MODE_SKIP,
-                ],
+                'class' => ImportMode::class,
+                'choice_label' => static fn (ImportMode $mode): string => match ($mode) {
+                    ImportMode::Copy => 'import.import_mode.copy',
+                    ImportMode::Overwrite => 'import.import_mode.overwrite',
+                    ImportMode::Skip => 'import.import_mode.skip',
+                },
             ],
         );
     }
