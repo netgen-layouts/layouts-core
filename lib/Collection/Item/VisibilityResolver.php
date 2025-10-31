@@ -19,8 +19,8 @@ final class VisibilityResolver implements VisibilityResolverInterface
     {
         foreach ($this->voters as $voter) {
             $result = $voter->vote($item);
-            if ($result !== VisibilityVoterInterface::ABSTAIN) {
-                return $result === VisibilityVoterInterface::YES;
+            if ($result !== VisibilityVoterResult::Abstain) {
+                return $result === VisibilityVoterResult::Yes;
             }
         }
 

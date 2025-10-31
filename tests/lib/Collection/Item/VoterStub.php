@@ -6,14 +6,15 @@ namespace Netgen\Layouts\Tests\Collection\Item;
 
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Collection\Item\VisibilityVoterInterface;
+use Netgen\Layouts\Collection\Item\VisibilityVoterResult;
 
 final class VoterStub implements VisibilityVoterInterface
 {
     public function __construct(
-        private int $vote,
+        private VisibilityVoterResult $vote,
     ) {}
 
-    public function vote(Item $item): int
+    public function vote(Item $item): VisibilityVoterResult
     {
         return $this->vote;
     }

@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Collection\Item;
 
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\Collection\Item\VisibilityVoterResult;
 use PHPUnit\Framework\TestCase;
 
 final class VisibilityResolverTest extends TestCase
@@ -30,64 +31,64 @@ final class VisibilityResolverTest extends TestCase
         return [
             [
                 [
-                    new VoterStub(VoterStub::ABSTAIN),
-                    new VoterStub(VoterStub::ABSTAIN),
+                    new VoterStub(VisibilityVoterResult::Abstain),
+                    new VoterStub(VisibilityVoterResult::Abstain),
                 ],
                 true,
             ],
             [
                 [
-                    new VoterStub(VoterStub::ABSTAIN),
-                    new VoterStub(VoterStub::YES),
+                    new VoterStub(VisibilityVoterResult::Abstain),
+                    new VoterStub(VisibilityVoterResult::Yes),
                 ],
                 true,
             ],
             [
                 [
-                    new VoterStub(VoterStub::ABSTAIN),
-                    new VoterStub(VoterStub::NO),
+                    new VoterStub(VisibilityVoterResult::Abstain),
+                    new VoterStub(VisibilityVoterResult::No),
                 ],
                 false,
             ],
             [
                 [
-                    new VoterStub(VoterStub::YES),
-                    new VoterStub(VoterStub::ABSTAIN),
+                    new VoterStub(VisibilityVoterResult::Yes),
+                    new VoterStub(VisibilityVoterResult::Abstain),
                 ],
                 true,
             ],
             [
                 [
-                    new VoterStub(VoterStub::YES),
-                    new VoterStub(VoterStub::YES),
+                    new VoterStub(VisibilityVoterResult::Yes),
+                    new VoterStub(VisibilityVoterResult::Yes),
                 ],
                 true,
             ],
             [
                 [
-                    new VoterStub(VoterStub::YES),
-                    new VoterStub(VoterStub::NO),
+                    new VoterStub(VisibilityVoterResult::Yes),
+                    new VoterStub(VisibilityVoterResult::No),
                 ],
                 true,
             ],
             [
                 [
-                    new VoterStub(VoterStub::NO),
-                    new VoterStub(VoterStub::ABSTAIN),
+                    new VoterStub(VisibilityVoterResult::No),
+                    new VoterStub(VisibilityVoterResult::Abstain),
                 ],
                 false,
             ],
             [
                 [
-                    new VoterStub(VoterStub::NO),
-                    new VoterStub(VoterStub::YES),
+                    new VoterStub(VisibilityVoterResult::No),
+                    new VoterStub(VisibilityVoterResult::Yes),
                 ],
                 false,
             ],
             [
                 [
-                    new VoterStub(VoterStub::NO),
-                    new VoterStub(VoterStub::NO),
+                    new VoterStub(VisibilityVoterResult::No),
+                    new VoterStub(VisibilityVoterResult::No),
                 ],
                 false,
             ],
