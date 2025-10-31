@@ -578,7 +578,7 @@ final class BlockService implements BlockServiceInterface
         foreach ($blocks as $block) {
             try {
                 yield $this->mapper->mapBlock($block, $locales, $useMainLocale);
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 // Block does not have the translation, skip it
             }
         }

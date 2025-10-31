@@ -60,7 +60,7 @@ final class LayoutResolverMapper
                     return $rule->layoutUuid !== null ?
                         $this->layoutService->loadLayout(Uuid::fromString($rule->layoutUuid)) :
                         null;
-                } catch (NotFoundException $e) {
+                } catch (NotFoundException) {
                     return null;
                 }
             },
@@ -125,7 +125,7 @@ final class LayoutResolverMapper
             $targetType = $this->targetTypeRegistry->getTargetType(
                 $target->type,
             );
-        } catch (TargetTypeException $e) {
+        } catch (TargetTypeException) {
             $targetType = new NullTargetType();
         }
 
@@ -149,7 +149,7 @@ final class LayoutResolverMapper
             $conditionType = $this->conditionTypeRegistry->getConditionType(
                 $condition->type,
             );
-        } catch (ConditionTypeException $e) {
+        } catch (ConditionTypeException) {
             $conditionType = new NullConditionType();
         }
 
@@ -173,7 +173,7 @@ final class LayoutResolverMapper
             $conditionType = $this->conditionTypeRegistry->getConditionType(
                 $condition->type,
             );
-        } catch (ConditionTypeException $e) {
+        } catch (ConditionTypeException) {
             $conditionType = new NullConditionType();
         }
 

@@ -69,7 +69,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             $data['has_archived_state'] = true;
             $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTimeInterface::ATOM);
             $data['archive_updated_at'] = $archivedLayout->getModified()->format(DateTimeInterface::ATOM);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 

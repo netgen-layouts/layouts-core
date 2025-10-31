@@ -46,7 +46,7 @@ final class ConfigAwareValueTraitTest extends TestCase
 
         try {
             $value->getConfig('unknown');
-        } catch (ConfigException $e) {
+        } catch (ConfigException) {
             // Do nothing
         }
     }

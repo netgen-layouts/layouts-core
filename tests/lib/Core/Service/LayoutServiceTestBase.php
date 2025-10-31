@@ -119,7 +119,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
                 try {
                     $this->layoutService->loadLayout($layout->getId());
                     self::fail('Layout in draft status with existing published version loaded.');
-                } catch (NotFoundException $e) {
+                } catch (NotFoundException) {
                     // Do nothing
                 }
             }
@@ -1237,7 +1237,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         try {
             $this->layoutService->loadLayoutDraft($layout->getId());
             self::fail('Draft layout still exists after publishing.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }

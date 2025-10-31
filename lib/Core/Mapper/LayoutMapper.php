@@ -51,7 +51,7 @@ final class LayoutMapper
                     );
 
                     return $this->mapZone($linkedZone);
-                } catch (NotFoundException $e) {
+                } catch (NotFoundException) {
                     return null;
                 }
             },
@@ -67,7 +67,7 @@ final class LayoutMapper
     {
         try {
             $layoutType = $this->layoutTypeRegistry->getLayoutType($layout->type);
-        } catch (LayoutTypeException $e) {
+        } catch (LayoutTypeException) {
             $layoutType = new NullLayoutType($layout->type);
         }
 

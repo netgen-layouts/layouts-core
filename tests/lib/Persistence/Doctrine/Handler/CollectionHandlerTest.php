@@ -1483,7 +1483,7 @@ final class CollectionHandlerTest extends TestCase
         // First, verify that NOT all collection statuses are deleted
         try {
             $this->collectionHandler->loadCollection(3, Status::Published);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             self::fail('Deleting the collection in draft status deleted other/all statuses.');
         }
 
@@ -2285,7 +2285,7 @@ final class CollectionHandlerTest extends TestCase
         try {
             $this->collectionHandler->loadItem(2, Status::Draft);
             self::fail('Item still exists after deleting');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }
@@ -2308,7 +2308,7 @@ final class CollectionHandlerTest extends TestCase
         try {
             $this->collectionHandler->loadItem(7, Status::Draft);
             self::fail('Item still exists after deleting');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }

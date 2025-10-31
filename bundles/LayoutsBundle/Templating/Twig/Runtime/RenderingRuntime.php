@@ -237,7 +237,7 @@ final class RenderingRuntime
             $template = $this->simpleTwig->createTemplate($string);
 
             return $this->simpleTwig->resolveTemplate($template)->render($parameters);
-        } catch (Throwable $t) {
+        } catch (Throwable) {
             return '';
         }
     }
@@ -266,7 +266,7 @@ final class RenderingRuntime
      */
     private function getTemplateVariables(array $parameters): Generator
     {
-        foreach ($parameters as $name => $value) {
+        foreach ($parameters as $value) {
             if ($value instanceof ContextualizedTwigTemplate) {
                 yield from $this->getTemplateVariables($value->getContext());
             }

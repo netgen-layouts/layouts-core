@@ -906,7 +906,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         try {
             $this->layoutResolverService->loadRuleDraft($rule->getId());
             self::fail('Draft rule still exists after publishing.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }
@@ -1331,7 +1331,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         try {
             $this->layoutResolverService->loadRuleGroupDraft($ruleGroup->getId());
             self::fail('Draft rule group still exists after publishing.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }

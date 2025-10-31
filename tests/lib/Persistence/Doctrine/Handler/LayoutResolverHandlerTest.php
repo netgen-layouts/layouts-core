@@ -1102,7 +1102,7 @@ final class LayoutResolverHandlerTest extends TestCase
         // First, verify that NOT all rule statuses are deleted
         try {
             $this->handler->loadRule(5, Status::Published);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             self::fail('Deleting the rule in draft status deleted other/all statuses.');
         }
 
@@ -1771,7 +1771,7 @@ final class LayoutResolverHandlerTest extends TestCase
         // First, verify that NOT all rule group statuses are deleted
         try {
             $this->handler->loadRuleGroup(2, Status::Published);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             self::fail('Deleting the rule group in draft status deleted other/all statuses.');
         }
 

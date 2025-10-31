@@ -497,7 +497,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         try {
             $this->collectionService->loadItemDraft($item->getId());
             self::fail('Item still exists after deleting.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 

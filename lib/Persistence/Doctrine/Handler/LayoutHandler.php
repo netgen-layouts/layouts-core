@@ -338,7 +338,7 @@ final class LayoutHandler implements LayoutHandlerInterface
                         Status::Published,
                         $layoutZone->linkedZoneIdentifier,
                     );
-                } catch (NotFoundException $e) {
+                } catch (NotFoundException) {
                     // Do nothing
                 }
             }

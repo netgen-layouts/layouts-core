@@ -44,7 +44,7 @@ final class LayoutsDataCollector extends DataCollector
         try {
             $version = Version::fromString($coreVersion);
             $this->data['docs_version'] = sprintf('%d.%d', $version->getMajor(), $version->getMinor());
-        } catch (InvalidVersionString $e) {
+        } catch (InvalidVersionString) {
             // Do nothing
         }
 

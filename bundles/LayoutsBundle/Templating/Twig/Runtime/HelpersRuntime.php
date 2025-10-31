@@ -54,7 +54,7 @@ final class HelpersRuntime
             $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
 
             return $layout->getName();
-        } catch (Throwable $t) {
+        } catch (Throwable) {
             return '';
         }
     }
@@ -78,7 +78,7 @@ final class HelpersRuntime
             $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString($ruleGroupId));
 
             return $ruleGroup->getName();
-        } catch (Throwable $t) {
+        } catch (Throwable) {
             return '';
         }
     }
@@ -90,7 +90,7 @@ final class HelpersRuntime
     {
         try {
             return $this->valueTypeRegistry->getValueType($cmsItem->getValueType())->getName();
-        } catch (ItemException $t) {
+        } catch (ItemException) {
             return '';
         }
     }
@@ -104,7 +104,7 @@ final class HelpersRuntime
     {
         try {
             return FlagGenerator::fromCountryCode($countryCode);
-        } catch (Throwable $t) {
+        } catch (Throwable) {
             return $countryCode;
         }
     }

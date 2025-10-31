@@ -35,7 +35,7 @@ final class CompoundParameterDefinitionTest extends TestCase
         try {
             $parameterDefinition->getParameterDefinition('test');
             self::fail('Fetched a parameter in empty collection.');
-        } catch (ParameterException $e) {
+        } catch (ParameterException) {
             // Do nothing
         }
 

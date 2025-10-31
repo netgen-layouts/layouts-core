@@ -601,7 +601,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         try {
             $draftRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Draft);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -845,7 +845,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         try {
             $draftRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Draft);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 

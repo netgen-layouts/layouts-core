@@ -53,7 +53,7 @@ abstract class BlockTestCase extends CoreTestCase
 
         self::assertSame(array_keys($expectedParameters), array_keys($createdParameters));
 
-        foreach ($expectedParameters as $key => $expectedParameter) {
+        foreach ($expectedParameters as $expectedParameter) {
             self::assertContainsEquals($expectedParameter, $createdParameters);
         }
     }

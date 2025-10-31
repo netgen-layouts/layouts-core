@@ -1727,7 +1727,7 @@ final class LayoutHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(2, Status::Published);
             $this->collectionHandler->loadCollection(3, Status::Published);
             self::fail('Collections not deleted after deleting the layout.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -1748,7 +1748,7 @@ final class LayoutHandlerTest extends TestCase
         try {
             $this->layoutHandler->loadLayout(1, Status::Draft);
             self::fail('Layout not deleted after deleting it in one status.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -1759,7 +1759,7 @@ final class LayoutHandlerTest extends TestCase
         try {
             $this->collectionHandler->loadCollection(1, Status::Draft);
             self::fail('Collection not deleted after deleting layout in one status.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 

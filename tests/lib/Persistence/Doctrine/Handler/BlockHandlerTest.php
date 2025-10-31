@@ -2084,14 +2084,14 @@ final class BlockHandlerTest extends TestCase
         try {
             $this->blockHandler->loadBlock(31, Status::Draft);
             self::fail('Block still exists after deleting');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
         try {
             $this->collectionHandler->loadCollection(1, Status::Draft);
             self::fail('Collection still exists after deleting a block.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -2115,21 +2115,21 @@ final class BlockHandlerTest extends TestCase
         try {
             $this->blockHandler->loadBlock(33, Status::Draft);
             self::fail('Block still exists after deleting');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
         try {
             $this->blockHandler->loadBlock(37, Status::Draft);
             self::fail('Sub-block still exists after deleting');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
         try {
             $this->collectionHandler->loadCollection(6, Status::Draft);
             self::fail('Collection still exists after deleting a sub-block.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }
@@ -2261,7 +2261,7 @@ final class BlockHandlerTest extends TestCase
                     31,
                 ),
             );
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -2273,7 +2273,7 @@ final class BlockHandlerTest extends TestCase
                     32,
                 ),
             );
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -2285,7 +2285,7 @@ final class BlockHandlerTest extends TestCase
                     31,
                 ),
             );
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -2297,7 +2297,7 @@ final class BlockHandlerTest extends TestCase
                     32,
                 ),
             );
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }
@@ -2324,7 +2324,7 @@ final class BlockHandlerTest extends TestCase
                     31,
                 ),
             );
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -2336,7 +2336,7 @@ final class BlockHandlerTest extends TestCase
                     32,
                 ),
             );
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 

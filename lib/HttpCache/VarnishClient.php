@@ -44,7 +44,7 @@ final class VarnishClient implements ClientInterface
     {
         try {
             $this->fosInvalidator->flush();
-        } catch (ExceptionCollection $e) {
+        } catch (ExceptionCollection) {
             // Do nothing, FOS invalidator will write to log.
             return false;
         }

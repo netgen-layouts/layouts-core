@@ -28,7 +28,7 @@ final class IdProvider implements IdProviderInterface
 
         try {
             $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             return $layoutIds;
         }
 

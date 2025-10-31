@@ -86,7 +86,7 @@ final class CollectionMapper
             'query' => function () use ($collection, $locales): ?Query {
                 try {
                     $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
-                } catch (NotFoundException $e) {
+                } catch (NotFoundException) {
                     return null;
                 }
 
@@ -115,7 +115,7 @@ final class CollectionMapper
     {
         try {
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
-        } catch (ItemDefinitionException $e) {
+        } catch (ItemDefinitionException) {
             $itemDefinition = new NullItemDefinition($item->valueType);
         }
 
@@ -166,7 +166,7 @@ final class CollectionMapper
     {
         try {
             $queryType = $this->queryTypeRegistry->getQueryType($query->type);
-        } catch (QueryTypeException $e) {
+        } catch (QueryTypeException) {
             $queryType = new NullQueryType($query->type);
         }
 

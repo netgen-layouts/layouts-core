@@ -57,7 +57,7 @@ final class ParameterDefinitionTest extends TestCase
             $parameterDefinition->getOption('other');
 
             self::fail('Non existing option was returned.');
-        } catch (ParameterException $e) {
+        } catch (ParameterException) {
             // Do nothing
         }
     }

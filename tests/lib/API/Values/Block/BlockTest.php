@@ -103,7 +103,7 @@ final class BlockTest extends TestCase
 
         try {
             $block->getPlaceholder('test');
-        } catch (BlockException $e) {
+        } catch (BlockException) {
             // Do nothing
         }
 
@@ -112,7 +112,7 @@ final class BlockTest extends TestCase
 
         try {
             $block->getCollection('test');
-        } catch (BlockException $e) {
+        } catch (BlockException) {
             // Do nothing
         }
     }

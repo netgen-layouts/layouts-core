@@ -262,7 +262,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         try {
             $query = $this->loadCollectionQuery($collection);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -374,7 +374,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         try {
             $collectionQuery = $this->loadCollectionQuery($collection);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -448,7 +448,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         try {
             $collectionQuery = $this->loadCollectionQuery($collection);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -562,7 +562,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         if ($item->position + 1 === $position || $item->position - 1 === $position) {
             try {
                 $switchWithItem = $this->loadItemWithPosition($collection, $position);
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 // Do nothing
             }
         }
@@ -687,7 +687,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             $this->loadCollectionQuery($collection);
 
             throw new BadStateException('collection', 'Provided collection already has a query.');
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 
@@ -749,7 +749,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         try {
             $this->loadCollectionQuery($collection);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             return false;
         }
 

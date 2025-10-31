@@ -572,7 +572,7 @@ final class LayoutService implements LayoutServiceInterface
 
         try {
             $draftLayout = $this->layoutHandler->loadLayout($layout->getId(), PersistenceStatus::Draft);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
 

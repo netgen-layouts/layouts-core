@@ -60,7 +60,7 @@ final class BlockMapper
             $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
                 $block->definitionIdentifier,
             );
-        } catch (BlockDefinitionException $e) {
+        } catch (BlockDefinitionException) {
             $blockDefinition = new NullBlockDefinition($block->definitionIdentifier);
         }
 
