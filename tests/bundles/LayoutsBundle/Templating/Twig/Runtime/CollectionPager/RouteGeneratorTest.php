@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-use function call_user_func;
-
 final class RouteGeneratorTest extends TestCase
 {
     private Context $context;
@@ -89,7 +87,7 @@ final class RouteGeneratorTest extends TestCase
             ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');
 
-        $url = call_user_func($this->routeGenerator, $block, 'default', $page);
+        $url = ($this->routeGenerator)($block, 'default', $page);
 
         self::assertSame($finalUri, $url);
     }
@@ -132,7 +130,7 @@ final class RouteGeneratorTest extends TestCase
             ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');
 
-        $url = call_user_func($this->routeGenerator, $block, 'default', $page);
+        $url = ($this->routeGenerator)($block, 'default', $page);
 
         self::assertSame($finalUri, $url);
     }

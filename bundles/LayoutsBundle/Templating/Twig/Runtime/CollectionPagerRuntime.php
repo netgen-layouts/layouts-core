@@ -10,7 +10,6 @@ use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
 
-use function call_user_func;
 use function sprintf;
 
 final class CollectionPagerRuntime
@@ -52,6 +51,6 @@ final class CollectionPagerRuntime
             );
         }
 
-        return call_user_func($this->routeGenerator, $block, $collectionIdentifier, $page);
+        return ($this->routeGenerator)($block, $collectionIdentifier, $page);
     }
 }
