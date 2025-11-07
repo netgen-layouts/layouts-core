@@ -27,11 +27,12 @@ final class LinkDataMapper implements DataMapperInterface
         }
 
         $forms = iterator_to_array($forms);
-        $linkType = $viewData->getLinkType();
 
-        $forms['link_type']->setData($linkType);
+        $forms['link_type']->setData($viewData->getLinkType());
         $forms['link_suffix']->setData($viewData->getLinkSuffix());
         $forms['new_window']->setData($viewData->getNewWindow());
+
+        $linkType = $viewData->getLinkType()->value ?? '';
 
         if (isset($forms[$linkType])) {
             $forms[$linkType]->setData($viewData->getLink());
@@ -41,7 +42,8 @@ final class LinkDataMapper implements DataMapperInterface
     public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
         $forms = iterator_to_array($forms);
-        $linkType = $forms['link_type']->getData() ?? '';
+
+        $linkType = $forms['link_type']->getData()->value ?? '';
 
         $viewData = null;
         if ($linkType !== '') {

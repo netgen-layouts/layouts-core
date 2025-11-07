@@ -13,17 +13,7 @@ final class LinkValue implements Stringable
 {
     use HydratorTrait;
 
-    public const string LINK_TYPE_URL = 'url';
-
-    public const string LINK_TYPE_RELATIVE_URL = 'relative_url';
-
-    public const string LINK_TYPE_EMAIL = 'email';
-
-    public const string LINK_TYPE_PHONE = 'phone';
-
-    public const string LINK_TYPE_INTERNAL = 'internal';
-
-    private string $linkType = '';
+    private ?LinkType $linkType = null;
 
     private string $link = '';
 
@@ -39,7 +29,7 @@ final class LinkValue implements Stringable
     /**
      * Returns the link type.
      */
-    public function getLinkType(): string
+    public function getLinkType(): ?LinkType
     {
         return $this->linkType;
     }

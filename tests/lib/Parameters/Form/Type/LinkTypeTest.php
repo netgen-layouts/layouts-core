@@ -16,6 +16,7 @@ use Netgen\Layouts\Parameters\Form\Type\LinkType;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\LinkType as LinkParameterType;
+use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
@@ -48,10 +49,10 @@ final class LinkTypeTest extends FormTestCase
     public function testSubmitValidData(): void
     {
         $submittedData = [
-            'link_type' => 'url',
+            'link_type' => LinkTypeEnum::Url->value,
             'link_suffix' => '?suffix',
             'new_window' => true,
-            'url' => 'https://netgen.io',
+            LinkTypeEnum::Url->value => 'https://netgen.io',
         ];
 
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -76,7 +77,7 @@ final class LinkTypeTest extends FormTestCase
             [
                 'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
-                'linkType' => 'url',
+                'linkType' => LinkTypeEnum::Url,
                 'newWindow' => true,
             ],
             $this->exportObject($formData),
@@ -101,7 +102,7 @@ final class LinkTypeTest extends FormTestCase
             'link_type' => 'unknown',
             'link_suffix' => '?suffix',
             'new_window' => true,
-            'url' => 'https://netgen.io',
+            LinkTypeEnum::Url->value => 'https://netgen.io',
         ];
 
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -126,7 +127,7 @@ final class LinkTypeTest extends FormTestCase
             [
                 'link' => '',
                 'linkSuffix' => '',
-                'linkType' => '',
+                'linkType' => null,
                 'newWindow' => false,
             ],
             $this->exportObject($formData),
@@ -159,17 +160,17 @@ final class LinkTypeTest extends FormTestCase
 
         $form->submit(
             [
-                'link_type' => 'url',
+                'link_type' => LinkTypeEnum::Url->value,
                 'link_suffix' => '?suffix',
                 'new_window' => true,
-                'url' => 'https://netgen.io',
+                LinkTypeEnum::Url->value => 'https://netgen.io',
             ],
         );
 
         $form->get('link')->addError(new FormError('an error'));
         $form->createView();
 
-        $errors = $form->get('url')->getErrors();
+        $errors = $form->get(LinkTypeEnum::Url->value)->getErrors();
         self::assertCount(1, $errors);
 
         /** @var \Symfony\Component\Form\FormError $firstError */
@@ -197,14 +198,14 @@ final class LinkTypeTest extends FormTestCase
                 'link_type' => 'unknown',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
-                'url' => 'https://netgen.io',
+                LinkTypeEnum::Url->value => 'https://netgen.io',
             ],
         );
 
         $form->get('link')->addError(new FormError('an error'));
         $form->createView();
 
-        self::assertCount(0, $form->get('url')->getErrors());
+        self::assertCount(0, $form->get(LinkTypeEnum::Url->value)->getErrors());
     }
 
     /**

@@ -11,6 +11,7 @@ use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\LinkType;
+use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
@@ -152,49 +153,49 @@ final class LinkTypeTest extends TestCase
         return [
             [null, true, [], true],
             [null, false, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'linkSuffix' => 'suffix']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => true]), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => false]), true, [], true],
-            [LinkValue::fromArray(['linkType' => '', 'link' => '']), true, [], true],
-            [LinkValue::fromArray(['linkType' => '', 'link' => 'https://netgen.io']), true, [], false],
-            [LinkValue::fromArray(['linkType' => '', 'link' => '']), false, [], true],
-            [LinkValue::fromArray(['linkType' => '', 'link' => 'https://netgen.io']), false, [], false],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => '']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => '']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), true, [], false],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), false, [], false],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => '']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => '']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), true, [], false],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), false, [], false],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => '']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => '']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => '']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, [], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'default://42']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => '']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, [], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'default://42']), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, [], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, [], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => '']), true, ['value'], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, ['value'], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => '']), false, ['value'], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, ['value'], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, ['value'], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, ['value'], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => '']), true, ['other'], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, ['other'], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => '']), false, ['other'], true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, ['other'], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, ['other'], false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, ['other'], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'https://netgen.io', 'linkSuffix' => 'suffix']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'https://netgen.io', 'newWindow' => true]), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'https://netgen.io', 'newWindow' => false]), true, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => '']), true, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), true, [], false],
+            [LinkValue::fromArray(['linkType' => null, 'link' => '']), false, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), false, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => '']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'https://netgen.io']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => '']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'https://netgen.io']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'invalid']), true, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'invalid']), false, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'link' => '']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'link' => 'info@netgen.io']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'link' => '']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'link' => 'info@netgen.io']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'link' => 'invalid']), true, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'link' => 'invalid']), false, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'link' => '']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'link' => 'info@netgen.io']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'link' => '']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'link' => 'info@netgen.io']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => '']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value://42']), true, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'default://42']), true, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => '']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value://42']), false, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'default://42']), false, [], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value']), true, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value']), false, [], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => '']), true, ['value'], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value://42']), true, ['value'], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => '']), false, ['value'], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value://42']), false, ['value'], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value']), true, ['value'], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value']), false, ['value'], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => '']), true, ['other'], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value://42']), true, ['other'], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => '']), false, ['other'], true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value://42']), false, ['other'], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value']), true, ['other'], false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'value']), false, ['other'], false],
         ];
     }
 
@@ -218,14 +219,14 @@ final class LinkTypeTest extends TestCase
             [
                 LinkValue::fromArray(
                     [
-                        'linkType' => 'url',
+                        'linkType' => LinkTypeEnum::Url,
                         'link' => 'https://netgen.io',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ],
                 ),
                 [
-                    'link_type' => 'url',
+                    'link_type' => LinkTypeEnum::Url->value,
                     'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -257,7 +258,7 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => '',
                     'linkSuffix' => '',
-                    'linkType' => '',
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
@@ -266,13 +267,13 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => '',
                     'linkSuffix' => '',
-                    'linkType' => '',
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
             [
                 [
-                    'link_type' => 'url',
+                    'link_type' => LinkTypeEnum::Url->value,
                     'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -280,19 +281,19 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => 'https://netgen.io',
                     'linkSuffix' => '?suffix',
-                    'linkType' => 'url',
+                    'linkType' => LinkTypeEnum::Url,
                     'newWindow' => true,
                 ],
             ],
             [
                 [
-                    'link_type' => 'url',
+                    'link_type' => LinkTypeEnum::Url->value,
                     'link' => 'https://netgen.io',
                 ],
                 [
                     'link' => 'https://netgen.io',
                     'linkSuffix' => '',
-                    'linkType' => 'url',
+                    'linkType' => LinkTypeEnum::Url,
                     'newWindow' => false,
                 ],
             ],
@@ -336,7 +337,7 @@ final class LinkTypeTest extends TestCase
 
         self::assertSame(
             [
-                'link_type' => 'internal',
+                'link_type' => LinkTypeEnum::Internal->value,
                 'link' => 'null://0',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
@@ -345,7 +346,7 @@ final class LinkTypeTest extends TestCase
                 $this->getParameterDefinition(),
                 LinkValue::fromArray(
                     [
-                        'linkType' => 'internal',
+                        'linkType' => LinkTypeEnum::Internal,
                         'link' => 'my_value_type://24',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
@@ -365,14 +366,14 @@ final class LinkTypeTest extends TestCase
             [
                 LinkValue::fromArray(
                     [
-                        'linkType' => 'url',
+                        'linkType' => LinkTypeEnum::Url,
                         'link' => 'https://netgen.io',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ],
                 ),
                 [
-                    'link_type' => 'url',
+                    'link_type' => LinkTypeEnum::Url->value,
                     'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -381,14 +382,14 @@ final class LinkTypeTest extends TestCase
             [
                 LinkValue::fromArray(
                     [
-                        'linkType' => 'internal',
+                        'linkType' => LinkTypeEnum::Internal,
                         'link' => 'my-value-type://42',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ],
                 ),
                 [
-                    'link_type' => 'internal',
+                    'link_type' => LinkTypeEnum::Internal->value,
                     'link' => 'my-value-type://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -397,14 +398,14 @@ final class LinkTypeTest extends TestCase
             [
                 LinkValue::fromArray(
                     [
-                        'linkType' => 'internal',
+                        'linkType' => LinkTypeEnum::Internal,
                         'link' => 'invalid',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ],
                 ),
                 [
-                    'link_type' => 'internal',
+                    'link_type' => LinkTypeEnum::Internal->value,
                     'link' => 'null://0',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -456,7 +457,7 @@ final class LinkTypeTest extends TestCase
         $importedValue = $this->type->import(
             $this->getParameterDefinition(),
             [
-                'link_type' => 'internal',
+                'link_type' => LinkTypeEnum::Internal->value,
                 'link' => 'my_value_type://def',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
@@ -469,7 +470,7 @@ final class LinkTypeTest extends TestCase
             [
                 'link' => 'null://0',
                 'linkSuffix' => '?suffix',
-                'linkType' => 'internal',
+                'linkType' => LinkTypeEnum::Internal,
                 'newWindow' => true,
             ],
             $this->exportObject($importedValue),
@@ -484,7 +485,7 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => '',
                     'linkSuffix' => '',
-                    'linkType' => '',
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
@@ -493,13 +494,13 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => '',
                     'linkSuffix' => '',
-                    'linkType' => '',
+                    'linkType' => null,
                     'newWindow' => false,
                 ],
             ],
             [
                 [
-                    'link_type' => 'url',
+                    'link_type' => LinkTypeEnum::Url->value,
                     'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -507,25 +508,25 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => 'https://netgen.io',
                     'linkSuffix' => '?suffix',
-                    'linkType' => 'url',
+                    'linkType' => LinkTypeEnum::Url,
                     'newWindow' => true,
                 ],
             ],
             [
                 [
-                    'link_type' => 'url',
+                    'link_type' => LinkTypeEnum::Url->value,
                     'link' => 'https://netgen.io',
                 ],
                 [
                     'link' => 'https://netgen.io',
                     'linkSuffix' => '',
-                    'linkType' => 'url',
+                    'linkType' => LinkTypeEnum::Url,
                     'newWindow' => false,
                 ],
             ],
             [
                 [
-                    'link_type' => 'internal',
+                    'link_type' => LinkTypeEnum::Internal->value,
                     'link' => 'my-value-type://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -533,13 +534,13 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => 'my-value-type://42',
                     'linkSuffix' => '?suffix',
-                    'linkType' => 'internal',
+                    'linkType' => LinkTypeEnum::Internal,
                     'newWindow' => true,
                 ],
             ],
             [
                 [
-                    'link_type' => 'internal',
+                    'link_type' => LinkTypeEnum::Internal->value,
                     'link' => 'invalid',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
@@ -547,18 +548,18 @@ final class LinkTypeTest extends TestCase
                 [
                     'link' => 'null://0',
                     'linkSuffix' => '?suffix',
-                    'linkType' => 'internal',
+                    'linkType' => LinkTypeEnum::Internal,
                     'newWindow' => true,
                 ],
             ],
             [
                 [
-                    'link_type' => 'internal',
+                    'link_type' => LinkTypeEnum::Internal->value,
                 ],
                 [
                     'link' => 'null://0',
                     'linkSuffix' => '',
-                    'linkType' => 'internal',
+                    'linkType' => LinkTypeEnum::Internal,
                     'newWindow' => false,
                 ],
             ],
@@ -580,18 +581,18 @@ final class LinkTypeTest extends TestCase
         return [
             [null, true],
             [new LinkValue(), true],
-            [LinkValue::fromArray(['linkType' => 'url']), true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), false],
-            [LinkValue::fromArray(['linkType' => 'url', 'linkSuffix' => '?suffix']), false],
-            [LinkValue::fromArray(['linkType' => 'email']), true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), false],
-            [LinkValue::fromArray(['linkType' => 'email', 'linkSuffix' => '?suffix']), true],
-            [LinkValue::fromArray(['linkType' => 'tel']), true],
-            [LinkValue::fromArray(['linkType' => 'tel', 'link' => '123456']), false],
-            [LinkValue::fromArray(['linkType' => 'tel', 'linkSuffix' => '?suffix']), true],
-            [LinkValue::fromArray(['linkType' => 'internal']), true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'my_value_type://42']), false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'linkSuffix' => '?suffix']), true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url]), true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'link' => 'https://netgen.io']), false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Url, 'linkSuffix' => '?suffix']), false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email]), true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'link' => 'info@netgen.io']), false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Email, 'linkSuffix' => '?suffix']), true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone]), true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'link' => '123456']), false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'linkSuffix' => '?suffix']), true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal]), true],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'my_value_type://42']), false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'linkSuffix' => '?suffix']), true],
         ];
     }
 }

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Parameters;
 use DateTimeImmutable;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Value\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use PHPUnit\Framework\TestCase;
 
@@ -103,7 +104,7 @@ final class ParameterTest extends TestCase
 
         $linkValue = LinkValue::fromArray(
             [
-                'linkType' => LinkValue::LINK_TYPE_EMAIL,
+                'linkType' => LinkType::Email,
                 'link' => 'info@netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,

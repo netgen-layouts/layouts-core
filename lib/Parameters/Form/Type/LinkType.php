@@ -6,11 +6,11 @@ namespace Netgen\Layouts\Parameters\Form\Type;
 
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
-use Netgen\Layouts\Parameters\Value\LinkValue;
+use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -18,8 +18,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use function is_string;
 
 final class LinkType extends AbstractType
 {
@@ -37,23 +35,24 @@ final class LinkType extends AbstractType
     {
         $builder->add(
             'link_type',
-            ChoiceType::class,
+            EnumType::class,
             [
+                'class' => LinkTypeEnum::class,
                 'label' => 'parameter.link.link_type',
-                'choices' => [
-                    'parameter.link.link_type.url' => LinkValue::LINK_TYPE_URL,
-                    'parameter.link.link_type.relative_url' => LinkValue::LINK_TYPE_RELATIVE_URL,
-                    'parameter.link.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
-                    'parameter.link.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
-                    'parameter.link.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
-                ],
+                'choice_label' => static fn (LinkTypeEnum $linkType): string => match ($linkType) {
+                    LinkTypeEnum::Url => 'parameter.link.link_type.url',
+                    LinkTypeEnum::RelativeUrl => 'parameter.link.link_type.relative_url',
+                    LinkTypeEnum::Email => 'parameter.link.link_type.email',
+                    LinkTypeEnum::Phone => 'parameter.link.link_type.phone',
+                    LinkTypeEnum::Internal => 'parameter.link.link_type.internal',
+                },
                 'required' => true,
                 'property_path' => 'linkType',
             ],
         );
 
         $builder->add(
-            LinkValue::LINK_TYPE_URL,
+            LinkTypeEnum::Url->value,
             UrlType::class,
             [
                 'label' => 'parameter.link.link_type.url',
@@ -62,7 +61,7 @@ final class LinkType extends AbstractType
         );
 
         $builder->add(
-            LinkValue::LINK_TYPE_RELATIVE_URL,
+            LinkTypeEnum::RelativeUrl->value,
             TextType::class,
             [
                 'label' => 'parameter.link.link_type.relative_url',
@@ -71,7 +70,7 @@ final class LinkType extends AbstractType
         );
 
         $builder->add(
-            LinkValue::LINK_TYPE_EMAIL,
+            LinkTypeEnum::Email->value,
             EmailType::class,
             [
                 'label' => 'parameter.link.link_type.email',
@@ -79,7 +78,7 @@ final class LinkType extends AbstractType
         );
 
         $builder->add(
-            LinkValue::LINK_TYPE_PHONE,
+            LinkTypeEnum::Phone->value,
             TextType::class,
             [
                 'label' => 'parameter.link.link_type.phone',
@@ -87,7 +86,7 @@ final class LinkType extends AbstractType
         );
 
         $internalLinkForm = $builder->create(
-            LinkValue::LINK_TYPE_INTERNAL,
+            LinkTypeEnum::Internal->value,
             ContentBrowserDynamicType::class,
             [
                 'label' => 'parameter.link.link_type.internal',
@@ -136,12 +135,13 @@ final class LinkType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
+        /** @var \Netgen\Layouts\Parameters\Value\LinkType $linkType */
         $linkType = $form->get('link_type')->getData();
-        if (!is_string($linkType) || !$form->has($linkType)) {
+        if ($linkType === null || !$form->has($linkType->value)) {
             return;
         }
 
-        $targetForm = $form->get($linkType);
+        $targetForm = $form->get($linkType->value);
 
         foreach ($form->get('link')->getErrors() as $linkError) {
             $targetForm->addError($linkError);

@@ -8,6 +8,7 @@ use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Validator\Constraint\Parameters\Link as LinkConstraint;
 use Symfony\Component\OptionsResolver\Options;
@@ -74,7 +75,7 @@ final class LinkType extends ParameterType
         }
 
         return [
-            'link_type' => $value->getLinkType(),
+            'link_type' => $value->getLinkType()->value ?? '',
             'link' => $value->getLink(),
             'link_suffix' => $value->getLinkSuffix(),
             'new_window' => $value->getNewWindow(),
@@ -89,7 +90,7 @@ final class LinkType extends ParameterType
 
         return LinkValue::fromArray(
             [
-                'linkType' => $value['link_type'],
+                'linkType' => LinkTypeEnum::tryFrom($value['link_type'] ?? ''),
                 'link' => $value['link'] ?? '',
                 'linkSuffix' => $value['link_suffix'] ?? '',
                 'newWindow' => $value['new_window'] ?? false,
@@ -110,12 +111,12 @@ final class LinkType extends ParameterType
 
         // If the link is internal, we need to convert the format
         // from value_type://value to value_type://remote_id
-        if ($value->getLinkType() === LinkValue::LINK_TYPE_INTERNAL) {
+        if ($value->getLinkType() === LinkTypeEnum::Internal) {
             $valueLink = $this->remoteIdConverter->convertToRemoteId($valueLink);
         }
 
         return [
-            'link_type' => $value->getLinkType(),
+            'link_type' => $value->getLinkType()->value ?? '',
             'link' => $valueLink,
             'link_suffix' => $value->getLinkSuffix(),
             'new_window' => $value->getNewWindow(),
@@ -132,13 +133,13 @@ final class LinkType extends ParameterType
 
         // If the link is internal, we need to convert the format
         // from value_type://remote_id to value_type://value
-        if ($value['link_type'] === LinkValue::LINK_TYPE_INTERNAL) {
+        if ($value['link_type'] === LinkTypeEnum::Internal->value) {
             $valueLink = $this->remoteIdConverter->convertFromRemoteId((string) $valueLink);
         }
 
         return LinkValue::fromArray(
             [
-                'linkType' => $value['link_type'],
+                'linkType' => LinkTypeEnum::tryFrom($value['link_type'] ?? ''),
                 'link' => $valueLink,
                 'linkSuffix' => $value['link_suffix'] ?? '',
                 'newWindow' => $value['new_window'] ?? false,
@@ -152,11 +153,11 @@ final class LinkType extends ParameterType
             return true;
         }
 
-        if ($value->getLinkType() === '') {
+        if ($value->getLinkType() === null) {
             return true;
         }
 
-        if (in_array($value->getLinkType(), [LinkValue::LINK_TYPE_URL, LinkValue::LINK_TYPE_RELATIVE_URL], true)) {
+        if (in_array($value->getLinkType(), [LinkTypeEnum::Url, LinkTypeEnum::RelativeUrl], true)) {
             return $value->getLink() === '' && $value->getLinkSuffix() === '';
         }
 

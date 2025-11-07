@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Validator\Parameters;
 
+use Netgen\Layouts\Parameters\Value\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
 use Netgen\Layouts\Validator\Constraint\Parameters\Link;
@@ -46,12 +47,12 @@ final class LinkValidator extends ConstraintValidator
                 new Constraints\Choice(
                     [
                         'choices' => [
-                            '',
-                            LinkValue::LINK_TYPE_URL,
-                            LinkValue::LINK_TYPE_RELATIVE_URL,
-                            LinkValue::LINK_TYPE_EMAIL,
-                            LinkValue::LINK_TYPE_PHONE,
-                            LinkValue::LINK_TYPE_INTERNAL,
+                            null,
+                            LinkType::Url,
+                            LinkType::RelativeUrl,
+                            LinkType::Email,
+                            LinkType::Phone,
+                            LinkType::Internal,
                         ],
                         'strict' => true,
                     ],
@@ -60,22 +61,22 @@ final class LinkValidator extends ConstraintValidator
         );
 
         $linkConstraints = [];
-        if ($linkType === '') {
+        if ($linkType === null) {
             $linkConstraints[] = new Constraints\IdenticalTo('');
         } elseif ($constraint->required) {
             $linkConstraints[] = new Constraints\NotBlank();
         }
 
-        if ($linkType !== '') {
+        if ($linkType !== null) {
             $linkConstraints[] = new Constraints\NotNull();
 
             $linkConstraints[] = match ($linkType) {
-                LinkValue::LINK_TYPE_URL => new Constraints\Url(),
+                LinkType::Url => new Constraints\Url(),
                 // @deprecated Replace with Url constraint with "relativeProtocol" option when support for Symfony 3.4 ends
-                LinkValue::LINK_TYPE_RELATIVE_URL => new Constraints\Type(['type' => 'string']),
-                LinkValue::LINK_TYPE_EMAIL => new Constraints\Email($this->getStrictEmailValidatorOption()),
-                LinkValue::LINK_TYPE_PHONE => new Constraints\Type(['type' => 'string']),
-                LinkValue::LINK_TYPE_INTERNAL => new ItemLink(
+                LinkType::RelativeUrl => new Constraints\Type(['type' => 'string']),
+                LinkType::Email => new Constraints\Email($this->getStrictEmailValidatorOption()),
+                LinkType::Phone => new Constraints\Type(['type' => 'string']),
+                LinkType::Internal => new ItemLink(
                     [
                         'valueTypes' => $constraint->valueTypes,
                         'allowInvalid' => $constraint->allowInvalidInternal,

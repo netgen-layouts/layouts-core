@@ -11,6 +11,7 @@ use Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\LinkType;
+use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTestBase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
@@ -44,7 +45,7 @@ final class LinkDataMapperTest extends DataMapperTestBase
     {
         $linkValue = LinkValue::fromArray(
             [
-                'linkType' => 'url',
+                'linkType' => LinkTypeEnum::Url,
                 'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
@@ -56,7 +57,7 @@ final class LinkDataMapperTest extends DataMapperTestBase
                 'link_type' => $this->getForm('link_type'),
                 'link_suffix' => $this->getForm('link_suffix'),
                 'new_window' => $this->getForm('new_window'),
-                'url' => $this->getForm('url'),
+                LinkTypeEnum::Url->value => $this->getForm(LinkTypeEnum::Url->value),
             ],
         );
 
@@ -65,14 +66,14 @@ final class LinkDataMapperTest extends DataMapperTestBase
         $linkTypeForm = $forms['link_type'];
         $linkSuffixForm = $forms['link_suffix'];
         $newWindowForm = $forms['new_window'];
-        $urlForm = $forms['url'];
+        $urlForm = $forms[LinkTypeEnum::Url->value];
 
         self::assertInstanceOf(FormInterface::class, $linkTypeForm);
         self::assertInstanceOf(FormInterface::class, $linkSuffixForm);
         self::assertInstanceOf(FormInterface::class, $newWindowForm);
         self::assertInstanceOf(FormInterface::class, $urlForm);
 
-        self::assertSame('url', $linkTypeForm->getData());
+        self::assertSame(LinkTypeEnum::Url, $linkTypeForm->getData());
         self::assertSame('?suffix', $linkSuffixForm->getData());
         self::assertSame('1', $newWindowForm->getData());
         self::assertSame('https://netgen.io', $urlForm->getData());
@@ -115,10 +116,10 @@ final class LinkDataMapperTest extends DataMapperTestBase
     {
         $forms = new ArrayIterator(
             [
-                'link_type' => $this->getForm('link_type', 'url'),
+                'link_type' => $this->getForm('link_type', LinkTypeEnum::Url),
                 'link_suffix' => $this->getForm('link_suffix', '?suffix'),
                 'new_window' => $this->getForm('new_window', '1'),
-                'url' => $this->getForm('url', 'https://netgen.io'),
+                LinkTypeEnum::Url->value => $this->getForm(LinkTypeEnum::Url->value, 'https://netgen.io'),
             ],
         );
 
@@ -130,7 +131,7 @@ final class LinkDataMapperTest extends DataMapperTestBase
             [
                 'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
-                'linkType' => 'url',
+                'linkType' => LinkTypeEnum::Url,
                 'newWindow' => true,
             ],
             $this->exportObject($data),
@@ -158,7 +159,7 @@ final class LinkDataMapperTest extends DataMapperTestBase
             [
                 'link' => '',
                 'linkSuffix' => '',
-                'linkType' => '',
+                'linkType' => null,
                 'newWindow' => false,
             ],
             $this->exportObject($data),

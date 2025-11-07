@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters\Value;
 
+use Netgen\Layouts\Parameters\Value\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use PHPUnit\Framework\TestCase;
 
@@ -19,14 +20,14 @@ final class LinkValueTest extends TestCase
     {
         $linkValue = LinkValue::fromArray(
             [
-                'linkType' => LinkValue::LINK_TYPE_EMAIL,
+                'linkType' => LinkType::Email,
                 'link' => 'info@netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
         );
 
-        self::assertSame(LinkValue::LINK_TYPE_EMAIL, $linkValue->getLinkType());
+        self::assertSame(LinkType::Email, $linkValue->getLinkType());
         self::assertSame('info@netgen.io', $linkValue->getLink());
         self::assertSame('?suffix', $linkValue->getLinkSuffix());
         self::assertTrue($linkValue->getNewWindow());
@@ -39,7 +40,7 @@ final class LinkValueTest extends TestCase
     {
         $linkValue = LinkValue::fromArray(
             [
-                'linkType' => LinkValue::LINK_TYPE_EMAIL,
+                'linkType' => LinkType::Email,
                 'link' => 'info@netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,

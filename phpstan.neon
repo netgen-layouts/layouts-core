@@ -71,3 +71,5 @@ parameters:
             path: lib/Utils/HydratorTrait.php
 
         - '#Static call to instance method stdClass::getExtendedIdentifiers#'
+
+        - '#Property Netgen\\Layouts\\Parameters\\Value\\LinkValue::\$linkType \(Netgen\\Layouts\\Parameters\\Value\\LinkType\|null\) is never assigned#'

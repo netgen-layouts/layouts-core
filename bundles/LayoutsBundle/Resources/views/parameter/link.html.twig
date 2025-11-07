@@ -4,13 +4,13 @@
     {% set link = null %}
     {% set content = content|default('') %}
 
-    {% if value.linkType is constant('LINK_TYPE_URL', value) or value.linkType is constant('LINK_TYPE_RELATIVE_URL', value) %}
+    {% if value.linkType == enum('Netgen\\Layouts\\Parameters\\Value\\LinkType').Url or value.linkType == enum('Netgen\\Layouts\\Parameters\\Value\\LinkType').RelativeUrl %}
         {% set link = value.link ~ value.linkSuffix %}
-    {% elseif value.linkType is constant('LINK_TYPE_EMAIL', value) %}
+    {% elseif value.linkType == enum('Netgen\\Layouts\\Parameters\\Value\\LinkType').Email %}
         {% set link = 'mailto:' ~ value.link ~ value.linkSuffix %}
-    {% elseif value.linkType is constant('LINK_TYPE_PHONE', value) %}
+    {% elseif value.linkType == enum('Netgen\\Layouts\\Parameters\\Value\\LinkType').Phone %}
         {% set link = 'tel:' ~ value.link ~ value.linkSuffix %}
-    {% elseif value.linkType is constant('LINK_TYPE_INTERNAL', value) %}
+    {% elseif value.linkType == enum('Netgen\\Layouts\\Parameters\\Value\\LinkType').Internal %}
         {% set link = nglayouts_item_path(value.link, 'default') ~ value.linkSuffix %}
     {% endif %}
 
