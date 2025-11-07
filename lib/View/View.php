@@ -15,7 +15,7 @@ abstract class View implements ViewInterface
     /**
      * @var array<string, mixed>
      */
-    protected array $parameters = [];
+    final protected array $parameters = [];
 
     private ?string $context = null;
 

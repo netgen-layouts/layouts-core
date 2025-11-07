@@ -9,5 +9,5 @@ abstract class TargetStruct
     /**
      * The value of the target.
      */
-    public int|string $value;
+    final public int|string $value;
 }

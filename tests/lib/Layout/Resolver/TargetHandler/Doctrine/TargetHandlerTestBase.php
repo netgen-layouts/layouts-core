@@ -18,7 +18,7 @@ abstract class TargetHandlerTestBase extends TestCase
 {
     use TestCaseTrait;
 
-    protected LayoutResolverHandler $handler;
+    final protected LayoutResolverHandler $handler;
 
     protected function setUp(): void
     {

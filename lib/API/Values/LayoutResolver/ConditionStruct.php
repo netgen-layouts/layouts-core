@@ -11,5 +11,5 @@ abstract class ConditionStruct
      *
      * @var int|string|array<mixed>
      */
-    public int|string|array $value;
+    final public int|string|array $value;
 }

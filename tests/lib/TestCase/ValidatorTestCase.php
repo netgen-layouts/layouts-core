@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validation;
 
 abstract class ValidatorTestCase extends TestCase
 {
-    protected mixed $constraint;
+    final protected mixed $constraint;
 
     private ExecutionContext $executionContext;
 

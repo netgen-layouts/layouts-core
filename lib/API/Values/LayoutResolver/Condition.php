@@ -13,14 +13,14 @@ abstract class Condition implements Value
 {
     use HydratorTrait;
 
-    protected UuidInterface $id;
+    final protected UuidInterface $id;
 
-    protected ConditionTypeInterface $conditionType;
+    final protected ConditionTypeInterface $conditionType;
 
     /**
      * @var int|string|array<mixed>
      */
-    protected int|string|array $value;
+    final protected int|string|array $value;
 
     public function getId(): UuidInterface
     {

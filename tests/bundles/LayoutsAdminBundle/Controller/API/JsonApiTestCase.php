@@ -32,7 +32,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * @var \Symfony\Bundle\FrameworkBundle\KernelBrowser
      */
-    protected $client;
+    final protected $client;
 
     protected function setUp(): void
     {

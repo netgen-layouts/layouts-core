@@ -17,9 +17,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class FormTestCase extends TestCase
 {
-    protected FormTypeInterface $formType;
+    final protected FormTypeInterface $formType;
 
-    protected FormFactoryInterface $factory;
+    final protected FormFactoryInterface $factory;
 
     private MockObject $validatorMock;
 

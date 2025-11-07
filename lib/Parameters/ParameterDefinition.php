@@ -11,39 +11,37 @@ use function array_key_exists;
 
 /**
  * The definition of a parameter, specifying its name, type and various options.
- *
- * This class is considered final and should not be extended.
  */
 class ParameterDefinition
 {
     use HydratorTrait;
 
-    protected string $name;
+    final protected string $name;
 
-    protected ParameterTypeInterface $type;
+    final protected ParameterTypeInterface $type;
 
     /**
      * @var array<string, mixed>
      */
-    protected array $options = [];
+    final protected array $options = [];
 
-    protected bool $isRequired;
+    final protected bool $isRequired;
 
-    protected bool $isReadOnly;
+    final protected bool $isReadOnly;
 
-    protected mixed $defaultValue;
+    final protected mixed $defaultValue;
 
-    protected string|false|null $label;
+    final protected string|false|null $label;
 
     /**
      * @var string[]
      */
-    protected array $groups = [];
+    final protected array $groups = [];
 
     /**
      * @var array<\Symfony\Component\Validator\Constraint|\Closure>
      */
-    protected array $constraints = [];
+    final protected array $constraints = [];
 
     /**
      * Returns the parameter name.

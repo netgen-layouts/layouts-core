@@ -71,41 +71,41 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class CoreTestCase extends TestCase
 {
-    protected MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
+    final protected MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
 
-    protected LayoutTypeRegistry $layoutTypeRegistry;
+    final protected LayoutTypeRegistry $layoutTypeRegistry;
 
-    protected ItemDefinitionRegistry $itemDefinitionRegistry;
+    final protected ItemDefinitionRegistry $itemDefinitionRegistry;
 
-    protected QueryTypeRegistry $queryTypeRegistry;
+    final protected QueryTypeRegistry $queryTypeRegistry;
 
-    protected BlockDefinitionRegistry $blockDefinitionRegistry;
+    final protected BlockDefinitionRegistry $blockDefinitionRegistry;
 
-    protected TargetTypeRegistry $targetTypeRegistry;
+    final protected TargetTypeRegistry $targetTypeRegistry;
 
-    protected ConditionTypeRegistry $conditionTypeRegistry;
+    final protected ConditionTypeRegistry $conditionTypeRegistry;
 
-    protected ParameterTypeRegistry $parameterTypeRegistry;
+    final protected ParameterTypeRegistry $parameterTypeRegistry;
 
-    protected TransactionHandlerInterface $transactionHandler;
+    final protected TransactionHandlerInterface $transactionHandler;
 
-    protected BlockHandlerInterface $blockHandler;
+    final protected BlockHandlerInterface $blockHandler;
 
-    protected LayoutHandlerInterface $layoutHandler;
+    final protected LayoutHandlerInterface $layoutHandler;
 
-    protected CollectionHandlerInterface $collectionHandler;
+    final protected CollectionHandlerInterface $collectionHandler;
 
-    protected LayoutResolverHandlerInterface $layoutResolverHandler;
+    final protected LayoutResolverHandlerInterface $layoutResolverHandler;
 
-    protected APITransactionService $transactionService;
+    final protected APITransactionService $transactionService;
 
-    protected APIBlockService $blockService;
+    final protected APIBlockService $blockService;
 
-    protected APILayoutService $layoutService;
+    final protected APILayoutService $layoutService;
 
-    protected APICollectionService $collectionService;
+    final protected APICollectionService $collectionService;
 
-    protected APILayoutResolverService $layoutResolverService;
+    final protected APILayoutResolverService $layoutResolverService;
 
     protected function setUp(): void
     {
