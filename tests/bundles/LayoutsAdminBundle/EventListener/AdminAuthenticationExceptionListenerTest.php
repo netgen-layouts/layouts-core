@@ -7,10 +7,9 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
-use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -18,9 +17,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 final class AdminAuthenticationExceptionListenerTest extends TestCase
 {
-    use CreateEventTrait;
-    use ExceptionEventThrowableTrait;
-
     private AdminAuthenticationExceptionListener $listener;
 
     protected function setUp(): void
@@ -49,16 +45,16 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             new AuthenticationException(),
         );
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertTrue($event->isPropagationStopped());
@@ -74,16 +70,16 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
         );
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());
@@ -98,16 +94,16 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request = Request::create('/');
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
         );
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());
@@ -122,16 +118,16 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
         );
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());

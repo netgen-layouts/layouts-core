@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 final class Version001100 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         $layoutTable = $schema->getTable('ngbm_layout');
         $layoutTable->addIndex(['type'], 'idx_ngl_layout_type');
@@ -25,7 +27,7 @@ final class Version001100 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('DROP INDEX idx_ngl_layout_type ON ngbm_layout');
         $this->addSql('DROP INDEX idx_ngl_layout_shared ON ngbm_layout');

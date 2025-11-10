@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Command;
 
-use Exception;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
 use Netgen\Layouts\Transfer\Input\ImportMode;
@@ -19,14 +18,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
-use function class_exists;
 use function file_exists;
 use function file_get_contents;
 use function is_string;
-use function method_exists;
 use function sprintf;
 
 /**
@@ -75,7 +71,7 @@ final class ImportCommand extends Command
             $this->io->caution('Import completed with errors.') :
             $this->io->success('Import completed successfully.');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
@@ -136,16 +132,7 @@ final class ImportCommand extends Command
         $previousVerbosity = $this->io->getVerbosity();
         $this->io->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
 
-        $app = new Application();
-        if (method_exists($app, 'renderThrowable')) {
-            $app->renderThrowable($t, $this->io);
-        } elseif (method_exists($app, 'renderException')) {
-            if (!$t instanceof Exception && class_exists(FatalThrowableError::class)) {
-                $t = new FatalThrowableError($t);
-            }
-
-            $app->renderException($t, $this->io);
-        }
+        new Application()->renderThrowable($t, $this->io);
 
         $this->io->setVerbosity($previousVerbosity);
     }

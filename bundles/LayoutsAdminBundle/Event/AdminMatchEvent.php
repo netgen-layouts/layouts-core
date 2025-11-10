@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Event;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\Event;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\EventDispatcher\Event;
 
 final class AdminMatchEvent extends Event
 {

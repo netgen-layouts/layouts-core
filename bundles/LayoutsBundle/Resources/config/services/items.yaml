@@ -2,7 +2,7 @@ services:
     netgen_layouts.item.item_builder:
         class: Netgen\Layouts\Item\CmsItemBuilder
         arguments:
-            - !tagged netgen_layouts.cms_value_converter
+            - !tagged_iterator netgen_layouts.cms_value_converter
 
     netgen_layouts.item.item_loader:
         class: Netgen\Layouts\Item\CmsItemLoader

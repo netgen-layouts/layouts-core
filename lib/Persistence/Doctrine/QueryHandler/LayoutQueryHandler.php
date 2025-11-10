@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
@@ -30,7 +30,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $layoutId, 'l.id', 'l.uuid');
         $this->applyStatusCondition($query, $status, 'l.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -83,7 +83,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('l.name', 'ASC');
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -133,7 +133,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->setParameter('status', Status::Published->value, Types::INTEGER);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -176,12 +176,12 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->andWhere($statusExpr);
 
-        $query->setParameter('layout_ids', $layoutIds, Connection::PARAM_INT_ARRAY);
+        $query->setParameter('layout_ids', $layoutIds, ArrayParameterType::INTEGER);
         $query->setParameter('status', Status::Published->value, Types::INTEGER);
 
         $query->orderBy('l.name', 'ASC');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -215,7 +215,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->orderBy('l.name', 'ASC');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -246,7 +246,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('status', Status::Published->value, Types::INTEGER)
             ->setParameter('linked_layout_uuid', $sharedLayout->uuid, Types::STRING);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -267,7 +267,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $layoutId, 'l.id', 'l.uuid');
         $this->applyStatusCondition($query, $status, 'l.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -286,7 +286,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status, 'z.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -304,7 +304,7 @@ final class LayoutQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -338,7 +338,7 @@ final class LayoutQueryHandler extends QueryHandler
             );
         }
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -375,7 +375,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('shared', $layout->shared, Types::BOOLEAN)
             ->setParameter('main_locale', $layout->mainLocale, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
 
         $layout->id ??= (int) $this->connectionHelper->lastId('nglayouts_layout');
 
@@ -400,7 +400,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('status', $layout->status->value, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -427,7 +427,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('linked_layout_uuid', $zone->linkedLayoutUuid, Types::STRING)
             ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -461,7 +461,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -489,7 +489,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $zone->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -508,7 +508,7 @@ final class LayoutQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -527,7 +527,7 @@ final class LayoutQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -550,7 +550,7 @@ final class LayoutQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -576,7 +576,7 @@ final class LayoutQueryHandler extends QueryHandler
                 ->setParameter('locale', $locale, Types::STRING);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**

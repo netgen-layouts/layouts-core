@@ -6,17 +6,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsBundle\EventListener\ViewListener;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ViewListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private ViewListener $listener;
 
     protected function setUp(): void
@@ -45,10 +43,10 @@ final class ViewListenerTest extends TestCase
 
         $blockView = new BlockView(new Block());
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $blockView,
         );
 
@@ -68,7 +66,7 @@ final class ViewListenerTest extends TestCase
 
         $blockView = new BlockView(new Block());
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -88,10 +86,10 @@ final class ViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             42,
         );
 

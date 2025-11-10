@@ -96,7 +96,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         );
 
         if (!$this->io->confirm('Did you backup your database? Answering NO will cancel the script', false)) {
-            return 1;
+            return Command::FAILURE;
         }
 
         $queryTypes = $this->queryTypeRegistry->getQueryTypes();
@@ -129,14 +129,14 @@ final class MigrateQueryOffsetLimitCommand extends Command
         }
 
         if (!$this->io->confirm('Do you want to start the migration now?', true)) {
-            return 1;
+            return Command::FAILURE;
         }
 
         $this->migrateOffsetAndLimit($queryTypeParameters);
 
         $this->io->success('Migration done. Now edit all your custom query types to remove the offset and limit parameters.');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
@@ -240,31 +240,31 @@ final class MigrateQueryOffsetLimitCommand extends Command
      */
     private function getQueryData(): array
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
+        $query = $this->connection->createQueryBuilder();
 
-        $queryBuilder->select('c.id AS id, c.status AS status, q.type AS type, qt.parameters AS parameters')
+        $query->select('c.id AS id, c.status AS status, q.type AS type, qt.parameters AS parameters')
             ->from('nglayouts_collection', 'c')
             ->innerJoin(
                 'c',
                 'nglayouts_collection_query',
                 'q',
-                $queryBuilder->expr()->and(
-                    $queryBuilder->expr()->eq('c.id', 'q.collection_id'),
-                    $queryBuilder->expr()->eq('c.status', 'q.status'),
+                $query->expr()->and(
+                    $query->expr()->eq('c.id', 'q.collection_id'),
+                    $query->expr()->eq('c.status', 'q.status'),
                 ),
             )
             ->innerJoin(
                 'q',
                 'nglayouts_collection_query_translation',
                 'qt',
-                $queryBuilder->expr()->and(
-                    $queryBuilder->expr()->eq('q.id', 'qt.query_id'),
-                    $queryBuilder->expr()->eq('q.status', 'qt.status'),
-                    $queryBuilder->expr()->eq('c.main_locale', 'qt.locale'),
+                $query->expr()->and(
+                    $query->expr()->eq('q.id', 'qt.query_id'),
+                    $query->expr()->eq('q.status', 'qt.status'),
+                    $query->expr()->eq('c.main_locale', 'qt.locale'),
                 ),
             );
 
-        return $queryBuilder->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -272,15 +272,15 @@ final class MigrateQueryOffsetLimitCommand extends Command
      */
     private function updateCollection(int $id, int $status, int $offset, ?int $limit = null): void
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder
+        $query = $this->connection->createQueryBuilder();
+        $query
             ->update('nglayouts_collection')
             ->set('start', ':start')
             ->set('length', ':length')
             ->where(
-                $queryBuilder->expr()->and(
-                    $queryBuilder->expr()->eq('id', ':id'),
-                    $queryBuilder->expr()->eq('status', ':status'),
+                $query->expr()->and(
+                    $query->expr()->eq('id', ':id'),
+                    $query->expr()->eq('status', ':status'),
                 ),
             )
             ->setParameter('id', $id, Types::INTEGER)
@@ -288,6 +288,6 @@ final class MigrateQueryOffsetLimitCommand extends Command
             ->setParameter('start', $offset, Types::INTEGER)
             ->setParameter('length', $limit, Types::INTEGER);
 
-        $queryBuilder->execute();
+        $query->executeStatement();
     }
 }

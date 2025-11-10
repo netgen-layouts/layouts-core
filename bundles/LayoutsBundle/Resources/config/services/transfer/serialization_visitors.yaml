@@ -2,7 +2,7 @@ services:
     netgen_layouts.transfer.serializer.visitor:
         class: Netgen\Layouts\Transfer\Output\OutputVisitor
         arguments:
-            - !tagged netgen_layouts.transfer_output_visitor
+            - !tagged_iterator netgen_layouts.transfer_output_visitor
 
     netgen_layouts.transfer.serializer.visitor.block:
         class: Netgen\Layouts\Transfer\Output\Visitor\BlockVisitor

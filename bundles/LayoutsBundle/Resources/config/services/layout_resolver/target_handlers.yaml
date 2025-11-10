@@ -6,6 +6,8 @@ services:
 
     netgen_layouts.layout.resolver.target_handler.doctrine.route_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix
+        arguments:
+            - "@database_connection"
         tags:
             - { name: netgen_layouts.target_type.doctrine_handler, target_type: route_prefix }
 
@@ -16,6 +18,8 @@ services:
 
     netgen_layouts.layout.resolver.target_handler.doctrine.path_info_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix
+        arguments:
+            - "@database_connection"
         tags:
             - { name: netgen_layouts.target_type.doctrine_handler, target_type: path_info_prefix }
 
@@ -26,5 +30,7 @@ services:
 
     netgen_layouts.layout.resolver.target_handler.doctrine.request_uri_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix
+        arguments:
+            - "@database_connection"
         tags:
             - { name: netgen_layouts.target_type.doctrine_handler, target_type: request_uri_prefix }

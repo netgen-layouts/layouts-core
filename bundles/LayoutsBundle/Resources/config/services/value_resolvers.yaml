@@ -1,0 +1,84 @@
+services:
+    netgen_layouts.value_resolver.block.block:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\Block\BlockValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.block"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.layout.zone:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.layout.layout:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\LayoutValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.collection.collection:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.collection.item:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.collection.slot:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\SlotValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.collection.query:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.layout_resolver.rule_group:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.layout_resolver.rule_group_condition:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupConditionValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.layout_resolver.rule:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.layout_resolver.rule_condition:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleConditionValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    netgen_layouts.value_resolver.layout_resolver.target:
+        class: Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: controller.argument_value_resolver }

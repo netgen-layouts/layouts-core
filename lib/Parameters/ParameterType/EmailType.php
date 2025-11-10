@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
-use Netgen\Layouts\Validator\StrictEmailValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -14,8 +13,6 @@ use Symfony\Component\Validator\Constraints;
  */
 final class EmailType extends ParameterType
 {
-    use StrictEmailValidatorTrait;
-
     public static function getIdentifier(): string
     {
         return 'email';
@@ -30,7 +27,7 @@ final class EmailType extends ParameterType
     {
         return [
             new Constraints\Type(['type' => 'string']),
-            new Constraints\Email($this->getStrictEmailValidatorOption()),
+            new Constraints\Email(['mode' => Constraints\Email::VALIDATION_MODE_STRICT]),
         ];
     }
 }

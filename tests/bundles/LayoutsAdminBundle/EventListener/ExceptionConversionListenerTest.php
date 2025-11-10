@@ -13,12 +13,11 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
-use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -29,9 +28,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 final class ExceptionConversionListenerTest extends TestCase
 {
-    use CreateEventTrait;
-    use ExceptionEventThrowableTrait;
-
     private ExceptionConversionListener $listener;
 
     protected function setUp(): void
@@ -63,16 +59,16 @@ final class ExceptionConversionListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $exception,
         );
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertInstanceOf($convertedClass, $eventException);
         self::assertSame($exception->getMessage(), $eventException->getMessage());
@@ -94,16 +90,16 @@ final class ExceptionConversionListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new RuntimeException('Some error');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $exception,
         );
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertInstanceOf(RuntimeException::class, $eventException);
     }
@@ -118,7 +114,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new NotFoundException('param', 'Some error');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -127,7 +123,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertSame($exception, $eventException);
     }
@@ -141,16 +137,16 @@ final class ExceptionConversionListenerTest extends TestCase
         $request = Request::create('/');
         $exception = new NotFoundException('param', 'Some error');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $exception,
         );
 
         $this->listener->onException($event);
 
-        $eventException = $this->getThrowable($event);
+        $eventException = $event->getThrowable();
 
         self::assertSame($exception, $eventException);
     }

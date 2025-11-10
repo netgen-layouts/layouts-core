@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Locale;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Intl\Locales;
 
 use function count;
 use function in_array;

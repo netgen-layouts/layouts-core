@@ -21,7 +21,7 @@ final class ArrayValueNormalizer implements NormalizerInterface, NormalizerAware
         return (array) $this->normalizer->normalize($object->getValue(), $format, $context);
     }
 
-    public function supportsNormalization(mixed $data, ?string $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof ArrayValue;
     }

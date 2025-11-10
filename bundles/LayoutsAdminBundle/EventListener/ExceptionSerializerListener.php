@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,9 +18,6 @@ use function sprintf;
 
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {
-    use ExceptionEventThrowableTrait;
-    use MainRequestEventTrait;
-
     public function __construct(
         private SerializerInterface $serializer,
         private LoggerInterface $logger = new NullLogger(),
@@ -40,7 +35,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
      */
     public function onException(ExceptionEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -49,7 +44,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
             return;
         }
 
-        $exception = $this->getThrowable($event);
+        $exception = $event->getThrowable();
         if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
             $this->logger->critical(
                 sprintf(

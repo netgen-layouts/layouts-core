@@ -32,7 +32,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
         ];
     }
 
-    public function supportsNormalization(mixed $data, ?string $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         if (!$data instanceof Value) {
             return false;

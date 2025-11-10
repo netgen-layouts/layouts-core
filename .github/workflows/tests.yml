@@ -24,24 +24,6 @@ jobs:
         db: ['sqlite']
         deps: ['normal']
         include:
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test'
-            db: 'sqlite'
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test-api-legacy'
-            db: 'sqlite'
-
-          - php: '7.4'
-            symfony: '~5.4.0'
-            script: 'test'
-            db: 'mysql'
-          - php: '7.4'
-            symfony: '~5.4.0'
-            script: 'test-api'
-            db: 'mysql'
-
           - php: '8.4'
             symfony: '~6.4.0'
             script: 'test'
@@ -50,22 +32,6 @@ jobs:
             symfony: '~6.4.0'
             script: 'test-api'
             db: 'postgres'
-
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test'
-            db: 'sqlite'
-            deps: 'low'
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test-api-legacy'
-            db: 'sqlite'
-            deps: 'low'
-        exclude:
-          - php: '8.4'
-            symfony: '~3.4.0'
-          - php: '7.4'
-            symfony: '~6.4.0'
 
     services:
       mysql:

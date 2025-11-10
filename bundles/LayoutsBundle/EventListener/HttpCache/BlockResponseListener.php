@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\EventListener\HttpCache;
 
 use Netgen\Layouts\HttpCache\TaggerInterface;
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -13,8 +12,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class BlockResponseListener implements EventSubscriberInterface
 {
-    use MainRequestEventTrait;
-
     public function __construct(
         private TaggerInterface $tagger,
     ) {}
@@ -29,7 +26,7 @@ final class BlockResponseListener implements EventSubscriberInterface
      */
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

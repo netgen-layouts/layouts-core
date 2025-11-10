@@ -35,12 +35,12 @@ final class LayoutBackend implements BackendInterface
         yield new RootLocation();
     }
 
-    public function loadLocation($id): RootLocation
+    public function loadLocation(int|string $id): RootLocation
     {
         return new RootLocation();
     }
 
-    public function loadItem($value): Item
+    public function loadItem(int|string $value): Item
     {
         try {
             $layout = $this->layoutService->loadLayout(Uuid::fromString((string) $value));

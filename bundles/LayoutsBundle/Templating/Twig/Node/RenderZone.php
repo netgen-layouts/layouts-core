@@ -10,7 +10,6 @@ use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\ViewInterface;
 use Twig\Attribute\YieldReady;
 use Twig\Compiler;
-use Twig\Environment;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Node;
 
@@ -67,12 +66,6 @@ final class RenderZone extends Node
 
     private function compileRenderNode(Compiler $compiler): void
     {
-        if (Environment::VERSION_ID >= 30900) {
-            $compiler->write('yield $this->env->getRuntime("' . RenderingRuntime::class . '")->renderZone($context["nglayouts"]->getLayout(), $nglZoneIdentifier, $nglContext, $nglTemplate);' . PHP_EOL);
-
-            return;
-        }
-
-        $compiler->write('echo $this->env->getRuntime("' . RenderingRuntime::class . '")->renderZone($context["nglayouts"]->getLayout(), $nglZoneIdentifier, $nglContext, $nglTemplate);' . PHP_EOL);
+        $compiler->write('yield $this->env->getRuntime("' . RenderingRuntime::class . '")->renderZone($context["nglayouts"]->getLayout(), $nglZoneIdentifier, $nglContext, $nglTemplate);' . PHP_EOL);
     }
 }

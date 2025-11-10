@@ -3,13 +3,13 @@ services:
         class: Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
         public: true
         arguments:
-            - !tagged netgen_layouts.target_type
+            - !tagged_iterator netgen_layouts.target_type
 
     netgen_layouts.layout.resolver.registry.condition_type:
         class: Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
         public: true
         arguments:
-            - !tagged netgen_layouts.condition_type
+            - !tagged_iterator netgen_layouts.condition_type
 
     netgen_layouts.layout.resolver:
         class: Netgen\Layouts\Layout\Resolver\LayoutResolver

@@ -9,12 +9,8 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\ViewInterface;
-use Twig\Environment;
 use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\Variable\ContextVariable;
-
-use function class_exists;
 
 /**
  * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compile
@@ -23,29 +19,14 @@ use function class_exists;
  */
 final class RenderZoneTest extends NodeTestBase
 {
-    private static string $contextVariableClass = NameExpression::class;
-
-    protected function setUp(): void
-    {
-        if (Environment::MAJOR_VERSION === 2) {
-            self::markTestSkipped('Test requires twig/twig 3.9 to run');
-        }
-
-        if (class_exists(ContextVariable::class)) {
-            self::$contextVariableClass = ContextVariable::class;
-        }
-    }
-
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::__construct
      */
     public function testConstructor(): void
     {
-        /** @var \Twig\Node\Expression\AbstractExpression $zone */
-        $zone = new self::$contextVariableClass('zone', 1);
+        $zone = new ContextVariable('zone', 1);
 
-        /** @var \Twig\Node\Expression\AbstractExpression $context */
-        $context = new self::$contextVariableClass('context', 1);
+        $context = new ContextVariable('context', 1);
         $node = new RenderZone($zone, $context, 1);
 
         self::assertSame($zone, $node->getNode('zone'));
@@ -57,8 +38,7 @@ final class RenderZoneTest extends NodeTestBase
      */
     public function testConstructorWithNoContext(): void
     {
-        /** @var \Twig\Node\Expression\AbstractExpression $zone */
-        $zone = new self::$contextVariableClass('zone', 1);
+        $zone = new ContextVariable('zone', 1);
         $node = new RenderZone($zone, null, 1);
 
         self::assertSame($zone, $node->getNode('zone'));
@@ -75,12 +55,10 @@ final class RenderZoneTest extends NodeTestBase
         $templateClass = ContextualizedTwigTemplate::class;
         $viewInterface = ViewInterface::class;
 
-        /** @var \Twig\Node\Expression\AbstractExpression $zone */
-        $zone = new self::$contextVariableClass('zone', 1);
+        $zone = new ContextVariable('zone', 1);
         $zoneName = new ConstantExpression('zone', 1);
 
-        /** @var \Twig\Node\Expression\AbstractExpression $context */
-        $context = new self::$contextVariableClass('context', 1);
+        $context = new ContextVariable('context', 1);
 
         $zoneNodeGetter = self::getNodeGetter('zone');
         $contextNodeGetter = self::getNodeGetter('context');

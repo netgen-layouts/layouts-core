@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Event;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\Event;
 use Netgen\Layouts\View\ViewInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * This event object is used for build_view and render_view events.

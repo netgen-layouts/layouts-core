@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\Migrations\AbstractMigration;
 use Netgen\Layouts\Exception\RuntimeException;
-use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Intl\Locales;
 
 final class Version000900 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         $defaultLocale = '';
         if ($this->hasLayouts()) {
@@ -119,7 +121,7 @@ final class Version000900 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         // Collection query table
 
@@ -165,7 +167,7 @@ final class Version000900 extends AbstractMigration
         $queryBuilder->select('COUNT(id) as count')
             ->from('ngbm_layout');
 
-        $result = $queryBuilder->execute()->fetchAllAssociative();
+        $result = $queryBuilder->fetchAllAssociative();
 
         return (int) $result[0]['count'] > 0;
     }

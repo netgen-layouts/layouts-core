@@ -8,7 +8,6 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\HttpKernel\Kernel;
 
 final class ControllerContainerPass implements CompilerPassInterface
 {
@@ -16,7 +15,7 @@ final class ControllerContainerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
-        if (Kernel::VERSION_ID < 60000 || !$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 

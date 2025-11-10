@@ -8,19 +8,17 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final class SerializerListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private MockObject $serializerMock;
 
     private SerializerListener $listener;
@@ -65,10 +63,10 @@ final class SerializerListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $value,
         );
 
@@ -107,10 +105,10 @@ final class SerializerListenerTest extends TestCase
         $request->query->set('html', 'false');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $value,
         );
 
@@ -135,7 +133,7 @@ final class SerializerListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -156,10 +154,10 @@ final class SerializerListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             42,
         );
 

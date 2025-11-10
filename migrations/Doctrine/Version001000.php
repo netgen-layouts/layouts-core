@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 final class Version001000 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN start int(11) NOT NULL AFTER status');
         $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN length int(11) AFTER start');
@@ -33,7 +35,7 @@ final class Version001000 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('ALTER TABLE ngbm_block_collection ADD COLUMN start int(11) NOT NULL AFTER collection_status');
         $this->addSql('ALTER TABLE ngbm_block_collection ADD COLUMN length int(11) AFTER start');

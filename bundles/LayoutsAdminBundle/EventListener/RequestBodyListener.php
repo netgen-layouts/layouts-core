@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +15,9 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 use function in_array;
 use function is_array;
-use function method_exists;
 
 final class RequestBodyListener implements EventSubscriberInterface
 {
-    use MainRequestEventTrait;
-
     public function __construct(
         private DecoderInterface $decoder,
     ) {}
@@ -38,7 +34,7 @@ final class RequestBodyListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -78,9 +74,6 @@ final class RequestBodyListener implements EventSubscriberInterface
             return false;
         }
 
-        // Request::getContentType() is deprecated since Symfony 6.2
-        return (method_exists($request, 'getContentTypeFormat') ?
-            $request->getContentTypeFormat() :
-            $request->getContentType()) === 'json';
+        return $request->getContentTypeFormat() === 'json';
     }
 }

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 final class Version010000 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('RENAME TABLE ngbm_block TO nglayouts_block');
         $this->addSql('RENAME TABLE ngbm_block_collection TO nglayouts_block_collection');
@@ -99,7 +101,7 @@ final class Version010000 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+        $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('UPDATE nglayouts_rule_target SET type = "ezcontent" WHERE type = "ez_content"');
         $this->addSql('UPDATE nglayouts_rule_target SET type = "ezlocation" WHERE type = "ez_location"');

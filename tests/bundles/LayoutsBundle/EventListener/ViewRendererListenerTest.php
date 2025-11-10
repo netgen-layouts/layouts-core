@@ -8,20 +8,18 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRendererInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ViewRendererListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private MockObject $viewRendererMock;
 
     private ViewRendererListener $listener;
@@ -68,10 +66,10 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $view,
         );
 
@@ -106,10 +104,10 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $view,
         );
 
@@ -137,10 +135,10 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $view,
         );
 
@@ -157,10 +155,10 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createViewEvent(
+        $event = new ViewEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             42,
         );
 

@@ -64,6 +64,6 @@ final class ExportCommand extends Command
 
         $this->io->writeln(json_encode($hash, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

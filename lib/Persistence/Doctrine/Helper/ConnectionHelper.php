@@ -49,7 +49,7 @@ final class ConnectionHelper implements ConnectionHelperInterface
             return $handler->lastId($table, $column);
         }
 
-        return $this->connection->lastInsertId($table);
+        return $this->connection->lastInsertId();
     }
 
     private function getHandler(AbstractPlatform $platform): ?ConnectionHelperInterface

@@ -6,38 +6,16 @@ namespace Netgen\Layouts\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
-use FOS\HttpCache\ProxyClient\Invalidation\TagCapable;
-use Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface;
-
-use function interface_exists;
 
 final class VarnishClient implements ClientInterface
 {
     public function __construct(
         private CacheInvalidator $fosInvalidator,
-        private HostHeaderProviderInterface $hostHeaderProvider,
     ) {}
 
     public function purge(array $tags): void
     {
-        if (interface_exists(TagCapable::class)) {
-            // FOS HTTP Cache v2 support
-            $this->fosInvalidator->invalidateTags($tags);
-
-            return;
-        }
-
-        $hostHeader = $this->hostHeaderProvider->provideHostHeader();
-
-        foreach ($tags as $tag) {
-            $this->fosInvalidator->invalidatePath(
-                '/',
-                [
-                    'key' => $tag,
-                    'Host' => $hostHeader,
-                ],
-            );
-        }
+        $this->fosInvalidator->invalidateTags($tags);
     }
 
     public function commit(): bool

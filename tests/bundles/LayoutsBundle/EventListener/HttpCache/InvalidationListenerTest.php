@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
 use Netgen\Layouts\HttpCache\InvalidatorInterface;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
@@ -17,13 +16,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class InvalidationListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private MockObject $invalidatorMock;
 
     private InvalidationListener $listener;
@@ -60,7 +59,7 @@ final class InvalidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createTerminateEvent(
+        $event = new TerminateEvent(
             $kernelMock,
             $request,
             new Response(),
@@ -81,10 +80,10 @@ final class InvalidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
         );
 

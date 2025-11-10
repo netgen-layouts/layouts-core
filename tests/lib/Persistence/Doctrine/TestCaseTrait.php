@@ -102,11 +102,11 @@ trait TestCaseTrait
                 new Container(
                     [
                         'route' => new TargetHandler\Doctrine\Route(),
-                        'route_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                        'route_prefix' => new TargetHandler\Doctrine\RoutePrefix($this->databaseConnection),
                         'path_info' => new TargetHandler\Doctrine\Route(),
-                        'path_info_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                        'path_info_prefix' => new TargetHandler\Doctrine\RoutePrefix($this->databaseConnection),
                         'request_uri' => new TargetHandler\Doctrine\Route(),
-                        'request_uri_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                        'request_uri_prefix' => new TargetHandler\Doctrine\RoutePrefix($this->databaseConnection),
                     ],
                 ),
             ),

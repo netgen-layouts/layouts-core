@@ -108,11 +108,6 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         ];
     }
 
-    protected function getFixturesDir(): string
-    {
-        return __DIR__ . '/_fixtures/';
-    }
-
     protected static function getFixturesDirectory(): string
     {
         return __DIR__ . '/_fixtures/';

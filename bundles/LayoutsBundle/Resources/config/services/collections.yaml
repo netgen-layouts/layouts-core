@@ -7,7 +7,7 @@ services:
     netgen_layouts.collection.item_visibility_resolver:
         class: Netgen\Layouts\Collection\Item\VisibilityResolver
         arguments:
-            - !tagged netgen_layouts.item_visibility_voter
+            - !tagged_iterator netgen_layouts.item_visibility_voter
 
     netgen_layouts.collection.collection_runner_factory:
         class: Netgen\Layouts\Collection\Result\CollectionRunnerFactory

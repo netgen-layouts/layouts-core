@@ -11,7 +11,7 @@ services:
         arguments:
             - "@netgen_layouts.view.template_resolver"
             - "@event_dispatcher"
-            - !tagged netgen_layouts.view_provider
+            - !tagged_iterator netgen_layouts.view_provider
 
     netgen_layouts.view.renderer:
         class: Netgen\Layouts\View\Renderer

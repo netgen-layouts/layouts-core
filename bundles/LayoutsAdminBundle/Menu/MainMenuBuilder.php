@@ -8,21 +8,16 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent;
 use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
-use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class MainMenuBuilder
 {
-    private EventDispatcherProxy $eventDispatcher;
-
     public function __construct(
         private FactoryInterface $factory,
         private AuthorizationCheckerInterface $authorizationChecker,
-        EventDispatcherInterface $eventDispatcher,
-    ) {
-        $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
-    }
+        private EventDispatcherInterface $eventDispatcher,
+    ) {}
 
     /**
      * Builds the main menu.

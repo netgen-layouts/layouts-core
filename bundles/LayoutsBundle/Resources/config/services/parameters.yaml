@@ -5,7 +5,7 @@ services:
         class: Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
         public: true
         arguments:
-            - !tagged netgen_layouts.parameter_type
+            - !tagged_iterator netgen_layouts.parameter_type
 
     # Builder factories
 

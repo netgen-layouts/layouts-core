@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\EventListener\HttpCache;
 
 use Netgen\Layouts\HttpCache\TaggerInterface;
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -14,8 +13,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class LayoutResponseListener implements EventSubscriberInterface
 {
-    use MainRequestEventTrait;
-
     private bool $isExceptionResponse = false;
 
     public function __construct(
@@ -35,7 +32,7 @@ final class LayoutResponseListener implements EventSubscriberInterface
      */
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -61,7 +58,7 @@ final class LayoutResponseListener implements EventSubscriberInterface
      */
     public function onKernelException(ExceptionEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

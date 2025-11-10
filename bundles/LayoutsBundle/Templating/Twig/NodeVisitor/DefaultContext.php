@@ -9,9 +9,7 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone as RenderZoneNod
 use Symfony\Bridge\Twig\NodeVisitor\Scope;
 use Twig\Environment;
 use Twig\Node\BlockNode;
-use Twig\Node\Expression\AssignNameExpression;
 use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\Variable\AssignContextVariable;
 use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\ModuleNode;
@@ -19,7 +17,6 @@ use Twig\Node\Node;
 use Twig\Node\SetNode;
 use Twig\NodeVisitor\NodeVisitorInterface;
 
-use function class_exists;
 use function hash;
 use function mt_rand;
 use function sprintf;
@@ -58,13 +55,8 @@ final class DefaultContext implements NodeVisitorInterface
 
             $var = $this->getVarName();
 
-            $assignContextVariable = class_exists(AssignContextVariable::class) ?
-                new AssignContextVariable($var, $node->getTemplateLine()) :
-                new AssignNameExpression($var, $node->getTemplateLine());
-
-            $contextVariable = class_exists(ContextVariable::class) ?
-                new ContextVariable($var, $node->getTemplateLine()) :
-                new NameExpression($var, $node->getTemplateLine());
+            $assignContextVariable = new AssignContextVariable($var, $node->getTemplateLine());
+            $contextVariable = new ContextVariable($var, $node->getTemplateLine());
 
             $this->scope->set('context', $contextVariable);
 

@@ -9,8 +9,6 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -25,9 +23,6 @@ use function is_a;
 
 final class ExceptionConversionListener implements EventSubscriberInterface
 {
-    use ExceptionEventThrowableTrait;
-    use MainRequestEventTrait;
-
     /**
      * @var array<class-string<\Throwable>, class-string<\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface>>
      */
@@ -51,7 +46,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
      */
     public function onException(ExceptionEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -60,7 +55,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
-        $exception = $this->getThrowable($event);
+        $exception = $event->getThrowable();
         if ($exception instanceof HttpExceptionInterface) {
             return;
         }
@@ -81,7 +76,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
                 $exception->getCode(),
             );
 
-            $this->setThrowable($event, $convertedException);
+            $event->setThrowable($convertedException);
         }
     }
 }

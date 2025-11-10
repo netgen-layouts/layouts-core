@@ -8,8 +8,8 @@ use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
 use Netgen\Layouts\Block\Form\ContentEditType;
 use Netgen\Layouts\Block\Form\DesignEditType;
 use Netgen\Layouts\Block\Form\FullEditType;
-use Netgen\Layouts\Utils\BackwardsCompatibility\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 use function array_unique;

@@ -6,13 +6,11 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\UriSigner;
 
 use function count;
 use function http_build_query;
@@ -22,8 +20,6 @@ use function urlencode;
 
 final class ContextListener implements EventSubscriberInterface
 {
-    use MainRequestEventTrait;
-
     public function __construct(
         private Context $context,
         private ContextBuilderInterface $contextBuilder,
@@ -43,7 +39,7 @@ final class ContextListener implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -73,11 +69,7 @@ final class ContextListener implements EventSubscriberInterface
      */
     private function getUriContext(Request $request): array
     {
-        $context = Kernel::VERSION_ID >= 50100 ?
-            $request->query->all('nglContext') :
-            $request->query->get('nglContext');
-
-        $context = is_array($context) ? $context : [];
+        $context = $request->query->all('nglContext');
 
         $signedContext = sprintf(
             '?%s' . (count($context) > 0 ? '&' : '') . '_hash=%s',

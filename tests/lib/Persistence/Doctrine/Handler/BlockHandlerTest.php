@@ -2233,7 +2233,7 @@ final class BlockHandlerTest extends TestCase
             ->setParameter('layout_id', $layout->id, Types::INTEGER)
             ->setParameter('status', $layout->status->value, Types::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
 
         $this->blockHandler->deleteLayoutBlocks($layout->id, $layout->status);
 

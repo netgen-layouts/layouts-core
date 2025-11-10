@@ -11,13 +11,9 @@ use Twig\Environment;
 use Twig\Error\SyntaxError;
 use Twig\Loader\LoaderInterface;
 use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Parser;
 use Twig\Source;
-
-use function class_exists;
-use function method_exists;
 
 final class RenderZoneTest extends TestCase
 {
@@ -50,9 +46,7 @@ final class RenderZoneTest extends TestCase
     {
         $stream = $this->environment->tokenize(new Source($source, ''));
 
-        if (method_exists($node, 'setNodeTag')) {
-            $node->setNodeTag($tag);
-        }
+        $node->setNodeTag($tag);
 
         self::assertSame((string) $node, (string) $this->parser->parse($stream)->getNode('body')->getNode('0'));
     }
@@ -79,9 +73,7 @@ final class RenderZoneTest extends TestCase
             [
                 '{% nglayouts_render_zone zone %}',
                 new RenderZoneNode(
-                    class_exists(ContextVariable::class) ?
-                        new ContextVariable('zone', 1) :
-                        new NameExpression('zone', 1),
+                    new ContextVariable('zone', 1),
                     null,
                     1,
                 ),
@@ -90,9 +82,7 @@ final class RenderZoneTest extends TestCase
             [
                 '{% nglayouts_render_zone zone context="json" %}',
                 new RenderZoneNode(
-                    class_exists(ContextVariable::class) ?
-                        new ContextVariable('zone', 1) :
-                        new NameExpression('zone', 1),
+                    new ContextVariable('zone', 1),
                     new ConstantExpression('json', 1),
                     1,
                 ),

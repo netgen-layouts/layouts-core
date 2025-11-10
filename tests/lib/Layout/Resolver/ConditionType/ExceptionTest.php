@@ -7,13 +7,10 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 use Exception;
 use Netgen\Layouts\Layout\Resolver\ConditionType\Exception as ExceptionConditionType;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
-use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFlattenException;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Validation;
-
-use function class_exists;
 
 final class ExceptionTest extends TestCase
 {
@@ -69,12 +66,7 @@ final class ExceptionTest extends TestCase
     {
         $request = Request::create('/');
 
-        $exception = new Exception();
-        if (class_exists(ErrorHandlerFlattenException::class)) {
-            $exception = ErrorHandlerFlattenException::createFromThrowable($exception, 404);
-        } elseif (class_exists(DebugFlattenException::class)) {
-            $exception = DebugFlattenException::create($exception, 404);
-        }
+        $exception = FlattenException::createFromThrowable(new Exception(), 404);
 
         $request->attributes->set('exception', $exception);
 

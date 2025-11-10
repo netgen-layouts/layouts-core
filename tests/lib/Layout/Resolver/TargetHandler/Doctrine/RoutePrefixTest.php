@@ -40,6 +40,6 @@ final class RoutePrefixTest extends TargetHandlerTestBase
      */
     protected function getTargetHandler(): TargetHandlerInterface
     {
-        return new RoutePrefix();
+        return new RoutePrefix($this->databaseConnection);
     }
 }

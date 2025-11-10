@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
@@ -29,7 +29,7 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $blockId, 'b.id', 'b.uuid');
         $this->applyStatusCondition($query, $status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAllAssociative();
+        $blocksData = $query->fetchAllAssociative();
 
         // Inject the parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -66,7 +66,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAllAssociative();
+        $blocksData = $query->fetchAllAssociative();
 
         // Map block IDs to UUIDs to inject parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -112,7 +112,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAllAssociative();
+        $blocksData = $query->fetchAllAssociative();
 
         // Map block IDs to UUIDs to inject parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -144,7 +144,7 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $blockId);
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -196,7 +196,7 @@ final class BlockQueryHandler extends QueryHandler
             ->setParameter('main_locale', $block->mainLocale, Types::STRING)
             ->setParameter('config', $block->config, Types::JSON);
 
-        $query->execute();
+        $query->executeStatement();
 
         $block->id ??= (int) $this->connectionHelper->lastId('nglayouts_block');
 
@@ -220,7 +220,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status);
 
-        $query->execute();
+        $query->executeStatement();
 
         return $block;
     }
@@ -245,7 +245,7 @@ final class BlockQueryHandler extends QueryHandler
             ->setParameter('locale', $locale, Types::STRING)
             ->setParameter('parameters', $block->parameters[$locale], Types::JSON);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -293,7 +293,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -317,7 +317,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -343,7 +343,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status);
 
-        $query->execute();
+        $query->executeStatement();
 
         $depthDifference = $block->depth - ($targetBlock->depth + 1);
 
@@ -365,7 +365,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -381,13 +381,13 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('id', [':id']),
             )
-            ->setParameter('id', $blockIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('id', $blockIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -403,7 +403,7 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('block_id', [':block_id']),
             )
-            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('block_id', $blockIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -415,7 +415,7 @@ final class BlockQueryHandler extends QueryHandler
                 ->setParameter('locale', $locale, Types::STRING);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -437,7 +437,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -461,7 +461,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -484,7 +484,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         if (count($data) === 0) {
             return null;

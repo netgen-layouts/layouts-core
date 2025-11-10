@@ -10,27 +10,22 @@ use Twig\Node\Node;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
-use function method_exists;
 use function sprintf;
 
 final class RenderZone extends AbstractTokenParser
 {
     public function parse(Token $token): Node
     {
-        $expressionParser = method_exists($this->parser, 'parseExpression') ?
-            $this->parser :
-            $this->parser->getExpressionParser();
-
         $stream = $this->parser->getStream();
 
         $context = null;
-        $zone = $expressionParser->parseExpression();
+        $zone = $this->parser->parseExpression();
 
         while (!$stream->test(Token::BLOCK_END_TYPE)) {
             if ($stream->test(Token::NAME_TYPE, 'context')) {
                 $stream->next();
                 $stream->expect(Token::OPERATOR_TYPE, '=');
-                $context = $expressionParser->parseExpression();
+                $context = $this->parser->parseExpression();
 
                 continue;
             }
@@ -40,9 +35,7 @@ final class RenderZone extends AbstractTokenParser
             throw new SyntaxError(
                 sprintf(
                     'Unexpected token "%s" of value "%s".',
-                    method_exists($token, 'toEnglish') ?
-                        $token->toEnglish() :
-                        Token::typeToEnglish($token->getType()),
+                    $token->toEnglish(),
                     $token->getValue(),
                 ),
                 $token->getLine(),

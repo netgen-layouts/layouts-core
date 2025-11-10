@@ -5,4 +5,4 @@ services:
     netgen_layouts.context.builder:
         class: Netgen\Layouts\Context\ContextBuilder
         arguments:
-            - !tagged netgen_layouts.context_provider
+            - !tagged_iterator netgen_layouts.context_provider

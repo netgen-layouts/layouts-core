@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -12,8 +11,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ViewListener implements EventSubscriberInterface
 {
-    use MainRequestEventTrait;
-
     public static function getSubscribedEvents(): array
     {
         return [KernelEvents::VIEW => 'onView'];
@@ -24,7 +21,7 @@ final class ViewListener implements EventSubscriberInterface
      */
     public function onView(ViewEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

@@ -32,7 +32,7 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
         ];
     }
 
-    public function supportsNormalization(mixed $data, ?string $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         if (!$data instanceof Value) {
             return false;

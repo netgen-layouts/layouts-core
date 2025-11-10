@@ -114,12 +114,12 @@ final class PositionHelper
         $columnName = $conditions['column'];
 
         $query = $this->connection->createQueryBuilder();
-        $query->select($this->connection->getDatabasePlatform()->getMaxExpression($columnName) . ' AS ' . $columnName)
+        $query->select('MAX(' . $columnName . ') AS ' . $columnName)
             ->from($conditions['table']);
 
         $this->applyConditions($query, $conditions['conditions']);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0][$columnName] ?? -1) + 1;
     }
@@ -151,7 +151,7 @@ final class PositionHelper
 
         $this->applyConditions($query, $conditions['conditions']);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -181,7 +181,7 @@ final class PositionHelper
 
         $this->applyConditions($query, $conditions['conditions']);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**

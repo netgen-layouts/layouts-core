@@ -8,23 +8,22 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Backend\SearchQuery;
 use Netgen\ContentBrowser\Backend\SearchResult;
 use Netgen\ContentBrowser\Backend\SearchResultInterface;
-use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\Layouts\Exception\RuntimeException;
 
 final class MyValueTypeBackend implements BackendInterface
 {
-    public function getSections(): iterable
+    public function getSections(): never
     {
         throw new RuntimeException('Not implemented');
     }
 
-    public function loadLocation($id): LocationInterface
+    public function loadLocation(int|string $id): never
     {
         throw new RuntimeException('Not implemented');
     }
 
-    public function loadItem($value): ItemInterface
+    public function loadItem(int|string $value): never
     {
         throw new RuntimeException('Not implemented');
     }

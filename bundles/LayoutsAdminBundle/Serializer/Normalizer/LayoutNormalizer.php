@@ -14,7 +14,7 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
-use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
+use Symfony\Component\Intl\Locales;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -76,7 +76,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         return $data;
     }
 
-    public function supportsNormalization(mixed $data, ?string $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         if (!$data instanceof Value) {
             return false;

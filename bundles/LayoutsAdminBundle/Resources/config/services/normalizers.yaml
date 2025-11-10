@@ -4,8 +4,8 @@ services:
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.exception:
-        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ExceptionNormalizer
+    netgen_layouts.normalizer.throwable:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer
         arguments:
             - "%kernel.debug%"
         tags:

@@ -79,7 +79,7 @@ final class MigrateUuidCommand extends Command
         );
 
         if (!$this->io->confirm('Did you backup your database? Answering NO will cancel the script', false)) {
-            return 1;
+            return Command::FAILURE;
         }
 
         $this->updateLayouts();
@@ -96,16 +96,16 @@ final class MigrateUuidCommand extends Command
 
         $this->io->success('Generating UUIDs done.');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function updateLayouts(): void
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('id, status, name')
+        $query = $this->connection->createQueryBuilder();
+        $query->select('id, status, name')
             ->from('nglayouts_layout');
 
-        $data = $queryBuilder->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         $this->io->writeln(['Generating UUIDs for layouts...', '']);
         $progressBar = $this->io->createProgressBar(count($data));
@@ -123,21 +123,21 @@ final class MigrateUuidCommand extends Command
                 $layoutNames[$layoutData['id']] ?? $layoutData['name'],
             );
 
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
+            $query = $this->connection->createQueryBuilder();
+            $query
                 ->update('nglayouts_layout')
                 ->set('uuid', ':uuid')
                 ->where(
-                    $queryBuilder->expr()->and(
-                        $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status'),
+                    $query->expr()->and(
+                        $query->expr()->eq('id', ':id'),
+                        $query->expr()->eq('status', ':status'),
                     ),
                 )
                 ->setParameter('id', $layoutData['id'], Types::INTEGER)
                 ->setParameter('status', $layoutData['status'], Types::INTEGER)
                 ->setParameter('uuid', $uuid->toString(), Types::STRING);
 
-            $queryBuilder->execute();
+            $query->executeStatement();
 
             $progressBar->advance();
         }
@@ -147,11 +147,11 @@ final class MigrateUuidCommand extends Command
 
     private function updateTable(string $tableName, string $uuidNamespace, string $entityName): void
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('id, status')
+        $query = $this->connection->createQueryBuilder();
+        $query->select('id, status')
             ->from($tableName);
 
-        $data = $queryBuilder->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         $this->io->writeln([sprintf('Generating UUIDs for %s...', $entityName), '']);
         $progressBar = $this->io->createProgressBar(count($data));
@@ -159,21 +159,21 @@ final class MigrateUuidCommand extends Command
         foreach ($data as $dataItem) {
             $uuid = Uuid::uuid5($uuidNamespace, $dataItem['id']);
 
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
+            $query = $this->connection->createQueryBuilder();
+            $query
                 ->update($tableName)
                 ->set('uuid', ':uuid')
                 ->where(
-                    $queryBuilder->expr()->and(
-                        $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status'),
+                    $query->expr()->and(
+                        $query->expr()->eq('id', ':id'),
+                        $query->expr()->eq('status', ':status'),
                     ),
                 )
                 ->setParameter('id', $dataItem['id'], Types::INTEGER)
                 ->setParameter('status', $dataItem['status'], Types::INTEGER)
                 ->setParameter('uuid', $uuid->toString(), Types::STRING);
 
-            $queryBuilder->execute();
+            $query->executeStatement();
 
             $progressBar->advance();
         }

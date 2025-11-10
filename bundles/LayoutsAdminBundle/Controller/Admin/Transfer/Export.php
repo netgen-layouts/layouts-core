@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\String\Inflector\EnglishInflector;
 
 use function count;
@@ -36,9 +35,7 @@ final class Export extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
         /** @var string[] $entityIds */
-        $entityIds = Kernel::VERSION_ID >= 50100 ?
-            $request->request->all('entities') :
-            (array) ($request->request->get('entities') ?? []);
+        $entityIds = $request->request->all('entities');
 
         if (count($entityIds) === 0) {
             throw new BadRequestHttpException('List of entities to export cannot be empty.');

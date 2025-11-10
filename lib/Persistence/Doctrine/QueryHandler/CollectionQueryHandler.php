@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
@@ -32,7 +32,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $collectionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -49,7 +49,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->orderBy('bc.identifier', 'ASC');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -75,7 +75,7 @@ final class CollectionQueryHandler extends QueryHandler
                 ->setParameter('identifier', $identifier, Types::STRING);
         }
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -90,7 +90,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $itemId, 'i.id', 'i.uuid');
         $this->applyStatusCondition($query, $status, 'i.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -112,7 +112,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status, 'i.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -132,7 +132,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->addOrderBy('i.position', 'ASC');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -147,7 +147,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $queryId, 'q.id', 'q.uuid');
         $this->applyStatusCondition($query, $status, 'q.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -169,7 +169,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -189,7 +189,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status, 'q.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -204,7 +204,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $slotId, 's.id', 's.uuid');
         $this->applyStatusCondition($query, $status, 's.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -224,7 +224,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->addOrderBy('s.position', 'ASC');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -239,7 +239,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $collectionId);
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -272,7 +272,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('main_locale', $collection->mainLocale, Types::STRING)
             ->setParameter('always_available', $collection->alwaysAvailable, Types::BOOLEAN);
 
-        $query->execute();
+        $query->executeStatement();
 
         $collection->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection');
 
@@ -297,7 +297,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('status', $collection->status->value, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -323,7 +323,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('collection_status', $collectionReference->collectionStatus->value, Types::INTEGER)
             ->setParameter('identifier', $collectionReference->identifier, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -353,7 +353,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -375,7 +375,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status, 'collection_status');
         }
 
-        $query->execute();
+        $query->executeStatement();
 
         // Then delete the collection itself
 
@@ -390,7 +390,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -416,7 +416,7 @@ final class CollectionQueryHandler extends QueryHandler
                 ->setParameter('locale', $locale, Types::STRING);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -432,13 +432,13 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('block_id', [':block_id']),
             )
-            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('block_id', $blockIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status, 'block_status', 'block_status');
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -471,7 +471,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('view_type', $item->viewType, Types::STRING)
             ->setParameter('config', $item->config, Types::JSON);
 
-        $query->execute();
+        $query->executeStatement();
 
         $item->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_item');
 
@@ -497,7 +497,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -526,7 +526,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('position', $slot->position, Types::INTEGER)
             ->setParameter('view_type', $slot->viewType, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
 
         $slot->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_slot');
 
@@ -563,7 +563,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $item->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -590,7 +590,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $slot->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -608,7 +608,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -628,7 +628,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -646,7 +646,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -666,7 +666,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -691,7 +691,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('collection_id', $query->collectionId, Types::INTEGER)
             ->setParameter('type', $query->type, Types::STRING);
 
-        $dbQuery->execute();
+        $dbQuery->executeStatement();
 
         $query->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_query');
 
@@ -718,7 +718,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('locale', $locale, Types::STRING)
             ->setParameter('parameters', $query->parameters[$locale], Types::JSON);
 
-        $dbQuery->execute();
+        $dbQuery->executeStatement();
     }
 
     /**
@@ -743,7 +743,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($dbQuery, $query->status);
 
-        $dbQuery->execute();
+        $dbQuery->executeStatement();
     }
 
     /**
@@ -759,13 +759,13 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('id', [':query_id']),
             )
-            ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('query_id', $queryIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -781,7 +781,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('query_id', [':query_id']),
             )
-            ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('query_id', $queryIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -793,7 +793,7 @@ final class CollectionQueryHandler extends QueryHandler
                 ->setParameter('locale', $locale, Types::STRING);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -811,13 +811,13 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('bc.block_id', [':block_id']),
             )
-            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('block_id', $blockIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status, 'bc.block_status', 'block_status');
         }
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'collection_id'));
     }

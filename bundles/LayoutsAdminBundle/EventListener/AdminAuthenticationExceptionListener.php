@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -14,8 +13,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 final class AdminAuthenticationExceptionListener implements EventSubscriberInterface
 {
-    use ExceptionEventThrowableTrait;
-
     public static function getSubscribedEvents(): array
     {
         // Priority needs to be higher than built in exception listener
@@ -36,12 +33,12 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
             return;
         }
 
-        $exception = $this->getThrowable($event);
+        $exception = $event->getThrowable();
         if (!$exception instanceof AuthenticationException && !$exception instanceof AccessDeniedException) {
             return;
         }
 
-        $this->setThrowable($event, new AccessDeniedHttpException());
+        $event->setThrowable(new AccessDeniedHttpException());
         $event->stopPropagation();
     }
 }

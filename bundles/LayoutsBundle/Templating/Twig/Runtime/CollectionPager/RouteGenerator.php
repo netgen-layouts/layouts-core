@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Context\Context;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\UriSigner;
+use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use function http_build_query;

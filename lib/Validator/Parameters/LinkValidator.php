@@ -8,7 +8,6 @@ use Netgen\Layouts\Parameters\Value\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
 use Netgen\Layouts\Validator\Constraint\Parameters\Link;
-use Netgen\Layouts\Validator\StrictEmailValidatorTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -20,8 +19,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 final class LinkValidator extends ConstraintValidator
 {
-    use StrictEmailValidatorTrait;
-
     public function validate(mixed $value, Constraint $constraint): void
     {
         if ($value === null) {
@@ -74,7 +71,7 @@ final class LinkValidator extends ConstraintValidator
                 LinkType::Url => new Constraints\Url(),
                 // @deprecated Replace with Url constraint with "relativeProtocol" option when support for Symfony 3.4 ends
                 LinkType::RelativeUrl => new Constraints\Type(['type' => 'string']),
-                LinkType::Email => new Constraints\Email($this->getStrictEmailValidatorOption()),
+                LinkType::Email => new Constraints\Email(['mode' => Constraints\Email::VALIDATION_MODE_STRICT]),
                 LinkType::Phone => new Constraints\Type(['type' => 'string']),
                 LinkType::Internal => new ItemLink(
                     [

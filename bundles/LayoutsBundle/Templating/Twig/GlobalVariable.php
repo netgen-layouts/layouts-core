@@ -15,11 +15,10 @@ use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\UriSigner;
+use Symfony\Component\HttpFoundation\UriSigner;
 
 use function http_build_query;
 use function mb_substr;
-use function method_exists;
 
 /**
  * This global variable injected into all templates serves two purposes.
@@ -79,10 +78,7 @@ final class GlobalVariable
     public function getLayoutView(): false|LayoutViewInterface|null
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
-        $mainRequest = method_exists($this->requestStack, 'getMainRequest') ?
-            $this->requestStack->getMainRequest() :
-            // Deprecated since Symfony 5.3
-            $this->requestStack->getMasterRequest();
+        $mainRequest = $this->requestStack->getMainRequest();
 
         if (!$currentRequest instanceof Request || !$mainRequest instanceof Request) {
             return null;
@@ -212,10 +208,7 @@ final class GlobalVariable
     public function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT, ?Layout $layout = null): false|ViewInterface|null
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
-        $mainRequest = method_exists($this->requestStack, 'getMainRequest') ?
-            $this->requestStack->getMainRequest() :
-            // Deprecated since Symfony 5.3
-            $this->requestStack->getMasterRequest();
+        $mainRequest = $this->requestStack->getMainRequest();
 
         if (!$currentRequest instanceof Request || !$mainRequest instanceof Request) {
             return null;

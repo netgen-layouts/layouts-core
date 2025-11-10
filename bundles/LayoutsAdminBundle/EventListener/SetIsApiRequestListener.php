@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
-use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -13,8 +12,6 @@ use function str_starts_with;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface
 {
-    use MainRequestEventTrait;
-
     public const string API_FLAG_NAME = 'nglayouts_is_app_api_request';
 
     private const string API_ROUTE_PREFIX = 'nglayouts_app_api_';
@@ -29,7 +26,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

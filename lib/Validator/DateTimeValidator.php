@@ -75,17 +75,15 @@ final class DateTimeValidator extends ConstraintValidator
             [
                 new Constraints\Type(['type' => 'string']),
                 new Constraints\Callback(
-                    [
-                        'callback' => static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint, $timeZoneIdentifiers): void {
-                            if (in_array($timeZoneName, $timeZoneIdentifiers, true)) {
-                                return;
-                            }
+                    static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint, $timeZoneIdentifiers): void {
+                        if (in_array($timeZoneName, $timeZoneIdentifiers, true)) {
+                            return;
+                        }
 
-                            $context->buildViolation($constraint->invalidTimeZoneMessage)
-                                ->setParameter('%timeZone%', $timeZoneName)
-                                ->addViolation();
-                        },
-                    ],
+                        $context->buildViolation($constraint->invalidTimeZoneMessage)
+                            ->setParameter('%timeZone%', $timeZoneName)
+                            ->addViolation();
+                    },
                 ),
             ],
         );

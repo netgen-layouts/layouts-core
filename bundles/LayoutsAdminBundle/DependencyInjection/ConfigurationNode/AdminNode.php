@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
-use Netgen\Layouts\Utils\BackwardsCompatibility\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 use function is_string;
 

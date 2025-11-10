@@ -6,11 +6,11 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -19,8 +19,6 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 final class RequestBodyListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private MockObject $decoderMock;
 
     private RequestBodyListener $listener;
@@ -60,7 +58,7 @@ final class RequestBodyListenerTest extends TestCase
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         $request = $event->getRequest();
@@ -84,7 +82,7 @@ final class RequestBodyListenerTest extends TestCase
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -102,7 +100,7 @@ final class RequestBodyListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->headers->set('Content-Type', 'application/json');
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -120,7 +118,7 @@ final class RequestBodyListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -139,7 +137,7 @@ final class RequestBodyListenerTest extends TestCase
         $request->headers->set('Content-Type', 'some/type');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -164,7 +162,7 @@ final class RequestBodyListenerTest extends TestCase
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -187,7 +185,7 @@ final class RequestBodyListenerTest extends TestCase
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 }

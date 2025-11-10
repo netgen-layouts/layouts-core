@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
@@ -47,7 +48,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $ruleId, 'r.id', 'r.uuid');
         $this->applyStatusCondition($query, $status, 'r.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -68,7 +69,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $layout->status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -86,7 +87,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleStatus);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -110,7 +111,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $ruleGroup->status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -129,7 +130,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -169,7 +170,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $targetHandler = $this->getTargetHandler($targetType);
         $targetHandler->handleQuery($query, $targetValue);
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -184,7 +185,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $ruleGroupId, 'rg.id', 'rg.uuid');
         $this->applyStatusCondition($query, $status, 'rg.status');
 
-        $ruleGroupsData = $query->execute()->fetchAllAssociative();
+        $ruleGroupsData = $query->fetchAllAssociative();
 
         // Inject the parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -225,7 +226,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $ruleGroup->status, 'rg.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
-        $ruleGroupsData = $query->execute()->fetchAllAssociative();
+        $ruleGroupsData = $query->fetchAllAssociative();
 
         foreach ($ruleGroupsData as &$ruleGroupData) {
             $ruleGroupData['parent_uuid'] = $ruleGroup->uuid;
@@ -250,7 +251,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -267,7 +268,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $targetId, 't.id', 't.uuid');
         $this->applyStatusCondition($query, $status, 't.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -286,7 +287,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status, 't.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -304,7 +305,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -321,7 +322,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $conditionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -340,7 +341,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status, 'c.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -355,7 +356,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $conditionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -374,7 +375,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleGroup->status, 'c.status');
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->fetchAllAssociative();
     }
 
     /**
@@ -392,7 +393,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -412,7 +413,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -441,7 +442,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->addOrderBy('rd.priority', 'ASC');
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         // Get the lowest priority for rule groups
 
@@ -464,7 +465,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->addOrderBy('rgd.priority', 'ASC');
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         // Return the lowest priority between lowest rule and lowest rule group priority
 
@@ -501,7 +502,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
             ->setParameter('description', $rule->description, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
 
         if (!isset($rule->id)) {
             $rule->id = (int) $this->connectionHelper->lastId('nglayouts_rule');
@@ -519,7 +520,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
                 ->setParameter('priority', $rule->priority, Types::INTEGER);
 
-            $query->execute();
+            $query->executeStatement();
         }
 
         return $rule;
@@ -546,7 +547,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -566,7 +567,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
             ->setParameter('priority', $rule->priority, Types::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -587,7 +588,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        $query->execute();
+        $query->executeStatement();
 
         if ($newPriority !== null) {
             $query = $this->connection->createQueryBuilder();
@@ -600,7 +601,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ->setParameter('rule_id', $rule->id, Types::INTEGER)
                 ->setParameter('priority', $newPriority, Types::INTEGER);
 
-            $query->execute();
+            $query->executeStatement();
         }
     }
 
@@ -633,7 +634,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('name', $ruleGroup->name, Types::STRING)
             ->setParameter('description', $ruleGroup->description, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
 
         if (!isset($ruleGroup->id)) {
             $ruleGroup->id = (int) $this->connectionHelper->lastId('nglayouts_rule_group');
@@ -651,7 +652,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
                 ->setParameter('priority', $ruleGroup->priority, Types::INTEGER);
 
-            $query->execute();
+            $query->executeStatement();
         }
 
         if (!$updatePath) {
@@ -674,7 +675,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
-        $query->execute();
+        $query->executeStatement();
 
         return $ruleGroup;
     }
@@ -706,7 +707,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -726,7 +727,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
             ->setParameter('priority', $ruleGroup->priority, Types::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -747,7 +748,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
-        $query->execute();
+        $query->executeStatement();
 
         $depthDifference = $ruleGroup->depth - ($targetGroup->depth + 1);
 
@@ -767,7 +768,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
-        $query->execute();
+        $query->executeStatement();
 
         if ($newPriority !== null) {
             $query = $this->connection->createQueryBuilder();
@@ -780,7 +781,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
                 ->setParameter('priority', $newPriority, Types::INTEGER);
 
-            $query->execute();
+            $query->executeStatement();
         }
     }
 
@@ -797,13 +798,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('rule_id', [':rule_id']),
             )
-            ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('rule_id', $ruleIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -823,13 +824,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('condition_id', [':condition_id']),
             )
-            ->setParameter('condition_id', $conditionIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('condition_id', $conditionIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status, 'condition_status');
         }
 
-        $query->execute();
+        $query->executeStatement();
 
         // Delete the conditions themselves
 
@@ -839,13 +840,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('id', [':id']),
             )
-            ->setParameter('id', $conditionIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('id', $conditionIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -864,7 +865,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
 
         if (!$this->ruleExists($ruleId)) {
             $query = $this->connection->createQueryBuilder();
@@ -874,7 +875,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 )
                 ->setParameter('rule_id', $ruleId, Types::INTEGER);
 
-            $query->execute();
+            $query->executeStatement();
         }
     }
 
@@ -891,17 +892,17 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('id', [':id']),
             )
-            ->setParameter('id', $ruleIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('id', $ruleIds, ArrayParameterType::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
 
         $query->delete('nglayouts_rule_data')
             ->where(
                 $query->expr()->in('rule_id', [':rule_id']),
             )
-            ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('rule_id', $ruleIds, ArrayParameterType::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -919,7 +920,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('path', '%/' . $ruleGroupId . '/%', Types::STRING);
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -939,9 +940,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('rule_group_id', [':rule_group_id']),
             )
-            ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('rule_group_id', $ruleGroupIds, ArrayParameterType::INTEGER);
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -963,13 +964,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('condition_id', [':condition_id']),
             )
-            ->setParameter('condition_id', $conditionIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('condition_id', $conditionIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status, 'condition_status');
         }
 
-        $query->execute();
+        $query->executeStatement();
 
         // Delete the conditions themselves
 
@@ -979,13 +980,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('id', [':id']),
             )
-            ->setParameter('id', $conditionIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('id', $conditionIds, ArrayParameterType::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -1004,7 +1005,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $query->execute();
+        $query->executeStatement();
 
         if (!$this->ruleGroupExists($ruleGroupId)) {
             $query = $this->connection->createQueryBuilder();
@@ -1014,7 +1015,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 )
                 ->setParameter('rule_group_id', $ruleGroupId, Types::INTEGER);
 
-            $query->execute();
+            $query->executeStatement();
         }
     }
 
@@ -1031,9 +1032,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('id', [':id']),
             )
-            ->setParameter('id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('id', $ruleGroupIds, ArrayParameterType::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
 
         $query = $this->connection->createQueryBuilder();
 
@@ -1041,9 +1042,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('rule_group_id', [':rule_group_id']),
             )
-            ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('rule_group_id', $ruleGroupIds, ArrayParameterType::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -1070,7 +1071,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('type', $target->type, Types::STRING)
             ->setParameter('value', $target->value, Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
 
         $target->id ??= (int) $this->connectionHelper->lastId('nglayouts_rule_target');
 
@@ -1100,7 +1101,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $target->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -1118,7 +1119,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -1144,7 +1145,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('rule_id', $ruleCondition->ruleId, Types::INTEGER)
             ->setParameter('rule_status', $ruleCondition->status->value, Types::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
 
         return $ruleCondition;
     }
@@ -1172,7 +1173,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('rule_group_id', $ruleGroupCondition->ruleGroupId, Types::INTEGER)
             ->setParameter('rule_group_status', $ruleGroupCondition->status->value, Types::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
 
         return $ruleGroupCondition;
     }
@@ -1198,7 +1199,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $condition->status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -1218,7 +1219,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status, 'condition_status');
 
-        $query->execute();
+        $query->executeStatement();
 
         // Delete connection between condition and rule group
 
@@ -1232,7 +1233,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status, 'condition_status');
 
-        $query->execute();
+        $query->executeStatement();
 
         // Delete the condition itself
 
@@ -1246,7 +1247,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $query->execute();
+        $query->executeStatement();
     }
 
     /**
@@ -1271,7 +1272,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('type', $condition->type, Types::STRING)
             ->setParameter('value', json_encode($condition->value), Types::STRING);
 
-        $query->execute();
+        $query->executeStatement();
 
         $condition->id ??= (int) $this->connectionHelper->lastId('nglayouts_rule_condition');
 
@@ -1293,9 +1294,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('rule_id', [':rule_id']),
             )
-            ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('rule_id', $ruleIds, ArrayParameterType::INTEGER);
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'condition_id'));
     }
@@ -1315,9 +1316,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->in('rule_group_id', [':rule_group_id']),
             )
-            ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
+            ->setParameter('rule_group_id', $ruleGroupIds, ArrayParameterType::INTEGER);
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'condition_id'));
     }
@@ -1340,7 +1341,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAllAssociative();
+        $data = $query->fetchAllAssociative();
 
         if (count($data) === 0) {
             return null;

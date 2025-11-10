@@ -35,7 +35,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
         ];
     }
 
-    public function supportsNormalization(mixed $data, ?string $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         if (!$data instanceof Value) {
             return false;

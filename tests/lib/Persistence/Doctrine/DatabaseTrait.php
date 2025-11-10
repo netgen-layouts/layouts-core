@@ -25,7 +25,7 @@ use function sprintf;
 
 trait DatabaseTrait
 {
-    private Connection $databaseConnection;
+    final protected Connection $databaseConnection;
 
     private string $inMemoryDsn = 'sqlite:///:memory:';
 
@@ -46,7 +46,7 @@ trait DatabaseTrait
                             array_values($tableRow),
                             array_fill_keys(array_keys($tableRow), Types::STRING),
                         )
-                        ->execute();
+                        ->executeStatement();
                 }
             }
         }

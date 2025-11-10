@@ -6,30 +6,22 @@ namespace Netgen\Layouts\Tests\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
-use FOS\HttpCache\ProxyClient\Invalidation\TagCapable;
-use Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface;
 use Netgen\Layouts\HttpCache\VarnishClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-use function interface_exists;
-
 final class VarnishClientTest extends TestCase
 {
     private MockObject $fosInvalidatorMock;
-
-    private MockObject $hostHeaderProviderMock;
 
     private VarnishClient $client;
 
     protected function setUp(): void
     {
         $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
-        $this->hostHeaderProviderMock = $this->createMock(HostHeaderProviderInterface::class);
 
         $this->client = new VarnishClient(
             $this->fosInvalidatorMock,
-            $this->hostHeaderProviderMock,
         );
     }
 
@@ -39,10 +31,6 @@ final class VarnishClientTest extends TestCase
      */
     public function testPurge(): void
     {
-        if (!interface_exists(TagCapable::class)) {
-            self::markTestSkipped('This test is only valid for FOS HTTP Cache v2');
-        }
-
         $this->fosInvalidatorMock
             ->expects(self::once())
             ->method('invalidateTags')

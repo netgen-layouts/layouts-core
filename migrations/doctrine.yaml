@@ -3,3 +3,5 @@ migrations_paths:
 
 table_storage:
     table_name: nglayouts_migration_versions
+
+transactional: false

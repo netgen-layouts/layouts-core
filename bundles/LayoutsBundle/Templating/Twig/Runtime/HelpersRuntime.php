@@ -15,17 +15,15 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
-use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Netgen\Layouts\Utils\FlagGenerator;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Intl\Locales;
 use Throwable;
 use Twig\Environment;
 use Twig\Extension\CoreExtension;
 
 use function array_unshift;
 use function is_string;
-use function method_exists;
-use function twig_date_converter;
 
 final class HelpersRuntime
 {
@@ -113,9 +111,7 @@ final class HelpersRuntime
     {
         $coreExtension = $twig->getExtension(CoreExtension::class);
 
-        $dateTime = method_exists($coreExtension, 'convertDate') ?
-            $coreExtension->convertDate($dateTime) :
-            twig_date_converter($twig, $dateTime);
+        $dateTime = $coreExtension->convertDate($dateTime);
 
         $formatValues = [
             'none' => IntlDateFormatter::NONE,

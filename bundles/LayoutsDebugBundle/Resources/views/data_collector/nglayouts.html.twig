@@ -67,22 +67,6 @@
     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}
 {% endblock %}
 
-{% block head %}
-    {{ parent() }}
-
-    {% if constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION_ID') < 60200 %}
-        <style type="text/css">
-            .container {
-                max-width:100%;
-            }
-
-            .nl-container {
-                max-width:1060px;
-            }
-        </style>
-    {% endif %}
-{% endblock %}
-
 {% block menu %}
     <span class="label">
         <span class="icon">

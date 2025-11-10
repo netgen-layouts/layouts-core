@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Validator;
 
 use Locale;
 use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -39,12 +38,7 @@ final class LocaleValidator extends ConstraintValidator
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
-
-        $localeConstraint = Kernel::VERSION_ID >= 40100 ?
-            new Constraints\Locale(['canonicalize' => true]) :
-            new Constraints\Locale();
-
-        $validator->validate($value, [$localeConstraint]);
+        $validator->validate($value, [new Constraints\Locale(['canonicalize' => true])]);
 
         $canonicalizedLocale = Locale::canonicalize($value);
 

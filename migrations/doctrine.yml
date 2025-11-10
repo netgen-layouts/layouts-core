@@ -1,7 +1,0 @@
-# Deprecated, use doctrine.yaml file instead
-
-migrations_paths:
-    Netgen\Layouts\Migrations\Doctrine: Doctrine
-
-table_storage:
-    table_name: nglayouts_migration_versions

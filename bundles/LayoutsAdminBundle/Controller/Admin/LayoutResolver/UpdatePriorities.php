@@ -11,7 +11,6 @@ use Netgen\Layouts\Exception\BadStateException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Kernel;
 
 use function count;
 use function sprintf;
@@ -31,9 +30,7 @@ final class UpdatePriorities extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:mapping:reorder', $ruleGroup);
 
-        $ids = Kernel::VERSION_ID >= 50100 ?
-            $request->request->all('ids') :
-            (array) ($request->request->get('ids') ?? []);
+        $ids = $request->request->all('ids');
 
         if (count($ids) === 0) {
             throw new BadStateException('ids', 'List of entities to reorder cannot be empty.');

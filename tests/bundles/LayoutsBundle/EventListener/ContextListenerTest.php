@@ -7,18 +7,16 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 use Netgen\Bundle\LayoutsBundle\EventListener\ContextListener;
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
-use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\UriSigner;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\UriSigner;
 
 final class ContextListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private Context $context;
 
     private MockObject $contextBuilderMock;
@@ -70,7 +68,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::never())
             ->method('check');
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -92,7 +90,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::never())
             ->method('check');
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame(['var' => 'value'], $this->context->all());
@@ -112,7 +110,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::never())
             ->method('buildContext');
 
-        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame([], $this->context->all());

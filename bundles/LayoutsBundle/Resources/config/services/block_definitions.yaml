@@ -23,7 +23,7 @@ services:
     netgen_layouts.block.registry.handler_plugin:
         class: Netgen\Layouts\Block\Registry\HandlerPluginRegistry
         arguments:
-            - !tagged netgen_layouts.block_definition_handler.plugin
+            - !tagged_iterator netgen_layouts.block_definition_handler.plugin
 
     netgen_layouts.block.registry.block_type:
         class: Netgen\Layouts\Block\Registry\BlockTypeRegistry

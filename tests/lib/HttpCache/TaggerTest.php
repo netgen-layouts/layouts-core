@@ -11,8 +11,6 @@ use Netgen\Layouts\HttpCache\Tagger;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-use function class_exists;
-
 final class TaggerTest extends TestCase
 {
     private SymfonyResponseTagger $responseTagger;
@@ -21,10 +19,6 @@ final class TaggerTest extends TestCase
 
     protected function setUp(): void
     {
-        if (!class_exists(SymfonyResponseTagger::class)) {
-            self::markTestSkipped('Test requires friendsofsymfony/http-cache-bundle 2.x to run');
-        }
-
         $this->responseTagger = new SymfonyResponseTagger();
         $this->tagger = new Tagger($this->responseTagger);
     }

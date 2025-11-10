@@ -174,7 +174,7 @@ final class PositionHelperTest extends TestCase
             ->setParameter('id', 2, Types::INTEGER)
             ->setParameter('status', Status::Draft->value, Types::INTEGER);
 
-        $query->execute();
+        $query->executeStatement();
 
         $this->positionHelper->removePosition($this->getPositionHelperConditions(), 1);
 
@@ -230,7 +230,7 @@ final class PositionHelperTest extends TestCase
             ->setParameter('status', Status::Draft->value, Types::INTEGER)
             ->orderBy('position', 'ASC');
 
-        $result = $query->execute()->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'position'));
     }

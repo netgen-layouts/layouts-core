@@ -7,34 +7,12 @@ includes:
 
 parameters:
     treatPhpDocTypesAsCertain: false
-    dynamicConstantNames:
-        - Symfony\Component\HttpKernel\Kernel::VERSION_ID
-        - Twig\Environment::MAJOR_VERSION
 
     excludePaths:
         - tests/application/public/bundles/
         - tests/application/src/Kernel.php
-        - tests/application/src/LegacyKernel.php
 
     ignoreErrors:
-        # Doctrine DBAL
-        -
-            message: '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\Result\|int#'
-            path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
-
-        # Compatibility with Symfony 3.4
-
-        - '#Method .+::createRequestEvent\(\) should return .+\\RequestEvent but returns .+\\GetResponseEvent.#'
-        - '#Method .+::createResponseEvent\(\) should return .+\\ResponseEvent but returns .+\\FilterResponseEvent.#'
-        - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'
-        - '#Method .+::createViewEvent\(\) should return .+\\ViewEvent but returns .+\\GetResponseForControllerResultEvent.#'
-        - '#Method .+::createTerminateEvent\(\) should return .+\\TerminateEvent but returns .+\\PostResponseEvent.#'
-
-        # PHPUnit 8
-
-        - '#Call to function method_exists\(\) with ''PHPUnit\\\\Framework\\\\Assert''#'
-        - '#Call to function method_exists\(\) with ''Ramsey\\\\Uuid\\\\UuidFactoryInterface'' and ''getValidator'' will always evaluate to true.#'
-
         # Disable errors about missing value types in PHPUnit data providers
 
         - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'
@@ -58,7 +36,6 @@ parameters:
             message: '#Undefined variable: \$this#'
             path: tests/lib/Transfer/Output/Visitor/Integration
 
-        - '#Call to function method_exists\(\) with .* and ''setNodeTag'' will always evaluate to true.#'
         -
             message: '#Call to an undefined method Netgen\\Layouts\\Persistence(\\Handler)?\\\w+Interface::(method|expects)#'
             path: tests/lib/Core/Service/TransactionRollback

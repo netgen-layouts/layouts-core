@@ -16,7 +16,7 @@ final class NormalizerStub implements NormalizerInterface
         return 'data';
     }
 
-    public function supportsNormalization(mixed $data, ?string $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return is_object($data) && !$data instanceof Generator;
     }

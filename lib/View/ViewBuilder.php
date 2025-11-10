@@ -7,7 +7,6 @@ namespace Netgen\Layouts\View;
 use Netgen\Layouts\Event\CollectViewParametersEvent;
 use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Exception\View\ViewProviderException;
-use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -16,8 +15,6 @@ use function sprintf;
 
 final class ViewBuilder implements ViewBuilderInterface
 {
-    private EventDispatcherProxy $eventDispatcher;
-
     /**
      * @var \Netgen\Layouts\View\Provider\ViewProviderInterface[]
      */
@@ -28,11 +25,9 @@ final class ViewBuilder implements ViewBuilderInterface
      */
     public function __construct(
         private TemplateResolverInterface $templateResolver,
-        EventDispatcherInterface $eventDispatcher,
+        private EventDispatcherInterface $eventDispatcher,
         iterable $viewProviders,
     ) {
-        $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
-
         foreach ($viewProviders as $viewProvider) {
             if ($viewProvider instanceof ViewProviderInterface) {
                 $this->viewProviders[] = $viewProvider;
