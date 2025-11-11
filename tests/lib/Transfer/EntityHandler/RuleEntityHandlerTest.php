@@ -20,7 +20,7 @@ use function sprintf;
 #[CoversClass(RuleEntityHandler::class)]
 final class RuleEntityHandlerTest extends TestCase
 {
-    private MockObject $layoutResolverServiceMock;
+    private MockObject&LayoutResolverService $layoutResolverServiceMock;
 
     private RuleEntityHandler $entityHandler;
 

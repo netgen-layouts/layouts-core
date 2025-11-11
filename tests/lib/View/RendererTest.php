@@ -17,9 +17,9 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Renderer::class)]
 final class RendererTest extends TestCase
 {
-    private MockObject $viewBuilderMock;
+    private MockObject&ViewBuilderInterface $viewBuilderMock;
 
-    private MockObject $viewRendererMock;
+    private MockObject&ViewRendererInterface $viewRendererMock;
 
     private Renderer $renderer;
 

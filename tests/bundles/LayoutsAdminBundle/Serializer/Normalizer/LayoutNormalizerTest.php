@@ -30,9 +30,9 @@ use Symfony\Component\Serializer\Serializer;
 #[CoversClass(LayoutNormalizer::class)]
 final class LayoutNormalizerTest extends TestCase
 {
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
-    private MockObject $blockServiceMock;
+    private MockObject&BlockService $blockServiceMock;
 
     private LayoutTypeInterface $layoutType;
 

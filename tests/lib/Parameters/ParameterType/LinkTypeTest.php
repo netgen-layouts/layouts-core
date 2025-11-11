@@ -29,13 +29,11 @@ final class LinkTypeTest extends TestCase
     use ExportObjectTrait;
     use ParameterTypeTestTrait;
 
-    private ValueTypeRegistry $valueTypeRegistry;
-
-    private MockObject $cmsItemLoaderMock;
+    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
 
     protected function setUp(): void
     {
-        $this->valueTypeRegistry = new ValueTypeRegistry(
+        $valueTypeRegistry = new ValueTypeRegistry(
             [
                 'default' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => true]),
                 'no_manual' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => false]),
@@ -45,7 +43,7 @@ final class LinkTypeTest extends TestCase
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
-        $this->type = new LinkType($this->valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
+        $this->type = new LinkType($valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
     }
 
     public function testGetIdentifier(): void

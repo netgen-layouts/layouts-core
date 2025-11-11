@@ -25,7 +25,7 @@ use function sprintf;
 #[CoversClass(LayoutEntityHandler::class)]
 final class LayoutEntityHandlerTest extends TestCase
 {
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
     private LayoutEntityHandler $entityHandler;
 

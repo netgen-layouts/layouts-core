@@ -23,9 +23,9 @@ final class RouteGeneratorTest extends TestCase
 {
     private Context $context;
 
-    private MockObject $uriSignerMock;
+    private MockObject&UriSigner $uriSignerMock;
 
-    private MockObject $urlGeneratorMock;
+    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
 
     private RouteGenerator $routeGenerator;
 

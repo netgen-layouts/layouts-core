@@ -23,9 +23,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[CoversClass(ExceptionSerializerListener::class)]
 final class ExceptionSerializerListenerTest extends TestCase
 {
-    private MockObject $serializerMock;
+    private MockObject&SerializerInterface $serializerMock;
 
-    private MockObject $loggerMock;
+    private MockObject&LoggerInterface $loggerMock;
 
     private ExceptionSerializerListener $listener;
 

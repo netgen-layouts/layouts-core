@@ -40,11 +40,9 @@ use Twig\TemplateWrapper;
 #[CoversClass(RenderingRuntime::class)]
 final class RenderingRuntimeTest extends TestCase
 {
-    private MockObject $blockServiceMock;
+    private MockObject&BlockService $blockServiceMock;
 
-    private MockObject $rendererMock;
-
-    private MockObject $localeProviderMock;
+    private MockObject&RendererInterface $rendererMock;
 
     private ErrorHandler $errorHandler;
 
@@ -54,13 +52,13 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
-        $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
+        $localeProviderMock = $this->createMock(LocaleProviderInterface::class);
         $this->errorHandler = new ErrorHandler();
 
         $this->runtime = new RenderingRuntime(
             $this->blockServiceMock,
             $this->rendererMock,
-            $this->localeProviderMock,
+            $localeProviderMock,
             new RequestStack(),
             $this->errorHandler,
             new Environment(new ArrayLoader()),

@@ -13,7 +13,6 @@ use Netgen\Layouts\Collection\Result\ManualCollectionRunner;
 use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use const PHP_INT_MAX;
@@ -21,15 +20,13 @@ use const PHP_INT_MAX;
 #[CoversClass(CollectionRunnerFactory::class)]
 final class CollectionRunnerFactoryTest extends TestCase
 {
-    private MockObject $cmsItemBuilderMock;
-
     private CollectionRunnerFactory $factory;
 
     protected function setUp(): void
     {
-        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
+        $cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
-        $this->factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
+        $this->factory = new CollectionRunnerFactory($cmsItemBuilderMock, new VisibilityResolver([]));
     }
 
     public function testGetCollectionRunnerWithManualCollection(): void

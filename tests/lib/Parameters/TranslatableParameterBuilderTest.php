@@ -16,24 +16,20 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 #[CoversClass(TranslatableParameterBuilder::class)]
 final class TranslatableParameterBuilderTest extends TestCase
 {
-    private ParameterTypeRegistry $registry;
-
-    private TranslatableParameterBuilderFactory $factory;
-
     private ParameterBuilderInterface $builder;
 
     protected function setUp(): void
     {
-        $this->registry = new ParameterTypeRegistry(
+        $registry = new ParameterTypeRegistry(
             [
                 new ParameterType\TextType(),
                 new ParameterType\Compound\BooleanType(),
             ],
         );
 
-        $this->factory = new TranslatableParameterBuilderFactory($this->registry);
+        $factory = new TranslatableParameterBuilderFactory($registry);
 
-        $this->builder = $this->factory->createParameterBuilder();
+        $this->builder = $factory->createParameterBuilder();
     }
 
     public function testSetTranslatableOption(): void

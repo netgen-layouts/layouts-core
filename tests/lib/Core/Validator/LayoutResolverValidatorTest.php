@@ -26,35 +26,28 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversClass(LayoutResolverValidator::class)]
 final class LayoutResolverValidatorTest extends TestCase
 {
-    private ValidatorInterface $validator;
-
-    private TargetTypeRegistry $targetTypeRegistry;
-
-    private ConditionTypeRegistry $conditionTypeRegistry;
-
     private LayoutResolverValidator $layoutResolverValidator;
 
     protected function setUp(): void
     {
-        $this->validator = Validation::createValidatorBuilder()
+        $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
+        $targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
 
-        $this->conditionTypeRegistry = new ConditionTypeRegistry([new ConditionType1()]);
+        $conditionTypeRegistry = new ConditionTypeRegistry([new ConditionType1()]);
 
         $this->layoutResolverValidator = new LayoutResolverValidator(
-            $this->targetTypeRegistry,
-            $this->conditionTypeRegistry,
+            $targetTypeRegistry,
+            $conditionTypeRegistry,
         );
 
-        $this->layoutResolverValidator->setValidator($this->validator);
+        $this->layoutResolverValidator->setValidator($validator);
     }
 
     /**

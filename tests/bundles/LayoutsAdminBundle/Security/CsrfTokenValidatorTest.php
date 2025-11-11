@@ -16,7 +16,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 #[CoversClass(CsrfTokenValidator::class)]
 final class CsrfTokenValidatorTest extends TestCase
 {
-    private MockObject $csrfTokenManagerMock;
+    private MockObject&CsrfTokenManagerInterface $csrfTokenManagerMock;
 
     private MockObject&SessionInterface $sessionMock;
 

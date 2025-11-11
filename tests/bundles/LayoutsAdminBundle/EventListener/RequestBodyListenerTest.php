@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 #[CoversClass(RequestBodyListener::class)]
 final class RequestBodyListenerTest extends TestCase
 {
-    private MockObject $decoderMock;
+    private MockObject&DecoderInterface $decoderMock;
 
     private RequestBodyListener $listener;
 

@@ -16,20 +16,18 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(ItemDefinitionFactory::class)]
 final class ItemDefinitionFactoryTest extends TestCase
 {
-    private ConfigDefinitionFactory $configDefinitionFactory;
-
     private ItemDefinitionFactory $factory;
 
     protected function setUp(): void
     {
-        $this->configDefinitionFactory = new ConfigDefinitionFactory(
+        $configDefinitionFactory = new ConfigDefinitionFactory(
             new ParameterBuilderFactory(
                 new ParameterTypeRegistry([]),
             ),
         );
 
         $this->factory = new ItemDefinitionFactory(
-            $this->configDefinitionFactory,
+            $configDefinitionFactory,
         );
     }
 

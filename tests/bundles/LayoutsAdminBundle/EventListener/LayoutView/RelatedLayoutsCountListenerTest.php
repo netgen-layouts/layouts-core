@@ -23,7 +23,7 @@ use function sprintf;
 #[CoversClass(RelatedLayoutsCountListener::class)]
 final class RelatedLayoutsCountListenerTest extends TestCase
 {
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
     private RelatedLayoutsCountListener $listener;
 

@@ -15,25 +15,23 @@ use Twig\Source;
 #[CoversClass(FilesystemLoader::class)]
 final class FilesystemLoaderTest extends TestCase
 {
-    private MockObject $innerLoaderMock;
-
-    private MockObject $configurationMock;
+    private MockObject&LoaderInterface $innerLoaderMock;
 
     private FilesystemLoader $loader;
 
     protected function setUp(): void
     {
         $this->innerLoaderMock = $this->createMock(LoaderInterface::class);
-        $this->configurationMock = $this->createMock(ConfigurationInterface::class);
+        $configurationMock = $this->createMock(ConfigurationInterface::class);
 
-        $this->configurationMock
+        $configurationMock
             ->method('getParameter')
             ->with(self::identicalTo('design'))
             ->willReturn('test');
 
         $this->loader = new FilesystemLoader(
             $this->innerLoaderMock,
-            $this->configurationMock,
+            $configurationMock,
         );
     }
 

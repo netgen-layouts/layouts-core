@@ -25,23 +25,20 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversClass(CollectionValidator::class)]
 final class CollectionValidatorTest extends TestCase
 {
-    private ValidatorInterface $validator;
-
     private CollectionValidator $collectionValidator;
 
     protected function setUp(): void
     {
-        $this->validator = Validation::createValidatorBuilder()
+        $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->collectionValidator = new CollectionValidator();
-        $this->collectionValidator->setValidator($this->validator);
+        $this->collectionValidator->setValidator($validator);
     }
 
     /**

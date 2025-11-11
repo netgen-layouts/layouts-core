@@ -28,37 +28,31 @@ final class BlockDefinitionFactoryTest extends TestCase
 {
     use ExportObjectTrait;
 
-    private MockObject $handlerMock;
-
-    private ParameterBuilderFactory $parameterBuilderFactory;
-
-    private HandlerPluginRegistry $handlerPluginRegistry;
-
-    private ConfigDefinitionFactory $configDefinitionFactory;
+    private MockObject&BlockDefinitionHandlerInterface $handlerMock;
 
     private BlockDefinitionFactory $factory;
 
     protected function setUp(): void
     {
         $parameterTypeRegistry = new ParameterTypeRegistry([new TextLineType()]);
-        $this->parameterBuilderFactory = new ParameterBuilderFactory(
+        $parameterBuilderFactory = new ParameterBuilderFactory(
             $parameterTypeRegistry,
         );
 
-        $this->handlerPluginRegistry = new HandlerPluginRegistry(
+        $handlerPluginRegistry = new HandlerPluginRegistry(
             [
                 HandlerPlugin::instance([BlockDefinitionHandlerInterface::class]),
             ],
         );
 
-        $this->configDefinitionFactory = new ConfigDefinitionFactory(
-            $this->parameterBuilderFactory,
+        $configDefinitionFactory = new ConfigDefinitionFactory(
+            $parameterBuilderFactory,
         );
 
         $this->factory = new BlockDefinitionFactory(
-            $this->parameterBuilderFactory,
-            $this->handlerPluginRegistry,
-            $this->configDefinitionFactory,
+            $parameterBuilderFactory,
+            $handlerPluginRegistry,
+            $configDefinitionFactory,
         );
     }
 

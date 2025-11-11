@@ -15,9 +15,9 @@ use Ramsey\Uuid\Uuid;
 #[CoversClass(Invalidator::class)]
 final class InvalidatorTest extends TestCase
 {
-    private MockObject $clientMock;
+    private MockObject&ClientInterface $clientMock;
 
-    private MockObject $idProviderMock;
+    private MockObject&IdProviderInterface $idProviderMock;
 
     private Invalidator $invalidator;
 

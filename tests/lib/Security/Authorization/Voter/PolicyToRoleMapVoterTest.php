@@ -17,7 +17,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
 {
     private PolicyToRoleMapVoter $voter;
 
-    private MockObject $accessDecisionManagerMock;
+    private MockObject&AccessDecisionManagerInterface $accessDecisionManagerMock;
 
     protected function setUp(): void
     {

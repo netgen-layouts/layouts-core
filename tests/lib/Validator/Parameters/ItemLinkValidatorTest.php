@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 #[CoversClass(ItemLinkValidator::class)]
 final class ItemLinkValidatorTest extends ValidatorTestCase
 {
-    private MockObject $cmsItemLoaderMock;
+    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
 
     protected function setUp(): void
     {

@@ -39,11 +39,11 @@ use const PREG_SET_ORDER;
 #[CoversClass(RenderingRuntime::class)]
 final class RenderingExtensionTwigTest extends IntegrationTestCase
 {
-    private MockObject $blockServiceMock;
+    private MockObject&BlockService $blockServiceMock;
 
-    private MockObject $rendererMock;
+    private MockObject&RendererInterface $rendererMock;
 
-    private MockObject $localeProviderMock;
+    private MockObject&LocaleProviderInterface $localeProviderMock;
 
     private RequestStack $requestStack;
 

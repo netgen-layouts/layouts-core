@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 #[CoversClass(InvalidationListener::class)]
 final class InvalidationListenerTest extends TestCase
 {
-    private MockObject $invalidatorMock;
+    private MockObject&InvalidatorInterface $invalidatorMock;
 
     private InvalidationListener $listener;
 

@@ -18,15 +18,13 @@ final class PagedCollectionsPluginTest extends TestCase
 {
     private PagedCollectionsPlugin $plugin;
 
-    private ParameterTypeRegistry $parameterTypeRegistry;
-
     private TranslatableParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {
         $this->plugin = new PagedCollectionsPlugin(['load_more' => 'Load more'], ['group']);
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+        $parameterTypeRegistry = new ParameterTypeRegistry(
             [
                 new ParameterType\ChoiceType(),
                 new ParameterType\IntegerType(),
@@ -36,7 +34,7 @@ final class PagedCollectionsPluginTest extends TestCase
         );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
-            $this->parameterTypeRegistry,
+            $parameterTypeRegistry,
         );
     }
 

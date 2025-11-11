@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[CoversClass(CollectionQueryNormalizer::class)]
 final class CollectionQueryNormalizerTest extends TestCase
 {
-    private MockObject $normalizerMock;
+    private MockObject&NormalizerInterface $normalizerMock;
 
     private CollectionQueryNormalizer $normalizer;
 

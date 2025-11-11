@@ -27,8 +27,6 @@ final class ParameterBuilderTest extends TestCase
 
     private ParameterTypeRegistry $registry;
 
-    private ParameterBuilderFactory $factory;
-
     private ParameterBuilderInterface $builder;
 
     protected function setUp(): void
@@ -41,9 +39,9 @@ final class ParameterBuilderTest extends TestCase
             ],
         );
 
-        $this->factory = new ParameterBuilderFactory($this->registry);
+        $factory = new ParameterBuilderFactory($this->registry);
 
-        $this->builder = $this->factory->createParameterBuilder();
+        $this->builder = $factory->createParameterBuilder();
     }
 
     public function testGetName(): void

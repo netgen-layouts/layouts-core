@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\TestCase;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
@@ -21,10 +20,6 @@ abstract class FormTestCase extends TestCase
 
     final protected FormFactoryInterface $factory;
 
-    private MockObject $validatorMock;
-
-    private MockObject $dispatcherMock;
-
     private FormBuilder $builder;
 
     protected function setUp(): void
@@ -33,15 +28,15 @@ abstract class FormTestCase extends TestCase
 
         $this->formType = $this->getMainType();
 
-        $this->validatorMock = $this->createMock(ValidatorInterface::class);
-        $this->validatorMock
+        $validatorMock = $this->createMock(ValidatorInterface::class);
+        $validatorMock
             ->method('validate')
             ->willReturn(new ConstraintViolationList());
 
         $factoryBuilder = Forms::createFormFactoryBuilder()
             ->addType($this->formType)
             ->addTypes($this->getTypes())
-            ->addTypeExtension(new FormTypeValidatorExtension($this->validatorMock));
+            ->addTypeExtension(new FormTypeValidatorExtension($validatorMock));
 
         foreach ($this->getTypeExtensions() as $typeExtension) {
             $factoryBuilder->addTypeExtension($typeExtension);
@@ -49,8 +44,8 @@ abstract class FormTestCase extends TestCase
 
         $this->factory = $factoryBuilder->getFormFactory();
 
-        $this->dispatcherMock = $this->createMock(EventDispatcherInterface::class);
-        $this->builder = new FormBuilder(null, null, $this->dispatcherMock, $this->factory);
+        $dispatcherMock = $this->createMock(EventDispatcherInterface::class);
+        $this->builder = new FormBuilder(null, null, $dispatcherMock, $this->factory);
     }
 
     abstract protected function getMainType(): FormTypeInterface;

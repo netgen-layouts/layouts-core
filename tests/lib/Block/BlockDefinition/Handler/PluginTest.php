@@ -19,15 +19,13 @@ final class PluginTest extends TestCase
 {
     private EmptyHandlerPlugin $plugin;
 
-    private ParameterTypeRegistry $parameterTypeRegistry;
-
     private ParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {
         $this->plugin = new EmptyHandlerPlugin();
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+        $parameterTypeRegistry = new ParameterTypeRegistry(
             [
                 new ParameterType\TextLineType(),
                 new ParameterType\BooleanType(),
@@ -35,7 +33,7 @@ final class PluginTest extends TestCase
         );
 
         $this->parameterBuilderFactory = new ParameterBuilderFactory(
-            $this->parameterTypeRegistry,
+            $parameterTypeRegistry,
         );
     }
 

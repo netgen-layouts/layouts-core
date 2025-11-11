@@ -22,23 +22,20 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversClass(LayoutValidator::class)]
 final class LayoutValidatorTest extends TestCase
 {
-    private ValidatorInterface $validator;
-
     private LayoutValidator $layoutValidator;
 
     protected function setUp(): void
     {
-        $this->validator = Validation::createValidatorBuilder()
+        $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->layoutValidator = new LayoutValidator();
-        $this->layoutValidator->setValidator($this->validator);
+        $this->layoutValidator->setValidator($validator);
     }
 
     /**

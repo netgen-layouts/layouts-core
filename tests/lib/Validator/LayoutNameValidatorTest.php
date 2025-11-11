@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 #[CoversClass(LayoutNameValidator::class)]
 final class LayoutNameValidatorTest extends ValidatorTestCase
 {
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
     protected function setUp(): void
     {

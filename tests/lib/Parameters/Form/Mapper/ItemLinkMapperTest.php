@@ -14,7 +14,6 @@ use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\ItemLinkType as ItemLinkParameterType;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilder;
@@ -23,23 +22,19 @@ use Symfony\Component\Form\FormFactoryInterface;
 #[CoversClass(ItemLinkMapper::class)]
 final class ItemLinkMapperTest extends TestCase
 {
-    private ValueTypeRegistry $valueTypeRegistry;
-
-    private MockObject $cmsItemLoaderMock;
-
     private ItemLinkParameterType $type;
 
     private ItemLinkMapper $mapper;
 
     protected function setUp(): void
     {
-        $this->valueTypeRegistry = new ValueTypeRegistry(['default' => ValueType::fromArray(['isEnabled' => true])]);
+        $valueTypeRegistry = new ValueTypeRegistry(['default' => ValueType::fromArray(['isEnabled' => true])]);
 
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
         $this->type = new ItemLinkParameterType(
-            $this->valueTypeRegistry,
-            new RemoteIdConverter($this->cmsItemLoaderMock),
+            $valueTypeRegistry,
+            new RemoteIdConverter($cmsItemLoaderMock),
         );
 
         $this->mapper = new ItemLinkMapper();

@@ -31,7 +31,7 @@ use function sprintf;
 #[CoversClass(GetCollectionResultsListener::class)]
 final class GetCollectionResultsListenerTest extends TestCase
 {
-    private MockObject $resultBuilderMock;
+    private MockObject&ResultBuilderInterface $resultBuilderMock;
 
     private GetCollectionResultsListener $listener;
 

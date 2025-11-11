@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(PluginRenderingRuntime::class)]
 final class PluginRenderingRuntimeTest extends TestCase
 {
-    private MockObject $pluginRendererMock;
+    private MockObject&RendererInterface $pluginRendererMock;
 
     private ErrorHandler $errorHandler;
 

@@ -21,7 +21,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 {
     private Closure $routeGenerator;
 
-    private MockObject $pagerfantaViewMock;
+    private MockObject&ViewInterface $pagerfantaViewMock;
 
     private CollectionPagerRuntime $runtime;
 

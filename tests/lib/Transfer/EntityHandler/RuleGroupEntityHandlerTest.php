@@ -21,7 +21,7 @@ use function sprintf;
 #[CoversClass(RuleGroupEntityHandler::class)]
 final class RuleGroupEntityHandlerTest extends TestCase
 {
-    private MockObject $layoutResolverServiceMock;
+    private MockObject&LayoutResolverService $layoutResolverServiceMock;
 
     private RuleGroupEntityHandler $entityHandler;
 

@@ -13,18 +13,16 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(TwigBlockDefinition::class)]
 final class TwigBlockDefinitionTest extends TestCase
 {
-    private TwigBlockDefinitionHandler $handler;
-
     private TwigBlockDefinition $blockDefinition;
 
     protected function setUp(): void
     {
-        $this->handler = new TwigBlockDefinitionHandler();
+        $handler = new TwigBlockDefinitionHandler();
 
         $this->blockDefinition = TwigBlockDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
-                'handler' => $this->handler,
+                'handler' => $handler,
             ],
         );
     }

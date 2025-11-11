@@ -13,7 +13,6 @@ use Netgen\Layouts\Parameters\ParameterType\ItemLinkType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -23,13 +22,9 @@ final class ItemLinkTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    private ValueTypeRegistry $valueTypeRegistry;
-
-    private MockObject $cmsItemLoaderMock;
-
     protected function setUp(): void
     {
-        $this->valueTypeRegistry = new ValueTypeRegistry(
+        $valueTypeRegistry = new ValueTypeRegistry(
             [
                 'default' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => true]),
                 'no_manual' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => false]),
@@ -37,8 +32,8 @@ final class ItemLinkTypeTest extends TestCase
             ],
         );
 
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
-        $this->cmsItemLoaderMock
+        $cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $cmsItemLoaderMock
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -50,7 +45,7 @@ final class ItemLinkTypeTest extends TestCase
                 ),
             );
 
-        $this->cmsItemLoaderMock
+        $cmsItemLoaderMock
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -62,7 +57,7 @@ final class ItemLinkTypeTest extends TestCase
                 ),
             );
 
-        $this->type = new ItemLinkType($this->valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
+        $this->type = new ItemLinkType($valueTypeRegistry, new RemoteIdConverter($cmsItemLoaderMock));
     }
 
     public function testGetIdentifier(): void

@@ -16,22 +16,20 @@ use Twig\Environment;
 #[CoversClass(ViewRenderer::class)]
 final class ViewRendererTest extends TestCase
 {
-    private MockObject $eventDispatcherMock;
-
-    private MockObject $twigEnvironmentMock;
+    private MockObject&Environment $twigEnvironmentMock;
 
     private ViewRenderer $viewRenderer;
 
     protected function setUp(): void
     {
-        $this->eventDispatcherMock = $this
+        $eventDispatcherMock = $this
             ->createMock(EventDispatcherInterface::class);
 
         $this->twigEnvironmentMock = $this
             ->createMock(Environment::class);
 
         $this->viewRenderer = new ViewRenderer(
-            $this->eventDispatcherMock,
+            $eventDispatcherMock,
             $this->twigEnvironmentMock,
         );
     }

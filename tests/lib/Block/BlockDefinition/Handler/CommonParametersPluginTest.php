@@ -18,15 +18,13 @@ final class CommonParametersPluginTest extends TestCase
 {
     private CommonParametersPlugin $plugin;
 
-    private ParameterTypeRegistry $parameterTypeRegistry;
-
     private TranslatableParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {
         $this->plugin = new CommonParametersPlugin(['group']);
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+        $parameterTypeRegistry = new ParameterTypeRegistry(
             [
                 new ParameterType\TextLineType(),
                 new ParameterType\BooleanType(),
@@ -34,7 +32,7 @@ final class CommonParametersPluginTest extends TestCase
         );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
-            $this->parameterTypeRegistry,
+            $parameterTypeRegistry,
         );
     }
 

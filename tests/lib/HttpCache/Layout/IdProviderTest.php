@@ -17,7 +17,7 @@ use Ramsey\Uuid\Uuid;
 #[CoversClass(IdProvider::class)]
 final class IdProviderTest extends TestCase
 {
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
     private IdProvider $idProvider;
 

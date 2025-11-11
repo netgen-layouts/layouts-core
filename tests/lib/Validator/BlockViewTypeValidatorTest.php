@@ -21,17 +21,15 @@ use function sprintf;
 #[CoversClass(BlockViewTypeValidator::class)]
 final class BlockViewTypeValidatorTest extends ValidatorTestCase
 {
-    private BlockDefinition $blockDefinition;
-
     protected function setUp(): void
     {
-        $this->blockDefinition = BlockDefinition::fromArray(
+        $blockDefinition = BlockDefinition::fromArray(
             [
                 'configProvider' => ConfigProvider::fromShortConfig(['large' => []]),
             ],
         );
 
-        $this->constraint = new BlockViewType(['definition' => $this->blockDefinition]);
+        $this->constraint = new BlockViewType(['definition' => $blockDefinition]);
 
         parent::setUp();
     }

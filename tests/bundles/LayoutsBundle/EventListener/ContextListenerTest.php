@@ -21,9 +21,9 @@ final class ContextListenerTest extends TestCase
 {
     private Context $context;
 
-    private MockObject $contextBuilderMock;
+    private MockObject&ContextBuilderInterface $contextBuilderMock;
 
-    private MockObject $uriSignerMock;
+    private MockObject&UriSigner $uriSignerMock;
 
     private ContextListener $listener;
 

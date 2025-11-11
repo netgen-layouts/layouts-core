@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 #[CoversClass(LayoutValueResolver::class)]
 final class LayoutValueResolverTest extends TestCase
 {
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
     private LayoutValueResolver $valueResolver;
 

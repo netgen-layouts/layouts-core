@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(RemoteIdConverter::class)]
 final class RemoteIdConverterTest extends TestCase
 {
-    private MockObject $cmsItemLoaderMock;
+    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
 
     private RemoteIdConverter $remoteIdConverter;
 

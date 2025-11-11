@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(TransactionService::class)]
 final class TransactionServiceTest extends TestCase
 {
-    private MockObject $transactionHandlerMock;
+    private MockObject&TransactionHandlerInterface $transactionHandlerMock;
 
     private TransactionService $service;
 

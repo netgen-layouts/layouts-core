@@ -33,7 +33,7 @@ use function sprintf;
 #[CoversClass(GetCollectionPagerListener::class)]
 final class GetCollectionPagerListenerTest extends TestCase
 {
-    private MockObject $resultBuilderMock;
+    private MockObject&ResultBuilderInterface $resultBuilderMock;
 
     private RequestStack $requestStack;
 

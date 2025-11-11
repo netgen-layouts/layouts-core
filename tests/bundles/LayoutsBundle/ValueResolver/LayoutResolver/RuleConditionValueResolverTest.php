@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 #[CoversClass(RuleConditionValueResolver::class)]
 final class RuleConditionValueResolverTest extends TestCase
 {
-    private MockObject $layoutResolverServiceMock;
+    private MockObject&LayoutResolverService $layoutResolverServiceMock;
 
     private RuleConditionValueResolver $valueResolver;
 

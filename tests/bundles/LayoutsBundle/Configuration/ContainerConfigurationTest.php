@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 #[CoversClass(ContainerConfiguration::class)]
 final class ContainerConfigurationTest extends TestCase
 {
-    private MockObject $containerMock;
+    private MockObject&ContainerInterface $containerMock;
 
     private ContainerConfiguration $configuration;
 

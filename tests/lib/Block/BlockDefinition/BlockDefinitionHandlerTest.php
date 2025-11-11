@@ -19,15 +19,13 @@ final class BlockDefinitionHandlerTest extends TestCase
 {
     private EmptyBlockDefinitionHandler $handler;
 
-    private ParameterTypeRegistry $parameterTypeRegistry;
-
     private TranslatableParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {
         $this->handler = new EmptyBlockDefinitionHandler();
 
-        $this->parameterTypeRegistry = new ParameterTypeRegistry(
+        $parameterTypeRegistry = new ParameterTypeRegistry(
             [
                 new ParameterType\TextLineType(),
                 new ParameterType\BooleanType(),
@@ -35,7 +33,7 @@ final class BlockDefinitionHandlerTest extends TestCase
         );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
-            $this->parameterTypeRegistry,
+            $parameterTypeRegistry,
         );
     }
 

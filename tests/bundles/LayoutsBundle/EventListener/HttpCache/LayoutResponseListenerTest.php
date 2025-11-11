@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 #[CoversClass(LayoutResponseListener::class)]
 final class LayoutResponseListenerTest extends TestCase
 {
-    private MockObject $taggerMock;
+    private MockObject&TaggerInterface $taggerMock;
 
     private LayoutResponseListener $listener;
 

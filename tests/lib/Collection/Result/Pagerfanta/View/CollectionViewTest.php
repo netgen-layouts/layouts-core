@@ -16,7 +16,7 @@ use Twig\Environment;
 #[CoversClass(CollectionView::class)]
 final class CollectionViewTest extends TestCase
 {
-    private MockObject $twigMock;
+    private MockObject&Environment $twigMock;
 
     private CollectionView $collectionView;
 

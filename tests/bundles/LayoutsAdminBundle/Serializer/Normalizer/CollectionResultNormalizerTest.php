@@ -25,9 +25,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[CoversClass(CollectionResultNormalizer::class)]
 final class CollectionResultNormalizerTest extends TestCase
 {
-    private MockObject $normalizerMock;
+    private MockObject&NormalizerInterface $normalizerMock;
 
-    private MockObject $urlGeneratorMock;
+    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
 
     private CollectionResultNormalizer $normalizer;
 

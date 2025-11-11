@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 #[CoversClass(QueryValueResolver::class)]
 final class QueryValueResolverTest extends TestCase
 {
-    private MockObject $collectionServiceMock;
+    private MockObject&CollectionService $collectionServiceMock;
 
     private QueryValueResolver $valueResolver;
 

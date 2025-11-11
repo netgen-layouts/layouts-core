@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(TransactionHandler::class)]
 final class TransactionHandlerTest extends TestCase
 {
-    private MockObject $connectionMock;
+    private MockObject&Connection $connectionMock;
 
     private TransactionHandler $handler;
 

@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 #[CoversClass(ApiCsrfValidationListener::class)]
 final class ApiCsrfValidationListenerTest extends TestCase
 {
-    private MockObject $csrfTokenValidatorMock;
+    private MockObject&CsrfTokenValidatorInterface $csrfTokenValidatorMock;
 
     private string $csrfTokenId;
 

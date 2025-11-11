@@ -13,18 +13,16 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(ContainerDefinition::class)]
 final class ContainerDefinitionTest extends TestCase
 {
-    private ContainerDefinitionHandler $handler;
-
     private ContainerDefinition $blockDefinition;
 
     protected function setUp(): void
     {
-        $this->handler = new ContainerDefinitionHandler();
+        $handler = new ContainerDefinitionHandler();
 
         $this->blockDefinition = ContainerDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
-                'handler' => $this->handler,
+                'handler' => $handler,
             ],
         );
     }

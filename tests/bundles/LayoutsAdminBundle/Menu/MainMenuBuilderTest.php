@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 #[CoversClass(MainMenuBuilder::class)]
 final class MainMenuBuilderTest extends TestCase
 {
-    private MockObject $authorizationCheckerMock;
+    private MockObject&AuthorizationCheckerInterface $authorizationCheckerMock;
 
     private MainMenuBuilder $builder;
 

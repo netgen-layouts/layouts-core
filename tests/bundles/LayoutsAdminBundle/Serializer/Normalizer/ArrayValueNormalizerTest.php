@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[CoversClass(ArrayValueNormalizer::class)]
 final class ArrayValueNormalizerTest extends TestCase
 {
-    private MockObject $normalizerMock;
+    private MockObject&NormalizerInterface $normalizerMock;
 
     private ArrayValueNormalizer $normalizer;
 

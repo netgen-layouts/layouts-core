@@ -23,7 +23,7 @@ use function sprintf;
 #[CoversClass(RuleCountListener::class)]
 final class RuleCountListenerTest extends TestCase
 {
-    private MockObject $layoutResolverServiceMock;
+    private MockObject&LayoutResolverService $layoutResolverServiceMock;
 
     private RuleCountListener $listener;
 

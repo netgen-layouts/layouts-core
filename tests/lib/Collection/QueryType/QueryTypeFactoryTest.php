@@ -9,24 +9,21 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(QueryTypeFactory::class)]
 final class QueryTypeFactoryTest extends TestCase
 {
-    private MockObject $parameterBuilderFactoryMock;
-
     private QueryTypeFactory $factory;
 
     protected function setUp(): void
     {
-        $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
-        $this->parameterBuilderFactoryMock
+        $parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
+        $parameterBuilderFactoryMock
             ->method('createParameterBuilder')
             ->willReturn($this->createMock(ParameterBuilderInterface::class));
 
-        $this->factory = new QueryTypeFactory($this->parameterBuilderFactoryMock);
+        $this->factory = new QueryTypeFactory($parameterBuilderFactoryMock);
     }
 
     public function testBuildQueryType(): void

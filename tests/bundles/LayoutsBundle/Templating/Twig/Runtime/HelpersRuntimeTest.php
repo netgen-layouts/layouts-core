@@ -24,9 +24,9 @@ final class HelpersRuntimeTest extends TestCase
 {
     private HelpersRuntime $runtime;
 
-    private MockObject $layoutServiceMock;
+    private MockObject&LayoutService $layoutServiceMock;
 
-    private MockObject $layoutResolverServiceMock;
+    private MockObject&LayoutResolverService $layoutResolverServiceMock;
 
     protected function setUp(): void
     {

@@ -20,9 +20,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[CoversClass(ViewNormalizer::class)]
 final class ViewNormalizerTest extends TestCase
 {
-    private MockObject $viewRendererMock;
+    private MockObject&RendererInterface $viewRendererMock;
 
-    private MockObject $normalizerMock;
+    private MockObject&NormalizerInterface $normalizerMock;
 
     private ViewNormalizer $normalizer;
 

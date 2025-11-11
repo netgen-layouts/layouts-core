@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 #[CoversClass(BlockValueResolver::class)]
 final class BlockValueResolverTest extends TestCase
 {
-    private MockObject $blockServiceMock;
+    private MockObject&BlockService $blockServiceMock;
 
     private BlockValueResolver $valueResolver;
 

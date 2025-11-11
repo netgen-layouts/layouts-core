@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(VarnishClient::class)]
 final class VarnishClientTest extends TestCase
 {
-    private MockObject $fosInvalidatorMock;
+    private MockObject&CacheInvalidator $fosInvalidatorMock;
 
     private VarnishClient $client;
 

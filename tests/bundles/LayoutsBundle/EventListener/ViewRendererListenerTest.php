@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 #[CoversClass(ViewRendererListener::class)]
 final class ViewRendererListenerTest extends TestCase
 {
-    private MockObject $viewRendererMock;
+    private MockObject&ViewRendererInterface $viewRendererMock;
 
     private ViewRendererListener $listener;
 

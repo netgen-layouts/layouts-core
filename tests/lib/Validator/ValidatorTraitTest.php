@@ -18,18 +18,16 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[CoversClass(ValidatorTrait::class)]
 final class ValidatorTraitTest extends TestCase
 {
-    private ValidatorInterface $baseValidator;
-
     private ValueValidator $validator;
 
     protected function setUp(): void
     {
-        $this->baseValidator = Validation::createValidatorBuilder()
+        $baseValidator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->validator = new ValueValidator();
-        $this->validator->setValidator($this->baseValidator);
+        $this->validator->setValidator($baseValidator);
     }
 
     #[DataProvider('validateIdentifierDataProvider')]

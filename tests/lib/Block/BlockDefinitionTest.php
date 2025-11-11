@@ -25,8 +25,6 @@ use function sprintf;
 #[CoversClass(BlockDefinition::class)]
 final class BlockDefinitionTest extends TestCase
 {
-    private BlockDefinitionHandler $handler;
-
     private BlockDefinition $blockDefinition;
 
     private Form $form;
@@ -41,7 +39,7 @@ final class BlockDefinitionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->handler = new BlockDefinitionHandler([], true);
+        $handler = new BlockDefinitionHandler([], true);
 
         $this->form = Form::fromArray(['identifier' => 'content']);
         $this->collection = Collection::fromArray(['identifier' => 'collection']);
@@ -53,7 +51,7 @@ final class BlockDefinitionTest extends TestCase
         $this->blockDefinition = BlockDefinition::fromArray(
             [
                 'identifier' => 'block_definition',
-                'handler' => $this->handler,
+                'handler' => $handler,
                 'handlerPlugins' => [HandlerPlugin::instance([BlockDefinitionHandlerInterface::class])],
                 'name' => 'Block definition',
                 'icon' => '/icon.svg',

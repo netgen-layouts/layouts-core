@@ -18,9 +18,9 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(ItemRuntime::class)]
 final class ItemRuntimeTest extends TestCase
 {
-    private MockObject $cmsItemLoaderMock;
+    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
 
-    private MockObject $urlGeneratorMock;
+    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
 
     private ErrorHandler $errorHandler;
 

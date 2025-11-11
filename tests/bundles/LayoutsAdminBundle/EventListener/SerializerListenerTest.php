@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[CoversClass(SerializerListener::class)]
 final class SerializerListenerTest extends TestCase
 {
-    private MockObject $serializerMock;
+    private MockObject&SerializerInterface $serializerMock;
 
     private SerializerListener $listener;
 

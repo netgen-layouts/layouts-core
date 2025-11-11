@@ -25,15 +25,15 @@ use Symfony\Component\HttpFoundation\UriSigner;
 #[CoversClass(GlobalVariable::class)]
 final class GlobalVariableTest extends TestCase
 {
-    private MockObject $configMock;
+    private MockObject&ConfigurationInterface $configMock;
 
-    private MockObject $layoutResolverMock;
+    private MockObject&LayoutResolverInterface $layoutResolverMock;
 
-    private MockObject $pageLayoutResolverMock;
+    private MockObject&PageLayoutResolverInterface $pageLayoutResolverMock;
 
-    private MockObject $viewBuilderMock;
+    private MockObject&ViewBuilderInterface $viewBuilderMock;
 
-    private MockObject $uriSignerMock;
+    private MockObject&UriSigner $uriSignerMock;
 
     private GlobalVariable $globalVariable;
 

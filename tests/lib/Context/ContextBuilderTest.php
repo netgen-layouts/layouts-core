@@ -15,8 +15,6 @@ final class ContextBuilderTest extends TestCase
 {
     private Context $context;
 
-    private ContextBuilder $contextBuilder;
-
     protected function setUp(): void
     {
         $this->context = new Context();
@@ -24,14 +22,14 @@ final class ContextBuilderTest extends TestCase
 
     public function testBuildContext(): void
     {
-        $this->contextBuilder = new ContextBuilder(
+        $contextBuilder = new ContextBuilder(
             [
                 new ContextProvider(['var1' => 'value1']),
                 new ContextProvider(['var2' => 'value2']),
             ],
         );
 
-        $this->contextBuilder->buildContext($this->context);
+        $contextBuilder->buildContext($this->context);
 
         self::assertSame(
             [

@@ -10,25 +10,22 @@ use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(PagerFactory::class)]
 final class PagerFactoryTest extends TestCase
 {
-    private MockObject $resultBuilderMock;
-
     private PagerFactory $pagerFactory;
 
     protected function setUp(): void
     {
-        $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
+        $resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
-        $this->resultBuilderMock
+        $resultBuilderMock
             ->method('build')
             ->willReturn(ResultSet::fromArray(['totalCount' => 1000]));
 
-        $this->pagerFactory = new PagerFactory($this->resultBuilderMock, 200);
+        $this->pagerFactory = new PagerFactory($resultBuilderMock, 200);
     }
 
     #[DataProvider('getPagerDataProvider')]

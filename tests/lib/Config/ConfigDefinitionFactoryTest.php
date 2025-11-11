@@ -9,35 +9,30 @@ use Netgen\Layouts\Config\ConfigDefinitionHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ConfigDefinitionFactory::class)]
 final class ConfigDefinitionFactoryTest extends TestCase
 {
-    private MockObject $handlerMock;
-
-    private MockObject $parameterBuilderFactoryMock;
-
     private ConfigDefinitionFactory $factory;
 
     protected function setUp(): void
     {
-        $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
-        $this->parameterBuilderFactoryMock
+        $parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
+        $parameterBuilderFactoryMock
             ->method('createParameterBuilder')
             ->willReturn($this->createMock(ParameterBuilderInterface::class));
 
-        $this->factory = new ConfigDefinitionFactory($this->parameterBuilderFactoryMock);
+        $this->factory = new ConfigDefinitionFactory($parameterBuilderFactoryMock);
     }
 
     public function testBuildConfigDefinition(): void
     {
-        $this->handlerMock = $this->createMock(ConfigDefinitionHandlerInterface::class);
+        $handlerMock = $this->createMock(ConfigDefinitionHandlerInterface::class);
 
         $configDefinition = $this->factory->buildConfigDefinition(
             'definition',
-            $this->handlerMock,
+            $handlerMock,
         );
 
         self::assertSame('definition', $configDefinition->getConfigKey());

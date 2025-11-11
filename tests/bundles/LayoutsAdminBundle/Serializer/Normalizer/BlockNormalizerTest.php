@@ -31,9 +31,9 @@ use Symfony\Component\Serializer\Serializer;
 #[CoversClass(BlockNormalizer::class)]
 final class BlockNormalizerTest extends TestCase
 {
-    private MockObject $normalizerMock;
+    private MockObject&NormalizerInterface $normalizerMock;
 
-    private MockObject $blockServiceMock;
+    private MockObject&BlockService $blockServiceMock;
 
     private BlockNormalizer $normalizer;
 

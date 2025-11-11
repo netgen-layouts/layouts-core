@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 #[CoversClass(BlockResponseListener::class)]
 final class BlockResponseListenerTest extends TestCase
 {
-    private MockObject $taggerMock;
+    private MockObject&TaggerInterface $taggerMock;
 
     private BlockResponseListener $listener;
 
