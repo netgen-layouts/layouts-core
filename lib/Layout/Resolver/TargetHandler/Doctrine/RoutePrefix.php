@@ -25,7 +25,7 @@ final class RoutePrefix implements TargetHandlerInterface
                     $databasePlatform->getLengthExpression(
                         $databasePlatform->getTrimExpression('rt.value'),
                     ),
-                    0,
+                    ':target_value_length',
                 ),
                 $query->expr()->like(
                     ':target_value',
@@ -36,6 +36,7 @@ final class RoutePrefix implements TargetHandlerInterface
                 ),
             ),
         )
+        ->setParameter('target_value_length', 0, Types::INTEGER)
         ->setParameter('target_value', $value, Types::STRING);
     }
 }

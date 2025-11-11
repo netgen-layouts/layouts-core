@@ -495,7 +495,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'description' => ':description',
                 ],
             )
-            ->setValue('id', $rule->id ?? $this->connectionHelper->nextId('nglayouts_rule'))
+            ->setParameter('id', $rule->id ?? $this->connectionHelper->nextId('nglayouts_rule'), Types::INTEGER)
             ->setParameter('uuid', $rule->uuid, Types::STRING)
             ->setParameter('status', $rule->status->value, Types::INTEGER)
             ->setParameter('rule_group_id', $rule->ruleGroupId, Types::INTEGER)
@@ -624,7 +624,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'description' => ':description',
                 ],
             )
-            ->setValue('id', $ruleGroup->id ?? $this->connectionHelper->nextId('nglayouts_rule_group'))
+            ->setParameter('id', $ruleGroup->id ?? $this->connectionHelper->nextId('nglayouts_rule_group'), Types::INTEGER)
             ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
             ->setParameter('status', $ruleGroup->status->value, Types::INTEGER)
             ->setParameter('depth', $ruleGroup->depth, Types::INTEGER)
@@ -1064,7 +1064,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'value' => ':value',
                 ],
             )
-            ->setValue('id', $target->id ?? $this->connectionHelper->nextId('nglayouts_rule_target'))
+            ->setParameter('id', $target->id ?? $this->connectionHelper->nextId('nglayouts_rule_target'), Types::INTEGER)
             ->setParameter('uuid', $target->uuid, Types::STRING)
             ->setParameter('status', $target->status->value, Types::INTEGER)
             ->setParameter('rule_id', $target->ruleId, Types::INTEGER)
@@ -1266,7 +1266,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'value' => ':value',
                 ],
             )
-            ->setValue('id', $condition->id ?? $this->connectionHelper->nextId('nglayouts_rule_condition'))
+            ->setParameter('id', $condition->id ?? $this->connectionHelper->nextId('nglayouts_rule_condition'), Types::INTEGER)
             ->setParameter('uuid', $condition->uuid, Types::STRING)
             ->setParameter('status', $condition->status->value, Types::INTEGER)
             ->setParameter('type', $condition->type, Types::STRING)
@@ -1369,9 +1369,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'l',
                 $query->expr()->and(
                     $query->expr()->eq('r.layout_uuid', 'l.uuid'),
-                    $query->expr()->eq('l.status', Status::Published->value),
+                    $query->expr()->eq('l.status', ':layout_status'),
                 ),
-            );
+            )->setParameter('layout_status', Status::Published->value, Types::INTEGER);
 
         return $query;
     }

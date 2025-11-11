@@ -177,7 +177,7 @@ final class BlockQueryHandler extends QueryHandler
                     'config' => ':config',
                 ],
             )
-            ->setValue('id', $block->id ?? $this->connectionHelper->nextId('nglayouts_block'))
+            ->setParameter('id', $block->id ?? $this->connectionHelper->nextId('nglayouts_block'), Types::INTEGER)
             ->setParameter('status', $block->status->value, Types::INTEGER)
             ->setParameter('uuid', $block->uuid, Types::STRING)
             ->setParameter('layout_id', $block->layoutId, Types::INTEGER)
