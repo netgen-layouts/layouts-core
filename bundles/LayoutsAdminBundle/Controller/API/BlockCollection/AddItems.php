@@ -68,7 +68,7 @@ final class AddItems extends AbstractController
         $this->validate(
             $items,
             [
-                new Constraints\Type(type: 'array'),
+                new Constraints\Type(type: 'list'),
                 new Constraints\NotBlank(),
                 new Constraints\All(
                     constraints: new Constraints\Collection(

@@ -63,7 +63,7 @@ final class ChangeType extends AbstractController
         $this->validate(
             $data->get('zone_mappings'),
             [
-                new Constraints\Type(type: 'array'),
+                new Constraints\Type(type: 'associative_array'),
             ],
             'zone_mappings',
         );

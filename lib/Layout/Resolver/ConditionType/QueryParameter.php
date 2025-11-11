@@ -34,10 +34,10 @@ final class QueryParameter extends ConditionType
                     ),
                     'parameter_values' => new Constraints\Required(
                         [
-                            new Constraints\Type(type: 'array'),
+                            new Constraints\Type(type: 'list'),
                             new Constraints\All(
                                 constraints: [
-                                    new Constraints\Type(type: 'scalar'),
+                                    new Constraints\Type(type: 'string'),
                                 ],
                             ),
                         ],

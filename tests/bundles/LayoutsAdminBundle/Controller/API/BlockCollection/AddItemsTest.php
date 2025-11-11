@@ -155,7 +155,7 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items": This value should be of type array.',
+            'There was an error validating "items": This value should be of type list.',
         );
     }
 
