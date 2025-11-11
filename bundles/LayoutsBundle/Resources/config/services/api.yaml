@@ -101,7 +101,7 @@ services:
     netgen_layouts.core.validator.layout:
         class: Netgen\Layouts\Core\Validator\LayoutValidator
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
 
     netgen_layouts.core.mapper.layout:
         class: Netgen\Layouts\Core\Mapper\LayoutMapper
@@ -128,7 +128,7 @@ services:
         arguments:
             - "@netgen_layouts.core.validator.collection"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
 
     netgen_layouts.core.mapper.block:
         class: Netgen\Layouts\Core\Mapper\BlockMapper
@@ -164,7 +164,7 @@ services:
     netgen_layouts.core.validator.collection:
         class: Netgen\Layouts\Core\Validator\CollectionValidator
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
 
     netgen_layouts.core.mapper.collection:
         class: Netgen\Layouts\Core\Mapper\CollectionMapper
@@ -200,7 +200,7 @@ services:
             - "@netgen_layouts.layout.resolver.registry.target_type"
             - "@netgen_layouts.layout.resolver.registry.condition_type"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
 
     netgen_layouts.core.mapper.layout_resolver:
         class: Netgen\Layouts\Core\Mapper\LayoutResolverMapper

@@ -27,7 +27,7 @@ services:
         arguments:
             - !service { class: Twig\Loader\ArrayLoader }
         calls:
-            - [addExtension, ["@twig.extension.trans"]]
+            - addExtension: ["@twig.extension.trans"]
 
     netgen_layouts.templating.twig.runtime.rendering:
         class: Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime

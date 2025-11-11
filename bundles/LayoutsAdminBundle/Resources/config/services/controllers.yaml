@@ -462,7 +462,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -483,7 +483,7 @@ services:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.layout.registry.layout_type"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -494,7 +494,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -506,7 +506,7 @@ services:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.layout.registry.layout_type"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -580,7 +580,7 @@ services:
             - "@netgen_layouts.controller.api.block.create_struct_builder"
             - "@netgen_layouts.block.registry.block_type"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -594,7 +594,7 @@ services:
             - "@netgen_layouts.controller.api.block.create_struct_builder"
             - "@netgen_layouts.block.registry.block_type"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -605,7 +605,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.block"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -617,7 +617,7 @@ services:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.layout"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -628,7 +628,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.block"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -640,7 +640,7 @@ services:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.layout"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -672,7 +672,7 @@ services:
             - "@netgen_layouts.api.service.collection"
             - "@netgen_layouts.collection.registry.item_definition"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -684,7 +684,7 @@ services:
             - "@netgen_layouts.api.service.collection"
             - "@netgen_layouts.collection.registry.query_type"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -727,7 +727,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.collection"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
@@ -756,7 +756,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.collection"
         calls:
-            - [setValidator, ["@validator"]]
+            - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
 
