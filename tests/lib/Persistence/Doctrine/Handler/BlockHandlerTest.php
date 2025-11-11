@@ -23,6 +23,7 @@ use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 
 use function sprintf;
@@ -1870,9 +1871,7 @@ final class BlockHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(3, Status::Published);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testDeleteBlockWithSubBlocks(): void
     {
         $this->blockHandler->deleteBlock(
@@ -1988,9 +1987,7 @@ final class BlockHandlerTest extends TestCase
         self::assertEmpty($this->blockHandler->loadLayoutBlocks($layout));
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testDeleteBlocks(): void
     {
         $this->blockHandler->deleteBlocks([31, 32]);

@@ -10,14 +10,14 @@ use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Tests\Block\Stubs\EmptyHandlerPlugin;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Plugin::class)]
 final class PluginTest extends TestCase
 {
-    private MockObject&Plugin $plugin;
+    private EmptyHandlerPlugin $plugin;
 
     private ParameterTypeRegistry $parameterTypeRegistry;
 
@@ -25,7 +25,7 @@ final class PluginTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->plugin = $this->getMockForAbstractClass(Plugin::class);
+        $this->plugin = new EmptyHandlerPlugin();
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry(
             [

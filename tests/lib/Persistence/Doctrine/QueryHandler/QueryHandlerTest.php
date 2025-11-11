@@ -8,8 +8,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler;
 use Netgen\Layouts\Persistence\Values\Status;
+use Netgen\Layouts\Tests\Persistence\Doctrine\Stubs\EmptyQueryHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(QueryHandler::class)]
@@ -17,7 +17,7 @@ final class QueryHandlerTest extends TestCase
 {
     private Connection $databaseConnection;
 
-    private MockObject&QueryHandler $queryHandler;
+    private EmptyQueryHandler $queryHandler;
 
     protected function setUp(): void
     {
@@ -27,9 +27,7 @@ final class QueryHandlerTest extends TestCase
             ],
         );
 
-        $this->queryHandler = $this->getMockBuilder(QueryHandler::class)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+        $this->queryHandler = new EmptyQueryHandler();
     }
 
     public function testApplyIdCondition(): void

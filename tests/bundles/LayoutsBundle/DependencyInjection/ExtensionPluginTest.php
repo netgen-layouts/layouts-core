@@ -6,8 +6,8 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ConfigurationNode;
+use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\EmptyExtensionPlugin;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
@@ -15,11 +15,11 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 #[CoversClass(ExtensionPlugin::class)]
 final class ExtensionPluginTest extends TestCase
 {
-    private MockObject&ExtensionPlugin $plugin;
+    private EmptyExtensionPlugin $plugin;
 
     protected function setUp(): void
     {
-        $this->plugin = $this->getMockForAbstractClass(ExtensionPlugin::class);
+        $this->plugin = new EmptyExtensionPlugin();
     }
 
     public function testPreProcessConfiguration(): void
@@ -36,23 +36,7 @@ final class ExtensionPluginTest extends TestCase
 
     public function testAddConfiguration(): void
     {
-        $node1 = new ConfigurationNode();
-        $node2 = new ConfigurationNode();
-
-        $this->plugin = $this->getMockForAbstractClass(
-            ExtensionPlugin::class,
-            [],
-            '',
-            true,
-            true,
-            true,
-            ['getConfigurationNodes'],
-        );
-
-        $this->plugin
-            ->expects(self::once())
-            ->method('getConfigurationNodes')
-            ->willReturn([$node1, $node2]);
+        $node = new ConfigurationNode();
 
         $rootNodeMock = $this->createMock(ArrayNodeDefinition::class);
         $nodeBuilderMock = $this->createMock(NodeBuilder::class);
@@ -63,11 +47,11 @@ final class ExtensionPluginTest extends TestCase
 
         $nodeBuilderMock
             ->method('append')
-            ->with(self::equalTo($node1->getConfigurationNode()));
+            ->with(self::equalTo($node->getConfigurationNode()));
 
         $nodeBuilderMock
             ->method('append')
-            ->with(self::equalTo($node2->getConfigurationNode()));
+            ->with(self::equalTo($node->getConfigurationNode()));
 
         $this->plugin->addConfiguration($rootNodeMock);
     }

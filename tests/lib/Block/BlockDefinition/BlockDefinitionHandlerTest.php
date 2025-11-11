@@ -10,14 +10,14 @@ use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use Netgen\Layouts\Tests\Block\Stubs\EmptyBlockDefinitionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(BlockDefinitionHandler::class)]
 final class BlockDefinitionHandlerTest extends TestCase
 {
-    private MockObject&BlockDefinitionHandler $handler;
+    private EmptyBlockDefinitionHandler $handler;
 
     private ParameterTypeRegistry $parameterTypeRegistry;
 
@@ -25,7 +25,7 @@ final class BlockDefinitionHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->handler = $this->getMockForAbstractClass(BlockDefinitionHandler::class);
+        $this->handler = new EmptyBlockDefinitionHandler();
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry(
             [
