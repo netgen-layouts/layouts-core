@@ -65,7 +65,7 @@ final class Import extends AbstractController
         return $this->render(
             '@NetgenLayoutsAdmin/admin/transfer/import.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
                 'results' => $results,
             ],
         );
