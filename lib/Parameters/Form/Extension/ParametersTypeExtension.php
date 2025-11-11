@@ -17,11 +17,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class ParametersTypeExtension extends AbstractTypeExtension
 {
-    public function getExtendedType(): string
-    {
-        return FormType::class;
-    }
-
     public static function getExtendedTypes(): iterable
     {
         return [FormType::class];
