@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\RuntimeException;
 
@@ -38,14 +39,17 @@ trait DatabaseTrait
         foreach (require $fixturesPath as $tableName => $tableData) {
             if (count($tableData) > 0) {
                 foreach ($tableData as $tableRow) {
+                    /** @var array<string, string> $values */
+                    $values = array_fill_keys(array_keys($tableRow), '?');
+
+                    /** @var array<string, string> $parameters */
+                    $parameters = array_fill_keys(array_keys($tableRow), Types::STRING);
+
                     $this->databaseConnection
                         ->createQueryBuilder()
                         ->insert($tableName)
-                        ->values(array_fill_keys(array_keys($tableRow), '?'))
-                        ->setParameters(
-                            array_values($tableRow),
-                            array_fill_keys(array_keys($tableRow), Types::STRING),
-                        )
+                        ->values($values)
+                        ->setParameters(array_values($tableRow), $parameters)
                         ->executeStatement();
                 }
             }
@@ -67,10 +71,9 @@ trait DatabaseTrait
             }
         }
 
+        $dsnParser = new DsnParser([$this->databaseServer => 'pdo_' . $this->databaseServer]);
         $this->databaseConnection = DriverManager::getConnection(
-            [
-                'url' => $this->databaseUri,
-            ],
+            $dsnParser->parse($this->databaseUri),
         );
 
         return $this->databaseConnection;

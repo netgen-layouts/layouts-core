@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler;
 use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\Stubs\EmptyQueryHandler;
@@ -21,10 +22,9 @@ final class QueryHandlerTest extends TestCase
 
     protected function setUp(): void
     {
+        $dsnParser = new DsnParser(['sqlite' => 'pdo_sqlite']);
         $this->databaseConnection = DriverManager::getConnection(
-            [
-                'url' => 'sqlite://:memory:',
-            ],
+            $dsnParser->parse('sqlite://:memory:'),
         );
 
         $this->queryHandler = new EmptyQueryHandler();

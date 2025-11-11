@@ -41,3 +41,7 @@ parameters:
             path: tests/lib/Core/Service/TransactionRollback
 
         - '#Netgen\\Layouts\\Tests\\Persistence\\Doctrine\\Stubs\\EmptyQueryHandler::__construct\(\) does not call parent constructor#'
+
+        # PHPStan
+
+        - "#PHPDoc tag @var with type array\\<string, string> is not subtype of type array\\<int\\|string, '(\\?|string)'>#"

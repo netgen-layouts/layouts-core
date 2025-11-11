@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
 
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -34,7 +34,7 @@ final class SqliteTest extends TestCase
 
     public function testNextId(): void
     {
-        if (!$this->databaseConnection->getDatabasePlatform() instanceof SqlitePlatform) {
+        if (!$this->databaseConnection->getDatabasePlatform() instanceof SQLitePlatform) {
             self::markTestSkipped('Test only runs on Sqlite.');
         }
 
@@ -43,7 +43,7 @@ final class SqliteTest extends TestCase
 
     public function testLastId(): void
     {
-        if (!$this->databaseConnection->getDatabasePlatform() instanceof SqlitePlatform) {
+        if (!$this->databaseConnection->getDatabasePlatform() instanceof SQLitePlatform) {
             self::markTestSkipped('Test only runs on Sqlite.');
         }
 
