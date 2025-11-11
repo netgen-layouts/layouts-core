@@ -103,7 +103,7 @@ final class CollectionValidator
             $this->validate(
                 $itemCreateStruct->value,
                 [
-                    new Constraints\Type(type: 'scalar'),
+                    new Constraints\Type(type: ['int', 'string']),
                 ],
                 'value',
             );

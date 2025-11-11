@@ -75,7 +75,7 @@ final class AddItems extends AbstractController
                         fields: [
                             'value' => [
                                 new Constraints\NotNull(),
-                                new Constraints\Type(type: 'scalar'),
+                                new Constraints\Type(type: ['int', 'string']),
                             ],
                             'value_type' => [
                                 new Constraints\NotBlank(),
