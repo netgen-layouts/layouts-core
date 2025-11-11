@@ -4,29 +4,27 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Utils;
 
-use HTMLPurifier as BaseHTMLPurifier;
-use HTMLPurifier_Config;
-use HTMLPurifier_HTML5Config;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface;
 
 /**
  * Filter used to remove all unsafe HTML from the provided value.
  */
 final class HtmlPurifier
 {
-    private BaseHTMLPurifier $purifier;
+    private HtmlSanitizerInterface $sanitizer;
 
-    public function __construct(?HTMLPurifier_Config $config = null)
-    {
-        if ($config === null) {
-            $config = HTMLPurifier_HTML5Config::create(['Cache.DefinitionImpl' => null]);
-            $config->set('Attr.AllowedFrameTargets', ['_blank']);
-        }
-
-        $this->purifier = new BaseHTMLPurifier($config);
+    public function __construct(
+        ?HtmlSanitizerInterface $sanitizer = null,
+    ) {
+        $this->sanitizer = $sanitizer ?? new HtmlSanitizer(
+            new HtmlSanitizerConfig()->allowSafeElements(),
+        );
     }
 
     public function purify(string $value): string
     {
-        return $this->purifier->purify($value);
+        return $this->sanitizer->sanitize($value);
     }
 }
