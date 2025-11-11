@@ -104,7 +104,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'The value should be a string');
+        $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_layouts.admin.javascripts.0". Expected "string", but got "int"');
     }
 
     public function testStylesheets(): void
@@ -193,7 +193,7 @@ final class AdminNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'The value should be a string');
+        $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_layouts.admin.stylesheets.0". Expected "string", but got "int"');
     }
 
     protected function getConfiguration(): ConfigurationInterface

@@ -19,7 +19,7 @@ final class DesignListNode implements ConfigurationNodeInterface
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('design_name')
             ->arrayPrototype()
-                ->scalarPrototype()
+                ->stringPrototype()
                     ->cannotBeEmpty()
                 ->end()
             ->end();

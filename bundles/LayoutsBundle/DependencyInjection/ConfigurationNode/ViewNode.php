@@ -27,7 +27,7 @@ final class ViewNode implements ConfigurationNodeInterface
                     ->arrayPrototype()
                         ->performNoDeepMerging()
                         ->children()
-                            ->scalarNode('template')
+                            ->stringNode('template')
                                 ->isRequired()
                                 ->cannotBeEmpty()
                             ->end()

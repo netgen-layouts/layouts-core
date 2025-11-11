@@ -21,7 +21,7 @@ final class DefaultViewTemplatesNode implements ConfigurationNodeInterface
             ->arrayPrototype()
                 ->requiresAtLeastOneElement()
                 ->useAttributeAsKey('context')
-                ->scalarPrototype()
+                ->stringPrototype()
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()

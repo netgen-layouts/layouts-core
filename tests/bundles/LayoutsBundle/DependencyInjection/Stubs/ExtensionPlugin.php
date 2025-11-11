@@ -13,7 +13,7 @@ final class ExtensionPlugin extends BaseExtensionPlugin
     {
         $rootNode
             ->children()
-                ->scalarNode('test_config')
+                ->stringNode('test_config')
                     ->defaultValue('test')
                     ->cannotBeEmpty();
     }

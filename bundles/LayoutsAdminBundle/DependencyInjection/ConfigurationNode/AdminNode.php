@@ -8,8 +8,6 @@ use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-use function is_string;
-
 final class AdminNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode(): NodeDefinition
@@ -22,26 +20,14 @@ final class AdminNode implements ConfigurationNodeInterface
             ->children()
                 ->arrayNode('javascripts')
                     ->requiresAtLeastOneElement()
-                    ->scalarPrototype()
+                    ->stringPrototype()
                         ->cannotBeEmpty()
-                        ->validate()
-                            ->ifTrue(
-                                static fn ($v): bool => !is_string($v),
-                            )
-                            ->thenInvalid('The value should be a string')
-                        ->end()
                     ->end()
                 ->end()
                 ->arrayNode('stylesheets')
                     ->requiresAtLeastOneElement()
-                    ->scalarPrototype()
+                    ->stringPrototype()
                         ->cannotBeEmpty()
-                        ->validate()
-                            ->ifTrue(
-                                static fn ($v): bool => !is_string($v),
-                            )
-                            ->thenInvalid('The value should be a string')
-                        ->end()
                     ->end()
                 ->end()
             ->end();

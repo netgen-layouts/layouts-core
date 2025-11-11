@@ -21,7 +21,7 @@ final class ValueTypeNode implements ConfigurationNodeInterface
             ->arrayPrototype()
                 ->canBeDisabled()
                 ->children()
-                    ->scalarNode('name')
+                    ->stringNode('name')
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()

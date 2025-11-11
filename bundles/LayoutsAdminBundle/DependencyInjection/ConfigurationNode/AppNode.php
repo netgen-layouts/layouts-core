@@ -22,7 +22,7 @@ final class AppNode implements ConfigurationNodeInterface
             ->children()
                 ->arrayNode('javascripts')
                     ->requiresAtLeastOneElement()
-                    ->scalarPrototype()
+                    ->stringPrototype()
                         ->cannotBeEmpty()
                         ->validate()
                             ->ifTrue(
@@ -34,14 +34,8 @@ final class AppNode implements ConfigurationNodeInterface
                 ->end()
                 ->arrayNode('stylesheets')
                     ->requiresAtLeastOneElement()
-                    ->scalarPrototype()
+                    ->stringPrototype()
                         ->cannotBeEmpty()
-                        ->validate()
-                            ->ifTrue(
-                                static fn ($v): bool => !is_string($v),
-                            )
-                            ->thenInvalid('The value should be a string')
-                        ->end()
                     ->end()
                 ->end()
             ->end();
