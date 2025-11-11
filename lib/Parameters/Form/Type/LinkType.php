@@ -57,6 +57,7 @@ final class LinkType extends AbstractType
             [
                 'label' => 'parameter.link.link_type.url',
                 'required' => false,
+                'default_protocol' => null,
             ],
         );
 
