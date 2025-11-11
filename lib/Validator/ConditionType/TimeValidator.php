@@ -41,19 +41,17 @@ final class TimeValidator extends ConstraintValidator
             $value,
             [
                 new Constraints\Collection(
-                    [
-                        'fields' => [
-                            'from' => new Constraints\Required(
-                                [
-                                    new DateTimeConstraint(['allowArray' => true]),
-                                ],
-                            ),
-                            'to' => new Constraints\Required(
-                                [
-                                    new DateTimeConstraint(['allowArray' => true]),
-                                ],
-                            ),
-                        ],
+                    fields: [
+                        'from' => new Constraints\Required(
+                            [
+                                new DateTimeConstraint(['allowArray' => true]),
+                            ],
+                        ),
+                        'to' => new Constraints\Required(
+                            [
+                                new DateTimeConstraint(['allowArray' => true]),
+                            ],
+                        ),
                     ],
                 ),
             ],

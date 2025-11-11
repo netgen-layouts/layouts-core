@@ -19,7 +19,7 @@ final class Route extends TargetType
     {
         return [
             new Constraints\NotBlank(),
-            new Constraints\Type(['type' => 'string']),
+            new Constraints\Type(type: 'string'),
         ];
     }
 

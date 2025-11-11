@@ -53,7 +53,7 @@ final class CopyRuleType extends AbstractType
                 'label' => 'rule.copy.layout_name',
                 'disabled' => !$canCopyLayout,
                 'constraints' => [
-                    new Constraints\NotBlank(['groups' => ['CopyLayout']]),
+                    new Constraints\NotBlank(groups: ['CopyLayout']),
                     new LayoutName(['groups' => ['CopyLayout']]),
                 ],
             ],
@@ -67,7 +67,7 @@ final class CopyRuleType extends AbstractType
                 'required' => false,
                 'disabled' => !$canCopyLayout,
                 'constraints' => [
-                    new Constraints\Type(['type' => 'string', 'groups' => ['CopyLayout']]),
+                    new Constraints\Type(type: 'string', groups: ['CopyLayout']),
                 ],
                 'empty_data' => '',
             ],

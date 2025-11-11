@@ -62,9 +62,7 @@ final class KeyValuesType extends AbstractType
         if (count($options['values_constraints']) > 0) {
             $valueConstraints = [
                 new Constraints\All(
-                    [
-                        'constraints' => $options['values_constraints'],
-                    ],
+                    constraints: $options['values_constraints'],
                 ),
             ];
         }

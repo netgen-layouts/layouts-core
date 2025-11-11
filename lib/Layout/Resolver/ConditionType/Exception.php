@@ -25,14 +25,12 @@ final class Exception extends ConditionType
     {
         return [
             new Constraints\NotNull(),
-            new Constraints\Type(['type' => 'array']),
+            new Constraints\Type(type: 'array'),
             new Constraints\All(
-                [
-                    'constraints' => [
-                        new Constraints\Type(['type' => 'int']),
-                        new Constraints\GreaterThanOrEqual(['value' => 400]),
-                        new Constraints\LessThan(['value' => 600]),
-                    ],
+                constraints: [
+                    new Constraints\Type(type: 'int'),
+                    new Constraints\GreaterThanOrEqual(value: 400),
+                    new Constraints\LessThan(value: 600),
                 ],
             ),
         ];

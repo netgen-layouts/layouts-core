@@ -29,8 +29,8 @@ final class IdentifierType extends ParameterType
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\Regex(['pattern' => '/^[A-Za-z]([A-Za-z0-9_])*$/']),
+            new Constraints\Type(type: 'string'),
+            new Constraints\Regex(pattern: '/^[A-Za-z]([A-Za-z0-9_])*$/'),
         ];
     }
 }

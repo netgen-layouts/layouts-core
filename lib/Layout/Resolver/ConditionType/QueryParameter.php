@@ -25,27 +25,23 @@ final class QueryParameter extends ConditionType
         return [
             new Constraints\NotBlank(),
             new Constraints\Collection(
-                [
-                    'fields' => [
-                        'parameter_name' => new Constraints\Required(
-                            [
-                                new Constraints\NotBlank(),
-                                new Constraints\Type(['type' => 'string']),
-                            ],
-                        ),
-                        'parameter_values' => new Constraints\Required(
-                            [
-                                new Constraints\Type(['type' => 'array']),
-                                new Constraints\All(
-                                    [
-                                        'constraints' => [
-                                            new Constraints\Type(['type' => 'scalar']),
-                                        ],
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
+                fields: [
+                    'parameter_name' => new Constraints\Required(
+                        [
+                            new Constraints\NotBlank(),
+                            new Constraints\Type(type: 'string'),
+                        ],
+                    ),
+                    'parameter_values' => new Constraints\Required(
+                        [
+                            new Constraints\Type(type: 'array'),
+                            new Constraints\All(
+                                constraints: [
+                                    new Constraints\Type(type: 'scalar'),
+                                ],
+                            ),
+                        ],
+                    ),
                 ],
             ),
         ];

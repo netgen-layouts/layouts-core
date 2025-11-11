@@ -33,15 +33,13 @@ final class ImportType extends AbstractType
                 'constraints' => [
                     new Constraints\NotBlank(),
                     new Constraints\File(
-                        [
-                            'maxSize' => $this->maxUploadSize,
-                            'mimeTypes' => [
-                                'application/json',
-                                // Needs text/plain too: https://github.com/symfony/symfony/issues/37457
-                                'text/plain',
-                            ],
-                            'mimeTypesMessage' => 'import.file.mime_types_message',
+                        maxSize: $this->maxUploadSize,
+                        mimeTypes: [
+                            'application/json',
+                            // Needs text/plain too: https://github.com/symfony/symfony/issues/37457
+                            'text/plain',
                         ],
+                        mimeTypesMessage: 'import.file.mime_types_message',
                     ),
                 ],
             ],

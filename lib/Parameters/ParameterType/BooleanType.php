@@ -42,7 +42,7 @@ final class BooleanType extends ParameterType
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
-            new Constraints\Type(['type' => 'bool']),
+            new Constraints\Type(type: 'bool'),
         ];
     }
 }

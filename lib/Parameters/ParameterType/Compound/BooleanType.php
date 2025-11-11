@@ -55,7 +55,7 @@ final class BooleanType extends CompoundParameterType
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
-            new Constraints\Type(['type' => 'bool']),
+            new Constraints\Type(type: 'bool'),
         ];
     }
 }

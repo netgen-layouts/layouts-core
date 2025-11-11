@@ -57,8 +57,8 @@ final class DateTimeValidator extends ConstraintValidator
                 $value['datetime'] ?? '',
                 [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'string']),
-                    new Constraints\DateTime(['format' => self::DATE_FORMAT]),
+                    new Constraints\Type(type: 'string'),
+                    new Constraints\DateTime(format: self::DATE_FORMAT),
                 ],
             );
         }
@@ -73,9 +73,9 @@ final class DateTimeValidator extends ConstraintValidator
         $validator->atPath('timezone')->validate(
             $timeZone,
             [
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
                 new Constraints\Callback(
-                    static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint, $timeZoneIdentifiers): void {
+                    callback: static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint, $timeZoneIdentifiers): void {
                         if (in_array($timeZoneName, $timeZoneIdentifiers, true)) {
                             return;
                         }

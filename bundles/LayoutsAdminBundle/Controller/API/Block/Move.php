@@ -66,7 +66,7 @@ final class Move extends AbstractController
             $data->get('parent_placeholder'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'parent_placeholder',
         );
@@ -75,7 +75,7 @@ final class Move extends AbstractController
             $data->get('parent_position'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'int']),
+                new Constraints\Type(type: 'int'),
             ],
             'parent_position',
         );

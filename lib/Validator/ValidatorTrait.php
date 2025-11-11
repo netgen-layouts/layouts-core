@@ -34,9 +34,7 @@ trait ValidatorTrait
         $constraints = [
             new Constraints\NotBlank(),
             new Constraints\Regex(
-                [
-                    'pattern' => '/^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$/',
-                ],
+                pattern: '/^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$/',
             ),
         ];
 

@@ -120,8 +120,8 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 'isRequired' => true,
                                 'defaultValue' => null,
                                 'constraints' => [
-                                    new Length(['max' => 6]),
-                                    static fn (): Constraint => new Length(['min' => 3]),
+                                    new Length(max: 6),
+                                    static fn (): Constraint => new Length(min: 3),
                                 ],
                             ],
                         ),

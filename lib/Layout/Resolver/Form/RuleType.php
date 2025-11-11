@@ -29,7 +29,7 @@ final class RuleType extends AbstractType
                 'label' => 'rule.description',
                 'required' => false,
                 'constraints' => [
-                    new Constraints\Type(['type' => 'string']),
+                    new Constraints\Type(type: 'string'),
                 ],
                 'property_path' => 'description',
                 'empty_data' => '',

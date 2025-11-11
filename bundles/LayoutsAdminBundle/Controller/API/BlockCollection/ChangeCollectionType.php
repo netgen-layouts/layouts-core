@@ -72,7 +72,7 @@ final class ChangeCollectionType extends AbstractController
         $queryType = $data->get('query_type');
 
         $queryTypeConstraints = [
-            new Constraints\Type(['type' => 'string']),
+            new Constraints\Type(type: 'string'),
         ];
 
         if ($newType === CollectionType::Dynamic) {

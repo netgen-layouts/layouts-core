@@ -73,7 +73,7 @@ final class Copy extends AbstractController
             $data->get('parent_placeholder'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'parent_placeholder',
         );
@@ -81,7 +81,7 @@ final class Copy extends AbstractController
         $this->validate(
             $data->get('parent_position'),
             [
-                new Constraints\Type(['type' => 'int']),
+                new Constraints\Type(type: 'int'),
             ],
             'parent_position',
         );

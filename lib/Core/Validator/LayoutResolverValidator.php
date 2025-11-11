@@ -43,7 +43,7 @@ final class LayoutResolverValidator
             $this->validate(
                 $ruleUpdateStruct->layoutId,
                 [
-                    new Constraints\IdenticalTo(['value' => false]),
+                    new Constraints\IdenticalTo(value: false),
                 ],
                 'layoutId',
             );

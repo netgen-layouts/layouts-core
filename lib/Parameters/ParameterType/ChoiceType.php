@@ -91,11 +91,9 @@ final class ChoiceType extends ParameterType
 
         return [
             new Constraints\Choice(
-                [
-                    'choices' => array_values(is_callable($options) ? $options() : $options),
-                    'multiple' => $parameterDefinition->getOption('multiple'),
-                    'strict' => true,
-                ],
+                choices: array_values(is_callable($options) ? $options() : $options),
+                multiple: $parameterDefinition->getOption('multiple'),
+                strict: true,
             ),
         ];
     }

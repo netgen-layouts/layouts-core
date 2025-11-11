@@ -68,7 +68,7 @@ final class Create extends AbstractController
             $data->get('layout_type'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'layout_type',
         );
@@ -77,7 +77,7 @@ final class Create extends AbstractController
             $data->get('name'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'name',
         );
@@ -85,7 +85,7 @@ final class Create extends AbstractController
         $this->validate(
             $data->get('description'),
             [
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'description',
         );
@@ -94,7 +94,7 @@ final class Create extends AbstractController
             $data->get('locale'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
                 new LocaleConstraint(),
             ],
             'locale',

@@ -38,7 +38,7 @@ final class LocaleValidator extends ConstraintValidator
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
-        $validator->validate($value, [new Constraints\Locale(['canonicalize' => true])]);
+        $validator->validate($value, [new Constraints\Locale(canonicalize: true)]);
 
         $canonicalizedLocale = Locale::canonicalize($value);
 

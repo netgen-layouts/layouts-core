@@ -167,7 +167,7 @@ final class LinkType extends ParameterType
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
-            new Constraints\Type(['type' => LinkValue::class]),
+            new Constraints\Type(type: LinkValue::class),
             new LinkConstraint(
                 [
                     'required' => $parameterDefinition->isRequired(),

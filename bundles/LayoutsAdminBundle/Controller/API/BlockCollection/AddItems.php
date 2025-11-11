@@ -68,31 +68,27 @@ final class AddItems extends AbstractController
         $this->validate(
             $items,
             [
-                new Constraints\Type(['type' => 'array']),
+                new Constraints\Type(type: 'array'),
                 new Constraints\NotBlank(),
                 new Constraints\All(
-                    [
-                        'constraints' => new Constraints\Collection(
-                            [
-                                'fields' => [
-                                    'value' => [
-                                        new Constraints\NotNull(),
-                                        new Constraints\Type(['type' => 'scalar']),
-                                    ],
-                                    'value_type' => [
-                                        new Constraints\NotBlank(),
-                                        new Constraints\Type(['type' => 'string']),
-                                    ],
-                                    'position' => new Constraints\Optional(
-                                        [
-                                            new Constraints\NotNull(),
-                                            new Constraints\Type(['type' => 'int']),
-                                        ],
-                                    ),
-                                ],
+                    constraints: new Constraints\Collection(
+                        fields: [
+                            'value' => [
+                                new Constraints\NotNull(),
+                                new Constraints\Type(type: 'scalar'),
                             ],
-                        ),
-                    ],
+                            'value_type' => [
+                                new Constraints\NotBlank(),
+                                new Constraints\Type(type: 'string'),
+                            ],
+                            'position' => new Constraints\Optional(
+                                [
+                                    new Constraints\NotNull(),
+                                    new Constraints\Type(type: 'int'),
+                                ],
+                            ),
+                        ],
+                    ),
                 ),
             ],
             'items',

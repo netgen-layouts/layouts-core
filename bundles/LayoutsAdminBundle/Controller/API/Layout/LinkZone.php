@@ -65,7 +65,7 @@ final class LinkZone extends AbstractController
             $data->get('linked_zone_identifier'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'linked_zone_identifier',
         );

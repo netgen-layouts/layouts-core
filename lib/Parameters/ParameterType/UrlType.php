@@ -26,8 +26,8 @@ final class UrlType extends ParameterType
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\Url(),
+            new Constraints\Type(type: 'string'),
+            new Constraints\Url(requireTld: false),
         ];
     }
 }

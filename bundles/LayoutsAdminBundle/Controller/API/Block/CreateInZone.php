@@ -84,7 +84,7 @@ final class CreateInZone extends AbstractController
             $data->get('block_type'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'block_type',
         );
@@ -102,7 +102,7 @@ final class CreateInZone extends AbstractController
             $data->get('zone_identifier'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'zone_identifier',
         );
@@ -110,7 +110,7 @@ final class CreateInZone extends AbstractController
         $this->validate(
             $data->get('parent_position'),
             [
-                new Constraints\Type(['type' => 'int']),
+                new Constraints\Type(type: 'int'),
             ],
             'parent_position',
         );

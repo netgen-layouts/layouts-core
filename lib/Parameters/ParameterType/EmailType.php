@@ -26,8 +26,8 @@ final class EmailType extends ParameterType
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
-            new Constraints\Type(['type' => 'string']),
-            new Constraints\Email(['mode' => Constraints\Email::VALIDATION_MODE_STRICT]),
+            new Constraints\Type(type: 'string'),
+            new Constraints\Email(mode: Constraints\Email::VALIDATION_MODE_STRICT),
         ];
     }
 }

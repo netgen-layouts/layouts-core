@@ -52,7 +52,7 @@ final class EditType extends AbstractType
                 'label' => 'layout.description',
                 'required' => false,
                 'constraints' => [
-                    new Constraints\Type(['type' => 'string']),
+                    new Constraints\Type(type: 'string'),
                 ],
                 'property_path' => 'description',
                 'empty_data' => '',

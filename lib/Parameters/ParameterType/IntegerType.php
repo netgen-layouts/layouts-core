@@ -59,15 +59,15 @@ final class IntegerType extends ParameterType
         $max = $parameterDefinition->getOption('max');
 
         $constraints = [
-            new Constraints\Type(['type' => 'int']),
+            new Constraints\Type(type: 'int'),
         ];
 
         if ($min !== null) {
-            $constraints[] = new Constraints\GreaterThanOrEqual(['value' => $min]);
+            $constraints[] = new Constraints\GreaterThanOrEqual(value: $min);
         }
 
         if ($max !== null) {
-            $constraints[] = new Constraints\LessThanOrEqual(['value' => $max]);
+            $constraints[] = new Constraints\LessThanOrEqual(value: $max);
         }
 
         return $constraints;

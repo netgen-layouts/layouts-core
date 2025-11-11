@@ -45,8 +45,8 @@ final class CollectionEditType extends AbstractType
                 'disabled' => !$options['collection']->hasQuery(),
                 'constraints' => [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'int']),
-                    new Constraints\GreaterThanOrEqual(['value' => 0]),
+                    new Constraints\Type(type: 'int'),
+                    new Constraints\GreaterThanOrEqual(value: 0),
                 ],
             ],
         );
@@ -58,8 +58,8 @@ final class CollectionEditType extends AbstractType
                 'label' => 'collection.limit',
                 'property_path' => 'limit',
                 'constraints' => [
-                    new Constraints\Type(['type' => 'int']),
-                    new Constraints\GreaterThanOrEqual(['value' => 0]),
+                    new Constraints\Type(type: 'int'),
+                    new Constraints\GreaterThanOrEqual(value: 0),
                 ],
             ],
         );

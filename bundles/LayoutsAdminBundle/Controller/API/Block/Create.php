@@ -75,7 +75,7 @@ final class Create extends AbstractController
             $data->get('block_type'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'block_type',
         );
@@ -84,7 +84,7 @@ final class Create extends AbstractController
             $data->get('parent_placeholder'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'parent_placeholder',
         );
@@ -92,7 +92,7 @@ final class Create extends AbstractController
         $this->validate(
             $data->get('parent_position'),
             [
-                new Constraints\Type(['type' => 'int']),
+                new Constraints\Type(type: 'int'),
             ],
             'parent_position',
         );

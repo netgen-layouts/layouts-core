@@ -42,17 +42,15 @@ final class LinkValidator extends ConstraintValidator
             $linkType,
             [
                 new Constraints\Choice(
-                    [
-                        'choices' => [
-                            null,
-                            LinkType::Url,
-                            LinkType::RelativeUrl,
-                            LinkType::Email,
-                            LinkType::Phone,
-                            LinkType::Internal,
-                        ],
-                        'strict' => true,
+                    choices: [
+                        null,
+                        LinkType::Url,
+                        LinkType::RelativeUrl,
+                        LinkType::Email,
+                        LinkType::Phone,
+                        LinkType::Internal,
                     ],
+                    strict: true,
                 ),
             ],
         );
@@ -68,11 +66,11 @@ final class LinkValidator extends ConstraintValidator
             $linkConstraints[] = new Constraints\NotNull();
 
             $linkConstraints[] = match ($linkType) {
-                LinkType::Url => new Constraints\Url(),
+                LinkType::Url => new Constraints\Url(requireTld: false),
                 // @deprecated Replace with Url constraint with "relativeProtocol" option when support for Symfony 3.4 ends
-                LinkType::RelativeUrl => new Constraints\Type(['type' => 'string']),
-                LinkType::Email => new Constraints\Email(['mode' => Constraints\Email::VALIDATION_MODE_STRICT]),
-                LinkType::Phone => new Constraints\Type(['type' => 'string']),
+                LinkType::RelativeUrl => new Constraints\Type(type: 'string'),
+                LinkType::Email => new Constraints\Email(mode: Constraints\Email::VALIDATION_MODE_STRICT),
+                LinkType::Phone => new Constraints\Type(type: 'string'),
                 LinkType::Internal => new ItemLink(
                     [
                         'valueTypes' => $constraint->valueTypes,
@@ -88,7 +86,7 @@ final class LinkValidator extends ConstraintValidator
             $value->getLinkSuffix(),
             [
                 new Constraints\NotNull(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
         );
 
@@ -96,7 +94,7 @@ final class LinkValidator extends ConstraintValidator
             $value->getNewWindow(),
             [
                 new Constraints\NotNull(),
-                new Constraints\Type(['type' => 'bool']),
+                new Constraints\Type(type: 'bool'),
             ],
         );
     }

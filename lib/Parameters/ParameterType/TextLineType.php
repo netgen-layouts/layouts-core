@@ -26,7 +26,7 @@ final class TextLineType extends ParameterType
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         return [
-            new Constraints\Type(['type' => 'string']),
+            new Constraints\Type(type: 'string'),
         ];
     }
 }

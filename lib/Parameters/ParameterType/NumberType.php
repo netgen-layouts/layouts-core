@@ -61,15 +61,15 @@ final class NumberType extends ParameterType
         $max = $parameterDefinition->getOption('max');
 
         $constraints = [
-            new Constraints\Type(['type' => 'numeric']),
+            new Constraints\Type(type: 'numeric'),
         ];
 
         if ($min !== null) {
-            $constraints[] = new Constraints\GreaterThanOrEqual(['value' => $min]);
+            $constraints[] = new Constraints\GreaterThanOrEqual(value: $min);
         }
 
         if ($max !== null) {
-            $constraints[] = new Constraints\LessThanOrEqual(['value' => $max]);
+            $constraints[] = new Constraints\LessThanOrEqual(value: $max);
         }
 
         return $constraints;

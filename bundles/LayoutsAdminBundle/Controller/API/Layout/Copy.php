@@ -52,7 +52,7 @@ final class Copy extends AbstractController
             $data->get('name'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'name',
         );
@@ -60,7 +60,7 @@ final class Copy extends AbstractController
         $this->validate(
             $data->get('description'),
             [
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'description',
         );

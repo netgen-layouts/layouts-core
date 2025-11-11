@@ -55,7 +55,7 @@ final class ChangeType extends AbstractController
             $data->get('new_type'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
+                new Constraints\Type(type: 'string'),
             ],
             'new_type',
         );
@@ -63,7 +63,7 @@ final class ChangeType extends AbstractController
         $this->validate(
             $data->get('zone_mappings'),
             [
-                new Constraints\Type(['type' => 'array']),
+                new Constraints\Type(type: 'array'),
             ],
             'zone_mappings',
         );
