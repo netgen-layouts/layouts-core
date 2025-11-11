@@ -16,12 +16,25 @@ use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
+
+use function count;
+use function file_get_contents;
+use function preg_match;
+use function preg_match_all;
+use function realpath;
+use function sprintf;
+use function str_contains;
+use function str_replace;
+
+use const PREG_SET_ORDER;
 
 #[CoversClass(RenderingRuntime::class)]
 final class RenderingExtensionTwigTest extends IntegrationTestCase
@@ -56,7 +69,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         );
     }
 
-    #[DataProvider('getTests')]
+    #[DataProvider('integrationDataProvider')]
     public function testIntegration(mixed $file, mixed $message, mixed $condition, mixed $templates, mixed $exception, mixed $outputs, mixed $deprecation = ''): void
     {
         $this->configureMocks();
@@ -64,7 +77,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
-    #[DataProvider('getTests')]
+    #[DataProvider('integrationDataProvider')]
     public function testIntegrationWithLocale(mixed $file, mixed $message, mixed $condition, mixed $templates, mixed $exception, mixed $outputs, mixed $deprecation = ''): void
     {
         $request = Request::create('');
@@ -75,13 +88,20 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
-    /**
-     * @group legacy
-     */
-    #[DataProvider('getLegacyTests')]
+    #[DataProvider('legacyIntegrationDataProvider')]
     public function testLegacyIntegration(mixed $file, mixed $message, mixed $condition, mixed $templates, mixed $exception, mixed $outputs, mixed $deprecation = ''): void
     {
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
+    }
+
+    public static function integrationDataProvider(): iterable
+    {
+        return self::assembleDataProvider(false);
+    }
+
+    public static function legacyIntegrationDataProvider(): iterable
+    {
+        return self::assembleDataProvider(true);
     }
 
     protected function getExtensions(): array
@@ -133,5 +153,52 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                         '{"blocks":[{"id":1},{"id":2}]}' :
                         'block1 block2',
             );
+    }
+
+    private static function assembleDataProvider(bool $legacyTests): iterable
+    {
+        $fixturesDir = self::getFixturesDirectory();
+        $fixturesDir = (string) realpath($fixturesDir);
+        $tests = [];
+
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($fixturesDir), RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
+            /** @var \SplFileInfo $file */
+            if (preg_match('/\.test$/', $file->getRealPath()) === 0) {
+                continue;
+            }
+
+            if ($legacyTests xor str_contains($file->getRealPath(), '.legacy.test')) {
+                continue;
+            }
+
+            $test = (string) file_get_contents($file->getRealPath());
+
+            if (preg_match('/--TEST--\s*(.*?)\s*(?:--CONDITION--\s*(.*))?\s*(?:--DEPRECATION--\s*(.*?))?\s*((?:--TEMPLATE(?:\(.*?\))?--(?:.*?))+)\s*(?:--DATA--\s*(.*))?\s*--EXCEPTION--\s*(.*)/sx', $test, $match) > 0) {
+                $message = $match[1];
+                $condition = $match[2];
+                $deprecation = $match[3];
+                $templates = self::parseTemplates($match[4]);
+                $exception = $match[6];
+                $outputs = [[null, $match[5], null, '']];
+            } elseif (preg_match('/--TEST--\s*(.*?)\s*(?:--CONDITION--\s*(.*))?\s*(?:--DEPRECATION--\s*(.*?))?\s*((?:--TEMPLATE(?:\(.*?\))?--(?:.*?))+)--DATA--.*?--EXPECT--.*/s', $test, $match) > 0) {
+                $message = $match[1];
+                $condition = $match[2];
+                $deprecation = $match[3];
+                $templates = self::parseTemplates($match[4]);
+                $exception = false;
+                preg_match_all('/--DATA--(.*?)(?:--CONFIG--(.*?))?--EXPECT--(.*?)(?=\-\-DATA\-\-|$)/s', $test, $outputs, PREG_SET_ORDER);
+            } else {
+                throw new \InvalidArgumentException(sprintf('Test "%s" is not valid.', str_replace($fixturesDir . '/', '', $file->getRealPath())));
+            }
+
+            $tests[str_replace($fixturesDir . '/', '', $file->getRealPath())] = [str_replace($fixturesDir . '/', '', $file->getRealPath()), $message, $condition, $templates, $exception, $outputs, $deprecation];
+        }
+
+        if ($legacyTests && count($tests) === 0) {
+            // add a dummy test to avoid a PHPUnit message
+            return [['not', '-', '', [], '', []]];
+        }
+
+        return $tests;
     }
 }
