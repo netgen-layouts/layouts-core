@@ -6,6 +6,8 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone as RenderZoneNode;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\RenderZone;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Error\SyntaxError;
@@ -15,6 +17,7 @@ use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Parser;
 use Twig\Source;
 
+#[CoversClass(RenderZone::class)]
 final class RenderZoneTest extends TestCase
 {
     private Environment $environment;
@@ -36,12 +39,7 @@ final class RenderZoneTest extends TestCase
         $this->parser = new Parser($this->environment);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\RenderZone::getTag
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\RenderZone::parse
-     *
-     * @dataProvider compileDataProvider
-     */
+    #[DataProvider('compileDataProvider')]
     public function testCompile(string $source, RenderZoneNode $node, string $tag): void
     {
         $stream = $this->environment->tokenize(new Source($source, ''));
@@ -51,10 +49,6 @@ final class RenderZoneTest extends TestCase
         self::assertSame((string) $node, (string) $this->parser->parse($stream)->getNode('body')->getNode('0'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\RenderZone::getTag
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\RenderZone::parse
-     */
     public function testCompileThrowsTwigErrorSyntaxException(): void
     {
         $this->expectException(SyntaxError::class);

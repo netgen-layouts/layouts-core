@@ -7,12 +7,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Ite
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
+#[CoversClass(UrlGeneratorPass::class)]
 final class UrlGeneratorPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -22,9 +24,6 @@ final class UrlGeneratorPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new UrlGeneratorPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
-     */
     public function testProcess(): void
     {
         $urlGenerator = new Definition();
@@ -51,9 +50,6 @@ final class UrlGeneratorPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
-     */
     public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag(): void
     {
         $this->expectException(RuntimeException::class);
@@ -68,9 +64,6 @@ final class UrlGeneratorPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

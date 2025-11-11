@@ -9,8 +9,10 @@ use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryTypeRegistry::class)]
 final class QueryTypeRegistryTest extends TestCase
 {
     private QueryType $queryType1;
@@ -32,9 +34,6 @@ final class QueryTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryTypes
-     */
     public function testGetEnabledQueryTypes(): void
     {
         self::assertSame(
@@ -45,10 +44,6 @@ final class QueryTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::__construct
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryTypes
-     */
     public function testGetQueryTypes(): void
     {
         self::assertSame(
@@ -60,17 +55,11 @@ final class QueryTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryType
-     */
     public function testGetQueryType(): void
     {
         self::assertSame($this->queryType1, $this->registry->getQueryType('query_type1'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryType
-     */
     public function testGetQueryTypeThrowsQueryTypeException(): void
     {
         $this->expectException(QueryTypeException::class);
@@ -79,25 +68,16 @@ final class QueryTypeRegistryTest extends TestCase
         $this->registry->getQueryType('other_query_type');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::hasQueryType
-     */
     public function testHasQueryType(): void
     {
         self::assertTrue($this->registry->hasQueryType('query_type1'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::hasQueryType
-     */
     public function testHasQueryTypeWithNoQueryType(): void
     {
         self::assertFalse($this->registry->hasQueryType('other_query_type'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getIterator
-     */
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
@@ -110,34 +90,22 @@ final class QueryTypeRegistryTest extends TestCase
         self::assertSame($this->registry->getQueryTypes(), $queryTypes);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::count
-     */
     public function testCount(): void
     {
         self::assertCount(2, $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetExists
-     */
     public function testOffsetExists(): void
     {
         self::assertArrayHasKey('query_type1', $this->registry);
         self::assertArrayNotHasKey('other', $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetGet
-     */
     public function testOffsetGet(): void
     {
         self::assertSame($this->queryType1, $this->registry['query_type1']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetSet
-     */
     public function testOffsetSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -146,9 +114,6 @@ final class QueryTypeRegistryTest extends TestCase
         $this->registry['query_type1'] = $this->queryType1;
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetUnset
-     */
     public function testOffsetUnset(): void
     {
         $this->expectException(RuntimeException::class);

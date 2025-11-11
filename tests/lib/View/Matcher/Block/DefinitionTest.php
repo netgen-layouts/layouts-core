@@ -10,9 +10,14 @@ use Netgen\Layouts\Block\NullBlockDefinition;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Block\Definition;
+use Netgen\Layouts\View\Matcher\Block\DefinitionTrait;
 use Netgen\Layouts\View\View\BlockView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Definition::class)]
+#[CoversClass(DefinitionTrait::class)]
 final class DefinitionTest extends TestCase
 {
     private Definition $matcher;
@@ -24,12 +29,8 @@ final class DefinitionTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
-     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $block = Block::fromArray(
@@ -43,10 +44,6 @@ final class DefinitionTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
-     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
-     */
     public function testMatchWithNullDefinition(): void
     {
         $block = Block::fromArray(
@@ -60,10 +57,6 @@ final class DefinitionTest extends TestCase
         self::assertTrue($this->matcher->match($view, ['null']));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
-     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
-     */
     public function testMatchWithNullDefinitionReturnsFalse(): void
     {
         $block = Block::fromArray(
@@ -88,9 +81,6 @@ final class DefinitionTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
-     */
     public function testMatchWithNoBlockView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

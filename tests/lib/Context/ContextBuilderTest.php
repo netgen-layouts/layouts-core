@@ -7,8 +7,10 @@ namespace Netgen\Layouts\Tests\Context;
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilder;
 use Netgen\Layouts\Tests\Context\Stubs\ContextProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ContextBuilder::class)]
 final class ContextBuilderTest extends TestCase
 {
     private Context $context;
@@ -20,10 +22,6 @@ final class ContextBuilderTest extends TestCase
         $this->context = new Context();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Context\ContextBuilder::__construct
-     * @covers \Netgen\Layouts\Context\ContextBuilder::buildContext
-     */
     public function testBuildContext(): void
     {
         $this->contextBuilder = new ContextBuilder(

@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\Form\TargetType\Mapper;
 
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+#[CoversClass(PathInfoPrefix::class)]
 final class PathInfoPrefixTest extends TestCase
 {
     private PathInfoPrefix $mapper;
@@ -17,9 +19,6 @@ final class PathInfoPrefixTest extends TestCase
         $this->mapper = new PathInfoPrefix();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix::getFormType
-     */
     public function testGetFormType(): void
     {
         self::assertSame(TextType::class, $this->mapper->getFormType());

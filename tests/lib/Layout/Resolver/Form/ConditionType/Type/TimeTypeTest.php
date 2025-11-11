@@ -6,16 +6,14 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Type;
 
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 
 use function array_keys;
 
+#[CoversClass(TimeType::class)]
 final class TimeTypeTest extends FormTestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType::buildForm
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType::configureOptions
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -55,9 +53,6 @@ final class TimeTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('nglayouts_condition_type_time', $this->formType->getBlockPrefix());

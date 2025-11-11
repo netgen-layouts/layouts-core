@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\Layouts\Form\KeyValuesType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+#[CoversClass(RouteParameter::class)]
 final class RouteParameterTest extends TestCase
 {
     private RouteParameter $mapper;
@@ -18,17 +20,11 @@ final class RouteParameterTest extends TestCase
         $this->mapper = new RouteParameter();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
-     */
     public function testGetFormType(): void
     {
         self::assertSame(KeyValuesType::class, $this->mapper->getFormType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
-     */
     public function testGetFormOptions(): void
     {
         self::assertSame(

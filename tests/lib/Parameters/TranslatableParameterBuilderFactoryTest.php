@@ -8,8 +8,10 @@ use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilder;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(TranslatableParameterBuilderFactory::class)]
 final class TranslatableParameterBuilderFactoryTest extends TestCase
 {
     private ParameterTypeRegistry $registry;
@@ -28,10 +30,6 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
         $this->factory = new TranslatableParameterBuilderFactory($this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::resolveOptions
-     */
     public function testCreateParameterBuilder(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder();
@@ -42,10 +40,6 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
         self::assertNull($parameterBuilder->getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::resolveOptions
-     */
     public function testCreateParameterBuilderWithNoOptions(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder(
@@ -65,10 +59,6 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::resolveOptions
-     */
     public function testCreateParameterBuilderWithConfig(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder(

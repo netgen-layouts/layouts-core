@@ -8,9 +8,11 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeFactory;
 use Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryTypeFactory::class)]
 final class QueryTypeFactoryTest extends TestCase
 {
     private MockObject $parameterBuilderFactoryMock;
@@ -27,10 +29,6 @@ final class QueryTypeFactoryTest extends TestCase
         $this->factory = new QueryTypeFactory($this->parameterBuilderFactoryMock);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::__construct
-     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::buildQueryType
-     */
     public function testBuildQueryType(): void
     {
         $queryType = $this->factory->buildQueryType(
@@ -48,10 +46,6 @@ final class QueryTypeFactoryTest extends TestCase
         self::assertSame('Query type', $queryType->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::__construct
-     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::buildQueryType
-     */
     public function testBuildQueryTypeWithEmptyName(): void
     {
         $queryType = $this->factory->buildQueryType(

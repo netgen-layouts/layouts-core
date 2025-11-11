@@ -10,11 +10,14 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
 use Netgen\Layouts\Validator\Parameters\ItemLinkValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(ItemLinkValidator::class)]
 final class ItemLinkValidatorTest extends ValidatorTestCase
 {
     private MockObject $cmsItemLoaderMock;
@@ -28,12 +31,8 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $valueTypes
-     *
-     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::__construct
-     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(?string $value, array $valueTypes, bool $isValid): void
     {
         $this->constraint->valueTypes = $valueTypes;
@@ -48,9 +47,6 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
-     */
     public function testValidateWithInvalidItem(): void
     {
         $this->cmsItemLoaderMock
@@ -61,9 +57,6 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->assertValid(false, 'value://42');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -73,9 +66,6 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'value://42');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

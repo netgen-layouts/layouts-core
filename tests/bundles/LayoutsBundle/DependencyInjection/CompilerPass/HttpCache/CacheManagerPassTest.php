@@ -6,10 +6,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Htt
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(CacheManagerPass::class)]
 final class CacheManagerPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -19,9 +21,6 @@ final class CacheManagerPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new CacheManagerPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
-     */
     public function testProcess(): void
     {
         $cacheManager = new Definition(null, [0]);
@@ -40,9 +39,6 @@ final class CacheManagerPassTest extends AbstractContainerBuilderTestCase
         self::assertFalse($def->isPublic());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
-     */
     public function testProcessWithoutCacheManager(): void
     {
         $this->setDefinition('fos_http_cache.proxy_client.varnish', new Definition());
@@ -55,9 +51,6 @@ final class CacheManagerPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
-     */
     public function testProcessWithoutVarnishProxyClient(): void
     {
         $this->setDefinition('fos_http_cache.cache_manager', new Definition());
@@ -70,9 +63,6 @@ final class CacheManagerPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

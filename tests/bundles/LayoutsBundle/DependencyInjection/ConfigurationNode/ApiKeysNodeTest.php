@@ -6,20 +6,18 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\ConfigurationNod
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\ApiKeysNode;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[CoversClass(ApiKeysNode::class)]
+#[CoversClass(Configuration::class)]
 final class ApiKeysNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\ApiKeysNode::getConfigurationNode
-     */
     public function testGoogleMapsApiKeySettings(): void
     {
         $config = [
@@ -43,12 +41,6 @@ final class ApiKeysNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\ApiKeysNode::getConfigurationNode
-     */
     public function testGoogleMapsApiKeySettingsWithEmptyKey(): void
     {
         $config = [];

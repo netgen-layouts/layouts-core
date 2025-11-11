@@ -7,22 +7,13 @@ namespace Netgen\Layouts\Tests\Parameters;
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\TextType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+#[CoversClass(ParameterDefinition::class)]
 final class ParameterDefinitionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getDefaultValue
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getGroups
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getLabel
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getName
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getOption
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getType
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::hasOption
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::isRequired
-     */
     public function testSetProperties(): void
     {
         $type = new TextType();

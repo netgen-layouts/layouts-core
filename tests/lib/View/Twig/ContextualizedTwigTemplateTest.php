@@ -6,15 +6,13 @@ namespace Netgen\Layouts\Tests\View\Twig;
 
 use Exception;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Twig\Template;
 
+#[CoversClass(ContextualizedTwigTemplate::class)]
 final class ContextualizedTwigTemplateTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::__construct
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::getContext
-     */
     public function testGetContext(): void
     {
         $template = new ContextualizedTwigTemplate(
@@ -25,9 +23,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
         self::assertSame(['param' => 'value'], $template->getContext());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::hasBlock
-     */
     public function testHasBlock(): void
     {
         $templateMock = $this->createMock(Template::class);
@@ -42,9 +37,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
         self::assertTrue($template->hasBlock('block_name'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
-     */
     public function testHasBlockReturnsFalse(): void
     {
         $templateMock = $this->createMock(Template::class);
@@ -59,9 +51,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
         self::assertFalse($template->hasBlock('block_name'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
-     */
     public function testRenderBlock(): void
     {
         $templateMock = $this->createMock(Template::class);
@@ -85,9 +74,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
         self::assertSame('rendered', $template->renderBlock('block_name'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
-     */
     public function testRenderBlockNonExistingBlock(): void
     {
         $templateMock = $this->createMock(Template::class);
@@ -106,9 +92,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
         self::assertSame('', $template->renderBlock('block_name'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
-     */
     public function testRenderBlockWithException(): void
     {
         $this->expectException(Exception::class);

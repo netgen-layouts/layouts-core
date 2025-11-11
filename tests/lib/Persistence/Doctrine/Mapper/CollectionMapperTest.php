@@ -12,8 +12,10 @@ use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CollectionMapper::class)]
 final class CollectionMapperTest extends TestCase
 {
     use ExportObjectTrait;
@@ -25,9 +27,6 @@ final class CollectionMapperTest extends TestCase
         $this->mapper = new CollectionMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
-     */
     public function testMapCollections(): void
     {
         $data = [
@@ -107,9 +106,6 @@ final class CollectionMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($collections));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
-     */
     public function testMapCollectionsWithBlockUuid(): void
     {
         $data = [
@@ -189,9 +185,6 @@ final class CollectionMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($collections));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapCollectionReferences
-     */
     public function testMapCollectionReferences(): void
     {
         $data = [
@@ -234,9 +227,6 @@ final class CollectionMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($collectionReferences));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapItems
-     */
     public function testMapItems(): void
     {
         $data = [
@@ -303,10 +293,6 @@ final class CollectionMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($items));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::buildParameters
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapQueries
-     */
     public function testMapQueries(): void
     {
         $data = [
@@ -384,9 +370,6 @@ final class CollectionMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($queries));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapSlots
-     */
     public function testMapSlots(): void
     {
         $data = [

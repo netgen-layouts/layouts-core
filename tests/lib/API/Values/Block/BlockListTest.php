@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Block;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
@@ -14,11 +15,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(BlockList::class)]
 final class BlockListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -33,10 +32,6 @@ final class BlockListTest extends TestCase
         new BlockList([new Block(), new stdClass(), new Block()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockList::__construct
-     * @covers \Netgen\Layouts\API\Values\Block\BlockList::getBlocks
-     */
     public function testGetBlocks(): void
     {
         $blocks = [new Block(), new Block()];
@@ -44,9 +39,6 @@ final class BlockListTest extends TestCase
         self::assertSame($blocks, new BlockList($blocks)->getBlocks());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockList::getBlockIds
-     */
     public function testGetBlockIds(): void
     {
         $uuid1 = Uuid::uuid4();

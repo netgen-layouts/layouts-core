@@ -7,8 +7,10 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Type\DataMapper;
 use ArrayIterator;
 use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormInterface;
 
+#[CoversClass(ItemLinkDataMapper::class)]
 final class ItemLinkDataMapperTest extends DataMapperTestBase
 {
     private ItemLinkDataMapper $mapper;
@@ -18,9 +20,6 @@ final class ItemLinkDataMapperTest extends DataMapperTestBase
         $this->mapper = new ItemLinkDataMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
-     */
     public function testMapDataToForms(): void
     {
         $forms = new ArrayIterator(
@@ -42,9 +41,6 @@ final class ItemLinkDataMapperTest extends DataMapperTestBase
         self::assertSame('value', $itemTypeForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
-     */
     public function testMapDataToFormsWithInvalidData(): void
     {
         $forms = new ArrayIterator(
@@ -66,9 +62,6 @@ final class ItemLinkDataMapperTest extends DataMapperTestBase
         self::assertNull($itemTypeForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
-     */
     public function testMapDataToFormsWithNonStringData(): void
     {
         $forms = new ArrayIterator(
@@ -90,9 +83,6 @@ final class ItemLinkDataMapperTest extends DataMapperTestBase
         self::assertNull($itemTypeForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
-     */
     public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
@@ -107,9 +97,6 @@ final class ItemLinkDataMapperTest extends DataMapperTestBase
         self::assertSame('value://42', $data);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
-     */
     public function testMapFormsToDataWithInvalidItemValueFormData(): void
     {
         $forms = new ArrayIterator(
@@ -124,9 +111,6 @@ final class ItemLinkDataMapperTest extends DataMapperTestBase
         self::assertNull($data);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
-     */
     public function testMapFormsToDataWithInvalidItemTypeFormData(): void
     {
         $forms = new ArrayIterator(

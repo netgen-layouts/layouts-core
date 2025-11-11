@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Collection;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(ItemValueResolver::class)]
 final class ItemValueResolverTest extends TestCase
 {
     private MockObject $collectionServiceMock;
@@ -24,34 +26,21 @@ final class ItemValueResolverTest extends TestCase
         $this->valueResolver = new ItemValueResolver($this->collectionServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver::getSourceAttributeNames
-     */
     public function testGetSourceAttributeName(): void
     {
         self::assertSame(['itemId'], $this->valueResolver->getSourceAttributeNames());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver::getDestinationAttributeName
-     */
     public function testGetDestinationAttributeName(): void
     {
         self::assertSame('item', $this->valueResolver->getDestinationAttributeName());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver::getSupportedClass
-     */
     public function testGetSupportedClass(): void
     {
         self::assertSame(Item::class, $this->valueResolver->getSupportedClass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver::loadValue
-     */
     public function testLoadValue(): void
     {
         $item = new Item();
@@ -75,9 +64,6 @@ final class ItemValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\ItemValueResolver::loadValue
-     */
     public function testLoadValueDraft(): void
     {
         $item = new Item();

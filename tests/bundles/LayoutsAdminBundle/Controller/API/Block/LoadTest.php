@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Load;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Load::class)]
 final class LoadTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Load::__invoke
-     */
     public function testLoad(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de?html=false');
@@ -24,9 +24,6 @@ final class LoadTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Load::__invoke
-     */
     public function testLoadInPublishedState(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de?published=true&html=false');
@@ -38,9 +35,6 @@ final class LoadTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Load::__invoke
-     */
     public function testLoadWithNonExistentBlock(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff');

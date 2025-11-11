@@ -12,8 +12,10 @@ use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryUpdateStruct::class)]
 final class QueryUpdateStructTest extends TestCase
 {
     private QueryUpdateStruct $struct;
@@ -23,9 +25,6 @@ final class QueryUpdateStructTest extends TestCase
         $this->struct = new QueryUpdateStruct();
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct::fillParametersFromQuery
-     */
     public function testFillParametersFromQuery(): void
     {
         $queryType = $this->buildQueryType();
@@ -66,9 +65,6 @@ final class QueryUpdateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHash(): void
     {
         $queryType = $this->buildQueryType();
@@ -93,9 +89,6 @@ final class QueryUpdateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHashWithMissingValues(): void
     {
         $queryType = $this->buildQueryType();

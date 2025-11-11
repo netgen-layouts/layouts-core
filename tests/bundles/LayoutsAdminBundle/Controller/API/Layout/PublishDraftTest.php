@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\PublishDraft;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(PublishDraft::class)]
 final class PublishDraftTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\PublishDraft::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\PublishDraft::__invoke
-     */
     public function testPublishDraft(): void
     {
         $this->client->request(
@@ -28,9 +27,6 @@ final class PublishDraftTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\PublishDraft::__invoke
-     */
     public function testPublishDraftWithNonExistentLayout(): void
     {
         $this->client->request(

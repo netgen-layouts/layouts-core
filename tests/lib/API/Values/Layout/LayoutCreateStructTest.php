@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Layout;
 
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 
+#[CoversNothing]
 final class LayoutCreateStructTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
     public function testDefaultProperties(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();

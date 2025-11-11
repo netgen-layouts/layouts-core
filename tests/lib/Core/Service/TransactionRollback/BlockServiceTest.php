@@ -12,23 +12,19 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Core\Service\BlockService;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @property \PHPUnit\Framework\MockObject\MockObject $layoutService
- */
+#[CoversClass(BlockService::class)]
 final class BlockServiceTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlock(): void
     {
         $this->expectException(Exception::class);
@@ -78,10 +74,6 @@ final class BlockServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockInZone(): void
     {
         $this->expectException(Exception::class);
@@ -123,9 +115,6 @@ final class BlockServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     */
     public function testUpdateBlock(): void
     {
         $this->expectException(Exception::class);
@@ -168,9 +157,6 @@ final class BlockServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlock(): void
     {
         $this->expectException(Exception::class);
@@ -209,9 +195,6 @@ final class BlockServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZone(): void
     {
         $this->expectException(Exception::class);
@@ -247,10 +230,6 @@ final class BlockServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlock(): void
     {
         $this->expectException(Exception::class);
@@ -289,10 +268,6 @@ final class BlockServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToZone(): void
     {
         $this->expectException(Exception::class);
@@ -328,9 +303,6 @@ final class BlockServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
-     */
     public function testRestoreBlock(): void
     {
         $this->expectException(Exception::class);
@@ -355,9 +327,6 @@ final class BlockServiceTest extends TestCase
         $this->blockService->restoreBlock(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
-     */
     public function testEnableTranslations(): void
     {
         $this->expectException(Exception::class);
@@ -385,9 +354,6 @@ final class BlockServiceTest extends TestCase
         $this->blockService->enableTranslations(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
-     */
     public function testDisableTranslations(): void
     {
         $this->expectException(Exception::class);
@@ -408,9 +374,6 @@ final class BlockServiceTest extends TestCase
         $this->blockService->disableTranslations(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::deleteBlock
-     */
     public function testDeleteBlock(): void
     {
         $this->expectException(Exception::class);

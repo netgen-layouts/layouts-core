@@ -11,9 +11,11 @@ use Netgen\Layouts\Item\UrlGenerator;
 use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\Item\Stubs\ValueUrlGenerator;
 use Netgen\Layouts\Tests\Stubs\Container;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(UrlGenerator::class)]
 final class UrlGeneratorTest extends TestCase
 {
     private UrlGenerator $urlGenerator;
@@ -25,11 +27,6 @@ final class UrlGeneratorTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
-     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
-     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
-     */
     public function testGenerateDefaultUrl(): void
     {
         $url = $this->urlGenerator->generate(
@@ -39,11 +36,6 @@ final class UrlGeneratorTest extends TestCase
         self::assertSame('/item-url', $url);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
-     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
-     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
-     */
     public function testGenerateAdminUrl(): void
     {
         $url = $this->urlGenerator->generate(
@@ -54,11 +46,6 @@ final class UrlGeneratorTest extends TestCase
         self::assertSame('/admin/item-url', $url);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
-     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
-     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
-     */
     public function testGenerateWithNullCmsItem(): void
     {
         $url = $this->urlGenerator->generate(
@@ -69,11 +56,6 @@ final class UrlGeneratorTest extends TestCase
         self::assertSame('', $url);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
-     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
-     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
-     */
     public function testGenerateWithNullObject(): void
     {
         $url = $this->urlGenerator->generate(
@@ -84,10 +66,6 @@ final class UrlGeneratorTest extends TestCase
         self::assertSame('', $url);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
-     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
-     */
     public function testGenerateThrowsItemExceptionWithNoUrlGenerator(): void
     {
         $this->expectException(ItemException::class);
@@ -100,10 +78,6 @@ final class UrlGeneratorTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
-     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
-     */
     public function testGenerateThrowsItemExceptionWithInvalidUrlGenerator(): void
     {
         $this->expectException(ItemException::class);

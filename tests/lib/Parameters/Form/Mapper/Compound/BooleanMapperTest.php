@@ -8,8 +8,10 @@ use Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper;
 use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BooleanMapper::class)]
 final class BooleanMapperTest extends TestCase
 {
     private BooleanMapper $mapper;
@@ -19,17 +21,11 @@ final class BooleanMapperTest extends TestCase
         $this->mapper = new BooleanMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper::getFormType
-     */
     public function testGetFormType(): void
     {
         self::assertSame(CompoundBooleanType::class, $this->mapper->getFormType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper::mapOptions
-     */
     public function testMapOptions(): void
     {
         self::assertSame(

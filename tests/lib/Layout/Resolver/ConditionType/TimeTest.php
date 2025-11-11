@@ -6,11 +6,14 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\Layouts\Layout\Resolver\ConditionType\Time;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(Time::class)]
 final class TimeTest extends TestCase
 {
     private Time $conditionType;
@@ -20,19 +23,12 @@ final class TimeTest extends TestCase
         $this->conditionType = new Time();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getType
-     */
     public function testGetType(): void
     {
         self::assertSame('time', $this->conditionType::getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidatorBuilder()
@@ -43,11 +39,7 @@ final class TimeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::matches
-     *
-     * @dataProvider matchesDataProvider
-     */
+    #[DataProvider('matchesDataProvider')]
     public function testMatches(mixed $value, bool $matches): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey

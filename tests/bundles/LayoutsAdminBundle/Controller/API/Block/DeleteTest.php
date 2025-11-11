@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Delete;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Delete::class)]
 final class DeleteTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Delete::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Delete::__invoke
-     */
     public function testDelete(): void
     {
         $this->client->request(
@@ -28,9 +27,6 @@ final class DeleteTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Delete::__invoke
-     */
     public function testDeleteWithNonExistentBlock(): void
     {
         $this->client->request(

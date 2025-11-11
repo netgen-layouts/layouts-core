@@ -6,6 +6,8 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
@@ -25,8 +27,11 @@ use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CollectionHandler::class)]
+#[CoversClass(CollectionQueryHandler::class)]
 final class CollectionHandlerTest extends TestCase
 {
     use ExportObjectTrait;
@@ -53,13 +58,6 @@ final class CollectionHandlerTest extends TestCase
         $this->closeDatabase();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionWithBlockSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     */
     public function testLoadCollection(): void
     {
         $collection = $this->collectionHandler->loadCollection(1, Status::Draft);
@@ -82,10 +80,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     */
     public function testLoadCollectionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -94,11 +88,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollections
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadBlockCollectionsData
-     */
     public function testLoadCollections(): void
     {
         $collections = $this->collectionHandler->loadCollections(
@@ -138,10 +127,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionReference
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionReferencesData
-     */
     public function testLoadCollectionReference(): void
     {
         $reference = $this->collectionHandler->loadCollectionReference(
@@ -161,10 +146,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionReference
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionReferencesData
-     */
     public function testLoadCollectionReferenceThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -176,10 +157,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionReferences
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionReferencesData
-     */
     public function testLoadCollectionReferences(): void
     {
         $references = $this->collectionHandler->loadCollectionReferences(
@@ -209,11 +186,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
-     */
     public function testLoadItem(): void
     {
         $item = $this->collectionHandler->loadItem(1, Status::Draft);
@@ -235,10 +207,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
-     */
     public function testLoadItemThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -247,11 +215,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadItem(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
-     */
     public function testLoadItemWithPosition(): void
     {
         $item = $this->collectionHandler->loadItemWithPosition(
@@ -276,10 +239,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
-     */
     public function testLoadItemWithPositionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -291,10 +250,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     */
     public function testLoadCollectionItems(): void
     {
         $items = $this->collectionHandler->loadCollectionItems(
@@ -305,11 +260,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertContainsOnlyInstancesOf(Item::class, $items);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getQuerySelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
-     */
     public function testLoadQuery(): void
     {
         $query = $this->collectionHandler->loadQuery(1, Status::Published);
@@ -345,10 +295,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
-     */
     public function testLoadQueryThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -357,10 +303,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadQuery(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
-     */
     public function testLoadCollectionQuery(): void
     {
         $query = $this->collectionHandler->loadCollectionQuery(
@@ -398,10 +340,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
-     */
     public function testLoadCollectionQueryThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -412,11 +350,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadSlot
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getSlotSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSlotData
-     */
     public function testLoadSlot(): void
     {
         $slot = $this->collectionHandler->loadSlot(1, Status::Draft);
@@ -435,10 +368,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadSlot
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSlotData
-     */
     public function testLoadSlotThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -447,10 +376,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadSlot(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionSlots
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionSlotsData
-     */
     public function testLoadCollectionSlots(): void
     {
         $slots = $this->collectionHandler->loadCollectionSlots(
@@ -461,36 +386,21 @@ final class CollectionHandlerTest extends TestCase
         self::assertContainsOnlyInstancesOf(Slot::class, $slots);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
-     */
     public function testCollectionExists(): void
     {
         self::assertTrue($this->collectionHandler->collectionExists(1, Status::Draft));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
-     */
     public function testCollectionNotExists(): void
     {
         self::assertFalse($this->collectionHandler->collectionExists(999, Status::Published));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
-     */
     public function testCollectionNotExistsInStatus(): void
     {
         self::assertFalse($this->collectionHandler->collectionExists(1, Status::Archived));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollection
-     */
     public function testCreateCollection(): void
     {
         $block = $this->blockHandler->loadBlock(38, Status::Draft);
@@ -526,10 +436,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     */
     public function testCreateCollectionThrowsBadStateExceptionWithBlockInDifferentStatus(): void
     {
         $this->expectException(BadStateException::class);
@@ -548,11 +454,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->createCollection($collectionCreateStruct, $block, 'default');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQueryTranslation
-     */
     public function testCreateCollectionTranslation(): void
     {
         $collection = $this->collectionHandler->createCollectionTranslation(
@@ -617,10 +518,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     */
     public function testCreateCollectionTranslationWithNonMainSourceLocale(): void
     {
         $collection = $this->collectionHandler->createCollectionTranslation(
@@ -685,10 +582,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     */
     public function testCreateCollectionTranslationForCollectionWithNoQuery(): void
     {
         $collection = $this->collectionHandler->createCollectionTranslation(
@@ -715,10 +608,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     */
     public function testCreateCollectionTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -731,10 +620,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     */
     public function testCreateCollectionTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -747,10 +632,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionReference
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionReference
-     */
     public function testCreateCollectionReference(): void
     {
         $block = $this->blockHandler->loadBlock(31, Status::Draft);
@@ -774,10 +655,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
     public function testSetMainTranslation(): void
     {
         $collection = $this->collectionHandler->loadCollection(2, Status::Published);
@@ -789,10 +666,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame('hr', $query->mainLocale);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
     public function testSetMainTranslationForCollectionWithNoQuery(): void
     {
         $collection = $this->collectionHandler->loadCollection(1, Status::Draft);
@@ -801,9 +674,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame('hr', $collection->mainLocale);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
-     */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -813,10 +683,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->setMainTranslation($collection, 'de');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
     public function testUpdateCollection(): void
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
@@ -848,10 +714,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
     public function testUpdateCollectionWithNoLimit(): void
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
@@ -881,10 +743,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
     public function testUpdateCollectionWithDefaultValues(): void
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
@@ -912,15 +770,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
-     */
     public function testCopyCollection(): void
     {
         $block = $this->blockHandler->loadBlock(34, Status::Published);
@@ -1062,13 +911,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     */
     public function testCopyCollectionWithoutQuery(): void
     {
         $block = $this->blockHandler->loadBlock(34, Status::Draft);
@@ -1177,9 +1019,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
-     */
     public function testCopyCollectionThrowsBadStateExceptionWithBlockInDifferentStatus(): void
     {
         $this->expectException(BadStateException::class);
@@ -1194,15 +1033,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
-     */
     public function testCreateCollectionStatus(): void
     {
         $copiedCollection = $this->collectionHandler->createCollectionStatus(
@@ -1330,13 +1160,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     */
     public function testCreateCollectionStatusWithoutQuery(): void
     {
         $copiedCollection = $this->collectionHandler->createCollectionStatus(
@@ -1432,13 +1255,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     */
     public function testDeleteCollection(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1449,13 +1265,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(3, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     */
     public function testDeleteCollectionWithoutQuery(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1466,13 +1275,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(1, Status::Draft);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     */
     public function testDeleteCollectionInOneStatus(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1490,12 +1292,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(3, Status::Draft);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQueryTranslations
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     */
     public function testDeleteCollectionTranslation(): void
     {
         $collection = $this->collectionHandler->deleteCollectionTranslation(
@@ -1547,10 +1343,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
-     */
     public function testDeleteCollectionTranslationForCollectionWithNoQuery(): void
     {
         $collection = $this->collectionHandler->deleteCollectionTranslation(
@@ -1576,10 +1368,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
-     */
     public function testDeleteCollectionTranslationWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -1591,10 +1379,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
-     */
     public function testDeleteCollectionTranslationWithMainLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -1606,13 +1390,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
     public function testAddItem(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
@@ -1650,13 +1427,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(2, $secondItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
     public function testAddItemToDynamicCollection(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
@@ -1700,13 +1470,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(5, $fourthItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
     public function testAddItemToDynamicCollectionWithNoItemInPosition(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
@@ -1744,13 +1507,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(5, $secondItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
     public function testAddItemWithNoPosition(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
@@ -1785,12 +1541,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
     public function testAddItemToDynamicCollectionWithoutPositionThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -1809,13 +1559,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
     public function testAddItemThrowsBadStateExceptionOnNegativePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -1833,13 +1576,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     */
     public function testAddItemThrowsBadStateExceptionOnTooLargePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -1857,10 +1593,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testUpdateItem(): void
     {
         $itemUpdateStruct = new ItemUpdateStruct();
@@ -1893,10 +1625,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testUpdateItemWithResettingViewType(): void
     {
         $itemUpdateStruct = new ItemUpdateStruct();
@@ -1924,14 +1652,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testMoveItem(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
@@ -1962,14 +1682,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(4, $secondItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testMoveItemWithSwitchingPositions(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
@@ -2000,14 +1712,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(2, $secondItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testMoveItemToSamePosition(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
@@ -2038,14 +1742,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(2, $firstItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testMoveItemToLowerPosition(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
@@ -2073,14 +1769,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(1, $firstItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testMoveItemToLowerPositionWithSwitchingPositions(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
@@ -2111,14 +1799,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(2, $secondItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testMoveItemInDynamicCollection(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
@@ -2149,14 +1829,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(5, $thirdItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testMoveItemToLowerPositionInDynamicCollection(): void
     {
         $movedItem = $this->collectionHandler->moveItem(
@@ -2184,13 +1856,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(3, $firstItem->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -2202,13 +1867,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     */
     public function testMoveItemThrowsBadStateExceptionOnTooLargePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -2220,11 +1878,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     */
     public function testSwitchItemPositions(): void
     {
         $item1 = $this->collectionHandler->loadItem(2, Status::Draft);
@@ -2239,9 +1892,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame($item1->position, $updatedItem2->position);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
-     */
     public function testSwitchItemPositionsThrowsBadStateExceptionWithSameItem(): void
     {
         $this->expectException(BadStateException::class);
@@ -2253,9 +1903,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->switchItemPositions($item1, $item2);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
-     */
     public function testSwitchItemPositionsThrowsBadStateExceptionWithItemsFromDifferentCollections(): void
     {
         $this->expectException(BadStateException::class);
@@ -2267,12 +1914,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->switchItemPositions($item1, $item2);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
-     */
     public function testDeleteItem(): void
     {
         $this->collectionHandler->deleteItem(
@@ -2290,12 +1931,6 @@ final class CollectionHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
-     */
     public function testDeleteItemFromDynamicCollection(): void
     {
         $this->collectionHandler->deleteItem(
@@ -2313,10 +1948,6 @@ final class CollectionHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteItems
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     */
     public function testDeleteItems(): void
     {
         $collection = $this->collectionHandler->deleteItems(
@@ -2326,10 +1957,6 @@ final class CollectionHandlerTest extends TestCase
         self::assertCount(0, $this->collectionHandler->loadCollectionItems($collection));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
-     */
     public function testCreateQuery(): void
     {
         $collection = $this->collectionHandler->loadCollection(1, Status::Draft);
@@ -2373,10 +2000,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
-     */
     public function testCreateQueryThrowsBadStateExceptionWithExistingQuery(): void
     {
         $this->expectException(BadStateException::class);
@@ -2394,10 +2017,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
-     */
     public function testUpdateQueryTranslation(): void
     {
         $translationUpdateStruct = new QueryTranslationUpdateStruct();
@@ -2442,10 +2061,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
-     */
     public function testUpdateQueryTranslationWithDefaultValues(): void
     {
         $translationUpdateStruct = new QueryTranslationUpdateStruct();
@@ -2487,10 +2102,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
-     */
     public function testUpdateQueryTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -2503,11 +2114,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     */
     public function testDeleteCollectionQuery(): void
     {
         $this->expectException(NotFoundException::class);
@@ -2521,11 +2127,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadQuery(2, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     */
     public function testDeleteCollectionQueryWithNoQuery(): void
     {
         $this->collectionHandler->deleteCollectionQuery(
@@ -2535,10 +2136,6 @@ final class CollectionHandlerTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::slotWithPositionExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::slotWithPositionExists
-     */
     public function testSlotWithPositionExists(): void
     {
         self::assertTrue(
@@ -2549,10 +2146,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::slotWithPositionExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::slotWithPositionExists
-     */
     public function testSlotWithPositionNotExists(): void
     {
         self::assertFalse(
@@ -2563,10 +2156,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addSlot
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addSlot
-     */
     public function testAddSlot(): void
     {
         $slotCreateStruct = new SlotCreateStruct();
@@ -2595,10 +2184,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addSlot
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addSlot
-     */
     public function testAddSlotThrowsBadStateExceptionWithExistingPosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -2614,10 +2199,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateSlot
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateSlot
-     */
     public function testUpdateSlot(): void
     {
         $slotUpdateStruct = new SlotUpdateStruct();
@@ -2642,10 +2223,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateSlot
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateSlot
-     */
     public function testUpdateSlotWithResettingViewType(): void
     {
         $slotUpdateStruct = new SlotUpdateStruct();
@@ -2670,10 +2247,6 @@ final class CollectionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteSlot
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteSlot
-     */
     public function testDeleteSlot(): void
     {
         $this->expectException(NotFoundException::class);
@@ -2686,10 +2259,6 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadSlot(1, Status::Draft);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteSlots
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionSlots
-     */
     public function testDeleteSlots(): void
     {
         $collection = $this->collectionHandler->deleteSlots(

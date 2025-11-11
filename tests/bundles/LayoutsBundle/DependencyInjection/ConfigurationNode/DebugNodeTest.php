@@ -6,20 +6,18 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\ConfigurationNod
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\DebugNode;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[CoversClass(DebugNode::class)]
+#[CoversClass(Configuration::class)]
 final class DebugNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\DebugNode::getConfigurationNode
-     */
     public function testDebugSettings(): void
     {
         $config = [
@@ -39,12 +37,6 @@ final class DebugNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\DebugNode::getConfigurationNode
-     */
     public function testDefaultDebugSettings(): void
     {
         $config = [
@@ -62,9 +54,6 @@ final class DebugNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\DebugNode::getConfigurationNode
-     */
     public function testDebugSettingsWithInvalidDebugConfig(): void
     {
         $config = [

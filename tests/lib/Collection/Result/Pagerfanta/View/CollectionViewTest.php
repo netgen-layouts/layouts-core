@@ -8,10 +8,12 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\PagerfantaInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
+#[CoversClass(CollectionView::class)]
 final class CollectionViewTest extends TestCase
 {
     private MockObject $twigMock;
@@ -25,18 +27,11 @@ final class CollectionViewTest extends TestCase
         $this->collectionView = new CollectionView($this->twigMock, 'default_template.html.twig');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('nglayouts_collection', $this->collectionView->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
-     */
     public function testRender(): void
     {
         $block = new Block();
@@ -68,9 +63,6 @@ final class CollectionViewTest extends TestCase
         self::assertSame('rendered template', $renderedTemplate);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
-     */
     public function testRenderWithOverriddenTemplate(): void
     {
         $block = new Block();
@@ -103,9 +95,6 @@ final class CollectionViewTest extends TestCase
         self::assertSame('rendered template', $renderedTemplate);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
-     */
     public function testRenderThrowsInvalidArgumentExceptionWithNoBlock(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -125,9 +114,6 @@ final class CollectionViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
-     */
     public function testRenderThrowsInvalidArgumentExceptionWithInvalidBlock(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -148,9 +134,6 @@ final class CollectionViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
-     */
     public function testRenderThrowsInvalidArgumentExceptionWithNoCollectionIdentifier(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -170,9 +153,6 @@ final class CollectionViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
-     */
     public function testRenderThrowsInvalidArgumentExceptionWithInvalidCollectionIdentifier(): void
     {
         $this->expectException(InvalidArgumentException::class);

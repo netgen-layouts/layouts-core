@@ -6,10 +6,13 @@ namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterType\EmailType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(EmailType::class)]
 final class EmailTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
@@ -19,9 +22,6 @@ final class EmailTypeTest extends TestCase
         $this->type = new EmailType();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('email', $this->type::getIdentifier());
@@ -30,11 +30,8 @@ final class EmailTypeTest extends TestCase
     /**
      * @param mixed[] $options
      * @param mixed[] $resolvedOptions
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::configureOptions
-     *
-     * @dataProvider validOptionsDataProvider
      */
+    #[DataProvider('validOptionsDataProvider')]
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
@@ -43,11 +40,8 @@ final class EmailTypeTest extends TestCase
 
     /**
      * @param mixed[] $options
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::configureOptions
-     *
-     * @dataProvider invalidOptionsDataProvider
      */
+    #[DataProvider('invalidOptionsDataProvider')]
     public function testInvalidOptions(array $options): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -76,12 +70,7 @@ final class EmailTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getValueConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
@@ -103,11 +92,7 @@ final class EmailTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::isValueEmpty
-     *
-     * @dataProvider emptyDataProvider
-     */
+    #[DataProvider('emptyDataProvider')]
     public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));

@@ -10,9 +10,11 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(OutputVisitor::class)]
 final class OutputVisitorTest extends TestCase
 {
     private OutputVisitor $visitor;
@@ -22,18 +24,11 @@ final class OutputVisitorTest extends TestCase
         $this->visitor = new OutputVisitor([new VisitorStub()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Output\OutputVisitor::__construct
-     * @covers \Netgen\Layouts\Transfer\Output\OutputVisitor::visit
-     */
     public function testVisit(): void
     {
         self::assertSame(['visited_key' => 'visited_value'], $this->visitor->visit(new stdClass()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Output\OutputVisitor::visit
-     */
     public function testVisitWithNoAcceptedVisitorThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);

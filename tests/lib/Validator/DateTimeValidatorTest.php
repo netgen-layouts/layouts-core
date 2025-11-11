@@ -9,10 +9,13 @@ use DateTimeZone;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\DateTime as DateTimeConstraint;
 use Netgen\Layouts\Validator\DateTimeValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(DateTimeValidator::class)]
 final class DateTimeValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -23,19 +26,12 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
-     *
-     * @dataProvider validateDataProvider
-     */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(mixed $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -45,9 +41,6 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new DateTimeImmutable());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -56,9 +49,6 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValueAndDisabledArray(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -69,9 +59,6 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithArrayValueAndDisabledArray(): void
     {
         $this->expectException(UnexpectedTypeException::class);

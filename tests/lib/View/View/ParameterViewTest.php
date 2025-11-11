@@ -8,8 +8,10 @@ use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterType;
 use Netgen\Layouts\View\View\ParameterView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterView::class)]
 final class ParameterViewTest extends TestCase
 {
     private Parameter $parameter;
@@ -37,18 +39,11 @@ final class ParameterViewTest extends TestCase
         $this->view->addParameter('parameter', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ParameterView::__construct
-     * @covers \Netgen\Layouts\View\View\ParameterView::getParameterValue
-     */
     public function testGetParameter(): void
     {
         self::assertSame($this->parameter, $this->view->getParameterValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ParameterView::getParameters
-     */
     public function testGetParameters(): void
     {
         self::assertSame(
@@ -60,9 +55,6 @@ final class ParameterViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ParameterView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('parameter', $this->view::getIdentifier());

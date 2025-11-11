@@ -6,15 +6,14 @@ namespace Netgen\Layouts\Tests\Item\ValueType;
 
 use Netgen\Layouts\Item\ValueType\ValueTypeFactory;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ValueTypeFactory::class)]
 final class ValueTypeFactoryTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @covers \Netgen\Layouts\Item\ValueType\ValueTypeFactory::buildValueType
-     */
     public function testBuildValueType(): void
     {
         $valueType = ValueTypeFactory::buildValueType(

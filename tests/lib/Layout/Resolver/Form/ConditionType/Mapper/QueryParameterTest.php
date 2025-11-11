@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\Layouts\Form\KeyValuesType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+#[CoversClass(QueryParameter::class)]
 final class QueryParameterTest extends TestCase
 {
     private QueryParameter $mapper;
@@ -18,17 +20,11 @@ final class QueryParameterTest extends TestCase
         $this->mapper = new QueryParameter();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormType
-     */
     public function testGetFormType(): void
     {
         self::assertSame(KeyValuesType::class, $this->mapper->getFormType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormOptions
-     */
     public function testGetFormOptions(): void
     {
         self::assertSame(

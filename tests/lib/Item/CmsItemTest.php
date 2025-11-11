@@ -5,19 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Item;
 
 use Netgen\Layouts\Item\CmsItem;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(CmsItem::class)]
 final class CmsItemTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItem::getName
-     * @covers \Netgen\Layouts\Item\CmsItem::getObject
-     * @covers \Netgen\Layouts\Item\CmsItem::getRemoteId
-     * @covers \Netgen\Layouts\Item\CmsItem::getValue
-     * @covers \Netgen\Layouts\Item\CmsItem::getValueType
-     * @covers \Netgen\Layouts\Item\CmsItem::isVisible
-     */
     public function testObject(): void
     {
         $object = new stdClass();

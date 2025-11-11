@@ -11,17 +11,17 @@ use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
+use Netgen\Layouts\Core\Service\LayoutService;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(LayoutService::class)]
 final class LayoutServiceTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
-     */
     public function testLinkZone(): void
     {
         $this->expectException(Exception::class);
@@ -55,9 +55,6 @@ final class LayoutServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::unlinkZone
-     */
     public function testUnlinkZone(): void
     {
         $this->expectException(Exception::class);
@@ -78,9 +75,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->unlinkZone(Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'right', 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::createLayout
-     */
     public function testCreateLayout(): void
     {
         $this->expectException(Exception::class);
@@ -106,9 +100,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->createLayout($layoutCreateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::addTranslation
-     */
     public function testAddTranslation(): void
     {
         $this->expectException(Exception::class);
@@ -136,9 +127,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->addTranslation(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]), 'hr', 'en');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::removeTranslation
-     */
     public function testRemoveTranslation(): void
     {
         $this->expectException(Exception::class);
@@ -166,9 +154,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->removeTranslation(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]), 'hr');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::updateLayout
-     */
     public function testUpdateLayout(): void
     {
         $this->expectException(Exception::class);
@@ -199,9 +184,6 @@ final class LayoutServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::copyLayout
-     */
     public function testCopyLayout(): void
     {
         $this->expectException(Exception::class);
@@ -232,9 +214,6 @@ final class LayoutServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::copyLayout
-     */
     public function testChangeLayoutType(): void
     {
         $this->expectException(Exception::class);
@@ -263,9 +242,6 @@ final class LayoutServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::createDraft
-     */
     public function testCreateDraft(): void
     {
         $this->expectException(Exception::class);
@@ -290,9 +266,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->createDraft(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::discardDraft
-     */
     public function testDiscardDraft(): void
     {
         $this->expectException(Exception::class);
@@ -313,9 +286,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->discardDraft(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::publishLayout
-     */
     public function testPublishLayout(): void
     {
         $this->expectException(Exception::class);
@@ -336,9 +306,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->publishLayout(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::restoreFromArchive
-     */
     public function testRestoreFromArchive(): void
     {
         $this->expectException(Exception::class);
@@ -367,9 +334,6 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->restoreFromArchive(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::deleteLayout
-     */
     public function testDeleteLayout(): void
     {
         $this->expectException(Exception::class);

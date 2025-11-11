@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Config;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadBlockTypes;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,12 +14,9 @@ use function json_decode;
 
 use const JSON_THROW_ON_ERROR;
 
+#[CoversClass(LoadBlockTypes::class)]
 final class LoadBlockTypesTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadBlockTypes::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadBlockTypes::__invoke
-     */
     public function testLoadBlockTypes(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/config/block_types');

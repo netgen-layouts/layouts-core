@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterType\IdentifierType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(IdentifierType::class)]
 final class IdentifierTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
@@ -18,9 +21,6 @@ final class IdentifierTypeTest extends TestCase
         $this->type = new IdentifierType();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('identifier', $this->type::getIdentifier());
@@ -29,11 +29,8 @@ final class IdentifierTypeTest extends TestCase
     /**
      * @param mixed[] $options
      * @param mixed[] $resolvedOptions
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::configureOptions
-     *
-     * @dataProvider validOptionsDataProvider
      */
+    #[DataProvider('validOptionsDataProvider')]
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
@@ -42,11 +39,8 @@ final class IdentifierTypeTest extends TestCase
 
     /**
      * @param mixed[] $options
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::configureOptions
-     *
-     * @dataProvider invalidOptionsDataProvider
      */
+    #[DataProvider('invalidOptionsDataProvider')]
     public function testInvalidOptions(array $options): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -75,11 +69,7 @@ final class IdentifierTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::getValueConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $required, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition([], $required);
@@ -105,11 +95,7 @@ final class IdentifierTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::isValueEmpty
-     *
-     * @dataProvider emptyDataProvider
-     */
+    #[DataProvider('emptyDataProvider')]
     public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));

@@ -14,10 +14,12 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(HelpersRuntime::class)]
 final class HelpersRuntimeTest extends TestCase
 {
     private HelpersRuntime $runtime;
@@ -42,10 +44,6 @@ final class HelpersRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getLocaleName
-     */
     public function testGetLocaleName(): void
     {
         $localeName = $this->runtime->getLocaleName('hr_HR', 'hr_HR');
@@ -53,9 +51,6 @@ final class HelpersRuntimeTest extends TestCase
         self::assertSame('hrvatski (Hrvatska)', $localeName);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getLayoutName
-     */
     public function testGetLayoutName(): void
     {
         $uuid = Uuid::uuid4();
@@ -69,9 +64,6 @@ final class HelpersRuntimeTest extends TestCase
         self::assertSame('Test layout', $this->runtime->getLayoutName($uuid->toString()));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getLayoutName
-     */
     public function testGetLayoutNameWithNonExistingLayout(): void
     {
         $uuid = Uuid::uuid4();
@@ -85,9 +77,6 @@ final class HelpersRuntimeTest extends TestCase
         self::assertSame('', $this->runtime->getLayoutName($uuid->toString()));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getRuleGroup
-     */
     public function testGetRuleGroup(): void
     {
         $ruleUuid = Uuid::uuid4();
@@ -111,9 +100,6 @@ final class HelpersRuntimeTest extends TestCase
         self::assertSame($ruleGroup, $this->runtime->getRuleGroup($ruleUuid->toString()));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getRuleGroupName
-     */
     public function testGetRuleGroupName(): void
     {
         $uuid = Uuid::uuid4();
@@ -127,9 +113,6 @@ final class HelpersRuntimeTest extends TestCase
         self::assertSame('Test rule group', $this->runtime->getRuleGroupName($uuid->toString()));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getRuleGroupName
-     */
     public function testGetRuleGroupNameWithNonExistingRuleGroup(): void
     {
         $uuid = Uuid::uuid4();
@@ -143,9 +126,6 @@ final class HelpersRuntimeTest extends TestCase
         self::assertSame('', $this->runtime->getRuleGroupName($uuid->toString()));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getValueTypeName
-     */
     public function testGetValueTypeName(): void
     {
         $cmsItem = CmsItem::fromArray(['valueType' => 'value']);
@@ -153,9 +133,6 @@ final class HelpersRuntimeTest extends TestCase
         self::assertSame('Value', $this->runtime->getValueTypeName($cmsItem));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getValueTypeName
-     */
     public function testGetValueTypeNameWithNonExistingLayout(): void
     {
         $cmsItem = CmsItem::fromArray(['valueType' => 'non_existing']);

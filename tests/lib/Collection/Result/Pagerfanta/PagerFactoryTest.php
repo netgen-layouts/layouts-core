@@ -8,9 +8,12 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PagerFactory::class)]
 final class PagerFactoryTest extends TestCase
 {
     private MockObject $resultBuilderMock;
@@ -28,14 +31,7 @@ final class PagerFactoryTest extends TestCase
         $this->pagerFactory = new PagerFactory($this->resultBuilderMock, 200);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
-     *
-     * @dataProvider getPagerDataProvider
-     */
+    #[DataProvider('getPagerDataProvider')]
     public function testGetPager(int $startPage, int $currentPage): void
     {
         $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), $startPage);
@@ -58,14 +54,7 @@ final class PagerFactoryTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
-     *
-     * @dataProvider getMaxPagesPagerDataProvider
-     */
+    #[DataProvider('getMaxPagesPagerDataProvider')]
     public function testGetPagerWithMaxPages(int $maxPages, int $currentPage, int $nbPages): void
     {
         $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), 2, $maxPages);
@@ -92,14 +81,7 @@ final class PagerFactoryTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
-     *
-     * @dataProvider getPagerWithCollectionLimitDataProvider
-     */
+    #[DataProvider('getPagerWithCollectionLimitDataProvider')]
     public function testGetPagerWithCollectionLimit(int $limit, ?int $maxPages, int $maxPerPage, int $nbPages): void
     {
         $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => $limit]), 2, $maxPages);

@@ -10,8 +10,10 @@ use Netgen\Layouts\Config\ConfigDefinitionInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemDefinitionFactory::class)]
 final class ItemDefinitionFactoryTest extends TestCase
 {
     private ConfigDefinitionFactory $configDefinitionFactory;
@@ -31,10 +33,6 @@ final class ItemDefinitionFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinitionFactory::__construct
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinitionFactory::buildItemDefinition
-     */
     public function testBuildItemDefinition(): void
     {
         $itemDefinition = $this->factory->buildItemDefinition(

@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Lay
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(LayoutTypePass::class)]
 final class LayoutTypePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -20,11 +22,6 @@ final class LayoutTypePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new LayoutTypePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::buildLayoutTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
-     */
     public function testProcess(): void
     {
         $this->setParameter('netgen_layouts.block_definitions', []);
@@ -52,11 +49,6 @@ final class LayoutTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::buildLayoutTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
-     */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition(): void
     {
         $this->expectException(RuntimeException::class);
@@ -82,9 +74,6 @@ final class LayoutTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

@@ -11,10 +11,13 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+#[CoversClass(ViewNormalizer::class)]
 final class ViewNormalizerTest extends TestCase
 {
     private MockObject $viewRendererMock;
@@ -32,10 +35,6 @@ final class ViewNormalizerTest extends TestCase
         $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $value = new APIValue();
@@ -61,10 +60,6 @@ final class ViewNormalizerTest extends TestCase
         self::assertSame(['id' => 42, 'html' => 'rendered view'], $data);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::normalize
-     */
     public function testNormalizeWithoutRendering(): void
     {
         $value = new APIValue();
@@ -85,10 +80,6 @@ final class ViewNormalizerTest extends TestCase
         self::assertSame(['id' => 42], $data);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::normalize
-     */
     public function testNormalizeWithInvalidDisableRenderingValue(): void
     {
         $value = new APIValue();
@@ -115,11 +106,7 @@ final class ViewNormalizerTest extends TestCase
         self::assertSame(['id' => 42, 'html' => 'rendered view'], $data);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

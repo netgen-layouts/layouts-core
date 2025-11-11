@@ -11,12 +11,14 @@ use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler;
 use Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 use function sprintf;
 
+#[CoversClass(RuleGroupEntityHandler::class)]
 final class RuleGroupEntityHandlerTest extends TestCase
 {
     private MockObject $layoutResolverServiceMock;
@@ -38,10 +40,6 @@ final class RuleGroupEntityHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler::__construct
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler::loadEntity
-     */
     public function testLoadEntity(): void
     {
         $uuid = Uuid::uuid4();
@@ -57,9 +55,6 @@ final class RuleGroupEntityHandlerTest extends TestCase
         self::assertSame($ruleGroup, $this->entityHandler->loadEntity($uuid));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler::loadEntity
-     */
     public function testLoadEntityWithNonExistentEntity(): void
     {
         $uuid = Uuid::uuid4();
@@ -76,9 +71,6 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $this->entityHandler->loadEntity($uuid);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler::entityExists
-     */
     public function testEntityExists(): void
     {
         $uuid = Uuid::uuid4();
@@ -92,9 +84,6 @@ final class RuleGroupEntityHandlerTest extends TestCase
         self::assertTrue($this->entityHandler->entityExists($uuid));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler::entityExists
-     */
     public function testEntityExistsReturnsFalse(): void
     {
         $uuid = Uuid::uuid4();
@@ -108,9 +97,6 @@ final class RuleGroupEntityHandlerTest extends TestCase
         self::assertFalse($this->entityHandler->entityExists($uuid));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler::deleteEntity
-     */
     public function testDeleteEntity(): void
     {
         $uuid = Uuid::uuid4();
@@ -131,9 +117,6 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $this->entityHandler->deleteEntity($uuid);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler::deleteEntity
-     */
     public function testDeleteEntityWithNonExistentEntity(): void
     {
         $uuid = Uuid::uuid4();

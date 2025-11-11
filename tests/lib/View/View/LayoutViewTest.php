@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Tests\View\View;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\View\View\LayoutView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(LayoutView::class)]
 final class LayoutViewTest extends TestCase
 {
     private Layout $layout;
@@ -25,10 +27,6 @@ final class LayoutViewTest extends TestCase
         $this->view->addParameter('layout', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\LayoutView::__construct
-     * @covers \Netgen\Layouts\View\View\LayoutView::getLayout
-     */
     public function testGetLayout(): void
     {
         self::assertSame($this->layout, $this->view->getLayout());
@@ -41,9 +39,6 @@ final class LayoutViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\LayoutView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('layout', $this->view::getIdentifier());

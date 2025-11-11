@@ -21,6 +21,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\API\Values\Status;
+use Netgen\Layouts\Core\Service\LayoutResolverService;
 use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\Layouts\Layout\Resolver\TargetType\Route;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
@@ -29,13 +30,12 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRul
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as PersistenceRuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(LayoutResolverService::class)]
 final class LayoutResolverServiceTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
-     */
     public function testCreateRule(): void
     {
         $this->expectException(Exception::class);
@@ -64,9 +64,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
-     */
     public function testUpdateRule(): void
     {
         $this->expectException(Exception::class);
@@ -90,9 +87,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleMetadata
-     */
     public function testUpdateRuleMetadata(): void
     {
         $this->expectException(Exception::class);
@@ -116,9 +110,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
-     */
     public function testCopyRule(): void
     {
         $this->expectException(Exception::class);
@@ -151,9 +142,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
-     */
     public function testMoveRule(): void
     {
         $this->expectException(Exception::class);
@@ -186,9 +174,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
-     */
     public function testCreateDraft(): void
     {
         $this->expectException(Exception::class);
@@ -213,9 +198,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->createDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardDraft
-     */
     public function testDiscardDraft(): void
     {
         $this->expectException(Exception::class);
@@ -236,9 +218,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->discardDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRule
-     */
     public function testPublishRule(): void
     {
         $this->expectException(Exception::class);
@@ -259,9 +238,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->publishRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreFromArchive
-     */
     public function testRestoreFromArchive(): void
     {
         $this->expectException(Exception::class);
@@ -286,9 +262,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->restoreFromArchive(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteRule
-     */
     public function testDeleteRule(): void
     {
         $this->expectException(Exception::class);
@@ -309,9 +282,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->deleteRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
-     */
     public function testEnableRule(): void
     {
         $this->expectException(Exception::class);
@@ -339,9 +309,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->enableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
-     */
     public function testDisableRule(): void
     {
         $this->expectException(Exception::class);
@@ -368,9 +335,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->disableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
-     */
     public function testCreateRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -402,9 +366,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroup
-     */
     public function testUpdateRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -428,9 +389,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupMetadata
-     */
     public function testUpdateRuleGroupMetadata(): void
     {
         $this->expectException(Exception::class);
@@ -454,9 +412,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
-     */
     public function testCopyRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -485,9 +440,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
-     */
     public function testMoveRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -516,9 +468,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
-     */
     public function testCreateRuleGroupDraft(): void
     {
         $this->expectException(Exception::class);
@@ -545,9 +494,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardRuleGroupDraft
-     */
     public function testDiscardRuleGroupDraft(): void
     {
         $this->expectException(Exception::class);
@@ -570,9 +516,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRuleGroup
-     */
     public function testPublishRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -595,9 +538,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreRuleGroupFromArchive
-     */
     public function testRestoreRuleGroupFromArchive(): void
     {
         $this->expectException(Exception::class);
@@ -624,9 +564,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteRuleGroup
-     */
     public function testDeleteRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -649,9 +586,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRuleGroup
-     */
     public function testEnableRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -680,9 +614,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRuleGroup
-     */
     public function testDisableRuleGroup(): void
     {
         $this->expectException(Exception::class);
@@ -711,9 +642,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
-     */
     public function testAddTarget(): void
     {
         $this->expectException(Exception::class);
@@ -745,9 +673,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateTarget
-     */
     public function testUpdateTarget(): void
     {
         $this->expectException(Exception::class);
@@ -774,9 +699,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteTarget
-     */
     public function testDeleteTarget(): void
     {
         $this->expectException(Exception::class);
@@ -797,9 +719,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->deleteTarget(Target::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addCondition
-     */
     public function testAddCondition(): void
     {
         $this->expectException(Exception::class);
@@ -827,9 +746,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addRuleGroupCondition
-     */
     public function testAddRuleGroupCondition(): void
     {
         $this->expectException(Exception::class);
@@ -857,9 +773,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateCondition
-     */
     public function testUpdateCondition(): void
     {
         $this->expectException(Exception::class);
@@ -886,9 +799,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupCondition
-     */
     public function testUpdateRuleGroupCondition(): void
     {
         $this->expectException(Exception::class);
@@ -915,9 +825,6 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteCondition
-     */
     public function testDeleteCondition(): void
     {
         $this->expectException(Exception::class);

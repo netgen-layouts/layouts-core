@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Config;
 
 use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
 use Netgen\Layouts\Exception\API\ConfigException;
 use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigAwareValueTrait::class)]
 final class ConfigAwareValueTraitTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::getConfigs
-     */
     public function testDefaultProperties(): void
     {
         $value = new ConfigAwareValue();
@@ -21,11 +21,6 @@ final class ConfigAwareValueTraitTest extends TestCase
         self::assertCount(0, $value->getConfigs());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::getConfig
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::getConfigs
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::hasConfig
-     */
     public function testSetProperties(): void
     {
         $config = new Config();

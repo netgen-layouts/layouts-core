@@ -6,10 +6,12 @@ namespace Netgen\Layouts\Tests\Browser\Item\Layout;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\Layout\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+#[CoversClass(Item::class)]
 final class ItemTest extends TestCase
 {
     private Layout $layout;
@@ -27,26 +29,16 @@ final class ItemTest extends TestCase
         $this->item = new Item($this->layout);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::__construct
-     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::getValue
-     */
     public function testGetValue(): void
     {
         self::assertSame($this->layoutId->toString(), $this->item->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('My layout', $this->item->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::getLayout
-     */
     public function testGetLayout(): void
     {
         self::assertSame($this->layout, $this->item->getLayout());

@@ -13,11 +13,14 @@ use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+#[CoversClass(CollectionItemNormalizer::class)]
 final class CollectionItemNormalizerTest extends TestCase
 {
     private MockObject $normalizerMock;
@@ -35,10 +38,6 @@ final class CollectionItemNormalizerTest extends TestCase
         $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionItemNormalizer::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionItemNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $item = Item::fromArray(
@@ -94,11 +93,7 @@ final class CollectionItemNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionItemNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

@@ -10,10 +10,12 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Netgen\Layouts\View\TemplateResolverInterface;
 use Netgen\Layouts\View\ViewBuilder;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+#[CoversClass(ViewBuilder::class)]
 final class ViewBuilderTest extends TestCase
 {
     private MockObject&ViewProviderInterface $viewProviderMock;
@@ -29,11 +31,6 @@ final class ViewBuilderTest extends TestCase
         $this->eventDispatcherMock = $this->createMock(EventDispatcherInterface::class);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\ViewBuilder::__construct
-     * @covers \Netgen\Layouts\View\ViewBuilder::buildView
-     * @covers \Netgen\Layouts\View\ViewBuilder::getViewProvider
-     */
     public function testBuildView(): void
     {
         $value = new Value();
@@ -76,10 +73,6 @@ final class ViewBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\ViewBuilder::buildView
-     * @covers \Netgen\Layouts\View\ViewBuilder::getViewProvider
-     */
     public function testBuildViewWithNoViewProviders(): void
     {
         $this->expectException(ViewProviderException::class);
@@ -100,10 +93,6 @@ final class ViewBuilderTest extends TestCase
         $viewBuilder->buildView($value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\ViewBuilder::buildView
-     * @covers \Netgen\Layouts\View\ViewBuilder::getViewProvider
-     */
     public function testBuildViewWithNoViewProvidersThatSupportValue(): void
     {
         $this->expectException(ViewProviderException::class);

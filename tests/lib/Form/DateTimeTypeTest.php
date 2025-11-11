@@ -7,18 +7,16 @@ namespace Netgen\Layouts\Tests\Form;
 use DateTimeImmutable;
 use Netgen\Layouts\Form\DateTimeType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(DateTimeType::class)]
 final class DateTimeTypeTest extends FormTestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Form\DateTimeType::buildForm
-     * @covers \Netgen\Layouts\Form\DateTimeType::getTimeZoneList
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -48,10 +46,6 @@ final class DateTimeTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DateTimeType::buildForm
-     * @covers \Netgen\Layouts\Form\DateTimeType::getTimeZoneList
-     */
     public function testSubmitValidDataWithArrayData(): void
     {
         $submittedData = [
@@ -79,9 +73,6 @@ final class DateTimeTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DateTimeTYpe::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -98,9 +89,6 @@ final class DateTimeTypeTest extends FormTestCase
         self::assertFalse($resolvedOptions['error_bubbling']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DateTimeTYpe::configureOptions
-     */
     public function testConfigureOptionsWithDefaultValues(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -113,9 +101,6 @@ final class DateTimeTypeTest extends FormTestCase
         self::assertFalse($resolvedOptions['error_bubbling']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DateTimeTYpe::configureOptions
-     */
     public function testConfigureOptionsWithInvalidUseDateTime(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -128,9 +113,6 @@ final class DateTimeTypeTest extends FormTestCase
         $optionsResolver->resolve(['use_datetime' => 42]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DateTimeType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('nglayouts_datetime', $this->formType->getBlockPrefix());

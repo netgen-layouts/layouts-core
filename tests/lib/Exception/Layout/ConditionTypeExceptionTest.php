@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Layout;
 
 use Netgen\Layouts\Exception\Layout\ConditionTypeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConditionTypeException::class)]
 final class ConditionTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Layout\ConditionTypeException::noConditionType
-     */
     public function testNoConditionType(): void
     {
         $exception = ConditionTypeException::noConditionType('type');
@@ -22,9 +21,6 @@ final class ConditionTypeExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Layout\ConditionTypeException::noFormMapper
-     */
     public function testNoFormMapper(): void
     {
         $exception = ConditionTypeException::noFormMapper('type');

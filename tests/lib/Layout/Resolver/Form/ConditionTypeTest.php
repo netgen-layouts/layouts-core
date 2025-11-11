@@ -11,11 +11,13 @@ use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionTypeMapper;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[CoversClass(ConditionTypeForm::class)]
 final class ConditionTypeTest extends FormTestCase
 {
     private ConditionType1 $conditionType;
@@ -27,11 +29,6 @@ final class ConditionTypeTest extends FormTestCase
         $this->conditionType = new ConditionType1();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::__construct
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::buildForm
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::getMapper
-     */
     public function testBuildFormThrowsConditionTypeExceptionWithNoMapper(): void
     {
         $this->expectException(ConditionTypeException::class);
@@ -44,9 +41,6 @@ final class ConditionTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -67,9 +61,6 @@ final class ConditionTypeTest extends FormTestCase
         self::assertSame($struct, $options['data']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
-     */
     public function testConfigureOptionsWithMissingConditionType(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -83,9 +74,6 @@ final class ConditionTypeTest extends FormTestCase
         $optionsResolver->resolve();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidConditionType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -103,9 +91,6 @@ final class ConditionTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

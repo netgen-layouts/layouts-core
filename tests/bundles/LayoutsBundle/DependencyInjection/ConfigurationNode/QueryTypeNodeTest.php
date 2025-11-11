@@ -6,20 +6,18 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\ConfigurationNod
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[CoversClass(QueryTypeNode::class)]
+#[CoversClass(Configuration::class)]
 final class QueryTypeNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     */
     public function testQueryTypeSettings(): void
     {
         $config = [
@@ -52,11 +50,6 @@ final class QueryTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     */
     public function testQueryTypeSettingsWithDefaultPriority(): void
     {
         $config = [
@@ -82,11 +75,6 @@ final class QueryTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     */
     public function testQueryTypeSettingsWithNoHandler(): void
     {
         $config = [
@@ -110,10 +98,6 @@ final class QueryTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     */
     public function testQueryTypeSettingsWithNoQueryTypes(): void
     {
         $config = [
@@ -123,10 +107,6 @@ final class QueryTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     */
     public function testQueryTypeSettingsWithNoName(): void
     {
         $config = [
@@ -138,10 +118,6 @@ final class QueryTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     */
     public function testQueryTypeSettingsWithEmptyName(): void
     {
         $config = [

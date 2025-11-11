@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(LinkZone::class)]
 final class LinkZoneTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZone(): void
     {
         $data = $this->jsonEncode(
@@ -35,9 +34,6 @@ final class LinkZoneTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithNonExistentZone(): void
     {
         $this->client->request(
@@ -56,9 +52,6 @@ final class LinkZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithNonExistentLayout(): void
     {
         $this->client->request(
@@ -77,9 +70,6 @@ final class LinkZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithMissingLinkedLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -104,9 +94,6 @@ final class LinkZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithInvalidLinkedLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -132,9 +119,6 @@ final class LinkZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithNonExistentLinkedZone(): void
     {
         $data = $this->jsonEncode(
@@ -160,9 +144,6 @@ final class LinkZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithNonExistentLinkedLayout(): void
     {
         $data = $this->jsonEncode(
@@ -189,9 +170,6 @@ final class LinkZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone::__invoke
-     */
     public function testLinkZoneWithNonSharedLinkedLayout(): void
     {
         $data = $this->jsonEncode(

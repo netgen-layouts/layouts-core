@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Layout;
 
 use Netgen\Layouts\API\Values\Layout\Zone;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Zone::class)]
 final class ZoneTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Zone::getIdentifier
-     * @covers \Netgen\Layouts\API\Values\Layout\Zone::getLayoutId
-     * @covers \Netgen\Layouts\API\Values\Layout\Zone::getLinkedZone
-     * @covers \Netgen\Layouts\API\Values\Layout\Zone::hasLinkedZone
-     */
     public function testSetProperties(): void
     {
         $linkedZone = new Zone();

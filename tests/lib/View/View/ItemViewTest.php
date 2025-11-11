@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\View\View;
 
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\View\View\ItemView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemView::class)]
 final class ItemViewTest extends TestCase
 {
     private CmsItem $item;
@@ -29,10 +31,6 @@ final class ItemViewTest extends TestCase
         $this->view->addParameter('item', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ItemView::__construct
-     * @covers \Netgen\Layouts\View\View\ItemView::getItem
-     */
     public function testGetItem(): void
     {
         self::assertSame($this->item, $this->view->getItem());
@@ -46,17 +44,11 @@ final class ItemViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ItemView::getViewType
-     */
     public function testGetViewType(): void
     {
         self::assertSame('view_type', $this->view->getViewType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ItemView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('item', $this->view::getIdentifier());

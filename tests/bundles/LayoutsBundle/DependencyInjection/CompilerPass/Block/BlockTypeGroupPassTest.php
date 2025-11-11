@@ -6,12 +6,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Blo
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
 use function array_keys;
 
+#[CoversClass(BlockTypeGroupPass::class)]
 final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,11 +23,6 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new BlockTypeGroupPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
-     */
     public function testProcess(): void
     {
         $this->setParameter(
@@ -55,11 +52,6 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
-     */
     public function testProcessWithNoBlockType(): void
     {
         $this->setParameter(
@@ -107,11 +99,6 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
-     */
     public function testProcessWithPopulatingCustomGroup(): void
     {
         $this->setParameter(
@@ -186,11 +173,6 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
-     */
     public function testProcessWithDisabledGroup(): void
     {
         $this->setParameter(
@@ -224,11 +206,6 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
-     */
     public function testProcessWithSortingGroups(): void
     {
         $this->setParameter(
@@ -259,9 +236,6 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
         self::assertSame(['second', 'first'], array_keys($blockTypeGroups));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

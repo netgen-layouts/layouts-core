@@ -9,6 +9,8 @@ use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\BlockViewTypeValidator;
 use Netgen\Layouts\Validator\Constraint\BlockViewType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -16,6 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 use function sprintf;
 
+#[CoversClass(BlockViewTypeValidator::class)]
 final class BlockViewTypeValidatorTest extends ValidatorTestCase
 {
     private BlockDefinition $blockDefinition;
@@ -33,19 +36,12 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockViewTypeValidator::validate
-     *
-     * @dataProvider validateDataProvider
-     */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(string $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockViewTypeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -55,9 +51,6 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'large');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockViewTypeValidator::validate
-     */
     public function testValidateThrowsMissingOptionsExceptionWithInvalidBlockDefinition(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -67,9 +60,6 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'large');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockViewTypeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

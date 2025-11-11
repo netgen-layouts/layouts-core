@@ -6,8 +6,10 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Plugin;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\SimplePlugin;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PluginCollection::class)]
 final class PluginCollectionTest extends TestCase
 {
     private SimplePlugin $plugin1;
@@ -30,18 +32,11 @@ final class PluginCollectionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection::getPluginName
-     */
     public function testGetPluginName(): void
     {
         self::assertSame('plugin', $this->pluginCollection->getPluginName());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection::getPlugins
-     */
     public function testGetPlugins(): void
     {
         self::assertSame([$this->plugin1, $this->plugin2], $this->pluginCollection->getPlugins());

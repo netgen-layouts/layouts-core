@@ -20,6 +20,7 @@ use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -27,6 +28,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(LinkType::class)]
 final class LinkTypeTest extends FormTestCase
 {
     use ExportObjectTrait;
@@ -43,9 +45,6 @@ final class LinkTypeTest extends FormTestCase
         parent::setUp();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::buildForm
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -93,9 +92,6 @@ final class LinkTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::buildForm
-     */
     public function testSubmitInvalidData(): void
     {
         $submittedData = [
@@ -143,9 +139,6 @@ final class LinkTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::buildView
-     */
     public function testBuildView(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -178,9 +171,6 @@ final class LinkTypeTest extends FormTestCase
         self::assertSame('an error', $firstError->getMessage());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::buildView
-     */
     public function testBuildViewWithInvalidData(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -208,9 +198,6 @@ final class LinkTypeTest extends FormTestCase
         self::assertCount(0, $form->get(LinkTypeEnum::Url->value)->getErrors());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -232,9 +219,6 @@ final class LinkTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidValueType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -247,9 +231,6 @@ final class LinkTypeTest extends FormTestCase
         $optionsResolver->resolve(['value_types' => [42]]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::configureOptions
-     */
     public function testConfigureOptionsWithEmptyValueTypes(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -267,9 +248,6 @@ final class LinkTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -286,9 +264,6 @@ final class LinkTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\LinkType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('nglayouts_link', $this->formType->getBlockPrefix());

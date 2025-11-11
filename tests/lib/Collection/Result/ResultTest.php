@@ -7,17 +7,12 @@ namespace Netgen\Layouts\Tests\Collection\Result;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Item\CmsItem;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Result::class)]
 final class ResultTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Result::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Result::getItem
-     * @covers \Netgen\Layouts\Collection\Result\Result::getPosition
-     * @covers \Netgen\Layouts\Collection\Result\Result::getSlot
-     * @covers \Netgen\Layouts\Collection\Result\Result::getSubItem
-     */
     public function testObject(): void
     {
         $item1 = CmsItem::fromArray(['value' => 42]);
@@ -31,13 +26,6 @@ final class ResultTest extends TestCase
         self::assertNull($result->getSlot());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Result::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Result::getItem
-     * @covers \Netgen\Layouts\Collection\Result\Result::getPosition
-     * @covers \Netgen\Layouts\Collection\Result\Result::getSlot
-     * @covers \Netgen\Layouts\Collection\Result\Result::getSubItem
-     */
     public function testObjectWithSlot(): void
     {
         $item1 = CmsItem::fromArray(['value' => 42]);

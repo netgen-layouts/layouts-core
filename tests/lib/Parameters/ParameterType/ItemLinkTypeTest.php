@@ -11,11 +11,14 @@ use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\ItemLinkType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(ItemLinkType::class)]
 final class ItemLinkTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
@@ -62,10 +65,6 @@ final class ItemLinkTypeTest extends TestCase
         $this->type = new ItemLinkType($this->valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::__construct
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('item_link', $this->type::getIdentifier());
@@ -74,11 +73,8 @@ final class ItemLinkTypeTest extends TestCase
     /**
      * @param mixed[] $options
      * @param mixed[] $resolvedOptions
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::configureOptions
-     *
-     * @dataProvider validOptionsDataProvider
      */
+    #[DataProvider('validOptionsDataProvider')]
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
@@ -87,11 +83,8 @@ final class ItemLinkTypeTest extends TestCase
 
     /**
      * @param mixed[] $options
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::configureOptions
-     *
-     * @dataProvider invalidOptionsDataProvider
      */
+    #[DataProvider('invalidOptionsDataProvider')]
     public function testInvalidOptions(array $options): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -147,12 +140,7 @@ final class ItemLinkTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getValueConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();
@@ -174,43 +162,27 @@ final class ItemLinkTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::export
-     */
     public function testExport(): void
     {
         self::assertSame('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::export
-     */
     public function testExportWithInvalidValue(): void
     {
         self::assertNull($this->type->export($this->getParameterDefinition(), 42));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::import
-     */
     public function testImport(): void
     {
         self::assertSame('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::import
-     */
     public function testImportWithInvalidValue(): void
     {
         self::assertNull($this->type->import($this->getParameterDefinition(), 42));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::isValueEmpty
-     *
-     * @dataProvider emptyDataProvider
-     */
+    #[DataProvider('emptyDataProvider')]
     public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));

@@ -7,9 +7,11 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Form\Admin\Type;
 use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(LayoutListTransformer::class)]
 final class LayoutListTransformerTest extends TestCase
 {
     private LayoutListTransformer $transformer;
@@ -21,9 +23,6 @@ final class LayoutListTransformerTest extends TestCase
         $this->transformer = new LayoutListTransformer();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer::transform
-     */
     public function testTransform(): void
     {
         $layoutList = new LayoutList();
@@ -31,17 +30,11 @@ final class LayoutListTransformerTest extends TestCase
         self::assertSame($layoutList->getLayouts(), $this->transformer->transform($layoutList));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer::transform
-     */
     public function testTransformWithNullValue(): void
     {
         self::assertNull($this->transformer->transform(null));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer::reverseTransform
-     */
     public function testReverseTransform(): void
     {
         $uuid1 = Uuid::uuid4();
@@ -61,9 +54,6 @@ final class LayoutListTransformerTest extends TestCase
         self::assertSame($uuid2->toString(), $transformedLayouts[1]->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer::reverseTransform
-     */
     public function testReverseTransformWithNullValue(): void
     {
         self::assertNull($this->transformer->reverseTransform(null));

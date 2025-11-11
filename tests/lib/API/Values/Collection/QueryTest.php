@@ -6,21 +6,13 @@ namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Query::class)]
 final class QueryTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::getAvailableLocales
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::getCollectionId
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::getId
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::getLocale
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::getMainLocale
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::getQueryType
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::isAlwaysAvailable
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::isTranslatable
-     */
     public function testSetProperties(): void
     {
         $queryType = new QueryType('query_type');
@@ -52,9 +44,6 @@ final class QueryTest extends TestCase
         self::assertSame('en', $query->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::isContextual
-     */
     public function testIsContextual(): void
     {
         $query = Query::fromArray(

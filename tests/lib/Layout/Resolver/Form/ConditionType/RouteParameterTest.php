@@ -8,11 +8,16 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Form\KeyValuesType;
 use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter as RouteParameterMapper;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 
+#[CoversClass(ConditionType::class)]
+#[CoversClass(Mapper::class)]
+#[CoversClass(RouteParameterMapper::class)]
 final class RouteParameterTest extends FormTestCase
 {
     private RouteParameter $conditionType;
@@ -24,14 +29,6 @@ final class RouteParameterTest extends FormTestCase
         $this->conditionType = new RouteParameter();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::buildForm
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::buildView
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper::getFormOptions
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper::handleForm
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [

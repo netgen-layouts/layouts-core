@@ -11,34 +11,14 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Exception\API\BlockException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+#[CoversClass(Block::class)]
 final class BlockTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getAvailableLocales
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getCollection
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getCollections
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getDefinition
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getId
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getItemViewType
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getLayoutId
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getLocale
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getMainLocale
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getName
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getParentBlockId
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getParentPlaceholder
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getPlaceholder
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getPlaceholders
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getPosition
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getViewType
-     * @covers \Netgen\Layouts\API\Values\Block\Block::hasCollection
-     * @covers \Netgen\Layouts\API\Values\Block\Block::hasPlaceholder
-     * @covers \Netgen\Layouts\API\Values\Block\Block::isAlwaysAvailable
-     * @covers \Netgen\Layouts\API\Values\Block\Block::isTranslatable
-     */
     public function testSetProperties(): void
     {
         $definition = new BlockDefinition();
@@ -117,11 +97,6 @@ final class BlockTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Block::buildDynamicParameters
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getDynamicParameter
-     * @covers \Netgen\Layouts\API\Values\Block\Block::hasDynamicParameter
-     */
     public function testGetDynamicParameter(): void
     {
         $block = Block::fromArray(
@@ -144,9 +119,6 @@ final class BlockTest extends TestCase
         self::assertFalse($block->hasDynamicParameter('unknown_param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Block::isContextual
-     */
     public function testIsContextual(): void
     {
         $query = Block::fromArray(

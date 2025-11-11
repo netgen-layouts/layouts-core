@@ -9,8 +9,10 @@ use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
 use Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockTypeGroupRegistry::class)]
 final class BlockTypeGroupRegistryTest extends TestCase
 {
     private BlockTypeGroup $blockTypeGroup;
@@ -32,10 +34,6 @@ final class BlockTypeGroupRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::__construct
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroups
-     */
     public function testGetBlockTypeGroups(): void
     {
         self::assertSame(
@@ -47,9 +45,6 @@ final class BlockTypeGroupRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroups
-     */
     public function testGetEnabledBlockTypeGroups(): void
     {
         self::assertSame(
@@ -60,33 +55,21 @@ final class BlockTypeGroupRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::hasBlockTypeGroup
-     */
     public function testHasBlockTypeGroup(): void
     {
         self::assertTrue($this->registry->hasBlockTypeGroup('block_type_group'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::hasBlockTypeGroup
-     */
     public function testHasBlockTypeWithNoBlockTypeGroup(): void
     {
         self::assertFalse($this->registry->hasBlockTypeGroup('other_block_type_group'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroup
-     */
     public function testGetBlockTypeGroup(): void
     {
         self::assertSame($this->blockTypeGroup, $this->registry->getBlockTypeGroup('block_type_group'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroup
-     */
     public function testGetBlockTypeGroupThrowsBlockTypeException(): void
     {
         $this->expectException(BlockTypeException::class);
@@ -95,9 +78,6 @@ final class BlockTypeGroupRegistryTest extends TestCase
         $this->registry->getBlockTypeGroup('other_block_type_group');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getIterator
-     */
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
@@ -110,34 +90,22 @@ final class BlockTypeGroupRegistryTest extends TestCase
         self::assertSame($this->registry->getBlockTypeGroups(), $blockTypeGroups);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::count
-     */
     public function testCount(): void
     {
         self::assertCount(2, $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetExists
-     */
     public function testOffsetExists(): void
     {
         self::assertArrayHasKey('block_type_group', $this->registry);
         self::assertArrayNotHasKey('other', $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetGet
-     */
     public function testOffsetGet(): void
     {
         self::assertSame($this->blockTypeGroup, $this->registry['block_type_group']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetSet
-     */
     public function testOffsetSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -146,9 +114,6 @@ final class BlockTypeGroupRegistryTest extends TestCase
         $this->registry['block_type_group'] = $this->blockTypeGroup;
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetUnset
-     */
     public function testOffsetUnset(): void
     {
         $this->expectException(RuntimeException::class);

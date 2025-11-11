@@ -19,9 +19,11 @@ use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockDefinitionFactory::class)]
 final class BlockDefinitionFactoryTest extends TestCase
 {
     use ExportObjectTrait;
@@ -60,12 +62,6 @@ final class BlockDefinitionFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::__construct
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildBlockDefinition
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
-     */
     public function testBuildBlockDefinition(): void
     {
         $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
@@ -197,11 +193,6 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildTwigBlockDefinition
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
-     */
     public function testBuildTwigBlockDefinition(): void
     {
         $this->handlerMock = $this->createMock(TwigBlockDefinitionHandlerInterface::class);
@@ -242,11 +233,6 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildContainerDefinition
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
-     */
     public function testBuildContainerDefinition(): void
     {
         $this->handlerMock = $this->createMock(ContainerDefinitionHandlerInterface::class);

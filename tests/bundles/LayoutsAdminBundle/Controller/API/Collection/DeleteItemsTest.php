@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Collection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteItems;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(DeleteItems::class)]
 final class DeleteItemsTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteItems::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteItems::__invoke
-     */
     public function testDeleteItems(): void
     {
         $this->client->request(
@@ -28,9 +27,6 @@ final class DeleteItemsTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteItems::__invoke
-     */
     public function testDeleteItemsWithNonExistentCollection(): void
     {
         $this->client->request(

@@ -9,16 +9,12 @@ use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\Value\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Parameter::class)]
 final class ParameterTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Parameters\Parameter::getName
-     * @covers \Netgen\Layouts\Parameters\Parameter::getParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\Parameter::getValue
-     * @covers \Netgen\Layouts\Parameters\Parameter::isEmpty
-     */
     public function testSetProperties(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(['isRequired' => false]);
@@ -38,9 +34,6 @@ final class ParameterTest extends TestCase
         self::assertFalse($parameter->isEmpty());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Parameter::__toString
-     */
     public function testToString(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(['isRequired' => false]);
@@ -57,9 +50,6 @@ final class ParameterTest extends TestCase
         self::assertSame('42', (string) $parameter);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Parameter::__toString
-     */
     public function testToStringWithArray(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(['isRequired' => false]);
@@ -76,9 +66,6 @@ final class ParameterTest extends TestCase
         self::assertSame('', (string) $parameter);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Parameter::__toString
-     */
     public function testToStringWithNonStringableObject(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(['isRequired' => false]);
@@ -95,9 +82,6 @@ final class ParameterTest extends TestCase
         self::assertSame('', (string) $parameter);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Parameter::__toString
-     */
     public function testToStringWithStringableObject(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(['isRequired' => false]);

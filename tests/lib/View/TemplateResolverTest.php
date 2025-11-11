@@ -10,9 +10,11 @@ use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\TemplateResolver;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(TemplateResolver::class)]
 final class TemplateResolverTest extends TestCase
 {
     private View $view;
@@ -27,13 +29,6 @@ final class TemplateResolverTest extends TestCase
         $this->view->setContext('context');
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::__construct
-     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
-     * @covers \Netgen\Layouts\View\TemplateResolver::matches
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplate(): void
     {
         $matcherMock = $this->createMock(MatcherInterface::class);
@@ -94,12 +89,6 @@ final class TemplateResolverTest extends TestCase
         self::assertSame($this->value, $this->view->getParameter('param2'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
-     * @covers \Netgen\Layouts\View\TemplateResolver::matches
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateWithEmptyMatchConfig(): void
     {
         $viewConfiguration = [
@@ -128,12 +117,6 @@ final class TemplateResolverTest extends TestCase
         self::assertSame('value', $this->view->getParameter('param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
-     * @covers \Netgen\Layouts\View\TemplateResolver::matches
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateWithMultipleMatches(): void
     {
         $viewConfiguration = [
@@ -163,12 +146,6 @@ final class TemplateResolverTest extends TestCase
         self::assertSame('template.html.twig', $this->view->getTemplate());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
-     * @covers \Netgen\Layouts\View\TemplateResolver::matches
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateWithFallbackContext(): void
     {
         $this->view->setContext('context');
@@ -196,9 +173,6 @@ final class TemplateResolverTest extends TestCase
         self::assertSame('template.html.twig', $this->view->getTemplate());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext(): void
     {
         $this->expectException(TemplateResolverException::class);
@@ -208,9 +182,6 @@ final class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfEmptyContext(): void
     {
         $this->expectException(TemplateResolverException::class);
@@ -224,11 +195,6 @@ final class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
-     * @covers \Netgen\Layouts\View\TemplateResolver::matches
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatch(): void
     {
         $this->expectException(TemplateResolverException::class);
@@ -266,11 +232,6 @@ final class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
-     * @covers \Netgen\Layouts\View\TemplateResolver::matches
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher(): void
     {
         $this->expectException(TemplateResolverException::class);
@@ -297,11 +258,6 @@ final class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
-     * @covers \Netgen\Layouts\View\TemplateResolver::matches
-     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
-     */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfInvalidMatcher(): void
     {
         $this->expectException(TemplateResolverException::class);

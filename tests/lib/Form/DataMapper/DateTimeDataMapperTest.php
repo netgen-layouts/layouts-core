@@ -8,10 +8,13 @@ use ArrayIterator;
 use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\Layouts\Form\DataMapper\DateTimeDataMapper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Form\FormInterface;
 
 use function date_default_timezone_get;
 
+#[CoversClass(DateTimeDataMapper::class)]
 final class DateTimeDataMapperTest extends DataMapperTestBase
 {
     private DateTimeDataMapper $mapper;
@@ -21,10 +24,6 @@ final class DateTimeDataMapperTest extends DataMapperTestBase
         $this->mapper = new DateTimeDataMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::__construct
-     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
-     */
     public function testMapDataToForms(): void
     {
         $value = new DateTimeImmutable('2018-02-01 15:00:00.000000', new DateTimeZone('Antarctica/Casey'));
@@ -50,11 +49,8 @@ final class DateTimeDataMapperTest extends DataMapperTestBase
 
     /**
      * @param mixed[] $input
-     *
-     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
-     *
-     * @dataProvider mapDataToFormsWithArrayDataProvider
      */
+    #[DataProvider('mapDataToFormsWithArrayDataProvider')]
     public function testMapDataToFormsWithArray(array $input, ?string $dateTime, string $timeZone): void
     {
         $forms = new ArrayIterator(
@@ -87,9 +83,6 @@ final class DateTimeDataMapperTest extends DataMapperTestBase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
-     */
     public function testMapDataToFormsWithNoDateTime(): void
     {
         $forms = new ArrayIterator(
@@ -111,9 +104,6 @@ final class DateTimeDataMapperTest extends DataMapperTestBase
         self::assertSame(date_default_timezone_get(), $timeZoneForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapFormsToData
-     */
     public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
@@ -130,9 +120,6 @@ final class DateTimeDataMapperTest extends DataMapperTestBase
         self::assertSame('Antarctica/Casey', $data->getTimezone()->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapFormsToData
-     */
     public function testMapFormsToDataByUsingArray(): void
     {
         $this->mapper = new DateTimeDataMapper(false);
@@ -155,9 +142,6 @@ final class DateTimeDataMapperTest extends DataMapperTestBase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapFormsToData
-     */
     public function testMapFormsToDataWithEmptyFormData(): void
     {
         $forms = new ArrayIterator(

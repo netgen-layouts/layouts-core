@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Item;
 
 use Netgen\Layouts\Exception\Item\ItemException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemException::class)]
 final class ItemExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValueType
-     */
     public function testNoValueType(): void
     {
         $exception = ItemException::noValueType('type');
@@ -22,9 +21,6 @@ final class ItemExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValueLoader
-     */
     public function testNoValueLoader(): void
     {
         $exception = ItemException::noValueLoader('type');
@@ -35,9 +31,6 @@ final class ItemExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValueUrlGenerator
-     */
     public function testNoValueUrlGenerator(): void
     {
         $exception = ItemException::noValueUrlGenerator('type');
@@ -48,9 +41,6 @@ final class ItemExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ItemException::invalidUrlType
-     */
     public function testInvalidUrlType(): void
     {
         $exception = ItemException::invalidUrlType('type', 'unknown');
@@ -61,9 +51,6 @@ final class ItemExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValue
-     */
     public function testNoValue(): void
     {
         $exception = ItemException::noValue(42);
@@ -74,9 +61,6 @@ final class ItemExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ItemException::invalidValue
-     */
     public function testInvalidValue(): void
     {
         $exception = ItemException::invalidValue('type');
@@ -87,9 +71,6 @@ final class ItemExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ItemException::canNotLoadItem
-     */
     public function testCanNotLoadItem(): void
     {
         $exception = ItemException::canNotLoadItem();

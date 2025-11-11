@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\View\View\BlockView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(BlockResponseListener::class)]
 final class BlockResponseListenerTest extends TestCase
 {
     private MockObject $taggerMock;
@@ -29,9 +31,6 @@ final class BlockResponseListenerTest extends TestCase
         $this->listener = new BlockResponseListener($this->taggerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -40,10 +39,6 @@ final class BlockResponseListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
-     */
     public function testOnKernelResponse(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -67,9 +62,6 @@ final class BlockResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -91,9 +83,6 @@ final class BlockResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

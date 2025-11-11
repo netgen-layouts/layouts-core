@@ -8,10 +8,12 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTest
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(ItemDefinitionPass::class)]
 final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,10 +23,6 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ItemDefinitionPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::getConfigHandlers
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
-     */
     public function testProcess(): void
     {
         $this->setParameter(
@@ -68,10 +66,6 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::getConfigHandlers
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
-     */
     public function testProcessThrowsExceptionWithNoConfigKeyInTag(): void
     {
         $this->expectException(RuntimeException::class);
@@ -96,9 +90,6 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadLayoutBlocks;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(LoadLayoutBlocks::class)]
 final class LoadLayoutBlocksTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadLayoutBlocks::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadLayoutBlocks::__invoke
-     */
     public function testLoadLayoutBlocks(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?html=false');
@@ -25,9 +24,6 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadLayoutBlocks::__invoke
-     */
     public function testLoadLayoutBlocksInPublishedState(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?published=true&html=false');
@@ -39,9 +35,6 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadLayoutBlocks::__invoke
-     */
     public function testLoadLayoutBlocksWithNonExistentLayout(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/blocks');
@@ -53,9 +46,6 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadLayoutBlocks::__invoke
-     */
     public function testLoadLayoutBlocksWithNonExistentLayoutLocale(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/unknown/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks');

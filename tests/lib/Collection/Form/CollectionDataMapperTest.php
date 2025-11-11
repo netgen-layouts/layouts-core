@@ -8,8 +8,10 @@ use ArrayIterator;
 use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Collection\Form\CollectionDataMapper;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormInterface;
 
+#[CoversClass(CollectionDataMapper::class)]
 final class CollectionDataMapperTest extends DataMapperTestBase
 {
     private CollectionDataMapper $mapper;
@@ -19,9 +21,6 @@ final class CollectionDataMapperTest extends DataMapperTestBase
         $this->mapper = new CollectionDataMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapDataToForms
-     */
     public function testMapDataToForms(): void
     {
         $data = new CollectionUpdateStruct();
@@ -47,9 +46,6 @@ final class CollectionDataMapperTest extends DataMapperTestBase
         self::assertSame('5', $limitForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapDataToForms
-     */
     public function testMapDataToFormsWithNoLimit(): void
     {
         $data = new CollectionUpdateStruct();
@@ -75,9 +71,6 @@ final class CollectionDataMapperTest extends DataMapperTestBase
         self::assertNull($limitForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapFormsToData
-     */
     public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
@@ -95,9 +88,6 @@ final class CollectionDataMapperTest extends DataMapperTestBase
         self::assertSame(5, $data->limit);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapFormsToData
-     */
     public function testMapFormsToDataWithNoLimit(): void
     {
         $forms = new ArrayIterator(

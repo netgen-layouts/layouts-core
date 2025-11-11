@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\TargetType;
 
 use Netgen\Layouts\Layout\Resolver\TargetType\PathInfo;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(PathInfo::class)]
 final class PathInfoTest extends TestCase
 {
     private PathInfo $targetType;
@@ -18,19 +21,12 @@ final class PathInfoTest extends TestCase
         $this->targetType = new PathInfo();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\PathInfo::getType
-     */
     public function testGetType(): void
     {
         self::assertSame('path_info', $this->targetType::getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\PathInfo::getConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
@@ -39,9 +35,6 @@ final class PathInfoTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\PathInfo::provideValue
-     */
     public function testProvideValue(): void
     {
         $request = Request::create('/the/answer');

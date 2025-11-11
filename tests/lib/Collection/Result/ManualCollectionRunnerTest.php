@@ -9,16 +9,20 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
+use Netgen\Layouts\Collection\Result\ManualCollectionRunner;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use function array_map;
 
+#[CoversClass(ManualCollectionRunner::class)]
 final class ManualCollectionRunnerTest extends TestCase
 {
     private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
@@ -31,13 +35,8 @@ final class ManualCollectionRunnerTest extends TestCase
     /**
      * @param mixed[] $itemValues
      * @param mixed[] $expected
-     *
-     * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::__construct
-     * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::count
-     * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::runCollection
-     *
-     * @dataProvider manualCollectionDataProvider
      */
+    #[DataProvider('manualCollectionDataProvider')]
     public function testCollectionResult(array $itemValues, array $expected, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
     {
         $items = [];

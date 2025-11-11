@@ -6,11 +6,14 @@ namespace Netgen\Layouts\Tests\View\Provider;
 
 use Netgen\Layouts\View\Provider\FormViewProvider;
 use Netgen\Layouts\View\View\FormViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
+#[CoversClass(FormViewProvider::class)]
 final class FormViewProviderTest extends TestCase
 {
     private FormViewProvider $formViewProvider;
@@ -20,9 +23,6 @@ final class FormViewProviderTest extends TestCase
         $this->formViewProvider = new FormViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\FormViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $formView = new FormView();
@@ -48,11 +48,8 @@ final class FormViewProviderTest extends TestCase
 
     /**
      * @param class-string $value
-     *
-     * @covers \Netgen\Layouts\View\Provider\FormViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
      */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(string $value, bool $supports): void
     {
         self::assertSame($supports, $this->formViewProvider->supports($this->createMock($value)));

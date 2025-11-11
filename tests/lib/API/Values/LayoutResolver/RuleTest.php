@@ -9,21 +9,13 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Rule::class)]
 final class RuleTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getDescription
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getId
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getLayout
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getPriority
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getRuleGroupId
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getTargets
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::isEnabled
-     */
     public function testSetProperties(): void
     {
         $target1 = new Target();

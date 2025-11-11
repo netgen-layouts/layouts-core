@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\DependencyInjection\ConfigurationNode;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode;
 use Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ExtensionPlugin;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[CoversClass(AdminNode::class)]
 final class AdminNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testJavascripts(): void
     {
         $config = [
@@ -45,9 +45,6 @@ final class AdminNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testJavascriptsWithNoJavascripts(): void
     {
         $config = [
@@ -69,9 +66,6 @@ final class AdminNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testJavascriptsWithEmptyJavascripts(): void
     {
         $config = [
@@ -85,9 +79,6 @@ final class AdminNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config, 'The path "netgen_layouts.admin.javascripts" should have at least 1 element(s) defined.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testJavascriptsWithInvalidJavascripts(): void
     {
         $config = [
@@ -101,9 +92,6 @@ final class AdminNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testJavascriptsWithInvalidJavascript(): void
     {
         $config = [
@@ -119,9 +107,6 @@ final class AdminNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config, 'The value should be a string');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testStylesheets(): void
     {
         $config = [
@@ -149,9 +134,6 @@ final class AdminNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testStylesheetsWithNoStylesheets(): void
     {
         $config = [
@@ -173,9 +155,6 @@ final class AdminNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testStylesheetsWithEmptyStylesheets(): void
     {
         $config = [
@@ -189,9 +168,6 @@ final class AdminNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config, 'The path "netgen_layouts.admin.stylesheets" should have at least 1 element(s) defined.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testStylesheetsWithInvalidStylesheets(): void
     {
         $config = [
@@ -205,9 +181,6 @@ final class AdminNodeTest extends TestCase
         $this->assertConfigurationIsInvalid($config);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
-     */
     public function testStylesheetsWithInvalidStylesheet(): void
     {
         $config = [

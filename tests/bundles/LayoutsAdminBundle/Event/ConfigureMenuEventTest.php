@@ -7,8 +7,10 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Event;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
 use Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigureMenuEvent::class)]
 final class ConfigureMenuEventTest extends TestCase
 {
     private MenuFactory $factory;
@@ -28,18 +30,11 @@ final class ConfigureMenuEventTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent::getFactory
-     */
     public function testGetFactory(): void
     {
         self::assertSame($this->factory, $this->event->getFactory());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent::getMenu
-     */
     public function testGetMenu(): void
     {
         self::assertSame($this->menu, $this->event->getMenu());

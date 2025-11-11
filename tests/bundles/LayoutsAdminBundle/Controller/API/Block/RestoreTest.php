@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Restore;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Restore::class)]
 final class RestoreTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Restore::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Restore::__invoke
-     */
     public function testRestore(): void
     {
         $this->client->request(
@@ -32,9 +31,6 @@ final class RestoreTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Restore::__invoke
-     */
     public function testRestoreWithNonExistentBlock(): void
     {
         $this->client->request(

@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\BlockCollection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(AddItems::class)]
 final class AddItemsTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItems(): void
     {
         $data = $this->jsonEncode(
@@ -45,10 +43,6 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithNonExistentBlock(): void
     {
         $data = $this->jsonEncode(
@@ -83,10 +77,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithNonExistentCollection(): void
     {
         $data = $this->jsonEncode(
@@ -121,10 +111,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithEmptyItems(): void
     {
         $data = $this->jsonEncode(
@@ -149,10 +135,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithInvalidItems(): void
     {
         $data = $this->jsonEncode(
@@ -177,10 +159,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithMissingItems(): void
     {
         $this->client->request(
@@ -199,10 +177,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithInvalidValue(): void
     {
         $data = $this->jsonEncode(
@@ -233,10 +207,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithMissingValue(): void
     {
         $data = $this->jsonEncode(
@@ -266,10 +236,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithInvalidValueType(): void
     {
         $data = $this->jsonEncode(
@@ -300,10 +266,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithMissingValueType(): void
     {
         $data = $this->jsonEncode(
@@ -333,10 +295,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
@@ -367,10 +325,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithMissingPosition(): void
     {
         $data = $this->jsonEncode(
@@ -400,10 +354,6 @@ final class AddItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems::validateRequestData
-     */
     public function testAddItemsWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(

@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType;
 
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Mapper::class)]
 final class MapperTest extends TestCase
 {
     private MockObject&MapperInterface $mapper;
@@ -18,9 +20,6 @@ final class MapperTest extends TestCase
         $this->mapper = $this->getMockForAbstractClass(Mapper::class);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper::getFormOptions
-     */
     public function testGetFormOptions(): void
     {
         self::assertSame(

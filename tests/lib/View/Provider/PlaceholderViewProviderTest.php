@@ -10,8 +10,11 @@ use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\PlaceholderViewProvider;
 use Netgen\Layouts\View\View\PlaceholderViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PlaceholderViewProvider::class)]
 final class PlaceholderViewProviderTest extends TestCase
 {
     private PlaceholderViewProvider $placeholderViewProvider;
@@ -21,9 +24,6 @@ final class PlaceholderViewProviderTest extends TestCase
         $this->placeholderViewProvider = new PlaceholderViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $block = new Block();
@@ -50,9 +50,6 @@ final class PlaceholderViewProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::provideView
-     */
     public function testProvideViewThrowsRuntimeExceptionOnMissingBlock(): void
     {
         $this->expectException(ViewProviderException::class);
@@ -61,9 +58,6 @@ final class PlaceholderViewProviderTest extends TestCase
         $this->placeholderViewProvider->provideView(new Placeholder());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::provideView
-     */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock(): void
     {
         $this->expectException(ViewProviderException::class);
@@ -72,11 +66,7 @@ final class PlaceholderViewProviderTest extends TestCase
         $this->placeholderViewProvider->provideView(new Placeholder(), ['block' => 42]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->placeholderViewProvider->supports($value));

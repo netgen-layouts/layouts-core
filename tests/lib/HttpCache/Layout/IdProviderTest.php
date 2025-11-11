@@ -9,10 +9,12 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\HttpCache\Layout\IdProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(IdProvider::class)]
 final class IdProviderTest extends TestCase
 {
     private MockObject $layoutServiceMock;
@@ -26,10 +28,6 @@ final class IdProviderTest extends TestCase
         $this->idProvider = new IdProvider($this->layoutServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::__construct
-     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::provideIds
-     */
     public function testProvideIds(): void
     {
         $uuid = Uuid::uuid4();
@@ -52,9 +50,6 @@ final class IdProviderTest extends TestCase
         self::assertSame([$uuid->toString()], $providedIds);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::provideIds
-     */
     public function testProvideIdsWithNonExistingLayout(): void
     {
         $uuid = Uuid::uuid4();
@@ -70,9 +65,6 @@ final class IdProviderTest extends TestCase
         self::assertSame([$uuid->toString()], $providedIds);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::provideIds
-     */
     public function testProvideIdsWithSharedLayout(): void
     {
         $uuid1 = Uuid::uuid4();

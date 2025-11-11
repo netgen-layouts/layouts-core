@@ -13,6 +13,8 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +28,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+#[CoversClass(ExceptionConversionListener::class)]
 final class ExceptionConversionListenerTest extends TestCase
 {
     private ExceptionConversionListener $listener;
@@ -35,9 +38,6 @@ final class ExceptionConversionListenerTest extends TestCase
         $this->listener = new ExceptionConversionListener();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -48,11 +48,8 @@ final class ExceptionConversionListenerTest extends TestCase
 
     /**
      * @param class-string<\Symfony\Component\HttpKernel\Exception\HttpException> $convertedClass
-     *
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
-     *
-     * @dataProvider onExceptionDataProvider
      */
+    #[DataProvider('onExceptionDataProvider')]
     public function testOnException(Exception $exception, string $convertedClass, int $statusCode, bool $converted): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -80,9 +77,6 @@ final class ExceptionConversionListenerTest extends TestCase
             self::assertSame($exception, $eventException);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
-     */
     public function testOnExceptionNotConvertsOtherExceptions(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -104,9 +98,6 @@ final class ExceptionConversionListenerTest extends TestCase
         self::assertInstanceOf(RuntimeException::class, $eventException);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
-     */
     public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -128,9 +119,6 @@ final class ExceptionConversionListenerTest extends TestCase
         self::assertSame($exception, $eventException);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
-     */
     public function testOnExceptionWithNonAPIRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

@@ -9,8 +9,10 @@ use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Postgres::class)]
 final class PostgresTest extends TestCase
 {
     use DatabaseTrait;
@@ -32,10 +34,6 @@ final class PostgresTest extends TestCase
         $this->closeDatabase();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::nextId
-     */
     public function testNextId(): void
     {
         $platform = new PostgreSQLPlatform();
@@ -49,10 +47,6 @@ final class PostgresTest extends TestCase
         self::assertSame("nextval('table_id_seq')", $helper->nextId('table'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::lastId
-     */
     public function testLastId(): void
     {
         if (!$this->databaseConnection->getDatabasePlatform() instanceof PostgreSQLPlatform) {

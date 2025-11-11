@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Config;
 
 use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigDefinitionException::class)]
 final class ConfigDefinitionExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Config\ConfigDefinitionException::noConfigDefinition
-     */
     public function testNoConfigDefinition(): void
     {
         $exception = ConfigDefinitionException::noConfigDefinition('key');

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Node;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Twig\Compiler;
 use Twig\Environment;
@@ -20,9 +21,7 @@ abstract class NodeTestBase extends TestCase
      */
     abstract public static function getTests(): iterable;
 
-    /**
-     * @dataProvider getTests
-     */
+    #[DataProvider('getTests')]
     public function testCompile(Node $node, string $source, ?Environment $environment = null, bool $isPattern = false): void
     {
         self::assertNodeCompilation($source, $node, $environment, $isPattern);

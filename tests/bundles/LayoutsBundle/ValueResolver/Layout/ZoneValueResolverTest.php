@@ -10,10 +10,12 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\NotFoundException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(ZoneValueResolver::class)]
 final class ZoneValueResolverTest extends TestCase
 {
     private MockObject $layoutServiceMock;
@@ -27,34 +29,21 @@ final class ZoneValueResolverTest extends TestCase
         $this->valueResolver = new ZoneValueResolver($this->layoutServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver::getSourceAttributeNames
-     */
     public function testGetSourceAttributeName(): void
     {
         self::assertSame(['layoutId', 'zoneIdentifier'], $this->valueResolver->getSourceAttributeNames());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver::getDestinationAttributeName
-     */
     public function testGetDestinationAttributeName(): void
     {
         self::assertSame('zone', $this->valueResolver->getDestinationAttributeName());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver::getSupportedClass
-     */
     public function testGetSupportedClass(): void
     {
         self::assertSame(Zone::class, $this->valueResolver->getSupportedClass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver::loadValue
-     */
     public function testLoadValue(): void
     {
         $zone = new Zone();
@@ -80,9 +69,6 @@ final class ZoneValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver::loadValue
-     */
     public function testLoadValueDraft(): void
     {
         $zone = new Zone();
@@ -108,9 +94,6 @@ final class ZoneValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver::loadValue
-     */
     public function testLoadValueWithNonExistentZone(): void
     {
         $this->expectException(NotFoundException::class);

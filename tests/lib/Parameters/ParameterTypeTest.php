@@ -6,31 +6,29 @@ namespace Netgen\Layouts\Tests\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\ParameterType\TextType;
-use Netgen\Layouts\Tests\Parameters\Stubs\ParameterType;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterType as ParameterTypeStub;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints;
 
+#[CoversClass(ParameterType::class)]
 final class ParameterTypeTest extends TestCase
 {
-    private ParameterType $parameterType;
+    private ParameterTypeStub $parameterType;
 
     protected function setUp(): void
     {
-        $this->parameterType = new ParameterType();
+        $this->parameterType = new ParameterTypeStub();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::getConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType::getValueConstraints
-     */
     public function testGetConstraints(): void
     {
         $constraints = $this->parameterType->getConstraints(
             ParameterDefinition::fromArray(
                 [
-                    'type' => new ParameterType(),
+                    'type' => new ParameterTypeStub(),
                     'isRequired' => false,
                 ],
             ),
@@ -41,17 +39,12 @@ final class ParameterTypeTest extends TestCase
         self::assertInstanceOf(Constraints\NotNull::class, $constraints[0]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::getConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType::getValueConstraints
-     */
     public function testGetConstraintsWithRequiredParameter(): void
     {
         $constraints = $this->parameterType->getConstraints(
             ParameterDefinition::fromArray(
                 [
-                    'type' => new ParameterType(),
+                    'type' => new ParameterTypeStub(),
                     'isRequired' => true,
                 ],
             ),
@@ -63,9 +56,6 @@ final class ParameterTypeTest extends TestCase
         self::assertInstanceOf(Constraints\NotNull::class, $constraints[1]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::getConstraints
-     */
     public function testGetConstraintsThrowsParameterTypeException(): void
     {
         $this->expectException(ParameterTypeException::class);
@@ -77,49 +67,31 @@ final class ParameterTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::toHash
-     */
     public function testToHash(): void
     {
         self::assertSame(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::fromHash
-     */
     public function testFromHash(): void
     {
         self::assertSame(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::export
-     */
     public function testExport(): void
     {
         self::assertSame(42, $this->parameterType->export(new ParameterDefinition(), 42));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::import
-     */
     public function testImport(): void
     {
         self::assertSame(42, $this->parameterType->import(new ParameterDefinition(), 42));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::isValueEmpty
-     */
     public function testIsValueEmpty(): void
     {
         self::assertTrue($this->parameterType->isValueEmpty(new ParameterDefinition(), null));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType::isValueEmpty
-     */
     public function testIsValueEmptyReturnsFalse(): void
     {
         self::assertFalse($this->parameterType->isValueEmpty(new ParameterDefinition(), 42));

@@ -10,8 +10,10 @@ use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PagedCollectionsPlugin::class)]
 final class PagedCollectionsPluginTest extends TestCase
 {
     private PagedCollectionsPlugin $plugin;
@@ -38,10 +40,6 @@ final class PagedCollectionsPluginTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin::__construct
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin::getExtendedHandlers
-     */
     public function testGetExtendedHandlers(): void
     {
         self::assertSame(
@@ -50,9 +48,6 @@ final class PagedCollectionsPluginTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin::buildParameters
-     */
     public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();

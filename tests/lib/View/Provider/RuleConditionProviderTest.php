@@ -9,9 +9,12 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\Provider\RuleConditionViewProvider;
 use Netgen\Layouts\View\View\RuleConditionViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(RuleConditionViewProvider::class)]
 final class RuleConditionProviderTest extends TestCase
 {
     private RuleConditionViewProvider $ruleConditionViewProvider;
@@ -21,9 +24,6 @@ final class RuleConditionProviderTest extends TestCase
         $this->ruleConditionViewProvider = new RuleConditionViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\RuleConditionViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $condition = RuleCondition::fromArray(['id' => Uuid::uuid4()]);
@@ -42,11 +42,7 @@ final class RuleConditionProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\RuleConditionViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->ruleConditionViewProvider->supports($value));

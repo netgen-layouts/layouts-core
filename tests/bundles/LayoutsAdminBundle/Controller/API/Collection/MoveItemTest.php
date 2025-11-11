@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Collection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(MoveItem::class)]
 final class MoveItemTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem::__invoke
-     */
     public function testMoveItem(): void
     {
         $data = $this->jsonEncode(
@@ -34,9 +33,6 @@ final class MoveItemTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem::__invoke
-     */
     public function testMoveItemWithNonExistentItem(): void
     {
         $this->client->request(
@@ -55,9 +51,6 @@ final class MoveItemTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem::__invoke
-     */
     public function testMoveItemWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
@@ -82,9 +75,6 @@ final class MoveItemTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem::__invoke
-     */
     public function testMoveItemWithMissingPosition(): void
     {
         $this->client->request(
@@ -103,9 +93,6 @@ final class MoveItemTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem::__invoke
-     */
     public function testMoveItemWithNegativePosition(): void
     {
         $data = $this->jsonEncode(
@@ -130,9 +117,6 @@ final class MoveItemTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem::__invoke
-     */
     public function testMoveItemWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(

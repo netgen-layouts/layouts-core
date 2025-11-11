@@ -10,11 +10,13 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use function array_column;
 use function array_map;
 
+#[CoversClass(PositionHelper::class)]
 final class PositionHelperTest extends TestCase
 {
     use TestCaseTrait;
@@ -39,11 +41,6 @@ final class PositionHelperTest extends TestCase
         $this->closeDatabase();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
-     */
     public function testCreatePosition(): void
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1);
@@ -56,11 +53,6 @@ final class PositionHelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
-     */
     public function testCreatePositionAtLastPlace(): void
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions());
@@ -73,9 +65,6 @@ final class PositionHelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     */
     public function testCreatePositionThrowsBadStateExceptionOnTooLargePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -84,9 +73,6 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), 9999);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     */
     public function testCreatePositionThrowsBadStateExceptionOnNegativePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -95,9 +81,6 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), -1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     */
     public function testCreatePositionThrowsBadStateExceptionOnInvalidEndPosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -106,10 +89,6 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1, 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     */
     public function testMoveToPosition(): void
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 0, 2);
@@ -120,10 +99,6 @@ final class PositionHelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     */
     public function testMoveToLowerPosition(): void
     {
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 2, 0);
@@ -134,9 +109,6 @@ final class PositionHelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     */
     public function testMoveToPositionBadStateExceptionOnTooLargePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -145,9 +117,6 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 1, 9999);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     */
     public function testMoveToPositionBadStateExceptionOnNegativePosition(): void
     {
         $this->expectException(BadStateException::class);
@@ -156,10 +125,6 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 1, -1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::removePosition
-     */
     public function testRemovePosition(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
@@ -184,10 +149,6 @@ final class PositionHelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::applyConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::getNextPosition
-     */
     public function testGetNextPosition(): void
     {
         self::assertSame(3, $this->positionHelper->getNextPosition($this->getPositionHelperConditions()));

@@ -21,10 +21,13 @@ use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[CoversClass(BlockValidator::class)]
 final class BlockValidatorTest extends TestCase
 {
     private ValidatorInterface $validator;
@@ -46,12 +49,8 @@ final class BlockValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\BlockValidator::__construct
-     * @covers \Netgen\Layouts\Core\Validator\BlockValidator::validateBlockCreateStruct
-     *
-     * @dataProvider validateBlockCreateStructDataProvider
      */
+    #[DataProvider('validateBlockCreateStructDataProvider')]
     public function testValidateBlockCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
@@ -69,11 +68,8 @@ final class BlockValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\BlockValidator::validateBlockUpdateStruct
-     *
-     * @dataProvider validateBlockUpdateStructDataProvider
      */
+    #[DataProvider('validateBlockUpdateStructDataProvider')]
     public function testValidateBlockUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {

@@ -6,10 +6,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Htt
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use stdClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
+#[CoversClass(ConfigureHttpCachePass::class)]
 final class ConfigureHttpCachePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -19,9 +21,6 @@ final class ConfigureHttpCachePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ConfigureHttpCachePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
-     */
     public function testProcess(): void
     {
         $this->setDefinition('netgen_layouts.http_cache.client', new Definition(stdClass::class));
@@ -44,9 +43,6 @@ final class ConfigureHttpCachePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
-     */
     public function testProcessWithDisabledInvalidation(): void
     {
         $this->setDefinition('netgen_layouts.http_cache.client', new Definition(stdClass::class));
@@ -69,9 +65,6 @@ final class ConfigureHttpCachePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

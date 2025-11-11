@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Move::class)]
 final class MoveTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMove(): void
     {
         $data = $this->jsonEncode(
@@ -36,9 +35,6 @@ final class MoveTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveToDifferentPlaceholder(): void
     {
         $data = $this->jsonEncode(
@@ -61,9 +57,6 @@ final class MoveTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveToDifferentBlock(): void
     {
         $data = $this->jsonEncode(
@@ -86,9 +79,6 @@ final class MoveTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithNonExistentBlock(): void
     {
         $this->client->request(
@@ -107,9 +97,6 @@ final class MoveTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithNonExistentTargetBlock(): void
     {
         $data = $this->jsonEncode(
@@ -137,9 +124,6 @@ final class MoveTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithNonExistentPlaceholder(): void
     {
         $data = $this->jsonEncode(
@@ -166,9 +150,6 @@ final class MoveTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithNonContainerTargetBlock(): void
     {
         $data = $this->jsonEncode(
@@ -195,9 +176,6 @@ final class MoveTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
@@ -224,9 +202,6 @@ final class MoveTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithContainerInsideContainer(): void
     {
         $data = $this->jsonEncode(
@@ -253,9 +228,6 @@ final class MoveTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithInvalidBlockId(): void
     {
         $data = $this->jsonEncode(
@@ -282,9 +254,6 @@ final class MoveTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move::__invoke
-     */
     public function testMoveWithMissingBlockId(): void
     {
         $data = $this->jsonEncode(

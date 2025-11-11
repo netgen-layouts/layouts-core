@@ -23,10 +23,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
     use ExportObjectTrait;
     use UuidGeneratorTrait;
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::__construct
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlock
-     */
     public function testLoadBlock(): void
     {
         $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -34,9 +30,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlock
-     */
     public function testLoadBlockThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -45,9 +38,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlock(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlock
-     */
     public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
         $this->expectException(NotFoundException::class);
@@ -56,10 +46,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlock(Uuid::fromString('01f0c14e-2e15-54a1-8b41-58a3a8a9a917'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::__construct
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlockDraft
-     */
     public function testLoadBlockDraft(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -67,9 +53,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlockDraft
-     */
     public function testLoadBlockDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -78,9 +61,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlockDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlockDraft
-     */
     public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
         $this->expectException(NotFoundException::class);
@@ -89,10 +69,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlockDraft(Uuid::fromString('01f0c14e-2e15-54a1-8b41-58a3a8a9a917'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::filterUntranslatedBlocks
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadZoneBlocks
-     */
     public function testLoadZoneBlocks(): void
     {
         $blocks = $this->blockService->loadZoneBlocks(
@@ -102,10 +78,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(2, $blocks);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::filterUntranslatedBlocks
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadPlaceholderBlocks
-     */
     public function testLoadPlaceholderBlocks(): void
     {
         $blocks = $this->blockService->loadPlaceholderBlocks(
@@ -116,10 +88,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(1, $blocks);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::filterUntranslatedBlocks
-     * @covers \Netgen\Layouts\Core\Service\BlockService::loadLayoutBlocks
-     */
     public function testLoadLayoutBlocks(): void
     {
         $blocks = $this->blockService->loadLayoutBlocks(
@@ -129,9 +97,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(3, $blocks);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::hasPublishedState
-     */
     public function testHasPublishedState(): void
     {
         $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -139,9 +104,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($this->blockService->hasPublishedState($block));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::hasPublishedState
-     */
     public function testHasPublishedStateReturnsFalse(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
@@ -149,10 +111,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertFalse($this->blockService->hasPublishedState($block));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -186,10 +144,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockWithCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -219,10 +173,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->getMainLocale(), $defaultCollection->getMainLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockWithDynamicCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -263,10 +213,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->getMainLocale(), $defaultCollection->getMainLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateTranslatableBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -288,9 +234,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     */
     public function testCreateTranslatableBlockWithNonTranslatableTargetBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -317,10 +260,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockWithConfig(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -351,9 +290,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     */
     public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -371,9 +307,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     */
     public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -390,9 +323,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     */
     public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
         $this->expectException(BadStateException::class);
@@ -409,10 +339,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockWithNoPosition(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -437,9 +363,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->getId()->toString(), $secondBlock->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     */
     public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -457,9 +380,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
-     */
     public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
         $this->expectException(BadStateException::class);
@@ -476,10 +396,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockInZone(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -508,10 +424,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockInZoneWithContainerBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -530,10 +442,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->hasPlaceholder('other'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockInZoneWithoutCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -564,10 +472,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(0, $collections);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockInZoneWhichDoesNotExistInLayoutType(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -583,9 +487,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
         $this->expectException(BadStateException::class);
@@ -602,10 +503,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockInZoneWithNonExistentLayoutType(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -620,10 +517,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
-     */
     public function testCreateBlockInZoneWithNoPosition(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -648,9 +541,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->getId()->toString(), $blocks[2]->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     */
     public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -667,9 +557,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
-     */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithWithDisallowedIdentifier(): void
     {
         $this->expectException(BadStateException::class);
@@ -685,12 +572,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
-     */
     public function testUpdateBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
@@ -718,12 +599,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('css-id', $croBlock->getParameter('css_id')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
-     */
     public function testUpdateBlockInMainLocale(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
@@ -751,12 +626,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
-     */
     public function testUpdateBlockWithUntranslatableParameters(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
@@ -782,12 +651,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
-     */
     public function testUpdateBlockWithConfig(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7'));
@@ -810,12 +673,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
-     */
     public function testUpdateBlockWithBlankName(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -835,12 +692,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
-     */
     public function testUpdateBlockWithBlankViewType(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -860,9 +711,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     */
     public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -879,9 +727,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->updateBlock($block, $blockUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
-     */
     public function testUpdateBlockThrowsBadStateExceptionWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -898,9 +743,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->updateBlock($block, $blockUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlock(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -921,9 +763,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $copiedBlock->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockWithPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -945,9 +784,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $copiedBlock->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockWithSamePosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -969,9 +805,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(0, $copiedBlock->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -985,9 +818,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1000,9 +830,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1015,9 +842,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1030,9 +854,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
         $this->expectException(BadStateException::class);
@@ -1045,9 +866,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
         $this->expectException(BadStateException::class);
@@ -1060,9 +878,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
-     */
     public function testCopyBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -1075,9 +890,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZone(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -1118,9 +930,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($copiedBlock->getCollection('featured')->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneWithPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -1159,9 +968,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $copiedBlock->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneWithSamePosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -1200,9 +1006,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(0, $copiedBlock->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneWithLastPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -1241,9 +1044,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(2, $copiedBlock->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneWithLowerPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
@@ -1274,9 +1074,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(0, $copiedBlock->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -1289,9 +1086,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1303,9 +1097,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
         $this->expectException(BadStateException::class);
@@ -1317,9 +1108,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
         $this->expectException(BadStateException::class);
@@ -1331,9 +1119,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
-     */
     public function testCopyBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -1345,10 +1130,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlock(): void
     {
         $movedBlock = $this->blockService->moveBlock(
@@ -1370,10 +1151,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockToDifferentPlaceholder(): void
     {
         $movedBlock = $this->blockService->moveBlock(
@@ -1397,10 +1174,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockToDifferentBlock(): void
     {
         $movedBlock = $this->blockService->moveBlock(
@@ -1425,9 +1198,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1441,9 +1211,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1457,9 +1224,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsNotContainer(): void
     {
         $this->expectException(BadStateException::class);
@@ -1473,9 +1237,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
         $this->expectException(BadStateException::class);
@@ -1489,9 +1250,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
         $this->expectException(BadStateException::class);
@@ -1505,9 +1263,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -1521,9 +1276,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
-     */
     public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -1537,10 +1289,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToZone(): void
     {
         $movedBlock = $this->blockService->moveBlockToZone(
@@ -1560,10 +1308,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToDifferentZone(): void
     {
         $movedBlock = $this->blockService->moveBlockToZone(
@@ -1583,9 +1327,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1598,9 +1339,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
         $this->expectException(BadStateException::class);
@@ -1613,9 +1351,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -1628,9 +1363,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -1643,9 +1375,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
-     */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
         $this->expectException(BadStateException::class);
@@ -1658,9 +1387,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
-     */
     public function testRestoreBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1704,9 +1430,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedPersistenceBlock->path, $restoredPersistenceBlock->path);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
-     */
     public function testRestoreBlockRestoresMissingTranslations(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1724,9 +1447,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertContains('de', $restoredBlock->getAvailableLocales());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
-     */
     public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1737,9 +1457,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->restoreBlock($block);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
-     */
     public function testEnableTranslations(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
@@ -1754,9 +1471,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($updatedBlock->isTranslatable());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
-     */
     public function testEnableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1767,9 +1481,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->enableTranslations($block);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
-     */
     public function testEnableTranslationsThrowsBadStateExceptionWithEnabledTranslations(): void
     {
         $this->expectException(BadStateException::class);
@@ -1780,9 +1491,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->enableTranslations($block);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
-     */
     public function testEnableTranslationsThrowsBadStateExceptionWithNonTranslatableParentBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1796,10 +1504,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->enableTranslations($block);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalDisableTranslations
-     */
     public function testDisableTranslations(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1812,10 +1516,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertContains('en', $updatedBlock->getAvailableLocales());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
-     * @covers \Netgen\Layouts\Core\Service\BlockService::internalDisableTranslations
-     */
     public function testDisableTranslationsOnContainer(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
@@ -1837,9 +1537,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertContains('en', $childBlock->getAvailableLocales());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
-     */
     public function testDisableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1850,9 +1547,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->disableTranslations($block);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
-     */
     public function testDisableTranslationsThrowsBadStateExceptionWithDisabledTranslations(): void
     {
         $this->expectException(BadStateException::class);
@@ -1863,9 +1557,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->disableTranslations($block);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::deleteBlock
-     */
     public function testDeleteBlock(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1877,9 +1568,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlockDraft($block->getId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::deleteBlock
-     */
     public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
@@ -1889,9 +1577,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->deleteBlock($block);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::newBlockCreateStruct
-     */
     public function testNewBlockCreateStruct(): void
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
@@ -1917,9 +1602,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::newBlockUpdateStruct
-     */
     public function testNewBlockUpdateStruct(): void
     {
         $struct = $this->blockService->newBlockUpdateStruct('en');
@@ -1938,9 +1620,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\BlockService::newBlockUpdateStruct
-     */
     public function testNewBlockUpdateStructFromBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));

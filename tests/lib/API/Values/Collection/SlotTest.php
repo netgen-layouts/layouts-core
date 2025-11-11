@@ -5,18 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Slot;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Slot::class)]
 final class SlotTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Slot::getCollectionId
-     * @covers \Netgen\Layouts\API\Values\Collection\Slot::getId
-     * @covers \Netgen\Layouts\API\Values\Collection\Slot::getPosition
-     * @covers \Netgen\Layouts\API\Values\Collection\Slot::getViewType
-     * @covers \Netgen\Layouts\API\Values\Collection\Slot::isEmpty
-     */
     public function testSetProperties(): void
     {
         $slotUuid = Uuid::uuid4();

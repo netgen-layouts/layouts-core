@@ -9,10 +9,13 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\ArrayValue;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Tests\API\Stubs\Value as StubValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+#[CoversClass(ArrayValueNormalizer::class)]
 final class ArrayValueNormalizerTest extends TestCase
 {
     private MockObject $normalizerMock;
@@ -27,9 +30,6 @@ final class ArrayValueNormalizerTest extends TestCase
         $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ArrayValueNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $value = new StubValue();
@@ -47,11 +47,7 @@ final class ArrayValueNormalizerTest extends TestCase
         self::assertSame(['key' => 'serialized'], $data);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ArrayValueNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

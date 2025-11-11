@@ -12,10 +12,13 @@ use Netgen\Layouts\Tests\View\Matcher\Stubs\Form;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Form\Query\Type;
 use Netgen\Layouts\View\View\FormView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Forms;
 
+#[CoversClass(Type::class)]
 final class TypeTest extends TestCase
 {
     private FormFactoryInterface $formFactory;
@@ -32,11 +35,8 @@ final class TypeTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $form = $this->formFactory->create(
@@ -54,9 +54,6 @@ final class TypeTest extends TestCase
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
-     */
     public function testMatchWithNullQueryType(): void
     {
         $form = $this->formFactory->create(
@@ -74,9 +71,6 @@ final class TypeTest extends TestCase
         self::assertTrue($this->matcher->match(new FormView($form), ['null']));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
-     */
     public function testMatchWithNullQueryTypeReturnsFalse(): void
     {
         $form = $this->formFactory->create(
@@ -105,17 +99,11 @@ final class TypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
-     */
     public function testMatchWithNoFormView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
-     */
     public function testMatchWithNoQuery(): void
     {
         $form = $this->formFactory->create(Form::class);
@@ -123,9 +111,6 @@ final class TypeTest extends TestCase
         self::assertFalse($this->matcher->match(new FormView($form), ['type']));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
-     */
     public function testMatchWithInvalidQuery(): void
     {
         $form = $this->formFactory->create(Form::class, null, ['query' => 'type']);

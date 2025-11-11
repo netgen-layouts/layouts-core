@@ -7,9 +7,11 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ChoiceType as ChoiceParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+#[CoversClass(ChoiceMapper::class)]
 final class ChoiceMapperTest extends TestCase
 {
     private ChoiceMapper $mapper;
@@ -19,17 +21,11 @@ final class ChoiceMapperTest extends TestCase
         $this->mapper = new ChoiceMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper::getFormType
-     */
     public function testGetFormType(): void
     {
         self::assertSame(ChoiceType::class, $this->mapper->getFormType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper::mapOptions
-     */
     public function testMapOptions(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -61,9 +57,6 @@ final class ChoiceMapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper::mapOptions
-     */
     public function testMapOptionsWithClosure(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(

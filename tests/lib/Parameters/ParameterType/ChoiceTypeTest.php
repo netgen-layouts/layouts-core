@@ -6,10 +6,13 @@ namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ChoiceType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(ChoiceType::class)]
 final class ChoiceTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
@@ -19,21 +22,15 @@ final class ChoiceTypeTest extends TestCase
         $this->type = new ChoiceType();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('choice', $this->type::getIdentifier());
     }
 
     /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
-     *
      * @param array<string, mixed> $options
-     *
-     * @dataProvider defaultValueDataProvider
      */
+    #[DataProvider('defaultValueDataProvider')]
     public function testGetDefaultValue(array $options, bool $required, mixed $defaultValue, mixed $expected): void
     {
         $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
@@ -43,11 +40,8 @@ final class ChoiceTypeTest extends TestCase
     /**
      * @param mixed[] $options
      * @param mixed[] $resolvedOptions
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
-     *
-     * @dataProvider validOptionsDataProvider
      */
+    #[DataProvider('validOptionsDataProvider')]
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
@@ -56,11 +50,8 @@ final class ChoiceTypeTest extends TestCase
 
     /**
      * @param mixed[] $options
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
-     *
-     * @dataProvider invalidOptionsDataProvider
      */
+    #[DataProvider('invalidOptionsDataProvider')]
     public function testInvalidOptions(array $options): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -237,12 +228,7 @@ final class ChoiceTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isRequired, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['options' => ['Null' => null, 'One' => 1, 'Two' => 2]], $isRequired);
@@ -252,12 +238,7 @@ final class ChoiceTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidationWithClosure(mixed $value, bool $isRequired, bool $isValid): void
     {
         $closure = static fn (): array => ['Null' => null, 'One' => 1, 'Two' => 2];
@@ -291,11 +272,7 @@ final class ChoiceTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::fromHash
-     *
-     * @dataProvider fromHashDataProvider
-     */
+    #[DataProvider('fromHashDataProvider')]
     public function testFromHash(mixed $value, mixed $convertedValue, bool $multiple): void
     {
         self::assertSame(
@@ -358,11 +335,7 @@ final class ChoiceTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::isValueEmpty
-     *
-     * @dataProvider emptyDataProvider
-     */
+    #[DataProvider('emptyDataProvider')]
     public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));

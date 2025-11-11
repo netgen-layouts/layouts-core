@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\Transfer\Input;
 
 use Netgen\Layouts\Transfer\Input\ImportMode;
 use Netgen\Layouts\Transfer\Input\ImportOptions;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ImportOptions::class)]
 final class ImportOptionsTest extends TestCase
 {
     private ImportOptions $importOptions;
@@ -17,11 +19,6 @@ final class ImportOptionsTest extends TestCase
         $this->importOptions = new ImportOptions();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::copyExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::overwriteExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::skipExisting
-     */
     public function testDefaultMode(): void
     {
         self::assertTrue($this->importOptions->copyExisting());
@@ -29,12 +26,6 @@ final class ImportOptionsTest extends TestCase
         self::assertFalse($this->importOptions->skipExisting());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::copyExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::overwriteExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::setMode
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::skipExisting
-     */
     public function testCopyMode(): void
     {
         $this->importOptions->setMode(ImportMode::Copy);
@@ -44,12 +35,6 @@ final class ImportOptionsTest extends TestCase
         self::assertFalse($this->importOptions->skipExisting());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::copyExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::overwriteExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::setMode
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::skipExisting
-     */
     public function testOverwriteMode(): void
     {
         $this->importOptions->setMode(ImportMode::Overwrite);
@@ -59,12 +44,6 @@ final class ImportOptionsTest extends TestCase
         self::assertFalse($this->importOptions->skipExisting());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::copyExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::overwriteExisting
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::setMode
-     * @covers \Netgen\Layouts\Transfer\Input\ImportOptions::skipExisting
-     */
     public function testSkipMode(): void
     {
         $this->importOptions->setMode(ImportMode::Skip);

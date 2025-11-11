@@ -6,10 +6,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Configuration;
 
 use Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration;
 use Netgen\Bundle\LayoutsBundle\Exception\ConfigurationException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+#[CoversClass(ContainerConfiguration::class)]
 final class ContainerConfigurationTest extends TestCase
 {
     private MockObject $containerMock;
@@ -21,10 +23,6 @@ final class ContainerConfigurationTest extends TestCase
         $this->createConfiguration();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration::hasParameter
-     */
     public function testHasParameter(): void
     {
         $this->containerMock
@@ -36,9 +34,6 @@ final class ContainerConfigurationTest extends TestCase
         self::assertTrue($this->configuration->hasParameter('some_param'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration::hasParameter
-     */
     public function testHasParameterWithInjectedParameter(): void
     {
         $this->createConfiguration(['some_param' => 'some_value']);
@@ -50,9 +45,6 @@ final class ContainerConfigurationTest extends TestCase
         self::assertTrue($this->configuration->hasParameter('some_param'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration::hasParameter
-     */
     public function testHasParameterWithNoParameter(): void
     {
         $this->containerMock
@@ -64,9 +56,6 @@ final class ContainerConfigurationTest extends TestCase
         self::assertFalse($this->configuration->hasParameter('some_param'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration::getParameter
-     */
     public function testGetParameter(): void
     {
         $this->containerMock
@@ -84,9 +73,6 @@ final class ContainerConfigurationTest extends TestCase
         self::assertSame('some_param_value', $this->configuration->getParameter('some_param'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration::getParameter
-     */
     public function testGetParameterWithInjectedParameter(): void
     {
         $this->createConfiguration(['some_param' => 'injected']);
@@ -102,9 +88,6 @@ final class ContainerConfigurationTest extends TestCase
         self::assertSame('injected', $this->configuration->getParameter('some_param'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration::getParameter
-     */
     public function testGetParameterThrowsConfigurationException(): void
     {
         $this->expectException(ConfigurationException::class);

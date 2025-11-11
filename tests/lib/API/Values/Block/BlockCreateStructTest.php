@@ -11,8 +11,10 @@ use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockCreateStruct::class)]
 final class BlockCreateStructTest extends TestCase
 {
     private BlockCreateStruct $struct;
@@ -30,18 +32,11 @@ final class BlockCreateStructTest extends TestCase
         $this->struct->addCollectionCreateStruct('default', $this->collectionStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::__construct
-     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::getDefinition
-     */
     public function testGetDefinition(): void
     {
         self::assertSame($this->blockDefinition, $this->struct->getDefinition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
-     */
     public function testGetCollectionCreateStructs(): void
     {
         self::assertSame(
@@ -50,10 +45,6 @@ final class BlockCreateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::addCollectionCreateStruct
-     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
-     */
     public function testAddCollectionCreateStruct(): void
     {
         $collectionStruct1 = new CollectionCreateStruct();
@@ -71,9 +62,6 @@ final class BlockCreateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHash(): void
     {
         $initialValues = [
@@ -96,9 +84,6 @@ final class BlockCreateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHashWithMissingValues(): void
     {
         $initialValues = [

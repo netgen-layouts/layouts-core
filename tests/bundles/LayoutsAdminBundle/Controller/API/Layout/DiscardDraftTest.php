@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\DiscardDraft;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(DiscardDraft::class)]
 final class DiscardDraftTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\DiscardDraft::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\DiscardDraft::__invoke
-     */
     public function testDiscardDraft(): void
     {
         $this->client->request(
@@ -28,9 +27,6 @@ final class DiscardDraftTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\DiscardDraft::__invoke
-     */
     public function testDiscardDraftWithNonExistentLayout(): void
     {
         $this->client->request(

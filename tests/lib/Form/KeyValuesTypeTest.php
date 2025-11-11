@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Form;
 
 use Netgen\Layouts\Form\KeyValuesType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -13,12 +14,9 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+#[CoversClass(KeyValuesType::class)]
 final class KeyValuesTypeTest extends FormTestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Form\KeyValuesType::buildForm
-     * @covers \Netgen\Layouts\Form\KeyValuesType::buildView
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -66,9 +64,6 @@ final class KeyValuesTypeTest extends FormTestCase
         self::assertArrayHasKey('some_value', $view->children);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\KeyValuesType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -96,9 +91,6 @@ final class KeyValuesTypeTest extends FormTestCase
         self::assertSame([$constraint], $resolvedOptions['values_constraints']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\KeyValuesType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidConstraint(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -120,9 +112,6 @@ final class KeyValuesTypeTest extends FormTestCase
         $optionsResolver->resolve($options);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\KeyValuesType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('nglayouts_key_values', $this->formType->getBlockPrefix());

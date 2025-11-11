@@ -8,18 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Placeholder::class)]
 final class PlaceholderTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::count
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getBlocks
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIdentifier
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIterator
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetExists
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetGet
-     */
     public function testSetProperties(): void
     {
         $block = new Block();
@@ -44,9 +38,6 @@ final class PlaceholderTest extends TestCase
         self::assertSame($block, $placeholder[0]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetSet
-     */
     public function testSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -61,9 +52,6 @@ final class PlaceholderTest extends TestCase
         $placeholder[1] = new Block();
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetUnset
-     */
     public function testUnset(): void
     {
         $this->expectException(RuntimeException::class);

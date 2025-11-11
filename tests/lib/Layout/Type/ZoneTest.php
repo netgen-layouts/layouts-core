@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Type;
 
 use Netgen\Layouts\Layout\Type\Zone;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Zone::class)]
 final class ZoneTest extends TestCase
 {
     private Zone $zone;
@@ -22,25 +24,16 @@ final class ZoneTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\Zone::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('left', $this->zone->getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\Zone::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('Left', $this->zone->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\Zone::getAllowedBlockDefinitions
-     */
     public function testGetAllowedBlockDefinitions(): void
     {
         self::assertSame(['title'], $this->zone->getAllowedBlockDefinitions());

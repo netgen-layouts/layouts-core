@@ -6,22 +6,18 @@ namespace Netgen\Layouts\Tests\Validator\Constraint;
 
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Validator\Constraint\BlockViewType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockViewType::class)]
 final class BlockViewTypeTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Validator\Constraint\BlockViewType::getRequiredOptions
-     */
     public function testGetRequiredOptions(): void
     {
         $constraint = new BlockViewType(['definition' => new BlockDefinition()]);
         self::assertSame(['definition'], $constraint->getRequiredOptions());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Constraint\BlockViewType::validatedBy
-     */
     public function testValidatedBy(): void
     {
         $constraint = new BlockViewType(['definition' => new BlockDefinition()]);

@@ -12,11 +12,13 @@ use Netgen\Layouts\Collection\Result\DynamicCollectionRunner;
 use Netgen\Layouts\Collection\Result\ManualCollectionRunner;
 use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use const PHP_INT_MAX;
 
+#[CoversClass(CollectionRunnerFactory::class)]
 final class CollectionRunnerFactoryTest extends TestCase
 {
     private MockObject $cmsItemBuilderMock;
@@ -30,11 +32,6 @@ final class CollectionRunnerFactoryTest extends TestCase
         $this->factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::__construct
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getCollectionRunner
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getQueryRunner
-     */
     public function testGetCollectionRunnerWithManualCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(new Collection());
@@ -42,11 +39,6 @@ final class CollectionRunnerFactoryTest extends TestCase
         self::assertInstanceOf(ManualCollectionRunner::class, $runner);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::__construct
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getCollectionRunner
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getQueryRunner
-     */
     public function testGetCollectionRunnerWithDynamicCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(
@@ -64,11 +56,6 @@ final class CollectionRunnerFactoryTest extends TestCase
         self::assertInstanceOf(DynamicCollectionRunner::class, $runner);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::__construct
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getCollectionRunner
-     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getQueryRunner
-     */
     public function testGetCollectionRunnerWithDynamicContextualCollection(): void
     {
         $runner = $this->factory->getCollectionRunner(

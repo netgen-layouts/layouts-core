@@ -9,10 +9,13 @@ use Netgen\Layouts\Tests\View\Matcher\Stubs\Form;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Form\Config\ConfigKey;
 use Netgen\Layouts\View\View\FormView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Forms;
 
+#[CoversClass(ConfigKey::class)]
 final class ConfigKeyTest extends TestCase
 {
     private FormFactoryInterface $formFactory;
@@ -29,11 +32,8 @@ final class ConfigKeyTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $form = $this->formFactory->create(
@@ -58,17 +58,11 @@ final class ConfigKeyTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
-     */
     public function testMatchWithNoFormView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
-     */
     public function testMatchWithNoConfigurable(): void
     {
         $form = $this->formFactory->create(Form::class);
@@ -76,9 +70,6 @@ final class ConfigKeyTest extends TestCase
         self::assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
-     */
     public function testMatchWithInvalidConfigurable(): void
     {
         $form = $this->formFactory->create(Form::class, null, ['config_key' => 'type']);

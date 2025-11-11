@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\Transfer\Input;
 
 use Netgen\Layouts\Exception\Transfer\JsonValidationException;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(JsonValidator::class)]
 final class JsonValidatorTest extends TestCase
 {
     private JsonValidator $validator;
@@ -17,10 +19,6 @@ final class JsonValidatorTest extends TestCase
         $this->validator = new JsonValidator();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
-     */
     public function testValidateJson(): void
     {
         $this->validator->validateJson('{}', '{}');
@@ -29,10 +27,6 @@ final class JsonValidatorTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
-     */
     public function testValidateJsonThrowsJsonValidationExceptionWithInvalidJson(): void
     {
         $this->expectException(JsonValidationException::class);
@@ -41,10 +35,6 @@ final class JsonValidatorTest extends TestCase
         $this->validator->validateJson('{}', '{ "type": "array" }');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
-     */
     public function testValidateJsonThrowsJsonValidationExceptionWithNotAcceptableJson(): void
     {
         $this->expectException(JsonValidationException::class);
@@ -53,10 +43,6 @@ final class JsonValidatorTest extends TestCase
         $this->validator->validateJson('"abc"', '{ "type": "array" }');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
-     */
     public function testValidateJsonThrowsJsonValidationExceptionWithParseError(): void
     {
         $this->expectException(JsonValidationException::class);

@@ -7,16 +7,16 @@ namespace Netgen\Layouts\Tests\Utils;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Netgen\Layouts\Utils\DateTimeUtils;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 
 use function date_default_timezone_get;
 
+#[CoversClass(DateTimeUtils::class)]
 final class DateTimeUtilsTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::create
-     */
     public function testCreate(): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
@@ -31,9 +31,6 @@ final class DateTimeUtilsTest extends TestCase
         ClockMock::withClockMock(false);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::create
-     */
     public function testCreateWithTimestamp(): void
     {
         $dateTime = DateTimeUtils::create(123);
@@ -43,9 +40,6 @@ final class DateTimeUtilsTest extends TestCase
         self::assertSame(date_default_timezone_get(), $dateTime->getTimezone()->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::create
-     */
     public function testCreateWithTimestampAndTimeZone(): void
     {
         $dateTime = DateTimeUtils::create(123, 'Antarctica/Casey');
@@ -55,11 +49,7 @@ final class DateTimeUtilsTest extends TestCase
         self::assertSame('Antarctica/Casey', $dateTime->getTimezone()->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::isBetweenDates
-     *
-     * @dataProvider isBetweenDatesDataProvider
-     */
+    #[DataProvider('isBetweenDatesDataProvider')]
     public function testIsBetweenDates(?DateTimeInterface $from = null, ?DateTimeInterface $to = null, bool $result = false): void
     {
         self::assertSame($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
@@ -90,11 +80,8 @@ final class DateTimeUtilsTest extends TestCase
 
     /**
      * @param mixed[] $input
-     *
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromArray
-     *
-     * @dataProvider createFromArrayDataProvider
      */
+    #[DataProvider('createFromArrayDataProvider')]
     public function testCreateFromArray(array $input, bool $isValid): void
     {
         $dateTime = DateTimeUtils::createFromArray($input);
@@ -123,11 +110,6 @@ final class DateTimeUtilsTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::buildOffsetString
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::getTimeZoneList
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::parseTimeZone
-     */
     public function testGetTimeZoneList(): void
     {
         $timeZones = DateTimeUtils::getTimeZoneList();

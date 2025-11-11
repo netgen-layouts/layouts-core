@@ -11,8 +11,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Parameter\Type;
 use Netgen\Layouts\View\View\ParameterView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Type::class)]
 final class TypeTest extends TestCase
 {
     private Type $matcher;
@@ -24,11 +27,8 @@ final class TypeTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Parameter\Type::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $parameter = Parameter::fromArray(
@@ -59,9 +59,6 @@ final class TypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Parameter\Type::match
-     */
     public function testMatchWithNoParameterView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

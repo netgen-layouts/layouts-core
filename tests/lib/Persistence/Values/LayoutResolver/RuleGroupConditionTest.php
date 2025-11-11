@@ -6,13 +6,12 @@ namespace Netgen\Layouts\Tests\Persistence\Values\LayoutResolver;
 
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\Status;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 
+#[CoversNothing]
 final class RuleGroupConditionTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
     public function testSetProperties(): void
     {
         $condition = RuleGroupCondition::fromArray(

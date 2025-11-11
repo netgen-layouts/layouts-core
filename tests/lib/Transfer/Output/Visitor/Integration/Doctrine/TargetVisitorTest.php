@@ -6,10 +6,10 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\Doctrine;
 
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\TargetVisitorTestBase;
+use Netgen\Layouts\Transfer\Output\Visitor\TargetVisitor;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Netgen\Layouts\Transfer\Output\Visitor\TargetVisitor
- */
+#[CoversClass(TargetVisitor::class)]
 final class TargetVisitorTest extends TargetVisitorTestBase
 {
     use TestCaseTrait;

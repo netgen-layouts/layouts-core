@@ -6,13 +6,12 @@ namespace Netgen\Layouts\Tests\Persistence\Values\Layout;
 
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Status;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 
+#[CoversNothing]
 final class LayoutTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
     public function testSetProperties(): void
     {
         $layout = Layout::fromArray(

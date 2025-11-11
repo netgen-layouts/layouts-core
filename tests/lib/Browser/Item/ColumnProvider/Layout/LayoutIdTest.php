@@ -8,9 +8,11 @@ use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\LayoutId;
 use Netgen\Layouts\Browser\Item\Layout\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(LayoutId::class)]
 final class LayoutIdTest extends TestCase
 {
     private LayoutId $provider;
@@ -20,9 +22,6 @@ final class LayoutIdTest extends TestCase
         $this->provider = new LayoutId();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\LayoutId::getValue
-     */
     public function testGetValue(): void
     {
         $uuid = Uuid::uuid4();
@@ -38,9 +37,6 @@ final class LayoutIdTest extends TestCase
         self::assertSame($uuid->toString(), $this->provider->getValue($item));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\LayoutId::getValue
-     */
     public function testGetValueWithInvalidItem(): void
     {
         self::assertNull($this->provider->getValue(new StubItem(42)));

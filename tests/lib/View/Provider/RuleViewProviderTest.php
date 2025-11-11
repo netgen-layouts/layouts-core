@@ -9,9 +9,12 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\RuleViewProvider;
 use Netgen\Layouts\View\View\RuleViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(RuleViewProvider::class)]
 final class RuleViewProviderTest extends TestCase
 {
     private RuleViewProvider $ruleViewProvider;
@@ -21,9 +24,6 @@ final class RuleViewProviderTest extends TestCase
         $this->ruleViewProvider = new RuleViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\RuleViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $rule = Rule::fromArray(['id' => Uuid::uuid4()]);
@@ -42,11 +42,7 @@ final class RuleViewProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\RuleViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->ruleViewProvider->supports($value));

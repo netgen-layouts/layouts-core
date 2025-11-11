@@ -13,12 +13,14 @@ use Netgen\Layouts\Parameters\Form\Type\LinkType;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\LinkType as LinkParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
 
+#[CoversClass(LinkMapper::class)]
 final class LinkMapperTest extends TestCase
 {
     private ValueTypeRegistry $valueTypeRegistry;
@@ -43,17 +45,11 @@ final class LinkMapperTest extends TestCase
         $this->mapper = new LinkMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::getFormType
-     */
     public function testGetFormType(): void
     {
         self::assertSame(LinkType::class, $this->mapper->getFormType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::mapOptions
-     */
     public function testMapOptions(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -74,9 +70,6 @@ final class LinkMapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::mapOptions
-     */
     public function testMapOptionsWithEmptyValueTypes(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -97,9 +90,6 @@ final class LinkMapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::handleForm
-     */
     public function testHandleForm(): void
     {
         $parameterDefinition = ParameterDefinition::fromArray(

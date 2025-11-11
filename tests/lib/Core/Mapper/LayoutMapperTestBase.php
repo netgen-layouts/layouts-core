@@ -23,10 +23,6 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         $this->mapper = $this->createLayoutMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapZone
-     */
     public function testMapZone(): void
     {
         $persistenceZone = Zone::fromArray(
@@ -52,9 +48,6 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertSame('right', $zone->getLinkedZone()->getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapZone
-     */
     public function testMapZoneWithNoLinkedZone(): void
     {
         $persistenceZone = Zone::fromArray(
@@ -77,9 +70,6 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertNull($zone->getLinkedZone());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapZone
-     */
     public function testMapZoneWithNonExistingLinkedZone(): void
     {
         $persistenceZone = Zone::fromArray(
@@ -102,9 +92,6 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertNull($zone->getLinkedZone());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapLayout
-     */
     public function testMapLayout(): void
     {
         $persistenceLayout = Layout::fromArray(
@@ -140,9 +127,6 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertCount(4, $layout->getZones());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapLayout
-     */
     public function testMapLayoutWithInvalidLayoutType(): void
     {
         $persistenceLayout = Layout::fromArray(

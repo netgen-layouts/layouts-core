@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Validator\Constraint;
 
 use Netgen\Layouts\Validator\Constraint\LayoutName;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutName::class)]
 final class LayoutNameTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Validator\Constraint\LayoutName::validatedBy
-     */
     public function testValidatedBy(): void
     {
         $constraint = new LayoutName();

@@ -22,6 +22,7 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\PagerfantaInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 use function sprintf;
 
+#[CoversClass(GetCollectionPagerListener::class)]
 final class GetCollectionPagerListenerTest extends TestCase
 {
     private MockObject $resultBuilderMock;
@@ -52,9 +54,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -63,11 +62,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderView(): void
     {
         $request = Request::create('/');
@@ -116,11 +110,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderViewWithPagedCollection(): void
     {
         $request = Request::create('/');
@@ -177,11 +166,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame(2, $event->getParameters()['pager']->getCurrentPage());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
     {
         $request = Request::create('/');
@@ -238,11 +222,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
     {
         $request = Request::create('/');
@@ -298,9 +277,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderViewWithNoCurrentRequest(): void
     {
         $view = new BlockView(new Block());
@@ -312,9 +288,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame([], $event->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderViewWithNoBlockView(): void
     {
         $this->requestStack->push(Request::create('/'));
@@ -328,9 +301,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame([], $event->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderViewWithNoCollectionIdentifier(): void
     {
         $this->requestStack->push(Request::create('/'));
@@ -343,9 +313,6 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame([], $event->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
-     */
     public function testOnRenderViewWithWrongContext(): void
     {
         $this->requestStack->push(Request::create('/'));

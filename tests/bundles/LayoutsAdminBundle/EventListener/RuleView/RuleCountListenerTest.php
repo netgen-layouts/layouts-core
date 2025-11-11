@@ -15,11 +15,13 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\RuleView;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
+#[CoversClass(RuleCountListener::class)]
 final class RuleCountListenerTest extends TestCase
 {
     private MockObject $layoutResolverServiceMock;
@@ -33,9 +35,6 @@ final class RuleCountListenerTest extends TestCase
         $this->listener = new RuleCountListener($this->layoutResolverServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -44,10 +43,6 @@ final class RuleCountListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener::onBuildView
-     */
     public function testOnBuildView(): void
     {
         $layout = Layout::fromArray(['status' => Status::Published]);
@@ -71,9 +66,6 @@ final class RuleCountListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener::onBuildView
-     */
     public function testOnBuildViewWithDraftLayout(): void
     {
         $view = new RuleView(Rule::fromArray(['layout' => Layout::fromArray(['status' => Status::Draft])]));
@@ -94,9 +86,6 @@ final class RuleCountListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener::onBuildView
-     */
     public function testOnBuildViewWithNoRuleView(): void
     {
         $view = new View(new Value());

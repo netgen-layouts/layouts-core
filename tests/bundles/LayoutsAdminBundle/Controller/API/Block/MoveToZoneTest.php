@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(MoveToZone::class)]
 final class MoveToZoneTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZone(): void
     {
         $data = $this->jsonEncode(
@@ -36,9 +35,6 @@ final class MoveToZoneTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithNonExistentBlock(): void
     {
         $this->client->request(
@@ -57,9 +53,6 @@ final class MoveToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode(
@@ -87,9 +80,6 @@ final class MoveToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithNonExistentZoneIdentifier(): void
     {
         $data = $this->jsonEncode(
@@ -116,9 +106,6 @@ final class MoveToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithNotAllowedBlockDefinition(): void
     {
         $data = $this->jsonEncode(
@@ -145,9 +132,6 @@ final class MoveToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
@@ -174,9 +158,6 @@ final class MoveToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithInvalidLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -203,9 +184,6 @@ final class MoveToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone::__invoke
-     */
     public function testMoveToZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(

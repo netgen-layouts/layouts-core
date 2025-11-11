@@ -7,18 +7,17 @@ namespace Netgen\Layouts\Tests\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use Netgen\Layouts\Collection\Item\VisibilityVoterResult;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(VisibilityResolver::class)]
 final class VisibilityResolverTest extends TestCase
 {
     /**
      * @param \Netgen\Layouts\Collection\Item\VisibilityVoterInterface[] $voters
-     *
-     * @covers \Netgen\Layouts\Collection\Item\VisibilityResolver::__construct
-     * @covers \Netgen\Layouts\Collection\Item\VisibilityResolver::isVisible
-     *
-     * @dataProvider isVisibleDataProvider
      */
+    #[DataProvider('isVisibleDataProvider')]
     public function testIsVisible(array $voters, bool $result): void
     {
         $visibilityResolver = new VisibilityResolver($voters);

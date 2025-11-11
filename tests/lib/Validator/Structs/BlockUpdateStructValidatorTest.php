@@ -13,11 +13,14 @@ use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(BlockUpdateStructValidator::class)]
 final class BlockUpdateStructValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -43,11 +46,8 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $value
-     *
-     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(array $value, bool $isValid): void
     {
         $blockUpdateStruct = new BlockUpdateStruct();
@@ -56,9 +56,6 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $blockUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -68,9 +65,6 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -80,9 +74,6 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

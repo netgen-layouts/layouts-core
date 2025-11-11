@@ -29,10 +29,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         $this->mapper = $this->createLayoutResolverMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRule
-     */
     public function testMapRule(): void
     {
         $persistenceRule = Rule::fromArray(
@@ -63,9 +59,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertCount(2, $rule->getConditions());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRule
-     */
     public function testMapRuleWithNonExistingLayout(): void
     {
         $persistenceRule = Rule::fromArray(
@@ -86,10 +79,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertNull($rule->getLayout());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleGroup
-     */
     public function testMapRuleGroup(): void
     {
         $persistenceRuleGroup = RuleGroup::fromArray(
@@ -123,9 +112,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertCount(2, $ruleGroup->getConditions());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapTarget
-     */
     public function testMapTarget(): void
     {
         $persistenceTarget = Target::fromArray(
@@ -153,9 +139,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertSame(42, $target->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapTarget
-     */
     public function testMapTargetWithInvalidTargetType(): void
     {
         $persistenceTarget = Target::fromArray(
@@ -180,9 +163,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertSame(42, $target->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleCondition
-     */
     public function testMapRuleCondition(): void
     {
         $persistenceCondition = RuleCondition::fromArray(
@@ -210,9 +190,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertSame(42, $condition->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleCondition
-     */
     public function testMapRuleConditionWithInvalidConditionType(): void
     {
         $persistenceCondition = RuleCondition::fromArray(
@@ -237,9 +214,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertSame(42, $condition->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleGroupCondition
-     */
     public function testMapRuleGroupCondition(): void
     {
         $persistenceCondition = RuleGroupCondition::fromArray(
@@ -267,9 +241,6 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertSame(42, $condition->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleGroupCondition
-     */
     public function testMapRuleGroupConditionWithInvalidConditionType(): void
     {
         $persistenceCondition = RuleGroupCondition::fromArray(

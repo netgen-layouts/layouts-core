@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Config;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadLayoutTypes;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,12 +14,9 @@ use function json_decode;
 
 use const JSON_THROW_ON_ERROR;
 
+#[CoversClass(LoadLayoutTypes::class)]
 final class LoadLayoutTypesTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadLayoutTypes::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadLayoutTypes::__invoke
-     */
     public function testLoadLayoutTypes(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/config/layout_types');

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Collection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(CreateSlot::class)]
 final class CreateSlotTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot::__invoke
-     */
     public function testCreateSlot(): void
     {
         $data = $this->jsonEncode(
@@ -38,9 +37,6 @@ final class CreateSlotTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot::__invoke
-     */
     public function testCreateSlotWithNonExistentCollection(): void
     {
         $this->client->request(
@@ -59,9 +55,6 @@ final class CreateSlotTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot::__invoke
-     */
     public function testCreateSlotWithInvalidPosition(): void
     {
         $data = $this->jsonEncode(
@@ -86,9 +79,6 @@ final class CreateSlotTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot::__invoke
-     */
     public function testCreateSlotWithMissingPosition(): void
     {
         $this->client->request(
@@ -107,9 +97,6 @@ final class CreateSlotTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot::__invoke
-     */
     public function testCreateSlotWithNegativePosition(): void
     {
         $data = $this->jsonEncode(

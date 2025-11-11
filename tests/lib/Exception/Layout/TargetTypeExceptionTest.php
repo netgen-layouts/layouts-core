@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Layout;
 
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(TargetTypeException::class)]
 final class TargetTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Layout\TargetTypeException::noTargetType
-     */
     public function testNoTargetType(): void
     {
         $exception = TargetTypeException::noTargetType('type');
@@ -22,9 +21,6 @@ final class TargetTypeExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Layout\TargetTypeException::noFormMapper
-     */
     public function testNoFormMapper(): void
     {
         $exception = TargetTypeException::noFormMapper('type');

@@ -10,8 +10,10 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryCreateStruct::class)]
 final class QueryCreateStructTest extends TestCase
 {
     private QueryCreateStruct $struct;
@@ -25,10 +27,6 @@ final class QueryCreateStructTest extends TestCase
         $this->struct = new QueryCreateStruct($this->queryType);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::__construct
-     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::getQueryType
-     */
     public function testGetQueryType(): void
     {
         $queryCreateStruct = new QueryCreateStruct($this->queryType);
@@ -36,9 +34,6 @@ final class QueryCreateStructTest extends TestCase
         self::assertSame($this->queryType, $queryCreateStruct->getQueryType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHash(): void
     {
         $initialValues = [
@@ -61,9 +56,6 @@ final class QueryCreateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHashWithMissingValues(): void
     {
         $initialValues = [

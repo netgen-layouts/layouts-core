@@ -8,9 +8,11 @@ use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Config\ConfigDefinitionHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigDefinitionFactory::class)]
 final class ConfigDefinitionFactoryTest extends TestCase
 {
     private MockObject $handlerMock;
@@ -29,10 +31,6 @@ final class ConfigDefinitionFactoryTest extends TestCase
         $this->factory = new ConfigDefinitionFactory($this->parameterBuilderFactoryMock);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\ConfigDefinitionFactory::__construct
-     * @covers \Netgen\Layouts\Config\ConfigDefinitionFactory::buildConfigDefinition
-     */
     public function testBuildConfigDefinition(): void
     {
         $this->handlerMock = $this->createMock(ConfigDefinitionHandlerInterface::class);

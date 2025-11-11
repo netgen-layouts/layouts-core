@@ -6,20 +6,18 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\ConfigurationNod
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[CoversClass(BlockTypeNode::class)]
+#[CoversClass(Configuration::class)]
 final class BlockTypeNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettings(): void
     {
         $config = [
@@ -70,11 +68,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoIcon(): void
     {
         $config = [
@@ -100,11 +93,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNullIcon(): void
     {
         $config = [
@@ -132,12 +120,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoName(): void
     {
         $config = [
@@ -161,12 +143,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoNameAndWithDefinitionIdentifierWhenDisabled(): void
     {
         $config = [
@@ -204,12 +180,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoDefinitionIdentifier(): void
     {
         $config = [
@@ -233,12 +203,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoDefaultName(): void
     {
         $config = [
@@ -268,12 +232,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoDefaultViewType(): void
     {
         $config = [
@@ -303,12 +261,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoDefaultItemViewType(): void
     {
         $config = [
@@ -338,12 +290,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoDefaultParameters(): void
     {
         $config = [
@@ -373,12 +319,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoParametersMerge(): void
     {
         $config = [
@@ -425,10 +365,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoDefaults(): void
     {
         $config = [
@@ -459,10 +395,6 @@ final class BlockTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeWithEmptyIcon(): void
     {
         $config = [
@@ -477,10 +409,6 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeWithNonStringIcon(): void
     {
         $config = [
@@ -495,10 +423,6 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoBlockTypes(): void
     {
         $config = [
@@ -508,10 +432,6 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
-     */
     public function testBlockTypeSettingsWithNoNameAndWithDefinitionIdentifier(): void
     {
         $config = [

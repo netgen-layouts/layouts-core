@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(ChangeType::class)]
 final class ChangeTypeTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__invoke
-     */
     public function testChangeType(): void
     {
         $data = $this->jsonEncode(
@@ -42,10 +41,6 @@ final class ChangeTypeTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__invoke
-     */
     public function testChangeTypeWithInvalidNewType(): void
     {
         $data = $this->jsonEncode(
@@ -74,10 +69,6 @@ final class ChangeTypeTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__invoke
-     */
     public function testChangeTypeWithMissingNewType(): void
     {
         $data = $this->jsonEncode(
@@ -105,10 +96,6 @@ final class ChangeTypeTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__invoke
-     */
     public function testChangeTypeWithInvalidMappings(): void
     {
         $data = $this->jsonEncode(
@@ -134,9 +121,6 @@ final class ChangeTypeTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType::__invoke
-     */
     public function testChangeTypeWithNoMappings(): void
     {
         $data = $this->jsonEncode(

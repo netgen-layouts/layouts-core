@@ -10,8 +10,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Item\ValueType;
 use Netgen\Layouts\View\View\ItemView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ValueType::class)]
 final class ValueTypeTest extends TestCase
 {
     private ValueType $matcher;
@@ -23,11 +26,8 @@ final class ValueTypeTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $view = new ItemView(CmsItem::fromArray(['valueType' => 'value']), 'view_type');
@@ -35,9 +35,6 @@ final class ValueTypeTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
-     */
     public function testMatchWithNullCmsItem(): void
     {
         $view = new ItemView(new NullCmsItem('value'), 'view_type');
@@ -45,9 +42,6 @@ final class ValueTypeTest extends TestCase
         self::assertTrue($this->matcher->match($view, ['null']));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
-     */
     public function testMatchWithNullCmsItemReturnsFalse(): void
     {
         $view = new ItemView(new NullCmsItem('value'), 'view_type');
@@ -66,9 +60,6 @@ final class ValueTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
-     */
     public function testMatchWithNoItemView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

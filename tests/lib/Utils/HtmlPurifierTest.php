@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Utils;
 
 use Netgen\Layouts\Utils\HtmlPurifier;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(HtmlPurifier::class)]
 final class HtmlPurifierTest extends TestCase
 {
     private HtmlPurifier $htmlPurifier;
@@ -16,10 +18,6 @@ final class HtmlPurifierTest extends TestCase
         $this->htmlPurifier = new HtmlPurifier();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\HtmlPurifier::__construct
-     * @covers \Netgen\Layouts\Utils\HtmlPurifier::purify
-     */
     public function testPurify(): void
     {
         $unsafeHtml = "<h1>Title</h1><script src=\"https://cool-hacker.com/cool-hacking-script.js\"></script><a onclick=\"alert('Haw-haw!');\" href=\"https://netgen.io\">Netgen</a>";

@@ -8,9 +8,11 @@ use Exception;
 use Netgen\Layouts\Core\Service\TransactionService;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(TransactionService::class)]
 final class TransactionServiceTest extends TestCase
 {
     private MockObject $transactionHandlerMock;
@@ -24,10 +26,6 @@ final class TransactionServiceTest extends TestCase
         $this->service = new TransactionService($this->transactionHandlerMock);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::__construct
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::transaction
-     */
     public function testTransaction(): void
     {
         $this->transactionHandlerMock
@@ -49,9 +47,6 @@ final class TransactionServiceTest extends TestCase
         self::assertSame(42, $return);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::transaction
-     */
     public function testTransactionWithException(): void
     {
         $this->expectException(Exception::class);
@@ -76,9 +71,6 @@ final class TransactionServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::beginTransaction
-     */
     public function testBeginTransaction(): void
     {
         $this->transactionHandlerMock
@@ -88,9 +80,6 @@ final class TransactionServiceTest extends TestCase
         $this->service->beginTransaction();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::commitTransaction
-     */
     public function testCommitTransaction(): void
     {
         $this->transactionHandlerMock
@@ -100,9 +89,6 @@ final class TransactionServiceTest extends TestCase
         $this->service->commitTransaction();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::commitTransaction
-     */
     public function testCommitTransactionThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
@@ -116,9 +102,6 @@ final class TransactionServiceTest extends TestCase
         $this->service->commitTransaction();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::rollbackTransaction
-     */
     public function testRollbackTransaction(): void
     {
         $this->transactionHandlerMock
@@ -128,9 +111,6 @@ final class TransactionServiceTest extends TestCase
         $this->service->rollbackTransaction();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\TransactionService::rollbackTransaction
-     */
     public function testRollbackTransactionThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);

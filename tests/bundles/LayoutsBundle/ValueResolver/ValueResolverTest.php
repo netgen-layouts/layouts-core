@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver;
 
 use Netgen\Bundle\LayoutsBundle\Tests\Stubs\Value;
-use Netgen\Bundle\LayoutsBundle\Tests\Stubs\ValueResolver;
+use Netgen\Bundle\LayoutsBundle\Tests\Stubs\ValueResolver as ValueResolverStub;
+use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
+#[CoversClass(ValueResolver::class)]
 final class ValueResolverTest extends TestCase
 {
-    private ValueResolver $valueResolver;
+    private ValueResolverStub $valueResolver;
 
     protected function setUp(): void
     {
-        $this->valueResolver = new ValueResolver();
+        $this->valueResolver = new ValueResolverStub();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolve(): void
     {
         $request = Request::create('/');
@@ -38,9 +38,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Draft, $values[0]->getStatus());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithLocale(): void
     {
         $request = Request::create('/');
@@ -57,9 +54,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Draft, $values[0]->getStatus());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithPublishedRouteStatusParam(): void
     {
         $request = Request::create('/');
@@ -75,9 +69,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Published, $values[0]->getStatus());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithArchivedRouteStatusParam(): void
     {
         $request = Request::create('/');
@@ -93,9 +84,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Archived, $values[0]->getStatus());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithDraftRouteStatusParam(): void
     {
         $request = Request::create('/');
@@ -111,9 +99,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Draft, $values[0]->getStatus());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithPublishedQueryStatusParam(): void
     {
         $request = Request::create('/');
@@ -129,9 +114,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Published, $values[0]->getStatus());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithDraftQueryStatusParam(): void
     {
         $request = Request::create('/');
@@ -147,9 +129,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Draft, $values[0]->getStatus());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithNoAttribute(): void
     {
         $request = Request::create('/');
@@ -158,9 +137,6 @@ final class ValueResolverTest extends TestCase
         self::assertSame([], [...$this->valueResolver->resolve($request, $argument)]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver::resolve
-     */
     public function testResolveWithEmptyAndNonOptionalAttribute(): void
     {
         $this->expectException(InvalidArgumentException::class);

@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\View\View;
 
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\View\View\LayoutTypeView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutTypeView::class)]
 final class LayoutTypeViewTest extends TestCase
 {
     private LayoutType $layoutType;
@@ -24,10 +26,6 @@ final class LayoutTypeViewTest extends TestCase
         $this->view->addParameter('layout_type', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\LayoutTypeView::__construct
-     * @covers \Netgen\Layouts\View\View\LayoutTypeView::getLayoutType
-     */
     public function testGetLayoutType(): void
     {
         self::assertSame($this->layoutType, $this->view->getLayoutType());
@@ -40,9 +38,6 @@ final class LayoutTypeViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\LayoutTypeView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('layout', $this->view::getIdentifier());

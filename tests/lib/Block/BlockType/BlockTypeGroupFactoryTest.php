@@ -7,15 +7,14 @@ namespace Netgen\Layouts\Tests\Block\BlockType;
 use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Block\BlockType\BlockTypeGroupFactory;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockTypeGroupFactory::class)]
 final class BlockTypeGroupFactoryTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroupFactory::buildBlockTypeGroup
-     */
     public function testBuildBlockTypeGroup(): void
     {
         $blockType = BlockType::fromArray(['identifier' => 'title']);

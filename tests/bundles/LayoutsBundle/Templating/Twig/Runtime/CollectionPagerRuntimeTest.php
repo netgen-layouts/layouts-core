@@ -11,9 +11,12 @@ use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CollectionPagerRuntime::class)]
 final class CollectionPagerRuntimeTest extends TestCase
 {
     private Closure $routeGenerator;
@@ -34,10 +37,6 @@ final class CollectionPagerRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime::renderCollectionPager
-     */
     public function testRenderCollectionPager(): void
     {
         $block = new Block();
@@ -61,9 +60,6 @@ final class CollectionPagerRuntimeTest extends TestCase
         self::assertSame('rendered view', $renderedPagerfanta);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime::renderCollectionPager
-     */
     public function testRenderCollectionPagerWithOptions(): void
     {
         $block = new Block();
@@ -96,9 +92,6 @@ final class CollectionPagerRuntimeTest extends TestCase
         self::assertSame('rendered view', $renderedPagerfanta);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
-     */
     public function testGetCollectionPageUrl(): void
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
@@ -116,11 +109,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         self::assertSame('/generated/uri?page=5', $uri);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
-     *
-     * @dataProvider invalidPageDataProvider
-     */
+    #[DataProvider('invalidPageDataProvider')]
     public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithInvalidPage(int $page): void
     {
         $this->expectException(InvalidArgumentException::class);

@@ -10,12 +10,14 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 use function sprintf;
 
+#[CoversClass(RuleEntityHandler::class)]
 final class RuleEntityHandlerTest extends TestCase
 {
     private MockObject $layoutResolverServiceMock;
@@ -33,10 +35,6 @@ final class RuleEntityHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler::__construct
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler::loadEntity
-     */
     public function testLoadEntity(): void
     {
         $uuid = Uuid::uuid4();
@@ -52,9 +50,6 @@ final class RuleEntityHandlerTest extends TestCase
         self::assertSame($rule, $this->entityHandler->loadEntity($uuid));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler::loadEntity
-     */
     public function testLoadEntityWithNonExistentEntity(): void
     {
         $uuid = Uuid::uuid4();
@@ -71,9 +66,6 @@ final class RuleEntityHandlerTest extends TestCase
         $this->entityHandler->loadEntity($uuid);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler::entityExists
-     */
     public function testEntityExists(): void
     {
         $uuid = Uuid::uuid4();
@@ -87,9 +79,6 @@ final class RuleEntityHandlerTest extends TestCase
         self::assertTrue($this->entityHandler->entityExists($uuid));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler::entityExists
-     */
     public function testEntityExistsReturnsFalse(): void
     {
         $uuid = Uuid::uuid4();
@@ -103,9 +92,6 @@ final class RuleEntityHandlerTest extends TestCase
         self::assertFalse($this->entityHandler->entityExists($uuid));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler::deleteEntity
-     */
     public function testDeleteEntity(): void
     {
         $uuid = Uuid::uuid4();
@@ -126,9 +112,6 @@ final class RuleEntityHandlerTest extends TestCase
         $this->entityHandler->deleteEntity($uuid);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler::deleteEntity
-     */
     public function testDeleteEntityWithNonExistentEntity(): void
     {
         $uuid = Uuid::uuid4();

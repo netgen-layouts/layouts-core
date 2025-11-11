@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Block;
 
 use Netgen\Layouts\Block\DynamicParameters;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(DynamicParameters::class)]
 final class DynamicParametersTest extends TestCase
 {
     private DynamicParameters $dynamicParams;
@@ -19,17 +21,11 @@ final class DynamicParametersTest extends TestCase
         $this->dynamicParams['closure'] = static fn (): string => 'closure_value';
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\DynamicParameters::count
-     */
     public function testCount(): void
     {
         self::assertCount(2, $this->dynamicParams);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetExists
-     */
     public function testOffsetExists(): void
     {
         self::assertArrayHasKey('test', $this->dynamicParams);
@@ -37,9 +33,6 @@ final class DynamicParametersTest extends TestCase
         self::assertArrayNotHasKey('unknown', $this->dynamicParams);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetGet
-     */
     public function testOffsetGet(): void
     {
         self::assertSame('some_value', $this->dynamicParams['test']);
@@ -47,9 +40,6 @@ final class DynamicParametersTest extends TestCase
         self::assertNull($this->dynamicParams['unknown']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetSet
-     */
     public function testOffsetSet(): void
     {
         $this->dynamicParams['new'] = 'new_value';
@@ -61,9 +51,6 @@ final class DynamicParametersTest extends TestCase
         self::assertSame('closure_value2', $this->dynamicParams['closure']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetUnset
-     */
     public function testOffsetUnset(): void
     {
         unset($this->dynamicParams['test'], $this->dynamicParams['closure'], $this->dynamicParams['unknown']);

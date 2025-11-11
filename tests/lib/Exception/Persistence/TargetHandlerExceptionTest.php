@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Persistence;
 
 use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(TargetHandlerException::class)]
 final class TargetHandlerExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Persistence\TargetHandlerException::noTargetHandler
-     */
     public function testNoTargetHandler(): void
     {
         $exception = TargetHandlerException::noTargetHandler('Doctrine', 'target_type');

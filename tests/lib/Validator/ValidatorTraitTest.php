@@ -8,10 +8,14 @@ use Exception;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Tests\Validator\Stubs\ValueValidator;
+use Netgen\Layouts\Validator\ValidatorTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[CoversClass(ValidatorTrait::class)]
 final class ValidatorTraitTest extends TestCase
 {
     private ValidatorInterface $baseValidator;
@@ -28,12 +32,7 @@ final class ValidatorTraitTest extends TestCase
         $this->validator->setValidator($this->baseValidator);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validateIdentifier
-     *
-     * @dataProvider validateIdentifierDataProvider
-     */
+    #[DataProvider('validateIdentifierDataProvider')]
     public function testValidateIdentifier(mixed $identifier, bool $isValid): void
     {
         if (!$isValid) {
@@ -46,10 +45,6 @@ final class ValidatorTraitTest extends TestCase
         $this->validator->validateIdentifier($identifier);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::setValidator
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
-     */
     public function testValidateIdentifierThrowsValidationExceptionOnValidationError(): void
     {
         $this->expectException(ValidationException::class);
@@ -63,12 +58,7 @@ final class ValidatorTraitTest extends TestCase
         $this->validator->validateIdentifier('identifier');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validatePosition
-     *
-     * @dataProvider validatePositionDataProvider
-     */
+    #[DataProvider('validatePositionDataProvider')]
     public function testValidatePosition(mixed $position, bool $isRequired, bool $isValid): void
     {
         if (!$isValid) {
@@ -81,10 +71,6 @@ final class ValidatorTraitTest extends TestCase
         $this->validator->validatePosition($position, null, $isRequired);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validatePosition
-     */
     public function testValidatePositionWithDefaultRequiredValue(): void
     {
         $this->validator->validatePosition(null);
@@ -93,12 +79,7 @@ final class ValidatorTraitTest extends TestCase
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
-     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validateLocale
-     *
-     * @dataProvider validateLocaleDataProvider
-     */
+    #[DataProvider('validateLocaleDataProvider')]
     public function testValidateLocale(string $locale, bool $isValid): void
     {
         if (!$isValid) {

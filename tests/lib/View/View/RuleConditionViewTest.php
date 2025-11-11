@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Tests\View\View;
 
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\View\View\RuleConditionView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(RuleConditionView::class)]
 final class RuleConditionViewTest extends TestCase
 {
     private RuleCondition $condition;
@@ -25,10 +27,6 @@ final class RuleConditionViewTest extends TestCase
         $this->view->addParameter('condition', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\RuleConditionView::__construct
-     * @covers \Netgen\Layouts\View\View\RuleConditionView::getCondition
-     */
     public function testGetCondition(): void
     {
         self::assertSame($this->condition, $this->view->getCondition());
@@ -41,9 +39,6 @@ final class RuleConditionViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\RuleConditionView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('rule_condition', $this->view::getIdentifier());

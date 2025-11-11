@@ -9,8 +9,10 @@ use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterTypeRegistry::class)]
 final class ParameterTypeRegistryTest extends TestCase
 {
     private ParameterType $parameterType;
@@ -24,42 +26,26 @@ final class ParameterTypeRegistryTest extends TestCase
         $this->registry = new ParameterTypeRegistry([$this->parameterType]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::__construct
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterTypes
-     */
     public function testGetParameterTypes(): void
     {
         self::assertSame(['type' => $this->parameterType], $this->registry->getParameterTypes());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::hasParameterType
-     */
     public function testHasParameterType(): void
     {
         self::assertTrue($this->registry->hasParameterType('type'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::hasParameterType
-     */
     public function testHasParameterTypeWithNoParameterType(): void
     {
         self::assertFalse($this->registry->hasParameterType('other_type'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterType
-     */
     public function testGetParameterType(): void
     {
         self::assertSame($this->parameterType, $this->registry->getParameterType('type'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterType
-     */
     public function testGetParameterTypeThrowsParameterTypeException(): void
     {
         $this->expectException(ParameterTypeException::class);
@@ -68,17 +54,11 @@ final class ParameterTypeRegistryTest extends TestCase
         $this->registry->getParameterType('other_type');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
-     */
     public function testGetParameterTypeByClass(): void
     {
         self::assertSame($this->parameterType, $this->registry->getParameterTypeByClass(ParameterType::class));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
-     */
     public function testGetParameterTypeByClassThrowsParameterTypeException(): void
     {
         $this->expectException(ParameterTypeException::class);
@@ -87,9 +67,6 @@ final class ParameterTypeRegistryTest extends TestCase
         $this->registry->getParameterTypeByClass('SomeClass');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getIterator
-     */
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
@@ -102,34 +79,22 @@ final class ParameterTypeRegistryTest extends TestCase
         self::assertSame($this->registry->getParameterTypes(), $parameterTypes);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::count
-     */
     public function testCount(): void
     {
         self::assertCount(1, $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetExists
-     */
     public function testOffsetExists(): void
     {
         self::assertArrayHasKey('type', $this->registry);
         self::assertArrayNotHasKey('other', $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetGet
-     */
     public function testOffsetGet(): void
     {
         self::assertSame($this->parameterType, $this->registry['type']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetSet
-     */
     public function testOffsetSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -138,9 +103,6 @@ final class ParameterTypeRegistryTest extends TestCase
         $this->registry['type'] = $this->parameterType;
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetUnset
-     */
     public function testOffsetUnset(): void
     {
         $this->expectException(RuntimeException::class);

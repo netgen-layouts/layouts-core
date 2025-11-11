@@ -6,10 +6,12 @@ namespace Netgen\Layouts\Tests\Transfer\Input\Result;
 
 use Exception;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+#[CoversClass(ErrorResult::class)]
 final class ErrorResultTest extends TestCase
 {
     private ErrorResult $result;
@@ -26,34 +28,21 @@ final class ErrorResultTest extends TestCase
         $this->result = new ErrorResult('type', ['key' => 'data'], $this->entityId, $this->error);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\Result\ErrorResult::__construct
-     * @covers \Netgen\Layouts\Transfer\Input\Result\ErrorResult::getEntityType
-     */
     public function testGetEntityType(): void
     {
         self::assertSame('type', $this->result->getEntityType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\Result\ErrorResult::getData
-     */
     public function testGetData(): void
     {
         self::assertSame(['key' => 'data'], $this->result->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\Result\ErrorResult::getEntityId
-     */
     public function testGetEntityId(): void
     {
         self::assertSame($this->entityId, $this->result->getEntityId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Input\Result\ErrorResult::getError
-     */
     public function testGetError(): void
     {
         self::assertSame($this->error, $this->result->getError());

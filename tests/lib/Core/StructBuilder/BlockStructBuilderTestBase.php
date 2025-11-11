@@ -23,10 +23,6 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
         $this->structBuilder = new BlockStructBuilder(new ConfigStructBuilder());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::__construct
-     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::newBlockCreateStruct
-     */
     public function testNewBlockCreateStruct(): void
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
@@ -52,9 +48,6 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
-     */
     public function testNewBlockUpdateStruct(): void
     {
         $struct = $this->structBuilder->newBlockUpdateStruct('en');
@@ -73,9 +66,6 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
-     */
     public function testNewBlockUpdateStructFromBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));

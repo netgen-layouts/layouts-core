@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Block;
 
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Block\PlaceholderList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,11 +14,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(PlaceholderList::class)]
 final class PlaceholderListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -32,10 +31,6 @@ final class PlaceholderListTest extends TestCase
         new PlaceholderList(['one' => new Placeholder(), 'two' => new stdClass(), 'three' => new Placeholder()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::__construct
-     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::getPlaceholders
-     */
     public function testGetPlaceholders(): void
     {
         $placeholders = ['one' => new Placeholder(), 'two' => new Placeholder()];
@@ -43,9 +38,6 @@ final class PlaceholderListTest extends TestCase
         self::assertSame($placeholders, new PlaceholderList($placeholders)->getPlaceholders());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::getPlaceholderIdentifiers
-     */
     public function testGetPlaceholderIdentifiers(): void
     {
         $placeholders = [

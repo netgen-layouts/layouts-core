@@ -7,8 +7,10 @@ namespace Netgen\Layouts\Tests\Utils;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Stubs\Value;
 use Netgen\Layouts\Utils\Hydrator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Hydrator::class)]
 final class HydratorTest extends TestCase
 {
     private Hydrator $hydrator;
@@ -18,9 +20,6 @@ final class HydratorTest extends TestCase
         $this->hydrator = new Hydrator();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\Hydrator::extract
-     */
     public function testExtract(): void
     {
         $value = new Value()->hydrate(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
@@ -31,9 +30,6 @@ final class HydratorTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\Hydrator::hydrate
-     */
     public function testHydrate(): void
     {
         $value = new Value();
@@ -45,9 +41,6 @@ final class HydratorTest extends TestCase
         self::assertSame('baz', $value->getC());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Utils\Hydrator::hydrate
-     */
     public function testHydrateThrowsRuntimeExceptionWithNonExistingProperty(): void
     {
         $this->expectException(RuntimeException::class);

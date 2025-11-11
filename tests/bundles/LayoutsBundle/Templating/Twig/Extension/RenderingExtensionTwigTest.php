@@ -13,6 +13,8 @@ use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -21,6 +23,7 @@ use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
 
+#[CoversClass(RenderingRuntime::class)]
 final class RenderingExtensionTwigTest extends IntegrationTestCase
 {
     private MockObject $blockServiceMock;
@@ -53,11 +56,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
-     *
-     * @dataProvider getTests
-     */
+    #[DataProvider('getTests')]
     public function testIntegration(mixed $file, mixed $message, mixed $condition, mixed $templates, mixed $exception, mixed $outputs, mixed $deprecation = ''): void
     {
         $this->configureMocks();
@@ -65,11 +64,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
-     *
-     * @dataProvider getTests
-     */
+    #[DataProvider('getTests')]
     public function testIntegrationWithLocale(mixed $file, mixed $message, mixed $condition, mixed $templates, mixed $exception, mixed $outputs, mixed $deprecation = ''): void
     {
         $request = Request::create('');
@@ -81,12 +76,9 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
-     *
-     * @dataProvider getLegacyTests
-     *
      * @group legacy
      */
+    #[DataProvider('getLegacyTests')]
     public function testLegacyIntegration(mixed $file, mixed $message, mixed $condition, mixed $templates, mixed $exception, mixed $outputs, mixed $deprecation = ''): void
     {
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);

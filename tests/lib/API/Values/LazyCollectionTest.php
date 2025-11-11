@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values;
 
 use Netgen\Layouts\API\Values\LazyCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(LazyCollection::class)]
 final class LazyCollectionTest extends TestCase
 {
     /**
@@ -26,10 +28,6 @@ final class LazyCollectionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\LazyCollection::__construct
-     * @covers \Netgen\Layouts\API\Values\LazyCollection::doInitialize
-     */
     public function testToArray(): void
     {
         self::assertFalse($this->collection->isInitialized());

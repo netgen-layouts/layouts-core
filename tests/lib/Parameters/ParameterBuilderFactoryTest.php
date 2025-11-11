@@ -8,8 +8,10 @@ use Netgen\Layouts\Parameters\ParameterBuilder;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterBuilderFactory::class)]
 final class ParameterBuilderFactoryTest extends TestCase
 {
     private ParameterTypeRegistry $registry;
@@ -28,11 +30,6 @@ final class ParameterBuilderFactoryTest extends TestCase
         $this->factory = new ParameterBuilderFactory($this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::__construct
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::resolveOptions
-     */
     public function testCreateParameterBuilder(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder();
@@ -42,10 +39,6 @@ final class ParameterBuilderFactoryTest extends TestCase
         self::assertNull($parameterBuilder->getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::resolveOptions
-     */
     public function testCreateParameterBuilderWithConfig(): void
     {
         $parameterBuilder = $this->factory->createParameterBuilder(

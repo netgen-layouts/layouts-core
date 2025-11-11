@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterTypeException::class)]
 final class ParameterTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::noParameterType
-     */
     public function testNoParameterType(): void
     {
         $exception = ParameterTypeException::noParameterType('type');
@@ -22,9 +21,6 @@ final class ParameterTypeExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::noParameterTypeClass
-     */
     public function testNoParameterTypeClass(): void
     {
         $exception = ParameterTypeException::noParameterTypeClass('class');
@@ -35,9 +31,6 @@ final class ParameterTypeExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::noFormMapper
-     */
     public function testNoFormMapper(): void
     {
         $exception = ParameterTypeException::noFormMapper('type');
@@ -48,9 +41,6 @@ final class ParameterTypeExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::unsupportedParameterType
-     */
     public function testUnsupportedParameterType(): void
     {
         $exception = ParameterTypeException::unsupportedParameterType('type');

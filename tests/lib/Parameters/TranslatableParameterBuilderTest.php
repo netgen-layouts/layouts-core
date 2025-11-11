@@ -7,10 +7,13 @@ namespace Netgen\Layouts\Tests\Parameters;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilder;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
+#[CoversClass(TranslatableParameterBuilder::class)]
 final class TranslatableParameterBuilderTest extends TestCase
 {
     private ParameterTypeRegistry $registry;
@@ -33,9 +36,6 @@ final class TranslatableParameterBuilderTest extends TestCase
         $this->builder = $this->factory->createParameterBuilder();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
-     */
     public function testSetTranslatableOption(): void
     {
         $this->builder->add(
@@ -51,10 +51,6 @@ final class TranslatableParameterBuilderTest extends TestCase
         self::assertTrue($this->builder->get('test')->getOption('translatable'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
-     */
     public function testAdd(): void
     {
         $this->builder->add(
@@ -71,10 +67,6 @@ final class TranslatableParameterBuilderTest extends TestCase
         self::assertTrue($this->builder->get('test')->getOption('translatable'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
-     */
     public function testAddUntranslatable(): void
     {
         $this->builder->add(
@@ -92,10 +84,6 @@ final class TranslatableParameterBuilderTest extends TestCase
         self::assertFalse($this->builder->get('test')->getOption('translatable'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
-     */
     public function testAddCompound(): void
     {
         $this->builder->add(
@@ -115,10 +103,6 @@ final class TranslatableParameterBuilderTest extends TestCase
         self::assertTrue($this->builder->get('test')->get('test2')->getOption('translatable'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
-     */
     public function testAddCompoundUntranslatable(): void
     {
         $this->builder->add(
@@ -144,10 +128,6 @@ final class TranslatableParameterBuilderTest extends TestCase
         self::assertFalse($this->builder->get('test')->get('test2')->getOption('translatable'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
-     */
     public function testAddThrowsInvalidOptionsExceptionOnAddingTranslatableParameterToNonTranslatableCompoundParameter(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -167,10 +147,6 @@ final class TranslatableParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
-     */
     public function testAddThrowsInvalidOptionsExceptionOnAddingNonTranslatableParameterToTranslatableCompoundParameter(): void
     {
         $this->expectException(InvalidOptionsException::class);

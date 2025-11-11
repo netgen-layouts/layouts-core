@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone;
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(CreateInZone::class)]
+#[CoversClass(CreateStructBuilder::class)]
 final class CreateInZoneTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder::buildCreateStruct
-     */
     public function testCreateInZone(): void
     {
         $data = $this->jsonEncode(
@@ -42,10 +42,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder::buildCreateStruct
-     */
     public function testCreateInZoneWithNoPosition(): void
     {
         $data = $this->jsonEncode(
@@ -72,9 +68,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithInvalidLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -102,9 +95,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -131,9 +121,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithNonExistentBlockType(): void
     {
         $data = $this->jsonEncode(
@@ -161,9 +148,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode(
@@ -192,9 +176,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithNonExistentLayoutZone(): void
     {
         $data = $this->jsonEncode(
@@ -222,9 +203,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(
@@ -252,9 +230,6 @@ final class CreateInZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithNotAllowedBlockDefinition(): void
     {
         $data = $this->jsonEncode(

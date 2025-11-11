@@ -6,12 +6,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Lay
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\Form\ConditionTypePass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
+#[CoversClass(ConditionTypePass::class)]
 final class ConditionTypePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,9 +23,6 @@ final class ConditionTypePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ConditionTypePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\Form\ConditionTypePass::process
-     */
     public function testProcess(): void
     {
         $formType = new Definition();
@@ -49,9 +48,6 @@ final class ConditionTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\Form\ConditionTypePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

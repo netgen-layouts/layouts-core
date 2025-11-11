@@ -16,10 +16,13 @@ use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\Layouts\Validator\Structs\BlockCreateStructValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(BlockCreateStructValidator::class)]
 final class BlockCreateStructValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -31,11 +34,8 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $value
-     *
-     * @covers \Netgen\Layouts\Validator\Structs\BlockCreateStructValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(array $value, bool $isValid): void
     {
         $blockCreateStruct = new BlockCreateStruct($value['definition']);
@@ -44,9 +44,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $blockCreateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\BlockCreateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -56,9 +53,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\BlockCreateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

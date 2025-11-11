@@ -8,11 +8,14 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Netgen\Layouts\Validator\LayoutNameValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(LayoutNameValidator::class)]
 final class LayoutNameValidatorTest extends ValidatorTestCase
 {
     private MockObject $layoutServiceMock;
@@ -24,12 +27,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::__construct
-     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::validate
-     *
-     * @dataProvider validateDataProvider
-     */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(?string $value, bool $isValid): void
     {
         if ($value !== null && $value !== '') {
@@ -43,9 +41,6 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -55,9 +50,6 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'My layout');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

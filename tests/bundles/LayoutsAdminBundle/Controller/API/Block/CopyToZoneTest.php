@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(CopyToZone::class)]
 final class CopyToZoneTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__invoke
-     */
     public function testCopyToZone(): void
     {
         $data = $this->jsonEncode(
@@ -39,9 +38,6 @@ final class CopyToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__invoke
-     */
     public function testCopyToZoneWithNonExistentBlock(): void
     {
         $this->client->request(
@@ -60,9 +56,6 @@ final class CopyToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__invoke
-     */
     public function testCopyToZoneWithNonExistentLayout(): void
     {
         $data = $this->jsonEncode(
@@ -89,9 +82,6 @@ final class CopyToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__invoke
-     */
     public function testCopyToZoneWithNonExistentZone(): void
     {
         $data = $this->jsonEncode(
@@ -117,9 +107,6 @@ final class CopyToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__invoke
-     */
     public function testCopyToZoneWithNotAllowedBlockDefinition(): void
     {
         $data = $this->jsonEncode(
@@ -145,9 +132,6 @@ final class CopyToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__invoke
-     */
     public function testCopyToZoneWithInvalidLayoutId(): void
     {
         $data = $this->jsonEncode(
@@ -173,9 +157,6 @@ final class CopyToZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone::__invoke
-     */
     public function testCopyToZoneWithMissingLayoutId(): void
     {
         $data = $this->jsonEncode(

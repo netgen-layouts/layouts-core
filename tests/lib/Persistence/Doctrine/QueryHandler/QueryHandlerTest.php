@@ -8,9 +8,11 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler;
 use Netgen\Layouts\Persistence\Values\Status;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryHandler::class)]
 final class QueryHandlerTest extends TestCase
 {
     private Connection $databaseConnection;
@@ -30,10 +32,6 @@ final class QueryHandlerTest extends TestCase
             ->getMockForAbstractClass();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyIdCondition
-     */
     public function testApplyIdCondition(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
@@ -42,10 +40,6 @@ final class QueryHandlerTest extends TestCase
         self::assertSame(['id' => 1], $query->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyIdCondition
-     */
     public function testApplyIdConditionWithUuid(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
@@ -54,9 +48,6 @@ final class QueryHandlerTest extends TestCase
         self::assertSame(['uuid' => '205d4dbb-b9e9-45d5-9dac-642730d29457'], $query->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyStatusCondition
-     */
     public function testApplyStatusCondition(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
@@ -65,9 +56,6 @@ final class QueryHandlerTest extends TestCase
         self::assertSame(['status' => Status::Published->value], $query->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyOffsetAndLimit
-     */
     public function testApplyOffsetAndLimit(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();

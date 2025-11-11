@@ -8,10 +8,12 @@ use Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent;
 use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener;
 use Netgen\Bundle\LayoutsAdminBundle\Templating\Twig\GlobalVariable;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+#[CoversClass(SetAdminPageLayoutListener::class)]
 final class SetAdminPageLayoutListenerTest extends TestCase
 {
     private SetAdminPageLayoutListener $listener;
@@ -25,10 +27,6 @@ final class SetAdminPageLayoutListenerTest extends TestCase
         $this->listener = new SetAdminPageLayoutListener($this->globalVariable);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -37,9 +35,6 @@ final class SetAdminPageLayoutListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener::onAdminMatch
-     */
     public function testOnAdminMatch(): void
     {
         $request = Request::create('/');
@@ -54,9 +49,6 @@ final class SetAdminPageLayoutListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener::onAdminMatch
-     */
     public function testOnAdminMatchWithExistingTemplate(): void
     {
         $request = Request::create('/');

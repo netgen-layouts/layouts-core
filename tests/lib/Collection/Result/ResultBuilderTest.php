@@ -20,12 +20,14 @@ use Netgen\Layouts\Item\CmsItemBuilder;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueConverter;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use function array_map;
 
 use const PHP_INT_MAX;
 
+#[CoversClass(ResultBuilder::class)]
 final class ResultBuilderTest extends TestCase
 {
     private CmsItemBuilder $cmsItemBuilder;
@@ -41,10 +43,6 @@ final class ResultBuilderTest extends TestCase
         $this->resultBuilder = $this->buildResultBuilder(200);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::__construct
-     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
-     */
     public function testBuildForManualCollection(): void
     {
         $collection = $this->buildCollection(
@@ -64,10 +62,6 @@ final class ResultBuilderTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::__construct
-     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
-     */
     public function testBuildWithLimitLargerThanMaxLimit(): void
     {
         $resultBuilder = $this->buildResultBuilder(3);
@@ -89,9 +83,6 @@ final class ResultBuilderTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
-     */
     public function testBuildForDynamicCollection(): void
     {
         $collection = $this->buildCollection(
@@ -113,9 +104,6 @@ final class ResultBuilderTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
-     */
     public function testBuildForDynamicAndContextualCollection(): void
     {
         $collection = $this->buildCollection(
@@ -138,9 +126,6 @@ final class ResultBuilderTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
-     */
     public function testBuildForDynamicAndContextualCollectionAndLimitLowerThanContextualLimit(): void
     {
         $collection = $this->buildCollection(

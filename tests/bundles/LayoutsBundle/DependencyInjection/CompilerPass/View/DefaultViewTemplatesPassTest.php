@@ -6,8 +6,10 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Vie
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
+#[CoversClass(DefaultViewTemplatesPass::class)]
 final class DefaultViewTemplatesPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -17,11 +19,6 @@ final class DefaultViewTemplatesPassTest extends AbstractContainerBuilderTestCas
         $this->container->addCompilerPass(new DefaultViewTemplatesPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::addDefaultRule
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::updateRules
-     */
     public function testProcess(): void
     {
         $this->container->setParameter(
@@ -95,9 +92,6 @@ final class DefaultViewTemplatesPassTest extends AbstractContainerBuilderTestCas
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

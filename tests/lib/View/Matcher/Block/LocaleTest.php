@@ -9,8 +9,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Block\Locale;
 use Netgen\Layouts\View\View\BlockView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Locale::class)]
 final class LocaleTest extends TestCase
 {
     private Locale $matcher;
@@ -22,11 +25,8 @@ final class LocaleTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Block\Locale::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $block = Block::fromArray(
@@ -51,9 +51,6 @@ final class LocaleTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Block\Locale::match
-     */
     public function testMatchWithNoBlockView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

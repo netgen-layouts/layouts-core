@@ -10,11 +10,14 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+#[CoversClass(CollectionQueryNormalizer::class)]
 final class CollectionQueryNormalizerTest extends TestCase
 {
     private MockObject $normalizerMock;
@@ -29,10 +32,6 @@ final class CollectionQueryNormalizerTest extends TestCase
         $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionQueryNormalizer::buildValues
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionQueryNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $query = Query::fromArray(
@@ -90,11 +89,7 @@ final class CollectionQueryNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionQueryNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

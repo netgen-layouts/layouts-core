@@ -6,21 +6,19 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\ConfigurationNod
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
 use Netgen\Layouts\Block\Form\FullEditType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[CoversClass(BlockDefinitionNode::class)]
+#[CoversClass(Configuration::class)]
 final class BlockDefinitionNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettings(): void
     {
         $config = [
@@ -196,11 +194,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoIcon(): void
     {
         $config = [
@@ -226,11 +219,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNullIcon(): void
     {
         $config = [
@@ -258,11 +246,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoHandler(): void
     {
         $config = [
@@ -286,12 +269,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithDisabledBlockDefinition(): void
     {
         $config = [
@@ -319,12 +296,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoTranslatableConfig(): void
     {
         $config = [
@@ -350,12 +321,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithEnabledTranslatableConfig(): void
     {
         $config = [
@@ -383,12 +348,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoCollections(): void
     {
         $config = [
@@ -412,12 +371,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithDefaultCollectionConfig(): void
     {
         $config = [
@@ -452,12 +405,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithValidQueryTypes(): void
     {
         $config = [
@@ -493,12 +440,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithAllValidQueryTypes(): void
     {
         $config = [
@@ -534,12 +475,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithEmptyValidQueryTypes(): void
     {
         $config = [
@@ -575,12 +510,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithValidItemTypes(): void
     {
         $config = [
@@ -616,12 +545,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithAllValidItemTypes(): void
     {
         $config = [
@@ -657,12 +580,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithEmptyValidItemTypes(): void
     {
         $config = [
@@ -698,12 +615,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithDesignAndContentForms(): void
     {
         $config = [
@@ -756,12 +667,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsViewTypesMerge(): void
     {
         $config = [
@@ -857,12 +762,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsItemViewTypesMerge(): void
     {
         $config = [
@@ -933,12 +832,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithoutValidParameters(): void
     {
         $config = [
@@ -988,10 +881,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoName(): void
     {
         $config = [
@@ -1009,10 +898,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithEmptyIcon(): void
     {
         $config = [
@@ -1027,10 +912,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNonStringIcon(): void
     {
         $config = [
@@ -1045,10 +926,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoBlockDefinitions(): void
     {
         $config = [
@@ -1058,10 +935,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithEmptyCollection(): void
     {
         $config = [
@@ -1081,10 +954,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config], 'Collections need to allow at least one item type or at least one query type.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithMissingContentForm(): void
     {
         $config = [
@@ -1116,10 +985,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithMissingDesignForm(): void
     {
         $config = [
@@ -1151,10 +1016,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithFullAndDesignForm(): void
     {
         $config = [
@@ -1186,10 +1047,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithFullAndContentForm(): void
     {
         $config = [
@@ -1221,10 +1078,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithFullAndDesignAndContentForm(): void
     {
         $config = [
@@ -1259,10 +1112,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoViewTypes(): void
     {
         $config = [
@@ -1277,10 +1126,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoItemViewTypes(): void
     {
         $config = [
@@ -1300,12 +1145,6 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoDefaultName(): void
     {
         $config = [
@@ -1335,12 +1174,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoDefaultViewType(): void
     {
         $config = [
@@ -1370,12 +1203,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoDefaultItemViewType(): void
     {
         $config = [
@@ -1405,12 +1232,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoDefaultParameters(): void
     {
         $config = [
@@ -1440,12 +1261,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoParametersMerge(): void
     {
         $config = [
@@ -1492,10 +1307,6 @@ final class BlockDefinitionNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
-     */
     public function testBlockDefinitionSettingsWithNoDefaults(): void
     {
         $config = [

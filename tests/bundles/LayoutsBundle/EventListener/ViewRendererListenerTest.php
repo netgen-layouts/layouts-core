@@ -10,6 +10,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRendererInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(ViewRendererListener::class)]
 final class ViewRendererListenerTest extends TestCase
 {
     private MockObject $viewRendererMock;
@@ -33,9 +35,6 @@ final class ViewRendererListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -44,10 +43,6 @@ final class ViewRendererListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener::onView
-     */
     public function testOnView(): void
     {
         $view = new View(new Value());
@@ -83,9 +78,6 @@ final class ViewRendererListenerTest extends TestCase
         self::assertSame('rendered content', $event->getResponse()->getContent());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener::onView
-     */
     public function testOnViewWithException(): void
     {
         $view = new View(new Value());
@@ -121,9 +113,6 @@ final class ViewRendererListenerTest extends TestCase
         self::assertSame('', $event->getResponse()->getContent());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener::onView
-     */
     public function testOnViewWithoutViewResponse(): void
     {
         $view = new View(new Value());
@@ -147,9 +136,6 @@ final class ViewRendererListenerTest extends TestCase
         self::assertFalse($event->hasResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener::onView
-     */
     public function testOnViewWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

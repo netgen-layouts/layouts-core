@@ -10,8 +10,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\ParameterViewProvider;
 use Netgen\Layouts\View\View\ParameterViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterViewProvider::class)]
 final class ParameterViewProviderTest extends TestCase
 {
     private ParameterViewProvider $parameterViewProvider;
@@ -21,9 +24,6 @@ final class ParameterViewProviderTest extends TestCase
         $this->parameterViewProvider = new ParameterViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ParameterViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $parameter = Parameter::fromArray(['value' => 42]);
@@ -43,11 +43,7 @@ final class ParameterViewProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ParameterViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->parameterViewProvider->supports($value));

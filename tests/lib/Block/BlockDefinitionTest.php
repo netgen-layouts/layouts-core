@@ -16,11 +16,13 @@ use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function sprintf;
 
+#[CoversClass(BlockDefinition::class)]
 final class BlockDefinitionTest extends TestCase
 {
     private BlockDefinitionHandler $handler;
@@ -73,41 +75,26 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('block_definition', $this->blockDefinition->getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('Block definition', $this->blockDefinition->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getIcon
-     */
     public function testGetIcon(): void
     {
         self::assertSame('/icon.svg', $this->blockDefinition->getIcon());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::isTranslatable
-     */
     public function testIsTranslatable(): void
     {
         self::assertTrue($this->blockDefinition->isTranslatable());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getForms
-     */
     public function testGetForms(): void
     {
         self::assertSame(
@@ -118,18 +105,12 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::hasForm
-     */
     public function testHasForm(): void
     {
         self::assertTrue($this->blockDefinition->hasForm('content'));
         self::assertFalse($this->blockDefinition->hasForm('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getForm
-     */
     public function testGetForm(): void
     {
         self::assertSame(
@@ -138,9 +119,6 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getForm
-     */
     public function testGetFormThrowsBlockDefinitionException(): void
     {
         $this->expectException(BlockDefinitionException::class);
@@ -149,9 +127,6 @@ final class BlockDefinitionTest extends TestCase
         $this->blockDefinition->getForm('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getCollections
-     */
     public function testGetCollections(): void
     {
         self::assertSame(
@@ -162,18 +137,12 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::hasCollection
-     */
     public function testHasCollection(): void
     {
         self::assertTrue($this->blockDefinition->hasCollection('collection'));
         self::assertFalse($this->blockDefinition->hasCollection('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getCollection
-     */
     public function testGetCollection(): void
     {
         self::assertSame(
@@ -182,9 +151,6 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getCollection
-     */
     public function testGetCollectionThrowsBlockDefinitionException(): void
     {
         $this->expectException(BlockDefinitionException::class);
@@ -193,9 +159,6 @@ final class BlockDefinitionTest extends TestCase
         $this->blockDefinition->getCollection('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewTypes
-     */
     public function testGetViewTypes(): void
     {
         self::assertSame(
@@ -207,9 +170,6 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewTypeIdentifiers
-     */
     public function testGetViewTypeIdentifiers(): void
     {
         self::assertSame(
@@ -218,18 +178,12 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::hasViewType
-     */
     public function testHasViewType(): void
     {
         self::assertTrue($this->blockDefinition->hasViewType('large'));
         self::assertFalse($this->blockDefinition->hasViewType('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewType
-     */
     public function testGetViewType(): void
     {
         self::assertSame(
@@ -238,9 +192,6 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewType
-     */
     public function testGetViewTypeThrowsBlockDefinitionException(): void
     {
         $this->expectException(BlockDefinitionException::class);
@@ -249,10 +200,6 @@ final class BlockDefinitionTest extends TestCase
         $this->blockDefinition->getViewType('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getDynamicParameters
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getHandler
-     */
     public function testGetDynamicParameters(): void
     {
         $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
@@ -268,18 +215,11 @@ final class BlockDefinitionTest extends TestCase
         self::assertSame('dynamic_value', $dynamicParameters['dynamic_param']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getHandler
-     * @covers \Netgen\Layouts\Block\BlockDefinition::isContextual
-     */
     public function testIsContextual(): void
     {
         self::assertTrue($this->blockDefinition->isContextual(new Block()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getConfigDefinition
-     */
     public function testGetConfigDefinition(): void
     {
         self::assertSame(
@@ -288,9 +228,6 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getConfigDefinition
-     */
     public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
     {
         $this->expectException(ConfigDefinitionException::class);
@@ -299,25 +236,16 @@ final class BlockDefinitionTest extends TestCase
         $this->blockDefinition->getConfigDefinition('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::hasConfigDefinition
-     */
     public function testHasConfigDefinition(): void
     {
         self::assertTrue($this->blockDefinition->hasConfigDefinition('config'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::hasConfigDefinition
-     */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {
         self::assertFalse($this->blockDefinition->hasConfigDefinition('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getConfigDefinitions
-     */
     public function testGetConfigDefinitions(): void
     {
         self::assertSame(
@@ -326,25 +254,16 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::hasPlugin
-     */
     public function testHasPlugin(): void
     {
         self::assertTrue($this->blockDefinition->hasPlugin(HandlerPlugin::class));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::hasPlugin
-     */
     public function testHasPluginWithUnknownPlugin(): void
     {
         self::assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getPlugin
-     */
     public function testGetPlugin(): void
     {
         $this->expectNotToPerformAssertions();
@@ -352,9 +271,6 @@ final class BlockDefinitionTest extends TestCase
         $this->blockDefinition->getPlugin(HandlerPlugin::class);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getPlugin
-     */
     public function testGetPluginWithUnknownPlugin(): void
     {
         $this->expectException(BlockDefinitionException::class);
@@ -363,9 +279,6 @@ final class BlockDefinitionTest extends TestCase
         $this->blockDefinition->getPlugin(stdClass::class);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition::getPlugins
-     */
     public function testGetPlugins(): void
     {
         $plugins = $this->blockDefinition->getPlugins();

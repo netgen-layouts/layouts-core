@@ -9,10 +9,13 @@ use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\ValueType as ValueTypeConstraint;
 use Netgen\Layouts\Validator\ValueTypeValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(ValueTypeValidator::class)]
 final class ValueTypeValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -22,20 +25,12 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValueTypeValidator::__construct
-     * @covers \Netgen\Layouts\Validator\ValueTypeValidator::validate
-     *
-     * @dataProvider validateDataProvider
-     */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(string $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValueTypeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -45,9 +40,6 @@ final class ValueTypeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'value');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ValueTypeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

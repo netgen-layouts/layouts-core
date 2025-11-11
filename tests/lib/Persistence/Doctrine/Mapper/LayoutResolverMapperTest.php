@@ -12,8 +12,10 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutResolverMapper::class)]
 final class LayoutResolverMapperTest extends TestCase
 {
     use ExportObjectTrait;
@@ -25,9 +27,6 @@ final class LayoutResolverMapperTest extends TestCase
         $this->mapper = new LayoutResolverMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRules
-     */
     public function testMapRules(): void
     {
         $data = [
@@ -82,9 +81,6 @@ final class LayoutResolverMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($rules));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRuleGroups
-     */
     public function testMapRuleGroups(): void
     {
         $data = [
@@ -151,9 +147,6 @@ final class LayoutResolverMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($ruleGroups));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapTargets
-     */
     public function testMapTargets(): void
     {
         $data = [
@@ -204,9 +197,6 @@ final class LayoutResolverMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($targets));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRuleConditions
-     */
     public function testMapRuleConditions(): void
     {
         $data = [
@@ -259,9 +249,6 @@ final class LayoutResolverMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($conditions));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRuleGroupConditions
-     */
     public function testMapRuleGroupConditions(): void
     {
         $data = [

@@ -7,11 +7,13 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Col
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use stdClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(QueryTypePass::class)]
 final class QueryTypePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,9 +23,6 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new QueryTypePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
-     */
     public function testProcess(): void
     {
         $queryTypes = ['query_type' => ['priority' => 0]];
@@ -51,9 +50,6 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
-     */
     public function testProcessWithCustomHandler(): void
     {
         $queryTypes = ['query_type' => ['handler' => 'custom', 'priority' => 0]];
@@ -81,9 +77,6 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
-     */
     public function testProcessThrowsExceptionWithNoTagType(): void
     {
         $this->expectException(RuntimeException::class);
@@ -101,9 +94,6 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
-     */
     public function testProcessThrowsExceptionWithNoHandler(): void
     {
         $this->expectException(RuntimeException::class);
@@ -121,9 +111,6 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
-     */
     public function testProcessThrowsExceptionWithNoCustomHandler(): void
     {
         $this->expectException(RuntimeException::class);
@@ -141,9 +128,6 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

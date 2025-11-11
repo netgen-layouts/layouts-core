@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Copy::class)]
 final class CopyTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopy(): void
     {
         $data = $this->jsonEncode(
@@ -39,9 +38,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyInPublishedState(): void
     {
         $data = $this->jsonEncode(
@@ -67,9 +63,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyWithNonExistingDescription(): void
     {
         $data = $this->jsonEncode(
@@ -94,9 +87,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyWithEmptyDescription(): void
     {
         $data = $this->jsonEncode(
@@ -122,9 +112,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyWithNonExistingLayout(): void
     {
         $data = $this->jsonEncode(
@@ -149,9 +136,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyWithInvalidName(): void
     {
         $data = $this->jsonEncode(
@@ -176,9 +160,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyWithMissingName(): void
     {
         $this->client->request(
@@ -197,9 +178,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyWithExistingName(): void
     {
         $data = $this->jsonEncode(
@@ -224,9 +202,6 @@ final class CopyTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy::__invoke
-     */
     public function testCopyWithInvalidDescription(): void
     {
         $data = $this->jsonEncode(

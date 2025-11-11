@@ -17,18 +17,18 @@ use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Core\Service\CollectionService;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(CollectionService::class)]
 final class CollectionServiceTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
-     */
     public function testChangeCollectionType(): void
     {
         $this->expectException(Exception::class);
@@ -52,9 +52,6 @@ final class CollectionServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
-     */
     public function testAddItem(): void
     {
         $this->expectException(Exception::class);
@@ -82,9 +79,6 @@ final class CollectionServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
-     */
     public function testUpdateItem(): void
     {
         $this->expectException(Exception::class);
@@ -108,9 +102,6 @@ final class CollectionServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
-     */
     public function testMoveItem(): void
     {
         $this->expectException(Exception::class);
@@ -131,9 +122,6 @@ final class CollectionServiceTest extends TestCase
         $this->collectionService->moveItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]), 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
-     */
     public function testDeleteItem(): void
     {
         $this->expectException(Exception::class);
@@ -154,9 +142,6 @@ final class CollectionServiceTest extends TestCase
         $this->collectionService->deleteItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
-     */
     public function testDeleteItems(): void
     {
         $this->expectException(Exception::class);
@@ -177,9 +162,6 @@ final class CollectionServiceTest extends TestCase
         $this->collectionService->deleteItems(Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
-     */
     public function testUpdateQuery(): void
     {
         $this->expectException(Exception::class);
@@ -220,9 +202,6 @@ final class CollectionServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
-     */
     public function testAddSlot(): void
     {
         $this->expectException(Exception::class);
@@ -250,9 +229,6 @@ final class CollectionServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
-     */
     public function testUpdateSlot(): void
     {
         $this->expectException(Exception::class);
@@ -276,9 +252,6 @@ final class CollectionServiceTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
-     */
     public function testDeleteSlot(): void
     {
         $this->expectException(Exception::class);
@@ -299,9 +272,6 @@ final class CollectionServiceTest extends TestCase
         $this->collectionService->deleteSlot(Slot::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
-     */
     public function testDeleteSlots(): void
     {
         $this->expectException(Exception::class);

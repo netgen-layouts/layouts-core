@@ -9,8 +9,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Block\ViewType;
 use Netgen\Layouts\View\View\BlockView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ViewType::class)]
 final class ViewTypeTest extends TestCase
 {
     private ViewType $matcher;
@@ -22,11 +25,8 @@ final class ViewTypeTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Block\ViewType::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $block = Block::fromArray(
@@ -51,9 +51,6 @@ final class ViewTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Block\ViewType::match
-     */
     public function testMatchWithNoBlockView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

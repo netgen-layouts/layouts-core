@@ -11,6 +11,7 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\Form\ContentEditType;
+use Netgen\Layouts\Block\Form\EditType;
 use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
@@ -18,6 +19,7 @@ use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -25,6 +27,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(EditType::class)]
+#[CoversClass(ContentEditType::class)]
 final class ContentEditTypeTest extends FormTestCase
 {
     private BlockDefinition $definition;
@@ -88,11 +92,6 @@ final class ContentEditTypeTest extends FormTestCase
         $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::buildForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::addBlockNameForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::addParametersForm
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -130,14 +129,6 @@ final class ContentEditTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::buildForm
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::buildView
-     * @covers \Netgen\Layouts\Block\Form\EditType::addBlockNameForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::addParametersForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::processViewTypeConfig
-     */
     public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
         $struct = new BlockUpdateStruct();
@@ -163,14 +154,6 @@ final class ContentEditTypeTest extends FormTestCase
         self::assertTrue($form->get('parameters')->get('css_id')->isDisabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::buildForm
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::buildView
-     * @covers \Netgen\Layouts\Block\Form\EditType::addBlockNameForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::addParametersForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\Layouts\Block\Form\EditType::processViewTypeConfig
-     */
     public function testDisableUntranslatableFormsOnMainLocale(): void
     {
         $struct = new BlockUpdateStruct();
@@ -196,9 +179,6 @@ final class ContentEditTypeTest extends FormTestCase
         self::assertFalse($form->get('parameters')->get('css_id')->isDisabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -219,9 +199,6 @@ final class ContentEditTypeTest extends FormTestCase
         self::assertSame($struct, $options['data']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::configureOptions
-     */
     public function testConfigureOptionsWithMissingBlock(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -235,9 +212,6 @@ final class ContentEditTypeTest extends FormTestCase
         $optionsResolver->resolve();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidBlock(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -255,9 +229,6 @@ final class ContentEditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Form\ContentEditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

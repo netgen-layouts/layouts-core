@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterException::class)]
 final class ParameterExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterException::noParameter
-     */
     public function testNoParameter(): void
     {
         $exception = ParameterException::noParameter('param');
@@ -22,9 +21,6 @@ final class ParameterExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterException::noParameterDefinition
-     */
     public function testNoParameterDefinition(): void
     {
         $exception = ParameterException::noParameterDefinition('param');
@@ -35,9 +31,6 @@ final class ParameterExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterException::noOption
-     */
     public function testNoOption(): void
     {
         $exception = ParameterException::noOption('opt');

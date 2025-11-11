@@ -6,6 +6,8 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
@@ -27,8 +29,11 @@ use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutResolverHandler::class)]
+#[CoversClass(LayoutResolverQueryHandler::class)]
 final class LayoutResolverHandlerTest extends TestCase
 {
     use ExportObjectTrait;
@@ -55,13 +60,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->closeDatabase();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     */
     public function testLoadRule(): void
     {
         $rule = $this->handler->loadRule(1, Status::Published);
@@ -81,10 +79,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     */
     public function testLoadRuleThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -93,12 +87,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRule(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
-     */
     public function testLoadRuleGroup(): void
     {
         $rule = $this->handler->loadRuleGroup(2, Status::Published);
@@ -121,11 +109,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
-     */
     public function testLoadRuleGroupThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -134,10 +117,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRuleGroup(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRulesForLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesForLayoutData
-     */
     public function testLoadRulesForLayout(): void
     {
         $rules = $this->handler->loadRulesForLayout(
@@ -157,10 +136,6 @@ final class LayoutResolverHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCountForLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCountForLayout
-     */
     public function testGetRuleCountForLayout(): void
     {
         $rules = $this->handler->getRuleCountForLayout(
@@ -170,10 +145,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(2, $rules);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRulesFromGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesFromGroupData
-     */
     public function testLoadRulesFromGroup(): void
     {
         $rules = $this->handler->loadRulesFromGroup(
@@ -193,10 +164,6 @@ final class LayoutResolverHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCountFromGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCountFromGroup
-     */
     public function testGetRuleCountFromGroup(): void
     {
         $rules = $this->handler->getRuleCountFromGroup(
@@ -206,10 +173,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(2, $rules);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroups
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupsData
-     */
     public function testLoadRuleGroups(): void
     {
         $ruleGroups = $this->handler->loadRuleGroups(
@@ -229,10 +192,6 @@ final class LayoutResolverHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleGroupCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupCount
-     */
     public function testGetRuleGroupCount(): void
     {
         $ruleGroups = $this->handler->getRuleGroupCount(
@@ -242,11 +201,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(2, $ruleGroups);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
-     */
     public function testLoadTarget(): void
     {
         $target = $this->handler->loadTarget(1, Status::Published);
@@ -265,10 +219,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
-     */
     public function testLoadTargetThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -277,10 +227,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadTarget(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleTargets
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
-     */
     public function testLoadRuleTargets(): void
     {
         $targets = $this->handler->loadRuleTargets(
@@ -291,10 +237,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertContainsOnlyInstancesOf(Target::class, $targets);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleTargetCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleTargetCount
-     */
     public function testGetRuleTargetCount(): void
     {
         $targets = $this->handler->getRuleTargetCount(
@@ -304,11 +246,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(2, $targets);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleConditionSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionData
-     */
     public function testLoadRuleCondition(): void
     {
         $condition = $this->handler->loadRuleCondition(1, Status::Published);
@@ -330,10 +267,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionData
-     */
     public function testLoadRuleConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -342,11 +275,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRuleCondition(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroupCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupConditionSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
-     */
     public function testLoadRuleGroupCondition(): void
     {
         $condition = $this->handler->loadRuleGroupCondition(5, Status::Published);
@@ -367,10 +295,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroupCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
-     */
     public function testLoadRuleGroupConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -379,10 +303,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRuleGroupCondition(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
-     */
     public function testLoadRuleConditions(): void
     {
         $conditions = $this->handler->loadRuleConditions(
@@ -393,10 +313,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertContainsOnlyInstancesOf(RuleCondition::class, $conditions);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroupConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
-     */
     public function testLoadRuleGroupConditions(): void
     {
         $conditions = $this->handler->loadRuleGroupConditions(
@@ -407,39 +323,21 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertContainsOnlyInstancesOf(RuleGroupCondition::class, $conditions);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
-     */
     public function testRuleExists(): void
     {
         self::assertTrue($this->handler->ruleExists(1, Status::Published));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
-     */
     public function testRuleNotExists(): void
     {
         self::assertFalse($this->handler->ruleExists(999, Status::Published));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
-     */
     public function testRuleNotExistsInStatus(): void
     {
         self::assertFalse($this->handler->ruleExists(1, Status::Archived));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRule(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
@@ -467,12 +365,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleWithCustomUuid(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
@@ -497,12 +389,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleWithExistingUuidThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -521,12 +407,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->createRule($ruleCreateStruct, $ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleWithNoPriority(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
@@ -554,12 +434,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleWithNoPriorityAndNoRules(): void
     {
         // First delete all rules
@@ -587,10 +461,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
-     */
     public function testUpdateRule(): void
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
@@ -610,10 +480,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
-     */
     public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
@@ -631,10 +497,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
-     */
     public function testUpdateRuleWithDefaultValues(): void
     {
         $rule = $this->handler->loadRule(3, Status::Published);
@@ -650,10 +512,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
-     */
     public function testUpdateRuleMetadata(): void
     {
         $updatedRule = $this->handler->updateRuleMetadata(
@@ -671,10 +529,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
-     */
     public function testUpdateRuleMetadataWithDefaultValues(): void
     {
         $updatedRule = $this->handler->updateRuleMetadata(
@@ -687,16 +541,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRule->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
-     */
     public function testCopyRule(): void
     {
         $rule = $this->handler->loadRule(5, Status::Published);
@@ -765,16 +609,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
-     */
     public function testCopyRuleToOtherGroup(): void
     {
         $rule = $this->handler->loadRule(5, Status::Published);
@@ -843,10 +677,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRule
-     */
     public function testMoveRule(): void
     {
         $rule = $this->handler->loadRule(5, Status::Published);
@@ -907,10 +737,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRule
-     */
     public function testMoveRuleWithSpecifiedPriority(): void
     {
         $rule = $this->handler->loadRule(5, Status::Published);
@@ -971,9 +797,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRule
-     */
     public function testMoveRuleToSameGroupThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -985,16 +808,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->moveRule($rule, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleStatus
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
-     */
     public function testCreateRuleStatus(): void
     {
         $rule = $this->handler->loadRule(3, Status::Published);
@@ -1068,13 +881,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionIds
-     */
     public function testDeleteRule(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1085,13 +891,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRule(3, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionIds
-     */
     public function testDeleteRuleInOneStatus(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1109,39 +908,21 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRule(5, Status::Draft);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleGroupExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleGroupExists
-     */
     public function testRuleGroupExists(): void
     {
         self::assertTrue($this->handler->ruleGroupExists(1, Status::Published));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleGroupExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleGroupExists
-     */
     public function testRuleGroupNotExists(): void
     {
         self::assertFalse($this->handler->ruleGroupExists(999, Status::Published));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleGroupExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleGroupExists
-     */
     public function testRuleGroupNotExistsInStatus(): void
     {
         self::assertFalse($this->handler->ruleGroupExists(1, Status::Archived));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleGroup(): void
     {
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
@@ -1172,12 +953,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleGroupWithCustomUuid(): void
     {
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
@@ -1205,12 +980,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleGroupWithNoPriority(): void
     {
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
@@ -1241,12 +1010,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleGroupWithNoPriorityAndNoRulesAndRuleGroups(): void
     {
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
@@ -1265,12 +1028,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Draft, $createdRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRootRuleGroupWithExistingRootRuleGroupThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -1286,12 +1043,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->createRuleGroup($ruleGroupCreateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
-     */
     public function testCreateRuleGroupWithExistingUuidThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -1310,10 +1061,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->createRuleGroup($ruleGroupCreateStruct, $ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroup
-     */
     public function testUpdateRuleGroup(): void
     {
         $ruleGroupUpdateStruct = new RuleGroupUpdateStruct();
@@ -1332,10 +1079,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroup
-     */
     public function testUpdateRuleGroupWithDefaultValues(): void
     {
         $ruleGroup = $this->handler->loadRuleGroup(3, Status::Published);
@@ -1350,10 +1093,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroupMetadata
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroupData
-     */
     public function testUpdateRuleGroupMetadata(): void
     {
         $updatedRuleGroup = $this->handler->updateRuleGroupMetadata(
@@ -1371,10 +1110,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroupMetadata
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroupData
-     */
     public function testUpdateRuleGroupMetadataWithDefaultValues(): void
     {
         $updatedRuleGroup = $this->handler->updateRuleGroupMetadata(
@@ -1387,15 +1122,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(Status::Published, $updatedRuleGroup->status);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
-     */
     public function testCopyRuleGroup(): void
     {
         $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
@@ -1449,15 +1175,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
-     */
     public function testCopyRuleGroupWithChildren(): void
     {
         $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
@@ -1530,9 +1247,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(1, $this->handler->getRuleCountFromGroup($copiedSubGroup));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRuleGroup
-     */
     public function testCopyRuleGroupBelowItselfThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -1544,10 +1258,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->copyRuleGroup($ruleGroup, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRuleGroup
-     */
     public function testMoveRuleGroup(): void
     {
         $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
@@ -1594,10 +1304,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRuleGroup
-     */
     public function testMoveRuleGroupWithPriority(): void
     {
         $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
@@ -1644,9 +1350,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
-     */
     public function testMoveRuleGroupToSameGroupThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -1658,9 +1361,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
-     */
     public function testMoveRuleGroupBelowItselfThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -1672,15 +1372,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroupStatus
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
-     */
     public function testCreateRuleGroupStatus(): void
     {
         $ruleGroup = $this->handler->loadRuleGroup(2, Status::Published);
@@ -1729,17 +1420,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroupConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroups
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRules
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubGroupIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubRuleIds
-     */
     public function testDeleteRuleGroup(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1750,17 +1430,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRuleGroup(2, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroup
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroupConditions
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroups
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRules
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubGroupIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubRuleIds
-     */
     public function testDeleteRuleGroupInOneStatus(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1778,10 +1447,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadRuleGroup(2, Status::Draft);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
-     */
     public function testAddTarget(): void
     {
         $targetCreateStruct = new TargetCreateStruct();
@@ -1810,10 +1475,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateTarget
-     */
     public function testUpdateTarget(): void
     {
         $targetUpdateStruct = new TargetUpdateStruct();
@@ -1838,10 +1499,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteTarget
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteTarget
-     */
     public function testDeleteTarget(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1854,11 +1511,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->handler->loadTarget(2, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addRuleCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
-     */
     public function testAddRuleCondition(): void
     {
         $conditionCreateStruct = new ConditionCreateStruct();
@@ -1887,11 +1539,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addRuleGroupCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
-     */
     public function testAddRuleGroupCondition(): void
     {
         $conditionCreateStruct = new ConditionCreateStruct();
@@ -1920,10 +1567,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateCondition
-     */
     public function testUpdateCondition(): void
     {
         $conditionUpdateStruct = new ConditionUpdateStruct();
@@ -1948,10 +1591,6 @@ final class LayoutResolverHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteCondition
-     */
     public function testDeleteCondition(): void
     {
         $this->expectException(NotFoundException::class);

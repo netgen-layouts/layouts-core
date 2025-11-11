@@ -6,11 +6,13 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ConfigurationNode;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
+#[CoversClass(ExtensionPlugin::class)]
 final class ExtensionPluginTest extends TestCase
 {
     private MockObject&ExtensionPlugin $plugin;
@@ -20,28 +22,18 @@ final class ExtensionPluginTest extends TestCase
         $this->plugin = $this->getMockForAbstractClass(ExtensionPlugin::class);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin::preProcessConfiguration
-     */
     public function testPreProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->preProcessConfiguration([]);
         self::assertSame([], $processedConfig);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin::postProcessConfiguration
-     */
     public function testPostProcessConfiguration(): void
     {
         $processedConfig = $this->plugin->postProcessConfiguration([]);
         self::assertSame([], $processedConfig);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin::addConfiguration
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin::getConfigurationNodes
-     */
     public function testAddConfiguration(): void
     {
         $node1 = new ConfigurationNode();
@@ -80,9 +72,6 @@ final class ExtensionPluginTest extends TestCase
         $this->plugin->addConfiguration($rootNodeMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin::appendConfigurationFiles
-     */
     public function testAppendConfigurationFiles(): void
     {
         self::assertSame([], $this->plugin->appendConfigurationFiles());

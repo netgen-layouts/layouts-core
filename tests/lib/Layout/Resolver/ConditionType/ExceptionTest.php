@@ -6,12 +6,15 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use Exception;
 use Netgen\Layouts\Layout\Resolver\ConditionType\Exception as ExceptionConditionType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(ExceptionConditionType::class)]
 final class ExceptionTest extends TestCase
 {
     private ExceptionConditionType $conditionType;
@@ -21,19 +24,12 @@ final class ExceptionTest extends TestCase
         $this->conditionType = new ExceptionConditionType();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::getType
-     */
     public function testGetType(): void
     {
         self::assertSame('exception', $this->conditionType::getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::getConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
@@ -42,11 +38,7 @@ final class ExceptionTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
-     *
-     * @dataProvider matchesDataProvider
-     */
+    #[DataProvider('matchesDataProvider')]
     public function testMatches(mixed $value, bool $matches): void
     {
         $request = Request::create('/');
@@ -57,11 +49,7 @@ final class ExceptionTest extends TestCase
         self::assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
-     *
-     * @dataProvider matchesDataProvider
-     */
+    #[DataProvider('matchesDataProvider')]
     public function testMatchesWithoutHttpException(mixed $value, bool $matches): void
     {
         $request = Request::create('/');
@@ -73,9 +61,6 @@ final class ExceptionTest extends TestCase
         self::assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
-     */
     public function testMatchesWithNoException(): void
     {
         $request = Request::create('/');
@@ -83,9 +68,6 @@ final class ExceptionTest extends TestCase
         self::assertFalse($this->conditionType->matches($request, [404]));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
-     */
     public function testMatchesWithInvalidException(): void
     {
         $request = Request::create('/');

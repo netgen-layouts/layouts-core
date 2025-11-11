@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 use Netgen\Bundle\LayoutsBundle\EventListener\ContextListener;
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(ContextListener::class)]
 final class ContextListenerTest extends TestCase
 {
     private Context $context;
@@ -39,10 +41,6 @@ final class ContextListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -51,9 +49,6 @@ final class ContextListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::onKernelRequest
-     */
     public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -72,9 +67,6 @@ final class ContextListenerTest extends TestCase
         $this->listener->onKernelRequest($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::onKernelRequest
-     */
     public function testOnKernelRequestWithContextFromAttributes(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -96,9 +88,6 @@ final class ContextListenerTest extends TestCase
         self::assertSame(['var' => 'value'], $this->context->all());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener::onKernelRequest
-     */
     public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

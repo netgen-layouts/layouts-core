@@ -12,8 +12,10 @@ use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigStruct::class)]
 final class ConfigStructTest extends TestCase
 {
     private ConfigStruct $struct;
@@ -23,9 +25,6 @@ final class ConfigStructTest extends TestCase
         $this->struct = new ConfigStruct();
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigStruct::fillParametersFromConfig
-     */
     public function testFillParametersFromConfig(): void
     {
         $configDefinition = $this->buildConfigDefinition();
@@ -66,9 +65,6 @@ final class ConfigStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHash(): void
     {
         $configDefinition = $this->buildConfigDefinition();
@@ -93,9 +89,6 @@ final class ConfigStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHashWithMissingValues(): void
     {
         $configDefinition = $this->buildConfigDefinition();

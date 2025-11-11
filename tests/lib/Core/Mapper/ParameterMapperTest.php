@@ -9,10 +9,12 @@ use Netgen\Layouts\Core\Mapper\ParameterMapper;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundParameter;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use function iterator_to_array;
 
+#[CoversClass(ParameterMapper::class)]
 final class ParameterMapperTest extends TestCase
 {
     private ParameterMapper $mapper;
@@ -22,9 +24,6 @@ final class ParameterMapperTest extends TestCase
         $this->mapper = new ParameterMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\ParameterMapper::mapParameters
-     */
     public function testMapParameters(): void
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
@@ -73,9 +72,6 @@ final class ParameterMapperTest extends TestCase
         self::assertFalse($mappedParameters['inner']->isEmpty());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\ParameterMapper::serializeValues
-     */
     public function testSerializeValues(): void
     {
         $handler = new BlockDefinitionHandlerWithCompoundParameter();
@@ -109,9 +105,6 @@ final class ParameterMapperTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\ParameterMapper::extractUntranslatableParameters
-     */
     public function testExtractUntranslatableParameters(): void
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();

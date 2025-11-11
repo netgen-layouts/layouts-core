@@ -6,12 +6,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Vie
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
+#[CoversClass(TemplateResolverPass::class)]
 final class TemplateResolverPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,9 +23,6 @@ final class TemplateResolverPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new TemplateResolverPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
-     */
     public function testProcess(): void
     {
         $templateResolver = new Definition();
@@ -51,9 +50,6 @@ final class TemplateResolverPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

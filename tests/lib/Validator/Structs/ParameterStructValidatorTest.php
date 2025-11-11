@@ -13,6 +13,8 @@ use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\Layouts\Validator\Structs\ParameterStructValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -22,6 +24,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 use function sprintf;
 
+#[CoversClass(ParameterStructValidator::class)]
 final class ParameterStructValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -69,15 +72,8 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $value
-     *
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::buildConstraintFields
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getAllValues
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(array $value, bool $required, bool $isValid): void
     {
         $this->constraint->allowMissingFields = !$required;
@@ -90,15 +86,8 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $value
-     *
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::buildConstraintFields
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getAllValues
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
-     *
-     * @dataProvider validateWithRuntimeConstraintsDataProvider
      */
+    #[DataProvider('validateWithRuntimeConstraintsDataProvider')]
     public function testValidateWithRuntimeConstraints(array $value, bool $required, bool $isValid): void
     {
         $compoundParameter = CompoundParameterDefinition::fromArray(
@@ -151,9 +140,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $blockCreateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -163,9 +149,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
-     */
     public function testValidateThrowsMissingOptionsExceptionWithInvalidParameterDefinitions(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -175,9 +158,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'large');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

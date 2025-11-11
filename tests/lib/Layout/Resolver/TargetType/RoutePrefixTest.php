@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\TargetType;
 
 use Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(RoutePrefix::class)]
 final class RoutePrefixTest extends TestCase
 {
     private RoutePrefix $targetType;
@@ -18,19 +21,12 @@ final class RoutePrefixTest extends TestCase
         $this->targetType = new RoutePrefix();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::getType
-     */
     public function testGetType(): void
     {
         self::assertSame('route_prefix', $this->targetType::getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::getConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
@@ -39,9 +35,6 @@ final class RoutePrefixTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::provideValue
-     */
     public function testProvideValue(): void
     {
         $request = Request::create('/');

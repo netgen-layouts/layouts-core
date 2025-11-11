@@ -16,11 +16,13 @@ use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\Parameters\Stubs\FormMapper;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[CoversClass(EditType::class)]
 final class EditTypeTest extends FormTestCase
 {
     private ConfigAwareValue $configurable;
@@ -48,10 +50,6 @@ final class EditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::buildForm
-     * @covers \Netgen\Layouts\Config\Form\EditType::buildView
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -90,10 +88,6 @@ final class EditTypeTest extends FormTestCase
         self::assertSame($this->configurable, $view->vars['configurable']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::buildForm
-     * @covers \Netgen\Layouts\Config\Form\EditType::buildView
-     */
     public function testSubmitValidDataWithConfigKey(): void
     {
         $submittedData = [
@@ -133,10 +127,6 @@ final class EditTypeTest extends FormTestCase
         self::assertSame($this->configurable, $view->vars['configurable']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::buildForm
-     * @covers \Netgen\Layouts\Config\Form\EditType::buildView
-     */
     public function testSubmitDataWithInvalidConfigKey(): void
     {
         $submittedData = [
@@ -174,9 +164,6 @@ final class EditTypeTest extends FormTestCase
         self::assertSame($this->configurable, $view->vars['configurable']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -198,9 +185,6 @@ final class EditTypeTest extends FormTestCase
         self::assertSame($struct, $options['data']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
-     */
     public function testConfigureOptionsWithMissingValue(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -218,9 +202,6 @@ final class EditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidValue(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -239,9 +220,6 @@ final class EditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
-     */
     public function testConfigureOptionsWithMissingLabelPrefix(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -259,9 +237,6 @@ final class EditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidLabelPrefix(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -280,9 +255,6 @@ final class EditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

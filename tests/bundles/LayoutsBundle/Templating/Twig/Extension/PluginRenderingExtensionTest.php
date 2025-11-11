@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\PluginRenderingExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Twig\TwigFunction;
 
+#[CoversClass(PluginRenderingExtension::class)]
 final class PluginRenderingExtensionTest extends TestCase
 {
     private PluginRenderingExtension $extension;
@@ -17,9 +19,6 @@ final class PluginRenderingExtensionTest extends TestCase
         $this->extension = new PluginRenderingExtension();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\PluginRenderingExtension::getFunctions
-     */
     public function testGetFunctions(): void
     {
         self::assertNotEmpty($this->extension->getFunctions());

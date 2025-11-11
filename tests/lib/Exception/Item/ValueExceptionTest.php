@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Item;
 
 use Netgen\Layouts\Exception\Item\ValueException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ValueException::class)]
 final class ValueExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ValueException::noValueLoader
-     */
     public function testNoValueLoader(): void
     {
         $exception = ValueException::noValueLoader('type');
@@ -22,9 +21,6 @@ final class ValueExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Item\ValueException::noValueConverter
-     */
     public function testNoValueConverter(): void
     {
         $exception = ValueException::noValueConverter('type');

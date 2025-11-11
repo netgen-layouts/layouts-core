@@ -22,10 +22,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::__construct
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollection
-     */
     public function testLoadCollection(): void
     {
         $collection = $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
@@ -33,9 +29,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($collection->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollection
-     */
     public function testLoadCollectionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -44,10 +37,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadCollection(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::__construct
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollectionDraft
-     */
     public function testLoadCollectionDraft(): void
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
@@ -55,9 +44,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($collection->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollectionDraft
-     */
     public function testLoadCollectionDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -66,9 +52,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadCollectionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateCollection
-     */
     public function testUpdateCollection(): void
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
@@ -85,9 +68,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame(3, $updatedCollection->getLimit());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateCollection
-     */
     public function testUpdateCollectionWithNoLimit(): void
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
@@ -104,9 +84,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertNull($updatedCollection->getLimit());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateCollection
-     */
     public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection(): void
     {
         $this->expectException(BadStateException::class);
@@ -122,9 +99,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItem
-     */
     public function testLoadItem(): void
     {
         $item = $this->collectionService->loadItem(Uuid::fromString('89c214a3-204f-5352-85d7-8852b26ab6b0'));
@@ -132,9 +106,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($item->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItem
-     */
     public function testLoadItemThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -143,9 +114,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadItem(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItemDraft
-     */
     public function testLoadItemDraft(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('89c214a3-204f-5352-85d7-8852b26ab6b0'));
@@ -153,9 +121,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($item->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItemDraft
-     */
     public function testLoadItemDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -164,9 +129,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadItem(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQuery
-     */
     public function testLoadQuery(): void
     {
         $query = $this->collectionService->loadQuery(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
@@ -174,9 +136,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($query->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQuery
-     */
     public function testLoadQueryThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -185,9 +144,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadQuery(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQueryDraft
-     */
     public function testLoadQueryDraft(): void
     {
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
@@ -195,9 +151,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($query->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQueryDraft
-     */
     public function testLoadQueryDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -206,9 +159,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadQueryDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlot
-     */
     public function testLoadSlot(): void
     {
         $slot = $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014'));
@@ -216,9 +166,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($slot->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlot
-     */
     public function testLoadSlotThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -227,9 +174,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadSlot(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlotDraft
-     */
     public function testLoadSlotDraft(): void
     {
         $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
@@ -237,9 +181,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($slot->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlotDraft
-     */
     public function testLoadSlotDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -248,9 +189,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadSlot(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
-     */
     public function testChangeCollectionTypeFromManualToDynamic(): void
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
@@ -268,9 +206,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Query::class, $updatedCollection->getQuery());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
-     */
     public function testChangeCollectionTypeFromDynamicToManual(): void
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
@@ -291,9 +226,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame(0, $updatedCollection->getOffset());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
-     */
     public function testChangeCollectionTypeThrowsBadStateExceptionWithNonDraftCollection(): void
     {
         $this->expectException(BadStateException::class);
@@ -307,9 +239,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
-     */
     public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToDynamicCollectionWithoutQueryCreateStruct(): void
     {
         $this->expectException(BadStateException::class);
@@ -323,9 +252,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
-     */
     public function testAddItem(): void
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
@@ -344,9 +270,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($createdItem->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
-     */
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection(): void
     {
         $this->expectException(BadStateException::class);
@@ -366,9 +289,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
-     */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -384,9 +304,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->addItem($collection, $itemCreateStruct, 9999);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateItem
-     */
     public function testUpdateItem(): void
     {
         $itemUpdateStruct = $this->collectionService->newItemUpdateStruct();
@@ -408,9 +325,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateItem
-     */
     public function testUpdateItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
         $this->expectException(BadStateException::class);
@@ -422,9 +336,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->updateItem($item, $itemUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
-     */
     public function testMoveItem(): void
     {
         $movedItem = $this->collectionService->moveItem(
@@ -439,9 +350,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame(0, $secondItem->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
-     */
     public function testMoveItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
         $this->expectException(BadStateException::class);
@@ -453,9 +361,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
-     */
     public function testMoveItemThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
@@ -467,9 +372,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
-     */
     public function testDeleteItem(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
@@ -486,9 +388,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame(0, $secondItem->getPosition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
-     */
     public function testDeleteItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
         $this->expectException(BadStateException::class);
@@ -498,9 +397,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->deleteItem($item);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItems
-     */
     public function testDeleteItems(): void
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
@@ -509,9 +405,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertCount(0, $collection->getItems());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItems
-     */
     public function testDeleteItemsThrowsBadStateExceptionWithNonDraftCollection(): void
     {
         $this->expectException(BadStateException::class);
@@ -521,10 +414,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->deleteItems($collection);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQueryTranslations
-     */
     public function testUpdateQuery(): void
     {
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['en']);
@@ -550,10 +439,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame(3, $croQuery->getParameter('param2')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQueryTranslations
-     */
     public function testUpdateQueryInMainLocale(): void
     {
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['en']);
@@ -579,9 +464,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertNull($croQuery->getParameter('param2')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
-     */
     public function testUpdateQueryThrowsBadStateExceptionWithNonDraftQuery(): void
     {
         $this->expectException(BadStateException::class);
@@ -596,9 +478,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
-     */
     public function testUpdateQueryThrowsBadStateExceptionWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -613,9 +492,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
-     */
     public function testAddSlot(): void
     {
         $slotCreateStruct = $this->collectionService->newSlotCreateStruct();
@@ -634,9 +510,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame('my_view_type', $createdSlot->getViewType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
-     */
     public function testAddSlotThrowsBadStateExceptionWithNonDraftCollection(): void
     {
         $this->expectException(BadStateException::class);
@@ -653,9 +526,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateSlot
-     */
     public function testUpdateSlot(): void
     {
         $slotUpdateStruct = $this->collectionService->newSlotUpdateStruct();
@@ -669,9 +539,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertSame('my_view_type', $updatedSlot->getViewType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateSlot
-     */
     public function testUpdateSlotThrowsBadStateExceptionWithNonDraftSlot(): void
     {
         $this->expectException(BadStateException::class);
@@ -683,9 +550,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->updateSlot($slot, $slotUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
-     */
     public function testDeleteSlot(): void
     {
         $this->expectException(NotFoundException::class);
@@ -697,9 +561,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
-     */
     public function testDeleteSlotThrowsBadStateExceptionWithNonDraftSlot(): void
     {
         $this->expectException(BadStateException::class);
@@ -709,9 +570,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->deleteSlot($slot);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlots
-     */
     public function testDeleteSlots(): void
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
@@ -720,9 +578,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertCount(0, $collection->getSlots());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlots
-     */
     public function testDeleteSlotsThrowsBadStateExceptionWithNonDraftCollection(): void
     {
         $this->expectException(BadStateException::class);
@@ -732,9 +587,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->deleteSlots($collection);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionCreateStruct
-     */
     public function testNewCollectionCreateStruct(): void
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
@@ -750,9 +602,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionUpdateStruct
-     */
     public function testNewCollectionUpdateStruct(): void
     {
         $struct = $this->collectionService->newCollectionUpdateStruct();
@@ -766,9 +615,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionUpdateStruct
-     */
     public function testNewCollectionUpdateStructWithCollection(): void
     {
         $struct = $this->collectionService->newCollectionUpdateStruct(
@@ -784,9 +630,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionUpdateStruct
-     */
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $struct = $this->collectionService->newCollectionUpdateStruct(
@@ -802,9 +645,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newItemCreateStruct
-     */
     public function testNewItemCreateStruct(): void
     {
         $itemDefinition = new ItemDefinition();
@@ -821,9 +661,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newItemUpdateStruct
-     */
     public function testNewItemUpdateStruct(): void
     {
         $struct = $this->collectionService->newItemUpdateStruct();
@@ -837,9 +674,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newItemUpdateStruct
-     */
     public function testNewItemUpdateStructFromItem(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
@@ -863,9 +697,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newItemUpdateStruct
-     */
     public function testNewItemUpdateStructFromItemWithNoViewType(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
@@ -889,9 +720,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newQueryCreateStruct
-     */
     public function testNewQueryCreateStruct(): void
     {
         $queryType = new QueryType('my_query_type');
@@ -910,9 +738,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newQueryUpdateStruct
-     */
     public function testNewQueryUpdateStruct(): void
     {
         $struct = $this->collectionService->newQueryUpdateStruct('en');
@@ -926,9 +751,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newQueryUpdateStruct
-     */
     public function testNewQueryUpdateStructFromQuery(): void
     {
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('6d60fcbc-ae38-57c2-af72-e462a3e5c9f2'));
@@ -946,9 +768,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newSlotCreateStruct
-     */
     public function testNewSlotCreateStruct(): void
     {
         $struct = $this->collectionService->newSlotCreateStruct();
@@ -961,9 +780,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newSlotUpdateStruct
-     */
     public function testNewSlotUpdateStruct(): void
     {
         $struct = $this->collectionService->newSlotUpdateStruct();
@@ -976,9 +792,6 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\CollectionService::newSlotUpdateStruct
-     */
     public function testNewSlotUpdateStructFromSlot(): void
     {
         $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));

@@ -19,12 +19,15 @@ use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType2;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType3;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType2;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[CoversClass(LayoutResolver::class)]
 final class LayoutResolverTest extends TestCase
 {
     private MockObject&LayoutResolverService $layoutResolverServiceMock;
@@ -50,12 +53,6 @@ final class LayoutResolverTest extends TestCase
         $this->createLayoutResolver();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::__construct
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     */
     public function testResolveRules(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42), new TargetType2(84)]);
@@ -127,11 +124,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($rule1, $resolvedRules[3]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     */
     public function testResolveRulesWithInvalidRule(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -172,11 +164,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     */
     public function testResolveRulesWithDisabledRule(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -217,11 +204,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     */
     public function testResolveRulesWithNoValidRules(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -262,11 +244,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame([], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     */
     public function testResolveRulesWithNoTargetValue(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
@@ -312,11 +289,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     */
     public function testResolveRulesWithNoTargetValues(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
@@ -343,14 +315,8 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @param string[] $conditionTypes
-     *
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::conditionsMatch
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     *
-     * @dataProvider resolveRulesWithPartialRuleConditionsDataProvider
      */
+    #[DataProvider('resolveRulesWithPartialRuleConditionsDataProvider')]
     public function testResolveRulesWithConditionsAndPartialConditionMatching(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -402,14 +368,8 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @param string[] $conditionTypes
-     *
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::conditionsMatch
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     *
-     * @dataProvider resolveRulesWithRuleConditionsDataProvider
      */
+    #[DataProvider('resolveRulesWithRuleConditionsDataProvider')]
     public function testResolveRulesWithConditions(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -448,11 +408,6 @@ final class LayoutResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     */
     public function testResolveRule(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
@@ -522,11 +477,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($rule3, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     */
     public function testResolveRuleWithInvalidRule(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -567,11 +517,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($rule1, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     */
     public function testResolveRuleWithNoValidRules(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -612,11 +557,6 @@ final class LayoutResolverTest extends TestCase
         self::assertNull($this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     */
     public function testResolveRuleWithNoTargetValue(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
@@ -662,11 +602,6 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($rule2, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     */
     public function testResolveRuleWithNoTargetValues(): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
@@ -693,14 +628,8 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @param string[] $conditionTypes
-     *
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::conditionsMatch
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     *
-     * @dataProvider resolveRulesWithPartialRuleConditionsDataProvider
      */
+    #[DataProvider('resolveRulesWithPartialRuleConditionsDataProvider')]
     public function testResolveRuleWithConditionsAndPartialConditionMatching(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -744,14 +673,8 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @param string[] $conditionTypes
-     *
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::conditionsMatch
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveGroupRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     *
-     * @dataProvider resolveRulesWithRuleConditionsDataProvider
      */
+    #[DataProvider('resolveRulesWithRuleConditionsDataProvider')]
     public function testResolveRuleWithConditions(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
@@ -789,12 +712,8 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @param string[] $conditionTypes
-     *
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::conditionsMatch
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::matches
-     *
-     * @dataProvider matchesDataProvider
      */
+    #[DataProvider('matchesDataProvider')]
     public function testMatches(array $conditionTypes, bool $isMatch): void
     {
         $conditions = [];

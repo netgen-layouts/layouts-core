@@ -14,11 +14,14 @@ use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(ConfigAwareStructValidator::class)]
 final class ConfigAwareStructValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -44,11 +47,8 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $value
-     *
-     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(array $value, bool $isValid): void
     {
         $blockUpdateStruct = new BlockUpdateStruct();
@@ -57,9 +57,6 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $blockUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -69,9 +66,6 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidPayload(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -81,9 +75,6 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

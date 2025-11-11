@@ -7,11 +7,13 @@ namespace Netgen\Layouts\Tests\View;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRenderer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
+#[CoversClass(ViewRenderer::class)]
 final class ViewRendererTest extends TestCase
 {
     private MockObject $eventDispatcherMock;
@@ -34,10 +36,6 @@ final class ViewRendererTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\ViewRenderer::__construct
-     * @covers \Netgen\Layouts\View\ViewRenderer::renderView
-     */
     public function testRenderView(): void
     {
         $value = new Value();
@@ -64,10 +62,6 @@ final class ViewRendererTest extends TestCase
         self::assertSame('rendered template', $renderedTemplate);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\ViewRenderer::__construct
-     * @covers \Netgen\Layouts\View\ViewRenderer::renderView
-     */
     public function testRenderViewWithNoTemplate(): void
     {
         $view = new View(new Value());

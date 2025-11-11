@@ -7,10 +7,12 @@ namespace Netgen\Layouts\Tests\HttpCache;
 use Netgen\Layouts\HttpCache\ClientInterface;
 use Netgen\Layouts\HttpCache\Invalidator;
 use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Invalidator::class)]
 final class InvalidatorTest extends TestCase
 {
     private MockObject $clientMock;
@@ -30,10 +32,6 @@ final class InvalidatorTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::__construct
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::invalidateLayouts
-     */
     public function testInvalidateLayouts(): void
     {
         $uuid1 = Uuid::uuid4();
@@ -67,9 +65,6 @@ final class InvalidatorTest extends TestCase
         $this->invalidator->invalidateLayouts([$uuid1->toString(), $uuid2->toString()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::invalidateLayouts
-     */
     public function testInvalidateLayoutsWithEmptyLayoutIds(): void
     {
         $this->idProviderMock
@@ -83,9 +78,6 @@ final class InvalidatorTest extends TestCase
         $this->invalidator->invalidateLayouts([]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::invalidateBlocks
-     */
     public function testInvalidateBlocks(): void
     {
         $uuid1 = Uuid::uuid4();
@@ -106,9 +98,6 @@ final class InvalidatorTest extends TestCase
         $this->invalidator->invalidateBlocks([$uuid1->toString(), $uuid2->toString()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::invalidateBlocks
-     */
     public function testInvalidateBlocksWithEmptyBlockIds(): void
     {
         $this->clientMock
@@ -118,9 +107,6 @@ final class InvalidatorTest extends TestCase
         $this->invalidator->invalidateBlocks([]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::invalidateLayoutBlocks
-     */
     public function testInvalidateLayoutBlocks(): void
     {
         $uuid1 = Uuid::uuid4();
@@ -141,9 +127,6 @@ final class InvalidatorTest extends TestCase
         $this->invalidator->invalidateLayoutBlocks([$uuid1->toString(), $uuid2->toString()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::invalidateLayoutBlocks
-     */
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
     {
         $this->clientMock
@@ -153,9 +136,6 @@ final class InvalidatorTest extends TestCase
         $this->invalidator->invalidateLayoutBlocks([]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\Invalidator::commit
-     */
     public function testCommit(): void
     {
         $this->clientMock

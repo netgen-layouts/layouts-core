@@ -6,13 +6,12 @@ namespace Netgen\Layouts\Tests\Exception\Transfer;
 
 use Exception;
 use Netgen\Layouts\Exception\Transfer\JsonValidationException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(JsonValidationException::class)]
 final class JsonValidationExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Transfer\JsonValidationException::parseError
-     */
     public function testParseError(): void
     {
         $exception = JsonValidationException::parseError('Error message', 42);
@@ -23,9 +22,6 @@ final class JsonValidationExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Transfer\JsonValidationException::notAcceptable
-     */
     public function testNotAcceptable(): void
     {
         $exception = JsonValidationException::notAcceptable('A reason');
@@ -36,9 +32,6 @@ final class JsonValidationExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Transfer\JsonValidationException::validationFailed
-     */
     public function testValidationFailed(): void
     {
         $previousException = new Exception();

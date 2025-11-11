@@ -14,6 +14,7 @@ use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -27,9 +28,8 @@ abstract class BlockTestCase extends CoreTestCase
     /**
      * @param array<string, mixed> $parameters
      * @param array<string, mixed> $expectedParameters
-     *
-     * @dataProvider parametersDataProvider
      */
+    #[DataProvider('parametersDataProvider')]
     public function testCreateBlock(array $parameters, array $expectedParameters): void
     {
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
@@ -61,9 +61,8 @@ abstract class BlockTestCase extends CoreTestCase
     /**
      * @param array<string, mixed> $parameters
      * @param string[] $testedParams
-     *
-     * @dataProvider invalidParametersDataProvider
      */
+    #[DataProvider('invalidParametersDataProvider')]
     public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = []): void
     {
         $this->expectException(ValidationException::class);

@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values;
 
 use Netgen\Layouts\API\Values\Status;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Tests\API\Stubs\Value;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ValueStatusTrait::class)]
 final class ValueStatusTraitTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::getStatus
-     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isArchived
-     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isDraft
-     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isPublished
-     *
-     * @dataProvider statusDataProvider
-     */
+    #[DataProvider('statusDataProvider')]
     public function testStatus(Status $status, bool $isDraft, bool $isPublished, bool $isArchived): void
     {
         $value = Value::fromArray(['status' => $status]);

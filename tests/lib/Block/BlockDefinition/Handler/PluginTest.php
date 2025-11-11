@@ -10,9 +10,11 @@ use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Plugin::class)]
 final class PluginTest extends TestCase
 {
     private MockObject&Plugin $plugin;
@@ -37,9 +39,6 @@ final class PluginTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\Plugin::buildParameters
-     */
     public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
@@ -48,9 +47,6 @@ final class PluginTest extends TestCase
         self::assertCount(0, $builder);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\Plugin::getDynamicParameters
-     */
     public function testGetDynamicParameters(): void
     {
         $dynamicParameters = new DynamicParameters();

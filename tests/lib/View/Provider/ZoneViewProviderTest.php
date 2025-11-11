@@ -13,8 +13,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\ZoneViewProvider;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use Netgen\Layouts\View\View\ZoneViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ZoneViewProvider::class)]
 final class ZoneViewProviderTest extends TestCase
 {
     private ZoneViewProvider $ZoneViewProvider;
@@ -24,9 +27,6 @@ final class ZoneViewProviderTest extends TestCase
         $this->ZoneViewProvider = new ZoneViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $zone = Zone::fromArray(['identifier' => 'zone']);
@@ -59,9 +59,6 @@ final class ZoneViewProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::provideView
-     */
     public function testProvideViewThrowsViewProviderExceptionOnMissingBlocks(): void
     {
         $this->expectException(ViewProviderException::class);
@@ -70,9 +67,6 @@ final class ZoneViewProviderTest extends TestCase
         $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::provideView
-     */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidBlocks(): void
     {
         $this->expectException(ViewProviderException::class);
@@ -81,11 +75,7 @@ final class ZoneViewProviderTest extends TestCase
         $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'), ['blocks' => 42]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->ZoneViewProvider->supports($value));

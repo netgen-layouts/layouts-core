@@ -9,8 +9,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Layout\Shared;
 use Netgen\Layouts\View\View\LayoutView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Shared::class)]
 final class SharedTest extends TestCase
 {
     private Shared $matcher;
@@ -22,11 +25,8 @@ final class SharedTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Layout\Shared::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $layout = Layout::fromArray(
@@ -50,9 +50,6 @@ final class SharedTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Layout\Shared::match
-     */
     public function testMatchWithNoLayoutView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

@@ -14,12 +14,14 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Browser\Backend\LayoutBackend;
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use Netgen\Layouts\Exception\NotFoundException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 use function sprintf;
 
+#[CoversClass(LayoutBackend::class)]
 final class LayoutBackendTest extends TestCase
 {
     private MockObject&LayoutService $layoutServiceMock;
@@ -36,10 +38,6 @@ final class LayoutBackendTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::__construct
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSections
-     */
     public function testGetSections(): void
     {
         $this->layoutServiceMock
@@ -55,9 +53,6 @@ final class LayoutBackendTest extends TestCase
         self::assertInstanceOf(RootLocation::class, $location);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::loadLocation
-     */
     public function testLoadLocation(): void
     {
         $this->layoutServiceMock
@@ -69,10 +64,6 @@ final class LayoutBackendTest extends TestCase
         self::assertSame((new RootLocation())->getLocationId(), $location->getLocationId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::loadItem
-     */
     public function testLoadItem(): void
     {
         $uuid = Uuid::uuid4();
@@ -89,9 +80,6 @@ final class LayoutBackendTest extends TestCase
         self::assertSame($layout, $item->getLayout());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::loadItem
-     */
     public function testLoadItemThrowsNotFoundException(): void
     {
         $uuid = Uuid::uuid4();
@@ -108,9 +96,6 @@ final class LayoutBackendTest extends TestCase
         $this->backend->loadItem($uuid->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubLocations
-     */
     public function testGetSubLocations(): void
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
@@ -119,9 +104,6 @@ final class LayoutBackendTest extends TestCase
         self::assertEmpty($locations);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubLocationsCount
-     */
     public function testGetSubLocationsCount(): void
     {
         $count = $this->backend->getSubLocationsCount(new RootLocation());
@@ -129,12 +111,6 @@ final class LayoutBackendTest extends TestCase
         self::assertSame(0, $count);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItems
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItems
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
-     */
     public function testGetSubItems(): void
     {
         $this->layoutServiceMock
@@ -156,12 +132,6 @@ final class LayoutBackendTest extends TestCase
         self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItems
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItems
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
-     */
     public function testGetSubItemsWithOffsetAndLimit(): void
     {
         $this->layoutServiceMock
@@ -183,12 +153,6 @@ final class LayoutBackendTest extends TestCase
         self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItems
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItems
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
-     */
     public function testGetSubItemsWithSharedLayouts(): void
     {
         $this->backend = new LayoutBackend(
@@ -215,10 +179,6 @@ final class LayoutBackendTest extends TestCase
         self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItemsCount
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
-     */
     public function testGetSubItemsCount(): void
     {
         $this->layoutServiceMock
@@ -231,10 +191,6 @@ final class LayoutBackendTest extends TestCase
         self::assertSame(2, $count);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItemsCount
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
-     */
     public function testGetSubItemsCountWithSharedLayouts(): void
     {
         $this->backend = new LayoutBackend(
@@ -252,9 +208,6 @@ final class LayoutBackendTest extends TestCase
         self::assertSame(2, $count);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchItems
-     */
     public function testSearchItems(): void
     {
         $searchResult = $this->backend->searchItems(new SearchQuery('test'));
@@ -262,9 +215,6 @@ final class LayoutBackendTest extends TestCase
         self::assertEmpty($searchResult->getResults());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchItems
-     */
     public function testSearchItemsWithOffsetAndLimit(): void
     {
         $searchResult = $this->backend->searchItems((new SearchQuery('test'))->setOffset(5)->setLimit(10));
@@ -272,9 +222,6 @@ final class LayoutBackendTest extends TestCase
         self::assertEmpty($searchResult->getResults());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchItemsCount
-     */
     public function testSearchItemsCount(): void
     {
         $count = $this->backend->searchItemsCount(new SearchQuery('test'));
@@ -282,9 +229,6 @@ final class LayoutBackendTest extends TestCase
         self::assertSame(0, $count);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::search
-     */
     public function testSearch(): void
     {
         $items = $this->backend->search('test');
@@ -293,9 +237,6 @@ final class LayoutBackendTest extends TestCase
         self::assertEmpty($items);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::search
-     */
     public function testSearchWithOffsetAndLimit(): void
     {
         $items = $this->backend->search('test', 5, 10);
@@ -304,9 +245,6 @@ final class LayoutBackendTest extends TestCase
         self::assertEmpty($items);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchCount
-     */
     public function testSearchCount(): void
     {
         $count = $this->backend->searchCount('test');

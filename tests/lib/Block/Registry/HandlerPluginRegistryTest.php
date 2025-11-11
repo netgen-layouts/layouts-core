@@ -8,15 +8,13 @@ use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(HandlerPluginRegistry::class)]
 final class HandlerPluginRegistryTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\HandlerPluginRegistry::__construct
-     * @covers \Netgen\Layouts\Block\Registry\HandlerPluginRegistry::getPlugins
-     */
     public function testRegistry(): void
     {
         $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandler::class]);
@@ -34,9 +32,6 @@ final class HandlerPluginRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\Registry\HandlerPluginRegistry::getPlugins
-     */
     public function testRegistryWithInterface(): void
     {
         $handlerPlugin = HandlerPlugin::instance([BlockDefinitionHandlerInterface::class]);

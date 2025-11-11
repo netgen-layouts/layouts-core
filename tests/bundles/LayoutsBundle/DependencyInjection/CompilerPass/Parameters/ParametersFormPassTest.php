@@ -6,12 +6,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Par
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Parameters\ParametersFormPass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
+#[CoversClass(ParametersFormPass::class)]
 final class ParametersFormPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,9 +23,6 @@ final class ParametersFormPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ParametersFormPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Parameters\ParametersFormPass::process
-     */
     public function testProcess(): void
     {
         $this->setDefinition('netgen_layouts.parameters.form.parameters', new Definition());
@@ -52,9 +51,6 @@ final class ParametersFormPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Parameters\ParametersFormPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

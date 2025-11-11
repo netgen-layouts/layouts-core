@@ -7,12 +7,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 use Netgen\Bundle\LayoutsBundle\EventListener\ViewListener;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\View\View\BlockView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(ViewListener::class)]
 final class ViewListenerTest extends TestCase
 {
     private ViewListener $listener;
@@ -22,9 +24,6 @@ final class ViewListenerTest extends TestCase
         $this->listener = new ViewListener();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -33,9 +32,6 @@ final class ViewListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewListener::onView
-     */
     public function testOnView(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -56,9 +52,6 @@ final class ViewListenerTest extends TestCase
         self::assertSame($blockView, $request->attributes->get('nglView'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewListener::onView
-     */
     public function testOnViewWithSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -78,9 +71,6 @@ final class ViewListenerTest extends TestCase
         self::assertFalse($request->attributes->has('nglView'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ViewListener::onView
-     */
     public function testOnViewWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

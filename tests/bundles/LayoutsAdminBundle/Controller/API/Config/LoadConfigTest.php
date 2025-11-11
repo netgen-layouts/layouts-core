@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Config;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadConfig;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\App\MockerContainer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,12 +16,9 @@ use function json_decode;
 
 use const JSON_THROW_ON_ERROR;
 
+#[CoversClass(LoadConfig::class)]
 final class LoadConfigTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadConfig::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadConfig::__invoke
-     */
     public function testLoadConfig(): void
     {
         $container = $this->client->getKernel()->getContainer();

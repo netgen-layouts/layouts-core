@@ -23,9 +23,6 @@ abstract class ConfigStructBuilderTestBase extends CoreTestCase
         $this->structBuilder = new ConfigStructBuilder();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder::buildConfigUpdateStructs
-     */
     public function testBuildConfigUpdateStructs(): void
     {
         $handler = new ConfigDefinitionHandler();

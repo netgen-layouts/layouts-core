@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\BlockCollection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\LoadCollectionResult;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(LoadCollectionResult::class)]
 final class LoadCollectionResultTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\LoadCollectionResult::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\LoadCollectionResult::__invoke
-     */
     public function testLoadCollectionResult(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/blocks/c2a30ea3-95ef-55b0-a584-fbcfd93cec9e/collections/default/result');
@@ -25,9 +24,6 @@ final class LoadCollectionResultTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\LoadCollectionResult::__invoke
-     */
     public function testLoadCollectionResultWithNonExistentBlock(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/collections/default/result');
@@ -39,9 +35,6 @@ final class LoadCollectionResultTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\LoadCollectionResult::__invoke
-     */
     public function testLoadCollectionResultWithNonExistentCollection(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/unknown/result');

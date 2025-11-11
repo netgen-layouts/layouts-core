@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Collection;
 
 use Netgen\Layouts\Exception\Collection\QueryTypeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryTypeException::class)]
 final class QueryTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Collection\QueryTypeException::noQueryType
-     */
     public function testNoQueryType(): void
     {
         $exception = QueryTypeException::noQueryType('type');
@@ -22,9 +21,6 @@ final class QueryTypeExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Collection\QueryTypeException::noForm
-     */
     public function testNoForm(): void
     {
         $exception = QueryTypeException::noForm('type', 'form');

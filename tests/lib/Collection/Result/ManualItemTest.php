@@ -7,21 +7,13 @@ namespace Netgen\Layouts\Tests\Collection\Result;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Item\CmsItem;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(ManualItem::class)]
 final class ManualItemTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::__construct
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getCollectionItem
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getName
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getObject
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getRemoteId
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getValue
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getValueType
-     * @covers \Netgen\Layouts\Collection\Result\ManualItem::isVisible
-     */
     public function testObject(): void
     {
         $object = new stdClass();

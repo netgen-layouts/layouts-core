@@ -6,17 +6,13 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Target::class)]
 final class TargetTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getId
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getRuleId
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getTargetType
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getValue
-     */
     public function testSetProperties(): void
     {
         $targetType = new TargetType1();

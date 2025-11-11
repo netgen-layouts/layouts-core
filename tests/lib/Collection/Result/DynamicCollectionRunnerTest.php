@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
+use Netgen\Layouts\Collection\Result\DynamicCollectionRunner;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemBuilderInterface;
@@ -17,12 +18,15 @@ use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use function array_map;
 use function count;
 
+#[CoversClass(DynamicCollectionRunner::class)]
 final class DynamicCollectionRunnerTest extends TestCase
 {
     private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
@@ -42,17 +46,8 @@ final class DynamicCollectionRunnerTest extends TestCase
      * @param mixed[] $itemValues
      * @param mixed[] $queryItems
      * @param mixed[] $expected
-     *
-     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::__construct
-     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::buildManualResult
-     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::count
-     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::getManualItemsCount
-     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::getQueryValue
-     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::runCollection
-     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::runQuery
-     *
-     * @dataProvider dynamicCollectionDataProvider
      */
+    #[DataProvider('dynamicCollectionDataProvider')]
     public function testCollectionResult(
         array $itemValues,
         array $queryItems,

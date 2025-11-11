@@ -6,23 +6,22 @@ namespace Netgen\Layouts\Tests\Core\Service;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+#[CoversClass(LayoutResolverStructBuilder::class)]
 abstract class LayoutResolverServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
     use UuidGeneratorTrait;
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::__construct
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRule
-     */
     public function testLoadRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
@@ -30,9 +29,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($rule->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRule
-     */
     public function testLoadRuleThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -41,10 +37,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRule(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::__construct
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleDraft
-     */
     public function testLoadRuleDraft(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
@@ -52,9 +44,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($rule->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleDraft
-     */
     public function testLoadRuleDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -63,9 +52,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleArchive
-     */
     public function testLoadRuleArchive(): void
     {
         $ruleDraft = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
@@ -76,9 +62,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($ruleArchive->isArchived());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleArchive
-     */
     public function testLoadRuleArchiveThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -87,9 +70,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleArchive(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroup
-     */
     public function testLoadRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -97,9 +77,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($ruleGroup->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroup
-     */
     public function testLoadRuleGroupThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -108,10 +85,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroup(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::__construct
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupDraft
-     */
     public function testLoadRuleGroupDraft(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -119,9 +92,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($ruleGroup->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupDraft
-     */
     public function testLoadRuleGroupDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -130,9 +100,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupArchive
-     */
     public function testLoadRuleGroupArchive(): void
     {
         $ruleGroupDraft = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -143,9 +110,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($ruleGroupArchive->isArchived());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupArchive
-     */
     public function testLoadRuleGroupArchiveThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -154,9 +118,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
-     */
     public function testLoadRules(): void
     {
         $rules = $this->layoutResolverService->loadRules();
@@ -168,9 +129,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
-     */
     public function testLoadRulesWithLayout(): void
     {
         $rules = $this->layoutResolverService->loadRules(
@@ -184,9 +142,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
-     */
     public function testLoadRulesThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -197,9 +152,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
-     */
     public function testGetRuleCount(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCount();
@@ -207,9 +159,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(8, $ruleCount);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
-     */
     public function testGetRuleCountWithLayout(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCount(
@@ -219,9 +168,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(2, $ruleCount);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
-     */
     public function testGetRuleCountThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -232,9 +178,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRulesFromGroup
-     */
     public function testLoadRulesFromGroup(): void
     {
         $rules = $this->layoutResolverService->loadRulesFromGroup(
@@ -248,9 +191,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRulesFromGroup
-     */
     public function testLoadRulesFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -261,9 +201,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCountFromGroup
-     */
     public function testGetRuleCountFromGroup(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCountFromGroup(
@@ -273,9 +210,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(2, $ruleCount);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCountFromGroup
-     */
     public function testGetRuleCountFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -286,9 +220,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroups
-     */
     public function testLoadRuleGroups(): void
     {
         $ruleGroups = $this->layoutResolverService->loadRuleGroups(
@@ -302,9 +233,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroups
-     */
     public function testLoadRuleGroupsThrowsBadStateExceptionWithNonPublishedParentGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -315,9 +243,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleGroupCount
-     */
     public function testGetRuleGroupCount(): void
     {
         $ruleGroupCount = $this->layoutResolverService->getRuleGroupCount(
@@ -327,9 +252,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(1, $ruleGroupCount);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleGroupCount
-     */
     public function testGetRuleGroupCountThrowsBadStateExceptionWithNonPublishedParentGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -340,9 +262,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::matchRules
-     */
     public function testMatchRules(): void
     {
         $rules = $this->layoutResolverService->matchRules(
@@ -358,9 +277,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTarget
-     */
     public function testLoadTarget(): void
     {
         $target = $this->layoutResolverService->loadTarget(Uuid::fromString('5f086fc4-4e1c-55eb-ae54-79fc296cda37'));
@@ -368,9 +284,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($target->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTarget
-     */
     public function testLoadTargetThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -379,9 +292,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadTarget(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTargetDraft
-     */
     public function testLoadTargetDraft(): void
     {
         $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
@@ -389,9 +299,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($target->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTargetDraft
-     */
     public function testLoadTargetDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -400,9 +307,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadTargetDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadCondition
-     */
     public function testLoadCondition(): void
     {
         $condition = $this->layoutResolverService->loadCondition(Uuid::fromString('35f4594c-6674-5815-add6-07f288b79686'));
@@ -410,9 +314,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($condition->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadCondition
-     */
     public function testLoadConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -421,9 +322,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadCondition(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadConditionDraft
-     */
     public function testLoadConditionDraft(): void
     {
         $condition = $this->layoutResolverService->loadConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
@@ -431,9 +329,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($condition->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadConditionDraft
-     */
     public function testLoadConditionDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -442,9 +337,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadConditionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupCondition
-     */
     public function testLoadRuleGroupCondition(): void
     {
         $condition = $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
@@ -452,9 +344,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($condition->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupCondition
-     */
     public function testLoadRuleGroupConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -463,9 +352,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupConditionDraft
-     */
     public function testLoadRuleGroupConditionDraft(): void
     {
         $condition = $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
@@ -473,9 +359,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($condition->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupConditionDraft
-     */
     public function testLoadRuleGroupConditionDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -484,25 +367,16 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleExists
-     */
     public function testRuleExists(): void
     {
         self::assertTrue($this->layoutResolverService->ruleExists(Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634')));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleExists
-     */
     public function testRuleExistsReturnsFalse(): void
     {
         self::assertFalse($this->layoutResolverService->ruleExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
-     */
     public function testCreateRule(): void
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
@@ -516,9 +390,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdRule->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
-     */
     public function testCreateRuleWithCustomUuid(): void
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
@@ -534,9 +405,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->getRuleGroupId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
-     */
     public function testCreateRuleWithAssignedLayout(): void
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
@@ -553,9 +421,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->getRuleGroupId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
-     */
     public function testCreateRuleThrowsBadStateExceptionWithExistingUuid(): void
     {
         $this->expectException(BadStateException::class);
@@ -570,9 +435,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
-     */
     public function testCreateRuleThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -587,9 +449,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
-     */
     public function testUpdateRule(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
@@ -607,9 +466,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRule->getDescription());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
-     */
     public function testUpdateRuleWithNoLayout(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
@@ -626,9 +482,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRule->getDescription());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
-     */
     public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
@@ -644,9 +497,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRule->getDescription());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
-     */
     public function testUpdateRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -661,9 +511,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleMetadata
-     */
     public function testUpdateRuleMetadata(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
@@ -680,9 +527,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($updatedRule->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleMetadata
-     */
     public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -696,9 +540,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleMetadata($rule, $struct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
-     */
     public function testCopyRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('4f63660c-bd58-5efa-81a8-6c81b4484a61'));
@@ -711,9 +552,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($rule->getId()->toString(), $copiedRule->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
-     */
     public function testCopyRuleToDifferentRuleGroup(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'));
@@ -726,9 +564,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($rule->getId()->toString(), $copiedRule->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
-     */
     public function testCopyRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -740,9 +575,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRule($rule, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
-     */
     public function testCopyRuleThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -754,9 +586,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRule($rule, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
-     */
     public function testMoveRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
@@ -770,9 +599,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->getId()->toString(), $movedRule->getRuleGroupId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
-     */
     public function testMoveRuleWithNewPriority(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
@@ -786,9 +612,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->getId()->toString(), $movedRule->getRuleGroupId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
-     */
     public function testMoveRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -800,9 +623,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRule($rule, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
-     */
     public function testMoveRuleThrowsBadStateExceptionWithNonPublishedTargetRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -814,9 +634,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRule($rule, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
-     */
     public function testCreateDraft(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
@@ -826,9 +643,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRule->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
-     */
     public function testCreateDraftWithDiscardingExistingDraft(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
@@ -839,9 +653,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRule->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
-     */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -852,9 +663,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createDraft($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
-     */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
         $this->expectException(BadStateException::class);
@@ -866,9 +674,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createDraft($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardDraft
-     */
     public function testDiscardDraft(): void
     {
         $this->expectException(NotFoundException::class);
@@ -880,9 +685,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleDraft($rule->getId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardDraft
-     */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -892,9 +694,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->discardDraft($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRule
-     */
     public function testPublishRule(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
@@ -911,9 +710,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRule
-     */
     public function testPublishRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -923,9 +719,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->publishRule($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreFromArchive
-     */
     public function testRestoreFromArchive(): void
     {
         $restoredRule = $this->layoutResolverService->restoreFromArchive(
@@ -935,9 +728,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($restoredRule->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreFromArchive
-     */
     public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -948,9 +738,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteRule
-     */
     public function testDeleteRule(): void
     {
         $this->expectException(NotFoundException::class);
@@ -963,25 +750,16 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRule($rule->getId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleGroupExists
-     */
     public function testRuleGroupExists(): void
     {
         self::assertTrue($this->layoutResolverService->ruleGroupExists(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleGroupExists
-     */
     public function testRuleGroupExistsReturnsFalse(): void
     {
         self::assertFalse($this->layoutResolverService->ruleGroupExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
-     */
     public function testCreateRuleGroup(): void
     {
         $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
@@ -996,9 +774,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
-     */
     public function testCreateRuleGroupWithCustomUuid(): void
     {
         $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
@@ -1015,9 +790,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
-     */
     public function testCreateRuleGroupThrowsBadStateExceptionWithExistingUuid(): void
     {
         $this->expectException(BadStateException::class);
@@ -1032,9 +804,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
-     */
     public function testCreateRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1049,9 +818,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroup
-     */
     public function testUpdateRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -1066,9 +832,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRuleGroup->getDescription());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroup
-     */
     public function testUpdateRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1083,9 +846,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupMetadata
-     */
     public function testUpdateRuleGroupMetadata(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -1102,9 +862,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($updatedRuleGroup->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupMetadata
-     */
     public function testUpdateRuleGroupMetadataThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1118,9 +875,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleGroupMetadata($ruleGroup, $struct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
-     */
     public function testCopyRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
@@ -1134,9 +888,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($ruleGroup->getId()->toString(), $copiedRuleGroup->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
-     */
     public function testCopyRuleGroupToDifferentRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
@@ -1150,9 +901,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($ruleGroup->getId()->toString(), $copiedRuleGroup->getId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
-     */
     public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1164,9 +912,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
-     */
     public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1178,9 +923,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
-     */
     public function testMoveRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
@@ -1195,9 +937,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
-     */
     public function testMoveRuleGroupWithNewPriority(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
@@ -1212,9 +951,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
-     */
     public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1226,9 +962,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
-     */
     public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedTargetRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1240,9 +973,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
-     */
     public function testCreateRuleGroupDraft(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
@@ -1252,9 +982,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRuleGroup->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
-     */
     public function testCreateRuleGroupDraftWithDiscardingExistingDraft(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -1264,9 +991,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRuleGroup->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
-     */
     public function testCreateRuleGroupDraftThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1277,9 +1001,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
-     */
     public function testCreateRuleGroupDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
         $this->expectException(BadStateException::class);
@@ -1291,9 +1012,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardRuleGroupDraft
-     */
     public function testDiscardRuleGroupDraft(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1305,9 +1023,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupDraft($ruleGroup->getId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardRuleGroupDraft
-     */
     public function testDiscardRuleGroupDraftThrowsBadStateExceptionWithNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1317,9 +1032,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->discardRuleGroupDraft($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRuleGroup
-     */
     public function testPublishRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -1336,9 +1048,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRuleGroup
-     */
     public function testPublishRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1348,9 +1057,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->publishRuleGroup($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreRuleGroupFromArchive
-     */
     public function testRestoreRuleGroupFromArchive(): void
     {
         $restoredRuleGroup = $this->layoutResolverService->restoreRuleGroupFromArchive(
@@ -1360,9 +1066,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($restoredRuleGroup->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreRuleGroupFromArchive
-     */
     public function testRestoreRuleGroupFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
         $this->expectException(BadStateException::class);
@@ -1373,9 +1076,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteRuleGroup
-     */
     public function testDeleteRuleGroup(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1388,9 +1088,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroup($ruleGroup->getId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
-     */
     public function testEnableRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
@@ -1401,9 +1098,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($enabledRule->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
-     */
     public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -1414,9 +1108,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRule($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
-     */
     public function testEnableRuleThrowsBadStateExceptionIfRuleIsAlreadyEnabled(): void
     {
         $this->expectException(BadStateException::class);
@@ -1427,9 +1118,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRule($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
-     */
     public function testDisableRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634'));
@@ -1440,9 +1128,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($disabledRule->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
-     */
     public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -1453,9 +1138,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRule($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
-     */
     public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled(): void
     {
         $this->expectException(BadStateException::class);
@@ -1466,9 +1148,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRule($rule);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRuleGroup
-     */
     public function testEnableRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
@@ -1479,9 +1158,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($enabledRuleGroup->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRuleGroup
-     */
     public function testEnableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1492,9 +1168,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRuleGroup($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRuleGroup
-     */
     public function testEnableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyEnabled(): void
     {
         $this->expectException(BadStateException::class);
@@ -1505,9 +1178,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRuleGroup($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRuleGroup
-     */
     public function testDisableRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -1518,9 +1188,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($disabledRuleGroup->isPublished());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRuleGroup
-     */
     public function testDisableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1531,9 +1198,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRuleGroup($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRuleGroup
-     */
     public function testDisableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyDisabled(): void
     {
         $this->expectException(BadStateException::class);
@@ -1544,9 +1208,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRuleGroup($ruleGroup);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
-     */
     public function testAddTarget(): void
     {
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
@@ -1565,9 +1226,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdTarget->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
-     */
     public function testAddTargetThrowsBadStateExceptionOnNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -1587,9 +1245,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
-     */
     public function testAddTargetOfDifferentKindThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -1609,9 +1264,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateTarget
-     */
     public function testUpdateTarget(): void
     {
         $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
@@ -1625,9 +1277,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('new_value', $updatedTarget->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateTarget
-     */
     public function testUpdateTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
         $this->expectException(BadStateException::class);
@@ -1641,9 +1290,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateTarget($target, $targetUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteTarget
-     */
     public function testDeleteTarget(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1656,9 +1302,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadTargetDraft($target->getId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteTarget
-     */
     public function testDeleteTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
         $this->expectException(BadStateException::class);
@@ -1669,9 +1312,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->deleteTarget($target);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addCondition
-     */
     public function testAddCondition(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
@@ -1690,9 +1330,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdCondition->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addCondition
-     */
     public function testAddConditionThrowsBadStateExceptionOnNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
@@ -1712,9 +1349,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addRuleGroupCondition
-     */
     public function testAddRuleGroupCondition(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
@@ -1733,9 +1367,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdCondition->isDraft());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addRuleGroupCondition
-     */
     public function testAddRuleGroupConditionThrowsBadStateExceptionOnNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
@@ -1755,9 +1386,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateCondition
-     */
     public function testUpdateCondition(): void
     {
         $condition = $this->layoutResolverService->loadConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
@@ -1771,9 +1399,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('new_value', $updatedCondition->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateCondition
-     */
     public function testUpdateConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
         $this->expectException(BadStateException::class);
@@ -1787,9 +1412,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateCondition($condition, $conditionUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupCondition
-     */
     public function testUpdateRuleGroupCondition(): void
     {
         $condition = $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
@@ -1803,9 +1425,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('new_value', $updatedCondition->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupCondition
-     */
     public function testUpdateRuleGroupConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
         $this->expectException(BadStateException::class);
@@ -1819,9 +1438,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleGroupCondition($condition, $conditionUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteCondition
-     */
     public function testDeleteCondition(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1833,9 +1449,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadConditionDraft($condition->getId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteCondition
-     */
     public function testDeleteConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
         $this->expectException(BadStateException::class);
@@ -1845,9 +1458,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->deleteCondition($condition);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleCreateStruct
-     */
     public function testNewRuleCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleCreateStruct();
@@ -1865,9 +1475,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleUpdateStruct
-     */
     public function testNewRuleUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleUpdateStruct();
@@ -1882,9 +1489,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleMetadataUpdateStruct
-     */
     public function testNewRuleMetadataUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
@@ -1897,9 +1501,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleGroupCreateStruct
-     */
     public function testNewRuleGroupCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
@@ -1916,9 +1517,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleGroupUpdateStruct
-     */
     public function testNewRuleGroupUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleGroupUpdateStruct();
@@ -1932,9 +1530,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleGroupMetadataUpdateStruct
-     */
     public function testNewRuleGroupMetadataUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleGroupMetadataUpdateStruct();
@@ -1947,9 +1542,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newTargetCreateStruct
-     */
     public function testNewTargetCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newTargetCreateStruct('target');
@@ -1962,9 +1554,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newTargetUpdateStruct
-     */
     public function testNewTargetUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newTargetUpdateStruct();
@@ -1972,9 +1561,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame([], $this->exportObject($struct));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newConditionCreateStruct
-     */
     public function testNewConditionCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newConditionCreateStruct('condition');
@@ -1987,9 +1573,6 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newConditionUpdateStruct
-     */
     public function testNewConditionUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newConditionUpdateStruct();

@@ -11,9 +11,12 @@ use Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Stubs\NormalizerStub;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
+#[CoversClass(PlaceholderNormalizer::class)]
 final class PlaceholderNormalizerTest extends TestCase
 {
     private PlaceholderNormalizer $normalizer;
@@ -24,10 +27,6 @@ final class PlaceholderNormalizerTest extends TestCase
         $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\PlaceholderNormalizer::buildViewValues
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\PlaceholderNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $block = new Block();
@@ -47,11 +46,7 @@ final class PlaceholderNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\PlaceholderNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

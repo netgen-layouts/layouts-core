@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Blo
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(BlockTypePass::class)]
 final class BlockTypePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -20,12 +22,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new BlockTypePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcess(): void
     {
         $this->setParameter(
@@ -66,12 +62,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithRedefinedBlockType(): void
     {
         $this->setParameter(
@@ -135,12 +125,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithDefaultConfigForBlockType(): void
     {
         $this->setParameter(
@@ -193,12 +177,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithNonExistingBlockType(): void
     {
         $this->setParameter('netgen_layouts.block_types', []);
@@ -245,12 +223,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithDisabledBlockType(): void
     {
         $this->setParameter(
@@ -307,12 +279,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithDisabledBlockDefinition(): void
     {
         $this->setParameter(
@@ -369,12 +335,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithDefaultIconTakenFromBlockDefinition(): void
     {
         $this->setParameter(
@@ -421,12 +381,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithDefaultsTakenFromBlockDefinition(): void
     {
         $this->setParameter(
@@ -473,12 +427,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithDefaultsKeptFromBlockType(): void
     {
         $this->setParameter(
@@ -526,12 +474,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessWithDisabledBlockDefinitionAndAdditionalBlockType(): void
     {
         $this->setParameter(
@@ -588,12 +530,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
-     */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition(): void
     {
         $this->expectException(RuntimeException::class);
@@ -617,9 +553,6 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

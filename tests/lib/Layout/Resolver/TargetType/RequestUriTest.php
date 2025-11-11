@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\TargetType;
 
 use Netgen\Layouts\Layout\Resolver\TargetType\RequestUri;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(RequestUri::class)]
 final class RequestUriTest extends TestCase
 {
     private RequestUri $targetType;
@@ -18,19 +21,12 @@ final class RequestUriTest extends TestCase
         $this->targetType = new RequestUri();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUri::getType
-     */
     public function testGetType(): void
     {
         self::assertSame('request_uri', $this->targetType::getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUri::getConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
@@ -39,9 +35,6 @@ final class RequestUriTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUri::provideValue
-     */
     public function testProvideValue(): void
     {
         $request = Request::create('/the/answer', Request::METHOD_GET, ['a' => 42]);

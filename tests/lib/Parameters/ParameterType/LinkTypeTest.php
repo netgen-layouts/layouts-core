@@ -15,11 +15,15 @@ use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(RemoteIdConverter::class)]
+#[CoversClass(LinkType::class)]
 final class LinkTypeTest extends TestCase
 {
     use ExportObjectTrait;
@@ -44,10 +48,6 @@ final class LinkTypeTest extends TestCase
         $this->type = new LinkType($this->valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::__construct
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('link', $this->type::getIdentifier());
@@ -56,11 +56,8 @@ final class LinkTypeTest extends TestCase
     /**
      * @param mixed[] $options
      * @param mixed[] $resolvedOptions
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::configureOptions
-     *
-     * @dataProvider validOptionsDataProvider
      */
+    #[DataProvider('validOptionsDataProvider')]
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
         $parameter = $this->getParameterDefinition($options);
@@ -69,11 +66,8 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed[] $options
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::configureOptions
-     *
-     * @dataProvider invalidOptionsDataProvider
      */
+    #[DataProvider('invalidOptionsDataProvider')]
     public function testInvalidOptions(array $options): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -131,12 +125,8 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param string[] $valueTypes
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getValueConstraints
-     *
-     * @dataProvider validationDataProvider
      */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isRequired, array $valueTypes, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition(['required' => $isRequired, 'value_types' => $valueTypes]);
@@ -199,11 +189,7 @@ final class LinkTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::toHash
-     *
-     * @dataProvider toHashDataProvider
-     */
+    #[DataProvider('toHashDataProvider')]
     public function testToHash(mixed $value, mixed $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
@@ -237,11 +223,8 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param array<string, mixed> $expectedValue
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::fromHash
-     *
-     * @dataProvider fromHashDataProvider
      */
+    #[DataProvider('fromHashDataProvider')]
     public function testFromHash(mixed $value, array $expectedValue): void
     {
         $convertedValue = $this->type->fromHash($this->getParameterDefinition(), $value);
@@ -300,13 +283,7 @@ final class LinkTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::export
-     *
-     * @dataProvider exportDataProvider
-     */
+    #[DataProvider('exportDataProvider')]
     public function testExport(mixed $value, mixed $convertedValue): void
     {
         $this->cmsItemLoaderMock
@@ -324,10 +301,6 @@ final class LinkTypeTest extends TestCase
         self::assertSame($convertedValue, $this->type->export($this->getParameterDefinition(), $value));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::export
-     */
     public function testExportWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
@@ -416,13 +389,8 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param array<string, mixed>  $expectedValue
-     *
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::import
-     *
-     * @dataProvider importDataProvider
      */
+    #[DataProvider('importDataProvider')]
     public function testImport(mixed $value, array $expectedValue): void
     {
         $this->cmsItemLoaderMock
@@ -443,10 +411,6 @@ final class LinkTypeTest extends TestCase
         self::assertSame($expectedValue, $this->exportObject($convertedValue));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::import
-     */
     public function testImportWithNullCmsItem(): void
     {
         $this->cmsItemLoaderMock
@@ -566,11 +530,7 @@ final class LinkTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::isValueEmpty
-     *
-     * @dataProvider emptyDataProvider
-     */
+    #[DataProvider('emptyDataProvider')]
     public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));

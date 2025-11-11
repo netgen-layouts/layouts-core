@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
+#[CoversClass(RequestBodyListener::class)]
 final class RequestBodyListenerTest extends TestCase
 {
     private MockObject $decoderMock;
@@ -30,9 +32,6 @@ final class RequestBodyListenerTest extends TestCase
         $this->listener = new RequestBodyListener($this->decoderMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -41,10 +40,6 @@ final class RequestBodyListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
-     */
     public function testOnKernelRequest(): void
     {
         $this->decoderMock
@@ -71,9 +66,6 @@ final class RequestBodyListenerTest extends TestCase
         self::assertSame('value', $data->get('test'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNonApiRoute(): void
     {
         $this->decoderMock->expects(self::never())->method('decode');
@@ -88,9 +80,6 @@ final class RequestBodyListenerTest extends TestCase
         self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
-     */
     public function testOnKernelRequestInSubRequest(): void
     {
         $this->decoderMock->expects(self::never())->method('decode');
@@ -106,10 +95,6 @@ final class RequestBodyListenerTest extends TestCase
         self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::isDecodeable
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
-     */
     public function testOnKernelRequestWithInvalidMethod(): void
     {
         $this->decoderMock->expects(self::never())->method('decode');
@@ -124,10 +109,6 @@ final class RequestBodyListenerTest extends TestCase
         self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::isDecodeable
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
-     */
     public function testOnKernelRequestWithInvalidContentType(): void
     {
         $this->decoderMock->expects(self::never())->method('decode');
@@ -143,9 +124,6 @@ final class RequestBodyListenerTest extends TestCase
         self::assertFalse($event->getRequest()->attributes->has('data'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
-     */
     public function testOnKernelRequestWithInvalidJson(): void
     {
         $this->expectException(BadRequestHttpException::class);
@@ -166,9 +144,6 @@ final class RequestBodyListenerTest extends TestCase
         $this->listener->onKernelRequest($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNonArrayJson(): void
     {
         $this->expectException(BadRequestHttpException::class);

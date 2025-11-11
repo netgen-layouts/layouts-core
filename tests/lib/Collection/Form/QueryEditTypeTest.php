@@ -13,6 +13,7 @@ use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -20,6 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(QueryEditType::class)]
 final class QueryEditTypeTest extends FormTestCase
 {
     private QueryType $queryType;
@@ -35,10 +37,6 @@ final class QueryEditTypeTest extends FormTestCase
         $this->query = Query::fromArray(['queryType' => $this->queryType, 'mainLocale' => 'en']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildForm
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildView
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -77,10 +75,6 @@ final class QueryEditTypeTest extends FormTestCase
         self::assertSame($this->query, $view->vars['query']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildForm
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildView
-     */
     public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
         $struct = new QueryUpdateStruct();
@@ -104,10 +98,6 @@ final class QueryEditTypeTest extends FormTestCase
         self::assertFalse($form->get('parameters')->get('param2')->isDisabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildForm
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildView
-     */
     public function testDisableUntranslatableFormsOnMainLocale(): void
     {
         $struct = new QueryUpdateStruct();
@@ -131,9 +121,6 @@ final class QueryEditTypeTest extends FormTestCase
         self::assertFalse($form->get('parameters')->get('param2')->isDisabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -154,9 +141,6 @@ final class QueryEditTypeTest extends FormTestCase
         self::assertSame($struct, $options['data']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
-     */
     public function testConfigureOptionsWithMissingQuery(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -170,9 +154,6 @@ final class QueryEditTypeTest extends FormTestCase
         $optionsResolver->resolve();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidQueryType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -190,9 +171,6 @@ final class QueryEditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Block;
 
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockDefinitionException::class)]
 final class BlockDefinitionExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noForm
-     */
     public function testNoForm(): void
     {
         $exception = BlockDefinitionException::noForm('def', 'form');
@@ -22,9 +21,6 @@ final class BlockDefinitionExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noViewType
-     */
     public function testNoViewType(): void
     {
         $exception = BlockDefinitionException::noViewType('def', 'view_type');
@@ -35,9 +31,6 @@ final class BlockDefinitionExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noItemViewType
-     */
     public function testNoItemViewType(): void
     {
         $exception = BlockDefinitionException::noItemViewType('view_type', 'item_view_type');
@@ -48,9 +41,6 @@ final class BlockDefinitionExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noCollection
-     */
     public function testNoCollection(): void
     {
         $exception = BlockDefinitionException::noCollection('def', 'coll');
@@ -61,9 +51,6 @@ final class BlockDefinitionExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noBlockDefinition
-     */
     public function testNoBlockDefinition(): void
     {
         $exception = BlockDefinitionException::noBlockDefinition('def');
@@ -74,9 +61,6 @@ final class BlockDefinitionExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noPlugin
-     */
     public function testNoPlugin(): void
     {
         $exception = BlockDefinitionException::noPlugin('def', 'ClassName');

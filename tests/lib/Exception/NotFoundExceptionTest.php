@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception;
 
 use Netgen\Layouts\Exception\NotFoundException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(NotFoundException::class)]
 final class NotFoundExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\NotFoundException::__construct
-     */
     public function testExceptionMessage(): void
     {
         $exception = new NotFoundException('test');
@@ -19,9 +18,6 @@ final class NotFoundExceptionTest extends TestCase
         self::assertSame('Could not find test', $exception->getMessage());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\NotFoundException::__construct
-     */
     public function testExceptionMessageWithIdentifier(): void
     {
         $exception = new NotFoundException('test', 1);

@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Create::class)]
 final class CreateTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreate(): void
     {
         $data = $this->jsonEncode(
@@ -42,10 +40,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithMissingDescription(): void
     {
         $data = $this->jsonEncode(
@@ -72,10 +66,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithEmptyDescription(): void
     {
         $data = $this->jsonEncode(
@@ -103,10 +93,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithInvalidLayoutType(): void
     {
         $data = $this->jsonEncode(
@@ -133,10 +119,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithMissingLayoutType(): void
     {
         $data = $this->jsonEncode(
@@ -162,10 +144,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithNonExistingLayoutType(): void
     {
         $data = $this->jsonEncode(
@@ -192,10 +170,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithInvalidName(): void
     {
         $data = $this->jsonEncode(
@@ -222,10 +196,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithEmptyName(): void
     {
         $data = $this->jsonEncode(
@@ -252,10 +222,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithMissingName(): void
     {
         $data = $this->jsonEncode(
@@ -281,10 +247,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithExistingName(): void
     {
         $data = $this->jsonEncode(
@@ -311,10 +273,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithInvalidDescription(): void
     {
         $data = $this->jsonEncode(
@@ -342,10 +300,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithInvalidLocale(): void
     {
         $data = $this->jsonEncode(
@@ -373,10 +327,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithMissingLocale(): void
     {
         $data = $this->jsonEncode(
@@ -403,10 +353,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create::validateRequestData
-     */
     public function testCreateWithNonExistentLocale(): void
     {
         $data = $this->jsonEncode(

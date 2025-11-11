@@ -7,6 +7,8 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -18,6 +20,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
+#[CoversClass(ExceptionSerializerListener::class)]
 final class ExceptionSerializerListenerTest extends TestCase
 {
     private MockObject $serializerMock;
@@ -37,9 +40,6 @@ final class ExceptionSerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -48,10 +48,6 @@ final class ExceptionSerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
-     */
     public function testOnException(): void
     {
         $exception = new Exception();
@@ -92,12 +88,7 @@ final class ExceptionSerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
-     *
-     * @dataProvider onExceptionWithHttpExceptionDataProvider
-     */
+    #[DataProvider('onExceptionWithHttpExceptionDataProvider')]
     public function testOnExceptionWithHttpException(int $statusCode, bool $loggerCalled): void
     {
         $exception = new HttpException($statusCode);
@@ -150,9 +141,6 @@ final class ExceptionSerializerListenerTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
-     */
     public function testOnExceptionWithNoApiRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -170,9 +158,6 @@ final class ExceptionSerializerListenerTest extends TestCase
         self::assertFalse($event->hasResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
-     */
     public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

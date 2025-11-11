@@ -10,8 +10,11 @@ use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\TextType;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterNormalizer::class)]
 final class ParameterNormalizerTest extends TestCase
 {
     private ParameterNormalizer $normalizer;
@@ -21,9 +24,6 @@ final class ParameterNormalizerTest extends TestCase
         $this->normalizer = new ParameterNormalizer();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ParameterNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $parameter = Parameter::fromArray(
@@ -43,11 +43,7 @@ final class ParameterNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ParameterNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

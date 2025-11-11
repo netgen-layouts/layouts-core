@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Config;
 
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\Config\ConfigList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,11 +14,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(ConfigList::class)]
 final class ConfigListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -32,10 +31,6 @@ final class ConfigListTest extends TestCase
         new ConfigList(['key1' => new Config(), 'key2' => new stdClass(), 'key3' => new Config()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::__construct
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::getConfigs
-     */
     public function testGetConfigs(): void
     {
         $configs = ['key1' => new Config(), 'key2' => new Config()];
@@ -43,9 +38,6 @@ final class ConfigListTest extends TestCase
         self::assertSame($configs, new ConfigList($configs)->getConfigs());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::getConfigKeys
-     */
     public function testGetConfigKeys(): void
     {
         $configs = [

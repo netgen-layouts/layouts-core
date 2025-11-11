@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Collection\Form\CollectionEditType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -16,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(CollectionEditType::class)]
 final class CollectionEditTypeTest extends FormTestCase
 {
     private Collection $collection;
@@ -27,10 +29,6 @@ final class CollectionEditTypeTest extends FormTestCase
         $this->collection = new Collection();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildForm
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildView
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -63,10 +61,6 @@ final class CollectionEditTypeTest extends FormTestCase
         self::assertSame($this->collection, $view->vars['collection']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildForm
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildView
-     */
     public function testSubmitValidDataWithDynamicCollection(): void
     {
         $this->collection = Collection::fromArray(['query' => new Query()]);
@@ -102,9 +96,6 @@ final class CollectionEditTypeTest extends FormTestCase
         self::assertSame($this->collection, $view->vars['collection']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -126,9 +117,6 @@ final class CollectionEditTypeTest extends FormTestCase
         self::assertSame('nglayouts_forms', $options['translation_domain']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
-     */
     public function testConfigureOptionsWithMissingQuery(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -142,9 +130,6 @@ final class CollectionEditTypeTest extends FormTestCase
         $optionsResolver->resolve();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidQueryType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -162,9 +147,6 @@ final class CollectionEditTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

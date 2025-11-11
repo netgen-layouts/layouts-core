@@ -15,8 +15,10 @@ use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTestBase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormInterface;
 
+#[CoversClass(LinkDataMapper::class)]
 final class LinkDataMapperTest extends DataMapperTestBase
 {
     use ExportObjectTrait;
@@ -37,10 +39,6 @@ final class LinkDataMapperTest extends DataMapperTestBase
         $this->mapper = new LinkDataMapper($parameterDefinition);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::__construct
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
-     */
     public function testMapDataToForms(): void
     {
         $linkValue = LinkValue::fromArray(
@@ -79,9 +77,6 @@ final class LinkDataMapperTest extends DataMapperTestBase
         self::assertSame('https://netgen.io', $urlForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
-     */
     public function testMapDataToFormsWithInvalidData(): void
     {
         $linkValue = 42;
@@ -109,9 +104,6 @@ final class LinkDataMapperTest extends DataMapperTestBase
         self::assertNull($newWindowForm->getData());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
-     */
     public function testMapFormsToData(): void
     {
         $forms = new ArrayIterator(
@@ -138,9 +130,6 @@ final class LinkDataMapperTest extends DataMapperTestBase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
-     */
     public function testMapFormsToDataWithInvalidFormData(): void
     {
         $forms = new ArrayIterator(

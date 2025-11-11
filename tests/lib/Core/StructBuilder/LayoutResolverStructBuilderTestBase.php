@@ -21,9 +21,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         $this->structBuilder = new LayoutResolverStructBuilder();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleCreateStruct
-     */
     public function testNewRuleCreateStruct(): void
     {
         $struct = $this->structBuilder->newRuleCreateStruct();
@@ -41,9 +38,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleUpdateStruct
-     */
     public function testNewRuleUpdateStruct(): void
     {
         $struct = $this->structBuilder->newRuleUpdateStruct();
@@ -58,9 +52,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleMetadataUpdateStruct
-     */
     public function testNewRuleMetadataUpdateStruct(): void
     {
         $struct = $this->structBuilder->newRuleMetadataUpdateStruct();
@@ -73,9 +64,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleGroupCreateStruct
-     */
     public function testNewRuleGroupCreateStruct(): void
     {
         $struct = $this->structBuilder->newRuleGroupCreateStruct('Test group');
@@ -92,9 +80,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleGroupUpdateStruct
-     */
     public function testNewRuleGroupUpdateStruct(): void
     {
         $struct = $this->structBuilder->newRuleGroupUpdateStruct();
@@ -108,9 +93,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleGroupMetadataUpdateStruct
-     */
     public function testNewRuleGroupMetadataUpdateStruct(): void
     {
         $struct = $this->structBuilder->newRuleGroupMetadataUpdateStruct();
@@ -123,9 +105,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newTargetCreateStruct
-     */
     public function testNewTargetCreateStruct(): void
     {
         $struct = $this->structBuilder->newTargetCreateStruct('target');
@@ -138,9 +117,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newTargetUpdateStruct
-     */
     public function testNewTargetUpdateStruct(): void
     {
         $struct = $this->structBuilder->newTargetUpdateStruct();
@@ -148,9 +124,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         self::assertSame([], $this->exportObject($struct));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newConditionCreateStruct
-     */
     public function testNewConditionCreateStruct(): void
     {
         $struct = $this->structBuilder->newConditionCreateStruct('condition');
@@ -163,9 +136,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newConditionUpdateStruct
-     */
     public function testNewConditionUpdateStruct(): void
     {
         $struct = $this->structBuilder->newConditionUpdateStruct();

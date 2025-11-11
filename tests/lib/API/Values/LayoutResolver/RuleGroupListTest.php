@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
@@ -14,11 +15,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(RuleGroupList::class)]
 final class RuleGroupListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -33,10 +32,6 @@ final class RuleGroupListTest extends TestCase
         new RuleGroupList([new RuleGroup(), new stdClass(), new RuleGroup()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList::__construct
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList::getRuleGroups
-     */
     public function testGetRuleGroups(): void
     {
         $ruleGroups = [new RuleGroup(), new RuleGroup()];
@@ -44,9 +39,6 @@ final class RuleGroupListTest extends TestCase
         self::assertSame($ruleGroups, new RuleGroupList($ruleGroups)->getRuleGroups());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList::getRuleGroupIds
-     */
     public function testGetRuleGroupIds(): void
     {
         $uuid1 = Uuid::uuid4();

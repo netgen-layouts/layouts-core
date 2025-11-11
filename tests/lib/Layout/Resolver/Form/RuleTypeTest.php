@@ -7,17 +7,16 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Layout\Resolver\Form\RuleType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(RuleType::class)]
 final class RuleTypeTest extends FormTestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\RuleType::buildForm
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -42,9 +41,6 @@ final class RuleTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\RuleType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -63,9 +59,6 @@ final class RuleTypeTest extends FormTestCase
         self::assertSame($struct, $options['data']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\RuleType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

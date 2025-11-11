@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\View;
 
 use Netgen\Layouts\Exception\View\ViewProviderException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ViewProviderException::class)]
 final class ViewProviderExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\View\ViewProviderException::__construct
-     */
     public function testConstructor(): void
     {
         $exception = new ViewProviderException();
@@ -22,9 +21,6 @@ final class ViewProviderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\View\ViewProviderException::noViewProvider
-     */
     public function testNoViewProvider(): void
     {
         $exception = ViewProviderException::noViewProvider('some_class');
@@ -35,9 +31,6 @@ final class ViewProviderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\View\ViewProviderException::noParameter
-     */
     public function testNoParameter(): void
     {
         $exception = ViewProviderException::noParameter('block', 'param');
@@ -48,9 +41,6 @@ final class ViewProviderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\View\ViewProviderException::invalidParameter
-     */
     public function testInvalidParameter(): void
     {
         $exception = ViewProviderException::invalidParameter('block', 'param', 'string');

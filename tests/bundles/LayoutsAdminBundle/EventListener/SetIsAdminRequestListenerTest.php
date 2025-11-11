@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(SetIsAdminRequestListener::class)]
 final class SetIsAdminRequestListenerTest extends TestCase
 {
     private SetIsAdminRequestListener $listener;
@@ -23,10 +25,6 @@ final class SetIsAdminRequestListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -35,9 +33,6 @@ final class SetIsAdminRequestListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener::onKernelRequest
-     */
     public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -52,9 +47,6 @@ final class SetIsAdminRequestListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener::onKernelRequest
-     */
     public function testOnKernelRequestWithInvalidRoute(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -67,9 +59,6 @@ final class SetIsAdminRequestListenerTest extends TestCase
         self::assertFalse($event->getRequest()->attributes->has(SetIsAdminRequestListener::ADMIN_FLAG_NAME));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener::onKernelRequest
-     */
     public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

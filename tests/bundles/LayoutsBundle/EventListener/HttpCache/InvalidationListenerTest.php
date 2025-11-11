@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
 use Netgen\Layouts\HttpCache\InvalidatorInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
@@ -21,6 +22,7 @@ use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(InvalidationListener::class)]
 final class InvalidationListenerTest extends TestCase
 {
     private MockObject $invalidatorMock;
@@ -34,10 +36,6 @@ final class InvalidationListenerTest extends TestCase
         $this->listener = new InvalidationListener($this->invalidatorMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -51,9 +49,6 @@ final class InvalidationListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener::onKernelTerminate
-     */
     public function testOnKernelTerminate(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -72,9 +67,6 @@ final class InvalidationListenerTest extends TestCase
         $this->listener->onKernelTerminate($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener::onKernelException
-     */
     public function testOnKernelException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -94,9 +86,6 @@ final class InvalidationListenerTest extends TestCase
         $this->listener->onKernelException($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener::onConsoleTerminate
-     */
     public function testOnConsoleTerminate(): void
     {
         $commandMock = $this->createMock(Command::class);

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Event;
 
 use Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+#[CoversClass(AdminMatchEvent::class)]
 final class AdminMatchEventTest extends TestCase
 {
     private Request $request;
@@ -28,35 +30,21 @@ final class AdminMatchEventTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent::getRequest
-     */
     public function testGetRequest(): void
     {
         self::assertSame($this->request, $this->event->getRequest());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent::getRequestType
-     */
     public function testGetRequestType(): void
     {
         self::assertSame($this->requestType, $this->event->getRequestType());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent::getPageLayoutTemplate
-     */
     public function testGetPageLayoutTemplate(): void
     {
         self::assertNull($this->event->getPageLayoutTemplate());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent::getPageLayoutTemplate
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent::setPageLayoutTemplate
-     */
     public function testSetPageLayoutTemplate(): void
     {
         $this->event->setPageLayoutTemplate('template.html.twig');

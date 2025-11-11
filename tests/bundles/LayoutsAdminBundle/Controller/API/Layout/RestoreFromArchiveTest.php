@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\RestoreFromArchive;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(RestoreFromArchive::class)]
 final class RestoreFromArchiveTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\RestoreFromArchive::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\RestoreFromArchive::__invoke
-     */
     public function testRestoreFromArchive(): void
     {
         $this->client->request(
@@ -28,9 +27,6 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\RestoreFromArchive::__invoke
-     */
     public function testRestoreFromArchiveWithNonExistentLayout(): void
     {
         $this->client->request(

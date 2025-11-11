@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\UnlinkZone;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(UnlinkZone::class)]
 final class UnlinkZoneTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\UnlinkZone::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\UnlinkZone::__invoke
-     */
     public function testUnlinkZone(): void
     {
         $this->client->request(
@@ -28,9 +27,6 @@ final class UnlinkZoneTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\UnlinkZone::__invoke
-     */
     public function testUnlinkZoneWithNonExistentZone(): void
     {
         $this->client->request(
@@ -49,9 +45,6 @@ final class UnlinkZoneTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\UnlinkZone::__invoke
-     */
     public function testUnlinkZoneWithNonExistentLayout(): void
     {
         $this->client->request(

@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\HttpCache;
 
 use Netgen\Layouts\HttpCache\NullClient;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(NullClient::class)]
 final class NullClientTest extends TestCase
 {
     private NullClient $client;
@@ -16,9 +18,6 @@ final class NullClientTest extends TestCase
         $this->client = new NullClient();
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\NullClient::purge
-     */
     public function testPurge(): void
     {
         $this->client->purge(['ngl-block-1', 'ngl-block-2']);

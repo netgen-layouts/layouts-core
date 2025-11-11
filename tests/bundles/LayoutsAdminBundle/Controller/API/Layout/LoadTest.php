@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Load;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Load::class)]
 final class LoadTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Load::__invoke
-     */
     public function testLoad(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?html=false');
@@ -24,9 +24,6 @@ final class LoadTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Load::__invoke
-     */
     public function testLoadInPublishedState(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?published=true&html=false');
@@ -38,9 +35,6 @@ final class LoadTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Load::__invoke
-     */
     public function testLoadWithNonExistentLayout(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff');

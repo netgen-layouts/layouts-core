@@ -8,6 +8,8 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGen
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Context\Context;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -16,6 +18,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+#[CoversClass(RouteGenerator::class)]
 final class RouteGeneratorTest extends TestCase
 {
     private Context $context;
@@ -43,12 +46,7 @@ final class RouteGeneratorTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
-     *
-     * @dataProvider invokeDataProvider
-     */
+    #[DataProvider('invokeDataProvider')]
     public function testInvoke(int $page, string $generatedUri, string $finalUri): void
     {
         $block = Block::fromArray(
@@ -94,12 +92,7 @@ final class RouteGeneratorTest extends TestCase
         self::assertSame($finalUri, $url);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
-     *
-     * @dataProvider invokeDataProvider
-     */
+    #[DataProvider('invokeDataProvider')]
     public function testInvokeWithoutRequest(int $page, string $generatedUri, string $finalUri): void
     {
         $block = Block::fromArray(

@@ -10,8 +10,11 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\RuleCondition\IsGroupCondition;
 use Netgen\Layouts\View\View\RuleConditionView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(IsGroupCondition::class)]
 final class IsGroupConditionTest extends TestCase
 {
     private IsGroupCondition $matcher;
@@ -23,11 +26,8 @@ final class IsGroupConditionTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\IsGroupCondition::match
-     *
-     * @dataProvider matchWithRuleConditionDataProvider
      */
+    #[DataProvider('matchWithRuleConditionDataProvider')]
     public function testMatchWithRuleCondition(array $config, bool $expected): void
     {
         $view = new RuleConditionView(new RuleCondition());
@@ -48,11 +48,8 @@ final class IsGroupConditionTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\IsGroupCondition::match
-     *
-     * @dataProvider matchWithRuleGroupConditionDataProvider
      */
+    #[DataProvider('matchWithRuleGroupConditionDataProvider')]
     public function testMatchWithRuleGroupCondition(array $config, bool $expected): void
     {
         $view = new RuleConditionView(new RuleGroupCondition());
@@ -71,9 +68,6 @@ final class IsGroupConditionTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\IsGroupCondition::match
-     */
     public function testMatchWithNoRuleConditionView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

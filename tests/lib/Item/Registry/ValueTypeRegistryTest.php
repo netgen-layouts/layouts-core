@@ -9,8 +9,10 @@ use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ValueTypeRegistry::class)]
 final class ValueTypeRegistryTest extends TestCase
 {
     private ValueType $valueType1;
@@ -32,10 +34,6 @@ final class ValueTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::__construct
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueTypes
-     */
     public function testGetValueTypes(): void
     {
         self::assertSame(
@@ -47,9 +45,6 @@ final class ValueTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueTypes
-     */
     public function testGetEnabledValueTypes(): void
     {
         self::assertSame(
@@ -60,17 +55,11 @@ final class ValueTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueType
-     */
     public function testGetValueType(): void
     {
         self::assertSame($this->valueType1, $this->registry->getValueType('value1'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueType
-     */
     public function testGetValueTypeThrowsInvalidArgumentException(): void
     {
         $this->expectException(ItemException::class);
@@ -79,25 +68,16 @@ final class ValueTypeRegistryTest extends TestCase
         $this->registry->getValueType('other_value');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::hasValueType
-     */
     public function testHasValueType(): void
     {
         self::assertTrue($this->registry->hasValueType('value1'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::hasValueType
-     */
     public function testHasValueTypeWithNoValueType(): void
     {
         self::assertFalse($this->registry->hasValueType('other_value'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getIterator
-     */
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
@@ -110,34 +90,22 @@ final class ValueTypeRegistryTest extends TestCase
         self::assertSame($this->registry->getValueTypes(), $valueTypes);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::count
-     */
     public function testCount(): void
     {
         self::assertCount(2, $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetExists
-     */
     public function testOffsetExists(): void
     {
         self::assertArrayHasKey('value1', $this->registry);
         self::assertArrayNotHasKey('other', $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetGet
-     */
     public function testOffsetGet(): void
     {
         self::assertSame($this->valueType1, $this->registry['value1']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetSet
-     */
     public function testOffsetSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -146,9 +114,6 @@ final class ValueTypeRegistryTest extends TestCase
         $this->registry['value1'] = $this->valueType1;
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetUnset
-     */
     public function testOffsetUnset(): void
     {
         $this->expectException(RuntimeException::class);

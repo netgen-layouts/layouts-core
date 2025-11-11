@@ -16,10 +16,12 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\View\RuleView;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
+#[CoversClass(CacheEnabledListener::class)]
 final class CacheEnabledListenerTest extends TestCase
 {
     private CacheEnabledListener $listener;
@@ -29,9 +31,6 @@ final class CacheEnabledListenerTest extends TestCase
         $this->listener = new CacheEnabledListener(new NullClient());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -43,10 +42,6 @@ final class CacheEnabledListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::onBuildView
-     */
     public function testOnBuildViewWithLayoutView(): void
     {
         $view = new LayoutView(new Layout());
@@ -63,10 +58,6 @@ final class CacheEnabledListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::onBuildView
-     */
     public function testOnBuildViewWithRuleView(): void
     {
         $view = new RuleView(new Rule());
@@ -83,10 +74,6 @@ final class CacheEnabledListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::onBuildView
-     */
     public function testOnBuildViewWithNoNullClient(): void
     {
         $this->listener = new CacheEnabledListener($this->createMock(ClientInterface::class));
@@ -105,9 +92,6 @@ final class CacheEnabledListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::onBuildView
-     */
     public function testOnBuildViewWithUnsupportedView(): void
     {
         $view = new View(new Value());
@@ -117,9 +101,6 @@ final class CacheEnabledListenerTest extends TestCase
         self::assertSame([], $event->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener::onBuildView
-     */
     public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(new Layout());

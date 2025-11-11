@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(SetIsApiRequestListener::class)]
 final class SetIsApiRequestListenerTest extends TestCase
 {
     private SetIsApiRequestListener $listener;
@@ -20,9 +22,6 @@ final class SetIsApiRequestListenerTest extends TestCase
         $this->listener = new SetIsApiRequestListener();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -31,9 +30,6 @@ final class SetIsApiRequestListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::onKernelRequest
-     */
     public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -46,9 +42,6 @@ final class SetIsApiRequestListenerTest extends TestCase
         self::assertTrue($event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::onKernelRequest
-     */
     public function testOnKernelRequestWithInvalidRoute(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -61,9 +54,6 @@ final class SetIsApiRequestListenerTest extends TestCase
         self::assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::onKernelRequest
-     */
     public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

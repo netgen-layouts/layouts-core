@@ -8,9 +8,11 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter;
 use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ResultBuilderAdapter::class)]
 final class ResultBuilderAdapterTest extends TestCase
 {
     private MockObject&ResultBuilderInterface $resultBuilderMock;
@@ -20,11 +22,6 @@ final class ResultBuilderAdapterTest extends TestCase
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
-     */
     public function testGetNbResults(): void
     {
         $collection = new Collection();
@@ -43,11 +40,6 @@ final class ResultBuilderAdapterTest extends TestCase
         self::assertSame(3, $adapter->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
-     */
     public function testGetNbResultsWithMaxTotalCount(): void
     {
         $collection = new Collection();
@@ -66,10 +58,6 @@ final class ResultBuilderAdapterTest extends TestCase
         self::assertSame(10, $adapter->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
-     */
     public function testGetNbResultsWithStartingOffset(): void
     {
         $collection = new Collection();
@@ -88,10 +76,6 @@ final class ResultBuilderAdapterTest extends TestCase
         self::assertSame(3, $adapter->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
-     */
     public function testGetNbResultsWithStartingOffsetAndMaxTotalCount(): void
     {
         $collection = new Collection();
@@ -110,10 +94,6 @@ final class ResultBuilderAdapterTest extends TestCase
         self::assertSame(5, $adapter->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
-     */
     public function testGetSlice(): void
     {
         $collection = new Collection();
@@ -134,10 +114,6 @@ final class ResultBuilderAdapterTest extends TestCase
         self::assertSame($resultSet, $adapter->getSlice(0, 10));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
-     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
-     */
     public function testGetSliceWithStartingOffset(): void
     {
         $collection = new Collection();

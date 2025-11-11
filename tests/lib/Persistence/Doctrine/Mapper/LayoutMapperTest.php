@@ -9,8 +9,10 @@ use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutMapper::class)]
 final class LayoutMapperTest extends TestCase
 {
     use ExportObjectTrait;
@@ -22,9 +24,6 @@ final class LayoutMapperTest extends TestCase
         $this->mapper = new LayoutMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
-     */
     public function testMapLayouts(): void
     {
         $data = [
@@ -91,9 +90,6 @@ final class LayoutMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($layouts));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper::mapZones
-     */
     public function testMapZones(): void
     {
         $data = [

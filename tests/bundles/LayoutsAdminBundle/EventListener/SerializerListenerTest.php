@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
+#[CoversClass(SerializerListener::class)]
 final class SerializerListenerTest extends TestCase
 {
     private MockObject $serializerMock;
@@ -30,9 +32,6 @@ final class SerializerListenerTest extends TestCase
         $this->listener = new SerializerListener($this->serializerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -41,10 +40,6 @@ final class SerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
-     */
     public function testOnView(): void
     {
         $value = new Value(new APIValue());
@@ -83,9 +78,6 @@ final class SerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
-     */
     public function testOnViewWithNoHtmlRendering(): void
     {
         $value = new Value(new APIValue());
@@ -125,9 +117,6 @@ final class SerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
-     */
     public function testOnViewInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -145,9 +134,6 @@ final class SerializerListenerTest extends TestCase
         self::assertFalse($event->hasResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
-     */
     public function testOnViewWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

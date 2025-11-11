@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Type;
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper;
 use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
@@ -17,6 +18,7 @@ use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -26,15 +28,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(Mapper::class)]
+#[CoversClass(ParametersType::class)]
 final class ParametersTypeTest extends FormTestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper::handleForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::__construct
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::getMapper
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::includeParameter
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -149,10 +146,6 @@ final class ParametersTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::getMapper
-     */
     public function testBuildFormWithNoMapper(): void
     {
         $this->expectException(ParameterTypeException::class);
@@ -189,11 +182,6 @@ final class ParametersTypeTest extends FormTestCase
         $parentForm->submit([]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::getMapper
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::includeParameter
-     */
     public function testSubmitValidDataWithGroups(): void
     {
         $submittedData = [
@@ -253,9 +241,6 @@ final class ParametersTypeTest extends FormTestCase
         self::assertFalse($parentForm->get('parameter_values')->has('excluded'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -283,9 +268,6 @@ final class ParametersTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
-     */
     public function testConfigureOptionsWithMissingParameters(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -299,9 +281,6 @@ final class ParametersTypeTest extends FormTestCase
         $optionsResolver->resolve();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -320,9 +299,6 @@ final class ParametersTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidGroup(): void
     {
         $this->expectException(InvalidOptionsException::class);

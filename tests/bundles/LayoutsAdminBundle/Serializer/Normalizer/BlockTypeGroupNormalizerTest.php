@@ -9,8 +9,11 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockTypeGroupNormalizer::class)]
 final class BlockTypeGroupNormalizerTest extends TestCase
 {
     private BlockTypeGroupNormalizer $normalizer;
@@ -20,9 +23,6 @@ final class BlockTypeGroupNormalizerTest extends TestCase
         $this->normalizer = new BlockTypeGroupNormalizer();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeGroupNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $blockTypeGroup = BlockTypeGroup::fromArray(
@@ -48,11 +48,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeGroupNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

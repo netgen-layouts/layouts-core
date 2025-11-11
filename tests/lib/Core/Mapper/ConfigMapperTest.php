@@ -10,10 +10,12 @@ use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Core\Mapper\ConfigMapper;
 use Netgen\Layouts\Core\Mapper\ParameterMapper;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use function iterator_to_array;
 
+#[CoversClass(ConfigMapper::class)]
 final class ConfigMapperTest extends TestCase
 {
     private ConfigDefinition $configDefinition;
@@ -33,10 +35,6 @@ final class ConfigMapperTest extends TestCase
         $this->mapper = new ConfigMapper(new ParameterMapper());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\ConfigMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\ConfigMapper::mapConfig
-     */
     public function testMapConfig(): void
     {
         $mappedConfig = $this->mapper->mapConfig(
@@ -63,9 +61,6 @@ final class ConfigMapperTest extends TestCase
         self::assertSame('value', $config->getParameter('param')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\ConfigMapper::serializeValues
-     */
     public function testSerializeValues(): void
     {
         $configStruct = new ConfigStruct();

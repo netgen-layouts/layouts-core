@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Validator\Constraint\Structs;
 
 use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryUpdateStruct::class)]
 final class QueryUpdateStructTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct::validatedBy
-     */
     public function testValidatedBy(): void
     {
         $constraint = new QueryUpdateStruct();

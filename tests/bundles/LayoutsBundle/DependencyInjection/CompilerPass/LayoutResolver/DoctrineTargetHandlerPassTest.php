@@ -6,12 +6,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Lay
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
+#[CoversClass(DoctrineTargetHandlerPass::class)]
 final class DoctrineTargetHandlerPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,9 +23,6 @@ final class DoctrineTargetHandlerPassTest extends AbstractContainerBuilderTestCa
         $this->container->addCompilerPass(new DoctrineTargetHandlerPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass::process
-     */
     public function testProcess(): void
     {
         $layoutResolverHandler = new Definition();
@@ -57,9 +56,6 @@ final class DoctrineTargetHandlerPassTest extends AbstractContainerBuilderTestCa
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

@@ -11,9 +11,11 @@ use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(QueryRunner::class)]
 final class QueryRunnerTest extends TestCase
 {
     private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
@@ -29,11 +31,6 @@ final class QueryRunnerTest extends TestCase
             );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\QueryRunner::__construct
-     * @covers \Netgen\Layouts\Collection\Result\QueryRunner::count
-     * @covers \Netgen\Layouts\Collection\Result\QueryRunner::runQuery
-     */
     public function testRunner(): void
     {
         $queryType = new QueryType('query', [new Value(40), new Value(41), new Value(42)]);

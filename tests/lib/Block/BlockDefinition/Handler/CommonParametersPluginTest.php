@@ -10,8 +10,10 @@ use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CommonParametersPlugin::class)]
 final class CommonParametersPluginTest extends TestCase
 {
     private CommonParametersPlugin $plugin;
@@ -36,10 +38,6 @@ final class CommonParametersPluginTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin::__construct
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin::getExtendedHandlers
-     */
     public function testGetExtendedHandlers(): void
     {
         self::assertSame(
@@ -48,9 +46,6 @@ final class CommonParametersPluginTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin::buildParameters
-     */
     public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();

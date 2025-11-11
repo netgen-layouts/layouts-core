@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\BlockCollection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
 use Netgen\Layouts\API\Values\Collection\CollectionType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(ChangeCollectionType::class)]
 final class ChangeCollectionTypeTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::validateRequestData
-     */
     public function testChangeCollectionTypeFromManualToManual(): void
     {
         $data = $this->jsonEncode(
@@ -36,10 +34,6 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::validateRequestData
-     */
     public function testChangeCollectionTypeFromManualToDynamic(): void
     {
         $data = $this->jsonEncode(
@@ -61,10 +55,6 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::validateRequestData
-     */
     public function testChangeCollectionTypeFromDynamicToManual(): void
     {
         $data = $this->jsonEncode(
@@ -85,10 +75,6 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::validateRequestData
-     */
     public function testChangeCollectionTypeFromDynamicToDynamic(): void
     {
         $data = $this->jsonEncode(
@@ -110,10 +96,6 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::validateRequestData
-     */
     public function testChangeCollectionTypeWithInvalidQueryType(): void
     {
         $data = $this->jsonEncode(
@@ -139,10 +121,6 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType::validateRequestData
-     */
     public function testChangeCollectionTypeWithMissingQueryType(): void
     {
         $data = $this->jsonEncode(

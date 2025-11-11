@@ -6,14 +6,12 @@ namespace Netgen\Layouts\Tests\API\Values\Config;
 
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\Config\ConfigDefinition;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Config::class)]
 final class ConfigTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Config\Config::getConfigKey
-     * @covers \Netgen\Layouts\API\Values\Config\Config::getDefinition
-     */
     public function testSetProperties(): void
     {
         $definition = new ConfigDefinition();

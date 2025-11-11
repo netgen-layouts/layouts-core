@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Security;
 
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
+#[CoversClass(CsrfTokenValidator::class)]
 final class CsrfTokenValidatorTest extends TestCase
 {
     private MockObject $csrfTokenManagerMock;
@@ -33,10 +35,6 @@ final class CsrfTokenValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
-     */
     public function testValidateCsrfToken(): void
     {
         $this->csrfTokenManagerMock
@@ -58,9 +56,6 @@ final class CsrfTokenValidatorTest extends TestCase
         self::assertTrue($this->validator->validateCsrfToken($request, 'token_id'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
-     */
     public function testValidateCsrfTokenOnInvalidToken(): void
     {
         $this->csrfTokenManagerMock
@@ -82,9 +77,6 @@ final class CsrfTokenValidatorTest extends TestCase
         self::assertFalse($this->validator->validateCsrfToken($request, 'token_id'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
-     */
     public function testValidateCsrfTokenOnMissingTokenHeader(): void
     {
         $this->csrfTokenManagerMock
@@ -103,9 +95,6 @@ final class CsrfTokenValidatorTest extends TestCase
         self::assertFalse($this->validator->validateCsrfToken($request, 'token_id'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
-     */
     public function testValidateCsrfTokenWithNotStartedSession(): void
     {
         $this->csrfTokenManagerMock
@@ -123,9 +112,6 @@ final class CsrfTokenValidatorTest extends TestCase
         self::assertTrue($this->validator->validateCsrfToken($request, 'token_id'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
-     */
     public function testValidateCsrfTokenWithNoCsrfFlag(): void
     {
         $this->csrfTokenManagerMock
@@ -146,9 +132,6 @@ final class CsrfTokenValidatorTest extends TestCase
         $this->validator->validateCsrfToken($request, 'token_id');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
-     */
     public function testValidateCsrfTokenWithNoSession(): void
     {
         $this->csrfTokenManagerMock
@@ -164,9 +147,6 @@ final class CsrfTokenValidatorTest extends TestCase
         self::assertTrue($this->validator->validateCsrfToken($request, 'token_id'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
-     */
     public function testValidateCsrfTokenWithSafeMethod(): void
     {
         $this->csrfTokenManagerMock

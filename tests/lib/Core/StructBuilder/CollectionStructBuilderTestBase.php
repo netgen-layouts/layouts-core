@@ -26,10 +26,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         $this->structBuilder = new CollectionStructBuilder(new ConfigStructBuilder());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::__construct
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionCreateStruct
-     */
     public function testNewCollectionCreateStruct(): void
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
@@ -45,9 +41,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
-     */
     public function testNewCollectionUpdateStruct(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct();
@@ -61,9 +54,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
-     */
     public function testNewCollectionUpdateStructWithCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
@@ -79,9 +69,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
-     */
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
@@ -97,9 +84,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemCreateStruct
-     */
     public function testNewItemCreateStruct(): void
     {
         $itemDefinition = new ItemDefinition();
@@ -116,9 +100,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
-     */
     public function testNewItemUpdateStruct(): void
     {
         $struct = $this->structBuilder->newItemUpdateStruct();
@@ -132,9 +113,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
-     */
     public function testNewItemUpdateStructFromItem(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
@@ -158,9 +136,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
-     */
     public function testNewItemUpdateStructFromItemWithNoViewType(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
@@ -184,9 +159,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newQueryCreateStruct
-     */
     public function testNewQueryCreateStruct(): void
     {
         $queryType = new QueryType('my_query_type');
@@ -205,9 +177,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
-     */
     public function testNewQueryUpdateStruct(): void
     {
         $struct = $this->structBuilder->newQueryUpdateStruct('en');
@@ -221,9 +190,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
-     */
     public function testNewQueryUpdateStructFromQuery(): void
     {
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('6d60fcbc-ae38-57c2-af72-e462a3e5c9f2'));
@@ -241,9 +207,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newSlotCreateStruct
-     */
     public function testNewSlotCreateStruct(): void
     {
         $struct = $this->structBuilder->newSlotCreateStruct();
@@ -256,9 +219,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newSlotUpdateStruct
-     */
     public function testNewSlotUpdateStruct(): void
     {
         $struct = $this->structBuilder->newSlotUpdateStruct();
@@ -271,9 +231,6 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newSlotUpdateStruct
-     */
     public function testNewSlotUpdateStructFromSlot(): void
     {
         $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));

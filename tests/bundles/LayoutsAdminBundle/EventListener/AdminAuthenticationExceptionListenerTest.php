@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
+#[CoversClass(AdminAuthenticationExceptionListener::class)]
 final class AdminAuthenticationExceptionListenerTest extends TestCase
 {
     private AdminAuthenticationExceptionListener $listener;
@@ -24,9 +26,6 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $this->listener = new AdminAuthenticationExceptionListener();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -35,9 +34,6 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
-     */
     public function testOnException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -60,9 +56,6 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         self::assertTrue($event->isPropagationStopped());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
-     */
     public function testOnExceptionWithWrongException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -85,9 +78,6 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         self::assertFalse($event->isPropagationStopped());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
-     */
     public function testOnExceptionInNonAdminRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -109,9 +99,6 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         self::assertFalse($event->isPropagationStopped());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener::onException
-     */
     public function testOnExceptionInNonXmlHttpRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

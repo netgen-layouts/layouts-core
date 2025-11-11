@@ -8,11 +8,13 @@ use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[CoversClass(ClearLayoutsCacheType::class)]
 final class ClearLayoutsCacheTypeTest extends FormTestCase
 {
     private LayoutList $layouts;
@@ -32,10 +34,6 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildForm
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::finishView
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -73,9 +71,6 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -91,9 +86,6 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         self::assertSame($this->layouts, $options['layouts']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidLayouts(): void
     {
         $this->expectException(InvalidOptionsException::class);

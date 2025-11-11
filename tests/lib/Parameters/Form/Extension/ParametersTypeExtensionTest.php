@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Extension;
 
 use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[CoversClass(ParametersTypeExtension::class)]
 final class ParametersTypeExtensionTest extends TestCase
 {
     private ParametersTypeExtension $formTypeExtension;
@@ -22,25 +24,16 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension = new ParametersTypeExtension();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::getExtendedType
-     */
     public function testGetExtendedType(): void
     {
         self::assertSame(FormType::class, $this->formTypeExtension->getExtendedType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::getExtendedTypes
-     */
     public function testGetExtendedTypes(): void
     {
         self::assertSame([FormType::class], $this->formTypeExtension::getExtendedTypes());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::buildView
-     */
     public function testBuildView(): void
     {
         $view = new FormView();
@@ -57,9 +50,6 @@ final class ParametersTypeExtensionTest extends TestCase
         self::assertSame($parameterDefinition, $view->vars['ngl_parameter_definition']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::buildView
-     */
     public function testBuildViewWithEmptyOptions(): void
     {
         $view = new FormView();
@@ -73,9 +63,6 @@ final class ParametersTypeExtensionTest extends TestCase
         self::assertArrayNotHasKey('ngl_parameter_definition', $view->vars);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -97,9 +84,6 @@ final class ParametersTypeExtensionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
-     */
     public function testConfigureOptionsWithEmptyParameters(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -109,9 +93,6 @@ final class ParametersTypeExtensionTest extends TestCase
         self::assertSame([], $resolvedOptions);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
-     */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);

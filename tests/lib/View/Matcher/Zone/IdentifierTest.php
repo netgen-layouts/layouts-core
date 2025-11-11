@@ -13,8 +13,11 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Zone\Identifier;
 use Netgen\Layouts\View\View\ZoneView;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Identifier::class)]
 final class IdentifierTest extends TestCase
 {
     private Identifier $matcher;
@@ -26,11 +29,8 @@ final class IdentifierTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Zone\Identifier::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $layout = Layout::fromArray(['zones' => new ZoneList(['left' => Zone::fromArray(['identifier' => 'left'])])]);
@@ -51,9 +51,6 @@ final class IdentifierTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Zone\Identifier::match
-     */
     public function testMatchWithNoZoneView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

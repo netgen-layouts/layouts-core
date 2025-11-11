@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
 use Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route;
+use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\Status;
+use PHPUnit\Framework\Attributes\CoversClass;
 
+#[CoversClass(Route::class)]
+#[CoversClass(LayoutResolverHandler::class)]
+#[CoversClass(LayoutResolverQueryHandler::class)]
 final class RouteTest extends TargetHandlerTestBase
 {
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route::handleQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
-     */
     public function testMatchRules(): void
     {
         $rules = $this->handler->matchRules(

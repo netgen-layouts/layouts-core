@@ -8,8 +8,10 @@ use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared;
 use Netgen\Layouts\Browser\Item\Layout\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Shared::class)]
 final class SharedTest extends TestCase
 {
     private Shared $provider;
@@ -19,9 +21,6 @@ final class SharedTest extends TestCase
         $this->provider = new Shared();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared::getValue
-     */
     public function testGetValue(): void
     {
         $item = new Item(
@@ -38,9 +37,6 @@ final class SharedTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared::getValue
-     */
     public function testGetValueWithInvalidItem(): void
     {
         self::assertNull($this->provider->getValue(new StubItem(42)));

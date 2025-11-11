@@ -8,8 +8,10 @@ use Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockMapper::class)]
 final class BlockMapperTest extends TestCase
 {
     use ExportObjectTrait;
@@ -21,10 +23,6 @@ final class BlockMapperTest extends TestCase
         $this->mapper = new BlockMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
-     */
     public function testMapBlocks(): void
     {
         $data = [
@@ -143,10 +141,6 @@ final class BlockMapperTest extends TestCase
         self::assertSame($expectedData, $this->exportObjectList($blocks));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
-     */
     public function testMapBlocksWithLayoutUuid(): void
     {
         $data = [

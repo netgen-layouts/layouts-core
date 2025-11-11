@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Layout;
 
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Layout\ZoneList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,11 +14,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(ZoneList::class)]
 final class ZoneListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -32,10 +31,6 @@ final class ZoneListTest extends TestCase
         new ZoneList(['one' => new Zone(), 'two' => new stdClass(), 'three' => new Zone()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::__construct
-     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::getZones
-     */
     public function testGetZones(): void
     {
         $zones = ['one' => new Zone(), 'two' => new Zone()];
@@ -43,9 +38,6 @@ final class ZoneListTest extends TestCase
         self::assertSame($zones, new ZoneList($zones)->getZones());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::getZoneIdentifiers
-     */
     public function testGetZoneIdentifiers(): void
     {
         $zones = [

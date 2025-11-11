@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Condition::class)]
+#[CoversClass(RuleCondition::class)]
 final class RuleConditionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Condition::getConditionType
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Condition::getId
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Condition::getValue
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleCondition::getRuleId
-     */
     public function testSetProperties(): void
     {
         $conditionType = new ConditionType1();

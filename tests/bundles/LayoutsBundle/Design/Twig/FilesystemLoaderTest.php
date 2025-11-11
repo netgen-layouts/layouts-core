@@ -6,11 +6,13 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Design\Twig;
 
 use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Loader\LoaderInterface;
 use Twig\Source;
 
+#[CoversClass(FilesystemLoader::class)]
 final class FilesystemLoaderTest extends TestCase
 {
     private MockObject $innerLoaderMock;
@@ -35,11 +37,6 @@ final class FilesystemLoaderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getSourceContext
-     */
     public function testGetSourceContext(): void
     {
         $source = new Source('', '@nglayouts_test/template.html.twig');
@@ -55,10 +52,6 @@ final class FilesystemLoaderTest extends TestCase
         self::assertSame($source, $sourceContext);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getSourceContext
-     */
     public function testGetSourceContextWithNonLayoutsTwigFile(): void
     {
         $source = new Source('', '@other/template.html.twig');
@@ -74,10 +67,6 @@ final class FilesystemLoaderTest extends TestCase
         self::assertSame($source, $sourceContext);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getCacheKey
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     */
     public function testGetCacheKey(): void
     {
         $this->innerLoaderMock
@@ -91,10 +80,6 @@ final class FilesystemLoaderTest extends TestCase
         self::assertSame('cache_key', $cacheKey);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getCacheKey
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     */
     public function testGetCacheKeyWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
@@ -108,10 +93,6 @@ final class FilesystemLoaderTest extends TestCase
         self::assertSame('cache_key', $cacheKey);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::isFresh
-     */
     public function testIsFresh(): void
     {
         $this->innerLoaderMock
@@ -123,10 +104,6 @@ final class FilesystemLoaderTest extends TestCase
         self::assertTrue($this->loader->isFresh('@nglayouts/template.html.twig', 42));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::isFresh
-     */
     public function testIsFreshWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
@@ -138,10 +115,6 @@ final class FilesystemLoaderTest extends TestCase
         self::assertTrue($this->loader->isFresh('@other/template.html.twig', 42));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::exists
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     */
     public function testExists(): void
     {
         $this->innerLoaderMock
@@ -153,10 +126,6 @@ final class FilesystemLoaderTest extends TestCase
         self::assertTrue($this->loader->exists('@nglayouts/template.html.twig'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::exists
-     * @covers \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader::getRealName
-     */
     public function testExistsWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock

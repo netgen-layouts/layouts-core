@@ -139,11 +139,6 @@ abstract class ImporterTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportRules(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rules.json');
@@ -186,12 +181,6 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportRuleGroups(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rule_groups.json');
@@ -234,11 +223,6 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportLayouts(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
@@ -284,10 +268,6 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
@@ -301,10 +281,6 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Could not find locale "hr" in the given query data', $result[0]->getError()->getMessage());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
@@ -318,10 +294,6 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Missing data for query main locale "en"', $result[0]->getError()->getMessage());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
@@ -335,10 +307,6 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Could not find locale "hr" in the given block data', $result[0]->getError()->getMessage());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
@@ -352,10 +320,6 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Missing data for block main locale "en"', $result[0]->getError()->getMessage());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
-     */
     public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(

@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\Block\BlockType;
 
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockType\BlockType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockType::class)]
 final class BlockTypeTest extends TestCase
 {
     private BlockType $blockType;
@@ -35,49 +37,31 @@ final class BlockTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('title', $this->blockType->getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::isEnabled
-     */
     public function testIsEnabled(): void
     {
         self::assertFalse($this->blockType->isEnabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('Title', $this->blockType->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getIcon
-     */
     public function testGetIcon(): void
     {
         self::assertSame('/icon.svg', $this->blockType->getIcon());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefinition
-     */
     public function testGetDefinition(): void
     {
         self::assertSame($this->blockDefinition, $this->blockType->getDefinition());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaults
-     */
     public function testGetDefaults(): void
     {
         self::assertSame(
@@ -91,41 +75,26 @@ final class BlockTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultName
-     */
     public function testGetDefaultName(): void
     {
         self::assertSame('Name', $this->blockType->getDefaultName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultViewType
-     */
     public function testGetDefaultViewType(): void
     {
         self::assertSame('default', $this->blockType->getDefaultViewType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultItemViewType
-     */
     public function testGetDefaultItemViewType(): void
     {
         self::assertSame('standard', $this->blockType->getDefaultItemViewType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultParameters
-     */
     public function testGetDefaultParameters(): void
     {
         self::assertSame(['tag' => 'h3'], $this->blockType->getDefaultParameters());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultName
-     */
     public function testGetDefaultEmptyName(): void
     {
         $this->blockType = new BlockType();
@@ -133,9 +102,6 @@ final class BlockTypeTest extends TestCase
         self::assertSame('', $this->blockType->getDefaultName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultViewType
-     */
     public function testGetDefaultEmptyViewType(): void
     {
         $this->blockType = new BlockType();
@@ -143,9 +109,6 @@ final class BlockTypeTest extends TestCase
         self::assertSame('', $this->blockType->getDefaultViewType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultViewType
-     */
     public function testGetDefaultEmptyItemViewType(): void
     {
         $this->blockType = new BlockType();
@@ -153,9 +116,6 @@ final class BlockTypeTest extends TestCase
         self::assertSame('', $this->blockType->getDefaultItemViewType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultParameters
-     */
     public function testGetDefaultEmptyParameters(): void
     {
         $this->blockType = new BlockType();

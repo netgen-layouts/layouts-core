@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Collection;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(CollectionValueResolver::class)]
 final class CollectionValueResolverTest extends TestCase
 {
     private MockObject $collectionServiceMock;
@@ -24,34 +26,21 @@ final class CollectionValueResolverTest extends TestCase
         $this->valueResolver = new CollectionValueResolver($this->collectionServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver::getSourceAttributeNames
-     */
     public function testGetSourceAttributeName(): void
     {
         self::assertSame(['collectionId'], $this->valueResolver->getSourceAttributeNames());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver::getDestinationAttributeName
-     */
     public function testGetDestinationAttributeName(): void
     {
         self::assertSame('collection', $this->valueResolver->getDestinationAttributeName());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver::getSupportedClass
-     */
     public function testGetSupportedClass(): void
     {
         self::assertSame(Collection::class, $this->valueResolver->getSupportedClass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver::loadValue
-     */
     public function testLoadValue(): void
     {
         $collection = new Collection();
@@ -75,9 +64,6 @@ final class CollectionValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver::loadValue
-     */
     public function testLoadValueDraft(): void
     {
         $collection = new Collection();

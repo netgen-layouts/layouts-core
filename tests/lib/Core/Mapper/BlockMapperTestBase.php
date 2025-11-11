@@ -23,11 +23,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         $this->mapper = $this->createBlockMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
-     */
     public function testMapBlock(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -101,9 +96,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertNull($block->getParameter('css_id')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     */
     public function testMapBlockWithNoParent(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -137,11 +129,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertNull($block->getParentPlaceholder());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
-     */
     public function testMapBlockWithLocale(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -174,11 +161,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('hr', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
-     */
     public function testMapBlockWithLocales(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -211,11 +193,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('hr', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
-     */
     public function testMapBlockWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -248,11 +225,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('en', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
-     */
     public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
@@ -285,11 +257,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         $this->mapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
-     */
     public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
@@ -312,9 +279,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     */
     public function testMapBlockWithInvalidDefinition(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -378,11 +342,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('en', $block->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
-     */
     public function testMapContainerBlock(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -433,9 +392,6 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertCount(0, $placeholder->getBlocks());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
-     */
     public function testMapBlockWithCollections(): void
     {
         $persistenceBlock = Block::fromArray(

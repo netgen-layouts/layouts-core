@@ -11,11 +11,14 @@ use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(QueryUpdateStructValidator::class)]
 final class QueryUpdateStructValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -33,11 +36,8 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $value
-     *
-     * @covers \Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(array $value, bool $isValid): void
     {
         $queryUpdateStruct = new QueryUpdateStruct();
@@ -46,9 +46,6 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $queryUpdateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -58,9 +55,6 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new QueryUpdateStruct());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -70,9 +64,6 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new QueryUpdateStruct());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

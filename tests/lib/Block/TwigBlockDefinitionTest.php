@@ -7,8 +7,10 @@ namespace Netgen\Layouts\Tests\Block;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\TwigBlockDefinition;
 use Netgen\Layouts\Tests\Block\Stubs\TwigBlockDefinitionHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(TwigBlockDefinition::class)]
 final class TwigBlockDefinitionTest extends TestCase
 {
     private TwigBlockDefinitionHandler $handler;
@@ -27,18 +29,11 @@ final class TwigBlockDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getTwigBlockNames
-     */
     public function testGetTwigBlockNames(): void
     {
         self::assertSame(['twig_block'], $this->blockDefinition->getTwigBlockNames(new Block()));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getDynamicParameters
-     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getHandler
-     */
     public function testGetDynamicParameters(): void
     {
         $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
@@ -46,10 +41,6 @@ final class TwigBlockDefinitionTest extends TestCase
         self::assertCount(0, $dynamicParameters);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getHandler
-     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::isContextual
-     */
     public function testIsContextual(): void
     {
         self::assertTrue($this->blockDefinition->isContextual(new Block()));

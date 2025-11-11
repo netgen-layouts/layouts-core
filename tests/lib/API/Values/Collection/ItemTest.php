@@ -9,20 +9,14 @@ use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\NullCmsItem;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Item::class)]
 final class ItemTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::getCmsItem
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::getCollectionId
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::getDefinition
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::getId
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::getPosition
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::getValue
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::getViewType
-     */
     public function testSetProperties(): void
     {
         $cmsItem = new CmsItem();
@@ -52,11 +46,7 @@ final class ItemTest extends TestCase
         self::assertSame($cmsItem, $item->getCmsItem());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::isValid
-     *
-     * @dataProvider isValidDataProvider
-     */
+    #[DataProvider('isValidDataProvider')]
     public function testIsValid(bool $cmsItemVisible, bool $isValid): void
     {
         $item = Item::fromArray(
@@ -71,9 +61,6 @@ final class ItemTest extends TestCase
         self::assertSame($isValid, $item->isValid());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Item::isValid
-     */
     public function testIsValidWithNullCmsItem(): void
     {
         $item = Item::fromArray(

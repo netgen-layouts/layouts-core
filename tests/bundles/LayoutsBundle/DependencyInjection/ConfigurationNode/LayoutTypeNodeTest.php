@@ -6,20 +6,18 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\ConfigurationNod
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+#[CoversClass(LayoutTypeNode::class)]
+#[CoversClass(Configuration::class)]
 final class LayoutTypeNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettings(): void
     {
         $config = [
@@ -61,11 +59,6 @@ final class LayoutTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithNoIcon(): void
     {
         $config = [
@@ -91,11 +84,6 @@ final class LayoutTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithNullIcon(): void
     {
         $config = [
@@ -123,12 +111,6 @@ final class LayoutTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsNoZonesMerge(): void
     {
         $config = [
@@ -186,12 +168,6 @@ final class LayoutTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithAllowedBlockDefinitions(): void
     {
         $config = [
@@ -227,12 +203,6 @@ final class LayoutTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getNodes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithNonUniqueAllowedBlockDefinitions(): void
     {
         $config = [
@@ -268,30 +238,18 @@ final class LayoutTypeNodeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithEmptyLayouts(): void
     {
         $config = ['layout_types' => []];
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithNoName(): void
     {
         $config = ['layout_types' => ['layout' => []]];
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithNoZones(): void
     {
         $config = [
@@ -305,10 +263,6 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeWithEmptyIcon(): void
     {
         $config = [
@@ -323,10 +277,6 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeWithNonStringIcon(): void
     {
         $config = [
@@ -341,10 +291,6 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config], 'Icon path needs to be a non empty string or null.');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithEmptyZones(): void
     {
         $config = [
@@ -359,10 +305,6 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithNoZoneName(): void
     {
         $config = [
@@ -377,10 +319,6 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertConfigurationIsInvalid([$config]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
-     */
     public function testLayoutTypeSettingsWithEmptyAllowedBlockDefinitions(): void
     {
         $config = [

@@ -8,12 +8,14 @@ use Knp\Menu\Integration\Symfony\RoutingExtension;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
 use Netgen\Bundle\LayoutsAdminBundle\Menu\MainMenuBuilder;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
+#[CoversClass(MainMenuBuilder::class)]
 final class MainMenuBuilderTest extends TestCase
 {
     private MockObject $authorizationCheckerMock;
@@ -41,10 +43,6 @@ final class MainMenuBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Menu\MainMenuBuilder::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Menu\MainMenuBuilder::createMenu
-     */
     public function testCreateMenu(): void
     {
         $this->authorizationCheckerMock
@@ -81,9 +79,6 @@ final class MainMenuBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Menu\MainMenuBuilder::createMenu
-     */
     public function testCreateMenuWithNoAccess(): void
     {
         $this->authorizationCheckerMock

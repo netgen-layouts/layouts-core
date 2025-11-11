@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Collection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteSlot;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(DeleteSlot::class)]
 final class DeleteSlotTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteSlot::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteSlot::__invoke
-     */
     public function testDeleteSlot(): void
     {
         $this->client->request(
@@ -28,9 +27,6 @@ final class DeleteSlotTest extends JsonApiTestCase
         $this->assertEmptyResponse($this->client->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteSlot::__invoke
-     */
     public function testDeleteSlotWithNonExistentSlot(): void
     {
         $this->client->request(

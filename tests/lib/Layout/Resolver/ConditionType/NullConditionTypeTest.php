@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(NullConditionType::class)]
 final class NullConditionTypeTest extends TestCase
 {
     private NullConditionType $conditionType;
@@ -16,17 +18,11 @@ final class NullConditionTypeTest extends TestCase
         $this->conditionType = new NullConditionType();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType::getType
-     */
     public function testGetType(): void
     {
         self::assertSame('null', $this->conditionType::getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType::getConstraints
-     */
     public function testGetConstraints(): void
     {
         self::assertSame([], $this->conditionType->getConstraints());

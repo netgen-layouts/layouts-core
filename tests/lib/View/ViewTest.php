@@ -6,13 +6,16 @@ namespace Netgen\Layouts\Tests\View;
 
 use Netgen\Layouts\Exception\View\ViewException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
-use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\Tests\View\Stubs\View as ViewStub;
+use Netgen\Layouts\View\View;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(View::class)]
 final class ViewTest extends TestCase
 {
-    private View $view;
+    private ViewStub $view;
 
     private Value $value;
 
@@ -20,13 +23,9 @@ final class ViewTest extends TestCase
     {
         $this->value = new Value();
 
-        $this->view = new View($this->value);
+        $this->view = new ViewStub($this->value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::getContext
-     * @covers \Netgen\Layouts\View\View::setContext
-     */
     public function testSetContext(): void
     {
         $this->view->setContext('context');
@@ -34,10 +33,6 @@ final class ViewTest extends TestCase
         self::assertSame('context', $this->view->getContext());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::getTemplate
-     * @covers \Netgen\Layouts\View\View::setTemplate
-     */
     public function testSetTemplate(): void
     {
         $this->view->setTemplate('template.html.twig');
@@ -45,17 +40,11 @@ final class ViewTest extends TestCase
         self::assertSame('template.html.twig', $this->view->getTemplate());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::getFallbackContext
-     */
     public function testGetFallbackContext(): void
     {
         self::assertNull($this->view->getFallbackContext());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::setFallbackContext
-     */
     public function testSetFallbackContext(): void
     {
         $this->view->setFallbackContext('fallback');
@@ -63,18 +52,11 @@ final class ViewTest extends TestCase
         self::assertSame('fallback', $this->view->getFallbackContext());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::getResponse
-     */
     public function testGetDefaultResponse(): void
     {
         self::assertNull($this->view->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::getResponse
-     * @covers \Netgen\Layouts\View\View::setResponse
-     */
     public function testSetResponse(): void
     {
         $response = new Response('response');
@@ -84,10 +66,6 @@ final class ViewTest extends TestCase
         self::assertSame($response, $this->view->getResponse());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::addParameter
-     * @covers \Netgen\Layouts\View\View::hasParameter
-     */
     public function testHasParameter(): void
     {
         $this->view->addParameter('param', 'value');
@@ -95,10 +73,6 @@ final class ViewTest extends TestCase
         self::assertTrue($this->view->hasParameter('param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::addParameter
-     * @covers \Netgen\Layouts\View\View::hasParameter
-     */
     public function testHasParameterWithNoParam(): void
     {
         $this->view->addParameter('param', 'value');
@@ -106,10 +80,6 @@ final class ViewTest extends TestCase
         self::assertFalse($this->view->hasParameter('other_param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::addParameter
-     * @covers \Netgen\Layouts\View\View::getParameter
-     */
     public function testGetParameter(): void
     {
         $this->view->addParameter('param', 'value');
@@ -117,10 +87,6 @@ final class ViewTest extends TestCase
         self::assertSame('value', $this->view->getParameter('param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::addParameter
-     * @covers \Netgen\Layouts\View\View::getParameter
-     */
     public function testGetParameterWithBuiltInParameter(): void
     {
         $this->view->addParameter('value', 'custom');
@@ -128,10 +94,6 @@ final class ViewTest extends TestCase
         self::assertSame($this->value, $this->view->getParameter('value'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::addParameter
-     * @covers \Netgen\Layouts\View\View::getParameter
-     */
     public function testGetParameterThrowsViewException(): void
     {
         $this->expectException(ViewException::class);
@@ -142,9 +104,6 @@ final class ViewTest extends TestCase
         $this->view->getParameter('other_param');
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View::addParameters
-     */
     public function testAddParameters(): void
     {
         $this->view->addParameters(

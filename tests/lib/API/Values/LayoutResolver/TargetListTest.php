@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
@@ -14,11 +15,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(TargetList::class)]
 final class TargetListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -33,10 +32,6 @@ final class TargetListTest extends TestCase
         new TargetList([new Target(), new stdClass(), new Target()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::__construct
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::getTargets
-     */
     public function testGetTargets(): void
     {
         $targets = [new Target(), new Target()];
@@ -44,9 +39,6 @@ final class TargetListTest extends TestCase
         self::assertSame($targets, new TargetList($targets)->getTargets());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::getTargetIds
-     */
     public function testGetTargetIds(): void
     {
         $uuid1 = Uuid::uuid4();

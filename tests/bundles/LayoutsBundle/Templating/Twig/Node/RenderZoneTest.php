@@ -9,19 +9,13 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\Variable\ContextVariable;
 
-/**
- * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compile
- * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compileContextNode
- * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::compileRenderNode
- */
+#[CoversClass(RenderZone::class)]
 final class RenderZoneTest extends NodeTestBase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::__construct
-     */
     public function testConstructor(): void
     {
         $zone = new ContextVariable('zone', 1);
@@ -33,9 +27,6 @@ final class RenderZoneTest extends NodeTestBase
         self::assertSame($context, $node->getNode('context'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone::__construct
-     */
     public function testConstructorWithNoContext(): void
     {
         $zone = new ContextVariable('zone', 1);

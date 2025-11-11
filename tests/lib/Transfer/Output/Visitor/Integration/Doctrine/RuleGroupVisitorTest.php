@@ -6,10 +6,10 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\Doctrine;
 
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\RuleGroupVisitorTestBase;
+use Netgen\Layouts\Transfer\Output\Visitor\RuleGroupVisitor;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Netgen\Layouts\Transfer\Output\Visitor\RuleGroupVisitor
- */
+#[CoversClass(RuleGroupVisitor::class)]
 final class RuleGroupVisitorTest extends RuleGroupVisitorTestBase
 {
     use TestCaseTrait;

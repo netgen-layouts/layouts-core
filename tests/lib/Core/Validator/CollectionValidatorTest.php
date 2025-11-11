@@ -21,10 +21,13 @@ use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+#[CoversClass(CollectionValidator::class)]
 final class CollectionValidatorTest extends TestCase
 {
     private ValidatorInterface $validator;
@@ -43,11 +46,8 @@ final class CollectionValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionCreateStruct
-     *
-     * @dataProvider validateCollectionCreateStructDataProvider
      */
+    #[DataProvider('validateCollectionCreateStructDataProvider')]
     public function testValidateCollectionCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
@@ -65,11 +65,8 @@ final class CollectionValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionUpdateStruct
-     *
-     * @dataProvider validateCollectionUpdateStructDataProvider
      */
+    #[DataProvider('validateCollectionUpdateStructDataProvider')]
     public function testValidateCollectionUpdateStruct(array $params, bool $isDynamic, bool $isValid): void
     {
         if (!$isValid) {
@@ -90,11 +87,8 @@ final class CollectionValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemCreateStruct
-     *
-     * @dataProvider validateItemCreateStructDataProvider
      */
+    #[DataProvider('validateItemCreateStructDataProvider')]
     public function testValidateItemCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
@@ -112,11 +106,8 @@ final class CollectionValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemUpdateStruct
-     *
-     * @dataProvider validateItemUpdateStructDataProvider
      */
+    #[DataProvider('validateItemUpdateStructDataProvider')]
     public function testValidateItemUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
@@ -147,11 +138,8 @@ final class CollectionValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryCreateStruct
-     *
-     * @dataProvider validateQueryCreateStructDataProvider
      */
+    #[DataProvider('validateQueryCreateStructDataProvider')]
     public function testValidateQueryCreateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {
@@ -169,11 +157,8 @@ final class CollectionValidatorTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryUpdateStruct
-     *
-     * @dataProvider validateQueryUpdateStructDataProvider
      */
+    #[DataProvider('validateQueryUpdateStructDataProvider')]
     public function testValidateQueryUpdateStruct(array $params, bool $isValid): void
     {
         if (!$isValid) {

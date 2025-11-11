@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterBuilderException::class)]
 final class ParameterBuilderExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::noParameter
-     */
     public function testNoParameter(): void
     {
         $exception = ParameterBuilderException::noParameter('param');
@@ -22,9 +21,6 @@ final class ParameterBuilderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::noOption
-     */
     public function testNoOption(): void
     {
         $exception = ParameterBuilderException::noOption('opt', 'param');
@@ -35,9 +31,6 @@ final class ParameterBuilderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::noOption
-     */
     public function testNoOptionWithoutParameterName(): void
     {
         $exception = ParameterBuilderException::noOption('opt');
@@ -48,9 +41,6 @@ final class ParameterBuilderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::subCompound
-     */
     public function testSubCompound(): void
     {
         $exception = ParameterBuilderException::subCompound();
@@ -61,9 +51,6 @@ final class ParameterBuilderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::nonCompound
-     */
     public function testNonCompound(): void
     {
         $exception = ParameterBuilderException::nonCompound();
@@ -74,9 +61,6 @@ final class ParameterBuilderExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::invalidConstraints
-     */
     public function testInvalidConstraints(): void
     {
         $exception = ParameterBuilderException::invalidConstraints();

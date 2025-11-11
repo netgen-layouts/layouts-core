@@ -10,8 +10,11 @@ use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\ItemViewProvider;
 use Netgen\Layouts\View\View\ItemViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemViewProvider::class)]
 final class ItemViewProviderTest extends TestCase
 {
     private ItemViewProvider $itemViewProvider;
@@ -21,9 +24,6 @@ final class ItemViewProviderTest extends TestCase
         $this->itemViewProvider = new ItemViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $item = new CmsItem();
@@ -43,9 +43,6 @@ final class ItemViewProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::provideView
-     */
     public function testProvideViewThrowsViewProviderExceptionOnMissingViewType(): void
     {
         $this->expectException(ViewProviderException::class);
@@ -54,9 +51,6 @@ final class ItemViewProviderTest extends TestCase
         $this->itemViewProvider->provideView(new CmsItem());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::provideView
-     */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType(): void
     {
         $this->expectException(ViewProviderException::class);
@@ -65,11 +59,7 @@ final class ItemViewProviderTest extends TestCase
         $this->itemViewProvider->provideView(new CmsItem(), ['view_type' => 42]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->itemViewProvider->supports($value));

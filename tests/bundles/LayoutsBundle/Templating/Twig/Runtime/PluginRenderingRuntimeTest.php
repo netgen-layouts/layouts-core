@@ -8,9 +8,11 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\RendererInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PluginRenderingRuntime::class)]
 final class PluginRenderingRuntimeTest extends TestCase
 {
     private MockObject $pluginRendererMock;
@@ -30,10 +32,6 @@ final class PluginRenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime::renderPlugins
-     */
     public function testRenderPlugins(): void
     {
         $this->pluginRendererMock
@@ -54,9 +52,6 @@ final class PluginRenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime::renderPlugins
-     */
     public function testRenderPluginsThrowsExceptionInDebug(): void
     {
         $this->expectException(Exception::class);
@@ -79,9 +74,6 @@ final class PluginRenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime::renderPlugins
-     */
     public function testRenderPluginsReturnsEmptyStringOnException(): void
     {
         $this->pluginRendererMock

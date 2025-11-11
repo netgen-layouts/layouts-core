@@ -27,6 +27,7 @@ use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -36,6 +37,7 @@ use Twig\Loader\ArrayLoader;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
+#[CoversClass(RenderingRuntime::class)]
 final class RenderingRuntimeTest extends TestCase
 {
     private MockObject $blockServiceMock;
@@ -65,11 +67,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderZone
-     */
     public function testRenderZone(): void
     {
         $zone = Zone::fromArray([]);
@@ -113,11 +110,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
-     */
     public function testRenderBlock(): void
     {
         $block = new Block();
@@ -150,10 +142,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
-     */
     public function testRenderBlockWithoutTwigTemplate(): void
     {
         $block = new Block();
@@ -183,10 +171,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
-     */
     public function testRenderBlockWithViewContext(): void
     {
         $block = new Block();
@@ -220,10 +204,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
-     */
     public function testRenderBlockWithViewContextFromTwigContext(): void
     {
         $block = new Block();
@@ -257,10 +237,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
-     */
     public function testRenderBlockReturnsEmptyStringOnException(): void
     {
         $block = Block::fromArray(['id' => Uuid::uuid4(), 'definition' => new BlockDefinition()]);
@@ -282,10 +258,6 @@ final class RenderingRuntimeTest extends TestCase
         self::assertSame('', $renderedBlock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
-     */
     public function testRenderBlockThrowsExceptionInDebug(): void
     {
         $this->expectException(Exception::class);
@@ -309,10 +281,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
-     */
     public function testRenderPlaceholder(): void
     {
         $placeholder = new Placeholder();
@@ -359,10 +327,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
-     */
     public function testRenderPlaceholderWithoutTwigTemplate(): void
     {
         $placeholder = new Placeholder();
@@ -405,10 +369,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
-     */
     public function testRenderPlaceholderWithViewContext(): void
     {
         $placeholder = new Placeholder();
@@ -456,10 +416,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
-     */
     public function testRenderPlaceholderWithViewContextFromTwigContext(): void
     {
         $placeholder = new Placeholder();
@@ -507,10 +463,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
-     */
     public function testRenderPlaceholderReturnsEmptyStringOnException(): void
     {
         $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => ['main' => new Placeholder()]]);
@@ -533,10 +485,6 @@ final class RenderingRuntimeTest extends TestCase
         self::assertSame('', $renderedBlock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
-     */
     public function testRenderPlaceholderThrowsExceptionInDebug(): void
     {
         $this->expectException(Exception::class);
@@ -561,9 +509,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     */
     public function testRenderItem(): void
     {
         $cmsItem = new CmsItem();
@@ -589,9 +534,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     */
     public function testRenderItemWithViewContext(): void
     {
         $cmsItem = new CmsItem();
@@ -618,9 +560,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     */
     public function testRenderItemWithViewContextFromTwigContext(): void
     {
         $cmsItem = new CmsItem();
@@ -648,9 +587,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     */
     public function testRenderItemReturnsEmptyStringOnException(): void
     {
         $cmsItem = CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type']);
@@ -676,9 +612,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     */
     public function testRenderItemThrowsExceptionInDebug(): void
     {
         $this->expectException(Exception::class);
@@ -706,9 +639,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithViewTypeInItem(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => 'standard', 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -736,9 +666,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithViewTypeInSlot(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -766,9 +693,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithOverrideViewType(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => 'standard', 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -796,9 +720,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithFallbackViewType(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -826,9 +747,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithoutViewType(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -850,9 +768,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithoutViewTypeInDebug(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -876,9 +791,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithViewContext(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -907,9 +819,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultWithViewContextFromTwigContext(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -939,9 +848,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultReturnsEmptyStringOnException(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
@@ -969,9 +875,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
-     */
     public function testRenderResultThrowsExceptionInDebug(): void
     {
         $this->expectException(Exception::class);
@@ -1001,10 +904,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
-     */
     public function testRenderValue(): void
     {
         $condition = new RuleCondition();
@@ -1029,10 +928,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
-     */
     public function testRenderValueWithViewContext(): void
     {
         $condition = new RuleCondition();
@@ -1058,10 +953,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
-     */
     public function testRenderValueWithContextFromTwigContext(): void
     {
         $condition = new RuleCondition();
@@ -1088,10 +979,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
-     */
     public function testRenderValueReturnsEmptyStringOnException(): void
     {
         $condition = new RuleCondition();
@@ -1116,10 +1003,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
-     */
     public function testRenderValueThrowsExceptionInDebug(): void
     {
         $this->expectException(Exception::class);
@@ -1146,10 +1029,6 @@ final class RenderingRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getTemplateVariables
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderStringTemplate
-     */
     public function testRenderStringTemplate(): void
     {
         $objectWithoutCast = Block::fromArray(['id' => Uuid::uuid4()]);
@@ -1182,10 +1061,6 @@ final class RenderingRuntimeTest extends TestCase
         self::assertSame(' foo bar baz 42   ', $renderedTemplate);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::getTemplateVariables
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderStringTemplate
-     */
     public function testRenderStringTemplateWithAnError(): void
     {
         $renderedTemplate = $this->runtime->renderStringTemplate('abc{{ var ~ }}def');

@@ -8,9 +8,12 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionSlotNormali
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(CollectionSlotNormalizer::class)]
 final class CollectionSlotNormalizerTest extends TestCase
 {
     private CollectionSlotNormalizer $normalizer;
@@ -20,9 +23,6 @@ final class CollectionSlotNormalizerTest extends TestCase
         $this->normalizer = new CollectionSlotNormalizer();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionSlotNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $slot = Slot::fromArray(
@@ -46,11 +46,7 @@ final class CollectionSlotNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionSlotNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

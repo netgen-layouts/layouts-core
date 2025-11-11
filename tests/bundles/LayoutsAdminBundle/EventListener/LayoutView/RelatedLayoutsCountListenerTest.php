@@ -14,11 +14,13 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
+#[CoversClass(RelatedLayoutsCountListener::class)]
 final class RelatedLayoutsCountListenerTest extends TestCase
 {
     private MockObject $layoutServiceMock;
@@ -32,9 +34,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $this->listener = new RelatedLayoutsCountListener($this->layoutServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -43,10 +42,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
-     */
     public function testOnBuildView(): void
     {
         $layout = Layout::fromArray(['shared' => true, 'status' => Status::Published]);
@@ -70,9 +65,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
-     */
     public function testOnBuildViewWithDraftLayout(): void
     {
         $view = new LayoutView(Layout::fromArray(['shared' => true, 'status' => Status::Draft]));
@@ -93,9 +85,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
-     */
     public function testOnBuildViewWithNonSharedLayout(): void
     {
         $view = new LayoutView(Layout::fromArray(['shared' => false, 'status' => Status::Published]));
@@ -116,9 +105,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
-     */
     public function testOnBuildViewWithNoLayoutView(): void
     {
         $view = new View(new Value());
@@ -128,9 +114,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         self::assertSame([], $event->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener::onBuildView
-     */
     public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(new Layout());

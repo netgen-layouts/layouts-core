@@ -8,8 +8,12 @@ use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
+use Netgen\Layouts\Transfer\Output\StatusStringTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(StatusStringTrait::class)]
 final class StatusStringTraitTest extends TestCase
 {
     private ValueVisitor $visitor;
@@ -21,11 +25,8 @@ final class StatusStringTraitTest extends TestCase
 
     /**
      * @param mixed[] $visitedValue
-     *
-     * @covers \Netgen\Layouts\Transfer\Output\StatusStringTrait::getStatusString
-     *
-     * @dataProvider visitDataProvider
      */
+    #[DataProvider('visitDataProvider')]
     public function testVisit(Status $status, array $visitedValue): void
     {
         self::assertSame($visitedValue, $this->visitor->visit(Value::fromArray(['status' => $status]), new OutputVisitor([])));

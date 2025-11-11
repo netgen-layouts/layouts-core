@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
 use Netgen\Layouts\Form\DateTimeType;
 use Netgen\Layouts\Parameters\Form\Mapper\DateTimeMapper;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(DateTimeMapper::class)]
 final class DateTimeMapperTest extends TestCase
 {
     private DateTimeMapper $mapper;
@@ -17,9 +19,6 @@ final class DateTimeMapperTest extends TestCase
         $this->mapper = new DateTimeMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper\DateTimeMapper::getFormType
-     */
     public function testGetFormType(): void
     {
         self::assertSame(DateTimeType::class, $this->mapper->getFormType());

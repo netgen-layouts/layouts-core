@@ -7,15 +7,12 @@ namespace Netgen\Layouts\Tests\Parameters;
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CompoundParameterDefinition::class)]
 final class CompoundParameterDefinitionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::hasParameterDefinition
-     */
     public function testSetProperties(): void
     {
         $innerDefinition = new ParameterDefinition();

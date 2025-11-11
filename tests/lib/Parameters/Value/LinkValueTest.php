@@ -6,16 +6,12 @@ namespace Netgen\Layouts\Tests\Parameters\Value;
 
 use Netgen\Layouts\Parameters\Value\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LinkValue::class)]
 final class LinkValueTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getLink
-     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getLinkSuffix
-     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getLinkType
-     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getNewWindow
-     */
     public function testSetProperties(): void
     {
         $linkValue = LinkValue::fromArray(
@@ -33,9 +29,6 @@ final class LinkValueTest extends TestCase
         self::assertTrue($linkValue->getNewWindow());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::__toString
-     */
     public function testToString(): void
     {
         $linkValue = LinkValue::fromArray(

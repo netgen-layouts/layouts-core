@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Plugin;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\SimplePlugin;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
+#[CoversClass(Renderer::class)]
 final class RendererTest extends TestCase
 {
     private Renderer $renderer;
@@ -37,26 +39,16 @@ final class RendererTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer::renderPlugins
-     */
     public function testRenderPlugins(): void
     {
         self::assertSame('valuevalue3value2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer::renderPlugins
-     */
     public function testRenderPluginsWithUnknownPlugin(): void
     {
         self::assertSame('', $this->renderer->renderPlugins('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer::renderPlugins
-     */
     public function testRenderPluginsWithException(): void
     {
         $this->expectException(Exception::class);

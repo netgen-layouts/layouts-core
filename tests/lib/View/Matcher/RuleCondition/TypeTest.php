@@ -11,8 +11,11 @@ use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\RuleCondition\Type;
 use Netgen\Layouts\View\View\RuleConditionView;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Type::class)]
 final class TypeTest extends TestCase
 {
     private Type $matcher;
@@ -24,11 +27,8 @@ final class TypeTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $condition = RuleCondition::fromArray(
@@ -42,9 +42,6 @@ final class TypeTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
-     */
     public function testMatchWithNullConditionType(): void
     {
         $condition = RuleCondition::fromArray(
@@ -58,9 +55,6 @@ final class TypeTest extends TestCase
         self::assertTrue($this->matcher->match($view, ['null']));
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
-     */
     public function testMatchWithNullConditionTypeReturnsFalse(): void
     {
         $condition = RuleCondition::fromArray(
@@ -85,9 +79,6 @@ final class TypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
-     */
     public function testMatchWithNoRuleConditionView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

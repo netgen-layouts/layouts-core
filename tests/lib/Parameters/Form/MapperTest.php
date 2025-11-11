@@ -7,9 +7,11 @@ namespace Netgen\Layouts\Tests\Parameters\Form;
 use Netgen\Layouts\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\Form\MapperInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Mapper::class)]
 final class MapperTest extends TestCase
 {
     private MockObject&MapperInterface $mapper;
@@ -19,9 +21,6 @@ final class MapperTest extends TestCase
         $this->mapper = $this->getMockForAbstractClass(Mapper::class);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Mapper::mapOptions
-     */
     public function testMapOptions(): void
     {
         self::assertSame([], $this->mapper->mapOptions(new ParameterDefinition()));

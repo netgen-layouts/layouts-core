@@ -8,10 +8,13 @@ use DateTimeImmutable;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\ConditionType\TimeValidator;
 use Netgen\Layouts\Validator\Constraint\ConditionType\Time;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(TimeValidator::class)]
 final class TimeValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -23,19 +26,13 @@ final class TimeValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[]|null $value
-     *
-     * @covers \Netgen\Layouts\Validator\ConditionType\TimeValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(?array $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ConditionType\TimeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -45,9 +42,6 @@ final class TimeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new DateTimeImmutable());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\ConditionType\TimeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

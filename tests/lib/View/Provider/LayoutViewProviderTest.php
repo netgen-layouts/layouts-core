@@ -10,9 +10,12 @@ use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\LayoutViewProvider;
 use Netgen\Layouts\View\View\LayoutViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(LayoutViewProvider::class)]
 final class LayoutViewProviderTest extends TestCase
 {
     private LayoutViewProvider $layoutViewProvider;
@@ -22,9 +25,6 @@ final class LayoutViewProviderTest extends TestCase
         $this->layoutViewProvider = new LayoutViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\LayoutViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $layout = Layout::fromArray(['id' => Uuid::uuid4()]);
@@ -43,11 +43,7 @@ final class LayoutViewProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\LayoutViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->layoutViewProvider->supports($value));

@@ -10,9 +10,11 @@ use Netgen\Layouts\View\Renderer;
 use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Netgen\Layouts\View\ViewRendererInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Renderer::class)]
 final class RendererTest extends TestCase
 {
     private MockObject $viewBuilderMock;
@@ -35,10 +37,6 @@ final class RendererTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Renderer::__construct
-     * @covers \Netgen\Layouts\View\Renderer::renderValue
-     */
     public function testRenderValue(): void
     {
         $value = new Value();

@@ -10,9 +10,11 @@ use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockDefinitionHandler::class)]
 final class BlockDefinitionHandlerTest extends TestCase
 {
     private MockObject&BlockDefinitionHandler $handler;
@@ -37,9 +39,6 @@ final class BlockDefinitionHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler::buildParameters
-     */
     public function testBuildParameters(): void
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
@@ -48,9 +47,6 @@ final class BlockDefinitionHandlerTest extends TestCase
         self::assertCount(0, $builder);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler::getDynamicParameters
-     */
     public function testGetDynamicParameters(): void
     {
         $dynamicParameters = new DynamicParameters();
@@ -59,9 +55,6 @@ final class BlockDefinitionHandlerTest extends TestCase
         self::assertCount(0, $dynamicParameters);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler::isContextual
-     */
     public function testIsContextual(): void
     {
         self::assertFalse($this->handler->isContextual(new Block()));

@@ -10,9 +10,12 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(CollectionNormalizer::class)]
 final class CollectionNormalizerTest extends TestCase
 {
     private CollectionNormalizer $normalizer;
@@ -22,9 +25,6 @@ final class CollectionNormalizerTest extends TestCase
         $this->normalizer = new CollectionNormalizer();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $collection = Collection::fromArray(
@@ -51,11 +51,7 @@ final class CollectionNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

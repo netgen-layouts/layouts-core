@@ -12,8 +12,10 @@ use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockUpdateStruct::class)]
 final class BlockUpdateStructTest extends TestCase
 {
     private BlockUpdateStruct $struct;
@@ -23,9 +25,6 @@ final class BlockUpdateStructTest extends TestCase
         $this->struct = new BlockUpdateStruct();
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockUpdateStruct::fillParametersFromBlock
-     */
     public function testFillParametersFromBlock(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
@@ -66,9 +65,6 @@ final class BlockUpdateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHash(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
@@ -93,9 +89,6 @@ final class BlockUpdateStructTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
-     */
     public function testFillParametersFromHashWithMissingValues(): void
     {
         $blockDefinition = $this->buildBlockDefinition();

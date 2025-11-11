@@ -6,15 +6,14 @@ namespace Netgen\Layouts\Tests\Layout\Type;
 
 use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutTypeFactory::class)]
 final class LayoutTypeFactoryTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutTypeFactory::buildLayoutType
-     */
     public function testBuildLayoutType(): void
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(

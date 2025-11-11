@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values;
 
+use Netgen\Layouts\API\Values\ParameterStructTrait;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
@@ -12,8 +13,10 @@ use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterCollection;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ParameterStructTrait::class)]
 final class ParameterStructTraitTest extends TestCase
 {
     private ParameterStruct $struct;
@@ -23,18 +26,11 @@ final class ParameterStructTraitTest extends TestCase
         $this->struct = new ParameterStruct();
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValues
-     */
     public function testDefaultProperties(): void
     {
         self::assertSame([], $this->struct->getParameterValues());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValues
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::setParameterValues
-     */
     public function testSetParameterValues(): void
     {
         $this->struct->setParameterValues(
@@ -53,9 +49,6 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::setParameterValue
-     */
     public function testSetParameterValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
@@ -70,9 +63,6 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::setParameterValue
-     */
     public function testOverwriteParameterValues(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
@@ -81,9 +71,6 @@ final class ParameterStructTraitTest extends TestCase
         self::assertSame(['some_param' => 'new_value'], $this->struct->getParameterValues());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValue
-     */
     public function testGetParameterValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
@@ -91,17 +78,11 @@ final class ParameterStructTraitTest extends TestCase
         self::assertSame('some_value', $this->struct->getParameterValue('some_param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValue
-     */
     public function testGetParameterValueWithNonExistingParameter(): void
     {
         self::assertNull($this->struct->getParameterValue('some_other_param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::hasParameterValue
-     */
     public function testHasParameterValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
@@ -109,9 +90,6 @@ final class ParameterStructTraitTest extends TestCase
         self::assertTrue($this->struct->hasParameterValue('some_param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::hasParameterValue
-     */
     public function testHasParameterValueWithNoValue(): void
     {
         $this->struct->setParameterValue('some_param', 'some_value');
@@ -119,9 +97,6 @@ final class ParameterStructTraitTest extends TestCase
         self::assertFalse($this->struct->hasParameterValue('some_other_param'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillDefault
-     */
     public function testFillDefault(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
@@ -139,9 +114,6 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromCollection
-     */
     public function testFillFromCollection(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
@@ -181,9 +153,6 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
-     */
     public function testFillFromHash(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
@@ -208,9 +177,6 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
-     */
     public function testFillFromHashWithMissingValues(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
@@ -233,9 +199,6 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
-     */
     public function testFillFromHashWithImport(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
@@ -260,9 +223,6 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
-     */
     public function testFillFromHashWithImportAndMissingValues(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();

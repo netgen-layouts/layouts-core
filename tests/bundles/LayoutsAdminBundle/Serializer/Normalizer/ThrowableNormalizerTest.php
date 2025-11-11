@@ -8,10 +8,13 @@ use Error;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer;
 use Netgen\Layouts\Tests\API\Stubs\Value;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+#[CoversClass(ThrowableNormalizer::class)]
 final class ThrowableNormalizerTest extends TestCase
 {
     private ThrowableNormalizer $throwableNormalizer;
@@ -21,10 +24,6 @@ final class ThrowableNormalizerTest extends TestCase
         $this->throwableNormalizer = new ThrowableNormalizer(false);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $exception = new Exception('Exception message', 123);
@@ -38,9 +37,6 @@ final class ThrowableNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer::normalize
-     */
     public function testNormalizeWithDebugOutput(): void
     {
         $this->throwableNormalizer = new ThrowableNormalizer(true);
@@ -63,9 +59,6 @@ final class ThrowableNormalizerTest extends TestCase
         self::assertNotEmpty($data['debug']['trace']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer::normalize
-     */
     public function testNormalizeHttpException(): void
     {
         $exception = new NotFoundHttpException('Exception message', null, 123);
@@ -81,11 +74,7 @@ final class ThrowableNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->throwableNormalizer->supportsNormalization($data));

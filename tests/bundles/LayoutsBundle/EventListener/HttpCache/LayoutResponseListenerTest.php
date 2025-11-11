@@ -9,6 +9,7 @@ use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\View\View\LayoutView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(LayoutResponseListener::class)]
 final class LayoutResponseListenerTest extends TestCase
 {
     private MockObject $taggerMock;
@@ -31,9 +33,6 @@ final class LayoutResponseListenerTest extends TestCase
         $this->listener = new LayoutResponseListener($this->taggerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -45,10 +44,6 @@ final class LayoutResponseListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
-     */
     public function testOnKernelResponse(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -73,10 +68,6 @@ final class LayoutResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithOverriddenLayout(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -103,9 +94,6 @@ final class LayoutResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -127,9 +115,6 @@ final class LayoutResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -151,10 +136,6 @@ final class LayoutResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -187,10 +168,6 @@ final class LayoutResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithExceptionAndSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -221,10 +198,6 @@ final class LayoutResponseListenerTest extends TestCase
         $this->listener->onKernelResponse($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
-     */
     public function testOnKernelResponseWithExceptionAndWithoutSupportedValue(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

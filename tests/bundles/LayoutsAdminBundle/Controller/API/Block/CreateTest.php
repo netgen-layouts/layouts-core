@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create;
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(Create::class)]
+#[CoversClass(CreateStructBuilder::class)]
 final class CreateTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder::buildCreateStruct
-     */
     public function testCreate(): void
     {
         $data = $this->jsonEncode(
@@ -42,10 +41,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder::buildCreateStruct
-     */
     public function testCreateWithViewType(): void
     {
         $data = $this->jsonEncode(
@@ -72,10 +67,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder::buildCreateStruct
-     */
     public function testCreateWithItemViewType(): void
     {
         $data = $this->jsonEncode(
@@ -102,10 +93,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder::buildCreateStruct
-     */
     public function testCreateWithNoPosition(): void
     {
         $data = $this->jsonEncode(
@@ -131,9 +118,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     */
     public function testCreateWithNonContainerTargetBlock(): void
     {
         $data = $this->jsonEncode(
@@ -160,9 +144,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     */
     public function testCreateWithContainerInsideContainer(): void
     {
         $data = $this->jsonEncode(
@@ -189,9 +170,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     */
     public function testCreateWithNonExistentBlockType(): void
     {
         $data = $this->jsonEncode(
@@ -218,9 +196,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     */
     public function testCreateWithNonExistentPlaceholder(): void
     {
         $data = $this->jsonEncode(
@@ -247,9 +222,6 @@ final class CreateTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create::__invoke
-     */
     public function testCreateWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(

@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Ite
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(ValueTypePass::class)]
 final class ValueTypePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -20,11 +22,6 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ValueTypePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
-     */
     public function testProcess(): void
     {
         $this->setDefinition('netgen_content_browser.config.test', new Definition());
@@ -53,10 +50,6 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
-     */
     public function testProcessWithUnsupportedManualItems(): void
     {
         $this->setParameter(
@@ -83,11 +76,6 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
-     */
     public function testProcessWithInvalidBrowserType(): void
     {
         $this->expectException(RuntimeException::class);
@@ -110,9 +98,6 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

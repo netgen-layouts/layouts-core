@@ -7,17 +7,20 @@ namespace Netgen\Layouts\Tests\Parameters;
 use Netgen\Layouts\Exception\BadMethodCallException;
 use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterBuilder;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+#[CoversClass(ParameterBuilder::class)]
 final class ParameterBuilderTest extends TestCase
 {
     use ExportObjectTrait;
@@ -43,10 +46,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder = $this->factory->createParameterBuilder();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::__construct
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getName
-     */
     public function testGetName(): void
     {
         $this->builder->add(
@@ -62,9 +61,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame('test', $this->builder->get('test')->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getType
-     */
     public function testGetType(): void
     {
         $this->builder->add(
@@ -83,9 +79,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getOptions
-     */
     public function testGetOptions(): void
     {
         $this->builder->add(
@@ -105,9 +98,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getOption
-     */
     public function testGetOption(): void
     {
         $this->builder->add(
@@ -124,9 +114,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertTrue($this->builder->get('test')->getOption('reverse'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getOption
-     */
     public function testGetOptionThrowsParameterBuilderException(): void
     {
         $this->expectException(ParameterBuilderException::class);
@@ -146,9 +133,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertTrue($this->builder->get('test')->getOption('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::hasOption
-     */
     public function testHasOption(): void
     {
         $this->builder->add(
@@ -166,9 +150,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertFalse($this->builder->get('test')->hasOption('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
-     */
     public function testSetOption(): void
     {
         $this->builder->add(
@@ -186,9 +167,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame(100, $this->builder->get('test')->getOption('max'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
-     */
     public function testSetRequiredOption(): void
     {
         $this->builder->add(
@@ -204,9 +182,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertFalse($this->builder->get('test')->isRequired());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
-     */
     public function testSetDefaultValueOption(): void
     {
         $this->builder->add(
@@ -222,9 +197,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame('test2', $this->builder->get('test')->getDefaultValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
-     */
     public function testSetLabelOption(): void
     {
         $this->builder->add(
@@ -240,9 +212,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame('test2', $this->builder->get('test')->getLabel());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
-     */
     public function testSetGroupsOption(): void
     {
         $this->builder->add(
@@ -258,9 +227,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame(['test2'], $this->builder->get('test')->getGroups());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
-     */
     public function testSetOptionAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -270,10 +236,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->setOption('required', true);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::isRequired
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setRequired
-     */
     public function testGetSetRequired(): void
     {
         $this->builder->add(
@@ -286,9 +248,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertTrue($this->builder->get('test')->isRequired());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setRequired
-     */
     public function testSetRequiredAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -298,10 +257,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->setRequired(true);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getDefaultValue
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setDefaultValue
-     */
     public function testGetSetDefaultValue(): void
     {
         $this->builder->add(
@@ -314,9 +269,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame(42, $this->builder->get('test')->getDefaultValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setDefaultValue
-     */
     public function testSetDefaultValueAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -326,10 +278,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->setDefaultValue('test');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getLabel
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setLabel
-     */
     public function testGetSetLabel(): void
     {
         $this->builder->add(
@@ -342,9 +290,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame('Custom label', $this->builder->get('test')->getLabel());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setLabel
-     */
     public function testSetLabelAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -354,10 +299,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->setLabel('test');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getGroups
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setGroups
-     */
     public function testGetSetGroups(): void
     {
         $this->builder->add(
@@ -370,19 +311,11 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame(['group'], $this->builder->get('test')->getGroups());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getGroups
-     */
     public function testGetGroupsWithoutParentBuilder(): void
     {
         self::assertSame([], $this->builder->getGroups());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testGetSetConstraints(): void
     {
         $constraints = [new NotBlank(), static function (): void {}];
@@ -397,18 +330,11 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame($constraints, $this->builder->get('test')->getConstraints());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getConstraints
-     */
     public function testGetConstraintsWithoutParentBuilder(): void
     {
         self::assertSame([], $this->builder->getConstraints());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testSetConstraintsWithInvalidConstraints(): void
     {
         $this->expectException(ParameterBuilderException::class);
@@ -417,9 +343,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->setConstraints([new stdClass()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setConstraints
-     */
     public function testSetConstraintsAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -429,9 +352,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->setConstraints([]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getGroups
-     */
     public function testGetGroupsWithCompoundParameter(): void
     {
         $this->builder->add(
@@ -456,9 +376,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertSame(['group'], $this->builder->get('test')->get('test2')->getGroups());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setGroups
-     */
     public function testSetGroupsAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -468,10 +385,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->setGroups([]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::count
-     */
     public function testAdd(): void
     {
         $this->builder->add(
@@ -498,9 +411,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertCount(2, $this->builder);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     */
     public function testAddAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -529,9 +439,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     */
     public function testAddThrowsParameterBuilderExceptionOnAddingParameterToNonCompoundParameter(): void
     {
         $this->expectException(ParameterBuilderException::class);
@@ -558,9 +465,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     */
     public function testAddThrowsParameterBuilderExceptionOnAddingCompoundParameterToCompoundParameter(): void
     {
         $this->expectException(ParameterBuilderException::class);
@@ -577,10 +481,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::has
-     */
     public function testHas(): void
     {
         $this->builder->add(
@@ -609,10 +509,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertFalse($this->builder->has('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::get
-     */
     public function testGet(): void
     {
         $this->builder->add(
@@ -629,10 +525,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->get('test');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::get
-     */
     public function testGetThrowsParameterBuilderExceptionWithNonExistingParameter(): void
     {
         $this->expectException(ParameterBuilderException::class);
@@ -651,10 +543,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->get('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::get
-     */
     public function testGetAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -675,9 +563,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->get('test');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::all
-     */
     public function testAll(): void
     {
         $this->builder->add(
@@ -705,9 +590,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertContainsOnlyInstancesOf(ParameterBuilderInterface::class, $parameterBuilders);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::all
-     */
     public function testAllWithGroupFilter(): void
     {
         $this->builder->add(
@@ -733,9 +615,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertContainsOnlyInstancesOf(ParameterBuilderInterface::class, $parameterBuilders);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::all
-     */
     public function testAllAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -748,10 +627,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->all();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::remove
-     */
     public function testRemove(): void
     {
         $this->builder->add(
@@ -770,10 +645,6 @@ final class ParameterBuilderTest extends TestCase
         self::assertFalse($this->builder->has('test'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::remove
-     */
     public function testRemoveAfterBuildingParameters(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -794,13 +665,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->remove('test');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitions(): void
     {
         $constraints = [new NotBlank(), static function (): void {}];
@@ -907,13 +771,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitionsAfterBuildingParameters(): void
     {
         $constraints = [new NotBlank()];
@@ -954,13 +811,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitionsWithDefaultOptions(): void
     {
         $this->builder->add('test', ParameterType\TextType::class);
@@ -986,13 +836,6 @@ final class ParameterBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitionsWithInvalidRequiredOption(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -1009,13 +852,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->buildParameterDefinitions();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitionsWithInvalidReadOnlyOption(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -1032,13 +868,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->buildParameterDefinitions();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitionsWithInvalidGroupsOption(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -1055,13 +884,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->buildParameterDefinitions();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitionsWithInvalidGroup(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -1078,13 +900,6 @@ final class ParameterBuilderTest extends TestCase
         $this->builder->buildParameterDefinitions();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
-     */
     public function testBuildParameterDefinitionsWithInvalidLabel(): void
     {
         $this->expectException(InvalidOptionsException::class);

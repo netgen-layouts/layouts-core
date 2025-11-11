@@ -9,12 +9,14 @@ use Netgen\Layouts\Layout\Form\CreateType;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function count;
 
+#[CoversClass(CreateType::class)]
 final class CreateTypeTest extends FormTestCase
 {
     private LayoutTypeRegistry $layoutTypeRegistry;
@@ -47,11 +49,6 @@ final class CreateTypeTest extends FormTestCase
         parent::setUp();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CreateType::__construct
-     * @covers \Netgen\Layouts\Layout\Form\CreateType::buildForm
-     * @covers \Netgen\Layouts\Layout\Form\CreateType::finishView
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -92,9 +89,6 @@ final class CreateTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CreateType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -113,9 +107,6 @@ final class CreateTypeTest extends FormTestCase
         self::assertSame($struct, $options['data']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CreateType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

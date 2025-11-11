@@ -6,8 +6,10 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating;
 
 use Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolver;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PageLayoutResolver::class)]
 final class PageLayoutResolverTest extends TestCase
 {
     private PageLayoutResolver $resolver;
@@ -17,18 +19,11 @@ final class PageLayoutResolverTest extends TestCase
         $this->resolver = new PageLayoutResolver('defaultPagelayout');
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolver::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolver::resolvePageLayout
-     */
     public function testResolvePageLayout(): void
     {
         self::assertSame('defaultPagelayout', $this->resolver->resolvePageLayout());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolver::resolvePageLayout
-     */
     public function testResolvePageLayoutThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);

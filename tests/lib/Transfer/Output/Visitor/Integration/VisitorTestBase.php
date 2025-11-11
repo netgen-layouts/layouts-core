@@ -11,6 +11,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 
@@ -30,17 +31,13 @@ use const PHP_EOL;
  */
 abstract class VisitorTestBase extends CoreTestCase
 {
-    /**
-     * @dataProvider acceptDataProvider
-     */
+    #[DataProvider('acceptDataProvider')]
     public function testAccept(mixed $value, bool $accepted): void
     {
         self::assertSame($accepted, $this->getVisitor()->accept($value));
     }
 
-    /**
-     * @dataProvider visitDataProvider
-     */
+    #[DataProvider('visitDataProvider')]
     public function testVisit(mixed $value, string $fixturePath): void
     {
         $fixturePath = __DIR__ . '/../../../_fixtures/output/' . $fixturePath;

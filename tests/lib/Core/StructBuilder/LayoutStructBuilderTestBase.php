@@ -23,9 +23,6 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         $this->structBuilder = new LayoutStructBuilder();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutCreateStruct
-     */
     public function testNewLayoutCreateStruct(): void
     {
         $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
@@ -49,9 +46,6 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
-     */
     public function testNewLayoutUpdateStruct(): void
     {
         $struct = $this->structBuilder->newLayoutUpdateStruct(
@@ -67,9 +61,6 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
-     */
     public function testNewLayoutUpdateStructWithNoLayout(): void
     {
         $struct = $this->structBuilder->newLayoutUpdateStruct();
@@ -83,9 +74,6 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
-     */
     public function testNewLayoutCopyStruct(): void
     {
         $struct = $this->structBuilder->newLayoutCopyStruct(
@@ -101,9 +89,6 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
-     */
     public function testNewLayoutCopyStructWithNoLayout(): void
     {
         $struct = $this->structBuilder->newLayoutCopyStruct();

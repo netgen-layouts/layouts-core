@@ -10,8 +10,10 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\View\View\ZoneView;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ZoneView::class)]
 final class ZoneViewTest extends TestCase
 {
     private Layout $layout;
@@ -43,26 +45,16 @@ final class ZoneViewTest extends TestCase
         $this->view->addParameter('zone', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ZoneView::__construct
-     * @covers \Netgen\Layouts\View\View\ZoneView::getLayout
-     */
     public function testGetLayout(): void
     {
         self::assertSame($this->layout, $this->view->getLayout());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ZoneView::getZone
-     */
     public function testGetZone(): void
     {
         self::assertSame($this->zone, $this->view->getZone());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ZoneView::getParameters
-     */
     public function testGetParameters(): void
     {
         self::assertSame(
@@ -76,9 +68,6 @@ final class ZoneViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\ZoneView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('zone', $this->view::getIdentifier());

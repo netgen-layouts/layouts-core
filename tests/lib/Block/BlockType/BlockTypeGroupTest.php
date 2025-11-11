@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\Block\BlockType;
 
 use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockTypeGroup::class)]
 final class BlockTypeGroupTest extends TestCase
 {
     private BlockTypeGroup $blockTypeGroup;
@@ -32,49 +34,31 @@ final class BlockTypeGroupTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('simple_blocks', $this->blockTypeGroup->getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::isEnabled
-     */
     public function testIsEnabled(): void
     {
         self::assertFalse($this->blockTypeGroup->isEnabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getPriority
-     */
     public function testGetPriority(): void
     {
         self::assertSame(42, $this->blockTypeGroup->getPriority());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('Simple blocks', $this->blockTypeGroup->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getBlockTypes
-     */
     public function testGetBlockTypes(): void
     {
         self::assertSame([$this->blockType1, $this->blockType2], $this->blockTypeGroup->getBlockTypes());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getBlockTypes
-     */
     public function testGetEnabledBlockTypes(): void
     {
         self::assertSame([$this->blockType1], $this->blockTypeGroup->getBlockTypes(true));

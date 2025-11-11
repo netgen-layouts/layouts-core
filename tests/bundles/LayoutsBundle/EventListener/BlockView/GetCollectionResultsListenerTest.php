@@ -22,11 +22,13 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\PagerfantaInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
+#[CoversClass(GetCollectionResultsListener::class)]
 final class GetCollectionResultsListenerTest extends TestCase
 {
     private MockObject $resultBuilderMock;
@@ -46,9 +48,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -57,11 +56,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
     public function testOnRenderView(): void
     {
         $collection1 = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
@@ -111,10 +105,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection2']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
     public function testOnRenderViewWithPagedCollection(): void
     {
         $collection = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
@@ -166,10 +156,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame(10, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
     {
         $collection = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
@@ -221,10 +207,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
     {
         $collection = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
@@ -275,10 +257,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
     public function testOnRenderViewWithAPIContext(): void
     {
         $collection1 = Collection::fromArray(['offset' => 3, 'limit' => 5, 'query' => new Query()]);
@@ -321,9 +299,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection1']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
     public function testOnRenderViewWithNoBlockView(): void
     {
         $view = new View(new Value());
@@ -333,9 +308,6 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame([], $event->getParameters());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
     public function testOnRenderViewWithWrongContext(): void
     {
         $view = new BlockView(new Block());

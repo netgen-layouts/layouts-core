@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\Block;
 
 use Netgen\Layouts\Exception\Block\BlockTypeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockTypeException::class)]
 final class BlockTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockTypeException::noBlockType
-     */
     public function testNoBlockType(): void
     {
         $exception = BlockTypeException::noBlockType('type');
@@ -22,9 +21,6 @@ final class BlockTypeExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\Block\BlockTypeException::noBlockTypeGroup
-     */
     public function testNoBlockTypeGroup(): void
     {
         $exception = BlockTypeException::noBlockTypeGroup('type');

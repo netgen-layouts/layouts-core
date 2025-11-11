@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Type;
 use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -14,12 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(CompoundBooleanType::class)]
 final class CompoundBooleanTypeTest extends FormTestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildView
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -84,10 +82,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildView
-     */
     public function testSubmitValidDataWithUncheckedCheckbox(): void
     {
         $submittedData = [
@@ -149,10 +143,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildView
-     */
     public function testSubmitValidDataWithUncheckedCheckboxAndEmptyData(): void
     {
         $submittedData = [
@@ -209,10 +199,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
         self::assertArrayHasKey('css_id', $children['main_checkbox']->children);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildView
-     */
     public function testSubmitValidDataWithReverseMode(): void
     {
         $submittedData = [
@@ -276,10 +262,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildForm
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::buildView
-     */
     public function testSubmitValidDataWithUncheckedCheckboxAndReverseMode(): void
     {
         $submittedData = [
@@ -344,9 +326,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -363,9 +342,6 @@ final class CompoundBooleanTypeTest extends FormTestCase
         self::assertTrue($resolvedOptions['reverse']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('nglayouts_compound_boolean', $this->formType->getBlockPrefix());

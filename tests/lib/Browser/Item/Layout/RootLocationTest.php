@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Browser\Item\Layout;
 
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(RootLocation::class)]
 final class RootLocationTest extends TestCase
 {
     private RootLocation $location;
@@ -16,17 +18,11 @@ final class RootLocationTest extends TestCase
         $this->location = new RootLocation();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\RootLocation::getLocationId
-     */
     public function testGetLocationId(): void
     {
         self::assertSame('', $this->location->getLocationId());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\Layout\RootLocation::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('All layouts', $this->location->getName());

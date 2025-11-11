@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Layout;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
@@ -14,11 +15,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(LayoutList::class)]
 final class LayoutListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -33,10 +32,6 @@ final class LayoutListTest extends TestCase
         new LayoutList([new Layout(), new stdClass(), new Layout()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::__construct
-     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::getLayouts
-     */
     public function testGetLayouts(): void
     {
         $layouts = [new Layout(), new Layout()];
@@ -44,9 +39,6 @@ final class LayoutListTest extends TestCase
         self::assertSame($layouts, new LayoutList($layouts)->getLayouts());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::getLayoutIds
-     */
     public function testGetLayoutIds(): void
     {
         $uuid1 = Uuid::uuid4();

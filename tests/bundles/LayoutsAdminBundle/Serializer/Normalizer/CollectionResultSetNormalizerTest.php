@@ -15,9 +15,12 @@ use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
+#[CoversClass(CollectionResultSetNormalizer::class)]
 final class CollectionResultSetNormalizerTest extends TestCase
 {
     private CollectionResultSetNormalizer $normalizer;
@@ -28,11 +31,6 @@ final class CollectionResultSetNormalizerTest extends TestCase
         $this->normalizer->setNormalizer(new Serializer([new ArrayValueNormalizer(), new NormalizerStub()]));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultSetNormalizer::buildValues
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultSetNormalizer::getOverflowItems
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultSetNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $item1 = Item::fromArray(['position' => 0]);
@@ -63,11 +61,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultSetNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

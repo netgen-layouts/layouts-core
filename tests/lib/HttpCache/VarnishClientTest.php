@@ -7,9 +7,11 @@ namespace Netgen\Layouts\Tests\HttpCache;
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
 use Netgen\Layouts\HttpCache\VarnishClient;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(VarnishClient::class)]
 final class VarnishClientTest extends TestCase
 {
     private MockObject $fosInvalidatorMock;
@@ -25,10 +27,6 @@ final class VarnishClientTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::__construct
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::purge
-     */
     public function testPurge(): void
     {
         $this->fosInvalidatorMock
@@ -39,9 +37,6 @@ final class VarnishClientTest extends TestCase
         $this->client->purge(['tag-1', 'tag-2']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::commit
-     */
     public function testCommit(): void
     {
         $this->fosInvalidatorMock
@@ -51,9 +46,6 @@ final class VarnishClientTest extends TestCase
         self::assertTrue($this->client->commit());
     }
 
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::commit
-     */
     public function testCommitReturnsFalse(): void
     {
         $this->fosInvalidatorMock

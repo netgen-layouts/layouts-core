@@ -10,16 +10,14 @@ use Netgen\Layouts\Tests\Item\Stubs\UnsupportedValueConverter;
 use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueConverter;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(CmsItemBuilder::class)]
 final class CmsItemBuilderTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemBuilder::__construct
-     * @covers \Netgen\Layouts\Item\CmsItemBuilder::build
-     */
     public function testBuild(): void
     {
         $value = new Value(42, 'abc');
@@ -43,9 +41,6 @@ final class CmsItemBuilderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemBuilder::build
-     */
     public function testBuildThrowsValueException(): void
     {
         $this->expectException(ValueException::class);

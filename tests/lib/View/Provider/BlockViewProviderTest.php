@@ -9,9 +9,12 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\BlockViewProvider;
 use Netgen\Layouts\View\View\BlockViewInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(BlockViewProvider::class)]
 final class BlockViewProviderTest extends TestCase
 {
     private BlockViewProvider $blockViewProvider;
@@ -21,9 +24,6 @@ final class BlockViewProviderTest extends TestCase
         $this->blockViewProvider = new BlockViewProvider();
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\BlockViewProvider::provideView
-     */
     public function testProvideView(): void
     {
         $block = Block::fromArray(
@@ -46,11 +46,7 @@ final class BlockViewProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Provider\BlockViewProvider::supports
-     *
-     * @dataProvider supportsDataProvider
-     */
+    #[DataProvider('supportsDataProvider')]
     public function testSupports(mixed $value, bool $supports): void
     {
         self::assertSame($supports, $this->blockViewProvider->supports($value));

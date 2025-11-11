@@ -14,8 +14,11 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Zone\LayoutType as LayoutTypeMatcher;
 use Netgen\Layouts\View\View\ZoneView;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutTypeMatcher::class)]
 final class LayoutTypeTest extends TestCase
 {
     private LayoutTypeMatcher $matcher;
@@ -27,11 +30,8 @@ final class LayoutTypeTest extends TestCase
 
     /**
      * @param mixed[] $config
-     *
-     * @covers \Netgen\Layouts\View\Matcher\Zone\LayoutType::match
-     *
-     * @dataProvider matchDataProvider
      */
+    #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
         $layout = Layout::fromArray(
@@ -57,9 +57,6 @@ final class LayoutTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\Matcher\Zone\LayoutType::match
-     */
     public function testMatchWithNoZoneView(): void
     {
         self::assertFalse($this->matcher->match(new View(new Value()), []));

@@ -20,11 +20,14 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
 
+#[CoversClass(LayoutNormalizer::class)]
 final class LayoutNormalizerTest extends TestCase
 {
     private MockObject $layoutServiceMock;
@@ -63,13 +66,6 @@ final class LayoutNormalizerTest extends TestCase
         $this->normalizer->setNormalizer(new Serializer());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::getAllowedBlocks
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::getZoneName
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::getZones
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::normalize
-     */
     public function testNormalizeLayout(): void
     {
         $date1 = new DateTimeImmutable();
@@ -195,9 +191,6 @@ final class LayoutNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::normalize
-     */
     public function testNormalizeLayoutWithArchivedLayout(): void
     {
         $date1 = new DateTimeImmutable();
@@ -257,11 +250,7 @@ final class LayoutNormalizerTest extends TestCase
         self::assertSame($archivedLayout->getModified()->format(DateTimeInterface::ATOM), $data['archive_updated_at']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

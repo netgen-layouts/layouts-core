@@ -7,12 +7,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Ite
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
+#[CoversClass(CmsItemLoaderPass::class)]
 final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -22,9 +24,6 @@ final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new CmsItemLoaderPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass::process
-     */
     public function testProcess(): void
     {
         $this->setDefinition(
@@ -52,9 +51,6 @@ final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass::process
-     */
     public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag(): void
     {
         $this->expectException(RuntimeException::class);
@@ -69,9 +65,6 @@ final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

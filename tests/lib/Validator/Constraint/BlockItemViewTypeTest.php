@@ -6,22 +6,18 @@ namespace Netgen\Layouts\Tests\Validator\Constraint;
 
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockItemViewType::class)]
 final class BlockItemViewTypeTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Validator\Constraint\BlockItemViewType::getRequiredOptions
-     */
     public function testGetRequiredOptions(): void
     {
         $constraint = new BlockItemViewType(['viewType' => 'view_type', 'definition' => new BlockDefinition()]);
         self::assertSame(['viewType', 'definition'], $constraint->getRequiredOptions());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Constraint\BlockItemViewType::validatedBy
-     */
     public function testValidatedBy(): void
     {
         $constraint = new BlockItemViewType(['viewType' => 'view_type', 'definition' => new BlockDefinition()]);

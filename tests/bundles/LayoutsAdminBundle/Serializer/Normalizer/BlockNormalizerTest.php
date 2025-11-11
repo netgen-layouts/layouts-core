@@ -20,12 +20,15 @@ use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 
+#[CoversClass(BlockNormalizer::class)]
 final class BlockNormalizerTest extends TestCase
 {
     private MockObject $normalizerMock;
@@ -43,12 +46,6 @@ final class BlockNormalizerTest extends TestCase
         $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::buildValues
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::getBlockCollections
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $collection = Collection::fromArray(
@@ -136,10 +133,6 @@ final class BlockNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::buildValues
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::normalize
-     */
     public function testNormalizeWithContainerBlock(): void
     {
         $block = Block::fromArray(
@@ -173,11 +166,7 @@ final class BlockNormalizerTest extends TestCase
         self::assertTrue($data['is_container']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

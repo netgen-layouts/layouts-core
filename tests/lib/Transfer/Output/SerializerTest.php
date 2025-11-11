@@ -11,10 +11,12 @@ use Netgen\Layouts\Tests\Transfer\Stubs\EntityHandlerStub;
 use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
 
+#[CoversClass(Serializer::class)]
 final class SerializerTest extends TestCase
 {
     private Serializer $serializer;
@@ -27,12 +29,6 @@ final class SerializerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::__construct
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::getEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::serialize
-     */
     public function testSerialize(): void
     {
         $uuid1 = Uuid::uuid4();
@@ -50,11 +46,6 @@ final class SerializerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::getEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::serialize
-     */
     public function testSerializeWithNoHandler(): void
     {
         $this->expectException(TransferException::class);
@@ -71,11 +62,6 @@ final class SerializerTest extends TestCase
         $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::getEntityHandler
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::serialize
-     */
     public function testSerializeWithInvalidHandler(): void
     {
         $this->expectException(TransferException::class);

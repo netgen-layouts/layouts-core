@@ -6,6 +6,8 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
@@ -20,9 +22,12 @@ use Netgen\Layouts\Persistence\Values\Status;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(LayoutHandler::class)]
+#[CoversClass(LayoutQueryHandler::class)]
 final class LayoutHandlerTest extends TestCase
 {
     use ExportObjectTrait;
@@ -52,13 +57,6 @@ final class LayoutHandlerTest extends TestCase
         $this->closeDatabase();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
-     */
     public function testLoadLayout(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Status::Published);
@@ -81,10 +79,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
-     */
     public function testLoadLayoutThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -93,11 +87,6 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->loadLayout(999, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getZoneSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
-     */
     public function testLoadZone(): void
     {
         $zone = $this->layoutHandler->loadZone(2, Status::Published, 'top');
@@ -116,10 +105,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
-     */
     public function testLoadZoneThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
@@ -128,12 +113,6 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->loadZone(1, Status::Published, 'non_existing');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
-     */
     public function testLoadLayouts(): void
     {
         $layouts = $this->layoutHandler->loadLayouts();
@@ -186,12 +165,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
-     */
     public function testLoadLayoutsWithUnpublishedLayouts(): void
     {
         $layouts = $this->layoutHandler->loadLayouts(true);
@@ -270,12 +243,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
-     */
     public function testLoadLayoutsAndOffsetAndLimit(): void
     {
         $layouts = $this->layoutHandler->loadLayouts(false, 0, 2);
@@ -315,12 +282,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
-     */
     public function testLoadLayoutsWithUnpublishedLayoutsAndOffsetAndLimit(): void
     {
         $layouts = $this->layoutHandler->loadLayouts(true, 0, 3);
@@ -373,30 +334,16 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
-     */
     public function testGetLayoutsCount(): void
     {
         self::assertSame(3, $this->layoutHandler->getLayoutsCount());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
-     */
     public function testGetLayoutsCountWithUnpublishedLayouts(): void
     {
         self::assertSame(5, $this->layoutHandler->getLayoutsCount(true));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
-     */
     public function testLoadSharedLayouts(): void
     {
         $layouts = $this->layoutHandler->loadSharedLayouts();
@@ -436,21 +383,11 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getSharedLayoutsCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
-     */
     public function testGetSharedLayoutsCount(): void
     {
         self::assertSame(2, $this->layoutHandler->getSharedLayoutsCount());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadAllLayouts
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
-     */
     public function testLoadAllLayouts(): void
     {
         $layouts = $this->layoutHandler->loadAllLayouts();
@@ -529,20 +466,11 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getAllLayoutsCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
-     */
     public function testGetAllLayoutsCount(): void
     {
         self::assertSame(5, $this->layoutHandler->getAllLayoutsCount());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadRelatedLayouts
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadRelatedLayoutsData
-     */
     public function testLoadRelatedLayouts(): void
     {
         $layouts = $this->layoutHandler->loadRelatedLayouts(
@@ -571,10 +499,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getRelatedLayoutsCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getRelatedLayoutsCount
-     */
     public function testGetRelatedLayoutsCount(): void
     {
         $count = $this->layoutHandler->getRelatedLayoutsCount(
@@ -584,73 +508,41 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(1, $count);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
-     */
     public function testLayoutExists(): void
     {
         self::assertTrue($this->layoutHandler->layoutExists(1, Status::Published));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
-     */
     public function testLayoutNotExists(): void
     {
         self::assertFalse($this->layoutHandler->layoutExists(999, Status::Published));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
-     */
     public function testLayoutNotExistsInStatus(): void
     {
         self::assertFalse($this->layoutHandler->layoutExists(1, Status::Archived));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
-     */
     public function testLayoutNameExists(): void
     {
         self::assertTrue($this->layoutHandler->layoutNameExists('My layout'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
-     */
     public function testLayoutNameNotExists(): void
     {
         self::assertFalse($this->layoutHandler->layoutNameExists('Non existent'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
-     */
     public function testLayoutNameNotExistsWithExcludedId(): void
     {
         self::assertFalse($this->layoutHandler->layoutNameExists('My layout', 1));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
-     */
     public function testLayoutNameNotExistsWithExcludedUuid(): void
     {
         self::assertFalse($this->layoutHandler->layoutNameExists('My layout', Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
-     */
     public function testLoadLayoutZones(): void
     {
         $zones = $this->layoutHandler->loadLayoutZones(
@@ -702,10 +594,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateZone
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
-     */
     public function testUpdateZone(): void
     {
         $zone = $this->layoutHandler->loadZone(1, Status::Draft, 'top');
@@ -734,10 +622,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateZone
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
-     */
     public function testUpdateZoneWithResettingLinkedZone(): void
     {
         $zone = $this->layoutHandler->loadZone(1, Status::Draft, 'left');
@@ -765,11 +649,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     */
     public function testCreateLayout(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();
@@ -798,11 +677,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertGreaterThan(0, $createdLayout->modified);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     */
     public function testCreateLayoutWithCustomUuid(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();
@@ -828,9 +702,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertGreaterThan(0, $createdLayout->modified);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayout
-     */
     public function testCreateLayoutWithExistingCustomUuidThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
@@ -848,10 +719,6 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->createLayout($layoutCreateStruct);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     */
     public function testCreateLayoutTranslation(): void
     {
         $originalLayout = $this->layoutHandler->loadLayout(1, Status::Draft);
@@ -870,10 +737,6 @@ final class LayoutHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     */
     public function testCreateLayoutTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -886,10 +749,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     */
     public function testCreateLayoutTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -902,9 +761,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
-     */
     public function testSetMainTranslation(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Status::Draft);
@@ -920,9 +776,6 @@ final class LayoutHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
-     */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -932,10 +785,6 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->setMainTranslation($layout, 'de');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createZone
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
-     */
     public function testCreateZone(): void
     {
         $linkedZone = $this->layoutHandler->loadZone(3, Status::Published, 'left');
@@ -991,10 +840,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
-     */
     public function testUpdateLayout(): void
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
@@ -1014,10 +859,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(123, $updatedLayout->modified);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
-     */
     public function testUpdateLayoutWithDefaultValues(): void
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
@@ -1034,12 +875,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createZone
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     */
     public function testCopyLayout(): void
     {
         // Link the zone before copying, to make sure those are copied too
@@ -1291,11 +1126,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame($references[0]->collectionId, 9);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::changeLayoutType
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteZone
-     */
     public function testChangeLayoutType(): void
     {
         // Link the zone before copying, to make sure those are removed
@@ -1498,10 +1328,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     */
     public function testCreateLayoutStatus(): void
     {
         // Link the zone before copying, to make sure those are copied too
@@ -1709,11 +1535,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(4, $archivedReferences[0]->collectionId);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
-     */
     public function testDeleteLayout(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1735,11 +1556,6 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->loadLayout(1, Status::Published);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
-     */
     public function testDeleteLayoutInOneStatus(): void
     {
         $this->layoutHandler->deleteLayout(1, Status::Draft);
@@ -1786,11 +1602,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(4, $publishedReferences[0]->collectionId);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
-     */
     public function testDeleteLayoutTranslation(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Status::Draft);
@@ -1808,11 +1619,6 @@ final class LayoutHandlerTest extends TestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
-     */
     public function testDeleteLayoutTranslationWithInconsistentBlock(): void
     {
         $this->expectException(NotFoundException::class);
@@ -1836,10 +1642,6 @@ final class LayoutHandlerTest extends TestCase
         $this->blockHandler->loadBlock(31, Status::Draft);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
-     */
     public function testDeleteLayoutTranslationWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
@@ -1851,10 +1653,6 @@ final class LayoutHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
-     */
     public function testDeleteLayoutTranslationWithMainLocale(): void
     {
         $this->expectException(BadStateException::class);

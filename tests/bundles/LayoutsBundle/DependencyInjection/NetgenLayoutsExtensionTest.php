@@ -9,17 +9,13 @@ use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\DummyExtensionPlugin;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 use function array_merge_recursive;
 use function sprintf;
 
-/**
- * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::getConfiguration
- * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::load
- * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::loadConfigFiles
- * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::registerAutoConfiguration
- */
+#[CoversClass(NetgenLayoutsExtension::class)]
 final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
 {
     /**
@@ -43,28 +39,16 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $this->extension = $extension;
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::addPlugin
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::hasPlugin
-     */
     public function testHasPlugin(): void
     {
         self::assertTrue($this->extension->hasPlugin(ExtensionPlugin::class));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::addPlugin
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::getPlugin
-     */
     public function testGetPlugin(): void
     {
         self::assertInstanceOf(ExtensionPlugin::class, $this->extension->getPlugin(ExtensionPlugin::class));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::addPlugin
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::getPlugin
-     */
     public function testGetPluginThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
@@ -73,10 +57,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $this->extension->getPlugin(DummyExtensionPlugin::class);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::addPlugin
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::getPlugins
-     */
     public function testGetPlugins(): void
     {
         $plugins = $this->extension->getPlugins();
@@ -86,9 +66,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         self::assertInstanceOf(ExtensionPlugin::class, $plugins[ExtensionPlugin::class]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::prepend
-     */
     public function testAppendFromPlugin(): void
     {
         $this->extension->prepend($this->container);
@@ -109,9 +86,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::validateCurrentDesign
-     */
     public function testNonExistingCurrentDesign(): void
     {
         $this->expectException(InvalidConfigurationException::class);
@@ -120,9 +94,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $this->load([...['design' => 'non_existing'], ...$this->minimalConfig]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::validateCurrentDesign
-     */
     public function testStandardAsCurrentDesign(): void
     {
         $this->load([...['design' => 'standard'], ...$this->minimalConfig]);
@@ -131,9 +102,6 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::validateCurrentDesign
-     */
     public function testCustomDesignAsCurrentDesign(): void
     {
         $designList = $this->minimalConfig;

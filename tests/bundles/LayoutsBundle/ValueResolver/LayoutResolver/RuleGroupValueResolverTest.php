@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\LayoutResolver;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(RuleGroupValueResolver::class)]
 final class RuleGroupValueResolverTest extends TestCase
 {
     private MockObject $layoutResolverServiceMock;
@@ -24,34 +26,21 @@ final class RuleGroupValueResolverTest extends TestCase
         $this->valueResolver = new RuleGroupValueResolver($this->layoutResolverServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver::getSourceAttributeNames
-     */
     public function testGetSourceAttributeName(): void
     {
         self::assertSame(['ruleGroupId'], $this->valueResolver->getSourceAttributeNames());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver::getDestinationAttributeName
-     */
     public function testGetDestinationAttributeName(): void
     {
         self::assertSame('ruleGroup', $this->valueResolver->getDestinationAttributeName());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver::getSupportedClass
-     */
     public function testGetSupportedClass(): void
     {
         self::assertSame(RuleGroup::class, $this->valueResolver->getSupportedClass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver::loadValue
-     */
     public function testLoadValue(): void
     {
         $ruleGroup = new RuleGroup();
@@ -75,9 +64,6 @@ final class RuleGroupValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver::loadValue
-     */
     public function testLoadValueArchive(): void
     {
         $ruleGroup = new RuleGroup();
@@ -101,9 +87,6 @@ final class RuleGroupValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver::loadValue
-     */
     public function testLoadValueDraft(): void
     {
         $ruleGroup = new RuleGroup();

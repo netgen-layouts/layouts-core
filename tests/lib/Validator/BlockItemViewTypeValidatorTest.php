@@ -9,6 +9,8 @@ use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\BlockItemViewTypeValidator;
 use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
@@ -16,6 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 use function sprintf;
 
+#[CoversClass(BlockItemViewTypeValidator::class)]
 final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
     private BlockDefinition $blockDefinition;
@@ -33,11 +36,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
-     *
-     * @dataProvider validateDataProvider
-     */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(string $viewType, string $value, bool $isValid): void
     {
         $this->constraint->viewType = $viewType;
@@ -45,9 +44,6 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -57,9 +53,6 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'standard');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
-     */
     public function testValidateThrowsMissingOptionsExceptionWithInvalidBlockDefinition(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -69,9 +62,6 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'standard');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
-     */
     public function testValidateThrowsMissingOptionsExceptionWithInvalidViewType(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -81,9 +71,6 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 'standard');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

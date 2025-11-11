@@ -9,9 +9,12 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
+#[CoversClass(LayoutTypeNormalizer::class)]
 final class LayoutTypeNormalizerTest extends TestCase
 {
     private LayoutTypeNormalizer $normalizer;
@@ -22,10 +25,6 @@ final class LayoutTypeNormalizerTest extends TestCase
         $this->normalizer->setNormalizer(new Serializer());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutTypeNormalizer::getZones
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutTypeNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
@@ -69,11 +68,7 @@ final class LayoutTypeNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutTypeNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

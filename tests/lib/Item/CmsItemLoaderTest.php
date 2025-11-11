@@ -12,10 +12,12 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueLoader;
 use Netgen\Layouts\Tests\Stubs\Container;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+#[CoversClass(CmsItemLoader::class)]
 final class CmsItemLoaderTest extends TestCase
 {
     private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
@@ -27,11 +29,6 @@ final class CmsItemLoaderTest extends TestCase
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::__construct
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::load
-     */
     public function testLoad(): void
     {
         $item = CmsItem::fromArray(
@@ -57,10 +54,6 @@ final class CmsItemLoaderTest extends TestCase
         self::assertSame($item, $this->cmsItemLoader->load(42, 'value'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::load
-     */
     public function testLoadItemWithNoItem(): void
     {
         $this->cmsItemLoader = new CmsItemLoader(
@@ -74,10 +67,6 @@ final class CmsItemLoaderTest extends TestCase
         self::assertSame('value', $loadedValue->getValueType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::load
-     */
     public function testLoadItemThrowsItemException(): void
     {
         $this->expectException(ItemException::class);
@@ -88,10 +77,6 @@ final class CmsItemLoaderTest extends TestCase
         $this->cmsItemLoader->load(42, 'value');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
-     */
     public function testLoadByRemoteId(): void
     {
         $item = CmsItem::fromArray(
@@ -117,10 +102,6 @@ final class CmsItemLoaderTest extends TestCase
         self::assertSame($item, $this->cmsItemLoader->loadByRemoteId(42, 'value'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
-     */
     public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem(): void
     {
         $this->cmsItemLoader = new CmsItemLoader(
@@ -134,10 +115,6 @@ final class CmsItemLoaderTest extends TestCase
         self::assertSame('value', $loadedValue->getValueType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
-     */
     public function testLoadByRemoteIdItemThrowsItemExceptionWithNoLoader(): void
     {
         $this->expectException(ItemException::class);
@@ -148,10 +125,6 @@ final class CmsItemLoaderTest extends TestCase
         $this->cmsItemLoader->loadByRemoteId(42, 'value');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
-     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
-     */
     public function testLoadByRemoteIdItemThrowsItemExceptionWithInvalidLoader(): void
     {
         $this->expectException(ItemException::class);

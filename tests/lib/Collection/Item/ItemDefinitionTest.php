@@ -7,8 +7,10 @@ namespace Netgen\Layouts\Tests\Collection\Item;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemDefinition::class)]
 final class ItemDefinitionTest extends TestCase
 {
     private ItemDefinition $itemDefinition;
@@ -27,17 +29,11 @@ final class ItemDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getValueType
-     */
     public function testGetValueType(): void
     {
         self::assertSame('value_type', $this->itemDefinition->getValueType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getConfigDefinition
-     */
     public function testGetConfigDefinition(): void
     {
         self::assertSame(
@@ -46,9 +42,6 @@ final class ItemDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getConfigDefinition
-     */
     public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
     {
         $this->expectException(ConfigDefinitionException::class);
@@ -57,25 +50,16 @@ final class ItemDefinitionTest extends TestCase
         $this->itemDefinition->getConfigDefinition('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::hasConfigDefinition
-     */
     public function testHasConfigDefinition(): void
     {
         self::assertTrue($this->itemDefinition->hasConfigDefinition('config'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::hasConfigDefinition
-     */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {
         self::assertFalse($this->itemDefinition->hasConfigDefinition('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getConfigDefinitions
-     */
     public function testGetConfigDefinitions(): void
     {
         self::assertSame(

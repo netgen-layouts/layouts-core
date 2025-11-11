@@ -11,9 +11,11 @@ use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemRuntime::class)]
 final class ItemRuntimeTest extends TestCase
 {
     private MockObject $cmsItemLoaderMock;
@@ -37,10 +39,6 @@ final class ItemRuntimeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPath(): void
     {
         $cmsItem = new CmsItem();
@@ -62,9 +60,6 @@ final class ItemRuntimeTest extends TestCase
         self::assertSame('/item/path', $itemPath);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPathWithUri(): void
     {
         $cmsItem = new CmsItem();
@@ -86,9 +81,6 @@ final class ItemRuntimeTest extends TestCase
         self::assertSame('/item/path', $itemPath);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPathWithItem(): void
     {
         $cmsItem = new CmsItem();
@@ -108,9 +100,6 @@ final class ItemRuntimeTest extends TestCase
         self::assertSame('/item/path', $itemPath);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPathWithDefaultType(): void
     {
         $cmsItem = new CmsItem();
@@ -130,9 +119,6 @@ final class ItemRuntimeTest extends TestCase
         self::assertSame('/item/path', $itemPath);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPathWithInvalidValue(): void
     {
         $this->cmsItemLoaderMock
@@ -146,9 +132,6 @@ final class ItemRuntimeTest extends TestCase
         self::assertSame('', $this->runtime->getItemPath('value', 'type'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     */
     public function testGetItemPathWithInvalidValueThrowsItemExceptionInDebugMode(): void
     {
         $this->expectException(ItemException::class);

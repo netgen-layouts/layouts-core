@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Node;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\Variable\ContextVariable;
 
-/**
- * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext::compile
- */
+#[CoversClass(DefaultContext::class)]
 final class DefaultContextTest extends NodeTestBase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext::__construct
-     */
     public function testConstructor(): void
     {
         $var = new ContextVariable('foo', 1);
@@ -24,9 +20,6 @@ final class DefaultContextTest extends NodeTestBase
         self::assertSame($var, $node->getNode('expr'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\DefaultContext::__construct
-     */
     public function testConstructorWithConstant(): void
     {
         $var = new ConstantExpression('foo', 1);

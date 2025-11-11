@@ -8,8 +8,10 @@ use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\Zone;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutType::class)]
 final class LayoutTypeTest extends TestCase
 {
     private LayoutType $layoutType;
@@ -50,41 +52,26 @@ final class LayoutTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('4_zones_a', $this->layoutType->getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isEnabled
-     */
     public function testIsEnabled(): void
     {
         self::assertFalse($this->layoutType->isEnabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('4 zones A', $this->layoutType->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getIcon
-     */
     public function testGetIcon(): void
     {
         self::assertSame('/icon.svg', $this->layoutType->getIcon());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZones
-     */
     public function testGetZones(): void
     {
         self::assertSame(
@@ -96,41 +83,26 @@ final class LayoutTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZoneIdentifiers
-     */
     public function testGetZoneIdentifiers(): void
     {
         self::assertSame(['left', 'right'], $this->layoutType->getZoneIdentifiers());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::hasZone
-     */
     public function testHasZone(): void
     {
         self::assertTrue($this->layoutType->hasZone('left'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::hasZone
-     */
     public function testHasZoneReturnsFalse(): void
     {
         self::assertFalse($this->layoutType->hasZone('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZone
-     */
     public function testGetZone(): void
     {
         self::assertSame($this->zone1, $this->layoutType->getZone('left'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZone
-     */
     public function testGetZoneThrowsLayoutTypeException(): void
     {
         $this->expectException(LayoutTypeException::class);
@@ -139,33 +111,21 @@ final class LayoutTypeTest extends TestCase
         $this->layoutType->getZone('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
-     */
     public function testIsBlockAllowedInZone(): void
     {
         self::assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'left'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
-     */
     public function testIsBlockAllowedInZoneReturnsFalse(): void
     {
         self::assertFalse($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'other']), 'left'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
-     */
     public function testIsBlockAllowedInZoneWithNonExistentZone(): void
     {
         self::assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
-     */
     public function testIsBlockAllowedInZoneWithAllBlocksAllowed(): void
     {
         self::assertTrue($this->layoutType->isBlockAllowedInZone(BlockDefinition::fromArray(['identifier' => 'title']), 'right'));

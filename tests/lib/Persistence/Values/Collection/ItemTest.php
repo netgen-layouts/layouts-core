@@ -6,13 +6,12 @@ namespace Netgen\Layouts\Tests\Persistence\Values\Collection;
 
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Status;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 
+#[CoversNothing]
 final class ItemTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
     public function testSetProperties(): void
     {
         $item = Item::fromArray(

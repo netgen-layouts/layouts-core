@@ -6,13 +6,18 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form\TargetType;
 
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType;
+use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfo as PathInfoMapper;
 use Netgen\Layouts\Layout\Resolver\TargetType\PathInfo;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
 
+#[CoversClass(TargetType::class)]
+#[CoversClass(Mapper::class)]
+#[CoversClass(PathInfoMapper::class)]
 final class PathInfoTest extends FormTestCase
 {
     private PathInfo $targetType;
@@ -24,14 +29,6 @@ final class PathInfoTest extends FormTestCase
         $this->targetType = new PathInfo();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType::buildForm
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType::buildView
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper::getFormOptions
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper::handleForm
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfo::getFormOptions
-     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfo::getFormType
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [

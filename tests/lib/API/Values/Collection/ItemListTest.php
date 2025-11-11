@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
@@ -14,11 +15,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(ItemList::class)]
 final class ItemListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -33,10 +32,6 @@ final class ItemListTest extends TestCase
         new ItemList([new Item(), new stdClass(), new Item()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::__construct
-     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::getItems
-     */
     public function testGetItems(): void
     {
         $items = [new Item(), new Item()];
@@ -44,9 +39,6 @@ final class ItemListTest extends TestCase
         self::assertSame($items, new ItemList($items)->getItems());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::getItemIds
-     */
     public function testGetItemIds(): void
     {
         $uuid1 = Uuid::uuid4();

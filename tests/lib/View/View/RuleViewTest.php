@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Tests\View\View;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\View\View\RuleView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(RuleView::class)]
 final class RuleViewTest extends TestCase
 {
     private Rule $rule;
@@ -25,10 +27,6 @@ final class RuleViewTest extends TestCase
         $this->view->addParameter('rule', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\RuleView::__construct
-     * @covers \Netgen\Layouts\View\View\RuleView::getRule
-     */
     public function testGetRule(): void
     {
         self::assertSame($this->rule, $this->view->getRule());
@@ -41,9 +39,6 @@ final class RuleViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\RuleView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('rule', $this->view::getIdentifier());

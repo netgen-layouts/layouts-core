@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Config;
 
 use Netgen\Layouts\Config\ConfigDefinition;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigDefinition::class)]
 final class ConfigDefinitionTest extends TestCase
 {
     private ConfigDefinition $configDefinition;
@@ -20,9 +22,6 @@ final class ConfigDefinitionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Config\ConfigDefinition::getConfigKey
-     */
     public function testGetConfigKey(): void
     {
         self::assertSame('config_definition', $this->configDefinition->getConfigKey());

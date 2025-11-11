@@ -7,18 +7,16 @@ namespace Netgen\Layouts\Tests\Collection\Result;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Collection\Result\ContextualQueryRunner;
 use Netgen\Layouts\Collection\Result\UnknownItem;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use function intdiv;
 
 use const PHP_INT_MAX;
 
+#[CoversClass(ContextualQueryRunner::class)]
 final class ContextualQueryRunnerTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ContextualQueryRunner::count
-     * @covers \Netgen\Layouts\Collection\Result\ContextualQueryRunner::runQuery
-     */
     public function testRunner(): void
     {
         $queryRunner = new ContextualQueryRunner();

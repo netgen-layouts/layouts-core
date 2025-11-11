@@ -9,10 +9,13 @@ use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\Parameters\Link;
 use Netgen\Layouts\Validator\Parameters\LinkValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+#[CoversClass(LinkValidator::class)]
 final class LinkValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
@@ -24,11 +27,8 @@ final class LinkValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed[] $valueTypes
-     *
-     * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidate(?LinkValue $value, bool $required, array $valueTypes, bool $isValid): void
     {
         $this->constraint->required = $required;
@@ -37,9 +37,6 @@ final class LinkValidatorTest extends ValidatorTestCase
         $this->assertValid($isValid, $value);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -49,9 +46,6 @@ final class LinkValidatorTest extends ValidatorTestCase
         $this->assertValid(true, new LinkValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
-     */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);

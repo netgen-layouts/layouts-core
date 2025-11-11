@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Validator\Constraint;
 
 use Netgen\Layouts\Validator\Constraint\DateTime;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(DateTime::class)]
 final class DateTimeTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Validator\Constraint\DateTime::validatedBy
-     */
     public function testValidatedBy(): void
     {
         $constraint = new DateTime();

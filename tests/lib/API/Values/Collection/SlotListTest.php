@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Collection\SlotList;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
@@ -14,11 +15,9 @@ use TypeError;
 use function sprintf;
 use function str_replace;
 
+#[CoversClass(SlotList::class)]
 final class SlotListTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\SlotList::__construct
-     */
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
@@ -33,10 +32,6 @@ final class SlotListTest extends TestCase
         new SlotList([new Slot(), new stdClass(), new Slot()]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\SlotList::__construct
-     * @covers \Netgen\Layouts\API\Values\Collection\SlotList::getSlots
-     */
     public function testGetSlots(): void
     {
         $slots = [new Slot(), new Slot()];
@@ -44,9 +39,6 @@ final class SlotListTest extends TestCase
         self::assertSame($slots, new SlotList($slots)->getSlots());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\SlotList::getSlotIds
-     */
     public function testGetSlotIds(): void
     {
         $uuid1 = Uuid::uuid4();

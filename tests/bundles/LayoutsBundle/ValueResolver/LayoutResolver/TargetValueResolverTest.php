@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\LayoutResolver;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(TargetValueResolver::class)]
 final class TargetValueResolverTest extends TestCase
 {
     private MockObject $layoutResolverServiceMock;
@@ -24,34 +26,21 @@ final class TargetValueResolverTest extends TestCase
         $this->valueResolver = new TargetValueResolver($this->layoutResolverServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver::getSourceAttributeNames
-     */
     public function testGetSourceAttributeName(): void
     {
         self::assertSame(['targetId'], $this->valueResolver->getSourceAttributeNames());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver::getDestinationAttributeName
-     */
     public function testGetDestinationAttributeName(): void
     {
         self::assertSame('target', $this->valueResolver->getDestinationAttributeName());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver::getSupportedClass
-     */
     public function testGetSupportedClass(): void
     {
         self::assertSame(Target::class, $this->valueResolver->getSupportedClass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver::loadValue
-     */
     public function testLoadValue(): void
     {
         $target = new Target();
@@ -75,9 +64,6 @@ final class TargetValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver::loadValue
-     */
     public function testLoadValueDraft(): void
     {
         $target = new Target();

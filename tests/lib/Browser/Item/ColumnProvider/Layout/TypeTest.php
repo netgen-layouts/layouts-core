@@ -9,8 +9,10 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use Netgen\Layouts\Layout\Type\LayoutType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Type::class)]
 final class TypeTest extends TestCase
 {
     private Type $provider;
@@ -20,9 +22,6 @@ final class TypeTest extends TestCase
         $this->provider = new Type();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type::getValue
-     */
     public function testGetValue(): void
     {
         $item = new Item(
@@ -43,9 +42,6 @@ final class TypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type::getValue
-     */
     public function testGetValueWithInvalidItem(): void
     {
         self::assertNull($this->provider->getValue(new StubItem(42)));

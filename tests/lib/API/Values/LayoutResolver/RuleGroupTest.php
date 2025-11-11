@@ -8,22 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+#[CoversClass(RuleGroup::class)]
 final class RuleGroupTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getConditions
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getDescription
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getId
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getName
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getParentId
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getPriority
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getRules
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::isEnabled
-     */
     public function testSetProperties(): void
     {
         $rule1 = new Rule();

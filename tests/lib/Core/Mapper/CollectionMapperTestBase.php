@@ -29,10 +29,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper = $this->createCollectionMapper();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
-     */
     public function testMapCollection(): void
     {
         $persistenceCollection = Collection::fromArray(
@@ -68,10 +64,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertInstanceOf(APIQuery::class, $collection->getQuery());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
-     */
     public function testMapCollectionWithLocale(): void
     {
         $persistenceCollection = Collection::fromArray(
@@ -96,10 +88,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $collection->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
-     */
     public function testMapCollectionWithLocales(): void
     {
         $persistenceCollection = Collection::fromArray(
@@ -124,10 +112,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $collection->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
-     */
     public function testMapCollectionWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceCollection = Collection::fromArray(
@@ -152,10 +136,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('en', $collection->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
-     */
     public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
@@ -174,10 +154,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
-     */
     public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
@@ -196,9 +172,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
-     */
     public function testMapCollectionWithNoQuery(): void
     {
         $persistenceCollection = Collection::fromArray(
@@ -233,9 +206,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertNull($collection->getQuery());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapItem
-     */
     public function testMapItem(): void
     {
         $persistenceItem = Item::fromArray(
@@ -284,9 +254,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapItem
-     */
     public function testMapItemWithNullItemValue(): void
     {
         $persistenceItem = Item::fromArray(
@@ -333,9 +300,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapItem
-     */
     public function testMapItemWithInvalidItemDefinition(): void
     {
         $persistenceItem = Item::fromArray(
@@ -379,9 +343,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertFalse($item->hasConfig('key'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
-     */
     public function testMapQuery(): void
     {
         $persistenceQuery = Query::fromArray(
@@ -428,10 +389,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertNull($query->getParameter('param2')->getValue());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
-     */
     public function testMapQueryWithLocale(): void
     {
         $persistenceQuery = Query::fromArray(
@@ -454,10 +411,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $query->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
-     */
     public function testMapQueryWithLocales(): void
     {
         $persistenceQuery = Query::fromArray(
@@ -480,10 +433,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $query->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
-     */
     public function testMapQueryWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceQuery = Query::fromArray(
@@ -506,10 +455,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('en', $query->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
-     */
     public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
@@ -530,10 +475,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
-     */
     public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
@@ -554,9 +495,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
-     */
     public function testMapQueryWithInvalidType(): void
     {
         $persistenceQuery = Query::fromArray(
@@ -597,9 +535,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('en', $query->getLocale());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapSlot
-     */
     public function testMapSlot(): void
     {
         $persistenceSlot = Slot::fromArray(

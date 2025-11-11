@@ -9,8 +9,10 @@ use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(LayoutTypeRegistry::class)]
 final class LayoutTypeRegistryTest extends TestCase
 {
     private LayoutType $layoutType1;
@@ -32,10 +34,6 @@ final class LayoutTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::__construct
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
-     */
     public function testGetLayoutTypes(): void
     {
         self::assertSame(
@@ -47,9 +45,6 @@ final class LayoutTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
-     */
     public function testGetEnabledLayoutTypes(): void
     {
         self::assertSame(
@@ -60,33 +55,21 @@ final class LayoutTypeRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::hasLayoutType
-     */
     public function testHasLayoutType(): void
     {
         self::assertTrue($this->registry->hasLayoutType('layout_type1'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::hasLayoutType
-     */
     public function testHasLayoutTypeWithNoLayoutType(): void
     {
         self::assertFalse($this->registry->hasLayoutType('other_layout_type'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutType
-     */
     public function testGetLayoutType(): void
     {
         self::assertSame($this->layoutType1, $this->registry->getLayoutType('layout_type1'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutType
-     */
     public function testGetLayoutTypeThrowsLayoutTypeException(): void
     {
         $this->expectException(LayoutTypeException::class);
@@ -95,9 +78,6 @@ final class LayoutTypeRegistryTest extends TestCase
         $this->registry->getLayoutType('other_layout_type');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getIterator
-     */
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
@@ -110,34 +90,22 @@ final class LayoutTypeRegistryTest extends TestCase
         self::assertSame($this->registry->getLayoutTypes(), $layoutTypes);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::count
-     */
     public function testCount(): void
     {
         self::assertCount(2, $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetExists
-     */
     public function testOffsetExists(): void
     {
         self::assertArrayHasKey('layout_type1', $this->registry);
         self::assertArrayNotHasKey('other', $this->registry);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetGet
-     */
     public function testOffsetGet(): void
     {
         self::assertSame($this->layoutType1, $this->registry['layout_type1']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetSet
-     */
     public function testOffsetSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -146,9 +114,6 @@ final class LayoutTypeRegistryTest extends TestCase
         $this->registry['layout_type1'] = $this->layoutType1;
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetUnset
-     */
     public function testOffsetUnset(): void
     {
         $this->expectException(RuntimeException::class);

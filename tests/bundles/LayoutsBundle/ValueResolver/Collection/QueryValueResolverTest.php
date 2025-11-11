@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Collection;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(QueryValueResolver::class)]
 final class QueryValueResolverTest extends TestCase
 {
     private MockObject $collectionServiceMock;
@@ -24,34 +26,21 @@ final class QueryValueResolverTest extends TestCase
         $this->valueResolver = new QueryValueResolver($this->collectionServiceMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver::getSourceAttributeNames
-     */
     public function testGetSourceAttributeName(): void
     {
         self::assertSame(['queryId'], $this->valueResolver->getSourceAttributeNames());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver::getDestinationAttributeName
-     */
     public function testGetDestinationAttributeName(): void
     {
         self::assertSame('query', $this->valueResolver->getDestinationAttributeName());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver::getSupportedClass
-     */
     public function testGetSupportedClass(): void
     {
         self::assertSame(Query::class, $this->valueResolver->getSupportedClass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver::loadValue
-     */
     public function testLoadValue(): void
     {
         $query = new Query();
@@ -75,9 +64,6 @@ final class QueryValueResolverTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\QueryValueResolver::loadValue
-     */
     public function testLoadValueDraft(): void
     {
         $query = new Query();

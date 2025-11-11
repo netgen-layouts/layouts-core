@@ -11,8 +11,11 @@ use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(BlockTypeNormalizer::class)]
 final class BlockTypeNormalizerTest extends TestCase
 {
     private BlockTypeNormalizer $normalizer;
@@ -26,9 +29,6 @@ final class BlockTypeNormalizerTest extends TestCase
         $this->normalizer = new BlockTypeNormalizer();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeNormalizer::normalize
-     */
     public function testNormalize(): void
     {
         $blockType = BlockType::fromArray(
@@ -60,9 +60,6 @@ final class BlockTypeNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeNormalizer::normalize
-     */
     public function testNormalizeWithContainerBlock(): void
     {
         $blockType = BlockType::fromArray(
@@ -85,11 +82,7 @@ final class BlockTypeNormalizerTest extends TestCase
         self::assertTrue($data['is_container']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeNormalizer::supportsNormalization
-     *
-     * @dataProvider supportsNormalizationDataProvider
-     */
+    #[DataProvider('supportsNormalizationDataProvider')]
     public function testSupportsNormalization(mixed $data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));

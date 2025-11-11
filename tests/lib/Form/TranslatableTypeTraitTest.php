@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Form;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Form\TranslatableTypeTrait;
 use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
@@ -15,13 +16,12 @@ use Netgen\Layouts\Tests\Form\Stubs\TranslatableTypeStub;
 use Netgen\Layouts\Tests\Parameters\Stubs\FormMapper;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 
+#[CoversClass(TranslatableTypeTrait::class)]
 final class TranslatableTypeTraitTest extends FormTestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Form\TranslatableTypeTrait::disableUntranslatableForms
-     */
     public function testDisableUntranslatableFormsWithTranslatableCompoundParameter(): void
     {
         $handler = new BlockDefinitionHandlerWithTranslatableCompoundParameter();
@@ -53,9 +53,6 @@ final class TranslatableTypeTraitTest extends FormTestCase
         self::assertTrue($paramsForm->get('css_id')->isDisabled());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Form\TranslatableTypeTrait::disableUntranslatableForms
-     */
     public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter(): void
     {
         $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();

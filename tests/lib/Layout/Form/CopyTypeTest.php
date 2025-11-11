@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\Layout\Form\CopyType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -15,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
+#[CoversClass(CopyType::class)]
 final class CopyTypeTest extends FormTestCase
 {
     private Layout $layout;
@@ -26,9 +28,6 @@ final class CopyTypeTest extends FormTestCase
         $this->layout = new Layout();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CopyType::buildForm
-     */
     public function testSubmitValidData(): void
     {
         $submittedData = [
@@ -61,9 +60,6 @@ final class CopyTypeTest extends FormTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -84,9 +80,6 @@ final class CopyTypeTest extends FormTestCase
         self::assertSame($struct, $options['data']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
-     */
     public function testConfigureOptionsWithMissingLayout(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -100,9 +93,6 @@ final class CopyTypeTest extends FormTestCase
         $optionsResolver->resolve();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidLayout(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -120,9 +110,6 @@ final class CopyTypeTest extends FormTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);

@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Tests\View\View;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\View\View\BlockView;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(BlockView::class)]
 final class BlockViewTest extends TestCase
 {
     private Block $block;
@@ -25,18 +27,11 @@ final class BlockViewTest extends TestCase
         $this->view->addParameter('block', 42);
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\BlockView::__construct
-     * @covers \Netgen\Layouts\View\View\BlockView::getBlock
-     */
     public function testGetBlock(): void
     {
         self::assertSame($this->block, $this->view->getBlock());
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\BlockView::getParameters
-     */
     public function testGetParameters(): void
     {
         self::assertSame(
@@ -48,9 +43,6 @@ final class BlockViewTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\View\View\BlockView::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('block', $this->view::getIdentifier());

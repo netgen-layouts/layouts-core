@@ -10,32 +10,15 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 use function iterator_to_array;
 
+#[CoversClass(Layout::class)]
 final class LayoutTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::count
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getAvailableLocales
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getCreated
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getDescription
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getId
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getIterator
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getLayoutType
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getMainLocale
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getModified
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getName
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getZone
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getZones
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::hasLocale
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::hasZone
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::isShared
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetExists
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetGet
-     */
     public function testSetProperties(): void
     {
         $createdDate = new DateTimeImmutable()->setTimestamp(123);
@@ -92,9 +75,6 @@ final class LayoutTest extends TestCase
         self::assertSame($zones['left'], $layout['left']);
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetSet
-     */
     public function testSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -114,9 +94,6 @@ final class LayoutTest extends TestCase
         $layout['left'] = new Zone();
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetUnset
-     */
     public function testUnset(): void
     {
         $this->expectException(RuntimeException::class);

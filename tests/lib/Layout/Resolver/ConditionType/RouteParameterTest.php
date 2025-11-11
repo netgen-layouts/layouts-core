@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(RouteParameter::class)]
 final class RouteParameterTest extends TestCase
 {
     private RouteParameter $conditionType;
@@ -18,19 +21,12 @@ final class RouteParameterTest extends TestCase
         $this->conditionType = new RouteParameter();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::getType
-     */
     public function testGetType(): void
     {
         self::assertSame('route_parameter', $this->conditionType::getType());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::getConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidator();
@@ -39,11 +35,7 @@ final class RouteParameterTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::matches
-     *
-     * @dataProvider matchesDataProvider
-     */
+    #[DataProvider('matchesDataProvider')]
     public function testMatches(mixed $value, bool $matches): void
     {
         $request = Request::create('/');

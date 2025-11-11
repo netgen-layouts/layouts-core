@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Exception\API;
 
 use Netgen\Layouts\Exception\API\ConfigException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigException::class)]
 final class ConfigExceptionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Exception\API\ConfigException::noConfig
-     */
     public function testNoConfig(): void
     {
         $exception = ConfigException::noConfig('config');
@@ -22,9 +21,6 @@ final class ConfigExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Exception\API\ConfigException::noConfigStruct
-     */
     public function testNoConfigStruct(): void
     {
         $exception = ConfigException::noConfigStruct('config');

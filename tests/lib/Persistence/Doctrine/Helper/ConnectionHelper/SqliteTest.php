@@ -7,8 +7,10 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Sqlite::class)]
 final class SqliteTest extends TestCase
 {
     use DatabaseTrait;
@@ -30,10 +32,6 @@ final class SqliteTest extends TestCase
         $this->closeDatabase();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::nextId
-     */
     public function testNextId(): void
     {
         if (!$this->databaseConnection->getDatabasePlatform() instanceof SqlitePlatform) {
@@ -43,10 +41,6 @@ final class SqliteTest extends TestCase
         self::assertSame(39, $this->helper->nextId('nglayouts_block'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::lastId
-     */
     public function testLastId(): void
     {
         if (!$this->databaseConnection->getDatabasePlatform() instanceof SqlitePlatform) {

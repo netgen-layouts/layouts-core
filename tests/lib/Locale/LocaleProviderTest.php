@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Locale;
 
 use Netgen\Layouts\Locale\LocaleProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
+#[CoversClass(LocaleProvider::class)]
 final class LocaleProviderTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::__construct
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::getAvailableLocales
-     */
     public function testGetAvailableLocales(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
@@ -27,10 +25,6 @@ final class LocaleProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::__construct
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::getAvailableLocales
-     */
     public function testGetAvailableLocalesWithNonExistingLocales(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr_NON_EXISTING']);
@@ -43,10 +37,6 @@ final class LocaleProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::__construct
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::getAvailableLocales
-     */
     public function testGetAvailableLocalesWithDefaultLocales(): void
     {
         $localeProvider = new LocaleProvider();
@@ -54,9 +44,6 @@ final class LocaleProviderTest extends TestCase
         self::assertNotEmpty($localeProvider->getAvailableLocales());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::getRequestLocales
-     */
     public function testGetRequestLocales(): void
     {
         $localeProvider = new LocaleProvider();
@@ -69,9 +56,6 @@ final class LocaleProviderTest extends TestCase
         self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::getRequestLocales
-     */
     public function testGetRequestLocalesWithEnabledLocales(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
@@ -84,9 +68,6 @@ final class LocaleProviderTest extends TestCase
         self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Locale\LocaleProvider::getRequestLocales
-     */
     public function testGetRequestLocalesWithNonEnabledLocale(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);

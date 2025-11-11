@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(LoadZoneBlocks::class)]
 final class LoadZoneBlocksTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks::__construct
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks::__invoke
-     */
     public function testLoadZoneBlocks(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/blocks?html=false');
@@ -25,9 +24,6 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks::__invoke
-     */
     public function testLoadZoneBlocksInPublishedState(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/blocks?published=true&html=false');
@@ -39,9 +35,6 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks::__invoke
-     */
     public function testLoadZoneBlocksWithNonExistentZone(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/blocks');
@@ -53,9 +46,6 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks::__invoke
-     */
     public function testLoadZoneBlocksWithNonExistentLayout(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/blocks');
@@ -67,9 +57,6 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks::__invoke
-     */
     public function testLoadZoneBlocksWithNonExistentLayoutLocale(): void
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/unknown/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/blocks');

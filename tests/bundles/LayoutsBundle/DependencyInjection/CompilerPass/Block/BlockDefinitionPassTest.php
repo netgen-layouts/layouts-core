@@ -13,11 +13,14 @@ use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Block\TwigBlockDefinition;
 use Netgen\Layouts\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(BlockDefinitionPass::class)]
 final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -27,12 +30,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new BlockDefinitionPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     *
-     * @dataProvider processDataProvider
-     */
+    #[DataProvider('processDataProvider')]
     public function testProcess(string $handlerClass, string $definitionClass): void
     {
         $this->setParameter('test.class', BlockDefinitionHandler::class);
@@ -85,12 +83,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     *
-     * @dataProvider processDataProvider
-     */
+    #[DataProvider('processDataProvider')]
     public function testProcessWithCustomHandler(string $handlerClass, string $definitionClass): void
     {
         $this->setParameter('test.class', BlockDefinitionHandler::class);
@@ -130,9 +123,6 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     */
     public function testProcessThrowsExceptionWithNoTagIdentifier(): void
     {
         $this->expectException(RuntimeException::class);
@@ -152,10 +142,6 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     */
     public function testProcessThrowsExceptionWithNoConfigKeyInTag(): void
     {
         $this->expectException(RuntimeException::class);
@@ -187,9 +173,6 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     */
     public function testProcessThrowsExceptionWithNoHandler(): void
     {
         $this->expectException(RuntimeException::class);
@@ -205,9 +188,6 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     */
     public function testProcessThrowsExceptionWithNoCustomHandler(): void
     {
         $this->expectException(RuntimeException::class);
@@ -223,9 +203,6 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

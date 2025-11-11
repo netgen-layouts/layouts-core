@@ -10,30 +10,13 @@ use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\Slot;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+#[CoversClass(Collection::class)]
 final class CollectionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getBlockId
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getId
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItem
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItems
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getLimit
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getLocale
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getMainLocale
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getOffset
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getQuery
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlot
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlots
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasItem
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasQuery
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasSlot
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::isAlwaysAvailable
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::isTranslatable
-     */
     public function testSetProperties(): void
     {
         $items = [
@@ -105,9 +88,6 @@ final class CollectionTest extends TestCase
         self::assertNull($collection->getSlot(999));
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getOffset
-     */
     public function testGetOffsetForManualCollection(): void
     {
         $collection = Collection::fromArray(
@@ -120,9 +100,6 @@ final class CollectionTest extends TestCase
         self::assertSame(0, $collection->getOffset());
     }
 
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItem
-     */
     public function testGetItemWithNonExistingPosition(): void
     {
         $collection = Collection::fromArray(

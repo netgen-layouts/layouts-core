@@ -8,9 +8,12 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\Layouts\Parameters\ParameterType\DateTimeType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
+#[CoversClass(DateTimeType::class)]
 final class DateTimeTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
@@ -20,19 +23,12 @@ final class DateTimeTypeTest extends TestCase
         $this->type = new DateTimeType();
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('datetime', $this->type::getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::isValueEmpty
-     *
-     * @dataProvider emptyDataProvider
-     */
+    #[DataProvider('emptyDataProvider')]
     public function testIsValueEmpty(mixed $value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
@@ -49,11 +45,7 @@ final class DateTimeTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::toHash
-     *
-     * @dataProvider toHashDataProvider
-     */
+    #[DataProvider('toHashDataProvider')]
     public function testToHash(mixed $value, mixed $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
@@ -76,9 +68,6 @@ final class DateTimeTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::fromHash
-     */
     public function testFromHash(): void
     {
         $convertedValue = $this->type->fromHash(
@@ -94,11 +83,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame('Antarctica/Casey', $convertedValue->getTimezone()->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::fromHash
-     *
-     * @dataProvider invalidFromHashDataProvider
-     */
+    #[DataProvider('invalidFromHashDataProvider')]
     public function testFromHashWithInvalidValues(mixed $value, mixed $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
@@ -117,12 +102,7 @@ final class DateTimeTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getRequiredConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getValueConstraints
-     *
-     * @dataProvider validationDataProvider
-     */
+    #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
         $parameter = $this->getParameterDefinition();

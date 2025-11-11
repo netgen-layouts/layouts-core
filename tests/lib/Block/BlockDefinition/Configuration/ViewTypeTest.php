@@ -7,8 +7,10 @@ namespace Netgen\Layouts\Tests\Block\BlockDefinition\Configuration;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ViewType::class)]
 final class ViewTypeTest extends TestCase
 {
     private ViewType $viewType;
@@ -35,25 +37,16 @@ final class ViewTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getIdentifier
-     */
     public function testGetIdentifier(): void
     {
         self::assertSame('large', $this->viewType->getIdentifier());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getName
-     */
     public function testGetName(): void
     {
         self::assertSame('Large', $this->viewType->getName());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewTypes
-     */
     public function testGetItemViewTypes(): void
     {
         self::assertSame(
@@ -65,9 +58,6 @@ final class ViewTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewTypeIdentifiers
-     */
     public function testGetItemViewTypeIdentifiers(): void
     {
         self::assertSame(
@@ -76,18 +66,12 @@ final class ViewTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::hasItemViewType
-     */
     public function testHasItemViewType(): void
     {
         self::assertTrue($this->viewType->hasItemViewType('standard'));
         self::assertFalse($this->viewType->hasItemViewType('unknown'));
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewType
-     */
     public function testGetItemViewType(): void
     {
         self::assertSame(
@@ -96,9 +80,6 @@ final class ViewTypeTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewType
-     */
     public function testGetItemViewTypeThrowsBlockDefinitionException(): void
     {
         $this->expectException(BlockDefinitionException::class);
@@ -107,9 +88,6 @@ final class ViewTypeTest extends TestCase
         $this->viewType->getItemViewType('unknown');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getValidParameters
-     */
     public function testGetValidParameters(): void
     {
         self::assertSame(

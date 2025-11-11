@@ -9,8 +9,10 @@ use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Modified;
 use Netgen\Layouts\Browser\Item\Layout\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Modified::class)]
 final class ModifiedTest extends TestCase
 {
     private Modified $provider;
@@ -20,10 +22,6 @@ final class ModifiedTest extends TestCase
         $this->provider = new Modified('d.m.Y H:i:s');
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Modified::__construct
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Modified::getValue
-     */
     public function testGetValue(): void
     {
         $date = new DateTimeImmutable();
@@ -44,9 +42,6 @@ final class ModifiedTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Modified::getValue
-     */
     public function testGetValueWithInvalidItem(): void
     {
         self::assertNull($this->provider->getValue(new StubItem(42)));

@@ -6,11 +6,13 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Des
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
 use function mkdir;
 
+#[CoversClass(ThemePass::class)]
 final class ThemePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -33,11 +35,6 @@ final class ThemePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ThemePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePass::getAppDir
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePass::getThemeDirs
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
-     */
     public function testProcess(): void
     {
         $this->setDefinition('twig.loader.native_filesystem', new Definition());
@@ -104,9 +101,6 @@ final class ThemePassTest extends AbstractContainerBuilderTestCase
         }
     }
 
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

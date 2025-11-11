@@ -11,21 +11,12 @@ use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ResultSet::class)]
 final class ResultSetTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::count
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getCollection
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getIterator
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getLimit
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getOffset
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getResults
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getTotalCount
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetExists
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetGet
-     */
     public function testObject(): void
     {
         $collection = new Collection();
@@ -57,9 +48,6 @@ final class ResultSetTest extends TestCase
         self::assertSame($resultItem, $result[0]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetSet
-     */
     public function testSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -74,9 +62,6 @@ final class ResultSetTest extends TestCase
         $result[0] = new Result(0, new CmsItem());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetUnset
-     */
     public function testUnset(): void
     {
         $this->expectException(RuntimeException::class);
@@ -91,9 +76,6 @@ final class ResultSetTest extends TestCase
         unset($result[0]);
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isDynamic
-     */
     public function testIsDynamic(): void
     {
         $result = ResultSet::fromArray(
@@ -109,9 +91,6 @@ final class ResultSetTest extends TestCase
         self::assertTrue($result->isDynamic());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isDynamic
-     */
     public function testIsDynamicWithManualCollection(): void
     {
         $result = ResultSet::fromArray(
@@ -123,9 +102,6 @@ final class ResultSetTest extends TestCase
         self::assertFalse($result->isDynamic());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isContextual
-     */
     public function testIsContextual(): void
     {
         $result = ResultSet::fromArray(
@@ -145,9 +121,6 @@ final class ResultSetTest extends TestCase
         self::assertFalse($result->isContextual());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isContextual
-     */
     public function testIsContextualWithManualCollection(): void
     {
         $result = ResultSet::fromArray(
@@ -159,9 +132,6 @@ final class ResultSetTest extends TestCase
         self::assertFalse($result->isContextual());
     }
 
-    /**
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isContextual
-     */
     public function testIsContextualWithContextualQuery(): void
     {
         $result = ResultSet::fromArray(
