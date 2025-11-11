@@ -46,7 +46,7 @@ final class CollectionEditType extends AbstractType
                 'constraints' => [
                     new Constraints\NotBlank(),
                     new Constraints\Type(type: 'int'),
-                    new Constraints\GreaterThanOrEqual(value: 0),
+                    new Constraints\PositiveOrZero(),
                 ],
             ],
         );
@@ -59,7 +59,7 @@ final class CollectionEditType extends AbstractType
                 'property_path' => 'limit',
                 'constraints' => [
                     new Constraints\Type(type: 'int'),
-                    new Constraints\GreaterThanOrEqual(value: 0),
+                    new Constraints\PositiveOrZero(),
                 ],
             ],
         );

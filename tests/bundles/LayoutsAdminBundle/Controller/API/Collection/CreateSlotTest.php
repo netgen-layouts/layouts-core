@@ -117,7 +117,7 @@ final class CreateSlotTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should be greater than or equal to 0.',
+            'There was an error validating "position": This value should be either positive or zero.',
         );
     }
 }

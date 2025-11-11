@@ -58,7 +58,7 @@ trait ValidatorTrait
 
         $constraints = [
             new Constraints\NotBlank(),
-            new Constraints\GreaterThanOrEqual(0),
+            new Constraints\PositiveOrZero(),
         ];
 
         $this->validate($position, $constraints, $propertyPath);

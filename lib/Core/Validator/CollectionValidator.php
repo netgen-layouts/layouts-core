@@ -41,7 +41,7 @@ final class CollectionValidator
             $collectionCreateStruct->offset,
             [
                 $collectionCreateStruct->queryCreateStruct !== null ?
-                    new Constraints\GreaterThanOrEqual(value: 0) :
+                    new Constraints\PositiveOrZero() :
                     new Constraints\EqualTo(value: 0),
             ],
             'offset',
@@ -51,7 +51,7 @@ final class CollectionValidator
             $this->validate(
                 $collectionCreateStruct->limit,
                 [
-                    new Constraints\GreaterThan(value: 0),
+                    new Constraints\Positive(),
                 ],
                 'limit',
             );
@@ -70,7 +70,7 @@ final class CollectionValidator
                 $collectionUpdateStruct->offset,
                 [
                     $collection->hasQuery() ?
-                        new Constraints\GreaterThanOrEqual(value: 0) :
+                        new Constraints\PositiveOrZero() :
                         new Constraints\EqualTo(value: 0),
                 ],
                 'offset',
@@ -81,7 +81,7 @@ final class CollectionValidator
             $this->validate(
                 $collectionUpdateStruct->limit,
                 [
-                    new Constraints\GreaterThanOrEqual(value: 0),
+                    new Constraints\PositiveOrZero(),
                 ],
                 'limit',
             );
