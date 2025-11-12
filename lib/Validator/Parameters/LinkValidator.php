@@ -67,7 +67,6 @@ final class LinkValidator extends ConstraintValidator
 
             $linkConstraints[] = match ($linkType) {
                 LinkType::Url => new Constraints\Url(requireTld: false),
-                // @deprecated Replace with Url constraint with "relativeProtocol" option when support for Symfony 3.4 ends
                 LinkType::RelativeUrl => new Constraints\Type(type: 'string'),
                 LinkType::Email => new Constraints\Email(mode: Constraints\Email::VALIDATION_MODE_STRICT),
                 LinkType::Phone => new Constraints\Type(type: 'string'),
