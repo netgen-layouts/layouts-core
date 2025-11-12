@@ -88,7 +88,7 @@ final class ParametersType extends AbstractType
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
                 $this->buildForm(
                     $parameterForm,
-                    [...$options, ...['parameter_definitions' => $parameterDefinition]],
+                    [...$options, 'parameter_definitions' => $parameterDefinition],
                 );
             }
 

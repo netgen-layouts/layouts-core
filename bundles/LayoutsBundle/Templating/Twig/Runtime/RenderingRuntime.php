@@ -56,7 +56,7 @@ final class RenderingRuntime
             return $this->renderer->renderValue(
                 $item,
                 $this->getViewContext($context, $viewContext),
-                [...$parameters, ...['view_type' => $viewType]],
+                [...$parameters, 'view_type' => $viewType],
             );
         } catch (Throwable $t) {
             $message = sprintf(
@@ -180,7 +180,7 @@ final class RenderingRuntime
             return $this->renderer->renderValue(
                 $block,
                 $this->getViewContext($context, $viewContext),
-                [...$parameters, ...['twig_template' => $context['twig_template'] ?? null]],
+                [...$parameters, 'twig_template' => $context['twig_template'] ?? null],
             );
         } catch (Throwable $t) {
             $message = sprintf('Error rendering a block with UUID "%s"', $block->getId()->toString());
@@ -205,10 +205,8 @@ final class RenderingRuntime
                 $this->getViewContext($context, $viewContext),
                 [
                     ...$parameters,
-                    ...[
-                        'block' => $block,
-                        'twig_template' => $context['twig_template'] ?? null,
-                    ],
+                    'block' => $block,
+                    'twig_template' => $context['twig_template'] ?? null,
                 ],
             );
         } catch (Throwable $t) {

@@ -20,7 +20,7 @@ final class LayoutUrlGenerator implements LayoutUrlGeneratorInterface
     {
         return $this->urlGenerator->generate(
             $this->isDebug ? 'nglayouts_dev_app' : 'nglayouts_app',
-            [...$parameters, ...['_fragment' => sprintf('layout/%s', $layoutId->toString())]],
+            [...$parameters, '_fragment' => sprintf('layout/%s', $layoutId->toString())],
         );
     }
 }

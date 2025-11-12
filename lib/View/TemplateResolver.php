@@ -99,7 +99,7 @@ class TemplateResolver implements TemplateResolverInterface
                 $expressionLanguage = new ExpressionLanguage();
                 $value = $expressionLanguage->evaluate(
                     mb_substr($value, 2),
-                    [...$view->getParameters(), ...['view' => $view]],
+                    [...$view->getParameters(), 'view' => $view],
                 );
             }
 

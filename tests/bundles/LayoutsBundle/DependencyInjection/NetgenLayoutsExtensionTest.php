@@ -91,12 +91,12 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $this->expectException(InvalidConfigurationException::class);
         $this->expectExceptionMessage('Design "non_existing" does not exist. Available designs are: standard');
 
-        $this->load([...['design' => 'non_existing'], ...$this->minimalConfig]);
+        $this->load(['design' => 'non_existing', ...$this->minimalConfig]);
     }
 
     public function testStandardAsCurrentDesign(): void
     {
-        $this->load([...['design' => 'standard'], ...$this->minimalConfig]);
+        $this->load(['design' => 'standard', ...$this->minimalConfig]);
 
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);
@@ -107,7 +107,7 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $designList = $this->minimalConfig;
         $designList['design_list']['custom'] = [];
 
-        $this->load([...['design' => 'custom'], ...$designList]);
+        $this->load(['design' => 'custom', ...$designList]);
 
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);
