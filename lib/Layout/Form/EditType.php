@@ -20,9 +20,12 @@ final class EditType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('layout');
-        $resolver->setAllowedTypes('layout', Layout::class);
         $resolver->setAllowedTypes('data', LayoutUpdateStruct::class);
+
+        $resolver
+            ->define('layout')
+            ->required()
+            ->allowedTypes(Layout::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

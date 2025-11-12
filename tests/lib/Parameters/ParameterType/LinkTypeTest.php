@@ -78,19 +78,19 @@ final class LinkTypeTest extends TestCase
         return [
             [
                 [],
-                ['value_types' => ['default'], 'allow_invalid_internal' => false],
+                ['allow_invalid_internal' => false, 'value_types' => ['default']],
             ],
             [
                 ['value_types' => ['value']],
-                ['value_types' => ['value'], 'allow_invalid_internal' => false],
+                ['allow_invalid_internal' => false, 'value_types' => ['value']],
             ],
             [
                 ['allow_invalid_internal' => false],
-                ['value_types' => ['default'], 'allow_invalid_internal' => false],
+                ['allow_invalid_internal' => false, 'value_types' => ['default']],
             ],
             [
                 ['allow_invalid_internal' => true],
-                ['value_types' => ['default'], 'allow_invalid_internal' => true],
+                ['allow_invalid_internal' => true, 'value_types' => ['default']],
             ],
         ];
     }

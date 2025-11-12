@@ -23,16 +23,13 @@ final class CompoundBooleanType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired(
-            [
-                'reverse',
-            ],
-        );
-
-        $resolver->setAllowedTypes('reverse', 'bool');
-
-        $resolver->setDefault('reverse', false);
         $resolver->setDefault('inherit_data', true);
+
+        $resolver
+            ->define('reverse')
+            ->required()
+            ->default(false)
+            ->allowedTypes('bool');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

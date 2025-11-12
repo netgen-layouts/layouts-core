@@ -23,9 +23,12 @@ final class CollectionEditType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('collection');
-        $resolver->setAllowedTypes('collection', Collection::class);
         $resolver->setAllowedTypes('data', CollectionUpdateStruct::class);
+
+        $resolver
+            ->define('collection')
+            ->required()
+            ->allowedTypes(Collection::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

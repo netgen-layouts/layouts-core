@@ -23,28 +23,42 @@ final class KeyValuesType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired(
-            [
-                'key_name',
-                'key_label',
-                'values_name',
-                'values_label',
-                'values_type',
-                'values_options',
-                'values_constraints',
-            ],
-        );
+        $resolver
+            ->define('key_name')
+            ->required()
+            ->allowedTypes('string');
 
-        $resolver->setAllowedTypes('key_name', 'string');
-        $resolver->setAllowedTypes('key_label', 'string');
-        $resolver->setAllowedTypes('values_name', 'string');
-        $resolver->setAllowedTypes('values_label', 'string');
-        $resolver->setAllowedTypes('values_type', 'string');
-        $resolver->setAllowedTypes('values_options', 'array');
-        $resolver->setAllowedTypes('values_constraints', sprintf('%s[]', Constraint::class));
+        $resolver
+            ->define('key_label')
+            ->required()
+            ->allowedTypes('string');
 
-        $resolver->setDefault('values_options', []);
-        $resolver->setDefault('values_constraints', []);
+        $resolver
+            ->define('values_name')
+            ->required()
+            ->allowedTypes('string');
+
+        $resolver
+            ->define('values_label')
+            ->required()
+            ->allowedTypes('string');
+
+        $resolver
+            ->define('values_type')
+            ->required()
+            ->allowedTypes('string');
+
+        $resolver
+            ->define('values_options')
+            ->required()
+            ->default([])
+            ->allowedTypes('array');
+
+        $resolver
+            ->define('values_constraints')
+            ->required()
+            ->default([])
+            ->allowedTypes(sprintf('%s[]', Constraint::class));
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

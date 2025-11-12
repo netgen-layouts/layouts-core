@@ -22,30 +22,36 @@ final class NumberType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $optionsResolver->setDefault('min', null);
-        $optionsResolver->setDefault('max', null);
-        $optionsResolver->setDefault('scale', 3);
+        $optionsResolver
+            ->define('min')
+            ->required()
+            ->default(null)
+            ->allowedTypes('numeric', 'null');
 
-        $optionsResolver->setRequired(['min', 'max', 'scale']);
+        $optionsResolver
+            ->define('max')
+            ->required()
+            ->default(null)
+            ->allowedTypes('numeric', 'null')
+            ->normalize(
+                static function (Options $options, $value) {
+                    if ($value === null || $options['min'] === null) {
+                        return $value;
+                    }
 
-        $optionsResolver->setAllowedTypes('min', ['numeric', 'null']);
-        $optionsResolver->setAllowedTypes('max', ['numeric', 'null']);
-        $optionsResolver->setAllowedTypes('scale', 'int');
+                    if ($value < $options['min']) {
+                        return $options['min'];
+                    }
 
-        $optionsResolver->setNormalizer(
-            'max',
-            static function (Options $options, $value) {
-                if ($value === null || $options['min'] === null) {
                     return $value;
-                }
+                },
+            );
 
-                if ($value < $options['min']) {
-                    return $options['min'];
-                }
-
-                return $value;
-            },
-        );
+        $optionsResolver
+            ->define('scale')
+            ->required()
+            ->default(3)
+            ->allowedTypes('int');
 
         $optionsResolver->setDefault(
             'default_value',

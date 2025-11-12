@@ -25,10 +25,11 @@ final class LinkType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired(['value_types']);
-        $resolver->setAllowedTypes('value_types', 'string[]');
-
-        $resolver->setDefault('value_types', []);
+        $resolver
+            ->define('value_types')
+            ->required()
+            ->default([])
+            ->allowedTypes('string[]');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

@@ -19,9 +19,12 @@ final class TranslatableTypeStub extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setRequired('block');
-        $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
+
+        $resolver
+            ->define('block')
+            ->required()
+            ->allowedTypes(Block::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

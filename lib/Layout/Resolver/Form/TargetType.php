@@ -25,9 +25,12 @@ final class TargetType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('target_type');
-        $resolver->setAllowedTypes('target_type', TargetTypeInterface::class);
         $resolver->setAllowedTypes('data', TargetStruct::class);
+
+        $resolver
+            ->define('target_type')
+            ->required()
+            ->allowedTypes(TargetTypeInterface::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

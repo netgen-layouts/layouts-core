@@ -20,8 +20,10 @@ final class ClearLayoutsCacheType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired(['layouts']);
-        $resolver->setAllowedTypes('layouts', LayoutList::class);
+        $resolver
+            ->define('layouts')
+            ->required()
+            ->allowedTypes(LayoutList::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

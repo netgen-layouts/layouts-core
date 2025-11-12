@@ -23,17 +23,20 @@ final class RangeType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $optionsResolver->setRequired(['min', 'max']);
+        $optionsResolver
+            ->define('min')
+            ->required()
+            ->allowedTypes('int');
 
-        $optionsResolver->setAllowedTypes('min', 'int');
-        $optionsResolver->setAllowedTypes('max', 'int');
-
-        $optionsResolver->setNormalizer(
-            'max',
-            static fn (Options $options, int $value): int => $value < $options['min'] ?
-                    $options['min'] :
-                    $value,
-        );
+        $optionsResolver
+            ->define('max')
+            ->required()
+            ->allowedTypes('int')
+            ->normalize(
+                static fn (Options $options, int $value): int => $value < $options['min'] ?
+                        $options['min'] :
+                        $value,
+            );
 
         $optionsResolver->setDefault(
             'default_value',

@@ -21,12 +21,17 @@ final class ItemViewTypeEditType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('item');
-        $resolver->setRequired('block');
-
-        $resolver->setAllowedTypes('item', Item::class);
-        $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', ItemUpdateStruct::class);
+
+        $resolver
+            ->define('item')
+            ->required()
+            ->allowedTypes(Item::class);
+
+        $resolver
+            ->define('block')
+            ->required()
+            ->allowedTypes(Block::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

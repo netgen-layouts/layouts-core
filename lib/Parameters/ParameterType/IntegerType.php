@@ -22,28 +22,30 @@ final class IntegerType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $optionsResolver->setDefault('min', null);
-        $optionsResolver->setDefault('max', null);
+        $optionsResolver
+            ->define('min')
+            ->required()
+            ->default(null)
+            ->allowedTypes('int', 'null');
 
-        $optionsResolver->setRequired(['min', 'max']);
+        $optionsResolver
+            ->define('max')
+            ->required()
+            ->default(null)
+            ->allowedTypes('int', 'null')
+            ->normalize(
+                static function (Options $options, ?int $value): ?int {
+                    if ($value === null || $options['min'] === null) {
+                        return $value;
+                    }
 
-        $optionsResolver->setAllowedTypes('min', ['int', 'null']);
-        $optionsResolver->setAllowedTypes('max', ['int', 'null']);
+                    if ($value < $options['min']) {
+                        return $options['min'];
+                    }
 
-        $optionsResolver->setNormalizer(
-            'max',
-            static function (Options $options, ?int $value): ?int {
-                if ($value === null || $options['min'] === null) {
                     return $value;
-                }
-
-                if ($value < $options['min']) {
-                    return $options['min'];
-                }
-
-                return $value;
-            },
-        );
+                },
+            );
 
         $optionsResolver->setDefault(
             'default_value',

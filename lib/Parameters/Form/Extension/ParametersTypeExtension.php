@@ -24,8 +24,9 @@ final class ParametersTypeExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefined('ngl_parameter_definition');
-        $resolver->setAllowedTypes('ngl_parameter_definition', ParameterDefinition::class);
+        $resolver
+            ->define('ngl_parameter_definition')
+            ->allowedTypes(ParameterDefinition::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

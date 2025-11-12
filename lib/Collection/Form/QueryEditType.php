@@ -24,8 +24,6 @@ final class QueryEditType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('query');
-        $resolver->setAllowedTypes('query', Query::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
 
         $resolver->setDefault(
@@ -38,6 +36,11 @@ final class QueryEditType extends AbstractType
                 ),
             ],
         );
+
+        $resolver
+            ->define('query')
+            ->required()
+            ->allowedTypes(Query::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

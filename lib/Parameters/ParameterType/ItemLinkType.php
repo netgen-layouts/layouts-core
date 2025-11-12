@@ -35,32 +35,35 @@ final class ItemLinkType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $optionsResolver->setRequired(['value_types', 'allow_invalid']);
-        $optionsResolver->setAllowedTypes('allow_invalid', 'bool');
-        $optionsResolver->setAllowedTypes('value_types', 'string[]');
-
-        $optionsResolver->setDefault('value_types', []);
-        $optionsResolver->setDefault('allow_invalid', false);
-
-        $optionsResolver->setNormalizer(
-            'value_types',
-            function (Options $options, array $value): array {
-                if (count($value) > 0) {
-                    return $value;
-                }
-
-                $valueTypes = [];
-
-                /** @var \Netgen\Layouts\Item\ValueType\ValueType $valueType */
-                foreach ($this->valueTypeRegistry->getValueTypes(true) as $identifier => $valueType) {
-                    if ($valueType->supportsManualItems()) {
-                        $valueTypes[] = $identifier;
+        $optionsResolver
+            ->define('value_types')
+            ->required()
+            ->default([])
+            ->allowedTypes('string[]')
+            ->normalize(
+                function (Options $options, array $value): array {
+                    if (count($value) > 0) {
+                        return $value;
                     }
-                }
 
-                return $valueTypes;
-            },
-        );
+                    $valueTypes = [];
+
+                    /** @var \Netgen\Layouts\Item\ValueType\ValueType $valueType */
+                    foreach ($this->valueTypeRegistry->getValueTypes(true) as $identifier => $valueType) {
+                        if ($valueType->supportsManualItems()) {
+                            $valueTypes[] = $identifier;
+                        }
+                    }
+
+                    return $valueTypes;
+                },
+            );
+
+        $optionsResolver
+            ->define('allow_invalid')
+            ->required()
+            ->default(false)
+            ->allowedTypes('bool');
     }
 
     public function export(ParameterDefinition $parameterDefinition, mixed $value): ?string

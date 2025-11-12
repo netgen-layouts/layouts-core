@@ -28,6 +28,24 @@ final class ParametersType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts');
 
+        $resolver->setAllowedTypes('data', ParameterStruct::class);
+
+        $resolver
+            ->define('groups')
+            ->required()
+            ->default([])
+            ->allowedTypes('string[]');
+
+        $resolver
+            ->define('parameter_definitions')
+            ->required()
+            ->allowedTypes(ParameterDefinitionCollectionInterface::class);
+
+        $resolver
+            ->define('label_prefix')
+            ->required()
+            ->allowedTypes('string');
+
         $resolver->setRequired(
             [
                 'groups',
@@ -35,13 +53,6 @@ final class ParametersType extends AbstractType
                 'label_prefix',
             ],
         );
-
-        $resolver->setAllowedTypes('data', ParameterStruct::class);
-        $resolver->setAllowedTypes('parameter_definitions', ParameterDefinitionCollectionInterface::class);
-        $resolver->setAllowedTypes('label_prefix', 'string');
-        $resolver->setAllowedTypes('groups', 'string[]');
-
-        $resolver->setDefault('groups', []);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

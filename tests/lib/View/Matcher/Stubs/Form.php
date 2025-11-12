@@ -13,9 +13,9 @@ final class Form extends AbstractType
     {
         // This is a curated list of options that will be used
         // to test form matchers, add options as needed
-        $resolver->setDefined('block');
-        $resolver->setDefined('query');
-        $resolver->setDefined('configurable');
-        $resolver->setDefined('config_key');
+        $resolver->define('block');
+        $resolver->define('query');
+        $resolver->define('configurable');
+        $resolver->define('config_key');
     }
 }

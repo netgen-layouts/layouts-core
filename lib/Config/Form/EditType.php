@@ -26,14 +26,8 @@ final class EditType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired(['configurable', 'config_key', 'label_prefix']);
-
-        $resolver->setAllowedTypes('config_key', ['string', 'null']);
-        $resolver->setAllowedTypes('configurable', ConfigAwareValue::class);
-        $resolver->setAllowedTypes('label_prefix', 'string');
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
-        $resolver->setDefault('config_key', null);
         $resolver->setDefault(
             'constraints',
             static fn (Options $options): array => [
@@ -47,6 +41,22 @@ final class EditType extends AbstractType
                 ),
             ],
         );
+
+        $resolver
+            ->define('configurable')
+            ->required()
+            ->allowedTypes(ConfigAwareValue::class);
+
+        $resolver
+            ->define('config_key')
+            ->required()
+            ->default(null)
+            ->allowedTypes('string', 'null');
+
+        $resolver
+            ->define('label_prefix')
+            ->required()
+            ->allowedTypes('string');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

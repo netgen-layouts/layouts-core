@@ -25,9 +25,12 @@ final class ConditionType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('condition_type');
-        $resolver->setAllowedTypes('condition_type', ConditionTypeInterface::class);
         $resolver->setAllowedTypes('data', ConditionStruct::class);
+
+        $resolver
+            ->define('condition_type')
+            ->required()
+            ->allowedTypes(ConditionTypeInterface::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

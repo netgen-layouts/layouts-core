@@ -29,9 +29,11 @@ final class BooleanType extends CompoundParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $optionsResolver->setRequired(['reverse']);
-        $optionsResolver->setAllowedTypes('reverse', 'bool');
-        $optionsResolver->setDefault('reverse', false);
+        $optionsResolver
+            ->define('reverse')
+            ->required()
+            ->default(false)
+            ->allowedTypes('bool');
 
         $optionsResolver->setDefault(
             'default_value',

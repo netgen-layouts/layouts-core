@@ -21,12 +21,17 @@ final class SlotViewTypeEditType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('slot');
-        $resolver->setRequired('block');
-
-        $resolver->setAllowedTypes('slot', Slot::class);
-        $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', SlotUpdateStruct::class);
+
+        $resolver
+            ->define('slot')
+            ->required()
+            ->allowedTypes(Slot::class);
+
+        $resolver
+            ->define('block')
+            ->required()
+            ->allowedTypes(Block::class);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

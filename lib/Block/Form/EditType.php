@@ -54,8 +54,6 @@ abstract class EditType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired('block');
-        $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
 
         $resolver->setDefault(
@@ -68,6 +66,11 @@ abstract class EditType extends AbstractType
                 ),
             ],
         );
+
+        $resolver
+            ->define('block')
+            ->required()
+            ->allowedTypes(Block::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

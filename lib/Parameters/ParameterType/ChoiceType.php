@@ -29,17 +29,24 @@ final class ChoiceType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $optionsResolver->setDefault('multiple', false);
-        $optionsResolver->setDefault('expanded', false);
-        $optionsResolver->setRequired(['multiple', 'expanded', 'options']);
-        $optionsResolver->setAllowedTypes('multiple', 'bool');
-        $optionsResolver->setAllowedTypes('expanded', 'bool');
-        $optionsResolver->setAllowedTypes('options', ['array', 'callable']);
+        $optionsResolver
+            ->define('multiple')
+            ->required()
+            ->default(false)
+            ->allowedTypes('bool');
 
-        $optionsResolver->setAllowedValues(
-            'options',
-            static fn ($value): bool => is_callable($value) ? true : count($value) > 0,
-        );
+        $optionsResolver
+            ->define('expanded')
+            ->required()
+            ->default(false)
+            ->allowedTypes('bool');
+
+        $optionsResolver
+            ->define('options')
+            ->required()
+            ->allowedTypes('array', 'callable')
+            ->allowedValues(static fn ($value): bool => is_callable($value) ? true : count($value) > 0)
+            ->info('It must be a callable or a non-empty array.');
 
         $optionsResolver->setDefault(
             'default_value',

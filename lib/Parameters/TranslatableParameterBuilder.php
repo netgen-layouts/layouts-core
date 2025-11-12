@@ -13,43 +13,43 @@ final class TranslatableParameterBuilder extends ParameterBuilder
 {
     protected function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $optionsResolver->setDefault('translatable', true);
-        $optionsResolver->setRequired('translatable');
-        $optionsResolver->setAllowedTypes('translatable', 'bool');
+        $optionsResolver
+            ->define('translatable')
+            ->required()
+            ->default(true)
+            ->allowedTypes('bool')
+            ->allowedValues(
+                function (bool $value): bool {
+                    if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
+                        return true;
+                    }
 
-        $optionsResolver->setAllowedValues(
-            'translatable',
-            function (bool $value): bool {
-                if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
-                    return true;
-                }
+                    if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
+                        return true;
+                    }
 
-                if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
-                    return true;
-                }
+                    if ($value !== $this->parentBuilder->getOption('translatable')) {
+                        if ($value) {
+                            throw new InvalidOptionsException(
+                                sprintf(
+                                    'Parameter "%s" cannot be translatable, since its parent parameter "%s" is not translatable',
+                                    $this->name ?? '',
+                                    $this->parentBuilder->getName() ?? '',
+                                ),
+                            );
+                        }
 
-                if ($value !== $this->parentBuilder->getOption('translatable')) {
-                    if ($value) {
                         throw new InvalidOptionsException(
                             sprintf(
-                                'Parameter "%s" cannot be translatable, since its parent parameter "%s" is not translatable',
+                                'Parameter "%s" needs to be translatable, since its parent parameter "%s" is translatable',
                                 $this->name ?? '',
                                 $this->parentBuilder->getName() ?? '',
                             ),
                         );
                     }
 
-                    throw new InvalidOptionsException(
-                        sprintf(
-                            'Parameter "%s" needs to be translatable, since its parent parameter "%s" is translatable',
-                            $this->name ?? '',
-                            $this->parentBuilder->getName() ?? '',
-                        ),
-                    );
-                }
-
-                return true;
-            },
-        );
+                    return true;
+                },
+            )->info('It must be translatable depending if the parent is translatable or not.');
     }
 }

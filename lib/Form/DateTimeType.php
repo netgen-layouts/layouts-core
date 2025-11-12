@@ -27,11 +27,13 @@ final class DateTimeType extends AbstractType
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
-        $resolver->setRequired(['use_datetime']);
-        $resolver->setAllowedTypes('use_datetime', 'bool');
-        $resolver->setDefault('use_datetime', true);
-
         $resolver->setDefault('error_bubbling', false);
+
+        $resolver
+            ->define('use_datetime')
+            ->required()
+            ->default(true)
+            ->allowedTypes('bool');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
