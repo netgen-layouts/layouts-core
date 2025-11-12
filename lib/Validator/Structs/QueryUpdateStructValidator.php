@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Validator\Structs;
 
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
-use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\Constraint;
@@ -49,7 +48,7 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             $value->locale,
             [
                 new Constraints\NotBlank(),
-                new LocaleConstraint(),
+                new Constraints\Locale(canonicalize: false),
             ],
         );
 

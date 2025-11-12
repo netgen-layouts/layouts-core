@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Validator;
 
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -75,7 +74,7 @@ trait ValidatorTrait
             $locale,
             [
                 new Constraints\NotBlank(),
-                new LocaleConstraint(),
+                new Constraints\Locale(canonicalize: false),
             ],
             $propertyPath,
         );

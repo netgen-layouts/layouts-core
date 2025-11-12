@@ -323,7 +323,7 @@ final class CreateTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            '/^There was an error validating "locale": Expected argument of type "string", "int(eger)?" given$/',
+            'There was an error validating "locale": This value should be of type string.',
         );
     }
 

@@ -52,10 +52,6 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             return new Validator\DateTimeValidator();
         }
 
-        if ($name === 'nglayouts_locale') {
-            return new Validator\LocaleValidator();
-        }
-
         if ($name === 'nglayouts_link') {
             return new Validator\Parameters\LinkValidator();
         }

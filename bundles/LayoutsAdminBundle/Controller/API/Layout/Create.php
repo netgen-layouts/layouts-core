@@ -10,7 +10,6 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
-use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,7 +94,7 @@ final class Create extends AbstractController
             [
                 new Constraints\NotBlank(),
                 new Constraints\Type(type: 'string'),
-                new LocaleConstraint(),
+                new Constraints\Locale(canonicalize: false),
             ],
             'locale',
         );

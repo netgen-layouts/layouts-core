@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
 use Netgen\Layouts\Validator\Constraint\BlockViewType;
-use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
@@ -54,7 +53,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             $value->locale,
             [
                 new Constraints\NotBlank(),
-                new LocaleConstraint(),
+                new Constraints\Locale(canonicalize: false),
             ],
         );
 

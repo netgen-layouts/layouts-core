@@ -40,11 +40,6 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_datetime }
 
-    netgen_layouts.validator.locale:
-        class: Netgen\Layouts\Validator\LocaleValidator
-        tags:
-            - { name: validator.constraint_validator, alias: nglayouts_locale }
-
     netgen_layouts.validator.condition_type.time:
         class: Netgen\Layouts\Validator\ConditionType\TimeValidator
         tags:
