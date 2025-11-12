@@ -16,6 +16,7 @@
         "netgen/layouts-ui": "~1.4.0",
         "netgen/content-browser": "^1.4",
         "symfony/asset": "^7.3",
+        "symfony/clock": "^7.3",
         "symfony/config": "^7.3",
         "symfony/console": "^7.3",
         "symfony/dependency-injection": "^7.3",

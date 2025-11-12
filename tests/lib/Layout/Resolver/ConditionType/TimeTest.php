@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Netgen\Layouts\Layout\Resolver\ConditionType\Time;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\PhpUnit\ClockMock;
+use Symfony\Component\Clock\Clock;
+use Symfony\Component\Clock\MockClock;
+use Symfony\Component\Clock\NativeClock;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
@@ -43,11 +47,12 @@ final class TimeTest extends TestCase
     public function testMatches(mixed $value, bool $matches): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
-        ClockMock::withClockMock(1_521_800_000);
+        $time = new DateTimeImmutable('now', new DateTimeZone('Antarctica/Casey'))->setTimestamp(1_521_800_000);
+        Clock::set(new MockClock($time));
 
         self::assertSame($matches, $this->conditionType->matches(Request::create('/'), $value));
 
-        ClockMock::withClockMock(false);
+        Clock::set(new NativeClock());
     }
 
     public static function validationDataProvider(): iterable

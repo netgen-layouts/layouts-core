@@ -6,11 +6,14 @@ namespace Netgen\Layouts\Tests\Utils;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\PhpUnit\ClockMock;
+use Symfony\Component\Clock\Clock;
+use Symfony\Component\Clock\MockClock;
+use Symfony\Component\Clock\NativeClock;
 
 use function date_default_timezone_get;
 
@@ -20,22 +23,21 @@ final class DateTimeUtilsTest extends TestCase
     public function testCreate(): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
-        ClockMock::withClockMock(1_521_800_000);
+        $time = new DateTimeImmutable('@' . 1_521_800_000, new DateTimeZone('Antarctica/Casey'));
+        Clock::set(new MockClock($time));
 
         $dateTime = DateTimeUtils::create();
 
-        self::assertInstanceOf(DateTimeImmutable::class, $dateTime);
         self::assertSame(1_521_800_000, $dateTime->getTimestamp());
         self::assertSame(date_default_timezone_get(), $dateTime->getTimezone()->getName());
 
-        ClockMock::withClockMock(false);
+        Clock::set(new NativeClock());
     }
 
     public function testCreateWithTimestamp(): void
     {
         $dateTime = DateTimeUtils::create(123);
 
-        self::assertInstanceOf(DateTimeImmutable::class, $dateTime);
         self::assertSame(123, $dateTime->getTimestamp());
         self::assertSame(date_default_timezone_get(), $dateTime->getTimezone()->getName());
     }
@@ -44,7 +46,6 @@ final class DateTimeUtilsTest extends TestCase
     {
         $dateTime = DateTimeUtils::create(123, 'Antarctica/Casey');
 
-        self::assertInstanceOf(DateTimeImmutable::class, $dateTime);
         self::assertSame(123, $dateTime->getTimestamp());
         self::assertSame('Antarctica/Casey', $dateTime->getTimezone()->getName());
     }

@@ -7,12 +7,13 @@ namespace Netgen\Layouts\Utils;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use Symfony\Component\Clock\Clock;
 
 use function abs;
 use function count;
+use function date_default_timezone_get;
 use function explode;
 use function intdiv;
-use function is_int;
 use function is_string;
 use function sprintf;
 use function str_replace;
@@ -24,12 +25,19 @@ final class DateTimeUtils
      *
      * Current timestamp and timezones are used if not provided.
      */
-    public static function create(?int $timestamp = null, ?string $timeZone = null): DateTimeInterface
+    public static function create(?int $timestamp = null, ?string $timeZone = null): DateTimeImmutable
     {
-        $dateTimeZone = is_string($timeZone) && $timeZone !== '' ? new DateTimeZone($timeZone) : null;
-        $timestamp = is_int($timestamp) ? $timestamp : time();
+        $dateTimeZone = is_string($timeZone) && $timeZone !== '' ?
+            new DateTimeZone($timeZone) :
+            new DateTimeZone(date_default_timezone_get());
 
-        return new DateTimeImmutable('now', $dateTimeZone)->setTimestamp($timestamp);
+        $clock = Clock::get()->withTimeZone($dateTimeZone);
+
+        if ($timestamp !== null) {
+            return $clock->now()->setTimestamp($timestamp);
+        }
+
+        return $clock->now();
     }
 
     /**
@@ -43,7 +51,7 @@ final class DateTimeUtils
      *
      * @param array<string, string> $datetime
      */
-    public static function createFromArray(array $datetime): ?DateTimeInterface
+    public static function createFromArray(array $datetime): ?DateTimeImmutable
     {
         $dateAndTime = $datetime['datetime'] ?? '';
         $timeZone = $datetime['timezone'] ?? '';
