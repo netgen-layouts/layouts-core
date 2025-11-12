@@ -379,14 +379,8 @@ class ParameterBuilder implements ParameterBuilderInterface
         $optionsResolver->setAllowedTypes('required', 'bool');
         $optionsResolver->setAllowedTypes('readonly', 'bool');
         $optionsResolver->setAllowedTypes('label', ['string', 'null', 'bool']);
-        $optionsResolver->setAllowedTypes('groups', 'array');
-        $optionsResolver->setAllowedTypes('constraints', 'array');
         $optionsResolver->setAllowedTypes('groups', 'string[]');
-
-        $optionsResolver->setAllowedValues(
-            'constraints',
-            fn (array $constraints): bool => $this->validateConstraints($constraints),
-        );
+        $optionsResolver->setAllowedTypes('constraints', 'array');
 
         $optionsResolver->setNormalizer(
             'groups',
@@ -406,6 +400,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         $optionsResolver->setAllowedValues(
             'label',
             static fn ($value): bool => is_bool($value) ? $value === false : true,
+        );
+
+        $optionsResolver->setAllowedValues(
+            'constraints',
+            fn (array $constraints): bool => $this->validateConstraints($constraints),
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);
