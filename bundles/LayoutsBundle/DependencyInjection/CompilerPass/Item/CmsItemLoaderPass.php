@@ -50,7 +50,7 @@ final class CmsItemLoaderPass implements CompilerPassInterface
             }
         }
 
-        $cmsItemLoader->addArgument(new Definition(ServiceLocator::class, [$valueLoaders]));
+        $cmsItemLoader->replaceArgument(1, new Definition(ServiceLocator::class, [$valueLoaders]));
     }
 
     private function validateValueType(string $valueType): void

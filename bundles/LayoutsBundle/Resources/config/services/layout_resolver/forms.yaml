@@ -8,11 +8,15 @@ services:
 
     netgen_layouts.layout.resolver.form.target_type:
         class: Netgen\Layouts\Layout\Resolver\Form\TargetType
+        arguments:
+            - !abstract "Set in TargetTypePass"
         tags:
             - { name: form.type }
 
     netgen_layouts.layout.resolver.form.condition_type:
         class: Netgen\Layouts\Layout\Resolver\Form\ConditionType
+        arguments:
+            - !abstract "Set in ConditionTypePass"
         tags:
             - { name: form.type }
 

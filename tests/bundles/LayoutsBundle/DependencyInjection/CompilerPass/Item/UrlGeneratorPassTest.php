@@ -8,6 +8,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTest
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass;
 use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -26,7 +27,7 @@ final class UrlGeneratorPassTest extends AbstractContainerBuilderTestCase
 
     public function testProcess(): void
     {
-        $urlGenerator = new Definition();
+        $urlGenerator = new Definition(null, [new AbstractArgument()]);
 
         $this->setDefinition('netgen_layouts.item.url_generator', $urlGenerator);
 

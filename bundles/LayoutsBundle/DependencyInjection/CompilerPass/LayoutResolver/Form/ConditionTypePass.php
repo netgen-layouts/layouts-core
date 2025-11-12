@@ -46,6 +46,6 @@ final class ConditionTypePass implements CompilerPassInterface
             }
         }
 
-        $formType->addArgument(new Definition(ServiceLocator::class, [$mappers]));
+        $formType->replaceArgument(0, new Definition(ServiceLocator::class, [$mappers]));
     }
 }

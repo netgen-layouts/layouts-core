@@ -25,3 +25,4 @@ services:
         lazy: true
         arguments:
             - "@=service('netgen_layouts.configuration').getParameter('view')"
+            - !abstract "Set in TemplateResolverPass"

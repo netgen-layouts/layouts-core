@@ -46,6 +46,6 @@ final class TemplateResolverPass implements CompilerPassInterface
             }
         }
 
-        $templateResolver->addArgument(new Definition(ServiceLocator::class, [$matchers]));
+        $templateResolver->replaceArgument(1, new Definition(ServiceLocator::class, [$matchers]));
     }
 }

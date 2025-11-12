@@ -45,6 +45,6 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
             }
         }
 
-        $layoutResolverQueryHandler->addArgument(new Definition(ServiceLocator::class, [$targetHandlers]));
+        $layoutResolverQueryHandler->replaceArgument(2, new Definition(ServiceLocator::class, [$targetHandlers]));
     }
 }

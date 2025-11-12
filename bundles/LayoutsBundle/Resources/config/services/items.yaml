@@ -8,15 +8,18 @@ services:
         class: Netgen\Layouts\Item\CmsItemLoader
         arguments:
             - "@netgen_layouts.item.item_builder"
+            - !abstract "Set in CmsItemLoaderPass"
 
     netgen_layouts.item.url_generator:
         class: Netgen\Layouts\Item\UrlGenerator
+        arguments:
+            - !abstract "Set in UrlGeneratorPass"
 
     netgen_layouts.item.registry.value_type:
         class: Netgen\Layouts\Item\Registry\ValueTypeRegistry
         public: true
         arguments:
-            - []
+            - !abstract "Set in ValueTypePass"
 
     netgen_layouts.item.value_loader.null:
         class: Netgen\Layouts\Item\ValueLoader\NullValueLoader

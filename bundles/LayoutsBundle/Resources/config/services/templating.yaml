@@ -3,7 +3,7 @@ services:
         class: Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer
         arguments:
             - "@twig"
-            - []
+            - !abstract "Set in PluginRendererPass"
 
     netgen_layouts.templating.global_variable:
         class: Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable

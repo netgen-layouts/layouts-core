@@ -46,6 +46,6 @@ final class ParametersFormPass implements CompilerPassInterface
             }
         }
 
-        $parametersForm->addArgument(new Definition(ServiceLocator::class, [$mappers]));
+        $parametersForm->replaceArgument(0, new Definition(ServiceLocator::class, [$mappers]));
     }
 }

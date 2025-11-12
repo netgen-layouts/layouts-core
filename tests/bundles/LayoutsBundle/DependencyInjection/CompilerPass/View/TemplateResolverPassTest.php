@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Vie
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -25,8 +26,7 @@ final class TemplateResolverPassTest extends AbstractContainerBuilderTestCase
 
     public function testProcess(): void
     {
-        $templateResolver = new Definition();
-        $templateResolver->addArgument([]);
+        $templateResolver = new Definition(null, [[], new AbstractArgument()]);
 
         $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
 

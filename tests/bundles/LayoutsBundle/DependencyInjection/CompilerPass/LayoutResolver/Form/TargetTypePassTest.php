@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Lay
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\Form\TargetTypePass;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -25,7 +26,7 @@ final class TargetTypePassTest extends AbstractContainerBuilderTestCase
 
     public function testProcess(): void
     {
-        $formType = new Definition();
+        $formType = new Definition(null, [new AbstractArgument()]);
         $this->setDefinition('netgen_layouts.layout.resolver.form.target_type', $formType);
 
         $mapper = new Definition();

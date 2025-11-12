@@ -8,6 +8,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTest
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass;
 use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -28,7 +29,7 @@ final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
     {
         $this->setDefinition(
             'netgen_layouts.item.item_loader',
-            new Definition(null, [[]]),
+            new Definition(null, [[], new AbstractArgument()]),
         );
 
         $valueLoader = new Definition();

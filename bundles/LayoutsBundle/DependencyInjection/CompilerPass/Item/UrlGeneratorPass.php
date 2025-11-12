@@ -50,7 +50,7 @@ final class UrlGeneratorPass implements CompilerPassInterface
             }
         }
 
-        $urlGenerator->addArgument(new Definition(ServiceLocator::class, [$valueUrlGenerators]));
+        $urlGenerator->replaceArgument(0, new Definition(ServiceLocator::class, [$valueUrlGenerators]));
     }
 
     private function validateValueType(string $valueType): void

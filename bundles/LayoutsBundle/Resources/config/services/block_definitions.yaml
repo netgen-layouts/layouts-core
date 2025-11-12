@@ -18,7 +18,7 @@ services:
         class: Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
         public: true
         arguments:
-            - []
+            - !abstract "Set in BlockDefinitionPass"
 
     netgen_layouts.block.registry.handler_plugin:
         class: Netgen\Layouts\Block\Registry\HandlerPluginRegistry
@@ -29,13 +29,13 @@ services:
         class: Netgen\Layouts\Block\Registry\BlockTypeRegistry
         public: true
         arguments:
-            - []
+            - !abstract "Set in BlockTypePass"
 
     netgen_layouts.block.registry.block_type_group:
         class: Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry
         public: true
         arguments:
-            - []
+            - !abstract "Set in BlockTypeGroupPass"
 
     # Various block plugins
 

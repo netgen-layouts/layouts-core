@@ -200,6 +200,8 @@ services:
 
     netgen_layouts.parameters.form.parameters:
         class: Netgen\Layouts\Parameters\Form\Type\ParametersType
+        arguments:
+            - !abstract "Set in ParametersFormPass"
         tags:
             - { name: form.type }
 

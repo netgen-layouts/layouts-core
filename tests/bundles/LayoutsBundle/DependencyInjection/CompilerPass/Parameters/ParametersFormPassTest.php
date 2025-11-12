@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Par
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Parameters\ParametersFormPass;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -25,7 +26,7 @@ final class ParametersFormPassTest extends AbstractContainerBuilderTestCase
 
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_layouts.parameters.form.parameters', new Definition());
+        $this->setDefinition('netgen_layouts.parameters.form.parameters', new Definition(null, [new AbstractArgument()]));
 
         $formMapper = new Definition();
         $formMapper->addTag(

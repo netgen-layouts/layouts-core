@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Lay
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -25,9 +26,7 @@ final class DoctrineTargetHandlerPassTest extends AbstractContainerBuilderTestCa
 
     public function testProcess(): void
     {
-        $layoutResolverHandler = new Definition();
-        $layoutResolverHandler->addArgument([]);
-        $layoutResolverHandler->addArgument([]);
+        $layoutResolverHandler = new Definition(null, [[], [], new AbstractArgument()]);
 
         $this->setDefinition('netgen_layouts.persistence.doctrine.layout_resolver.query_handler', $layoutResolverHandler);
 

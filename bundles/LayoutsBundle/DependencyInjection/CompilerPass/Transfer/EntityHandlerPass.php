@@ -17,8 +17,8 @@ use function preg_match;
 final class EntityHandlerPass implements CompilerPassInterface
 {
     private const array SERVICE_NAMES = [
-        'netgen_layouts.transfer.importer',
-        'netgen_layouts.transfer.serializer',
+        'netgen_layouts.transfer.importer' => 2,
+        'netgen_layouts.transfer.serializer' => 1,
     ];
 
     private const string TAG_NAME = 'netgen_layouts.transfer.entity_handler';
@@ -46,14 +46,14 @@ final class EntityHandlerPass implements CompilerPassInterface
 
         $handlers = new Definition(ServiceLocator::class, [$handlers]);
 
-        foreach (self::SERVICE_NAMES as $serviceName) {
+        foreach (self::SERVICE_NAMES as $serviceName => $argumentIndex) {
             if (!$container->has($serviceName)) {
                 continue;
             }
 
             $container
                 ->findDefinition($serviceName)
-                ->addArgument($handlers);
+                ->replaceArgument($argumentIndex, $handlers);
         }
     }
 }

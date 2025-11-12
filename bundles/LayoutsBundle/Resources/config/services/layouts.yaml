@@ -3,4 +3,4 @@ services:
         class: Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
         public: true
         arguments:
-            - []
+            - !abstract "Set in LayoutTypePass"
