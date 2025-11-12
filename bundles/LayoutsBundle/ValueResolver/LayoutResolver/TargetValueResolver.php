@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class TargetValueResolver extends ValueResolver
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {
@@ -35,10 +32,9 @@ final class TargetValueResolver extends ValueResolver
 
     public function loadValue(array $values): Target
     {
-        if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->layoutResolverService->loadTarget(Uuid::fromString($values['targetId']));
-        }
-
-        return $this->layoutResolverService->loadTargetDraft(Uuid::fromString($values['targetId']));
+        return match ($values['status']) {
+            self::STATUS_PUBLISHED => $this->layoutResolverService->loadTarget(Uuid::fromString($values['targetId'])),
+            default => $this->layoutResolverService->loadTargetDraft(Uuid::fromString($values['targetId'])),
+        };
     }
 }

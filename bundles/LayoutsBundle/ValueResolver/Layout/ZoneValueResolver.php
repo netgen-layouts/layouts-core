@@ -12,12 +12,9 @@ use Ramsey\Uuid\Uuid;
 
 final class ZoneValueResolver extends ValueResolver
 {
-    private LayoutService $layoutService;
-
-    public function __construct(LayoutService $layoutService)
-    {
-        $this->layoutService = $layoutService;
-    }
+    public function __construct(
+        private LayoutService $layoutService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {
@@ -36,9 +33,10 @@ final class ZoneValueResolver extends ValueResolver
 
     public function loadValue(array $values): Zone
     {
-        $layout = $values['status'] === self::STATUS_PUBLISHED ?
-            $this->layoutService->loadLayout(Uuid::fromString($values['layoutId'])) :
-            $this->layoutService->loadLayoutDraft(Uuid::fromString($values['layoutId']));
+        $layout = match ($values['status']) {
+            self::STATUS_PUBLISHED => $this->layoutService->loadLayout(Uuid::fromString($values['layoutId'])),
+            default => $this->layoutService->loadLayoutDraft(Uuid::fromString($values['layoutId'])),
+        };
 
         if (!$layout->hasZone($values['zoneIdentifier'])) {
             throw new NotFoundException('zone', $values['zoneIdentifier']);

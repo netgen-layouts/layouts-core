@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class RuleGroupConditionValueResolver extends ValueResolver
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {
@@ -35,10 +32,9 @@ final class RuleGroupConditionValueResolver extends ValueResolver
 
     public function loadValue(array $values): RuleGroupCondition
     {
-        if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString($values['conditionId']));
-        }
-
-        return $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString($values['conditionId']));
+        return match ($values['status']) {
+            self::STATUS_PUBLISHED => $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString($values['conditionId'])),
+            default => $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString($values['conditionId'])),
+        };
     }
 }

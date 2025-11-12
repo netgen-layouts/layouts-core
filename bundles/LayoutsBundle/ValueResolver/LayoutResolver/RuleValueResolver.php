@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class RuleValueResolver extends ValueResolver
 {
-    private LayoutResolverService $layoutResolverService;
-
-    public function __construct(LayoutResolverService $layoutResolverService)
-    {
-        $this->layoutResolverService = $layoutResolverService;
-    }
+    public function __construct(
+        private LayoutResolverService $layoutResolverService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {
@@ -35,14 +32,10 @@ final class RuleValueResolver extends ValueResolver
 
     public function loadValue(array $values): Rule
     {
-        if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->layoutResolverService->loadRule(Uuid::fromString($values['ruleId']));
-        }
-
-        if ($values['status'] === self::STATUS_ARCHIVED) {
-            return $this->layoutResolverService->loadRuleArchive(Uuid::fromString($values['ruleId']));
-        }
-
-        return $this->layoutResolverService->loadRuleDraft(Uuid::fromString($values['ruleId']));
+        return match ($values['status']) {
+            self::STATUS_PUBLISHED => $this->layoutResolverService->loadRule(Uuid::fromString($values['ruleId'])),
+            self::STATUS_ARCHIVED => $this->layoutResolverService->loadRuleArchive(Uuid::fromString($values['ruleId'])),
+            default => $this->layoutResolverService->loadRuleDraft(Uuid::fromString($values['ruleId'])),
+        };
     }
 }

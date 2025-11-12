@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class BlockValueResolver extends ValueResolver
 {
-    private BlockService $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
+    public function __construct(
+        private BlockService $blockService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {
@@ -38,10 +35,9 @@ final class BlockValueResolver extends ValueResolver
         /** @var string[] $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
-        if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->blockService->loadBlock(Uuid::fromString($values['blockId']), $locales);
-        }
-
-        return $this->blockService->loadBlockDraft(Uuid::fromString($values['blockId']), $locales);
+        return match ($values['status']) {
+            self::STATUS_PUBLISHED => $this->blockService->loadBlock(Uuid::fromString($values['blockId']), $locales),
+            default => $this->blockService->loadBlockDraft(Uuid::fromString($values['blockId']), $locales),
+        };
     }
 }

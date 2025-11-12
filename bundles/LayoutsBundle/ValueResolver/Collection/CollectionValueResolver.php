@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class CollectionValueResolver extends ValueResolver
 {
-    private CollectionService $collectionService;
-
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private CollectionService $collectionService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {
@@ -38,10 +35,9 @@ final class CollectionValueResolver extends ValueResolver
         /** @var string[] $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
-        if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->collectionService->loadCollection(Uuid::fromString($values['collectionId']), $locales);
-        }
-
-        return $this->collectionService->loadCollectionDraft(Uuid::fromString($values['collectionId']), $locales);
+        return match ($values['status']) {
+            self::STATUS_PUBLISHED => $this->collectionService->loadCollection(Uuid::fromString($values['collectionId']), $locales),
+            default => $this->collectionService->loadCollectionDraft(Uuid::fromString($values['collectionId']), $locales),
+        };
     }
 }

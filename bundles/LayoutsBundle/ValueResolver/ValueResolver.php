@@ -14,11 +14,11 @@ use function is_a;
 
 abstract class ValueResolver implements ValueResolverInterface
 {
-    protected const STATUS_PUBLISHED = 'published';
+    final protected const string STATUS_PUBLISHED = 'published';
 
-    protected const STATUS_DRAFT = 'draft';
+    final protected const string STATUS_DRAFT = 'draft';
 
-    protected const STATUS_ARCHIVED = 'archived';
+    final protected const string STATUS_ARCHIVED = 'archived';
 
     private const ROUTE_STATUS_PARAM = '_nglayouts_status';
 

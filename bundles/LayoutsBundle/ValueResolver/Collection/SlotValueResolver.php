@@ -11,12 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class SlotValueResolver extends ValueResolver
 {
-    private CollectionService $collectionService;
-
-    public function __construct(CollectionService $collectionService)
-    {
-        $this->collectionService = $collectionService;
-    }
+    public function __construct(
+        private CollectionService $collectionService,
+    ) {}
 
     public function getSourceAttributeNames(): array
     {
@@ -35,10 +32,9 @@ final class SlotValueResolver extends ValueResolver
 
     public function loadValue(array $values): Slot
     {
-        if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->collectionService->loadSlot(Uuid::fromString($values['slotId']));
-        }
-
-        return $this->collectionService->loadSlotDraft(Uuid::fromString($values['slotId']));
+        return match ($values['status']) {
+            self::STATUS_PUBLISHED => $this->collectionService->loadSlot(Uuid::fromString($values['slotId'])),
+            default => $this->collectionService->loadSlotDraft(Uuid::fromString($values['slotId'])),
+        };
     }
 }
