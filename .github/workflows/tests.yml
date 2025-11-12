@@ -18,20 +18,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.4']
-        symfony: ['~5.4.0', '~6.4.0']
+        php: ['8.4']
+        symfony: ['~7.3.0']
         script: ['test', 'test-api']
-        db: ['sqlite']
+        db: ['sqlite', 'mysql', 'postgres']
         deps: ['normal']
-        include:
-          - php: '8.4'
-            symfony: '~6.4.0'
-            script: 'test'
-            db: 'postgres'
-          - php: '8.4'
-            symfony: '~6.4.0'
-            script: 'test-api'
-            db: 'postgres'
 
     services:
       mysql:
@@ -79,11 +70,6 @@ jobs:
       - run: composer global require --no-scripts symfony/flex
 
       - run: composer config extra.symfony.require ${{ matrix.symfony }}
-
-      # Adds a dependency required for Symfony 3.4 script due to incompatibility
-      # of symfony/proxy-manager-bridge and laminas/laminas-code
-      - run: composer require --dev --no-update laminas/laminas-zendframework-bridge
-        if: ${{ matrix.symfony == '~3.4.0' }}
 
       -
         run: composer update --prefer-dist
