@@ -263,7 +263,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'always_available' => ':always_available',
                 ],
             )
-            ->setParameter('id', $collection->id ?? $this->connectionHelper->nextId('nglayouts_collection'), Types::INTEGER)
+            ->setValue('id', (string) ($collection->id ?? $this->connectionHelper->nextId('nglayouts_collection')))
             ->setParameter('uuid', $collection->uuid, Types::STRING)
             ->setParameter('status', $collection->status->value, Types::INTEGER)
             ->setParameter('start', $collection->offset, Types::INTEGER)
@@ -274,7 +274,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->executeStatement();
 
-        $collection->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection');
+        $collection->id ??= $this->connectionHelper->lastId('nglayouts_collection');
 
         return $collection;
     }
@@ -461,7 +461,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'config' => ':config',
                 ],
             )
-            ->setParameter('id', $item->id ?? $this->connectionHelper->nextId('nglayouts_collection_item'), Types::INTEGER)
+            ->setValue('id', (string) ($item->id ?? $this->connectionHelper->nextId('nglayouts_collection_item')))
             ->setParameter('uuid', $item->uuid, Types::STRING)
             ->setParameter('status', $item->status->value, Types::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Types::INTEGER)
@@ -473,7 +473,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->executeStatement();
 
-        $item->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_item');
+        $item->id ??= $this->connectionHelper->lastId('nglayouts_collection_item');
 
         return $item;
     }
@@ -519,7 +519,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'view_type' => ':view_type',
                 ],
             )
-            ->setParameter('id', $slot->id ?? $this->connectionHelper->nextId('nglayouts_collection_slot'), Types::INTEGER)
+            ->setValue('id', (string) ($slot->id ?? $this->connectionHelper->nextId('nglayouts_collection_slot')))
             ->setParameter('uuid', $slot->uuid, Types::STRING)
             ->setParameter('status', $slot->status->value, Types::INTEGER)
             ->setParameter('collection_id', $slot->collectionId, Types::INTEGER)
@@ -528,7 +528,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->executeStatement();
 
-        $slot->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_slot');
+        $slot->id ??= $this->connectionHelper->lastId('nglayouts_collection_slot');
 
         return $slot;
     }
@@ -685,7 +685,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'type' => ':type',
                 ],
             )
-            ->setParameter('id', $query->id ?? $this->connectionHelper->nextId('nglayouts_collection_query'), Types::INTEGER)
+            ->setValue('id', (string) ($query->id ?? $this->connectionHelper->nextId('nglayouts_collection_query')))
             ->setParameter('uuid', $query->uuid, Types::STRING)
             ->setParameter('status', $query->status->value, Types::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Types::INTEGER)
@@ -693,7 +693,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $dbQuery->executeStatement();
 
-        $query->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_query');
+        $query->id ??= $this->connectionHelper->lastId('nglayouts_collection_query');
 
         return $query;
     }

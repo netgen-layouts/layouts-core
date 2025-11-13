@@ -13,10 +13,10 @@ interface ConnectionHelperInterface
      * be null. In case for sequence based RDBMS, this method can return a
      * proper value for the given column.
      */
-    public function nextId(string $table, string $column = 'id'): mixed;
+    public function nextId(string $table, string $column = 'id'): string;
 
     /**
      * Returns the last inserted ID.
      */
-    public function lastId(string $table, string $column = 'id'): mixed;
+    public function lastId(string $table, string $column = 'id'): int;
 }

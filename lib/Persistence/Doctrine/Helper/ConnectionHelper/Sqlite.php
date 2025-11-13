@@ -13,7 +13,7 @@ final class Sqlite implements ConnectionHelperInterface
         private Connection $connection,
     ) {}
 
-    public function nextId(string $table, string $column = 'id'): int
+    public function nextId(string $table, string $column = 'id'): string
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('MAX(' . $column . ') AS id')
@@ -21,7 +21,7 @@ final class Sqlite implements ConnectionHelperInterface
 
         $data = $query->fetchAllAssociative();
 
-        return (int) ($data[0]['id'] ?? 0) + 1;
+        return (string) (($data[0]['id'] ?? 0) + 1);
     }
 
     public function lastId(string $table, string $column = 'id'): int

@@ -177,7 +177,7 @@ final class BlockQueryHandler extends QueryHandler
                     'config' => ':config',
                 ],
             )
-            ->setParameter('id', $block->id ?? $this->connectionHelper->nextId('nglayouts_block'), Types::INTEGER)
+            ->setValue('id', (string) ($block->id ?? $this->connectionHelper->nextId('nglayouts_block')))
             ->setParameter('status', $block->status->value, Types::INTEGER)
             ->setParameter('uuid', $block->uuid, Types::STRING)
             ->setParameter('layout_id', $block->layoutId, Types::INTEGER)
@@ -198,7 +198,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->executeStatement();
 
-        $block->id ??= (int) $this->connectionHelper->lastId('nglayouts_block');
+        $block->id ??= $this->connectionHelper->lastId('nglayouts_block');
 
         if (!$updatePath) {
             return $block;
