@@ -83,10 +83,13 @@ final class ChoiceType extends ParameterType
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         if ($parameterDefinition->isRequired()) {
-            return [
-                new Constraints\NotNull(),
-                new Constraints\Count(min: 1),
-            ];
+            $constraints = [new Constraints\NotNull()];
+
+            if (is_array($value)) {
+                $constraints[] = new Constraints\Count(min: 1);
+            }
+
+            return $constraints;
         }
 
         return [];
