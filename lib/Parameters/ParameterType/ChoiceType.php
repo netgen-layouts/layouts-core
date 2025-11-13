@@ -85,7 +85,7 @@ final class ChoiceType extends ParameterType
         if ($parameterDefinition->isRequired()) {
             return [
                 new Constraints\NotNull(),
-                new Constraints\NotIdenticalTo(['value' => []]),
+                new Constraints\Count(min: 1),
             ];
         }
 
