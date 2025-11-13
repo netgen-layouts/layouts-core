@@ -19,10 +19,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-
-use function sprintf;
 
 #[CoversClass(ParameterStructValidator::class)]
 final class ParameterStructValidatorTest extends ValidatorTestCase
@@ -49,22 +46,20 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         );
 
         $this->constraint = new ParameterStruct(
-            [
-                'parameterDefinitions' => new ParameterDefinitionCollection(
-                    [
-                        'css_id' => ParameterDefinition::fromArray(
-                            [
-                                'name' => 'css_id',
-                                'type' => new ParameterType\TextLineType(),
-                                'isRequired' => true,
-                                'defaultValue' => null,
-                            ],
-                        ),
-                        'checkbox' => $compoundParameter,
-                    ],
-                ),
-                'allowMissingFields' => true,
-            ],
+            parameterDefinitions: new ParameterDefinitionCollection(
+                [
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'isRequired' => true,
+                            'defaultValue' => null,
+                        ],
+                    ),
+                    'checkbox' => $compoundParameter,
+                ],
+            ),
+            allowMissingFields: true,
         );
 
         parent::setUp();
@@ -110,26 +105,24 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         );
 
         $this->constraint = new ParameterStruct(
-            [
-                'parameterDefinitions' => new ParameterDefinitionCollection(
-                    [
-                        'css_id' => ParameterDefinition::fromArray(
-                            [
-                                'name' => 'css_id',
-                                'type' => new ParameterType\TextLineType(),
-                                'isRequired' => true,
-                                'defaultValue' => null,
-                                'constraints' => [
-                                    new Length(max: 6),
-                                    static fn (): Constraint => new Length(min: 3),
-                                ],
+            parameterDefinitions: new ParameterDefinitionCollection(
+                [
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'isRequired' => true,
+                            'defaultValue' => null,
+                            'constraints' => [
+                                new Length(max: 6),
+                                static fn (): Constraint => new Length(min: 3),
                             ],
-                        ),
-                        'checkbox' => $compoundParameter,
-                    ],
-                ),
-                'allowMissingFields' => true,
-            ],
+                        ],
+                    ),
+                    'checkbox' => $compoundParameter,
+                ],
+            ),
+            allowMissingFields: true,
         );
 
         $this->constraint->allowMissingFields = !$required;
@@ -147,15 +140,6 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
-    }
-
-    public function testValidateThrowsMissingOptionsExceptionWithInvalidParameterDefinitions(): void
-    {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage(sprintf('The options "parameterDefinitions" must be set for constraint "%s".', ParameterStruct::class));
-
-        $this->constraint->definition = new ParameterStruct();
-        $this->assertValid(true, 'large');
     }
 
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void

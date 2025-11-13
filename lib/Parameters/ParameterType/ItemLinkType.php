@@ -103,10 +103,8 @@ final class ItemLinkType extends ParameterType
         return [
             new Constraints\Type(type: 'string'),
             new ItemLinkConstraint(
-                [
-                    'valueTypes' => $parameterDefinition->getOption('value_types'),
-                    'allowInvalid' => $parameterDefinition->getOption('allow_invalid'),
-                ],
+                valueTypes: $parameterDefinition->getOption('value_types'),
+                allowInvalid: $parameterDefinition->getOption('allow_invalid'),
             ),
         ];
     }

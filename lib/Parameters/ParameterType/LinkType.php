@@ -172,11 +172,9 @@ final class LinkType extends ParameterType
         return [
             new Constraints\Type(type: LinkValue::class),
             new LinkConstraint(
-                [
-                    'required' => $parameterDefinition->isRequired(),
-                    'valueTypes' => $parameterDefinition->getOption('value_types'),
-                    'allowInvalidInternal' => $parameterDefinition->getOption('allow_invalid_internal'),
-                ],
+                required: $parameterDefinition->isRequired(),
+                valueTypes: $parameterDefinition->getOption('value_types'),
+                allowInvalidInternal: $parameterDefinition->getOption('allow_invalid_internal'),
             ),
         ];
     }

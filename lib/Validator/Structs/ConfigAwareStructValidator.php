@@ -58,10 +58,8 @@ final class ConfigAwareStructValidator extends ConstraintValidator
                 $configStruct,
                 [
                     new ParameterStruct(
-                        [
-                            'parameterDefinitions' => $configDefinitions[$configKey],
-                            'allowMissingFields' => $constraint->allowMissingFields,
-                        ],
+                        parameterDefinitions: $configDefinitions[$configKey],
+                        allowMissingFields: $constraint->allowMissingFields,
                     ),
                 ],
             );

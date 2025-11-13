@@ -12,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(BlockItemViewType::class)]
 final class BlockItemViewTypeTest extends TestCase
 {
-    public function testGetRequiredOptions(): void
-    {
-        $constraint = new BlockItemViewType(['viewType' => 'view_type', 'definition' => new BlockDefinition()]);
-        self::assertSame(['viewType', 'definition'], $constraint->getRequiredOptions());
-    }
-
     public function testValidatedBy(): void
     {
-        $constraint = new BlockItemViewType(['viewType' => 'view_type', 'definition' => new BlockDefinition()]);
+        $constraint = new BlockItemViewType(viewType: 'view_type', definition: new BlockDefinition());
         self::assertSame('nglayouts_block_item_view_type', $constraint->validatedBy());
     }
 }

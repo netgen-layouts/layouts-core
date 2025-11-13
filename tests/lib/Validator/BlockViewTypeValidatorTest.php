@@ -13,10 +13,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-
-use function sprintf;
 
 #[CoversClass(BlockViewTypeValidator::class)]
 final class BlockViewTypeValidatorTest extends ValidatorTestCase
@@ -29,7 +26,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
             ],
         );
 
-        $this->constraint = new BlockViewType(['definition' => $blockDefinition]);
+        $this->constraint = new BlockViewType(definition: $blockDefinition);
 
         parent::setUp();
     }
@@ -46,15 +43,6 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
         $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\Validator\Constraint\BlockViewType", "Symfony\Component\Validator\Constraints\NotBlank" given');
 
         $this->constraint = new NotBlank();
-        $this->assertValid(true, 'large');
-    }
-
-    public function testValidateThrowsMissingOptionsExceptionWithInvalidBlockDefinition(): void
-    {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage(sprintf('The options "definition" must be set for constraint "%s".', BlockViewType::class));
-
-        $this->constraint->definition = new BlockViewType();
         $this->assertValid(true, 'large');
     }
 

@@ -12,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(ParameterStruct::class)]
 final class ParameterStructTest extends TestCase
 {
-    public function testGetRequiredOptions(): void
-    {
-        $constraint = new ParameterStruct(['parameterDefinitions' => new BlockDefinition()]);
-        self::assertSame(['parameterDefinitions'], $constraint->getRequiredOptions());
-    }
-
     public function testValidatedBy(): void
     {
-        $constraint = new ParameterStruct(['parameterDefinitions' => new BlockDefinition()]);
+        $constraint = new ParameterStruct(parameterDefinitions: new BlockDefinition());
         self::assertSame('nglayouts_parameter_struct', $constraint->validatedBy());
     }
 }

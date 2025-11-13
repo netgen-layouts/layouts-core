@@ -62,10 +62,8 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                 $value->viewType,
                 [
                     new BlockViewType(
-                        [
-                            'definition' => $blockDefinition,
-                            'payload' => $block,
-                        ],
+                        definition: $blockDefinition,
+                        payload: $block,
                     ),
                 ],
             );
@@ -76,11 +74,9 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                 $value->itemViewType,
                 [
                     new BlockItemViewType(
-                        [
-                            'viewType' => $value->viewType ?? $block->getViewType(),
-                            'definition' => $blockDefinition,
-                            'payload' => $block,
-                        ],
+                        viewType: $value->viewType ?? $block->getViewType(),
+                        definition: $blockDefinition,
+                        payload: $block,
                     ),
                 ],
             );
@@ -90,12 +86,10 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             $value,
             [
                 new ParameterStruct(
-                    [
-                        'parameterDefinitions' => $blockDefinition,
-                        'allowMissingFields' => true,
-                        'checkReadOnlyFields' => true,
-                        'payload' => $block,
-                    ],
+                    parameterDefinitions: $blockDefinition,
+                    allowMissingFields: true,
+                    checkReadOnlyFields: true,
+                    payload: $block,
                 ),
             ],
         );

@@ -54,7 +54,7 @@ final class CopyRuleType extends AbstractType
                 'disabled' => !$canCopyLayout,
                 'constraints' => [
                     new Constraints\NotBlank(groups: ['CopyLayout']),
-                    new LayoutName(['groups' => ['CopyLayout']]),
+                    new LayoutName(groups: ['CopyLayout']),
                 ],
             ],
         );

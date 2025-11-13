@@ -44,12 +44,12 @@ final class TimeValidator extends ConstraintValidator
                     fields: [
                         'from' => new Constraints\Required(
                             [
-                                new DateTimeConstraint(['allowArray' => true]),
+                                new DateTimeConstraint(allowArray: true),
                             ],
                         ),
                         'to' => new Constraints\Required(
                             [
-                                new DateTimeConstraint(['allowArray' => true]),
+                                new DateTimeConstraint(allowArray: true),
                             ],
                         ),
                     ],

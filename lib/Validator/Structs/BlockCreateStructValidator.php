@@ -63,9 +63,7 @@ final class BlockCreateStructValidator extends ConstraintValidator
             $value,
             [
                 new ParameterStruct(
-                    [
-                        'parameterDefinitions' => $value->getDefinition(),
-                    ],
+                    parameterDefinitions: $value->getDefinition(),
                 ),
             ],
         );

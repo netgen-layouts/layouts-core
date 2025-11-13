@@ -32,12 +32,10 @@ final class EditType extends AbstractType
             'constraints',
             static fn (Options $options): array => [
                 new ConfigAwareStructConstraint(
-                    [
-                        'payload' => array_map(
-                            static fn (Config $config): ConfigDefinitionInterface => $config->getDefinition(),
-                            $options['configurable']->getConfigs()->toArray(),
-                        ),
-                    ],
+                    payload: array_map(
+                        static fn (Config $config): ConfigDefinitionInterface => $config->getDefinition(),
+                        $options['configurable']->getConfigs()->toArray(),
+                    ),
                 ),
             ],
         );

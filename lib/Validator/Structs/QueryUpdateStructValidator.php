@@ -56,10 +56,8 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             $value,
             [
                 new ParameterStruct(
-                    [
-                        'parameterDefinitions' => $constraint->payload->getQueryType(),
-                        'allowMissingFields' => true,
-                    ],
+                    parameterDefinitions: $constraint->payload->getQueryType(),
+                    allowMissingFields: true,
                 ),
             ],
         );

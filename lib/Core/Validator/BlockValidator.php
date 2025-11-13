@@ -39,9 +39,7 @@ final class BlockValidator
         $this->validate(
             $blockCreateStruct,
             new ConfigAwareStructConstraint(
-                [
-                    'payload' => $blockCreateStruct->getDefinition(),
-                ],
+                payload: $blockCreateStruct->getDefinition(),
             ),
         );
 
@@ -64,9 +62,7 @@ final class BlockValidator
             $blockUpdateStruct,
             [
                 new BlockUpdateStructConstraint(
-                    [
-                        'payload' => $block,
-                    ],
+                    payload: $block,
                 ),
             ],
         );
@@ -74,10 +70,8 @@ final class BlockValidator
         $this->validate(
             $blockUpdateStruct,
             new ConfigAwareStructConstraint(
-                [
-                    'payload' => $block->getDefinition(),
-                    'allowMissingFields' => true,
-                ],
+                allowMissingFields: true,
+                payload: $block->getDefinition(),
             ),
         );
     }

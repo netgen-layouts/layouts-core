@@ -71,10 +71,8 @@ final class LinkValidator extends ConstraintValidator
                 LinkType::Email => new Constraints\Email(mode: Constraints\Email::VALIDATION_MODE_STRICT),
                 LinkType::Phone => new Constraints\Type(type: 'string'),
                 LinkType::Internal => new ItemLink(
-                    [
-                        'valueTypes' => $constraint->valueTypes,
-                        'allowInvalid' => $constraint->allowInvalidInternal,
-                    ],
+                    valueTypes: $constraint->valueTypes,
+                    allowInvalid: $constraint->allowInvalidInternal,
                 ),
             };
         }

@@ -13,10 +13,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
-use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-
-use function sprintf;
 
 #[CoversClass(BlockItemViewTypeValidator::class)]
 final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
@@ -31,7 +28,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
             ],
         );
 
-        $this->constraint = new BlockItemViewType(['viewType' => '', 'definition' => $this->blockDefinition]);
+        $this->constraint = new BlockItemViewType(viewType: '', definition: $this->blockDefinition);
 
         parent::setUp();
     }
@@ -50,24 +47,6 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\Validator\Constraint\BlockItemViewType", "Symfony\Component\Validator\Constraints\NotBlank" given');
 
         $this->constraint = new NotBlank();
-        $this->assertValid(true, 'standard');
-    }
-
-    public function testValidateThrowsMissingOptionsExceptionWithInvalidBlockDefinition(): void
-    {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage(sprintf('The options "definition" must be set for constraint "%s".', BlockItemViewType::class));
-
-        $this->constraint = new BlockItemViewType(['viewType' => '']);
-        $this->assertValid(true, 'standard');
-    }
-
-    public function testValidateThrowsMissingOptionsExceptionWithInvalidViewType(): void
-    {
-        $this->expectException(MissingOptionsException::class);
-        $this->expectExceptionMessage(sprintf('The options "viewType" must be set for constraint "%s".', BlockItemViewType::class));
-
-        $this->constraint = new BlockItemViewType(['definition' => $this->blockDefinition]);
         $this->assertValid(true, 'standard');
     }
 

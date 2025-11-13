@@ -112,9 +112,7 @@ final class CollectionValidator
         $this->validate(
             $itemCreateStruct,
             new ConfigAwareStructConstraint(
-                [
-                    'payload' => $itemCreateStruct->definition,
-                ],
+                payload: $itemCreateStruct->definition,
             ),
         );
     }
@@ -129,10 +127,8 @@ final class CollectionValidator
         $this->validate(
             $itemUpdateStruct,
             new ConfigAwareStructConstraint(
-                [
-                    'payload' => $item->getDefinition(),
-                    'allowMissingFields' => true,
-                ],
+                allowMissingFields: true,
+                payload: $item->getDefinition(),
             ),
         );
     }
@@ -148,9 +144,7 @@ final class CollectionValidator
             $queryCreateStruct,
             [
                 new ParameterStruct(
-                    [
-                        'parameterDefinitions' => $queryCreateStruct->getQueryType(),
-                    ],
+                    parameterDefinitions: $queryCreateStruct->getQueryType(),
                 ),
             ],
             'parameterValues',
@@ -168,9 +162,7 @@ final class CollectionValidator
             $queryUpdateStruct,
             [
                 new QueryUpdateStructConstraint(
-                    [
-                        'payload' => $query,
-                    ],
+                    payload: $query,
                 ),
             ],
         );

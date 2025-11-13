@@ -39,9 +39,7 @@ final class EditType extends AbstractType
                 'constraints' => [
                     new Constraints\NotBlank(),
                     new LayoutName(
-                        [
-                            'excludedLayoutId' => $options['layout']->getId(),
-                        ],
+                        $options['layout']->getId(),
                     ),
                 ],
                 'property_path' => 'name',
