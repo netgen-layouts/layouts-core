@@ -11,10 +11,10 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ParameterNormalizer implements NormalizerInterface
 {
-    public function normalize(mixed $object, ?string $format = null, array $context = []): ArrayObject|array|string|int|float|bool|null
+    public function normalize(mixed $data, ?string $format = null, array $context = []): ArrayObject|array|string|int|float|bool|null
     {
         /** @var \Netgen\Layouts\Parameters\Parameter $parameter */
-        $parameter = $object->getValue();
+        $parameter = $data->getValue();
         $parameterDefinition = $parameter->getParameterDefinition();
 
         return $parameterDefinition->getType()->toHash($parameterDefinition, $parameter->getValue());

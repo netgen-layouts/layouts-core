@@ -34,10 +34,10 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
-        $layout = $object->getValue();
+        $layout = $data->getValue();
         $layoutType = $layout->getLayoutType();
 
         $availableLocales = [];
@@ -45,7 +45,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             $availableLocales[$locale] = Locales::getName($locale);
         }
 
-        $data = [
+        $normalizedData = [
             'id' => $layout->getId()->toString(),
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
@@ -66,14 +66,14 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         try {
             $archivedLayout = $this->layoutService->loadLayoutArchive($layout->getId());
 
-            $data['has_archived_state'] = true;
-            $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTimeInterface::ATOM);
-            $data['archive_updated_at'] = $archivedLayout->getModified()->format(DateTimeInterface::ATOM);
+            $normalizedData['has_archived_state'] = true;
+            $normalizedData['archive_created_at'] = $archivedLayout->getCreated()->format(DateTimeInterface::ATOM);
+            $normalizedData['archive_updated_at'] = $archivedLayout->getModified()->format(DateTimeInterface::ATOM);
         } catch (NotFoundException) {
             // Do nothing
         }
 
-        return $data;
+        return $normalizedData;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
@@ -105,7 +105,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         foreach ($layout as $zoneIdentifier => $zone) {
             $linkedZone = $zone->getLinkedZone();
 
-            $data = [
+            $normalizedData = [
                 'identifier' => $zoneIdentifier,
                 'name' => $this->getZoneName($zone, $layoutType),
                 'block_ids' => array_map('strval', $this->blockService->loadZoneBlocks($zone)->getBlockIds()),
@@ -118,11 +118,11 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             ];
 
             if ($linkedZone instanceof Zone) {
-                $data['linked_layout_id'] = $linkedZone->getLayoutId()->toString();
-                $data['linked_zone_identifier'] = $linkedZone->getIdentifier();
+                $normalizedData['linked_layout_id'] = $linkedZone->getLayoutId()->toString();
+                $normalizedData['linked_zone_identifier'] = $linkedZone->getIdentifier();
             }
 
-            yield $data;
+            yield $normalizedData;
         }
     }
 

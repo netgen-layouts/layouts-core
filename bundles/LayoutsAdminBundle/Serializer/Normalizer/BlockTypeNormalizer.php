@@ -14,13 +14,13 @@ final class BlockTypeNormalizer implements NormalizerInterface
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Block\BlockType\BlockType $blockType */
-        $blockType = $object->getValue();
+        $blockType = $data->getValue();
         $blockDefinition = $blockType->getDefinition();
 
-        $data = [
+        $normalizedData = [
             'identifier' => $blockType->getIdentifier(),
             'enabled' => $blockType->isEnabled(),
             'name' => $blockType->getName(),
@@ -31,10 +31,10 @@ final class BlockTypeNormalizer implements NormalizerInterface
         ];
 
         if ($blockDefinition instanceof ContainerDefinitionInterface) {
-            $data['is_container'] = true;
+            $normalizedData['is_container'] = true;
         }
 
-        return $data;
+        return $normalizedData;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool

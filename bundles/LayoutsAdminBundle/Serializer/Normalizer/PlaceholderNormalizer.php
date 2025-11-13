@@ -19,10 +19,10 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Block\Placeholder $placeholder */
-        $placeholder = $object->getValue();
+        $placeholder = $data->getValue();
 
         $blocks = $this->buildViewValues($placeholder);
 

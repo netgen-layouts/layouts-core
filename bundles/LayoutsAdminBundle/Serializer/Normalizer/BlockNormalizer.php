@@ -24,10 +24,10 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
-        $block = $object->getValue();
+        $block = $data->getValue();
         $blockDefinition = $block->getDefinition();
 
         $parameters = $this->buildValues($block->getParameters());
@@ -39,7 +39,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
             }
         })();
 
-        $data = [
+        $normalizedData = [
             'id' => $block->getId()->toString(),
             'layout_id' => $block->getLayoutId()->toString(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
@@ -60,10 +60,10 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         ];
 
         if ($blockDefinition instanceof ContainerDefinitionInterface) {
-            $data['is_container'] = true;
+            $normalizedData['is_container'] = true;
         }
 
-        return $data;
+        return $normalizedData;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool

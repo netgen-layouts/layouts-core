@@ -21,10 +21,10 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
-        $resultSet = $object->getValue();
+        $resultSet = $data->getValue();
 
         $results = $this->buildValues($resultSet);
         $overflowItems = $this->buildValues($this->getOverflowItems($resultSet));

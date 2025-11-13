@@ -27,10 +27,10 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Item $collectionItem */
-        $collectionItem = $object->getValue();
+        $collectionItem = $data->getValue();
         $cmsItem = $collectionItem->getCmsItem();
 
         $configuration = (function () use ($collectionItem): Generator {
@@ -39,7 +39,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
             }
         })();
 
-        $data = [
+        $normalizedData = [
             'id' => $collectionItem->getId()->toString(),
             'collection_id' => $collectionItem->getCollectionId()->toString(),
             'position' => $collectionItem->getPosition(),
@@ -54,12 +54,12 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
         ];
 
         try {
-            $data['cms_url'] = $this->urlGenerator->generate($cmsItem, UrlType::Admin);
+            $normalizedData['cms_url'] = $this->urlGenerator->generate($cmsItem, UrlType::Admin);
         } catch (ItemException) {
             // Do nothing
         }
 
-        return $data;
+        return $normalizedData;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool

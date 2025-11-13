@@ -11,7 +11,7 @@ use function is_object;
 
 final class NormalizerStub implements NormalizerInterface
 {
-    public function normalize(mixed $object, ?string $format = null, array $context = []): string
+    public function normalize(mixed $data, ?string $format = null, array $context = []): string
     {
         return 'data';
     }

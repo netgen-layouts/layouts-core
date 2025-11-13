@@ -13,10 +13,10 @@ final class CollectionSlotNormalizer implements NormalizerInterface
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Slot $slot */
-        $slot = $object->getValue();
+        $slot = $data->getValue();
 
         return [
             'id' => $slot->getId()->toString(),

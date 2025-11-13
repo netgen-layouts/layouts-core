@@ -19,32 +19,32 @@ final class ThrowableNormalizer implements NormalizerInterface
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
-        $data = [
-            'code' => $object->getCode(),
-            'message' => $object->getMessage(),
+        $normalizedData = [
+            'code' => $data->getCode(),
+            'message' => $data->getMessage(),
         ];
 
-        if ($object instanceof HttpExceptionInterface) {
-            $statusCode = $object->getStatusCode();
+        if ($data instanceof HttpExceptionInterface) {
+            $statusCode = $data->getStatusCode();
             if (isset(Response::$statusTexts[$statusCode])) {
-                $data['status_code'] = $statusCode;
-                $data['status_text'] = Response::$statusTexts[$statusCode];
+                $normalizedData['status_code'] = $statusCode;
+                $normalizedData['status_text'] = Response::$statusTexts[$statusCode];
             }
         }
 
         if ($this->outputDebugInfo) {
-            $flattenException = FlattenException::createFromThrowable($object->getPrevious() ?? $object);
+            $flattenException = FlattenException::createFromThrowable($data->getPrevious() ?? $data);
 
-            $data['debug'] = [
+            $normalizedData['debug'] = [
                 'file' => $flattenException->getFile(),
                 'line' => $flattenException->getLine(),
                 'trace' => $flattenException->getTrace(),
             ];
         }
 
-        return $data;
+        return $normalizedData;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool

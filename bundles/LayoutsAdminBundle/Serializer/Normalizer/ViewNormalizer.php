@@ -23,13 +23,13 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var array<string, mixed> $normalizedData */
         $normalizedData = $this->normalizer->normalize(
             new Value(
-                $object->getValue(),
-                $object->getStatusCode(),
+                $data->getValue(),
+                $data->getStatusCode(),
             ),
             $format,
             $context,
@@ -37,7 +37,7 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
 
         if (($context['disable_html'] ?? false) !== true) {
             $normalizedData['html'] = $this->viewRenderer->renderValue(
-                $object->getValue(),
+                $data->getValue(),
                 ViewInterface::CONTEXT_APP,
             );
         }

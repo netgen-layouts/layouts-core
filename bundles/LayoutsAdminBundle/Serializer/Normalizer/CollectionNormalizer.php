@@ -13,10 +13,10 @@ final class CollectionNormalizer implements NormalizerInterface
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Collection $collection */
-        $collection = $object->getValue();
+        $collection = $data->getValue();
 
         return [
             'id' => $collection->getId()->toString(),

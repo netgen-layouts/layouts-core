@@ -20,10 +20,10 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType */
-        $layoutType = $object->getValue();
+        $layoutType = $data->getValue();
 
         return [
             'identifier' => $layoutType->getIdentifier(),

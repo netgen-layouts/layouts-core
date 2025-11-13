@@ -31,32 +31,32 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\Result $result */
-        $result = $object->getValue();
+        $result = $data->getValue();
         $subItem = $result->getSubItem();
 
         $mainItem = $subItem instanceof CmsItemInterface ? $subItem : $result->getItem();
         $overrideItem = $subItem instanceof CmsItemInterface ? $result->getItem() : null;
 
-        $data = $this->normalizeResultItem($mainItem, $format, $context);
+        $normalizedData = $this->normalizeResultItem($mainItem, $format, $context);
 
-        $data['position'] = $result->getPosition();
-        $data['slot_id'] = null;
-        $data['slot_view_type'] = null;
+        $normalizedData['position'] = $result->getPosition();
+        $normalizedData['slot_id'] = null;
+        $normalizedData['slot_view_type'] = null;
 
         $slot = $result->getSlot();
         if ($slot instanceof Slot) {
-            $data['slot_id'] = $slot->getId()->toString();
-            $data['slot_view_type'] = $slot->getViewType();
+            $normalizedData['slot_id'] = $slot->getId()->toString();
+            $normalizedData['slot_view_type'] = $slot->getViewType();
         }
 
         if ($overrideItem instanceof CmsItemInterface) {
-            $data['override_item'] = $this->normalizeResultItem($overrideItem, $format, $context);
+            $normalizedData['override_item'] = $this->normalizeResultItem($overrideItem, $format, $context);
         }
 
-        return $data;
+        return $normalizedData;
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
@@ -106,7 +106,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
             }
         })();
 
-        $data = [
+        $normalizedData = [
             'id' => $collectionItem?->getId()->toString(),
             'collection_id' => $collectionItem?->getCollectionId()->toString(),
             'visible' => $collectionItem !== null ?
@@ -123,12 +123,12 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         ];
 
         try {
-            $data['cms_url'] = $this->urlGenerator->generate($cmsItem, UrlType::Admin);
+            $normalizedData['cms_url'] = $this->urlGenerator->generate($cmsItem, UrlType::Admin);
         } catch (ItemException) {
             // Do nothing
         }
 
-        return $data;
+        return $normalizedData;
     }
 
     /**

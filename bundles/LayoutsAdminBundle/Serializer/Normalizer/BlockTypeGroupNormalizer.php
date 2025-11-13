@@ -16,10 +16,10 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
     /**
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup $blockTypeGroup */
-        $blockTypeGroup = $object->getValue();
+        $blockTypeGroup = $data->getValue();
 
         return [
             'identifier' => $blockTypeGroup->getIdentifier(),
