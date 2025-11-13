@@ -56,7 +56,6 @@ final class BlockCreateStructValidator extends ConstraintValidator
             return;
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->atPath('parameterValues')->validate(

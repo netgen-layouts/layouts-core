@@ -49,7 +49,6 @@ final class DateTimeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, DateTimeInterface::class);
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         if (is_array($value)) {

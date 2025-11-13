@@ -39,7 +39,6 @@ final class ParameterStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint->payload, ParameterCollectionInterface::class);
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         // First we validate the value format with constraints coming from the parameter type

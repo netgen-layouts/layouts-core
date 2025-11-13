@@ -56,7 +56,6 @@ final class LinkType extends ParameterType
 
                     $valueTypes = [];
 
-                    /** @var \Netgen\Layouts\Item\ValueType\ValueType $valueType */
                     foreach ($this->valueTypeRegistry->getValueTypes(true) as $identifier => $valueType) {
                         if ($valueType->supportsManualItems()) {
                             $valueTypes[] = $identifier;

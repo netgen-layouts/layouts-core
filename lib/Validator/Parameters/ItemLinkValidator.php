@@ -42,7 +42,6 @@ final class ItemLinkValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $parsedValue = parse_url($value);

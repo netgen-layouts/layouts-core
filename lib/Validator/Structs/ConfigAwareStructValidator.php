@@ -38,7 +38,6 @@ final class ConfigAwareStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, ConfigAwareStruct::class);
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $configDefinitions = !is_array($constraint->payload) ?

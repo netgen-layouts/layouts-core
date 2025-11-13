@@ -33,7 +33,6 @@ final class LinkValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, LinkValue::class);
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $linkType = $value->getLinkType();

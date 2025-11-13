@@ -46,7 +46,6 @@ final class BlockUpdateStructValidator extends ConstraintValidator
         $block = $constraint->payload;
         $blockDefinition = $block->getDefinition();
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->atPath('locale')->validate(

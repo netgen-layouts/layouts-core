@@ -34,7 +34,6 @@ final class TimeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'array');
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->validate(
