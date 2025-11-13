@@ -23,6 +23,17 @@ jobs:
         script: ['test', 'test-api']
         db: ['sqlite', 'mysql', 'postgres']
         deps: ['normal']
+        include:
+          - php: '8.4'
+            symfony: '~7.3.0'
+            script: 'test'
+            dm: 'sqlite'
+            deps: 'low'
+          - php: '8.4'
+            symfony: '~7.3.0'
+            script: 'test-api'
+            dm: 'sqlite'
+            deps: 'low'
 
     services:
       mysql:
