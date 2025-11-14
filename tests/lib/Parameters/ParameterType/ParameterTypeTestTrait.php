@@ -21,10 +21,15 @@ trait ParameterTypeTestTrait
     {
         $optionsResolver = new OptionsResolver();
 
-        $optionsResolver->setRequired(['required']);
-        $optionsResolver->setRequired(['default_value']);
-        $optionsResolver->setDefault('required', false);
-        $optionsResolver->setDefault('default_value', null);
+        $optionsResolver
+            ->define('required')
+            ->required()
+            ->default(false);
+
+        $optionsResolver
+            ->define('default_value')
+            ->required()
+            ->default(null);
 
         $options['required'] = $required;
         if ($defaultValue !== null) {

@@ -361,51 +361,63 @@ class ParameterBuilder implements ParameterBuilderInterface
     {
         $optionsResolver = new OptionsResolver();
 
-        $optionsResolver->setDefault('default_value', null);
-        $optionsResolver->setDefault('required', false);
-        $optionsResolver->setDefault('readonly', false);
-        $optionsResolver->setDefault('label', null);
-        $optionsResolver->setDefault('groups', []);
-        $optionsResolver->setDefault('constraints', []);
+        $optionsResolver
+            ->define('required')
+            ->required()
+            ->default(false)
+            ->allowedTypes('bool');
+
+        $optionsResolver
+            ->define('readonly')
+            ->required()
+            ->default(false)
+            ->allowedTypes('bool');
+
+        $optionsResolver
+            ->define('default_value')
+            ->required()
+            ->default(null);
+
+        $optionsResolver
+            ->define('label')
+            ->required()
+            ->default(null)
+            ->allowedTypes('string', 'null', 'bool')
+            ->allowedValues(static fn ($value): bool => is_bool($value) ? $value === false : true)
+            ->info('It must be a string, null or false.');
+
+        $optionsResolver
+            ->define('groups')
+            ->required()
+            ->default([])
+            ->allowedTypes('string[]')
+            ->normalize(
+                function (Options $options, array $value): array {
+                    if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
+                        return $value;
+                    }
+
+                    if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
+                        return $value;
+                    }
+
+                    return $this->parentBuilder->getGroups();
+                },
+            );
+
+        $optionsResolver
+            ->define('constraints')
+            ->required()
+            ->default([])
+            ->allowedTypes('array')
+            ->allowedValues(fn (array $constraints): bool => $this->validateConstraints($constraints))
+            ->info('It must be an array of constraints or closures.');
 
         if ($this->type instanceof ParameterTypeInterface) {
             $this->type->configureOptions($optionsResolver);
         }
 
         $this->configureOptions($optionsResolver);
-
-        $optionsResolver->setRequired(['required', 'readonly', 'default_value', 'label', 'groups', 'constraints']);
-
-        $optionsResolver->setAllowedTypes('required', 'bool');
-        $optionsResolver->setAllowedTypes('readonly', 'bool');
-        $optionsResolver->setAllowedTypes('label', ['string', 'null', 'bool']);
-        $optionsResolver->setAllowedTypes('groups', 'string[]');
-        $optionsResolver->setAllowedTypes('constraints', 'array');
-
-        $optionsResolver->setNormalizer(
-            'groups',
-            function (Options $options, array $value): array {
-                if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
-                    return $value;
-                }
-
-                if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
-                    return $value;
-                }
-
-                return $this->parentBuilder->getGroups();
-            },
-        );
-
-        $optionsResolver->setAllowedValues(
-            'label',
-            static fn ($value): bool => is_bool($value) ? $value === false : true,
-        );
-
-        $optionsResolver->setAllowedValues(
-            'constraints',
-            fn (array $constraints): bool => $this->validateConstraints($constraints),
-        );
 
         $resolvedOptions = $optionsResolver->resolve($options);
 

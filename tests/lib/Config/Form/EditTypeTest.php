@@ -167,7 +167,7 @@ final class EditTypeTest extends FormTestCase
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -191,7 +191,7 @@ final class EditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The required option "configurable" is missing.');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -208,7 +208,7 @@ final class EditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "configurable" with value "" is expected to be of type "Netgen\Layouts\API\Values\Config\ConfigAwareValue", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -226,7 +226,7 @@ final class EditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The required option "label_prefix" is missing.');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -243,7 +243,7 @@ final class EditTypeTest extends FormTestCase
         $this->expectExceptionMessageMatches('/^The option "label_prefix" with value 42 is expected to be of type "string", but is of type "int(eger)?".$/');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -261,7 +261,7 @@ final class EditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Config\ConfigAwareStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 

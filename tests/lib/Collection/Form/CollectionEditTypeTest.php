@@ -99,7 +99,7 @@ final class CollectionEditTypeTest extends FormTestCase
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -123,7 +123,7 @@ final class CollectionEditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The required option "collection" is missing.');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -136,7 +136,7 @@ final class CollectionEditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "collection" with value "" is expected to be of type "Netgen\Layouts\API\Values\Collection\Collection", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -153,7 +153,7 @@ final class CollectionEditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 

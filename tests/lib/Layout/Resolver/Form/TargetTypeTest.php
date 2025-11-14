@@ -44,7 +44,7 @@ final class TargetTypeTest extends FormTestCase
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -67,7 +67,7 @@ final class TargetTypeTest extends FormTestCase
         $this->expectExceptionMessage('The required option "target_type" is missing.');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -80,7 +80,7 @@ final class TargetTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "target_type" with value "" is expected to be of type "Netgen\Layouts\Layout\Resolver\TargetTypeInterface", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -97,7 +97,7 @@ final class TargetTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\LayoutResolver\TargetStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 

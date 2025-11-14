@@ -63,7 +63,7 @@ final class CopyTypeTest extends FormTestCase
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -86,7 +86,7 @@ final class CopyTypeTest extends FormTestCase
         $this->expectExceptionMessage('The required option "layout" is missing.');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -99,7 +99,7 @@ final class CopyTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "layout" with value "" is expected to be of type "Netgen\Layouts\API\Values\Layout\Layout", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -116,7 +116,7 @@ final class CopyTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Layout\LayoutCopyStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 

@@ -92,7 +92,7 @@ final class CreateTypeTest extends FormTestCase
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -113,7 +113,7 @@ final class CreateTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Layout\LayoutCreateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 

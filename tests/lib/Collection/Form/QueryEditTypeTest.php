@@ -124,7 +124,7 @@ final class QueryEditTypeTest extends FormTestCase
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -147,7 +147,7 @@ final class QueryEditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The required option "query" is missing.');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -160,7 +160,7 @@ final class QueryEditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "query" with value "" is expected to be of type "Netgen\Layouts\API\Values\Collection\Query", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -177,7 +177,7 @@ final class QueryEditTypeTest extends FormTestCase
         $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\Layouts\API\Values\Collection\QueryUpdateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 

@@ -40,24 +40,34 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
     {
         $optionsResolver = new OptionsResolver();
 
-        $optionsResolver->setDefault('name', null);
-        $optionsResolver->setDefault('type', null);
-        $optionsResolver->setDefault('options', []);
-        $optionsResolver->setDefault('parent', null);
+        $optionsResolver
+            ->define('name')
+            ->required()
+            ->default(null)
+            ->allowedTypes('string', 'null');
 
-        $optionsResolver->setRequired(['name', 'type', 'options', 'parent']);
+        $optionsResolver
+            ->define('type')
+            ->required()
+            ->default(null)
+            ->allowedTypes(ParameterTypeInterface::class, 'string', 'null')
+            ->normalize(
+                fn (Options $options, $value) => is_string($value) ?
+                        $this->parameterTypeRegistry->getParameterTypeByClass($value) :
+                        $value,
+            );
 
-        $optionsResolver->setAllowedTypes('name', ['null', 'string']);
-        $optionsResolver->setAllowedTypes('type', ['null', 'string', ParameterTypeInterface::class]);
-        $optionsResolver->setAllowedTypes('options', 'array');
-        $optionsResolver->setAllowedTypes('parent', ['null', ParameterBuilderInterface::class]);
+        $optionsResolver
+            ->define('options')
+            ->required()
+            ->default([])
+            ->allowedTypes('array');
 
-        $optionsResolver->setNormalizer(
-            'type',
-            fn (Options $options, $value) => is_string($value) ?
-                    $this->parameterTypeRegistry->getParameterTypeByClass($value) :
-                    $value,
-        );
+        $optionsResolver
+            ->define('parent')
+            ->required()
+            ->default(null)
+            ->allowedTypes(ParameterBuilderInterface::class, 'null');
 
         return $optionsResolver->resolve($config);
     }

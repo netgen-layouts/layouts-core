@@ -244,7 +244,7 @@ final class ParametersTypeTest extends FormTestCase
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -274,7 +274,7 @@ final class ParametersTypeTest extends FormTestCase
         $this->expectExceptionMessage('The required options "label_prefix", "parameter_definitions" are missing.');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -287,7 +287,7 @@ final class ParametersTypeTest extends FormTestCase
         $this->expectExceptionMessageMatches('/^The option "parameter_definitions" with value null is expected to be of type "Netgen\\\Layouts\\\Parameters\\\ParameterDefinitionCollectionInterface", but is of type "(NULL|null)".$/');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -305,7 +305,7 @@ final class ParametersTypeTest extends FormTestCase
         $this->expectExceptionMessageMatches('/^The option "groups" with value array is expected to be of type "string\[\]", but one of the elements is of type "int(eger)?".$/');
 
         $optionsResolver = new OptionsResolver();
-        $optionsResolver->setDefined('data');
+        $optionsResolver->define('data');
 
         $this->formType->configureOptions($optionsResolver);
 
