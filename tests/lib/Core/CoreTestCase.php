@@ -511,6 +511,7 @@ abstract class CoreTestCase extends TestCase
                 new ParameterType\HtmlType(new HtmlPurifier()),
                 new ParameterType\EmailType(),
                 new ParameterType\ChoiceType(),
+                new ParameterType\EnumType(),
                 new ParameterType\BooleanType(),
                 new ParameterType\DateTimeType(),
                 new ParameterType\Compound\BooleanType(),

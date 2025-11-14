@@ -73,6 +73,11 @@ services:
         tags:
             - { name: netgen_layouts.parameter_type }
 
+    netgen_layouts.parameters.parameter_type.enum:
+        class: Netgen\Layouts\Parameters\ParameterType\EnumType
+        tags:
+            - { name: netgen_layouts.parameter_type }
+
     netgen_layouts.parameters.parameter_type.url:
         class: Netgen\Layouts\Parameters\ParameterType\UrlType
         tags:
@@ -165,6 +170,11 @@ services:
         class: Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper
         tags:
             - { name: netgen_layouts.parameter_type.form_mapper, type: choice }
+
+    netgen_layouts.parameters.form.mapper.enum:
+        class: Netgen\Layouts\Parameters\Form\Mapper\EnumMapper
+        tags:
+            - { name: netgen_layouts.parameter_type.form_mapper, type: enum }
 
     netgen_layouts.parameters.form.mapper.url:
         class: Netgen\Layouts\Parameters\Form\Mapper\UrlMapper
