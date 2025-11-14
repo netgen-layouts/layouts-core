@@ -57,8 +57,7 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
         }
 
         if ($name === 'nglayouts_item_link') {
-            $cmsItemLoader =
-                new MockBuilder($this->testCase, CmsItemLoaderInterface::class)
+            $cmsItemLoader = new MockBuilder($this->testCase, CmsItemLoaderInterface::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 
