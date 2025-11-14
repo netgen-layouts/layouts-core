@@ -67,7 +67,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\Layouts\\\API\\\Values\\\Collection\\\QueryUpdateStruct", "int(eger)?" given$/');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\API\Values\Collection\QueryUpdateStruct", "int" given');
 
         $this->constraint->payload = new Query();
         $this->assertValid(true, 42);

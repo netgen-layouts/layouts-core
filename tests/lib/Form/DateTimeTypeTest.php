@@ -104,7 +104,7 @@ final class DateTimeTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidUseDateTime(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessageMatches('/^The option "use_datetime" with value 42 is expected to be of type "bool", but is of type "int(eger)?".$/');
+        $this->expectExceptionMessage('The option "use_datetime" with value 42 is expected to be of type "bool", but is of type "int".');
 
         $optionsResolver = new OptionsResolver();
 

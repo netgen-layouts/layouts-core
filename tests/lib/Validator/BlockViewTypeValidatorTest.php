@@ -49,7 +49,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "string", "int(eger)?" given$/');
+        $this->expectExceptionMessage('Expected argument of type "string", "int" given');
 
         $this->assertValid(true, 42);
     }

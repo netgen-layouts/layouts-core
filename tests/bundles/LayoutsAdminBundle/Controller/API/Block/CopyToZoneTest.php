@@ -153,7 +153,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            '/^There was an error validating "layout_id": This (value )?is not a valid UUID.$/',
+            'There was an error validating "layout_id": This value is not a valid UUID.',
         );
     }
 

@@ -78,7 +78,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\Layouts\\\API\\\Values\\\Config\\\ConfigAwareStruct", "int(eger)?" given$/');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\API\Values\Config\ConfigAwareStruct", "int" given');
 
         $this->constraint->payload = new BlockDefinition();
         $this->assertValid(true, 42);

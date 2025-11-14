@@ -23,7 +23,7 @@ final class RuleListTest extends TestCase
         $this->expectException(TypeError::class);
         $this->expectExceptionMessageMatches(
             sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
+                '/must be of type %s, %s given/',
                 str_replace('\\', '\\\\', Rule::class),
                 stdClass::class,
             ),

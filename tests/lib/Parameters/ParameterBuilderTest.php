@@ -885,7 +885,7 @@ final class ParameterBuilderTest extends TestCase
     public function testBuildParameterDefinitionsWithInvalidGroup(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessageMatches('/^The option "groups" with value array is expected to be of type "string\[\]", but one of the elements is of type "int(eger)?".$/');
+        $this->expectExceptionMessage('The option "groups" with value array is expected to be of type "string[]", but one of the elements is of type "int".');
 
         $this->builder->add(
             'test',

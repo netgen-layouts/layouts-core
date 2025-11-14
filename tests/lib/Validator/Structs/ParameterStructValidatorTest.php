@@ -145,7 +145,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\Layouts\\\API\\\Values\\\ParameterStruct", "int(eger)?" given$/');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\API\Values\ParameterStruct", "int" given');
 
         $this->assertValid(true, 42);
     }

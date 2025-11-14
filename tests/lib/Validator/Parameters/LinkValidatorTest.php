@@ -49,7 +49,7 @@ final class LinkValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\Layouts\\\Parameters\\\Value\\\LinkValue", "int(eger)?" given$/');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\Layouts\Parameters\Value\LinkValue", "int" given');
 
         $this->assertValid(true, 42);
     }

@@ -178,7 +178,7 @@ final class CopyTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            '/^There was an error validating "parent_block_id": This (value )?is not a valid UUID.$/',
+            'There was an error validating "parent_block_id": This value is not a valid UUID.',
         );
     }
 

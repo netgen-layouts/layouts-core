@@ -71,7 +71,7 @@ final class MoveItemTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            '/^There was an error validating "position": This value should be of type int(eger)?.$/',
+            'There was an error validating "position": This value should be of type int.',
         );
     }
 

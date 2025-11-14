@@ -115,7 +115,7 @@ final class LinkZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            '/^There was an error validating "linked_layout_id": This (value )?is not a valid UUID.$/',
+            'There was an error validating "linked_layout_id": This value is not a valid UUID.',
         );
     }
 

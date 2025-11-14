@@ -64,8 +64,7 @@ final class DebugNodeTest extends TestCase
 
         $this->assertConfigurationIsInvalid(
             $config,
-            '/Invalid type for path "netgen_layouts.debug". Expected "?bool(ean)?"?, but got "?array"?./',
-            true,
+            'Invalid type for path "netgen_layouts.debug". Expected "bool", but got "array".',
         );
     }
 
