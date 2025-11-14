@@ -8,7 +8,7 @@ use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 
-use function array_values;
+use function array_first;
 use function count;
 
 /**
@@ -27,6 +27,6 @@ final class Shared implements MatcherInterface
             return true;
         }
 
-        return $view->getLayout()->isShared() === array_values($config)[0];
+        return $view->getLayout()->isShared() === array_first($config);
     }
 }

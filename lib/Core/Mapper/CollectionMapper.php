@@ -27,10 +27,10 @@ use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Ramsey\Uuid\Uuid;
 
+use function array_first;
 use function array_intersect;
 use function array_map;
 use function array_unique;
-use function array_values;
 use function count;
 use function is_array;
 use function iterator_to_array;
@@ -102,7 +102,7 @@ final class CollectionMapper
             'mainLocale' => $collection->mainLocale,
             'alwaysAvailable' => $collection->alwaysAvailable,
             'availableLocales' => $collection->availableLocales,
-            'locale' => array_values($validLocales)[0],
+            'locale' => array_first($validLocales),
         ];
 
         return Collection::fromArray($collectionData);
@@ -181,7 +181,7 @@ final class CollectionMapper
         }
 
         /** @var string $queryLocale */
-        $queryLocale = array_values($validLocales)[0];
+        $queryLocale = array_first($validLocales);
         $untranslatableParams = iterator_to_array(
             $this->parameterMapper->extractUntranslatableParameters(
                 $queryType,

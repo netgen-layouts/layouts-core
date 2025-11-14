@@ -11,7 +11,7 @@ use Swaggest\JsonSchema\Exception\LogicException;
 use Swaggest\JsonSchema\Schema;
 use Throwable;
 
-use function array_key_last;
+use function array_last;
 use function count;
 use function get_debug_type;
 use function is_array;
@@ -33,7 +33,7 @@ final class JsonValidator implements JsonValidatorInterface
             $message = $e->getMessage();
 
             if (is_array($e->subErrors) && count($e->subErrors) > 0) {
-                $message = $e->subErrors[array_key_last($e->subErrors)]->error;
+                $message = array_last($e->subErrors)->error;
             }
 
             throw JsonValidationException::validationFailed($message, $e);

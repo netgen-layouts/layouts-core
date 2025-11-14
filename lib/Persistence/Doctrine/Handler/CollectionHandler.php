@@ -29,7 +29,7 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 use function array_fill_keys;
-use function array_values;
+use function array_first;
 use function count;
 use function in_array;
 use function is_array;
@@ -176,13 +176,10 @@ final class CollectionHandler implements CollectionHandlerInterface
         $slotId = $slotId instanceof UuidInterface ? $slotId->toString() : $slotId;
         $data = $this->queryHandler->loadSlotData($slotId, $status);
 
-        if (count($data) === 0) {
-            throw new NotFoundException('slot', $slotId);
-        }
-
         $mappedSlots = $this->collectionMapper->mapSlots($data);
 
-        return array_values($mappedSlots)[0];
+        return array_first($mappedSlots) ??
+            throw new NotFoundException('slot', $slotId);
     }
 
     public function loadCollectionSlots(Collection $collection): array

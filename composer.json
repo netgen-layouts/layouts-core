@@ -34,6 +34,7 @@
         "symfony/intl": "^7.3",
         "symfony/monolog-bundle": "^3.10",
         "symfony/options-resolver": "^7.3",
+        "symfony/polyfill-php85": "^1.33",
         "symfony/property-access": "^7.3",
         "symfony/routing": "^7.3",
         "symfony/security-core": "^7.3",

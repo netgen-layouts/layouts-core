@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+use function array_first;
 use function array_values;
 use function count;
 use function is_array;
@@ -52,7 +53,7 @@ final class ChoiceType extends ParameterType
             'default_value',
             static function (Options $options, $previousValue) {
                 if ($options['required'] === true && !is_callable($options['options']) && count($options['options']) > 0) {
-                    $defaultValue = array_values($options['options'])[0];
+                    $defaultValue = array_first($options['options']);
 
                     return $options['multiple'] === true ? [$defaultValue] : $defaultValue;
                 }
@@ -72,7 +73,7 @@ final class ChoiceType extends ParameterType
             return is_array($value) ? $value : [$value];
         }
 
-        return is_array($value) ? array_values($value)[0] : $value;
+        return is_array($value) ? array_first($value) : $value;
     }
 
     public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool

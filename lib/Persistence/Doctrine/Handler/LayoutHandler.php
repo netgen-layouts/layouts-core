@@ -22,7 +22,7 @@ use Netgen\Layouts\Persistence\Values\Status;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-use function array_values;
+use function array_first;
 use function count;
 use function in_array;
 use function is_int;
@@ -55,11 +55,8 @@ final class LayoutHandler implements LayoutHandlerInterface
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
         $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
 
-        if (count($data) === 0) {
+        return array_first($this->layoutMapper->mapZones($data)) ??
             throw new NotFoundException('zone', $identifier);
-        }
-
-        return array_values($this->layoutMapper->mapZones($data))[0];
     }
 
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array
