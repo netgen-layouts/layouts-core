@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder as BaseTreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
@@ -15,7 +14,7 @@ final class Configuration implements ConfigurationInterface
         private NetgenLayoutsExtension $extension,
     ) {}
 
-    public function getConfigTreeBuilder(): BaseTreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder($this->extension->getAlias());
 
