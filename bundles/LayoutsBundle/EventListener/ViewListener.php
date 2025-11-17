@@ -7,13 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ViewListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::VIEW => 'onView'];
+        return [ViewEvent::class => 'onView'];
     }
 
     /**

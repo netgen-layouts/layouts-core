@@ -9,7 +9,6 @@ use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 use function str_starts_with;
 
@@ -25,7 +24,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::REQUEST => ['onKernelRequest', 30]];
+        return [RequestEvent::class => ['onKernelRequest', 30]];
     }
 
     /**

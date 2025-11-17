@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent;
-use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener;
 use Netgen\Bundle\LayoutsAdminBundle\Templating\Twig\GlobalVariable;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -30,7 +29,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [LayoutsAdminEvents::ADMIN_MATCH => ['onAdminMatch', -65535]],
+            [AdminMatchEvent::class => ['onAdminMatch', -65535]],
             $this->listener::getSubscribedEvents(),
         );
     }

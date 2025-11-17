@@ -8,7 +8,6 @@ use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ApiCsrfValidationListener implements EventSubscriberInterface
 {
@@ -19,7 +18,7 @@ final class ApiCsrfValidationListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::REQUEST => 'onKernelRequest'];
+        return [RequestEvent::class => 'onKernelRequest'];
     }
 
     /**

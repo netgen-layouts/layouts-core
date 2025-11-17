@@ -10,7 +10,6 @@ use Netgen\Layouts\View\ViewRendererInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
 
 final class ViewRendererListener implements EventSubscriberInterface
@@ -22,7 +21,7 @@ final class ViewRendererListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::VIEW => ['onView', -255]];
+        return [ViewEvent::class => ['onView', -255]];
     }
 
     /**

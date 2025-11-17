@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\EventListener\HttpCache;
 
 use Netgen\Layouts\HttpCache\InvalidatorInterface;
-use Symfony\Component\Console\ConsoleEvents;
-use Symfony\Component\Console\Event\ConsoleEvent;
+use Symfony\Component\Console\Event\ConsoleErrorEvent;
+use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 final class InvalidationListener implements EventSubscriberInterface
 {
@@ -21,10 +20,10 @@ final class InvalidationListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::TERMINATE => 'onKernelTerminate',
-            KernelEvents::EXCEPTION => 'onKernelException',
-            ConsoleEvents::TERMINATE => 'onConsoleTerminate',
-            ConsoleEvents::ERROR => 'onConsoleTerminate',
+            TerminateEvent::class => 'onKernelTerminate',
+            ExceptionEvent::class => 'onKernelException',
+            ConsoleTerminateEvent::class => 'onConsoleTerminate',
+            ConsoleErrorEvent::class => 'onConsoleError',
         ];
     }
 
@@ -47,7 +46,15 @@ final class InvalidationListener implements EventSubscriberInterface
     /**
      * Commits all the collected invalidation requests.
      */
-    public function onConsoleTerminate(ConsoleEvent $event): void
+    public function onConsoleTerminate(ConsoleTerminateEvent $event): void
+    {
+        $this->invalidator->commit();
+    }
+
+    /**
+     * Commits all the collected invalidation requests.
+     */
+    public function onConsoleError(ConsoleErrorEvent $event): void
     {
         $this->invalidator->commit();
     }

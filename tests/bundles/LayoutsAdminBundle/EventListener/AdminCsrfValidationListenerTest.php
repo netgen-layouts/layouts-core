@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(AdminCsrfValidationListener::class)]
 final class AdminCsrfValidationListenerTest extends TestCase
@@ -42,7 +41,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => 'onKernelRequest'],
+            [RequestEvent::class => 'onKernelRequest'],
             $this->listener::getSubscribedEvents(),
         );
     }

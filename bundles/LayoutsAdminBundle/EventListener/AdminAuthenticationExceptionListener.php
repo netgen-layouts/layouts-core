@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
@@ -16,7 +15,7 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
     public static function getSubscribedEvents(): array
     {
         // Priority needs to be higher than built in exception listener
-        return [KernelEvents::EXCEPTION => ['onException', 20]];
+        return [ExceptionEvent::class => ['onException', 20]];
     }
 
     /**

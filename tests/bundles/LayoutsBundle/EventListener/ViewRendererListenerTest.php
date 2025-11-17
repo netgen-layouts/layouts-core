@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(ViewRendererListener::class)]
 final class ViewRendererListenerTest extends TestCase
@@ -38,7 +37,7 @@ final class ViewRendererListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::VIEW => ['onView', -255]],
+            [ViewEvent::class => ['onView', -255]],
             $this->listener::getSubscribedEvents(),
         );
     }

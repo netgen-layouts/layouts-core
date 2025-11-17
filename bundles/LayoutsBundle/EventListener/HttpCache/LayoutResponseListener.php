@@ -9,7 +9,6 @@ use Netgen\Layouts\View\View\LayoutViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 final class LayoutResponseListener implements EventSubscriberInterface
 {
@@ -22,8 +21,8 @@ final class LayoutResponseListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::RESPONSE => ['onKernelResponse', 10],
-            KernelEvents::EXCEPTION => 'onKernelException',
+            ResponseEvent::class => ['onKernelResponse', 10],
+            ExceptionEvent::class => 'onKernelException',
         ];
     }
 

@@ -8,7 +8,6 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\AbstractValue;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final class SerializerListener implements EventSubscriberInterface
@@ -19,7 +18,7 @@ final class SerializerListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::VIEW => 'onView'];
+        return [ViewEvent::class => 'onView'];
     }
 
     /**

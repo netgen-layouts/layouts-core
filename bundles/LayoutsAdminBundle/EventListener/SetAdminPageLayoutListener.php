@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent;
-use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
 use Netgen\Bundle\LayoutsAdminBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -17,7 +16,7 @@ final class SetAdminPageLayoutListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [LayoutsAdminEvents::ADMIN_MATCH => ['onAdminMatch', -65535]];
+        return [AdminMatchEvent::class => ['onAdminMatch', -65535]];
     }
 
     /**

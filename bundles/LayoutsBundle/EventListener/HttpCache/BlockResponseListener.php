@@ -8,7 +8,6 @@ use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 final class BlockResponseListener implements EventSubscriberInterface
 {
@@ -18,7 +17,7 @@ final class BlockResponseListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::RESPONSE => ['onKernelResponse', 10]];
+        return [ResponseEvent::class => ['onKernelResponse', 10]];
     }
 
     /**

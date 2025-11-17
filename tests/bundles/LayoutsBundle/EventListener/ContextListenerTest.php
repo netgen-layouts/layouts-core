@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(ContextListener::class)]
 final class ContextListenerTest extends TestCase
@@ -44,7 +43,7 @@ final class ContextListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => 'onKernelRequest'],
+            [RequestEvent::class => 'onKernelRequest'],
             $this->listener::getSubscribedEvents(),
         );
     }

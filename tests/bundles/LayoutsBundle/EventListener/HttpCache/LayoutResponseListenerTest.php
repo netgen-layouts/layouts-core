@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(LayoutResponseListener::class)]
 final class LayoutResponseListenerTest extends TestCase
@@ -37,8 +36,8 @@ final class LayoutResponseListenerTest extends TestCase
     {
         self::assertSame(
             [
-                KernelEvents::RESPONSE => ['onKernelResponse', 10],
-                KernelEvents::EXCEPTION => 'onKernelException',
+                ResponseEvent::class => ['onKernelResponse', 10],
+                ExceptionEvent::class => 'onKernelException',
             ],
             $this->listener::getSubscribedEvents(),
         );

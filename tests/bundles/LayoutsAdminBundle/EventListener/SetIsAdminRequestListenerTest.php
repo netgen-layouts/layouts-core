@@ -11,7 +11,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(SetIsAdminRequestListener::class)]
 final class SetIsAdminRequestListenerTest extends TestCase
@@ -28,7 +27,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => ['onKernelRequest', 30]],
+            [RequestEvent::class => ['onKernelRequest', 30]],
             $this->listener::getSubscribedEvents(),
         );
     }

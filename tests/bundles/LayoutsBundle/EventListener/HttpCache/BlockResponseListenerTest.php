@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(BlockResponseListener::class)]
 final class BlockResponseListenerTest extends TestCase
@@ -34,7 +33,7 @@ final class BlockResponseListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::RESPONSE => ['onKernelResponse', 10]],
+            [ResponseEvent::class => ['onKernelResponse', 10]],
             $this->listener::getSubscribedEvents(),
         );
     }

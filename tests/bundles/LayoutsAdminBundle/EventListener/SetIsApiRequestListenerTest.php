@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(SetIsApiRequestListener::class)]
 final class SetIsApiRequestListenerTest extends TestCase
@@ -25,7 +24,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => ['onKernelRequest', 30]],
+            [RequestEvent::class => ['onKernelRequest', 30]],
             $this->listener::getSubscribedEvents(),
         );
     }

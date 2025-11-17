@@ -25,7 +25,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[CoversClass(ExceptionConversionListener::class)]
@@ -41,7 +40,7 @@ final class ExceptionConversionListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::EXCEPTION => ['onException', 10]],
+            [ExceptionEvent::class => ['onException', 10]],
             $this->listener::getSubscribedEvents(),
         );
     }

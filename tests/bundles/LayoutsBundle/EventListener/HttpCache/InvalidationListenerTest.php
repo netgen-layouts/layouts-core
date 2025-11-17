@@ -11,8 +11,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\ConsoleEvents;
-use Symfony\Component\Console\Event\ConsoleEvent;
+use Symfony\Component\Console\Event\ConsoleErrorEvent;
+use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(InvalidationListener::class)]
 final class InvalidationListenerTest extends TestCase
@@ -40,10 +39,10 @@ final class InvalidationListenerTest extends TestCase
     {
         self::assertSame(
             [
-                KernelEvents::TERMINATE => 'onKernelTerminate',
-                KernelEvents::EXCEPTION => 'onKernelException',
-                ConsoleEvents::TERMINATE => 'onConsoleTerminate',
-                ConsoleEvents::ERROR => 'onConsoleTerminate',
+                TerminateEvent::class => 'onKernelTerminate',
+                ExceptionEvent::class => 'onKernelException',
+                ConsoleTerminateEvent::class => 'onConsoleTerminate',
+                ConsoleErrorEvent::class => 'onConsoleError',
             ],
             $this->listener::getSubscribedEvents(),
         );
@@ -92,10 +91,11 @@ final class InvalidationListenerTest extends TestCase
         $inputMock = $this->createMock(InputInterface::class);
         $outputMock = $this->createMock(OutputInterface::class);
 
-        $event = new ConsoleEvent(
+        $event = new ConsoleTerminateEvent(
             $commandMock,
             $inputMock,
             $outputMock,
+            Command::SUCCESS,
         );
 
         $this->invalidatorMock
@@ -103,5 +103,23 @@ final class InvalidationListenerTest extends TestCase
             ->method('commit');
 
         $this->listener->onConsoleTerminate($event);
+    }
+
+    public function testOnConsoleError(): void
+    {
+        $inputMock = $this->createMock(InputInterface::class);
+        $outputMock = $this->createMock(OutputInterface::class);
+
+        $event = new ConsoleErrorEvent(
+            $inputMock,
+            $outputMock,
+            new Exception(),
+        );
+
+        $this->invalidatorMock
+            ->expects(self::once())
+            ->method('commit');
+
+        $this->listener->onConsoleError($event);
     }
 }

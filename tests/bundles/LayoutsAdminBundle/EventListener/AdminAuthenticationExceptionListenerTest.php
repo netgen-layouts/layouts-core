@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 #[CoversClass(AdminAuthenticationExceptionListener::class)]
@@ -29,7 +28,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::EXCEPTION => ['onException', 20]],
+            [ExceptionEvent::class => ['onException', 20]],
             $this->listener::getSubscribedEvents(),
         );
     }
