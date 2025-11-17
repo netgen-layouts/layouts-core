@@ -166,30 +166,48 @@ final class NumberTypeTest extends TestCase
                 [
                     'max' => [],
                 ],
+            ],
+            [
                 [
                     'max' => 5.5,
                 ],
+            ],
+            [
                 [
                     'max' => '5',
                 ],
+            ],
+            [
                 [
                     'min' => [],
                 ],
+            ],
+            [
                 [
                     'min' => 5.5,
                 ],
+            ],
+            [
                 [
                     'min' => '5',
                 ],
+            ],
+            [
                 [
                     'min' => [],
                 ],
+            ],
+            [
                 [
                     'min' => 5.5,
                 ],
+            ],
+            [
                 [
                     'min' => '5',
                 ],
+            ],
+            [
                 [
                     'undefined_value' => 'Value',
                 ],

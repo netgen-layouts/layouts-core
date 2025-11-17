@@ -102,42 +102,68 @@ final class RangeTypeTest extends TestCase
                 [
                     'max' => [],
                 ],
+            ],
+            [
                 [
                     'max' => 5.5,
                 ],
+            ],
+            [
                 [
                     'max' => '5',
                 ],
+            ],
+            [
                 [
                     'min' => [],
                 ],
+            ],
+            [
                 [
                     'min' => 5.5,
                 ],
+            ],
+            [
                 [
                     'min' => '5',
                 ],
+            ],
+            [
                 [
                     'undefined_value' => 'Value',
                 ],
+            ],
+            [
                 [
                 ],
+            ],
+            [
                 [
                     'max' => 5,
                 ],
+            ],
+            [
                 [
                     'max' => null,
                 ],
+            ],
+            [
                 [
                     'min' => 5,
                 ],
+            ],
+            [
                 [
                     'min' => null,
                 ],
+            ],
+            [
                 [
                     'min' => null,
                     'max' => 5,
                 ],
+            ],
+            [
                 [
                     'min' => 5,
                     'max' => null,

@@ -99,6 +99,10 @@ final class ItemLinkTypeTest extends TestCase
                 ['value_types' => ['value'], 'allow_invalid' => false],
             ],
             [
+                ['value_types' => ['disabled']],
+                ['value_types' => ['disabled'], 'allow_invalid' => false],
+            ],
+            [
                 ['allow_invalid' => false],
                 ['value_types' => ['default'], 'allow_invalid' => false],
             ],
@@ -116,18 +120,23 @@ final class ItemLinkTypeTest extends TestCase
                 [
                     'value_types' => 42,
                 ],
+            ],
+            [
                 [
                     'value_types' => [42],
                 ],
-                [
-                    'value_types' => ['disabled'],
-                ],
+            ],
+            [
                 [
                     'allow_invalid' => 0,
                 ],
+            ],
+            [
                 [
                     'allow_invalid' => 1,
                 ],
+            ],
+            [
                 [
                     'undefined_value' => 'Value',
                 ],

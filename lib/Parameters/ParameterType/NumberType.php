@@ -26,13 +26,13 @@ final class NumberType extends ParameterType
             ->define('min')
             ->required()
             ->default(null)
-            ->allowedTypes('numeric', 'null');
+            ->allowedTypes('int', 'null');
 
         $optionsResolver
             ->define('max')
             ->required()
             ->default(null)
-            ->allowedTypes('numeric', 'null')
+            ->allowedTypes('int', 'null')
             ->normalize(
                 static function (Options $options, $value) {
                     if ($value === null || $options['min'] === null) {

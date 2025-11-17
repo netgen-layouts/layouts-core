@@ -106,6 +106,8 @@ final class BooleanTypeTest extends TestCase
                 [
                     'reverse' => 'true',
                 ],
+            ],
+            [
                 [
                     'undefined_value' => 'Value',
                 ],
