@@ -258,6 +258,7 @@ DROP TABLE IF EXISTS `nglayouts_migration_versions`;
 CREATE TABLE `nglayouts_migration_versions` (
   `version` varchar(14) NOT NULL,
   `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `execution_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -268,16 +269,16 @@ CREATE TABLE `nglayouts_migration_versions` (
 
 LOCK TABLES `nglayouts_migration_versions` WRITE;
 /*!40000 ALTER TABLE `nglayouts_migration_versions` DISABLE KEYS */;
-INSERT INTO `nglayouts_migration_versions` VALUES ('000700','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('000800','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('000900','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001000','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001100','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001200','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001300','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('010000','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('010200','2020-06-15 12:00:00');
-INSERT INTO `nglayouts_migration_versions` VALUES ('010300','2020-06-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000700','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000800','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000900','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001000','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001100','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001200','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001300','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010100','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010200','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010300','2020-06-15 12:00:00',NULL);
 /*!40000 ALTER TABLE `nglayouts_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
