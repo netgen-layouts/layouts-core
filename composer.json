@@ -66,7 +66,6 @@
         "netgen/layouts-coding-standard": "^2.0",
         "netgen/layouts-standard": "~1.4.0",
         "phpunit/phpunit": "^12.4",
-        "symfony/phpunit-bridge": "^7.3",
         "symfony/runtime": "^7.3",
         "symfony/var-dumper": "^7.3",
         "phpstan/phpstan": "^2.1",
@@ -97,7 +96,6 @@
         }
     },
     "scripts": {
-        "pre-command-run": "@putenv SYMFONY_DEPRECATIONS_HELPER=max[self]=0&quiet[]=indirect&quiet[]=other",
         "test": "@php vendor/bin/phpunit --colors=always",
         "test-api": "@php vendor/bin/phpunit -c phpunit-api.xml --colors=always",
         "coverage": "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit --coverage-html=coverage --colors=always",
