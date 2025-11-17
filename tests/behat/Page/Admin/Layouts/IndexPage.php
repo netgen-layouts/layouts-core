@@ -66,6 +66,7 @@ final class IndexPage extends AdminPage
     protected function getDefinedElements(): array
     {
         return [
+            ...parent::getDefinedElements(),
             'layout' => '.nl-layout [data-name="%layout-name%"]',
             'layout_name' => '.nl-layout-name a:contains("%layout-name%")',
 
@@ -75,6 +76,6 @@ final class IndexPage extends AdminPage
             'edit_layout_action' => '.nl-layout [data-name="%layout-name%"] a.js-layout-edit',
             'copy_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-copy',
             'delete_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-delete',
-        ] + parent::getDefinedElements();
+        ];
     }
 }

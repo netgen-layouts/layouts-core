@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
+use Behat\Step\Given;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
@@ -18,17 +19,13 @@ final class LayoutContext implements Context
         private LayoutTypeRegistry $layoutTypeRegistry,
     ) {}
 
-    /**
-     * @Given /^there is a layout called "([^"]+)"$/
-     */
+    #[Given('/^there is a layout called "([^"]+)"$/')]
     public function thereIsALayoutCalled(string $layoutName): void
     {
         $this->createLayout($layoutName);
     }
 
-    /**
-     * @Given /^there is a shared layout called "([^"]+)"$/
-     */
+    #[Given('/^there is a shared layout called "([^"]+)"$/')]
     public function thereIsASharedLayoutCalled(string $layoutName): void
     {
         $this->createLayout($layoutName, null, 'en', true);

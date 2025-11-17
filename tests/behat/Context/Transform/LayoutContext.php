@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
+use Behat\Transformation\Transform;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Exception\NotFoundException;
@@ -16,11 +17,10 @@ final class LayoutContext implements Context
     ) {}
 
     /**
-     * @Transform /^layout called "([^"]+)"$/
-     * @Transform :layout
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException
      */
+    #[Transform('/^layout called "([^"]+)"$/')]
+    #[Transform(':layout')]
     public function getLayoutByName(string $layoutName): Layout
     {
         $layouts = $this->layoutService->loadLayouts();
@@ -35,11 +35,10 @@ final class LayoutContext implements Context
     }
 
     /**
-     * @Transform /^shared layout called "([^"]+)"$/
-     * @Transform :sharedLayout
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException
      */
+    #[Transform('/^shared layout called "([^"]+)"$/')]
+    #[Transform(':sharedLayout')]
     public function getSharedLayoutByName(string $layoutName): Layout
     {
         $layouts = $this->layoutService->loadSharedLayouts();
