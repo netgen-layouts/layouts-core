@@ -5,143 +5,97 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\Layout;
 
 use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType;
-use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\JsonApiTestCase;
+use Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\ApiTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(ChangeType::class)]
-final class ChangeTypeTest extends JsonApiTestCase
+final class ChangeTypeTest extends ApiTestCase
 {
     public function testChangeType(): void
     {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => '4_zones_b',
-                'zone_mappings' => [
-                    'left' => ['left'],
-                    'right' => ['right'],
-                ],
+        $data = [
+            'new_type' => '4_zones_b',
+            'zone_mappings' => [
+                'left' => ['left'],
+                'right' => ['right'],
             ],
-        );
+        ];
 
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
-            [],
-            [],
-            [],
-            $data,
-        );
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'layouts/change_type',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('layouts/change_type');
     }
 
     public function testChangeTypeWithInvalidNewType(): void
     {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => 42,
-                'zone_mappings' => [
-                    'left' => ['left'],
-                    'right' => ['right'],
-                ],
+        $data = [
+            'new_type' => 42,
+            'zone_mappings' => [
+                'left' => ['left'],
+                'right' => ['right'],
             ],
-        );
+        ];
 
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
-            [],
-            [],
-            [],
-            $data,
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "new_type": This value should be of type string.',
-        );
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "new_type": This value should be of type string.');
     }
 
     public function testChangeTypeWithMissingNewType(): void
     {
-        $data = $this->jsonEncode(
-            [
-                'zone_mappings' => [
-                    'left' => ['left'],
-                    'right' => ['right'],
-                ],
+        $data = [
+            'zone_mappings' => [
+                'left' => ['left'],
+                'right' => ['right'],
             ],
-        );
+        ];
 
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
-            [],
-            [],
-            [],
-            $data,
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "new_type": This value should not be blank.',
-        );
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "new_type": This value should not be blank.');
     }
 
     public function testChangeTypeWithInvalidMappings(): void
     {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => '4_zones_b',
-                'zone_mappings' => 42,
-            ],
-        );
+        $data = [
+            'new_type' => '4_zones_b',
+            'zone_mappings' => 42,
+        ];
 
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
-            [],
-            [],
-            [],
-            $data,
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "zone_mappings": This value should be of type associative_array.',
-        );
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "zone_mappings": This value should be of type associative_array.');
     }
 
     public function testChangeTypeWithNoMappings(): void
     {
-        $data = $this->jsonEncode(
-            [
-                'new_type' => '4_zones_b',
-            ],
-        );
+        $data = [
+            'new_type' => '4_zones_b',
+        ];
 
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
-            [],
-            [],
-            [],
-            $data,
-        );
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'layouts/change_type_without_mappings',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('layouts/change_type_without_mappings');
     }
 }

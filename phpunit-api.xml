@@ -9,8 +9,7 @@
 >
     <php>
         <server name="KERNEL_CLASS" value="Netgen\Layouts\Tests\App\Kernel" />
-        <env name="SF_USERNAME" value="admin" />
-        <env name="SF_PASSWORD" value="admin" />
+        <server name="KERNEL_BROWSER_CLASS" value="Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API\KernelBrowser" />
         <env name="SHELL_VERBOSITY" value="1" />
     </php>
 

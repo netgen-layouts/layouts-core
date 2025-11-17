@@ -30,8 +30,6 @@ parameters:
         # Disable errors for various "only read/written" properties
         - '#\$\w+ is never (written|read), only (read|written).#'
 
-        - '#JsonApiTestCase::\$client is not the same as PHPDoc type#'
-
         -
             message: '#Undefined variable: \$this#'
             path: tests/lib/Transfer/Output/Visitor/Integration
@@ -45,3 +43,7 @@ parameters:
         # PHPStan
 
         - "#PHPDoc tag @var with type array\\<string, string> is not subtype of type array\\<int\\|string, '(\\?|string)'>#"
+
+        # Netgen Layouts specifics
+
+        - '#Method Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'

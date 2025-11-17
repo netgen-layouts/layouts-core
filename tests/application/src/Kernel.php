@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
@@ -18,7 +19,7 @@ use function str_starts_with;
 use function sys_get_temp_dir;
 use function trim;
 
-final class Kernel extends BaseKernel
+final class Kernel extends BaseKernel implements CompilerPassInterface
 {
     use MicroKernelTrait {
         configureContainer as protected configureBaseContainer;
@@ -54,14 +55,23 @@ final class Kernel extends BaseKernel
         return sys_get_temp_dir() . '/nglayouts/logs';
     }
 
-    protected function getContainerBaseClass(): string
+    public function process(ContainerBuilder $container): void
     {
-        return '\\' . MockerContainer::class;
+        $container
+            ->findDefinition('netgen_layouts.collection.registry.query_type')
+            ->setPublic(true);
+
+        $container->setDefinition(
+            'netgen_layouts.collection.registry.query_type.original',
+            $container->findDefinition('netgen_layouts.collection.registry.query_type'),
+        );
+
+        $container->removeDefinition('netgen_layouts.event_listener.api_csrf_validation_listener');
     }
 
     private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
     {
         $this->configureBaseContainer($container, $loader, $builder);
-        $container->import($this->getConfigDir() . '/{packages}/netgen_layouts/**/*.{php,yaml}');
+        $container->import($this->getConfigDir() . '/{packages}/netgen_layouts/**/*.yaml');
     }
 }

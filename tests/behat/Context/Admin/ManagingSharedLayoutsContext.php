@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Behat\Context\Transform\LayoutContext;
 use Netgen\Layouts\Behat\Page\Admin\SharedLayouts\IndexPage;
 use Netgen\Layouts\Behat\Page\App\IndexPage as AppIndexPage;
-use Webmozart\Assert\Assert;
+use Zenstruck\Assert;
 
 final class ManagingSharedLayoutsContext extends AdminContext
 {
@@ -96,14 +96,14 @@ final class ManagingSharedLayoutsContext extends AdminContext
     #[Then('/^a (shared layout called "[^"]+") should exist$/')]
     public function sharedLayoutShouldExist(Layout $layout): void
     {
-        Assert::true($this->indexPage->layoutExists($layout->getName()));
+        Assert::true($this->indexPage->layoutExists($layout->getName()), 'Layout with provided name does not exist');
     }
 
     #[Then('/^a shared layout called "([^"]+)" should not exist$/')]
     public function sharedLayoutShouldNotExist(string $layoutName): void
     {
-        Assert::false($this->layoutContext->hasLayoutWithName($layoutName));
-        Assert::false($this->indexPage->layoutExists($layoutName));
+        Assert::false($this->layoutContext->hasLayoutWithName($layoutName), 'Layout with provided name exists');
+        Assert::false($this->indexPage->layoutExists($layoutName), 'Layout with provided name exists');
     }
 
     public function thereShouldBeNoError(): void
@@ -113,6 +113,6 @@ final class ManagingSharedLayoutsContext extends AdminContext
 
     public function iShouldGetAnError(string $errorMessage): void
     {
-        Assert::true($this->indexPage->modalErrorExists($errorMessage));
+        Assert::true($this->indexPage->modalErrorExists($errorMessage), 'Modal error does not exist');
     }
 }
