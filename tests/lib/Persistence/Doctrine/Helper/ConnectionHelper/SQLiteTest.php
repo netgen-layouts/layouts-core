@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Platforms\SqlitePlatform;
-use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\SQLite;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Sqlite::class)]
-final class SqliteTest extends TestCase
+#[CoversClass(SQLite::class)]
+final class SQLiteTest extends TestCase
 {
     use DatabaseTrait;
 
-    private Sqlite $helper;
+    private SQLite $helper;
 
     protected function setUp(): void
     {
         $this->createDatabase();
 
-        $this->helper = new Sqlite($this->databaseConnection);
+        $this->helper = new SQLite($this->databaseConnection);
     }
 
     /**
@@ -35,7 +35,7 @@ final class SqliteTest extends TestCase
     public function testNextId(): void
     {
         if (!$this->databaseConnection->getDatabasePlatform() instanceof SqlitePlatform) {
-            self::markTestSkipped('Test only runs on Sqlite.');
+            self::markTestSkipped('Test only runs on SQLite.');
         }
 
         self::assertSame('39', $this->helper->nextId('nglayouts_block'));
@@ -44,7 +44,7 @@ final class SqliteTest extends TestCase
     public function testLastId(): void
     {
         if (!$this->databaseConnection->getDatabasePlatform() instanceof SqlitePlatform) {
-            self::markTestSkipped('Test only runs on Sqlite.');
+            self::markTestSkipped('Test only runs on SQLite.');
         }
 
         self::assertSame(38, $this->helper->lastId('nglayouts_block'));

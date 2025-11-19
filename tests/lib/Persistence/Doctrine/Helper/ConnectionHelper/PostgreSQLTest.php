@@ -7,23 +7,23 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\PostgreSQL;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Postgres::class)]
-final class PostgresTest extends TestCase
+#[CoversClass(PostgreSQL::class)]
+final class PostgreSQLTest extends TestCase
 {
     use DatabaseTrait;
 
-    private Postgres $helper;
+    private PostgreSQL $helper;
 
     protected function setUp(): void
     {
         $this->createDatabase();
 
-        $this->helper = new Postgres($this->databaseConnection);
+        $this->helper = new PostgreSQL($this->databaseConnection);
     }
 
     /**

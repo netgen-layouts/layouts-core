@@ -7,9 +7,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 use Doctrine\DBAL\Connection;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 
-use function sprintf;
-
-final class Postgres implements ConnectionHelperInterface
+final class SQLite implements ConnectionHelperInterface
 {
     public function __construct(
         private Connection $connection,
@@ -17,16 +15,23 @@ final class Postgres implements ConnectionHelperInterface
 
     public function nextId(string $table, string $column = 'id'): string
     {
-        return sprintf("nextval('%s_%s_seq')", $table, $column);
+        $query = $this->connection->createQueryBuilder();
+        $query->select('MAX(' . $column . ') AS id')
+            ->from($table);
+
+        $data = $query->fetchAllAssociative();
+
+        return (string) (($data[0]['id'] ?? 0) + 1);
     }
 
     public function lastId(string $table, string $column = 'id'): int
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select(sprintf("currval('%s_%s_seq') as currval", $table, $column));
+        $query->select('MAX(' . $column . ') AS id')
+            ->from($table);
 
         $data = $query->fetchAllAssociative();
 
-        return (int) ($data[0]['currval'] ?? 0);
+        return (int) ($data[0]['id'] ?? 0);
     }
 }

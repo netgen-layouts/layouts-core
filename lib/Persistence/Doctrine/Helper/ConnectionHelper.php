@@ -8,8 +8,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
-use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
-use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\PostgreSQL;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\SQLite;
 
 use function array_find;
 use function is_a;
@@ -26,8 +26,8 @@ final class ConnectionHelper implements ConnectionHelperInterface
     ) {
         $this->databaseSpecificHelpers = [
             // @todo SqlitePlatform was renamed to SQLitePlatform in DBAL 4.0
-            SqlitePlatform::class => new Sqlite($this->connection),
-            PostgreSQLPlatform::class => new Postgres($this->connection),
+            SqlitePlatform::class => new SQLite($this->connection),
+            PostgreSQLPlatform::class => new PostgreSQL($this->connection),
         ];
     }
 
