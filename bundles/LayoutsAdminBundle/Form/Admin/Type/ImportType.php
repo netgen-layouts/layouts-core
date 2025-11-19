@@ -36,8 +36,6 @@ final class ImportType extends AbstractType
                         maxSize: $this->maxUploadSize,
                         mimeTypes: [
                             'application/json',
-                            // Needs text/plain too: https://github.com/symfony/symfony/issues/37457
-                            'text/plain',
                         ],
                         mimeTypesMessage: 'import.file.mime_types_message',
                     ),
