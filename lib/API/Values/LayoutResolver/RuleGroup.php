@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\Collection;
-use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
@@ -14,7 +13,6 @@ use Ramsey\Uuid\UuidInterface;
 final class RuleGroup implements Value
 {
     use HydratorTrait;
-    use LazyPropertyTrait;
     use ValueStatusTrait;
 
     /**
