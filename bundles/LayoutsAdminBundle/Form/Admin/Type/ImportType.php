@@ -51,7 +51,7 @@ final class ImportType extends AbstractType
             [
                 'label' => 'import.import_mode',
                 'expanded' => true,
-                'data' => $this->importMode,
+                'data' => ImportMode::from($this->importMode),
                 'class' => ImportMode::class,
                 'choice_label' => static fn (ImportMode $mode): string => match ($mode) {
                     ImportMode::Copy => 'import.import_mode.copy',
