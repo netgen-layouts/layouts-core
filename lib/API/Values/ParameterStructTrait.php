@@ -7,6 +7,7 @@ namespace Netgen\Layouts\API\Values;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+use ReflectionClass;
 
 use function array_key_exists;
 use function is_object;
@@ -99,7 +100,10 @@ trait ParameterStructTrait
                 $parameter = $parameters->getParameter($name);
                 if ($parameter->getParameterDefinition()->getType()::getIdentifier() === $definition->getType()::getIdentifier()) {
                     $value = $parameter->getValue();
-                    $value = is_object($value) ? clone $value : $value;
+
+                    if (is_object($value) && new ReflectionClass($value::class)->isCloneable()) {
+                        $value = clone $value;
+                    }
                 }
             }
 
