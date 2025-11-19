@@ -112,7 +112,7 @@ final class AddItemsTest extends ApiTestCase
                 ['json' => $data],
             )->assertJson()
             ->assertStatus(Response::HTTP_BAD_REQUEST)
-            ->assertJsonMatches('message', 'There was an error validating "items": This value should be of type list.');
+            ->assertJsonMatches('message', 'There was an error validating "items": This value should be of type array.');
     }
 
     public function testAddItemsWithMissingItems(): void
