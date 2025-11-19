@@ -3,14 +3,6 @@ nglayouts_app:
     controller: netgen_layouts.controller.app.index
     methods: [GET]
 
-nglayouts_app_slash:
-    path: /app/
-    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
-    methods: [GET]
-    defaults:
-        route: nglayouts_app
-        permanent: true
-
 nglayouts_app_layout_form_create:
     path: /app/layouts/form/create
     controller: netgen_layouts.controller.app.layout.create_form

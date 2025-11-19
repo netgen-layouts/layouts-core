@@ -1,18 +1,5 @@
-# Redirect routes that redirect base paths like /mappings to /mappings/list
-# Specified in order to keep the context (e.g. siteaccess in eZ Platform)
-# which is otherwise lost with automatic redirect in RedirectableUrlMatcher
-# See: https://github.com/symfony/symfony/issues/12141
-
 nglayouts_admin:
     path: /admin
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    methods: [GET]
-    defaults:
-        route: nglayouts_admin_layout_resolver_index
-        permanent: true
-
-nglayouts_admin_slash:
-    path: /admin/
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
     methods: [GET]
     defaults:
@@ -27,24 +14,8 @@ nglayouts_admin_layout_resolver_root:
         route: nglayouts_admin_layout_resolver_index
         permanent: true
 
-nglayouts_admin_layout_resolver_root_slash:
-    path: /admin/mappings/
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    methods: [GET]
-    defaults:
-        route: nglayouts_admin_layout_resolver_index
-        permanent: true
-
 nglayouts_admin_layouts_root:
     path: /admin/layouts
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    methods: [GET]
-    defaults:
-        route: nglayouts_admin_layouts_index
-        permanent: true
-
-nglayouts_admin_layouts_root_slash:
-    path: /admin/layouts/
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
     methods: [GET]
     defaults:
@@ -59,24 +30,8 @@ nglayouts_admin_shared_layouts_root:
         route: nglayouts_admin_shared_layouts_index
         permanent: true
 
-nglayouts_admin_shared_layouts_root_slash:
-    path: /admin/shared_layouts/
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    methods: [GET]
-    defaults:
-        route: nglayouts_admin_shared_layouts_index
-        permanent: true
-
 nglayouts_admin_transfer_root:
     path: /admin/transfer
-    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
-    methods: [GET]
-    defaults:
-        route: nglayouts_admin_transfer_index
-        permanent: true
-
-nglayouts_admin_transfer_root_slash:
-    path: /admin/transfer/
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
     methods: [GET]
     defaults:
