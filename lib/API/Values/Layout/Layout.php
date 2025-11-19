@@ -6,7 +6,7 @@ namespace Netgen\Layouts\API\Values\Layout;
 
 use ArrayAccess;
 use Countable;
-use DateTimeInterface;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
 use Netgen\Layouts\API\Values\Value;
@@ -37,9 +37,9 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
 
     private string $description;
 
-    private DateTimeInterface $created;
+    private DateTimeImmutable $created;
 
-    private DateTimeInterface $modified;
+    private DateTimeImmutable $modified;
 
     private bool $shared;
 
@@ -87,7 +87,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns when was the layout first created.
      */
-    public function getCreated(): DateTimeInterface
+    public function getCreated(): DateTimeImmutable
     {
         return $this->created;
     }
@@ -95,7 +95,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns when was the layout last updated.
      */
-    public function getModified(): DateTimeInterface
+    public function getModified(): DateTimeImmutable
     {
         return $this->modified;
     }

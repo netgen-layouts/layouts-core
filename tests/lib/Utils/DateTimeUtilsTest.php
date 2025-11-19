@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Utils;
 
 use DateTimeImmutable;
-use DateTimeInterface;
 use DateTimeZone;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -51,7 +50,7 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     #[DataProvider('isBetweenDatesDataProvider')]
-    public function testIsBetweenDates(?DateTimeInterface $from = null, ?DateTimeInterface $to = null, bool $result = false): void
+    public function testIsBetweenDates(?DateTimeImmutable $from = null, ?DateTimeImmutable $to = null, bool $result = false): void
     {
         self::assertSame($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }
