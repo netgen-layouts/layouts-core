@@ -26,7 +26,7 @@ final class CollectionView implements ViewInterface
         return 'nglayouts_collection';
     }
 
-    public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = []): string
+    public function render(PagerfantaInterface $pagerfanta, callable $routeGenerator, array $options = []): string
     {
         $pagerTemplate = $this->template;
         if (array_key_exists('template', $options)) {

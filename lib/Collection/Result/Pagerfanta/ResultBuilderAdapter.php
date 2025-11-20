@@ -48,7 +48,7 @@ final class ResultBuilderAdapter implements AdapterInterface
      *
      * @return iterable<int, \Netgen\Layouts\Collection\Result\Result>
      */
-    public function getSlice($offset, $length): iterable
+    public function getSlice(int $offset, int $length): iterable
     {
         $result = $this->resultBuilder->build(
             $this->collection,
