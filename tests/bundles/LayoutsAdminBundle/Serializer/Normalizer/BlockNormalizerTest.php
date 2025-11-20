@@ -25,21 +25,17 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 
 #[CoversClass(BlockNormalizer::class)]
 final class BlockNormalizerTest extends TestCase
 {
-    private MockObject&NormalizerInterface $normalizerMock;
-
     private MockObject&BlockService $blockServiceMock;
 
     private BlockNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->normalizer = new BlockNormalizer($this->blockServiceMock);

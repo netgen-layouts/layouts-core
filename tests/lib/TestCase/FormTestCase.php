@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\TestCase;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
@@ -19,8 +17,6 @@ abstract class FormTestCase extends TestCase
     final protected FormTypeInterface $formType;
 
     final protected FormFactoryInterface $factory;
-
-    private FormBuilder $builder;
 
     protected function setUp(): void
     {
@@ -43,9 +39,6 @@ abstract class FormTestCase extends TestCase
         }
 
         $this->factory = $factoryBuilder->getFormFactory();
-
-        $dispatcherMock = $this->createMock(EventDispatcherInterface::class);
-        $this->builder = new FormBuilder(null, null, $dispatcherMock, $this->factory);
     }
 
     abstract protected function getMainType(): FormTypeInterface;
