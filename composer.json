@@ -13,8 +13,8 @@
         "php": "^8.4",
         "ext-intl": "*",
         "ext-mbstring": "*",
-        "netgen/layouts-ui": "~1.4.0",
-        "netgen/content-browser": "^1.4",
+        "netgen/layouts-ui": "~2.0.0",
+        "netgen/content-browser": "^2.0",
         "symfony/asset": "^7.3",
         "symfony/clock": "^7.3",
         "symfony/config": "^7.3",
@@ -65,7 +65,7 @@
     },
     "require-dev": {
         "netgen/layouts-coding-standard": "^2.0",
-        "netgen/layouts-standard": "~1.4.0",
+        "netgen/layouts-standard": "~2.0.0",
         "phpunit/phpunit": "^12.4",
         "symfony/runtime": "^7.3",
         "symfony/var-dumper": "^7.3",
@@ -133,7 +133,7 @@
     "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "1.4.x-dev"
+            "dev-master": "2.0.x-dev"
         }
     }
 }
