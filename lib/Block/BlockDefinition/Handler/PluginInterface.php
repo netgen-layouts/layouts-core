@@ -26,11 +26,9 @@ interface PluginInterface
      * Returns the list of block definition identifiers which this plugin
      * extends.
      *
-     * Will be added to interface in 2.0.
-     *
      * @return iterable<string>
      */
-    // public static function getExtendedIdentifiers(): iterable;
+    public static function getExtendedIdentifiers(): iterable;
 
     /**
      * Returns the list of fully qualified class names of the block definition handlers

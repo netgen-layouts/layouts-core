@@ -33,7 +33,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     /**
      * Human readable name of the block.
      */
-    public ?string $name = '';
+    public string $name = '';
 
     /**
      * Specifies if the block will be translatable.

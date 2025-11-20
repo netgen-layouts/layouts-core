@@ -20,8 +20,6 @@ parameters:
 
         # Netgen Layouts specifics
 
-        - '#Call to function method_exists\(\) with Netgen\\Layouts\\Layout\\Resolver\\(Condition|Target)TypeInterface and ''(export|import)'' will always evaluate to true.#'
-
         -
             message: '#Variable property access on object.#'
             path: lib/Utils/Hydrator.php
@@ -29,7 +27,5 @@ parameters:
         -
             message: '#Unsafe usage of new static\(\).#'
             path: lib/Utils/HydratorTrait.php
-
-        - '#Static call to instance method stdClass::getExtendedIdentifiers#'
 
         - '#Property Netgen\\Layouts\\Parameters\\Value\\LinkValue::\$linkType \(Netgen\\Layouts\\Parameters\\Value\\LinkType\|null\) is never assigned#'

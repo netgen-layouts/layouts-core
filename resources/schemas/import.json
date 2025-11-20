@@ -481,7 +481,7 @@
             "rule": {
                 "type": "object",
                 "description": "A rule",
-                "required": ["__type", "id", "status", "layout_id", "is_enabled", "priority", "targets", "conditions"],
+                "required": ["__type", "id", "status", "rule_group_id", "layout_id", "is_enabled", "priority", "description", "targets", "conditions"],
                 "additionalProperties": false,
                 "properties": {
                     "__type": {
@@ -500,7 +500,7 @@
                     },
                     "rule_group_id": {
                         "$ref": "#/definitions/simple/uuid",
-                        "description": "The ID of the group rule is located in (Not defining this property is DEPRECATED. Will become required in 2.0)"
+                        "description": "The ID of the group rule is located in"
                     },
                     "layout_id": {
                         "oneOf": [
@@ -519,11 +519,7 @@
                     },
                     "description": {
                         "type": "string",
-                        "description": "The description of the rule (if defined, has priority over DEPRECATED comment property. Will become required in 2.0)"
-                    },
-                    "comment": {
-                        "type": "string",
-                        "description": "The comment of the rule (DEPRECATED: Use description instead)"
+                        "description": "The description of the rule"
                     },
                     "targets": {
                         "type": "array",

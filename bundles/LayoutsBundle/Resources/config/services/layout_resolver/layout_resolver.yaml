@@ -16,4 +16,3 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.layout.resolver.registry.target_type"
-            - "@request_stack"

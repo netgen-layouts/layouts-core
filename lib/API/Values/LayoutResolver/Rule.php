@@ -79,16 +79,6 @@ final class Rule implements Value
     }
 
     /**
-     * Returns the rule comment.
-     *
-     * @deprecated use self::getDescription
-     */
-    public function getComment(): string
-    {
-        return $this->description;
-    }
-
-    /**
      * Returns the rule description.
      */
     public function getDescription(): string

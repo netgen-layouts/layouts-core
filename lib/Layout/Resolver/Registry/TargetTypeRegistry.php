@@ -10,13 +10,10 @@ use Countable;
 use IteratorAggregate;
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
-use Netgen\Layouts\Layout\Resolver\TargetType;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
 
 use function count;
-use function method_exists;
-use function trigger_deprecation;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
@@ -36,14 +33,6 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
     {
         foreach ($targetTypes as $targetType) {
             if ($targetType instanceof TargetTypeInterface) {
-                if (!method_exists($targetType, 'export')) {
-                    trigger_deprecation('netgen/layouts-core', '1.2', 'Implementing "%s" interface without implementing "%s" method is deprecated. Implement the method or extend the "%s" abstract class in your target type.', TargetTypeInterface::class, 'export', TargetType::class);
-                }
-
-                if (!method_exists($targetType, 'import')) {
-                    trigger_deprecation('netgen/layouts-core', '1.2', 'Implementing "%s" interface without implementing "%s" method is deprecated. Implement the method or extend the "%s" abstract class in your target type.', TargetTypeInterface::class, 'import', TargetType::class);
-                }
-
                 $this->targetTypes[$targetType::getType()] = $targetType;
             }
         }

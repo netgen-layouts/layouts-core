@@ -48,7 +48,6 @@
                     "is_enabled": false,
                     "priority": 100,
                     "description": "Sub rule",
-                    "comment": "Sub rule",
                     "targets": [],
                     "conditions": []
                 }

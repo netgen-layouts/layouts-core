@@ -7,9 +7,6 @@ namespace Netgen\Layouts\Layout\Resolver;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @method mixed export(mixed $value)
- * @method mixed import(mixed $value)
- *
  * Condition type is a high-level model of condition specifications which
  * need to match in order for rule and its layout to be used by the layout
  * resolving process.
@@ -43,10 +40,8 @@ interface ConditionTypeInterface
      * This is useful if exported value is different from a stored value, for example
      * when exporting IDs from an external CMS which need to be exported not as IDs
      * but as remote IDs.
-     *
-     * Will be added to the interface in 2.0.
      */
-    // public function export(mixed $value): mixed;
+    public function export(mixed $value): mixed;
 
     /*
      * Returns the condition value converted from the exported format.
@@ -54,8 +49,6 @@ interface ConditionTypeInterface
      * This is useful if stored value is different from an exported value, for example
      * when importing IDs from an external CMS which need to be imported as database IDs
      * in contrast to some kind of remote ID which would be stored in the export.
-     *
-     * Will be added to the interface in 2.0.
      */
-    // public function import(mixed $value): mixed;
+    public function import(mixed $value): mixed;
 }

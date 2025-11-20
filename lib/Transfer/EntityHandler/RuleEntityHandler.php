@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Transfer\EntityHandler;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
@@ -45,7 +44,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
         $createStruct = $this->layoutResolverService->newRuleCreateStruct();
 
         $createStruct->enabled = $data['is_enabled'];
-        $createStruct->description = $data['description'] ?? $data['comment'] ?? '';
+        $createStruct->description = $data['description'];
         $createStruct->priority = $data['priority'];
         $createStruct->layoutId = $data['layout_id'] !== null ?
             Uuid::fromString($data['layout_id']) :
@@ -58,7 +57,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
         $ruleDraft = $this->layoutResolverService->createRule(
             $createStruct,
             $this->layoutResolverService->loadRuleGroup(
-                Uuid::fromString($data['rule_group_id'] ?? RuleGroup::ROOT_UUID),
+                Uuid::fromString($data['rule_group_id']),
             ),
         );
 

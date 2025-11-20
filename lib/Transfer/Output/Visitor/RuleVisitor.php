@@ -43,7 +43,6 @@ final class RuleVisitor implements VisitorInterface
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
             'description' => $value->getDescription(),
-            'comment' => $value->getDescription(),
             'targets' => iterator_to_array($this->visitTargets($value, $outputVisitor)),
             'conditions' => iterator_to_array($this->visitConditions($value, $outputVisitor)),
         ];

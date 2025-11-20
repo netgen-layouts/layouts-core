@@ -22,15 +22,11 @@ final class UrlGenerator implements UrlGeneratorInterface
 
         $valueUrlGenerator = $this->getValueUrlGenerator($item->getValueType());
 
-        if ($valueUrlGenerator instanceof ExtendedValueUrlGeneratorInterface) {
-            if ($type === UrlType::Admin) {
-                return $valueUrlGenerator->generateAdminUrl($object) ?? '';
-            }
-
-            return $valueUrlGenerator->generateDefaultUrl($object) ?? '';
+        if ($type === UrlType::Admin) {
+            return $valueUrlGenerator->generateAdminUrl($object) ?? '';
         }
 
-        return $valueUrlGenerator->generate($object) ?? '';
+        return $valueUrlGenerator->generateDefaultUrl($object) ?? '';
     }
 
     /**

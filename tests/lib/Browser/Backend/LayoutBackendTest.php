@@ -228,27 +228,4 @@ final class LayoutBackendTest extends TestCase
 
         self::assertSame(0, $count);
     }
-
-    public function testSearch(): void
-    {
-        $items = $this->backend->search('test');
-
-        self::assertIsArray($items);
-        self::assertEmpty($items);
-    }
-
-    public function testSearchWithOffsetAndLimit(): void
-    {
-        $items = $this->backend->search('test', 5, 10);
-
-        self::assertIsArray($items);
-        self::assertEmpty($items);
-    }
-
-    public function testSearchCount(): void
-    {
-        $count = $this->backend->searchCount('test');
-
-        self::assertSame(0, $count);
-    }
 }

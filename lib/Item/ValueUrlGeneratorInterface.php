@@ -14,16 +14,22 @@ namespace Netgen\Layouts\Item;
 interface ValueUrlGeneratorInterface
 {
     /**
-     * Returns the object path. Take note that this is not a slug,
+     * Returns the default object path. Take note that this is not a slug,
      * but a full path, i.e. starting with /.
      *
      * If the path cannot be generated, this can return null.
      *
-     * @deprecated Will be removed in 2.0. Implement
-     * ExtendedValueUrlGeneratorInterface and use generateDefaultUrl method
-     * instead.
+     * @param T $object
+     */
+    public function generateDefaultUrl(object $object): ?string;
+
+    /**
+     * Returns the admin object path. Take note that this is not a slug,
+     * but a full path, i.e. starting with /.
+     *
+     * If the path cannot be generated, this can return null.
      *
      * @param T $object
      */
-    public function generate(object $object): ?string;
+    public function generateAdminUrl(object $object): ?string;
 }

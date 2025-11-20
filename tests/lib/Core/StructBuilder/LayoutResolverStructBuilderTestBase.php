@@ -27,7 +27,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'comment' => '',
                 'description' => '',
                 'enabled' => true,
                 'layoutId' => null,
@@ -44,7 +43,6 @@ abstract class LayoutResolverStructBuilderTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'comment' => null,
                 'description' => null,
                 'layoutId' => null,
             ],

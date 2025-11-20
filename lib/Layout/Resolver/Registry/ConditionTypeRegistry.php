@@ -10,13 +10,10 @@ use Countable;
 use IteratorAggregate;
 use Netgen\Layouts\Exception\Layout\ConditionTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
-use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Traversable;
 
 use function count;
-use function method_exists;
-use function trigger_deprecation;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
@@ -36,14 +33,6 @@ final class ConditionTypeRegistry implements IteratorAggregate, Countable, Array
     {
         foreach ($conditionTypes as $conditionType) {
             if ($conditionType instanceof ConditionTypeInterface) {
-                if (!method_exists($conditionType, 'export')) {
-                    trigger_deprecation('netgen/layouts-core', '1.2', 'Implementing "%s" interface without implementing "%s" method is deprecated. Implement the method or extend the "%s" abstract class in your condition type.', ConditionTypeInterface::class, 'export', ConditionType::class);
-                }
-
-                if (!method_exists($conditionType, 'import')) {
-                    trigger_deprecation('netgen/layouts-core', '1.2', 'Implementing "%s" interface without implementing "%s" method is deprecated. Implement the method or extend the "%s" abstract class in your condition type.', ConditionTypeInterface::class, 'import', ConditionType::class);
-                }
-
                 $this->conditionTypes[$conditionType::getType()] = $conditionType;
             }
         }

@@ -76,6 +76,7 @@ final class CreateType extends AbstractType
                     new Constraints\Type(type: 'string'),
                 ],
                 'property_path' => 'description',
+                'empty_data' => '',
             ],
         );
 

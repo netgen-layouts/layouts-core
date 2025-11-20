@@ -46,8 +46,6 @@ use function count;
 use function in_array;
 use function is_int;
 use function iterator_to_array;
-use function sprintf;
-use function trigger_deprecation;
 
 final class BlockService implements BlockServiceInterface
 {
@@ -116,9 +114,6 @@ final class BlockService implements BlockServiceInterface
         );
     }
 
-    /**
-     * @param string[]|null $locales
-     */
     public function loadPlaceholderBlocks(Block $block, string $placeholder, ?array $locales = null, bool $useMainLocale = true): BlockList
     {
         $persistenceBlock = $this->blockHandler->loadBlock(
@@ -640,10 +635,6 @@ final class BlockService implements BlockServiceInterface
             function () use ($blockCreateStruct, $layout, $targetBlock, $placeholder, $position): PersistenceBlock {
                 $blockDefinition = $blockCreateStruct->getDefinition();
 
-                if ($blockCreateStruct->name === null) {
-                    trigger_deprecation('netgen/layouts-core', '1.3', sprintf('Setting %s::$name property to null is deprecated. Since 2.0, only valid value will be a string.', APIBlockCreateStruct::class));
-                }
-
                 $createdBlock = $this->blockHandler->createBlock(
                     BlockCreateStruct::fromArray(
                         [
@@ -652,7 +643,7 @@ final class BlockService implements BlockServiceInterface
                             'definitionIdentifier' => $blockDefinition->getIdentifier(),
                             'viewType' => $blockCreateStruct->viewType,
                             'itemViewType' => $blockCreateStruct->itemViewType,
-                            'name' => $blockCreateStruct->name ?? '',
+                            'name' => $blockCreateStruct->name,
                             'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                             'isTranslatable' => $blockCreateStruct->isTranslatable,
                             'parameters' => iterator_to_array(

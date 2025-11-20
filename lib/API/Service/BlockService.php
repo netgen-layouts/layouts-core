@@ -13,9 +13,6 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @method BlockList loadPlaceholderBlocks(Block $block, string $placeholder, ?string[] $locales = null, bool $useMainLocale = true)
- */
 interface BlockService extends TransactionService
 {
     /**
@@ -75,11 +72,9 @@ interface BlockService extends TransactionService
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * Will be added to interface in 2.0.
-     *
      * @param string[]|null $locales
      */
-    // public function loadPlaceholderBlocks(Block $block, string $placeholder, ?array $locales = null, bool $useMainLocale = true): BlockList;
+    public function loadPlaceholderBlocks(Block $block, string $placeholder, ?array $locales = null, bool $useMainLocale = true): BlockList;
 
     /**
      * Loads all blocks belonging to provided layout.

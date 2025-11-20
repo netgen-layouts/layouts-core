@@ -90,13 +90,6 @@ interface LayoutService extends TransactionService
     public function getRelatedLayoutsCount(Layout $sharedLayout): int;
 
     /**
-     * Returns if layout with provided UUID has a provided status (published, draft or archived).
-     *
-     * @deprecated Will be removed in 2.0. Use LayoutService::layoutExists.
-     */
-    public function hasStatus(UuidInterface $layoutId, Status $status): bool;
-
-    /**
      * Returns if layout with provided UUID, and optionally status, exists.
      */
     public function layoutExists(UuidInterface $layoutId, ?Status $status = null): bool;

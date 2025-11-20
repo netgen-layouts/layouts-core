@@ -53,6 +53,7 @@ final class CreateTypeTest extends FormTestCase
     {
         $submittedData = [
             'name' => 'My layout',
+            'description' => 'My layout description',
             'layoutType' => '4_zones_a',
             'shared' => true,
         ];
@@ -69,6 +70,7 @@ final class CreateTypeTest extends FormTestCase
         self::assertTrue($form->isSynchronized());
 
         self::assertSame('My layout', $struct->name);
+        self::assertSame('My layout description', $struct->description);
         self::assertTrue($struct->shared);
 
         self::assertInstanceOf(LayoutType::class, $struct->layoutType);

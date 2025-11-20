@@ -57,14 +57,4 @@ final class MyValueTypeBackend implements BackendInterface
     {
         return 0;
     }
-
-    public function search(string $searchText, int $offset = 0, int $limit = 25): iterable
-    {
-        return [];
-    }
-
-    public function searchCount(string $searchText): int
-    {
-        return 0;
-    }
 }

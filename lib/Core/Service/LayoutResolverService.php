@@ -50,14 +50,11 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 use function array_map;
 use function count;
-use function mb_trim;
 use function sprintf;
-use function trigger_deprecation;
 
 final class LayoutResolverService implements APILayoutResolverService
 {
@@ -134,19 +131,6 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList
-    {
-        if ($layout === null) {
-            return $this->loadRulesFromGroup(
-                $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
-                $offset,
-                $limit,
-            );
-        }
-
-        return $this->loadRulesForLayout($layout, $offset, $limit);
-    }
-
     public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList
     {
         if (!$layout->isPublished()) {
@@ -171,17 +155,6 @@ final class LayoutResolverService implements APILayoutResolverService
                 $persistenceRules,
             ),
         );
-    }
-
-    public function getRuleCount(?Layout $layout = null): int
-    {
-        if ($layout === null) {
-            return $this->getRuleCountFromGroup(
-                $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
-            );
-        }
-
-        return $this->getRuleCountForLayout($layout);
     }
 
     public function getRuleCountForLayout(Layout $layout): int
@@ -313,11 +286,6 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadCondition(UuidInterface $conditionId): RuleCondition
-    {
-        return $this->loadRuleCondition($conditionId);
-    }
-
     public function loadRuleCondition(UuidInterface $conditionId): RuleCondition
     {
         return $this->mapper->mapRuleCondition(
@@ -326,11 +294,6 @@ final class LayoutResolverService implements APILayoutResolverService
                 PersistenceStatus::Published,
             ),
         );
-    }
-
-    public function loadConditionDraft(UuidInterface $conditionId): RuleCondition
-    {
-        return $this->loadRuleConditionDraft($conditionId);
     }
 
     public function loadRuleConditionDraft(UuidInterface $conditionId): RuleCondition
@@ -374,15 +337,6 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('targetGroup', 'Rules can be created only in published groups.');
         }
 
-        $description = '';
-        if (mb_trim($ruleCreateStruct->description) !== '') {
-            $description = $ruleCreateStruct->description;
-        } elseif ($ruleCreateStruct->comment !== null && mb_trim($ruleCreateStruct->comment) !== '') {
-            trigger_deprecation('netgen/layouts-core', '1.3', sprintf('Using %s::$comment property is deprecated. Use RuleCreateStruct::$description instead.', APIRuleCreateStruct::class));
-
-            $description = $ruleCreateStruct->comment;
-        }
-
         $createdRule = $this->transaction(
             fn (): PersistenceRule => $this->layoutResolverHandler->createRule(
                 RuleCreateStruct::fromArray(
@@ -395,7 +349,7 @@ final class LayoutResolverService implements APILayoutResolverService
                             $ruleCreateStruct->layoutId,
                         'priority' => $ruleCreateStruct->priority,
                         'enabled' => $ruleCreateStruct->enabled,
-                        'description' => $description,
+                        'description' => $ruleCreateStruct->description,
                         'status' => PersistenceStatus::Draft,
                     ],
                 ),
@@ -424,7 +378,7 @@ final class LayoutResolverService implements APILayoutResolverService
                         'layoutId' => $ruleUpdateStruct->layoutId instanceof UuidInterface ?
                             $ruleUpdateStruct->layoutId->toString() :
                             $ruleUpdateStruct->layoutId,
-                        'description' => $ruleUpdateStruct->description ?? $ruleUpdateStruct->comment,
+                        'description' => $ruleUpdateStruct->description,
                     ],
                 ),
             ),
@@ -499,11 +453,6 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRule($movedRule);
     }
 
-    public function createDraft(Rule $rule, bool $discardExisting = false): Rule
-    {
-        return $this->createRuleDraft($rule, $discardExisting);
-    }
-
     public function createRuleDraft(Rule $rule, bool $discardExisting = false): Rule
     {
         if (!$rule->isPublished()) {
@@ -525,11 +474,6 @@ final class LayoutResolverService implements APILayoutResolverService
         );
 
         return $this->mapper->mapRule($ruleDraft);
-    }
-
-    public function discardDraft(Rule $rule): void
-    {
-        $this->discardRuleDraft($rule);
     }
 
     public function discardRuleDraft(Rule $rule): void
@@ -582,11 +526,6 @@ final class LayoutResolverService implements APILayoutResolverService
         );
 
         return $this->mapper->mapRule($publishedRule);
-    }
-
-    public function restoreFromArchive(Rule $rule): Rule
-    {
-        return $this->restoreRuleFromArchive($rule);
     }
 
     public function restoreRuleFromArchive(Rule $rule): Rule
@@ -1055,11 +994,6 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): RuleCondition
-    {
-        return $this->addRuleCondition($rule, $conditionCreateStruct);
-    }
-
     public function addRuleCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): RuleCondition
     {
         if (!$rule->isDraft()) {
@@ -1108,11 +1042,6 @@ final class LayoutResolverService implements APILayoutResolverService
         );
 
         return $this->mapper->mapRuleGroupCondition($createdCondition);
-    }
-
-    public function updateCondition(RuleCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleCondition
-    {
-        return $this->updateRuleCondition($condition, $conditionUpdateStruct);
     }
 
     public function updateRuleCondition(RuleCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleCondition

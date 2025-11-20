@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Block\Form;
 
-use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Form\TranslatableTypeTrait;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -21,7 +21,7 @@ final class DesignEditType extends EditType
         $this->addParametersForm(
             $builder,
             $options,
-            [BlockDefinitionHandler::GROUP_DESIGN],
+            [BlockDefinitionHandlerInterface::GROUP_DESIGN],
         );
 
         if ($locale !== $mainLocale) {

@@ -13,11 +13,9 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 use function count;
 use function in_array;
-use function trigger_deprecation;
 use function usort;
 
 final class LayoutResolver implements LayoutResolverInterface
@@ -25,48 +23,24 @@ final class LayoutResolver implements LayoutResolverInterface
     public function __construct(
         private LayoutResolverService $layoutResolverService,
         private TargetTypeRegistry $targetTypeRegistry,
-        private RequestStack $requestStack,
     ) {}
 
-    public function resolveRule(?Request $request = null, array $enabledConditions = []): ?Rule
+    public function resolveRule(Request $request, array $enabledConditions = []): ?Rule
     {
-        if ($request === null) {
-            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverInterface::resolveRule" method with no request is deprecated. In 2.0, "$request" argument will become required.');
-        }
-
-        $currentRequest = $request ?? $this->requestStack->getCurrentRequest();
-        if (!$currentRequest instanceof Request) {
-            return null;
-        }
-
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID));
 
-        foreach ($this->innerResolveRules($ruleGroup, $currentRequest, $enabledConditions) as $resolvedRule) {
+        foreach ($this->innerResolveRules($ruleGroup, $request, $enabledConditions) as $resolvedRule) {
             return $resolvedRule;
         }
 
         return null;
     }
 
-    public function resolveRules(?Request $request = null, array $enabledConditions = []): array
+    public function resolveRules(Request $request, array $enabledConditions = []): array
     {
-        if ($request === null) {
-            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverInterface::resolveRules" method with no request is deprecated. In 2.0, "$request" argument will become required.');
-        }
-
-        $currentRequest = $request ?? $this->requestStack->getCurrentRequest();
-        if (!$currentRequest instanceof Request) {
-            return [];
-        }
-
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID));
 
-        return [...$this->innerResolveRules($ruleGroup, $currentRequest, $enabledConditions)];
-    }
-
-    public function matches(Rule $rule, Request $request, array $enabledConditions = []): bool
-    {
-        return $this->conditionsMatch($rule->getConditions(), $request, $enabledConditions);
+        return [...$this->innerResolveRules($ruleGroup, $request, $enabledConditions)];
     }
 
     /**

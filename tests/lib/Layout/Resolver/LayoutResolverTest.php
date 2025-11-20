@@ -25,7 +25,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 #[CoversClass(LayoutResolver::class)]
 final class LayoutResolverTest extends TestCase
@@ -33,8 +32,6 @@ final class LayoutResolverTest extends TestCase
     private MockObject&LayoutResolverService $layoutResolverServiceMock;
 
     private TargetTypeRegistry $targetTypeRegistry;
-
-    private RequestStack $requestStack;
 
     private LayoutResolver $layoutResolver;
 
@@ -45,9 +42,6 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('loadRuleGroups')
             ->willReturn(new RuleGroupList());
-
-        $this->requestStack = new RequestStack();
-        $this->requestStack->push(Request::create('/'));
 
         $this->targetTypeRegistry = new TargetTypeRegistry([]);
         $this->createLayoutResolver();
@@ -114,7 +108,7 @@ final class LayoutResolverTest extends TestCase
                 ],
             );
 
-        $resolvedRules = $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest());
+        $resolvedRules = $this->layoutResolver->resolveRules(Request::create('/'));
 
         self::assertCount(4, $resolvedRules);
 
@@ -161,7 +155,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
+        self::assertSame([$rule1], $this->layoutResolver->resolveRules(Request::create('/')));
     }
 
     public function testResolveRulesWithDisabledRule(): void
@@ -201,7 +195,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
+        self::assertSame([$rule1], $this->layoutResolver->resolveRules(Request::create('/')));
     }
 
     public function testResolveRulesWithNoValidRules(): void
@@ -241,7 +235,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
+        self::assertSame([], $this->layoutResolver->resolveRules(Request::create('/')));
     }
 
     public function testResolveRulesWithNoTargetValue(): void
@@ -286,7 +280,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
+        self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules(Request::create('/')));
     }
 
     public function testResolveRulesWithNoTargetValues(): void
@@ -310,7 +304,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::never())
             ->method('matchRules');
 
-        self::assertSame([], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
+        self::assertSame([], $this->layoutResolver->resolveRules(Request::create('/')));
     }
 
     /**
@@ -362,7 +356,7 @@ final class LayoutResolverTest extends TestCase
 
         self::assertSame(
             $resolved ? [$rule2] : [],
-            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest(), ['condition2']),
+            $this->layoutResolver->resolveRules(Request::create('/'), ['condition2']),
         );
     }
 
@@ -404,7 +398,7 @@ final class LayoutResolverTest extends TestCase
 
         self::assertSame(
             $resolved ? [$rule] : [],
-            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()),
+            $this->layoutResolver->resolveRules(Request::create('/')),
         );
     }
 
@@ -474,7 +468,7 @@ final class LayoutResolverTest extends TestCase
                 ],
             );
 
-        self::assertSame($rule3, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
+        self::assertSame($rule3, $this->layoutResolver->resolveRule(Request::create('/')));
     }
 
     public function testResolveRuleWithInvalidRule(): void
@@ -514,7 +508,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame($rule1, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
+        self::assertSame($rule1, $this->layoutResolver->resolveRule(Request::create('/')));
     }
 
     public function testResolveRuleWithNoValidRules(): void
@@ -554,7 +548,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertNull($this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
+        self::assertNull($this->layoutResolver->resolveRule(Request::create('/')));
     }
 
     public function testResolveRuleWithNoTargetValue(): void
@@ -599,7 +593,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame($rule2, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
+        self::assertSame($rule2, $this->layoutResolver->resolveRule(Request::create('/')));
     }
 
     public function testResolveRuleWithNoTargetValues(): void
@@ -623,7 +617,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::never())
             ->method('matchRules');
 
-        self::assertNull($this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
+        self::assertNull($this->layoutResolver->resolveRule(Request::create('/')));
     }
 
     /**
@@ -665,7 +659,7 @@ final class LayoutResolverTest extends TestCase
         self::assertSame(
             $resolved ? $rule : null,
             $this->layoutResolver->resolveRule(
-                $this->requestStack->getCurrentRequest(),
+                Request::create('/'),
                 ['condition2'],
             ),
         );
@@ -707,30 +701,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule]));
 
-        self::assertSame($resolved ? $rule : null, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
-    }
-
-    /**
-     * @param string[] $conditionTypes
-     */
-    #[DataProvider('matchesDataProvider')]
-    public function testMatches(array $conditionTypes, bool $isMatch): void
-    {
-        $conditions = [];
-        foreach ($conditionTypes as $conditionType) {
-            $conditions[] = RuleCondition::fromArray(['value' => 42, 'conditionType' => $conditionType]);
-        }
-
-        $rule = Rule::fromArray(
-            [
-                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
-                'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection($conditions),
-            ],
-        );
-
-        self::assertSame($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
+        self::assertSame($resolved ? $rule : null, $this->layoutResolver->resolveRule(Request::create('/')));
     }
 
     public static function resolveRulesWithRuleConditionsDataProvider(): iterable
@@ -759,25 +730,11 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public static function matchesDataProvider(): iterable
-    {
-        return [
-            [[], true],
-            [[new ConditionType3(true)], true],
-            [[new ConditionType3(false)], false],
-            [[new ConditionType1(true), new ConditionType2(false)], false],
-            [[new ConditionType1(false), new ConditionType2(true)], false],
-            [[new ConditionType1(false), new ConditionType2(false)], false],
-            [[new ConditionType1(true), new ConditionType2(true)], true],
-        ];
-    }
-
     private function createLayoutResolver(): void
     {
         $this->layoutResolver = new LayoutResolver(
             $this->layoutResolverServiceMock,
             $this->targetTypeRegistry,
-            $this->requestStack,
         );
     }
 }

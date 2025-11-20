@@ -170,21 +170,6 @@ final class BlockValidatorTest extends TestCase
                     'definition' => self::getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
-                    'name' => null,
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                true,
-            ],
-            [
-                [
-                    'definition' => self::getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
                     'name' => '',
                     'isTranslatable' => false,
                     'alwaysAvailable' => true,

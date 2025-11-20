@@ -32,7 +32,7 @@ final class LayoutCreateStruct
     /**
      * Description of the layout.
      */
-    public ?string $description = '';
+    public string $description = '';
 
     /**
      * Specifies if this layout will be shared or not.

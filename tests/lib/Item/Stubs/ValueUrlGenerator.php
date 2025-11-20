@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Item\Stubs;
 
-use Netgen\Layouts\Item\ExtendedValueUrlGeneratorInterface;
+use Netgen\Layouts\Item\ValueUrlGeneratorInterface;
 
 /**
- * @implements \Netgen\Layouts\Item\ExtendedValueUrlGeneratorInterface<\Netgen\Layouts\Tests\Item\Stubs\Value>
+ * @implements \Netgen\Layouts\Item\ValueUrlGeneratorInterface<\Netgen\Layouts\Tests\Item\Stubs\Value>
  */
-final class ValueUrlGenerator implements ExtendedValueUrlGeneratorInterface
+final class ValueUrlGenerator implements ValueUrlGeneratorInterface
 {
     public function generateDefaultUrl(object $object): string
     {
@@ -19,10 +19,5 @@ final class ValueUrlGenerator implements ExtendedValueUrlGeneratorInterface
     public function generateAdminUrl(object $object): string
     {
         return '/admin/item-url';
-    }
-
-    public function generate(object $object): string
-    {
-        return $this->generateDefaultUrl($object);
     }
 }

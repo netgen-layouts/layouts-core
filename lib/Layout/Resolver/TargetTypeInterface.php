@@ -7,9 +7,6 @@ namespace Netgen\Layouts\Layout\Resolver;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @method mixed export(mixed $value)
- * @method mixed import(mixed $value)
- *
  * Target type is a high level representation of an URL or a set of URLs
  * as used by the backend CMS on which the layout resolving process is performed.
  *
@@ -48,10 +45,8 @@ interface TargetTypeInterface
      * This is useful if exported value is different from a stored value, for example
      * when exporting IDs from an external CMS which need to be exported not as IDs
      * but as remote IDs.
-     *
-     * Will be added to the interface in 2.0.
      */
-    // public function export(mixed $value): mixed;
+    public function export(mixed $value): mixed;
 
     /*
      * Returns the target value converted from the exported format.
@@ -59,8 +54,6 @@ interface TargetTypeInterface
      * This is useful if stored value is different from an exported value, for example
      * when importing IDs from an external CMS which need to be imported as database IDs
      * in contrast to some kind of remote ID which would be stored in the export.
-     *
-     * Will be added to the interface in 2.0.
      */
-    // public function import(mixed $value): mixed;
+    public function import(mixed $value): mixed;
 }

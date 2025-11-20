@@ -9,7 +9,6 @@ use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
 use function array_filter;
 use function array_values;
 use function is_a;
-use function method_exists;
 
 final class HandlerPluginRegistry
 {
@@ -41,11 +40,9 @@ final class HandlerPluginRegistry
             array_filter(
                 $this->handlerPlugins,
                 static function (PluginInterface $plugin) use ($identifier, $handlerClass): bool {
-                    if (method_exists($plugin, 'getExtendedIdentifiers')) {
-                        foreach ($plugin::getExtendedIdentifiers() as $extendedIdentifier) {
-                            if ($extendedIdentifier === $identifier) {
-                                return true;
-                            }
+                    foreach ($plugin::getExtendedIdentifiers() as $extendedIdentifier) {
+                        if ($extendedIdentifier === $identifier) {
+                            return true;
                         }
                     }
 

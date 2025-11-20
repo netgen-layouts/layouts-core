@@ -10,7 +10,6 @@
             "is_enabled": true,
             "priority": 120,
             "description": "First rule",
-            "comment": "First rule",
             "targets": [
                 {
                     "id": "57f5a929-ff00-5fcb-8fdf-3be3b1428df3",
@@ -29,7 +28,6 @@
             "is_enabled": true,
             "priority": 110,
             "description": "Second rule",
-            "comment": "Second rule",
             "targets": [],
             "conditions": [
                 {
@@ -54,7 +52,6 @@
             "is_enabled": false,
             "priority": 100,
             "description": "Third rule",
-            "comment": "Third rule",
             "targets": [],
             "conditions": []
         }

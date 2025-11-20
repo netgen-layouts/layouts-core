@@ -32,8 +32,6 @@ use Ramsey\Uuid\UuidInterface;
 use function array_fill_keys;
 use function array_map;
 use function count;
-use function sprintf;
-use function trigger_deprecation;
 
 final class LayoutService implements LayoutServiceInterface
 {
@@ -177,11 +175,6 @@ final class LayoutService implements LayoutServiceInterface
         return $this->layoutHandler->getRelatedLayoutsCount($persistenceLayout);
     }
 
-    public function hasStatus(UuidInterface $layoutId, Status $status): bool
-    {
-        return $this->layoutHandler->layoutExists($layoutId, PersistenceStatus::from($status->value));
-    }
-
     public function layoutExists(UuidInterface $layoutId, ?Status $status = null): bool
     {
         return $this->layoutHandler->layoutExists($layoutId, PersistenceStatus::tryFrom($status->value ?? -1));
@@ -264,10 +257,6 @@ final class LayoutService implements LayoutServiceInterface
             throw new BadStateException('name', 'Layout with provided name already exists.');
         }
 
-        if ($layoutCreateStruct->description === null) {
-            trigger_deprecation('netgen/layouts-core', '1.3', sprintf('Setting %s::$description property to null is deprecated. Since 2.0, only valid value will be a string.', APILayoutCreateStruct::class));
-        }
-
         $createdLayout = $this->transaction(
             function () use ($layoutCreateStruct): PersistenceLayout {
                 $createdLayout = $this->layoutHandler->createLayout(
@@ -278,7 +267,7 @@ final class LayoutService implements LayoutServiceInterface
                                 $layoutCreateStruct->uuid,
                             'type' => $layoutCreateStruct->layoutType->getIdentifier(),
                             'name' => $layoutCreateStruct->name,
-                            'description' => $layoutCreateStruct->description ?? '',
+                            'description' => $layoutCreateStruct->description,
                             'status' => PersistenceStatus::Draft,
                             'shared' => $layoutCreateStruct->shared,
                             'mainLocale' => $layoutCreateStruct->mainLocale,

@@ -174,7 +174,7 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    public function testCreateDraft(): void
+    public function testCreateRuleDraft(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
@@ -195,10 +195,10 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->createDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
+        $this->layoutResolverService->createRuleDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
     }
 
-    public function testDiscardDraft(): void
+    public function testDiscardRuleDraft(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
@@ -215,7 +215,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->discardDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->layoutResolverService->discardRuleDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
     public function testPublishRule(): void
@@ -238,7 +238,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->publishRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    public function testRestoreFromArchive(): void
+    public function testRestoreRuleFromArchive(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
@@ -259,7 +259,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->restoreFromArchive(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]));
+        $this->layoutResolverService->restoreRuleFromArchive(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]));
     }
 
     public function testDeleteRule(): void
@@ -719,7 +719,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverService->deleteTarget(Target::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
     }
 
-    public function testAddCondition(): void
+    public function testAddRuleCondition(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
@@ -740,7 +740,7 @@ final class LayoutResolverServiceTest extends TestCase
         $conditionCreateStruct->value = 42;
         $conditionCreateStruct->type = 'route_parameter';
 
-        $this->layoutResolverService->addCondition(
+        $this->layoutResolverService->addRuleCondition(
             Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
             $conditionCreateStruct,
         );
@@ -773,7 +773,7 @@ final class LayoutResolverServiceTest extends TestCase
         );
     }
 
-    public function testUpdateCondition(): void
+    public function testUpdateRuleCondition(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
@@ -793,7 +793,7 @@ final class LayoutResolverServiceTest extends TestCase
         $conditionUpdateStruct = new ConditionUpdateStruct();
         $conditionUpdateStruct->value = 42;
 
-        $this->layoutResolverService->updateCondition(
+        $this->layoutResolverService->updateRuleCondition(
             RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'conditionType' => new RouteParameter()]),
             $conditionUpdateStruct,
         );
