@@ -42,7 +42,7 @@ final class Exception extends Mapper
         if (count($this->statusCodes) === 0) {
             foreach (Response::$statusTexts as $statusCode => $statusText) {
                 if ($statusCode >= 400 && $statusCode < 600) {
-                    $this->statusCodes[sprintf('%d (%s)', $statusCode, $statusText)] = (int) $statusCode;
+                    $this->statusCodes[sprintf('%d (%s)', $statusCode, $statusText)] = $statusCode;
                 }
             }
         }

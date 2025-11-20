@@ -137,7 +137,7 @@ final class LinkType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        /** @var \Netgen\Layouts\Parameters\Value\LinkType $linkType */
+        /** @var \Netgen\Layouts\Parameters\Value\LinkType|null $linkType */
         $linkType = $form->get('link_type')->getData();
         if ($linkType === null || !$form->has($linkType->value)) {
             return;

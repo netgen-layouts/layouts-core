@@ -8,7 +8,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-use function is_string;
 use function str_starts_with;
 
 /**
@@ -64,9 +63,9 @@ final class PolicyToRoleMapVoter extends Voter
         private AccessDecisionManagerInterface $accessDecisionManager,
     ) {}
 
-    protected function supports(mixed $attribute, mixed $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
-        return is_string($attribute) && str_starts_with($attribute, 'nglayouts:');
+        return str_starts_with($attribute, 'nglayouts:');
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
