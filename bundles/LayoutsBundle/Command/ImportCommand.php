@@ -48,10 +48,13 @@ final class ImportCommand extends Command
             ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
+    }
 
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
         $file = $input->getArgument('file');
         if (!is_string($file) || !file_exists($file)) {
             throw new RuntimeException('Provided file does not exist.');
@@ -116,8 +119,6 @@ final class ImportCommand extends Command
                 $this->io->newLine();
 
                 ++$errorCount;
-
-                continue;
             }
         }
 

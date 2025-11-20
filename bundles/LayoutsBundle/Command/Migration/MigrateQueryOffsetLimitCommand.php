@@ -45,10 +45,6 @@ final class MigrateQueryOffsetLimitCommand extends Command
         ],
     ];
 
-    private InputInterface $input;
-
-    private OutputInterface $output;
-
     private SymfonyStyle $io;
 
     public function __construct(
@@ -63,15 +59,12 @@ final class MigrateQueryOffsetLimitCommand extends Command
     {
         $this
             ->setDescription('Migrates the query offset and limit parameters to collection offset and limit after upgrade to version 0.10.')
-            ->setHidden(true);
+            ->setHidden();
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
-        $this->input = $input;
-        $this->output = $output;
-
-        $this->io = new SymfonyStyle($this->input, $this->output);
+        $this->io = new SymfonyStyle($input, $output);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -121,14 +114,13 @@ final class MigrateQueryOffsetLimitCommand extends Command
                         " Your '{$queryTypeIdentifier}' query type has a limit parameter named '{$mapping['limit']}'.\n" :
                         " Your '{$queryTypeIdentifier}' query type DOES NOT have a limit parameter.\n") .
                     ' Is this correct?',
-                    true,
                 )
             );
 
             $queryTypeParameters[$queryTypeIdentifier] = $mapping;
         }
 
-        if (!$this->io->confirm('Do you want to start the migration now?', true)) {
+        if (!$this->io->confirm('Do you want to start the migration now?')) {
             return Command::FAILURE;
         }
 

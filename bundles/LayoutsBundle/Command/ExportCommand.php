@@ -46,10 +46,13 @@ final class ExportCommand extends Command
             ->setHelp('The command <info>%command.name%</info> exports Netgen Layouts entities.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
+    }
 
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
         $type = $input->getArgument('type');
         if (!is_string($type)) {
             throw new RuntimeException('Invalid import type.');

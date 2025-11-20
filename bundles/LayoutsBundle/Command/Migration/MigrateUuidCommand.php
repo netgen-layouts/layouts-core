@@ -38,10 +38,6 @@ final class MigrateUuidCommand extends Command
 
     private const string NAMESPACE_POLICY = 'a3468559-de48-4cc3-818d-7a3350ee5d40';
 
-    private InputInterface $input;
-
-    private OutputInterface $output;
-
     private SymfonyStyle $io;
 
     public function __construct(
@@ -55,15 +51,12 @@ final class MigrateUuidCommand extends Command
     {
         $this
             ->setDescription('Generates UUIDs for all records in Netgen Layouts database tables.')
-            ->setHidden(true);
+            ->setHidden();
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
-        $this->input = $input;
-        $this->output = $output;
-
-        $this->io = new SymfonyStyle($this->input, $this->output);
+        $this->io = new SymfonyStyle($input, $output);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

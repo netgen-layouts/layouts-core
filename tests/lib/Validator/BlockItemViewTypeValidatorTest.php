@@ -18,17 +18,15 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 #[CoversClass(BlockItemViewTypeValidator::class)]
 final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
-    private BlockDefinition $blockDefinition;
-
     protected function setUp(): void
     {
-        $this->blockDefinition = BlockDefinition::fromArray(
+        $blockDefinition = BlockDefinition::fromArray(
             [
                 'configProvider' => ConfigProvider::fromShortConfig(['large' => ['standard']]),
             ],
         );
 
-        $this->constraint = new BlockItemViewType(viewType: '', definition: $this->blockDefinition);
+        $this->constraint = new BlockItemViewType(viewType: '', definition: $blockDefinition);
 
         parent::setUp();
     }
