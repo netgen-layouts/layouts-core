@@ -64,7 +64,7 @@
         "nikolaposa/version": "^4.2"
     },
     "require-dev": {
-        "netgen/layouts-coding-standard": "^2.0",
+        "netgen/layouts-coding-standard": "^3.0",
         "netgen/layouts-standard": "~2.0.0",
         "phpunit/phpunit": "^12.4",
         "symfony/runtime": "^7.3",
