@@ -11,5 +11,5 @@ interface LayoutInterface
     /**
      * Returns the layout.
      */
-    public function getLayout(): Layout;
+    public Layout $layout { get; }
 }

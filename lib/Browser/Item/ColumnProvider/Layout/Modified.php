@@ -20,7 +20,7 @@ final class Modified implements ColumnValueProviderInterface
             return null;
         }
 
-        return $item->getLayout()->getModified()->format(
+        return $item->layout->getModified()->format(
             $this->dateFormat,
         );
     }

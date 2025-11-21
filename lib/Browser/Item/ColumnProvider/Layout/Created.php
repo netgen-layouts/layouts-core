@@ -20,7 +20,7 @@ final class Created implements ColumnValueProviderInterface
             return null;
         }
 
-        return $item->getLayout()->getCreated()->format(
+        return $item->layout->getCreated()->format(
             $this->dateFormat,
         );
     }

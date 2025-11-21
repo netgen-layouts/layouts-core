@@ -9,32 +9,23 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 
 final class Item implements ItemInterface, LayoutInterface
 {
+    public string $value {
+        get => $this->layout->getId()->toString();
+    }
+
+    public string $name {
+        get => $this->layout->getName();
+    }
+
+    public true $isVisible {
+        get => true;
+    }
+
+    public true $isSelectable {
+        get => true;
+    }
+
     public function __construct(
-        private Layout $layout,
+        private(set) Layout $layout,
     ) {}
-
-    public function getValue(): string
-    {
-        return $this->layout->getId()->toString();
-    }
-
-    public function getName(): string
-    {
-        return $this->layout->getName();
-    }
-
-    public function isVisible(): true
-    {
-        return true;
-    }
-
-    public function isSelectable(): true
-    {
-        return true;
-    }
-
-    public function getLayout(): Layout
-    {
-        return $this->layout;
-    }
 }

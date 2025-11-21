@@ -61,7 +61,7 @@ final class LayoutBackendTest extends TestCase
 
         $location = $this->backend->loadLocation(1);
 
-        self::assertSame((new RootLocation())->getLocationId(), $location->getLocationId());
+        self::assertSame(new RootLocation()->locationId, $location->locationId);
     }
 
     public function testLoadItem(): void
@@ -77,7 +77,7 @@ final class LayoutBackendTest extends TestCase
 
         $item = $this->backend->loadItem($uuid->toString());
 
-        self::assertSame($layout, $item->getLayout());
+        self::assertSame($layout, $item->layout);
     }
 
     public function testLoadItemThrowsNotFoundException(): void

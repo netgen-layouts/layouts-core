@@ -31,16 +31,16 @@ final class ItemTest extends TestCase
 
     public function testGetValue(): void
     {
-        self::assertSame($this->layoutId->toString(), $this->item->getValue());
+        self::assertSame($this->layoutId->toString(), $this->item->value);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('My layout', $this->item->getName());
+        self::assertSame('My layout', $this->item->name);
     }
 
     public function testGetLayout(): void
     {
-        self::assertSame($this->layout, $this->item->getLayout());
+        self::assertSame($this->layout, $this->item->layout);
     }
 }

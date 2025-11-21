@@ -16,6 +16,6 @@ final class Shared implements ColumnValueProviderInterface
             return null;
         }
 
-        return $item->getLayout()->isShared() ? 'Yes' : 'No';
+        return $item->layout->isShared() ? 'Yes' : 'No';
     }
 }
