@@ -68,7 +68,6 @@
         "netgen/layouts-standard": "~2.0.0",
         "phpunit/phpunit": "^12.4",
         "symfony/runtime": "^7.3",
-        "symfony/var-dumper": "^7.3",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-symfony": "^2.0",
