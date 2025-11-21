@@ -5,275 +5,275 @@ services:
 
     netgen_layouts.controller.admin.transfer.import:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Transfer\Import
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.transfer.importer"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.transfer.export:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Transfer\Export
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.transfer.serializer"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Layout resolver controllers
 
     netgen_layouts.controller.admin.layout_resolver.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\Index
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.create_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateRule
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.edit_rule_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditRuleForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.update_priorities:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdatePriorities
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.link_layout:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\LinkLayout
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.unlink_layout:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UnlinkLayout
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.enable_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EnableRule
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.disable_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DisableRule
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.copy_rule_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CopyRuleForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.create_rule_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateRuleDraft
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.discard_rule_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DiscardRuleDraft
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.publish_rule_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\PublishRuleDraft
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.delete_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteRule
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.delete:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\Delete
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.create_target_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateTargetForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.layout.resolver.registry.target_type"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.edit_target_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditTargetForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.delete_target:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteTarget
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.create_rule_condition_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateRuleConditionForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.layout.resolver.registry.condition_type"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.edit_rule_condition_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditRuleConditionForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layout_resolver.delete_rule_condition:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteRuleCondition
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Layouts controllers
 
     netgen_layouts.controller.admin.layouts.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\Index
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layouts.copy_layout_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\CopyLayoutForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layouts.delete_layout:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\DeleteLayout
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.layouts.clear_layout_cache:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\ClearLayoutCache
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.http_cache.invalidator"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Shared layouts controllers
 
     netgen_layouts.controller.admin.shared_layouts.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts\Index
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.shared_layouts.related_layouts:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts\RelatedLayouts
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.admin.shared_layouts.clear_related_layouts_cache:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts\ClearRelatedLayoutsCache
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.http_cache.invalidator"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     # App controllers
 
@@ -281,109 +281,109 @@ services:
 
     netgen_layouts.controller.app.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Index
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "%netgen_layouts.app.pagelayout%"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Layout controllers
 
     netgen_layouts.controller.app.layout.create_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Layout\CreateForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.locale.provider"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.app.layout.edit_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Layout\EditForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Block controllers
 
     netgen_layouts.controller.app.block.edit:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\Edit
-        public: true
         parent: netgen_layouts.controller.base
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.app.block.edit_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\EditForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.app.block.edit_config_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\EditConfigForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Collection controllers
 
     netgen_layouts.controller.app.collection.edit_collection_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditCollectionForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.app.collection.edit_item_config_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditItemConfigForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.app.collection.edit_query_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditQueryForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.app.collection.edit_item_view_type_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditItemViewTypeForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.app.collection.edit_slot_view_type_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditSlotViewTypeForm
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     # API controllers
 
@@ -391,73 +391,72 @@ services:
 
     netgen_layouts.controller.api.config.load_config:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadConfig
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.configuration"
             - "@security.csrf.token_manager"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.config.load_block_types:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadBlockTypes
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.block.registry.block_type"
             - "@netgen_layouts.block.registry.block_type_group"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.config.load_layout_types:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadLayoutTypes
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.layout.registry.layout_type"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Layout controllers
 
     netgen_layouts.controller.api.layout.load_shared_layouts:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadSharedLayouts
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.load:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Load
-        public: true
         parent: netgen_layouts.controller.base
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.load_layout_blocks:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadLayoutBlocks
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.load_zone_blocks:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LoadZoneBlocks
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.link_zone:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\LinkZone
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
@@ -465,19 +464,19 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.unlink_zone:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\UnlinkZone
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.create:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Create
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
@@ -486,10 +485,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.copy:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Copy
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
@@ -497,10 +496,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.change_type:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\ChangeType
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
@@ -509,28 +508,28 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.create_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\CreateDraft
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.discard_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\DiscardDraft
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.publish_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\PublishDraft
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
@@ -538,24 +537,25 @@ services:
             - "%netgen_layouts.app.automatic_cache_clear%"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.restore_from_archive:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\RestoreFromArchive
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.layout.delete:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\Delete
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Block controllers
 
@@ -566,14 +566,13 @@ services:
 
     netgen_layouts.controller.api.block.load:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Load
-        public: true
         parent: netgen_layouts.controller.base
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.create:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Create
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
@@ -583,10 +582,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.create_in_zone:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CreateInZone
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
@@ -597,10 +596,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.copy:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Copy
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
@@ -608,10 +607,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.copy_to_zone:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\CopyToZone
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
@@ -620,10 +619,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.move:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Move
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
@@ -631,10 +630,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.move_to_zone:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\MoveToZone
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
@@ -643,30 +642,30 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.restore:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Restore
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block.delete:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Delete
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Block collection controllers
 
     netgen_layouts.controller.api.block_collection.add_items:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\AddItems
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
@@ -675,10 +674,10 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block_collection.change_collection_type:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\ChangeCollectionType
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
@@ -687,42 +686,42 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.block_collection.load_collection_result:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection\LoadCollectionResult
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.collection.result.pagerfanta.factory"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     ## Collection controllers
 
     netgen_layouts.controller.api.collection.load_collection:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\LoadCollection
-        public: true
         parent: netgen_layouts.controller.base
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.collection.load_items:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\LoadItems
-        public: true
         parent: netgen_layouts.controller.base
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.collection.load_item:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\LoadItem
-        public: true
         parent: netgen_layouts.controller.base
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.collection.move_item:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\MoveItem
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
@@ -730,28 +729,28 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.collection.delete_item:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteItem
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.collection.delete_items:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteItems
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.collection.create_slot:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\CreateSlot
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
@@ -759,12 +758,13 @@ services:
             - setValidator: ["@validator"]
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_layouts.controller.api.collection.delete_slot:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection\DeleteSlot
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }

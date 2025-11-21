@@ -9,9 +9,9 @@ services:
 
     netgen_layouts.controller.block.view_ajax_block:
         class: Netgen\Bundle\LayoutsBundle\Controller\Block\ViewAjaxBlock
-        public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.error.handler"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
