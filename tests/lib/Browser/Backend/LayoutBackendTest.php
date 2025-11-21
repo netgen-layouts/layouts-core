@@ -212,14 +212,18 @@ final class LayoutBackendTest extends TestCase
     {
         $searchResult = $this->backend->searchItems(new SearchQuery('test'));
 
-        self::assertEmpty($searchResult->getResults());
+        self::assertEmpty($searchResult->results);
     }
 
     public function testSearchItemsWithOffsetAndLimit(): void
     {
-        $searchResult = $this->backend->searchItems((new SearchQuery('test'))->setOffset(5)->setLimit(10));
+        $searchQuery = new SearchQuery('test');
+        $searchQuery->offset = 5;
+        $searchQuery->limit = 10;
 
-        self::assertEmpty($searchResult->getResults());
+        $searchResult = $this->backend->searchItems($searchQuery);
+
+        self::assertEmpty($searchResult->results);
     }
 
     public function testSearchItemsCount(): void
