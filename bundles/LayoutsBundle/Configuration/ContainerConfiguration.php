@@ -13,10 +13,8 @@ use function array_key_exists;
  * This is a default implementation of ConfigurationInterface,
  * allowing some parameters to be injected into constructor and
  * returned first if they exist, before checking the container.
- *
- * @final
  */
-class ContainerConfiguration implements ConfigurationInterface
+final class ContainerConfiguration implements ConfigurationInterface
 {
     /**
      * @param array<string, mixed> $parameters

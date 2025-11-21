@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\View;
 
-/**
- * @final
- */
-class Renderer implements RendererInterface
+final class Renderer implements RendererInterface
 {
     public function __construct(
         private ViewBuilderInterface $viewBuilder,

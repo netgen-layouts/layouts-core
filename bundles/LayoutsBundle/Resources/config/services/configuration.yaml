@@ -1,7 +1,6 @@
 services:
     netgen_layouts.configuration.container:
         class: Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration
-        lazy: true
         arguments:
             - "@service_container"
             -
@@ -17,4 +16,3 @@ services:
 
     netgen_layouts.configuration:
         alias: netgen_layouts.configuration.container
-        public: true

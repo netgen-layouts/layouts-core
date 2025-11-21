@@ -15,14 +15,12 @@ services:
 
     netgen_layouts.view.renderer:
         class: Netgen\Layouts\View\Renderer
-        lazy: true
         arguments:
             - "@netgen_layouts.view.view_builder"
             - "@netgen_layouts.view.view_renderer"
 
     netgen_layouts.view.template_resolver:
         class: Netgen\Layouts\View\TemplateResolver
-        lazy: true
         arguments:
-            - "@=service('netgen_layouts.configuration').getParameter('view')"
+            - "@netgen_layouts.configuration"
             - !abstract "Set in TemplateResolverPass"
