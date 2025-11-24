@@ -13,6 +13,6 @@ use Attribute;
 final class AsBlockPlugin
 {
     public function __construct(
-        public int $priority = 0,
+        private(set) int $priority = 0,
     ) {}
 }

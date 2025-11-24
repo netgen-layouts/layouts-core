@@ -13,6 +13,6 @@ use Attribute;
 final class AsCmsValueUrlGenerator
 {
     public function __construct(
-        public string $valueType,
+        private(set) string $valueType,
     ) {}
 }

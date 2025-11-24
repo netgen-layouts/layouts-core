@@ -13,6 +13,6 @@ use Attribute;
 final class AsParameterTypeFormMapper
 {
     public function __construct(
-        public string $type,
+        private(set) string $type,
     ) {}
 }

@@ -10,6 +10,6 @@ use Attribute;
 final class DynamicParameter
 {
     public function __construct(
-        public string $parameterName,
+        private(set) string $parameterName,
     ) {}
 }
