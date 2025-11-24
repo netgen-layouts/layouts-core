@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection;
 
-use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Netgen\Layouts\Collection\QueryType\QueryType;
 use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -19,8 +18,6 @@ use function sprintf;
 
 final class QueryTypePass implements CompilerPassInterface
 {
-    use DefinitionClassTrait;
-
     private const string SERVICE_NAME = 'netgen_layouts.collection.registry.query_type';
     private const string TAG_NAME = 'netgen_layouts.query_type_handler';
 
@@ -41,20 +38,12 @@ final class QueryTypePass implements CompilerPassInterface
             $foundHandler = null;
 
             foreach ($queryTypeHandlers as $queryTypeHandler => $tags) {
-                $handlerClass = $this->getDefinitionClass($container, $queryTypeHandler);
-
                 foreach ($tags as $tag) {
                     if (($tag['type'] ?? '') === $handlerIdentifier) {
                         $foundHandler = $queryTypeHandler;
 
                         break 2;
                     }
-                }
-
-                if (($handlerClass::$defaultType ?? '') === $handlerIdentifier) {
-                    $foundHandler = $queryTypeHandler;
-
-                    break;
                 }
             }
 

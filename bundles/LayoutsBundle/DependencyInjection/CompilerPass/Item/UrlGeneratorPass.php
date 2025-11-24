@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item;
 
-use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -17,8 +16,6 @@ use function preg_match;
 
 final class UrlGeneratorPass implements CompilerPassInterface
 {
-    use DefinitionClassTrait;
-
     private const string SERVICE_NAME = 'netgen_layouts.item.url_generator';
     private const string TAG_NAME = 'netgen_layouts.cms_value_url_generator';
 
@@ -39,14 +36,6 @@ final class UrlGeneratorPass implements CompilerPassInterface
 
                     continue 2;
                 }
-            }
-
-            $urlGeneratorClass = $this->getDefinitionClass($container, $valueUrlGenerator);
-            if (isset($urlGeneratorClass::$defaultValueType)) {
-                $this->validateValueType($urlGeneratorClass::$defaultValueType);
-                $valueUrlGenerators[$urlGeneratorClass::$defaultValueType] = new ServiceClosureArgument(new Reference($valueUrlGenerator));
-
-                continue;
             }
         }
 

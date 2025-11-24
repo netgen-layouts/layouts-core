@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item;
 
-use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -17,8 +16,6 @@ use function preg_match;
 
 final class CmsItemLoaderPass implements CompilerPassInterface
 {
-    use DefinitionClassTrait;
-
     private const string SERVICE_NAME = 'netgen_layouts.item.item_loader';
     private const string TAG_NAME = 'netgen_layouts.cms_value_loader';
 
@@ -39,14 +36,6 @@ final class CmsItemLoaderPass implements CompilerPassInterface
 
                     continue 2;
                 }
-            }
-
-            $valueLoaderClass = $this->getDefinitionClass($container, $serviceName);
-            if (isset($valueLoaderClass::$defaultValueType)) {
-                $this->validateValueType($valueLoaderClass::$defaultValueType);
-                $valueLoaders[$valueLoaderClass::$defaultValueType] = new ServiceClosureArgument(new Reference($serviceName));
-
-                continue;
             }
         }
 

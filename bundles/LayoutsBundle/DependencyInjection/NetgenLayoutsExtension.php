@@ -357,5 +357,47 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
                 $definition->addTag('netgen_layouts.cms_value_url_generator', ['value_type' => $attribute->valueType]);
             },
         );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsTargetType::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen_layouts.target_type');
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsTargetTypeFormMapper::class,
+            static function (ChildDefinition $definition, Attribute\AsTargetTypeFormMapper $attribute): void {
+                $definition->addTag('netgen_layouts.target_type.form_mapper', ['target_type' => $attribute->type]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsDoctrineTargetTypeHandler::class,
+            static function (ChildDefinition $definition, Attribute\AsDoctrineTargetTypeHandler $attribute): void {
+                $definition->addTag('netgen_layouts.target_type.doctrine_handler', ['target_type' => $attribute->type]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsConditionType::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen_layouts.condition_type');
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsConditionTypeFormMapper::class,
+            static function (ChildDefinition $definition, Attribute\AsConditionTypeFormMapper $attribute): void {
+                $definition->addTag('netgen_layouts.condition_type.form_mapper', ['condition_type' => $attribute->type]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsViewMatcher::class,
+            static function (ChildDefinition $definition, Attribute\AsViewMatcher $attribute): void {
+                $definition->addTag('netgen_layouts.view_matcher', ['identifier' => $attribute->identifier]);
+            },
+        );
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block;
 
 use Generator;
-use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
@@ -24,8 +23,6 @@ use function sprintf;
 
 final class BlockDefinitionPass implements CompilerPassInterface
 {
-    use DefinitionClassTrait;
-
     private const string SERVICE_NAME = 'netgen_layouts.block.registry.block_definition';
     private const string TAG_NAME = 'netgen_layouts.block_definition_handler';
 
@@ -45,11 +42,8 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $handlerIdentifier = $blockDefinition['handler'] ?? $identifier;
 
             $foundHandler = null;
-            $handlerClass = null;
 
             foreach ($blockDefinitionHandlers as $blockDefinitionHandler => $tags) {
-                $handlerClass = $this->getDefinitionClass($container, $blockDefinitionHandler);
-
                 foreach ($tags as $tag) {
                     if (($tag['identifier'] ?? '') === $handlerIdentifier) {
                         $foundHandler = $blockDefinitionHandler;
@@ -57,15 +51,9 @@ final class BlockDefinitionPass implements CompilerPassInterface
                         break 2;
                     }
                 }
-
-                if (($handlerClass::$defaultIdentifier ?? '') === $handlerIdentifier) {
-                    $foundHandler = $blockDefinitionHandler;
-
-                    break;
-                }
             }
 
-            if (!is_string($foundHandler) || !is_string($handlerClass)) {
+            if (!is_string($foundHandler)) {
                 throw new RuntimeException(
                     sprintf(
                         'Block definition handler for "%s" block definition does not exist.',
@@ -81,6 +69,10 @@ final class BlockDefinitionPass implements CompilerPassInterface
 
             $factoryMethod = 'buildBlockDefinition';
             $definitionClass = BlockDefinition::class;
+
+            $handlerClass = $container->getParameterBag()->resolveValue(
+                $container->findDefinition($foundHandler)->getClass(),
+            );
 
             if (is_a($handlerClass, ContainerDefinitionHandlerInterface::class, true)) {
                 $factoryMethod = 'buildContainerDefinition';

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Parameters;
 
-use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,8 +13,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class ParametersFormPass implements CompilerPassInterface
 {
-    use DefinitionClassTrait;
-
     private const string SERVICE_NAME = 'netgen_layouts.parameters.form.parameters';
     private const string TAG_NAME = 'netgen_layouts.parameter_type.form_mapper';
 
@@ -36,13 +33,6 @@ final class ParametersFormPass implements CompilerPassInterface
 
                     continue 2;
                 }
-            }
-
-            $mapperClass = $this->getDefinitionClass($container, $formMapper);
-            if (isset($mapperClass::$defaultParameterType)) {
-                $mappers[$mapperClass::$defaultParameterType] = new ServiceClosureArgument(new Reference($formMapper));
-
-                continue;
             }
         }
 

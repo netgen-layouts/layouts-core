@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View;
 
-use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,8 +13,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class TemplateResolverPass implements CompilerPassInterface
 {
-    use DefinitionClassTrait;
-
     private const string SERVICE_NAME = 'netgen_layouts.view.template_resolver';
     private const string TAG_NAME = 'netgen_layouts.view_matcher';
 
@@ -36,13 +33,6 @@ final class TemplateResolverPass implements CompilerPassInterface
 
                     continue 2;
                 }
-            }
-
-            $matcherClass = $this->getDefinitionClass($container, $serviceName);
-            if (isset($matcherClass::$defaultIdentifier)) {
-                $matchers[$matcherClass::$defaultIdentifier] = new ServiceClosureArgument(new Reference($serviceName));
-
-                continue;
             }
         }
 
