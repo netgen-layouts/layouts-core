@@ -12,7 +12,7 @@ final class PageLayoutNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode(): NodeDefinition
     {
-        $treeBuilder = new TreeBuilder('pagelayout', 'scalar');
+        $treeBuilder = new TreeBuilder('pagelayout', 'string');
         $node = $treeBuilder->getRootNode();
 
         $node

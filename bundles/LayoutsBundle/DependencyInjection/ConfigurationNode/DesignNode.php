@@ -12,7 +12,7 @@ final class DesignNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode(): NodeDefinition
     {
-        $treeBuilder = new TreeBuilder('design', 'scalar');
+        $treeBuilder = new TreeBuilder('design', 'string');
         $node = $treeBuilder->getRootNode();
 
         $node

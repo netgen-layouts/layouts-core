@@ -56,8 +56,7 @@ final class DesignNodeTest extends TestCase
 
         $this->assertConfigurationIsInvalid(
             $config,
-            '/Invalid type for path "netgen_layouts.design". Expected "?scalar"?, but got "?array"?./',
-            true,
+            'Invalid type for path "netgen_layouts.design". Expected "string", but got "array".',
         );
     }
 
