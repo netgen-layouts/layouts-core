@@ -12,11 +12,12 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Item\UrlType;
 use Throwable;
+use Uri\InvalidUriException;
+use Uri\Rfc3986\Uri;
 
 use function count;
 use function is_array;
 use function is_string;
-use function parse_url;
 use function str_replace;
 
 final class ItemRuntime
@@ -80,14 +81,22 @@ final class ItemRuntime
             }
 
             if (is_string($value)) {
-                $itemUri = parse_url($value);
-                if (!is_array($itemUri) || ($itemUri['scheme'] ?? '') === '' || !isset($itemUri['host'])) {
+                try {
+                    $itemUri = new Uri($value);
+                } catch (InvalidUriException) {
+                    throw ItemException::invalidValue($value);
+                }
+
+                $scheme = $itemUri->getScheme() ?? '';
+                $host = $itemUri->getHost() ?? '';
+
+                if ($scheme === '' || $host === '') {
                     throw ItemException::invalidValue($value);
                 }
 
                 return $this->cmsItemLoader->load(
-                    $itemUri['host'],
-                    str_replace('-', '_', $itemUri['scheme']),
+                    $host,
+                    str_replace('-', '_', $scheme),
                 );
             }
 
