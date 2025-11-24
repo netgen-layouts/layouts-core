@@ -70,8 +70,6 @@ final class QueryTypePass implements CompilerPassInterface
             $queryTypeServiceName = sprintf('netgen_layouts.collection.query_type.%s', $type);
             $queryTypeService = new Definition(QueryType::class);
 
-            $queryTypeService->setLazy(true);
-            $queryTypeService->setPublic(false);
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument($queryType);

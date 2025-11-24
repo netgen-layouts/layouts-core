@@ -37,8 +37,6 @@ final class ItemDefinitionPass implements CompilerPassInterface
             $itemDefinitionService = new Definition(ItemDefinition::class);
             $itemDefinitionService->setFactory([new Reference('netgen_layouts.collection.item_definition_factory'), 'buildItemDefinition']);
 
-            $itemDefinitionService->setLazy(true);
-            $itemDefinitionService->setPublic(false);
             $itemDefinitionService->addArgument($valueType);
             $itemDefinitionService->addArgument(iterator_to_array($this->getConfigHandlers($container)));
 

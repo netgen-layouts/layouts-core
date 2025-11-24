@@ -8,10 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
 
-/**
- * @final
- */
-class QueryType implements QueryTypeInterface
+final class QueryType implements QueryTypeInterface
 {
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;

@@ -12,10 +12,8 @@ use Netgen\Layouts\Utils\HydratorTrait;
  * block definition specifies what view types the block can have, block type
  * specifies the exact view type the new block will have once created. The
  * same goes for item view types and all of the block parameters.
- *
- * @final
  */
-class BlockType
+final class BlockType
 {
     use HydratorTrait;
 

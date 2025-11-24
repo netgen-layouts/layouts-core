@@ -6,10 +6,7 @@ namespace Netgen\Layouts\Block;
 
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 
-/**
- * @final
- */
-class BlockDefinition extends AbstractBlockDefinition
+final class BlockDefinition extends AbstractBlockDefinition
 {
     private BlockDefinitionHandlerInterface $handler;
 

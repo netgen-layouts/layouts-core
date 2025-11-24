@@ -7,10 +7,7 @@ namespace Netgen\Layouts\Collection\Item;
 use Netgen\Layouts\Config\ConfigDefinitionAwareTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
 
-/**
- * @final
- */
-class ItemDefinition implements ItemDefinitionInterface
+final class ItemDefinition implements ItemDefinitionInterface
 {
     use ConfigDefinitionAwareTrait;
     use HydratorTrait;

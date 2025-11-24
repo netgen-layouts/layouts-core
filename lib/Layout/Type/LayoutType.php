@@ -13,10 +13,7 @@ use function array_keys;
 use function count;
 use function in_array;
 
-/**
- * @final
- */
-class LayoutType implements LayoutTypeInterface
+final class LayoutType implements LayoutTypeInterface
 {
     use HydratorTrait;
 

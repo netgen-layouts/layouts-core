@@ -8,10 +8,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 
-/**
- * @final
- */
-class TwigBlockDefinition extends AbstractBlockDefinition implements TwigBlockDefinitionInterface
+final class TwigBlockDefinition extends AbstractBlockDefinition implements TwigBlockDefinitionInterface
 {
     private TwigBlockDefinitionHandlerInterface $handler;
 

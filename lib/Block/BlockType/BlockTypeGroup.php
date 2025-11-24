@@ -12,10 +12,8 @@ use function array_values;
 /**
  * Block type group is used to group together a list of block types for
  * grouped display in the app interface.
- *
- * @final
  */
-class BlockTypeGroup
+final class BlockTypeGroup
 {
     use HydratorTrait;
 

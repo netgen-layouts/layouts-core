@@ -52,8 +52,6 @@ final class ValueTypePass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, ValueType::class)
                 ->setArguments([$identifier, $valueType])
-                ->setLazy(true)
-                ->setPublic(false)
                 ->setFactory([ValueTypeFactory::class, 'buildValueType']);
 
             yield $identifier => new Reference($serviceIdentifier);

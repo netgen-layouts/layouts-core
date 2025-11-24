@@ -7,10 +7,7 @@ namespace Netgen\Layouts\Config;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
 
-/**
- * @final
- */
-class ConfigDefinition implements ConfigDefinitionInterface
+final class ConfigDefinition implements ConfigDefinitionInterface
 {
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
