@@ -11,11 +11,12 @@ use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Item\UrlType;
 use Throwable;
+use Uri\InvalidUriException;
+use Uri\Rfc3986\Uri;
 
 use function count;
 use function is_array;
 use function is_string;
-use function parse_url;
 use function str_replace;
 
 final class ItemRuntime
@@ -45,15 +46,20 @@ final class ItemRuntime
             $item = null;
 
             if (is_string($value)) {
-                $itemUri = parse_url($value);
-                if (!is_array($itemUri) || ($itemUri['scheme'] ?? '') === '' || !isset($itemUri['host'])) {
+                try {
+                    $itemUri = new Uri($value);
+                } catch (InvalidUriException) {
                     throw ItemException::invalidValue($value);
                 }
 
-                $item = $this->cmsItemLoader->load(
-                    $itemUri['host'],
-                    str_replace('-', '_', $itemUri['scheme'] ?? ''),
-                );
+                $scheme = (string) $itemUri->getScheme();
+                $host = (string) $itemUri->getHost();
+
+                if ($scheme === '' || $host === '') {
+                    throw ItemException::invalidValue($value);
+                }
+
+                $item = $this->cmsItemLoader->load($host, str_replace('-', '_', $scheme));
             } elseif (is_array($value) && count($value) === 2) {
                 $item = $this->cmsItemLoader->load($value[0], $value[1]);
             } elseif ($value instanceof CmsItemInterface) {

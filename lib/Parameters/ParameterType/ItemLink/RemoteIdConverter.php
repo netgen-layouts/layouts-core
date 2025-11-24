@@ -6,9 +6,9 @@ namespace Netgen\Layouts\Parameters\ParameterType\ItemLink;
 
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
+use Uri\InvalidUriException;
+use Uri\Rfc3986\Uri;
 
-use function is_array;
-use function parse_url;
 use function str_replace;
 
 final class RemoteIdConverter
@@ -28,18 +28,25 @@ final class RemoteIdConverter
      */
     public function convertToRemoteId(string $link): string
     {
-        $link = parse_url($link);
-
-        if (!is_array($link) || !isset($link['host'], $link['scheme'])) {
+        try {
+            $uri = new Uri($link);
+        } catch (InvalidUriException) {
             return self::NULL_LINK;
         }
 
-        $item = $this->cmsItemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
+        $scheme = (string) $uri->getScheme();
+        $host = (string) $uri->getHost();
+
+        if ($scheme === '' || $host === '') {
+            return self::NULL_LINK;
+        }
+
+        $item = $this->cmsItemLoader->load($host, str_replace('-', '_', $scheme));
         if ($item instanceof NullCmsItem) {
             return self::NULL_LINK;
         }
 
-        return $link['scheme'] . '://' . $item->getRemoteId();
+        return $scheme . '://' . $item->getRemoteId();
     }
 
     /**
@@ -51,17 +58,24 @@ final class RemoteIdConverter
      */
     public function convertFromRemoteId(string $link): string
     {
-        $link = parse_url($link);
-
-        if (!is_array($link) || !isset($link['host'], $link['scheme'])) {
+        try {
+            $uri = new Uri($link);
+        } catch (InvalidUriException) {
             return self::NULL_LINK;
         }
 
-        $item = $this->cmsItemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
+        $scheme = (string) $uri->getScheme();
+        $host = (string) $uri->getHost();
+
+        if ($scheme === '' || $host === '') {
+            return self::NULL_LINK;
+        }
+
+        $item = $this->cmsItemLoader->loadByRemoteId($host, str_replace('-', '_', $scheme));
         if ($item instanceof NullCmsItem) {
             return self::NULL_LINK;
         }
 
-        return $link['scheme'] . '://' . $item->getValue();
+        return $scheme . '://' . $item->getValue();
     }
 }
