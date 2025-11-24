@@ -46,7 +46,7 @@ final class ChoiceType extends ParameterType
             ->define('options')
             ->required()
             ->allowedTypes('array', 'callable')
-            ->allowedValues(static fn ($value): bool => is_callable($value) ? true : count($value) > 0)
+            ->allowedValues(static fn ($value): bool => is_callable($value) || count($value) > 0)
             ->info('It must be a callable or a non-empty array.');
 
         $optionsResolver->setDefault(
@@ -100,9 +100,19 @@ final class ChoiceType extends ParameterType
     {
         $options = $parameterDefinition->getOption('options');
 
+        if (is_callable($options)) {
+            return [
+                new Constraints\Choice(
+                    callback: $options,
+                    multiple: $parameterDefinition->getOption('multiple'),
+                    strict: true,
+                ),
+            ];
+        }
+
         return [
             new Constraints\Choice(
-                choices: array_values(is_callable($options) ? $options() : $options),
+                choices: array_values($options),
                 multiple: $parameterDefinition->getOption('multiple'),
                 strict: true,
             ),
