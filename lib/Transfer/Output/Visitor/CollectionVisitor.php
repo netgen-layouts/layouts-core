@@ -11,8 +11,6 @@ use Netgen\Layouts\API\Values\Collection\SlotList;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
-
 /**
  * Collection value visitor.
  *
@@ -37,8 +35,8 @@ final class CollectionVisitor implements VisitorInterface
             'is_always_available' => $value->isAlwaysAvailable(),
             'main_locale' => $value->getMainLocale(),
             'available_locales' => $value->getAvailableLocales(),
-            'items' => iterator_to_array($this->visitItems($value->getItems(), $outputVisitor)),
-            'slots' => iterator_to_array($this->visitSlots($value->getSlots(), $outputVisitor)),
+            'items' => [...$this->visitItems($value->getItems(), $outputVisitor)],
+            'slots' => [...$this->visitSlots($value->getSlots(), $outputVisitor)],
             'query' => $this->visitQuery($value, $outputVisitor),
         ];
     }

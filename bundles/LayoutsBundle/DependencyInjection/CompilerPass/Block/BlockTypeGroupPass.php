@@ -14,7 +14,6 @@ use Symfony\Component\DependencyInjection\Reference;
 use function array_column;
 use function array_keys;
 use function in_array;
-use function iterator_to_array;
 use function sprintf;
 use function uasort;
 
@@ -37,7 +36,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
         $blockTypeGroups = $this->generateBlockTypeGroupConfig($blockTypeGroups, $blockTypes);
         $container->setParameter('netgen_layouts.block_type_groups', $blockTypeGroups);
 
-        $blockTypeGroupServices = iterator_to_array($this->buildBlockTypeGroups($container, $blockTypeGroups, $blockTypes));
+        $blockTypeGroupServices = [...$this->buildBlockTypeGroups($container, $blockTypeGroups, $blockTypes)];
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 

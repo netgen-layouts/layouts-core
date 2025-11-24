@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-use function iterator_to_array;
 use function sprintf;
 
 final class LayoutTypePass implements CompilerPassInterface
@@ -32,7 +31,7 @@ final class LayoutTypePass implements CompilerPassInterface
         $blockDefinitions = $container->getParameter('netgen_layouts.block_definitions');
 
         $this->validateLayoutTypes($layoutTypes, $blockDefinitions);
-        $layoutTypeServices = iterator_to_array($this->buildLayoutTypes($container, $layoutTypes));
+        $layoutTypeServices = [...$this->buildLayoutTypes($container, $layoutTypes)];
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 

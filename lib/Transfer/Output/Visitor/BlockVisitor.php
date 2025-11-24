@@ -10,7 +10,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
 use function ksort;
 
 /**
@@ -43,10 +42,10 @@ final class BlockVisitor implements VisitorInterface
             'view_type' => $value->getViewType(),
             'item_view_type' => $value->getItemViewType(),
             'name' => $value->getName(),
-            'placeholders' => iterator_to_array($this->visitPlaceholders($value, $outputVisitor)),
+            'placeholders' => [...$this->visitPlaceholders($value, $outputVisitor)],
             'parameters' => $this->visitParameters($value),
-            'configuration' => iterator_to_array($this->visitConfiguration($value, $outputVisitor)),
-            'collections' => iterator_to_array($this->visitCollections($value, $outputVisitor)),
+            'configuration' => [...$this->visitConfiguration($value, $outputVisitor)],
+            'collections' => [...$this->visitCollections($value, $outputVisitor)],
         ];
     }
 
@@ -70,9 +69,7 @@ final class BlockVisitor implements VisitorInterface
     private function visitParameters(Block $block): array
     {
         $parametersByLanguage = [
-            $block->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($block),
-            ),
+            $block->getLocale() => [...$this->visitTranslationParameters($block)],
         ];
 
         foreach ($block->getAvailableLocales() as $availableLocale) {
@@ -86,9 +83,7 @@ final class BlockVisitor implements VisitorInterface
                 false,
             );
 
-            $parametersByLanguage[$availableLocale] = iterator_to_array(
-                $this->visitTranslationParameters($translatedBlock),
-            );
+            $parametersByLanguage[$availableLocale] = [...$this->visitTranslationParameters($translatedBlock)];
         }
 
         ksort($parametersByLanguage);

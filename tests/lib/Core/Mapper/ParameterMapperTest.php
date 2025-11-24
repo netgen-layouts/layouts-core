@@ -12,8 +12,6 @@ use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCom
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-use function iterator_to_array;
-
 #[CoversClass(ParameterMapper::class)]
 final class ParameterMapperTest extends TestCase
 {
@@ -33,8 +31,8 @@ final class ParameterMapperTest extends TestCase
             ],
         );
 
-        $mappedParameters = iterator_to_array(
-            $this->mapper->mapParameters(
+        $mappedParameters = [
+            ...$this->mapper->mapParameters(
                 $blockDefinition,
                 [
                     'css_id' => 'some-id',
@@ -42,7 +40,7 @@ final class ParameterMapperTest extends TestCase
                     'inner' => 'inner-value',
                 ],
             ),
-        );
+        ];
 
         /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundParameter */
         $compoundParameter = $blockDefinition->getParameterDefinition('compound');
@@ -101,7 +99,7 @@ final class ParameterMapperTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner-value',
             ],
-            iterator_to_array($serializedParameters),
+            [...$serializedParameters],
         );
     }
 
@@ -131,7 +129,7 @@ final class ParameterMapperTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner-value',
             ],
-            iterator_to_array($untranslatableParams),
+            [...$untranslatableParams],
         );
     }
 }

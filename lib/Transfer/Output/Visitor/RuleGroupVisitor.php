@@ -11,8 +11,6 @@ use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
-
 /**
  * Rule group value visitor.
  *
@@ -46,9 +44,9 @@ final class RuleGroupVisitor implements VisitorInterface
             'description' => $value->getDescription(),
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
-            'groups' => iterator_to_array($this->visitSubGroups($value, $outputVisitor)),
-            'rules' => iterator_to_array($this->visitRules($value, $outputVisitor)),
-            'conditions' => iterator_to_array($this->visitConditions($value, $outputVisitor)),
+            'groups' => [...$this->visitSubGroups($value, $outputVisitor)],
+            'rules' => [...$this->visitRules($value, $outputVisitor)],
+            'conditions' => [...$this->visitConditions($value, $outputVisitor)],
         ];
     }
 

@@ -10,8 +10,6 @@ use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
-
 /**
  * Layout value visitor.
  *
@@ -44,7 +42,7 @@ final class LayoutVisitor implements VisitorInterface
             'creation_date' => $value->getCreated()->getTimestamp(),
             'modification_date' => $value->getModified()->getTimestamp(),
             'is_shared' => $value->isShared(),
-            'zones' => iterator_to_array($this->visitZones($value, $outputVisitor)),
+            'zones' => [...$this->visitZones($value, $outputVisitor)],
         ];
     }
 

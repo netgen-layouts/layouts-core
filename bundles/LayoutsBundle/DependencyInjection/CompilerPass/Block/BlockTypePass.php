@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-use function iterator_to_array;
 use function sprintf;
 
 final class BlockTypePass implements CompilerPassInterface
@@ -35,7 +34,7 @@ final class BlockTypePass implements CompilerPassInterface
         $container->setParameter('netgen_layouts.block_types', $blockTypes);
 
         $this->validateBlockTypes($blockTypes, $blockDefinitions);
-        $blockTypeServices = iterator_to_array($this->buildBlockTypes($container, $blockTypes));
+        $blockTypeServices = [...$this->buildBlockTypes($container, $blockTypes)];
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 

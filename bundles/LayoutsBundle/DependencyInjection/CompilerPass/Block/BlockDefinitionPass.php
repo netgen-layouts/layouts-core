@@ -18,7 +18,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 use function is_a;
 use function is_string;
-use function iterator_to_array;
 use function sprintf;
 
 final class BlockDefinitionPass implements CompilerPassInterface
@@ -91,7 +90,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument($configProvider);
             $blockDefinitionService->addArgument($blockDefinition);
-            $blockDefinitionService->addArgument(iterator_to_array($this->getConfigHandlers($container)));
+            $blockDefinitionService->addArgument([...$this->getConfigHandlers($container)]);
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 

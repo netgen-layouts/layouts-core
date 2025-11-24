@@ -9,8 +9,6 @@ use Netgen\Layouts\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 use Traversable;
 
-use function iterator_to_array;
-
 /**
  * Mapper used to convert to and from the LinkValue object to the Symfony form structure.
  */
@@ -26,7 +24,7 @@ final class LinkDataMapper implements DataMapperInterface
             return;
         }
 
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
 
         $forms['link_type']->setData($viewData->getLinkType());
         $forms['link_suffix']->setData($viewData->getLinkSuffix());
@@ -41,7 +39,7 @@ final class LinkDataMapper implements DataMapperInterface
 
     public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
 
         $linkType = $forms['link_type']->getData()->value ?? '';
 

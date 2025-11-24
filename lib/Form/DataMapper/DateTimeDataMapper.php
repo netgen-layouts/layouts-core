@@ -11,7 +11,6 @@ use Traversable;
 
 use function date_default_timezone_get;
 use function is_array;
-use function iterator_to_array;
 
 /**
  * Mapper used to convert to and from the DateTimeInterface object to the Symfony form structure.
@@ -24,7 +23,7 @@ final class DateTimeDataMapper implements DataMapperInterface
 
     public function mapDataToForms(mixed $viewData, Traversable $forms): void
     {
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
 
         $dateTime = null;
         $timeZone = date_default_timezone_get();
@@ -43,7 +42,8 @@ final class DateTimeDataMapper implements DataMapperInterface
 
     public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
+
         $dateTime = $forms['datetime']->getData();
         $timeZone = $forms['timezone']->getData();
 

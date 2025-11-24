@@ -28,7 +28,6 @@ use function array_map;
 use function array_unique;
 use function count;
 use function is_array;
-use function iterator_to_array;
 
 final class BlockMapper
 {
@@ -76,12 +75,12 @@ final class BlockMapper
 
         /** @var string $blockLocale */
         $blockLocale = array_first($validLocales);
-        $untranslatableParams = iterator_to_array(
-            $this->parameterMapper->extractUntranslatableParameters(
+        $untranslatableParams = [
+            ...$this->parameterMapper->extractUntranslatableParameters(
                 $blockDefinition,
                 $block->parameters[$block->mainLocale],
             ),
-        );
+        ];
 
         $blockData = [
             'id' => Uuid::fromString($block->uuid),
@@ -96,30 +95,30 @@ final class BlockMapper
                 null,
             'parentPlaceholder' => $block->depth > 1 ? $block->placeholder : null,
             'status' => Status::from($block->status->value),
-            'placeholders' => iterator_to_array($this->mapPlaceholders($block, $blockDefinition, $locales)),
+            'placeholders' => [...$this->mapPlaceholders($block, $blockDefinition, $locales)],
             'collections' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceCollection $collection): Collection => $this->collectionMapper->mapCollection($collection, $locales),
                     $this->collectionHandler->loadCollections($block),
                 ),
             ),
-            'configs' => iterator_to_array(
-                $this->configMapper->mapConfig(
+            'configs' => [
+                ...$this->configMapper->mapConfig(
                     $block->config,
                     $blockDefinition->getConfigDefinitions(),
                 ),
-            ),
+            ],
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
             'alwaysAvailable' => $block->alwaysAvailable,
             'availableLocales' => $block->availableLocales,
             'locale' => $blockLocale,
-            'parameters' => iterator_to_array(
-                $this->parameterMapper->mapParameters(
+            'parameters' => [
+                ...$this->parameterMapper->mapParameters(
                     $blockDefinition,
                     [...$block->parameters[$blockLocale], ...$untranslatableParams],
                 ),
-            ),
+            ],
         ];
 
         return Block::fromArray($blockData);

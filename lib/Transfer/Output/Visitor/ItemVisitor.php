@@ -9,8 +9,6 @@ use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
-
 /**
  * Collection item value visitor.
  *
@@ -33,7 +31,7 @@ final class ItemVisitor implements VisitorInterface
             'value' => $value->getCmsItem()->getRemoteId(),
             'value_type' => $value->getDefinition()->getValueType(),
             'view_type' => $value->getViewType(),
-            'configuration' => iterator_to_array($this->visitConfiguration($value, $outputVisitor)),
+            'configuration' => [...$this->visitConfiguration($value, $outputVisitor)],
         ];
     }
 

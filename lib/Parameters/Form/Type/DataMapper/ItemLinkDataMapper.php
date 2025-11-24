@@ -10,7 +10,6 @@ use Uri\InvalidUriException;
 use Uri\Rfc3986\Uri;
 
 use function is_string;
-use function iterator_to_array;
 use function str_replace;
 
 /**
@@ -25,7 +24,7 @@ final class ItemLinkDataMapper implements DataMapperInterface
             return;
         }
 
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
 
         try {
             $uri = new Uri($viewData);
@@ -44,7 +43,7 @@ final class ItemLinkDataMapper implements DataMapperInterface
 
     public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
 
         $itemValue = $forms['item_value']->getData() ?? '';
         $itemType = $forms['item_type']->getData() ?? '';

@@ -7,13 +7,11 @@ namespace Netgen\Layouts\Collection\Form;
 use Symfony\Component\Form\DataMapperInterface;
 use Traversable;
 
-use function iterator_to_array;
-
 final class CollectionDataMapper implements DataMapperInterface
 {
     public function mapDataToForms(mixed $viewData, Traversable $forms): void
     {
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
 
         $forms['offset']->setData($viewData->offset);
         $forms['limit']->setData($viewData->limit !== 0 ? $viewData->limit : null);
@@ -21,7 +19,7 @@ final class CollectionDataMapper implements DataMapperInterface
 
     public function mapFormsToData(Traversable $forms, mixed &$viewData): void
     {
-        $forms = iterator_to_array($forms);
+        $forms = [...$forms];
 
         $limit = $forms['limit']->getData();
 

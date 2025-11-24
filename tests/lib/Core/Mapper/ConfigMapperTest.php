@@ -13,8 +13,6 @@ use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-use function iterator_to_array;
-
 #[CoversClass(ConfigMapper::class)]
 final class ConfigMapperTest extends TestCase
 {
@@ -48,7 +46,7 @@ final class ConfigMapperTest extends TestCase
             ],
         );
 
-        $mappedConfig = iterator_to_array($mappedConfig);
+        $mappedConfig = [...$mappedConfig];
 
         self::assertArrayHasKey('config_key', $mappedConfig);
         self::assertContainsOnlyInstancesOf(Config::class, $mappedConfig);
@@ -90,7 +88,7 @@ final class ConfigMapperTest extends TestCase
                     'param' => 'new_value',
                 ],
             ],
-            iterator_to_array($serializedConfig),
+            [...$serializedConfig],
         );
     }
 }

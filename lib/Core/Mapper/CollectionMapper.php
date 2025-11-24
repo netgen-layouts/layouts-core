@@ -33,7 +33,6 @@ use function array_map;
 use function array_unique;
 use function count;
 use function is_array;
-use function iterator_to_array;
 
 final class CollectionMapper
 {
@@ -127,12 +126,12 @@ final class CollectionMapper
             'position' => $item->position,
             'value' => $item->value,
             'viewType' => $item->viewType,
-            'configs' => iterator_to_array(
-                $this->configMapper->mapConfig(
+            'configs' => [
+                ...$this->configMapper->mapConfig(
                     $item->config,
                     $itemDefinition->getConfigDefinitions(),
                 ),
-            ),
+            ],
             'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
                 $valueType = !$itemDefinition instanceof NullItemDefinition ?
                     $itemDefinition->getValueType() :
@@ -182,12 +181,12 @@ final class CollectionMapper
 
         /** @var string $queryLocale */
         $queryLocale = array_first($validLocales);
-        $untranslatableParams = iterator_to_array(
-            $this->parameterMapper->extractUntranslatableParameters(
+        $untranslatableParams = [
+            ...$this->parameterMapper->extractUntranslatableParameters(
                 $queryType,
                 $query->parameters[$query->mainLocale],
             ),
-        );
+        ];
 
         $queryData = [
             'id' => Uuid::fromString($query->uuid),
@@ -199,12 +198,12 @@ final class CollectionMapper
             'alwaysAvailable' => $query->alwaysAvailable,
             'availableLocales' => $query->availableLocales,
             'locale' => $queryLocale,
-            'parameters' => iterator_to_array(
-                $this->parameterMapper->mapParameters(
+            'parameters' => [
+                ...$this->parameterMapper->mapParameters(
                     $queryType,
                     [...$query->parameters[$queryLocale], ...$untranslatableParams],
                 ),
-            ),
+            ],
         ];
 
         return Query::fromArray($queryData);

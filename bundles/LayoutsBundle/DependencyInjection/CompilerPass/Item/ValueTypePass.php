@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-use function iterator_to_array;
 use function sprintf;
 
 final class ValueTypePass implements CompilerPassInterface
@@ -27,7 +26,7 @@ final class ValueTypePass implements CompilerPassInterface
 
         /** @var array<string, mixed[]> $valueTypes */
         $valueTypes = $container->getParameter('netgen_layouts.value_types');
-        $valueTypeServices = iterator_to_array($this->buildValueTypes($container, $valueTypes));
+        $valueTypeServices = [...$this->buildValueTypes($container, $valueTypes)];
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 

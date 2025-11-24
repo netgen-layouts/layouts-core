@@ -16,7 +16,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function count;
-use function iterator_to_array;
 use function json_decode;
 use function sprintf;
 
@@ -104,7 +103,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             }
 
             do {
-                $mapping = iterator_to_array($this->askForOffsetAndLimitParameter($queryType));
+                $mapping = [...$this->askForOffsetAndLimitParameter($queryType)];
             } while (
                 !$this->io->confirm(
                     ($mapping['offset'] !== null ?
@@ -149,8 +148,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
      */
     private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType): Generator
     {
-        $queryTypeParameters = iterator_to_array($this->getQueryTypeParameters($queryType));
-        $queryTypeParameters[] = 'NO PARAMETER';
+        $queryTypeParameters = [...$this->getQueryTypeParameters($queryType), 'NO PARAMETER'];
 
         foreach (['offset', 'limit'] as $parameter) {
             $parameterName = $this->io->choice(

@@ -29,7 +29,6 @@ use Twig\TemplateWrapper;
 use function get_debug_type;
 use function is_object;
 use function is_scalar;
-use function iterator_to_array;
 use function method_exists;
 use function sprintf;
 
@@ -231,7 +230,7 @@ final class RenderingRuntime
     public function renderStringTemplate(string $string, array $parameters = []): string
     {
         try {
-            $parameters = iterator_to_array($this->getTemplateVariables($parameters));
+            $parameters = [...$this->getTemplateVariables($parameters)];
             $template = $this->simpleTwig->createTemplate($string);
 
             return $this->simpleTwig->resolveTemplate($template)->render($parameters);

@@ -10,7 +10,6 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
 use function ksort;
 
 /**
@@ -52,9 +51,7 @@ final class QueryVisitor implements VisitorInterface
     private function visitParameters(Query $query): array
     {
         $parametersByLanguage = [
-            $query->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($query),
-            ),
+            $query->getLocale() => [...$this->visitTranslationParameters($query)],
         ];
 
         foreach ($query->getAvailableLocales() as $availableLocale) {
@@ -68,9 +65,7 @@ final class QueryVisitor implements VisitorInterface
                 false,
             );
 
-            $parametersByLanguage[$availableLocale] = iterator_to_array(
-                $this->visitTranslationParameters($translatedQuery),
-            );
+            $parametersByLanguage[$availableLocale] = [...$this->visitTranslationParameters($translatedQuery)];
         }
 
         ksort($parametersByLanguage);

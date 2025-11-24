@@ -13,7 +13,6 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 use function is_array;
 use function is_string;
-use function iterator_to_array;
 use function mb_substr;
 use function sprintf;
 use function str_starts_with;
@@ -49,11 +48,7 @@ final class TemplateResolver implements TemplateResolverInterface
                 }
 
                 $view->setTemplate($config['template']);
-                $view->addParameters(
-                    iterator_to_array(
-                        $this->evaluateParameters($view, $config['parameters']),
-                    ),
-                );
+                $view->addParameters([...$this->evaluateParameters($view, $config['parameters'])]);
 
                 return;
             }

@@ -9,8 +9,6 @@ use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
-
 /**
  * Placeholder value visitor.
  *
@@ -29,7 +27,7 @@ final class PlaceholderVisitor implements VisitorInterface
     {
         return [
             'identifier' => $value->getIdentifier(),
-            'blocks' => iterator_to_array($this->visitBlocks($value, $outputVisitor)),
+            'blocks' => [...$this->visitBlocks($value, $outputVisitor)],
         ];
     }
 

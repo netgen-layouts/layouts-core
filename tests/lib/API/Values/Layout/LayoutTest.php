@@ -14,8 +14,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-use function iterator_to_array;
-
 #[CoversClass(Layout::class)]
 final class LayoutTest extends TestCase
 {
@@ -67,7 +65,7 @@ final class LayoutTest extends TestCase
         self::assertSame($zones['left'], $layout->getZones()['left']);
         self::assertSame($zones['right'], $layout->getZones()['right']);
 
-        self::assertSame($zones, iterator_to_array($layout));
+        self::assertSame($zones, [...$layout]);
 
         self::assertCount(2, $layout);
 

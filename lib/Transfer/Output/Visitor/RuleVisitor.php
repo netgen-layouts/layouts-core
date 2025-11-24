@@ -10,8 +10,6 @@ use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
-
 /**
  * Rule value visitor.
  *
@@ -43,8 +41,8 @@ final class RuleVisitor implements VisitorInterface
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
             'description' => $value->getDescription(),
-            'targets' => iterator_to_array($this->visitTargets($value, $outputVisitor)),
-            'conditions' => iterator_to_array($this->visitConditions($value, $outputVisitor)),
+            'targets' => [...$this->visitTargets($value, $outputVisitor)],
+            'conditions' => [...$this->visitConditions($value, $outputVisitor)],
         ];
     }
 

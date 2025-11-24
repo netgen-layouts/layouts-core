@@ -10,8 +10,6 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-use function iterator_to_array;
-
 /**
  * Zone value visitor.
  *
@@ -35,7 +33,7 @@ final class ZoneVisitor implements VisitorInterface
         return [
             'identifier' => $value->getIdentifier(),
             'linked_zone' => $this->visitLinkedZone($value),
-            'blocks' => iterator_to_array($this->visitBlocks($value, $outputVisitor)),
+            'blocks' => [...$this->visitBlocks($value, $outputVisitor)],
         ];
     }
 

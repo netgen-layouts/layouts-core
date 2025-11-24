@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-use function iterator_to_array;
-
 /**
  * Validates the parameters stored inside the value
  * implementing ParameterStruct interface.
@@ -45,14 +43,12 @@ final class ParameterStructValidator extends ConstraintValidator
         $validator->validate(
             $value->getParameterValues(),
             new Constraints\Collection(
-                fields: iterator_to_array($this->buildConstraintFields($value, $constraint)),
+                fields: [...$this->buildConstraintFields($value, $constraint)],
                 allowMissingFields: $constraint->allowMissingFields,
             ),
         );
 
-        $allParameterValues = iterator_to_array(
-            $this->getAllValues($constraint->parameterDefinitions, $value),
-        );
+        $allParameterValues = [...$this->getAllValues($constraint->parameterDefinitions, $value)];
 
         // Then we validate with runtime constraints coming from parameter definition
         // allowing for validation of values dependent on other parameter struct values
@@ -75,13 +71,13 @@ final class ParameterStructValidator extends ConstraintValidator
 
             $validator->atPath('[' . $parameterDefinition->getName() . ']')->validate(
                 $parameterValue,
-                iterator_to_array(
-                    $this->getRuntimeParameterConstraints(
+                [
+                    ...$this->getRuntimeParameterConstraints(
                         $parameterDefinition,
                         $parameterValue,
                         $allParameterValues,
                     ),
-                ),
+                ],
             );
         }
     }

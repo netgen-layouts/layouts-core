@@ -8,8 +8,6 @@ use Generator;
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\ParameterStruct;
 
-use function iterator_to_array;
-
 final class ConfigMapper
 {
     public function __construct(
@@ -31,12 +29,12 @@ final class ConfigMapper
                 [
                     'configKey' => $configKey,
                     'definition' => $configDefinition,
-                    'parameters' => iterator_to_array(
-                        $this->parameterMapper->mapParameters(
+                    'parameters' => [
+                        ...$this->parameterMapper->mapParameters(
                             $configDefinition,
                             $config[$configKey] ?? [],
                         ),
-                    ),
+                    ],
                 ],
             );
         }
@@ -60,13 +58,13 @@ final class ConfigMapper
                 $configValues = $configStructs[$configKey]->getParameterValues();
             }
 
-            yield $configKey => iterator_to_array(
-                $this->parameterMapper->serializeValues(
+            yield $configKey => [
+                ...$this->parameterMapper->serializeValues(
                     $configDefinition,
                     $configValues,
                     $fallbackValues[$configKey] ?? [],
                 ),
-            );
+            ];
         }
     }
 }

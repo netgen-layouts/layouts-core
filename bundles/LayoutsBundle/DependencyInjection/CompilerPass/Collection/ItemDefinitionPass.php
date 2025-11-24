@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 use function array_keys;
-use function iterator_to_array;
 use function sprintf;
 
 final class ItemDefinitionPass implements CompilerPassInterface
@@ -38,7 +37,7 @@ final class ItemDefinitionPass implements CompilerPassInterface
             $itemDefinitionService->setFactory([new Reference('netgen_layouts.collection.item_definition_factory'), 'buildItemDefinition']);
 
             $itemDefinitionService->addArgument($valueType);
-            $itemDefinitionService->addArgument(iterator_to_array($this->getConfigHandlers($container)));
+            $itemDefinitionService->addArgument([...$this->getConfigHandlers($container)]);
 
             $container->setDefinition($itemDefinitionServiceName, $itemDefinitionService);
 

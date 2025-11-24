@@ -45,7 +45,6 @@ use function array_splice;
 use function count;
 use function in_array;
 use function is_int;
-use function iterator_to_array;
 
 final class BlockService implements BlockServiceInterface
 {
@@ -258,13 +257,13 @@ final class BlockService implements BlockServiceInterface
                             'itemViewType' => $blockUpdateStruct->itemViewType,
                             'name' => $blockUpdateStruct->name,
                             'alwaysAvailable' => $blockUpdateStruct->alwaysAvailable,
-                            'config' => iterator_to_array(
-                                $this->configMapper->serializeValues(
+                            'config' => [
+                                ...$this->configMapper->serializeValues(
                                     $blockUpdateStruct->getConfigStructs(),
                                     $blockDefinition->getConfigDefinitions(),
                                     $persistenceBlock->config,
                                 ),
-                            ),
+                            ],
                         ],
                     ),
                 );
@@ -646,18 +645,18 @@ final class BlockService implements BlockServiceInterface
                             'name' => $blockCreateStruct->name,
                             'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                             'isTranslatable' => $blockCreateStruct->isTranslatable,
-                            'parameters' => iterator_to_array(
-                                $this->parameterMapper->serializeValues(
+                            'parameters' => [
+                                ...$this->parameterMapper->serializeValues(
                                     $blockDefinition,
                                     $blockCreateStruct->getParameterValues(),
                                 ),
-                            ),
-                            'config' => iterator_to_array(
-                                $this->configMapper->serializeValues(
+                            ],
+                            'config' => [
+                                ...$this->configMapper->serializeValues(
                                     $blockCreateStruct->getConfigStructs(),
                                     $blockDefinition->getConfigDefinitions(),
                                 ),
-                            ),
+                            ],
                         ],
                     ),
                     $layout,
@@ -690,12 +689,12 @@ final class BlockService implements BlockServiceInterface
                                 QueryCreateStruct::fromArray(
                                     [
                                         'type' => $queryType->getType(),
-                                        'parameters' => iterator_to_array(
-                                            $this->parameterMapper->serializeValues(
+                                        'parameters' => [
+                                            ...$this->parameterMapper->serializeValues(
                                                 $queryType,
                                                 $collectionCreateStruct->queryCreateStruct->getParameterValues(),
                                             ),
-                                        ),
+                                        ],
                                     ],
                                 ),
                             );
@@ -796,24 +795,24 @@ final class BlockService implements BlockServiceInterface
                 $blockUpdateStruct->locale,
                 BlockTranslationUpdateStruct::fromArray(
                     [
-                        'parameters' => iterator_to_array(
-                            $this->parameterMapper->serializeValues(
+                        'parameters' => [
+                            ...$this->parameterMapper->serializeValues(
                                 $blockDefinition,
                                 $blockUpdateStruct->getParameterValues(),
                                 $persistenceBlock->parameters[$persistenceBlock->mainLocale],
                             ),
-                        ),
+                        ],
                     ],
                 ),
             );
         }
 
-        $untranslatableParams = iterator_to_array(
-            $this->parameterMapper->extractUntranslatableParameters(
+        $untranslatableParams = [
+            ...$this->parameterMapper->extractUntranslatableParameters(
                 $blockDefinition,
                 $persistenceBlock->parameters[$persistenceBlock->mainLocale],
             ),
-        );
+        ];
 
         $localesToUpdate = [$blockUpdateStruct->locale];
         if ($persistenceBlock->mainLocale === $blockUpdateStruct->locale) {
@@ -830,13 +829,13 @@ final class BlockService implements BlockServiceInterface
             $params = $persistenceBlock->parameters[$locale];
 
             if ($locale === $blockUpdateStruct->locale) {
-                $params = iterator_to_array(
-                    $this->parameterMapper->serializeValues(
+                $params = [
+                    ...$this->parameterMapper->serializeValues(
                         $blockDefinition,
                         $blockUpdateStruct->getParameterValues(),
                         $params,
                     ),
-                );
+                ];
             }
 
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(
