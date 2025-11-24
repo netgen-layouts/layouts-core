@@ -2,10 +2,5 @@ framework:
     secret: secret
     test: true
 
-    http_method_override: false
-
     session:
         storage_factory_id: session.storage.factory.mock_file
-
-    property_info:
-        with_constructor_extractor: true
