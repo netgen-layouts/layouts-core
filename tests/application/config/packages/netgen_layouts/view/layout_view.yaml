@@ -12,10 +12,10 @@ netgen_layouts:
                         layout\type: 4_zones_b
             app:
                 4_zones_a:
-                    template: "api/layout/4_zones_a.html.twig"
+                    template: "app/layout/4_zones_a.html.twig"
                     match:
                         layout\type: 4_zones_a
                 4_zones_b:
-                    template: "api/layout/4_zones_b.html.twig"
+                    template: "app/layout/4_zones_b.html.twig"
                     match:
                         layout\type: 4_zones_b
