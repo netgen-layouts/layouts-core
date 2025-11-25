@@ -3,7 +3,6 @@ services:
 
     netgen_layouts.parameters.registry.parameter_type:
         class: Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-        public: true
         arguments:
             - !tagged_iterator netgen_layouts.parameter_type
 

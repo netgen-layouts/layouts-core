@@ -1,13 +1,11 @@
 services:
     netgen_layouts.layout.resolver.registry.target_type:
         class: Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
-        public: true
         arguments:
             - !tagged_iterator netgen_layouts.target_type
 
     netgen_layouts.layout.resolver.registry.condition_type:
         class: Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
-        public: true
         arguments:
             - !tagged_iterator netgen_layouts.condition_type
 

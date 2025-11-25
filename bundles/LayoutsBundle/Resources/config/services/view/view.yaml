@@ -7,7 +7,6 @@ services:
 
     netgen_layouts.view.view_builder:
         class: Netgen\Layouts\View\ViewBuilder
-        public: true
         arguments:
             - "@netgen_layouts.view.template_resolver"
             - "@event_dispatcher"

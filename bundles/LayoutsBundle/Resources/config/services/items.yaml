@@ -17,7 +17,6 @@ services:
 
     netgen_layouts.item.registry.value_type:
         class: Netgen\Layouts\Item\Registry\ValueTypeRegistry
-        public: true
         arguments:
             - !abstract "Set in ValueTypePass"
 

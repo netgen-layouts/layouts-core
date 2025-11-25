@@ -46,6 +46,5 @@ services:
 
     netgen_layouts.collection.registry.query_type:
         class: Netgen\Layouts\Collection\Registry\QueryTypeRegistry
-        public: true
         arguments:
             - !abstract "Set in QueryTypePass"
