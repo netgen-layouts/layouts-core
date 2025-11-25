@@ -12,7 +12,6 @@ use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Collection\Collection;
-use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Block\BlockDefinition;
@@ -118,7 +117,7 @@ final class BlockNormalizerTest extends TestCase
                     [
                         'identifier' => 'default',
                         'collection_id' => $collection->getId()->toString(),
-                        'collection_type' => CollectionType::Manual->value,
+                        'collection_type' => 0,
                         'offset' => $collection->getOffset(),
                         'limit' => $collection->getLimit(),
                     ],
