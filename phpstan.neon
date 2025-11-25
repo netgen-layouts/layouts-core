@@ -14,9 +14,11 @@ parameters:
         - '#\$\w+ is never (written|read), only (read|written).#'
 
         # Symfony
-
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
         - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
+
+        # PHPStan
+        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface::\w+\(\).#'
 
         # Netgen Layouts specifics
 
