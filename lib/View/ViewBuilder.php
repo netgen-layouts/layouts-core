@@ -47,7 +47,7 @@ final class ViewBuilder implements ViewBuilderInterface
         $this->templateResolver->resolveTemplate($view);
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, LayoutsEvents::BUILD_VIEW);
+        $this->eventDispatcher->dispatch($event);
         $view->addParameters($event->getParameters());
 
         $event = new CollectViewParametersEvent($view);

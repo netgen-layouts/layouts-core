@@ -21,7 +21,7 @@ final class ViewRenderer implements ViewRendererInterface
     public function renderView(ViewInterface $view): string
     {
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, LayoutsEvents::RENDER_VIEW);
+        $this->eventDispatcher->dispatch($event);
         $view->addParameters($event->getParameters());
 
         $event = new CollectViewParametersEvent($view);

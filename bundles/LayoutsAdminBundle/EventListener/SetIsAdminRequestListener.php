@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent;
-use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -45,6 +44,6 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
         $request->attributes->set(self::ADMIN_FLAG_NAME, true);
 
         $adminEvent = new AdminMatchEvent($event->getRequest(), $event->getRequestType());
-        $this->eventDispatcher->dispatch($adminEvent, LayoutsAdminEvents::ADMIN_MATCH);
+        $this->eventDispatcher->dispatch($adminEvent);
     }
 }
