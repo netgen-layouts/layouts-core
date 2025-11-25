@@ -12,14 +12,14 @@ services:
     netgen_layouts.fixtures.item.value_loader.my_value_type:
         class: Netgen\Layouts\Tests\App\Item\ValueLoader\MyValueTypeValueLoader
         tags:
-            - { name: netgen_layouts.cms_value_loader, value_type: "my_value_type" }
+            - { name: netgen_layouts.cms_value_loader, value_type: my_value_type }
 
     netgen_layouts.fixtures.item.value_url_generator.my_value_type:
         class: Netgen\Layouts\Tests\App\Item\ValueUrlGenerator\MyValueTypeValueUrlGenerator
         tags:
-            - { name: netgen_layouts.cms_value_url_generator, value_type: "my_value_type" }
+            - { name: netgen_layouts.cms_value_url_generator, value_type: my_value_type }
 
     netgen_layouts.fixtures.collection.query_type.my_query_type:
-        class: Netgen\Layouts\Tests\App\Collection\QueryType\Handler\MyQueryType
+        class: Netgen\Layouts\Tests\App\Collection\QueryType\Handler\MyQueryTypeHandler
         tags:
             - { name: netgen_layouts.query_type_handler, type: my_query_type }

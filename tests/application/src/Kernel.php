@@ -57,11 +57,6 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
-        $container->setDefinition(
-            'netgen_layouts.collection.registry.query_type.original',
-            $container->findDefinition('netgen_layouts.collection.registry.query_type'),
-        );
-
         $container->removeDefinition('netgen_layouts.event_listener.api_csrf_validation_listener');
     }
 
