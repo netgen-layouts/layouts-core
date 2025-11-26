@@ -6,23 +6,16 @@ namespace Netgen\Layouts\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 
-use function array_key_exists;
-
 trait ParameterCollectionTrait
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Parameter[]
-     */
-    private array $parameters = [];
+    private ParameterList $parameters;
 
     /**
      * Returns all parameters from the collection.
-     *
-     * @return \Netgen\Layouts\Parameters\Parameter[]
      */
-    public function getParameters(): array
+    public function getParameters(): ParameterList
     {
-        return $this->parameters;
+        return new ParameterList($this->parameters->toArray());
     }
 
     /**
@@ -32,11 +25,8 @@ trait ParameterCollectionTrait
      */
     public function getParameter(string $parameterName): Parameter
     {
-        if (!$this->hasParameter($parameterName)) {
+        return $this->parameters->get($parameterName) ??
             throw ParameterException::noParameter($parameterName);
-        }
-
-        return $this->parameters[$parameterName];
     }
 
     /**
@@ -44,6 +34,6 @@ trait ParameterCollectionTrait
      */
     public function hasParameter(string $parameterName): bool
     {
-        return array_key_exists($parameterName, $this->parameters);
+        return $this->parameters->containsKey($parameterName);
     }
 }

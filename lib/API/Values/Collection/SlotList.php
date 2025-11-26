@@ -4,30 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\Layouts\API\Values\LazyCollection;
 use Ramsey\Uuid\UuidInterface;
 
-use function array_filter;
 use function array_map;
 
 /**
- * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\Collection\Slot>
+ * @extends \Netgen\Layouts\API\Values\LazyCollection<int, \Netgen\Layouts\API\Values\Collection\Slot>
  */
-final class SlotList extends ArrayCollection
+final class SlotList extends LazyCollection
 {
-    /**
-     * @param \Netgen\Layouts\API\Values\Collection\Slot[] $slots
-     */
-    public function __construct(array $slots = [])
-    {
-        parent::__construct(
-            array_filter(
-                $slots,
-                static fn (Slot $slot): bool => true,
-            ),
-        );
-    }
-
     /**
      * @return \Netgen\Layouts\API\Values\Collection\Slot[]
      */
@@ -42,7 +28,7 @@ final class SlotList extends ArrayCollection
     public function getSlotIds(): array
     {
         return array_map(
-            static fn (Slot $slot): UuidInterface => $slot->getId(),
+            static fn (Slot $slot): UuidInterface => $slot->id,
             $this->getSlots(),
         );
     }

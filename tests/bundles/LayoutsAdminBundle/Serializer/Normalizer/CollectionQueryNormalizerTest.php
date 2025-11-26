@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionQueryNormal
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -44,22 +45,24 @@ final class CollectionQueryNormalizerTest extends TestCase
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',
                 'locale' => 'en',
-                'parameters' => [
-                    'param' => Parameter::fromArray(
-                        [
-                            'name' => 'param',
-                            'value' => 'value',
-                        ],
-                    ),
-                    'param2' => Parameter::fromArray(
-                        [
-                            'name' => 'param2',
-                            'value' => [
-                                'param3' => 'value3',
+                'parameters' => new ParameterList(
+                    [
+                        'param' => Parameter::fromArray(
+                            [
+                                'name' => 'param',
+                                'value' => 'value',
                             ],
-                        ],
-                    ),
-                ],
+                        ),
+                        'param2' => Parameter::fromArray(
+                            [
+                                'name' => 'param2',
+                                'value' => [
+                                    'param3' => 'value3',
+                                ],
+                            ],
+                        ),
+                    ],
+                ),
             ],
         );
 
@@ -77,12 +80,12 @@ final class CollectionQueryNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $query->getId()->toString(),
-                'collection_id' => $query->getCollectionId()->toString(),
-                'type' => $query->getQueryType()->getType(),
-                'locale' => $query->getLocale(),
-                'is_translatable' => $query->isTranslatable(),
-                'always_available' => $query->isAlwaysAvailable(),
+                'id' => $query->id->toString(),
+                'collection_id' => $query->collectionId->toString(),
+                'type' => $query->queryType->getType(),
+                'locale' => $query->locale,
+                'is_translatable' => $query->isTranslatable,
+                'always_available' => $query->alwaysAvailable,
                 'parameters' => $serializedParams,
             ],
             $this->normalizer->normalize(new Value($query)),

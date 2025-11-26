@@ -72,7 +72,7 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
      */
     private function getMaxPages(Block $block): ?int
     {
-        if (!$block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
+        if (!$block->definition->hasPlugin(PagedCollectionsPlugin::class)) {
             return null;
         }
 

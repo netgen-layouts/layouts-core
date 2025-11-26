@@ -73,7 +73,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(3, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertFalse($layout->isShared());
+            self::assertFalse($layout->shared);
             self::assertTrue($layout->isPublished());
         }
     }
@@ -85,11 +85,11 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(5, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertFalse($layout->isShared());
+            self::assertFalse($layout->shared);
 
             if (!$layout->isPublished()) {
                 try {
-                    $this->layoutService->loadLayout($layout->getId());
+                    $this->layoutService->loadLayout($layout->id);
                     self::fail('Layout in draft status with existing published version loaded.');
                 } catch (NotFoundException) {
                     // Do nothing
@@ -115,7 +115,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(2, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertTrue($layout->isShared());
+            self::assertTrue($layout->shared);
             self::assertTrue($layout->isPublished());
         }
     }
@@ -149,7 +149,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(1, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertFalse($layout->isShared());
+            self::assertFalse($layout->shared);
             self::assertTrue($layout->isPublished());
         }
     }
@@ -234,8 +234,8 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
         self::assertTrue($updatedZone->getLinkedZone()->isPublished());
-        self::assertSame($linkedZone->getLayoutId()->toString(), $updatedZone->getLinkedZone()->getLayoutId()->toString());
-        self::assertSame($linkedZone->getIdentifier(), $updatedZone->getLinkedZone()->getIdentifier());
+        self::assertSame($linkedZone->layoutId->toString(), $updatedZone->getLinkedZone()->layoutId->toString());
+        self::assertSame($linkedZone->identifier, $updatedZone->getLinkedZone()->identifier);
     }
 
     public function testLinkZoneThrowsBadStateExceptionWhenInSharedLayout(): void
@@ -326,11 +326,11 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertTrue($createdLayout->isDraft());
 
-        self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->getCreated());
+        self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->created);
 
         self::assertSame(
-            $createdLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $createdLayout->getModified()->format(DateTimeInterface::ATOM),
+            $createdLayout->created->format(DateTimeInterface::ATOM),
+            $createdLayout->modified->format(DateTimeInterface::ATOM),
         );
     }
 
@@ -347,12 +347,12 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
         self::assertTrue($createdLayout->isDraft());
-        self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->getCreated());
-        self::assertSame($layoutCreateStruct->uuid->toString(), $createdLayout->getId()->toString());
+        self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->created);
+        self::assertSame($layoutCreateStruct->uuid->toString(), $createdLayout->id->toString());
 
         self::assertSame(
-            $createdLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $createdLayout->getModified()->format(DateTimeInterface::ATOM),
+            $createdLayout->created->format(DateTimeInterface::ATOM),
+            $createdLayout->modified->format(DateTimeInterface::ATOM),
         );
     }
 
@@ -392,23 +392,23 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->addTranslation($layout, 'de', 'en');
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        self::assertSame(['en', 'hr', 'de'], $updatedLayout->getAvailableLocales());
+        self::assertSame(['en', 'hr', 'de'], $updatedLayout->availableLocales);
 
         $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['en', 'hr', 'de']);
         foreach ($layoutBlocks as $layoutBlock) {
-            $layoutBlock->isTranslatable() ?
-                self::assertContains('de', $layoutBlock->getAvailableLocales()) :
-                self::assertNotContains('de', $layoutBlock->getAvailableLocales());
+            $layoutBlock->isTranslatable ?
+                self::assertContains('de', $layoutBlock->availableLocales) :
+                self::assertNotContains('de', $layoutBlock->availableLocales);
 
-            $layoutBlock->isTranslatable() ?
-                self::assertContains('de', $layoutBlock->getAvailableLocales()) :
-                self::assertNotContains('de', $layoutBlock->getAvailableLocales());
+            $layoutBlock->isTranslatable ?
+                self::assertContains('de', $layoutBlock->availableLocales) :
+                self::assertNotContains('de', $layoutBlock->availableLocales);
         }
     }
 
@@ -439,18 +439,18 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->setMainTranslation($layout, 'hr');
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        self::assertSame('hr', $updatedLayout->getMainLocale());
-        self::assertSame(['en', 'hr'], $updatedLayout->getAvailableLocales());
+        self::assertSame('hr', $updatedLayout->mainLocale);
+        self::assertSame(['en', 'hr'], $updatedLayout->availableLocales);
 
         $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['hr', 'en']);
         foreach ($layoutBlocks as $layoutBlock) {
-            self::assertSame('hr', $layoutBlock->getMainLocale());
+            self::assertSame('hr', $layoutBlock->mainLocale);
         }
     }
 
@@ -479,18 +479,18 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $updatedLayout = $this->layoutService->removeTranslation($layout, 'hr');
-        self::assertNotContains('hr', $updatedLayout->getAvailableLocales());
+        self::assertNotContains('hr', $updatedLayout->availableLocales);
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $layoutBlocks = $this->blockService->loadLayoutBlocks($updatedLayout, ['en']);
         foreach ($layoutBlocks as $layoutBlock) {
-            self::assertNotContains('hr', $layoutBlock->getAvailableLocales());
+            self::assertNotContains('hr', $layoutBlock->availableLocales);
         }
     }
 
@@ -535,15 +535,15 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
 
         self::assertTrue($updatedLayout->isDraft());
-        self::assertSame('New name', $updatedLayout->getName());
-        self::assertSame('New description', $updatedLayout->getDescription());
+        self::assertSame('New name', $updatedLayout->name);
+        self::assertSame('New description', $updatedLayout->description);
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
     }
 
     public function testUpdateLayoutThrowsBadStateExceptionWithNonDraftLayout(): void
@@ -586,16 +586,16 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->isPublished(), $copiedLayout->isPublished());
 
-        self::assertGreaterThan($layout->getCreated(), $copiedLayout->getCreated());
+        self::assertGreaterThan($layout->created, $copiedLayout->created);
 
         self::assertSame(
-            $copiedLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $copiedLayout->getModified()->format(DateTimeInterface::ATOM),
+            $copiedLayout->created->format(DateTimeInterface::ATOM),
+            $copiedLayout->modified->format(DateTimeInterface::ATOM),
         );
 
-        self::assertNotSame($layout->getId()->toString(), $copiedLayout->getId()->toString());
-        self::assertSame('New name', $copiedLayout->getName());
-        self::assertSame('New description', $copiedLayout->getDescription());
+        self::assertNotSame($layout->id->toString(), $copiedLayout->id->toString());
+        self::assertSame('New name', $copiedLayout->name);
+        self::assertSame('New description', $copiedLayout->description);
     }
 
     public function testCopyLayoutThrowsBadStateExceptionOnExistingLayoutName(): void
@@ -621,16 +621,16 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             ],
         );
 
-        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
-        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
+        self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
+        self::assertSame($layout->status, $updatedLayout->status);
+        self::assertSame('4_zones_b', $updatedLayout->layoutType->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top'),
@@ -657,9 +657,9 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Block::class, $topZoneBlocks[1]);
         self::assertInstanceOf(Block::class, $topZoneBlocks[2]);
 
-        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->getId()->toString());
-        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->getId()->toString());
-        self::assertSame('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e', $topZoneBlocks[2]->getId()->toString());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->id->toString());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->id->toString());
+        self::assertSame('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e', $topZoneBlocks[2]->id->toString());
     }
 
     public function testChangeLayoutTypeWithSameLayoutType(): void
@@ -673,16 +673,16 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             ],
         );
 
-        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
-        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
+        self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
+        self::assertSame($layout->status, $updatedLayout->status);
+        self::assertSame('4_zones_a', $updatedLayout->layoutType->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top'),
@@ -709,9 +709,9 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Block::class, $topZoneBlocks[1]);
         self::assertInstanceOf(Block::class, $topZoneBlocks[2]);
 
-        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->getId()->toString());
-        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->getId()->toString());
-        self::assertSame('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e', $topZoneBlocks[2]->getId()->toString());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->id->toString());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->id->toString());
+        self::assertSame('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e', $topZoneBlocks[2]->id->toString());
     }
 
     public function testChangeLayoutTypeWithSharedZones(): void
@@ -725,16 +725,16 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             ],
         );
 
-        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
-        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
+        self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
+        self::assertSame($layout->status, $updatedLayout->status);
+        self::assertSame('4_zones_a', $updatedLayout->layoutType->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -756,15 +756,15 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
 
-        self::assertTrue($topZone->hasLinkedZone());
+        self::assertTrue($topZone->hasLinkedZone);
 
         $newTopZone = $layout->getZone('top');
 
         self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
         self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
 
-        self::assertSame($newTopZone->getLinkedZone()->getLayoutId()->toString(), $topZone->getLinkedZone()->getLayoutId()->toString());
-        self::assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
+        self::assertSame($newTopZone->getLinkedZone()->layoutId->toString(), $topZone->getLinkedZone()->layoutId->toString());
+        self::assertSame($newTopZone->getLinkedZone()->identifier, $topZone->getLinkedZone()->identifier);
     }
 
     public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZones(): void
@@ -778,16 +778,16 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             ],
         );
 
-        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
-        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
+        self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
+        self::assertSame($layout->status, $updatedLayout->status);
+        self::assertSame('4_zones_b', $updatedLayout->layoutType->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -809,15 +809,15 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
 
-        self::assertTrue($topZone->hasLinkedZone());
+        self::assertTrue($topZone->hasLinkedZone);
 
         $newTopZone = $layout->getZone('top');
 
         self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
         self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
 
-        self::assertSame($newTopZone->getLinkedZone()->getLayoutId()->toString(), $topZone->getLinkedZone()->getLayoutId()->toString());
-        self::assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
+        self::assertSame($newTopZone->getLinkedZone()->layoutId->toString(), $topZone->getLinkedZone()->layoutId->toString());
+        self::assertSame($newTopZone->getLinkedZone()->identifier, $topZone->getLinkedZone()->identifier);
     }
 
     public function testChangeLayoutTypeWithSharedZonesAndDiscardingSharedZones(): void
@@ -832,16 +832,16 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             false,
         );
 
-        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
-        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
+        self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
+        self::assertSame($layout->status, $updatedLayout->status);
+        self::assertSame('4_zones_a', $updatedLayout->layoutType->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -863,7 +863,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
 
-        self::assertFalse($topZone->hasLinkedZone());
+        self::assertFalse($topZone->hasLinkedZone);
     }
 
     public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZonesAndDiscardingSharedZones(): void
@@ -878,16 +878,16 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             false,
         );
 
-        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
-        self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
-        self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
+        self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
+        self::assertSame($layout->status, $updatedLayout->status);
+        self::assertSame('4_zones_b', $updatedLayout->layoutType->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $updatedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $updatedLayout->modified);
 
         $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
@@ -909,7 +909,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
 
-        self::assertFalse($topZone->hasLinkedZone());
+        self::assertFalse($topZone->hasLinkedZone);
     }
 
     public function testChangeLayoutTypeThrowsBadStateExceptionOnNonDraftLayout(): void
@@ -934,11 +934,11 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertTrue($draftLayout->isDraft());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $draftLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $draftLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
+        self::assertGreaterThan($layout->modified, $draftLayout->modified);
     }
 
     public function testCreateDraftWithDiscardingExistingDraft(): void
@@ -949,11 +949,11 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertTrue($draftLayout->isDraft());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $draftLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $draftLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
+        self::assertGreaterThan($layout->modified, $draftLayout->modified);
     }
 
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedLayout(): void
@@ -982,7 +982,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->discardDraft($layout);
 
-        $this->layoutService->loadLayoutDraft($layout->getId());
+        $this->layoutService->loadLayoutDraft($layout->id);
     }
 
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftLayout(): void
@@ -1003,21 +1003,21 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertTrue($publishedLayout->isPublished());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $publishedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $layout->created->format(DateTimeInterface::ATOM),
+            $publishedLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($layout->getModified(), $publishedLayout->getModified());
+        self::assertGreaterThan($layout->modified, $publishedLayout->modified);
 
         $archivedLayout = $this->layoutService->loadLayoutArchive(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         self::assertSame(
-            $currentlyPublishedLayout->getModified()->format(DateTimeInterface::ATOM),
-            $archivedLayout->getModified()->format(DateTimeInterface::ATOM),
+            $currentlyPublishedLayout->modified->format(DateTimeInterface::ATOM),
+            $archivedLayout->modified->format(DateTimeInterface::ATOM),
         );
 
         try {
-            $this->layoutService->loadLayoutDraft($layout->getId());
+            $this->layoutService->loadLayoutDraft($layout->id);
             self::fail('Draft layout still exists after publishing.');
         } catch (NotFoundException) {
             // Do nothing
@@ -1042,14 +1042,14 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($restoredLayout->isDraft());
-        self::assertSame($publishedLayout->getName(), $restoredLayout->getName());
+        self::assertSame($publishedLayout->name, $restoredLayout->name);
 
         self::assertSame(
-            $originalLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $restoredLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $originalLayout->created->format(DateTimeInterface::ATOM),
+            $restoredLayout->created->format(DateTimeInterface::ATOM),
         );
 
-        self::assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
+        self::assertGreaterThan($originalLayout->modified, $restoredLayout->modified);
     }
 
     public function testRestoreFromArchiveWithoutDraft(): void
@@ -1063,7 +1063,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($restoredLayout->isDraft());
-        self::assertSame($publishedLayout->getName(), $restoredLayout->getName());
+        self::assertSame($publishedLayout->name, $restoredLayout->name);
     }
 
     public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
@@ -1095,7 +1095,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->deleteLayout($layout);
 
-        $this->layoutService->loadLayout($layout->getId());
+        $this->layoutService->loadLayout($layout->id);
     }
 
     public function testNewLayoutCreateStruct(): void

@@ -34,14 +34,14 @@ final class BlockCreateStructTest extends TestCase
 
     public function testGetDefinition(): void
     {
-        self::assertSame($this->blockDefinition, $this->struct->getDefinition());
+        self::assertSame($this->blockDefinition, $this->struct->definition);
     }
 
     public function testGetCollectionCreateStructs(): void
     {
         self::assertSame(
             ['default' => $this->collectionStruct],
-            $this->struct->getCollectionCreateStructs(),
+            $this->struct->collectionCreateStructs,
         );
     }
 
@@ -58,7 +58,7 @@ final class BlockCreateStructTest extends TestCase
                 'default' => $collectionStruct1,
                 'featured' => $collectionStruct2,
             ],
-            $this->struct->getCollectionCreateStructs(),
+            $this->struct->collectionCreateStructs,
         );
     }
 

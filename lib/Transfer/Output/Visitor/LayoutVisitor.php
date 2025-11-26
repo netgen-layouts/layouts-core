@@ -32,16 +32,16 @@ final class LayoutVisitor implements VisitorInterface
     {
         return [
             '__type' => self::ENTITY_TYPE,
-            'id' => $value->getId()->toString(),
-            'type_identifier' => $value->getLayoutType()->getIdentifier(),
-            'name' => $value->getName(),
-            'description' => $value->getDescription(),
+            'id' => $value->id->toString(),
+            'type_identifier' => $value->layoutType->getIdentifier(),
+            'name' => $value->name,
+            'description' => $value->description,
             'status' => $this->getStatusString($value),
-            'main_locale' => $value->getMainLocale(),
-            'available_locales' => $value->getAvailableLocales(),
-            'creation_date' => $value->getCreated()->getTimestamp(),
-            'modification_date' => $value->getModified()->getTimestamp(),
-            'is_shared' => $value->isShared(),
+            'main_locale' => $value->mainLocale,
+            'available_locales' => $value->availableLocales,
+            'creation_date' => $value->created->getTimestamp(),
+            'modification_date' => $value->modified->getTimestamp(),
+            'is_shared' => $value->shared,
             'zones' => [...$this->visitZones($value, $outputVisitor)],
         ];
     }
@@ -53,8 +53,8 @@ final class LayoutVisitor implements VisitorInterface
      */
     private function visitZones(Layout $layout, OutputVisitor $outputVisitor): Generator
     {
-        foreach ($layout->getZones() as $zone) {
-            yield $zone->getIdentifier() => $outputVisitor->visit($zone);
+        foreach ($layout->zones as $zone) {
+            yield $zone->identifier => $outputVisitor->visit($zone);
         }
     }
 }

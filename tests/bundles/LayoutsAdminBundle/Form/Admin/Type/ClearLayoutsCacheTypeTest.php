@@ -64,10 +64,10 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         self::assertCount(2, $childViews);
 
         foreach ($this->layouts as $layout) {
-            self::assertArrayHasKey($layout->getId()->toString(), $childViews);
+            self::assertArrayHasKey($layout->id->toString(), $childViews);
 
-            self::assertArrayHasKey('layout', $childViews[$layout->getId()->toString()]->vars);
-            self::assertSame($layout, $childViews[$layout->getId()->toString()]->vars['layout']);
+            self::assertArrayHasKey('layout', $childViews[$layout->id->toString()]->vars);
+            self::assertSame($layout, $childViews[$layout->id->toString()]->vars['layout']);
         }
     }
 

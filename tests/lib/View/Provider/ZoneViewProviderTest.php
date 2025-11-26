@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View\Provider;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\ZoneViewProvider;
@@ -32,7 +32,7 @@ final class ZoneViewProviderTest extends TestCase
         $zone = Zone::fromArray(['identifier' => 'zone']);
         $layout = Layout::fromArray(
             [
-                'zones' => new ArrayCollection(
+                'zones' => ZoneList::fromArray(
                     [
                         'zone' => $zone,
                     ],
@@ -40,7 +40,7 @@ final class ZoneViewProviderTest extends TestCase
             ],
         );
 
-        $blocks = new BlockList();
+        $blocks = BlockList::fromArray([]);
 
         $view = $this->ZoneViewProvider->provideView(new ZoneReference($layout, 'zone'), ['blocks' => $blocks]);
 

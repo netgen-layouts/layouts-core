@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Exception\Layout\TargetException;
@@ -17,55 +18,32 @@ final class Target implements Value
     use HydratorTrait;
     use ValueStatusTrait;
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private UuidInterface $ruleId;
-
-    private TargetTypeInterface $targetType;
-
-    private int|string $value;
-
-    private ?object $valueObject;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    public private(set) Status $status;
 
     /**
      * Returns the UUID of the rule where this target belongs.
      */
-    public function getRuleId(): UuidInterface
-    {
-        return $this->ruleId;
-    }
+    public private(set) UuidInterface $ruleId;
 
     /**
      * Returns the target type.
      */
-    public function getTargetType(): TargetTypeInterface
-    {
-        return $this->targetType;
-    }
+    public private(set) TargetTypeInterface $targetType;
 
     /**
      * Returns the target value.
      */
-    public function getValue(): int|string
-    {
-        return $this->value;
-    }
+    public private(set) int|string $value;
 
-    public function getValueObject(): ?object
-    {
-        if (isset($this->valueObject)) {
-            return $this->valueObject;
+    public private(set) ?object $valueObject {
+        get {
+            if (!$this->targetType instanceof ValueObjectProviderInterface) {
+                throw TargetException::valueObjectNotSupported($this->targetType::getType());
+            }
+
+            return $this->valueObject ??= $this->targetType->getValueObject($this->value);
         }
-
-        if (!$this->targetType instanceof ValueObjectProviderInterface) {
-            throw TargetException::valueObjectNotSupported($this->targetType::getType());
-        }
-
-        return $this->valueObject = $this->targetType->getValueObject($this->value);
     }
 }

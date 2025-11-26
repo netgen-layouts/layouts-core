@@ -25,7 +25,7 @@ final class Type implements MatcherInterface
         }
 
         $layoutType = $view instanceof LayoutViewInterface ?
-            $view->getLayout()->getLayoutType() :
+            $view->getLayout()->layoutType :
             $view->getLayoutType();
 
         if ($layoutType instanceof NullLayoutType) {

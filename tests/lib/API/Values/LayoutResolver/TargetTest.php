@@ -29,9 +29,9 @@ final class TargetTest extends TestCase
             ],
         );
 
-        self::assertSame($targetUuid->toString(), $target->getId()->toString());
-        self::assertSame($ruleUuid->toString(), $target->getRuleId()->toString());
-        self::assertSame($targetType, $target->getTargetType());
-        self::assertSame(32, $target->getValue());
+        self::assertSame($targetUuid->toString(), $target->id->toString());
+        self::assertSame($ruleUuid->toString(), $target->ruleId->toString());
+        self::assertSame($targetType, $target->targetType);
+        self::assertSame(32, $target->value);
     }
 }

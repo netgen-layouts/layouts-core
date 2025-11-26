@@ -39,12 +39,12 @@ final class CollectionNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $collection->getId()->toString(),
+                'id' => $collection->id->toString(),
                 'type' => 1,
-                'is_translatable' => $collection->isTranslatable(),
-                'main_locale' => $collection->getMainLocale(),
-                'always_available' => $collection->isAlwaysAvailable(),
-                'available_locales' => $collection->getAvailableLocales(),
+                'is_translatable' => $collection->isTranslatable,
+                'main_locale' => $collection->mainLocale,
+                'always_available' => $collection->alwaysAvailable,
+                'available_locales' => $collection->availableLocales,
             ],
             $this->normalizer->normalize(new Value($collection)),
         );

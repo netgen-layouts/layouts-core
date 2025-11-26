@@ -143,7 +143,7 @@ final class LayoutValidator
 
             if ($preserveSharedZones && count($oldLayoutZones) > 1) {
                 foreach ($oldLayoutZones as $oldZone) {
-                    if ($oldZone->getLinkedZone() instanceof Zone) {
+                    if ($oldZone->hasLinkedZone) {
                         throw ValidationException::validationFailed(
                             'zoneMappings',
                             sprintf(

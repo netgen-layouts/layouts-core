@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values\Collection;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\Slot;
+use Netgen\Layouts\API\Values\Collection\SlotList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -45,32 +45,32 @@ final class CollectionTest extends TestCase
                 'isTranslatable' => true,
                 'alwaysAvailable' => false,
                 'locale' => 'en',
-                'items' => new ArrayCollection($items),
-                'slots' => new ArrayCollection($slots),
+                'items' => ItemList::fromArray($items),
+                'slots' => SlotList::fromArray($slots),
                 'query' => $query,
             ],
         );
 
-        self::assertSame($uuid->toString(), $collection->getId()->toString());
-        self::assertSame($blockUuid->toString(), $collection->getBlockId()->toString());
-        self::assertSame(5, $collection->getOffset());
-        self::assertSame(10, $collection->getLimit());
-        self::assertSame('en', $collection->getMainLocale());
-        self::assertSame(['en', 'hr'], $collection->getAvailableLocales());
-        self::assertTrue($collection->isTranslatable());
-        self::assertFalse($collection->isAlwaysAvailable());
-        self::assertSame('en', $collection->getLocale());
+        self::assertSame($uuid->toString(), $collection->id->toString());
+        self::assertSame($blockUuid->toString(), $collection->blockId->toString());
+        self::assertSame(5, $collection->offset);
+        self::assertSame(10, $collection->limit);
+        self::assertSame('en', $collection->mainLocale);
+        self::assertSame(['en', 'hr'], $collection->availableLocales);
+        self::assertTrue($collection->isTranslatable);
+        self::assertFalse($collection->alwaysAvailable);
+        self::assertSame('en', $collection->locale);
 
-        self::assertCount(2, $collection->getItems());
-        self::assertSame($items[0], $collection->getItems()[0]);
-        self::assertSame($items[1], $collection->getItems()[1]);
+        self::assertCount(2, $collection->items);
+        self::assertSame($items[0], $collection->items[0]);
+        self::assertSame($items[1], $collection->items[1]);
 
-        self::assertCount(2, $collection->getSlots());
-        self::assertSame($slots[2], $collection->getSlots()[2]);
-        self::assertSame($slots[3], $collection->getSlots()[3]);
+        self::assertCount(2, $collection->slots);
+        self::assertSame($slots[2], $collection->slots[2]);
+        self::assertSame($slots[3], $collection->slots[3]);
 
         self::assertSame($query, $collection->getQuery());
-        self::assertTrue($collection->hasQuery());
+        self::assertTrue($collection->hasQuery);
 
         self::assertFalse($collection->hasItem(2));
         self::assertTrue($collection->hasItem(3));
@@ -97,7 +97,7 @@ final class CollectionTest extends TestCase
             ],
         );
 
-        self::assertSame(0, $collection->getOffset());
+        self::assertSame(0, $collection->offset);
     }
 
     public function testGetItemWithNonExistingPosition(): void
@@ -105,7 +105,7 @@ final class CollectionTest extends TestCase
         $collection = Collection::fromArray(
             [
                 'id' => Uuid::uuid4(),
-                'items' => new ItemList([Item::fromArray(['position' => 0])]),
+                'items' => ItemList::fromArray([Item::fromArray(['position' => 0])]),
             ],
         );
 

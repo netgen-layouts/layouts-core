@@ -26,12 +26,12 @@ final class EditRuleForm extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
         $updateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $updateStruct->description = $rule->getDescription();
+        $updateStruct->description = $rule->description;
 
         $form = $this->createForm(
             RuleType::class,
@@ -40,7 +40,7 @@ final class EditRuleForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_rule_form_edit',
                     [
-                        'ruleId' => $rule->getId()->toString(),
+                        'ruleId' => $rule->id->toString(),
                     ],
                 ),
             ],
@@ -56,7 +56,7 @@ final class EditRuleForm extends AbstractController
             $this->layoutResolverService->updateRule($rule, $updateStruct);
 
             return $this->buildView(
-                $this->layoutResolverService->loadRuleDraft($rule->getId()),
+                $this->layoutResolverService->loadRuleDraft($rule->id),
                 ViewInterface::CONTEXT_ADMIN,
             );
         }

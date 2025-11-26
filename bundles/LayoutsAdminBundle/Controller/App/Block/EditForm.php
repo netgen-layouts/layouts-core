@@ -26,14 +26,14 @@ final class EditForm extends AbstractController
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(
-            $block->getDefinition()->getForm($formName)->getType(),
+            $block->definition->getForm($formName)->getType(),
             $updateStruct,
             [
                 'block' => $block,
                 'action' => $this->generateUrl(
                     'nglayouts_app_block_form_edit',
                     [
-                        'blockId' => $block->getId()->toString(),
+                        'blockId' => $block->id->toString(),
                         'locale' => $locale,
                         'formName' => $formName,
                     ],
@@ -52,8 +52,8 @@ final class EditForm extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:block:edit',
             [
-                'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId()->toString(),
+                'block_definition' => $block->definition,
+                'layout' => $block->layoutId->toString(),
             ],
         );
 

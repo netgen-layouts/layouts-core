@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Normalizer;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Service\BlockService;
@@ -15,6 +14,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
@@ -94,7 +94,7 @@ final class LayoutNormalizerTest extends TestCase
                 'description' => 'My layout description',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr'],
-                'zones' => new ArrayCollection(
+                'zones' => ZoneList::fromArray(
                     [
                         'left' => Zone::fromArray(
                             [
@@ -126,36 +126,36 @@ final class LayoutNormalizerTest extends TestCase
         $this->blockServiceMock
             ->method('loadZoneBlocks')
             ->willReturnOnConsecutiveCalls(
-                new BlockList([$block]),
-                new BlockList(),
-                new BlockList(),
+                BlockList::fromArray([$block]),
+                BlockList::fromArray([]),
+                BlockList::fromArray([]),
             );
 
         $this->layoutServiceMock
             ->method('layoutExists')
-            ->with(self::identicalTo($layout->getId()), self::identicalTo(Status::Published))
+            ->with(self::identicalTo($layout->id), self::identicalTo(Status::Published))
             ->willReturn(true);
 
         $this->layoutServiceMock
             ->method('loadLayoutArchive')
-            ->with(self::identicalTo($layout->getId()))
+            ->with(self::identicalTo($layout->id))
             ->willThrowException(new NotFoundException('layout'));
 
         self::assertSame(
             [
-                'id' => $layout->getId()->toString(),
+                'id' => $layout->id->toString(),
                 'type' => $this->layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
-                'created_at' => $layout->getCreated()->format(DateTimeInterface::ATOM),
-                'updated_at' => $layout->getModified()->format(DateTimeInterface::ATOM),
+                'created_at' => $layout->created->format(DateTimeInterface::ATOM),
+                'updated_at' => $layout->modified->format(DateTimeInterface::ATOM),
                 'has_archived_state' => false,
                 'archive_created_at' => null,
                 'archive_updated_at' => null,
                 'shared' => true,
-                'name' => $layout->getName(),
-                'description' => $layout->getDescription(),
-                'main_locale' => $layout->getMainLocale(),
+                'name' => $layout->name,
+                'description' => $layout->description,
+                'main_locale' => $layout->mainLocale,
                 'available_locales' => [
                     'en' => 'English',
                     'hr' => 'Croatian',
@@ -213,7 +213,7 @@ final class LayoutNormalizerTest extends TestCase
                 'description' => 'My layout description',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'zones' => new ArrayCollection(),
+                'zones' => ZoneList::fromArray([]),
             ],
         );
 
@@ -229,25 +229,25 @@ final class LayoutNormalizerTest extends TestCase
                 'description' => 'My layout description',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'zones' => new ArrayCollection(),
+                'zones' => ZoneList::fromArray([]),
             ],
         );
 
         $this->layoutServiceMock
             ->method('layoutExists')
-            ->with(self::identicalTo($layout->getId()), self::identicalTo(Status::Published))
+            ->with(self::identicalTo($layout->id), self::identicalTo(Status::Published))
             ->willReturn(true);
 
         $this->layoutServiceMock
             ->method('loadLayoutArchive')
-            ->with(self::identicalTo($layout->getId()))
+            ->with(self::identicalTo($layout->id))
             ->willReturn($archivedLayout);
 
         $data = $this->normalizer->normalize(new Value($layout));
 
         self::assertTrue($data['has_archived_state']);
-        self::assertSame($archivedLayout->getCreated()->format(DateTimeInterface::ATOM), $data['archive_created_at']);
-        self::assertSame($archivedLayout->getModified()->format(DateTimeInterface::ATOM), $data['archive_updated_at']);
+        self::assertSame($archivedLayout->created->format(DateTimeInterface::ATOM), $data['archive_created_at']);
+        self::assertSame($archivedLayout->modified->format(DateTimeInterface::ATOM), $data['archive_updated_at']);
     }
 
     #[DataProvider('supportsNormalizationDataProvider')]

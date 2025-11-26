@@ -40,13 +40,13 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
         })();
 
         $normalizedData = [
-            'id' => $collectionItem->getId()->toString(),
-            'collection_id' => $collectionItem->getCollectionId()->toString(),
-            'position' => $collectionItem->getPosition(),
+            'id' => $collectionItem->id->toString(),
+            'collection_id' => $collectionItem->collectionId->toString(),
+            'position' => $collectionItem->position,
             'visible' => $this->visibilityResolver->isVisible($collectionItem),
             'value' => $cmsItem->getValue(),
             'value_type' => $cmsItem->getValueType(),
-            'item_view_type' => $collectionItem->getViewType(),
+            'item_view_type' => $collectionItem->viewType,
             'name' => $cmsItem->getName(),
             'cms_visible' => $cmsItem->isVisible(),
             'cms_url' => '',

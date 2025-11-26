@@ -51,12 +51,12 @@ final class LayoutResolver implements LayoutResolverInterface
     private function innerResolveRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): Generator
     {
         $resolvedGroups = $this->layoutResolverService->loadRuleGroups($ruleGroup)->filter(
-            fn (RuleGroup $ruleGroup): bool => $ruleGroup->isEnabled()
-                && $this->conditionsMatch($ruleGroup->getConditions(), $request, $enabledConditions),
+            fn (RuleGroup $ruleGroup): bool => $ruleGroup->enabled
+                && $this->conditionsMatch($ruleGroup->conditions, $request, $enabledConditions),
         );
 
         $matches = [...$resolvedGroups, ...$this->resolveGroupRules($ruleGroup, $request, $enabledConditions)];
-        usort($matches, static fn ($a, $b): int => $b->getPriority() <=> $a->getPriority());
+        usort($matches, static fn ($a, $b): int => $b->priority <=> $a->priority);
 
         foreach ($matches as $match) {
             /** @var \Netgen\Layouts\API\Values\LayoutResolver\Rule|\Netgen\Layouts\API\Values\LayoutResolver\RuleGroup $match */
@@ -88,8 +88,8 @@ final class LayoutResolver implements LayoutResolverInterface
             }
 
             yield from $this->layoutResolverService->matchRules($ruleGroup, $targetType::getType(), $targetValue)->filter(
-                fn (Rule $rule): bool => $rule->isEnabled()
-                    && $this->conditionsMatch($rule->getConditions(), $request, $enabledConditions),
+                fn (Rule $rule): bool => $rule->enabled
+                    && $this->conditionsMatch($rule->conditions, $request, $enabledConditions),
             );
         }
     }
@@ -100,13 +100,13 @@ final class LayoutResolver implements LayoutResolverInterface
     private function conditionsMatch(ConditionList $conditions, Request $request, array $enabledConditions = []): bool
     {
         foreach ($conditions as $condition) {
-            $conditionType = $condition->getConditionType();
+            $conditionType = $condition->conditionType;
 
             if (count($enabledConditions) > 0 && !in_array($conditionType::getType(), $enabledConditions, true)) {
                 continue;
             }
 
-            if (!$conditionType->matches($request, $condition->getValue())) {
+            if (!$conditionType->matches($request, $condition->value)) {
                 return false;
             }
         }

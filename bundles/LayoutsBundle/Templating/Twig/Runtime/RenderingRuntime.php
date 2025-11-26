@@ -86,10 +86,10 @@ final class RenderingRuntime
 
             if ($overrideViewType !== null) {
                 $viewType = $overrideViewType;
-            } elseif ($item instanceof ManualItem && $item->getCollectionItem()->getViewType() !== null) {
-                $viewType = $item->getCollectionItem()->getViewType();
-            } elseif ($slot instanceof Slot && $slot->getViewType() !== null) {
-                $viewType = $slot->getViewType();
+            } elseif ($item instanceof ManualItem && $item->getCollectionItem()->viewType !== null) {
+                $viewType = $item->getCollectionItem()->viewType;
+            } elseif ($slot instanceof Slot && $slot->viewType !== null) {
+                $viewType = $slot->viewType;
             }
 
             if ($viewType === null) {
@@ -182,7 +182,7 @@ final class RenderingRuntime
                 [...$parameters, 'twig_template' => $context['twig_template'] ?? null],
             );
         } catch (Throwable $t) {
-            $message = sprintf('Error rendering a block with UUID "%s"', $block->getId()->toString());
+            $message = sprintf('Error rendering a block with UUID "%s"', $block->id->toString());
 
             $this->errorHandler->handleError($t, $message);
         }
@@ -212,7 +212,7 @@ final class RenderingRuntime
             $message = sprintf(
                 'Error rendering a placeholder "%s" in block with UUID "%s"',
                 $placeholder,
-                $block->getId()->toString(),
+                $block->id->toString(),
             );
 
             $this->errorHandler->handleError($t, $message);

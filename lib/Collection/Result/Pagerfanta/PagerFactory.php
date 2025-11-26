@@ -39,7 +39,7 @@ final class PagerFactory
         $pagerAdapter = new ResultBuilderAdapter(
             $this->resultBuilder,
             $collection,
-            $collection->getOffset(),
+            $collection->offset,
             $maxTotalCount,
             $flags,
         );
@@ -73,7 +73,7 @@ final class PagerFactory
      */
     private function getMaxPerPage(Collection $collection): int
     {
-        $limit = $collection->getLimit() ?? 0;
+        $limit = $collection->limit ?? 0;
 
         return $limit > 0 && $limit < $this->maxLimit ? $limit : $this->maxLimit;
     }

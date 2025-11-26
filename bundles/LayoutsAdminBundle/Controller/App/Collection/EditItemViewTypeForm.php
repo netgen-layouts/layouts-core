@@ -27,11 +27,11 @@ final class EditItemViewTypeForm extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:collection:items');
 
-        $collection = $this->collectionService->loadCollectionDraft($item->getCollectionId());
-        $block = $this->blockService->loadBlockDraft($collection->getBlockId());
+        $collection = $this->collectionService->loadCollectionDraft($item->collectionId);
+        $block = $this->blockService->loadBlockDraft($collection->blockId);
 
         $updateStruct = $this->collectionService->newItemUpdateStruct();
-        $updateStruct->viewType = $item->getViewType();
+        $updateStruct->viewType = $item->viewType;
 
         $form = $this->createForm(
             ItemViewTypeEditType::class,
@@ -42,7 +42,7 @@ final class EditItemViewTypeForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_collection_item_view_type_form_edit',
                     [
-                        'itemId' => $item->getId()->toString(),
+                        'itemId' => $item->id->toString(),
                     ],
                 ),
             ],

@@ -27,7 +27,7 @@ final class LoadLayoutBlocks extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         if (!$layout->hasLocale($locale)) {
-            throw new NotFoundException('layout', $layout->getId()->toString());
+            throw new NotFoundException('layout', $layout->id->toString());
         }
 
         $blocks = [];

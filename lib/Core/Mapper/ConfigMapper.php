@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Core\Mapper;
 use Generator;
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\Parameters\ParameterList;
 
 final class ConfigMapper
 {
@@ -29,12 +30,14 @@ final class ConfigMapper
                 [
                     'configKey' => $configKey,
                     'definition' => $configDefinition,
-                    'parameters' => [
-                        ...$this->parameterMapper->mapParameters(
-                            $configDefinition,
-                            $config[$configKey] ?? [],
-                        ),
-                    ],
+                    'parameters' => new ParameterList(
+                        [
+                            ...$this->parameterMapper->mapParameters(
+                                $configDefinition,
+                                $config[$configKey] ?? [],
+                            ),
+                        ],
+                    ),
                 ],
             );
         }

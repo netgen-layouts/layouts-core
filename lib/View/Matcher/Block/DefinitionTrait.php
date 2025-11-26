@@ -20,7 +20,7 @@ trait DefinitionTrait
      */
     private function doMatch(Block $block, array $config): bool
     {
-        $blockDefinition = $block->getDefinition();
+        $blockDefinition = $block->definition;
         if ($blockDefinition instanceof NullBlockDefinition) {
             return in_array('null', $config, true);
         }

@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\Config;
 
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\Exception\API\ConfigException;
 use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -16,7 +17,7 @@ final class ConfigAwareValueTraitTest extends TestCase
 {
     public function testDefaultProperties(): void
     {
-        $value = new ConfigAwareValue();
+        $value = ConfigAwareValue::fromArray(['configs' => new ConfigList()]);
 
         self::assertCount(0, $value->getConfigs());
     }
@@ -27,9 +28,11 @@ final class ConfigAwareValueTraitTest extends TestCase
 
         $value = ConfigAwareValue::fromArray(
             [
-                'configs' => [
-                    'config' => $config,
-                ],
+                'configs' => new ConfigList(
+                    [
+                        'config' => $config,
+                    ],
+                ),
             ],
         );
 

@@ -8,6 +8,7 @@ use Closure;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
@@ -23,66 +24,52 @@ final class Item implements Value, ConfigAwareValue
     use LazyPropertyTrait;
     use ValueStatusTrait;
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private UuidInterface $collectionId;
-
-    private ItemDefinitionInterface $definition;
-
-    private int $position;
-
-    private int|string|null $value;
-
-    private ?string $viewType;
-
-    private CmsItemInterface|Closure $cmsItem;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    public private(set) Status $status;
 
     /**
      * Returns the UUID of the collection to which the item belongs.
      */
-    public function getCollectionId(): UuidInterface
-    {
-        return $this->collectionId;
-    }
+    public private(set) UuidInterface $collectionId;
 
     /**
      * Returns the item definition.
      */
-    public function getDefinition(): ItemDefinitionInterface
-    {
-        return $this->definition;
-    }
+    public private(set) ItemDefinitionInterface $definition;
 
     /**
      * Returns the item position within the collection.
      */
-    public function getPosition(): int
-    {
-        return $this->position;
-    }
+    public private(set) int $position;
 
     /**
      * Returns the value stored inside the collection item.
      */
-    public function getValue(): int|string|null
-    {
-        return $this->value;
-    }
+    public private(set) int|string|null $value;
 
     /**
      * View type which will be used to render this item.
      *
      * If null, the view type needs to be set from outside to render the item.
      */
-    public function getViewType(): ?string
-    {
-        return $this->viewType;
+    public private(set) ?string $viewType;
+
+    /**
+     * Returns if the item is valid. An item is valid if the CMS item it wraps is visible and
+     * if it actually exists in the CMS.
+     */
+    public bool $isValid {
+        get {
+            if ($this->getCmsItem() instanceof NullCmsItem) {
+                return false;
+            }
+
+            return $this->getCmsItem()->isVisible();
+        }
     }
+
+    private CmsItemInterface|Closure $cmsItem;
 
     /**
      * Returns the CMS item loaded from value and value type stored in this collection item.
@@ -90,18 +77,5 @@ final class Item implements Value, ConfigAwareValue
     public function getCmsItem(): CmsItemInterface
     {
         return $this->getLazyProperty($this->cmsItem);
-    }
-
-    /**
-     * Returns if the item is valid. An item is valid if the CMS item it wraps is visible and
-     * if it actually exists in the CMS.
-     */
-    public function isValid(): bool
-    {
-        if ($this->getCmsItem() instanceof NullCmsItem) {
-            return false;
-        }
-
-        return $this->getCmsItem()->isVisible();
     }
 }

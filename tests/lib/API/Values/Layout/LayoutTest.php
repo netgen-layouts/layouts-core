@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Layout;
 
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -40,30 +40,30 @@ final class LayoutTest extends TestCase
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
                 'shared' => true,
-                'zones' => new ArrayCollection($zones),
+                'zones' => ZoneList::fromArray($zones),
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
             ],
         );
 
-        self::assertSame($uuid, $layout->getId());
-        self::assertSame($layoutType, $layout->getLayoutType());
-        self::assertSame('My layout', $layout->getName());
-        self::assertSame('My description', $layout->getDescription());
-        self::assertSame($createdDate, $layout->getCreated());
-        self::assertSame($modifiedDate, $layout->getModified());
-        self::assertTrue($layout->isShared());
+        self::assertSame($uuid, $layout->id);
+        self::assertSame($layoutType, $layout->layoutType);
+        self::assertSame('My layout', $layout->name);
+        self::assertSame('My description', $layout->description);
+        self::assertSame($createdDate, $layout->created);
+        self::assertSame($modifiedDate, $layout->modified);
+        self::assertTrue($layout->shared);
         self::assertFalse($layout->hasZone('test'));
         self::assertSame($zones['right'], $layout->getZone('right'));
         self::assertTrue($layout->hasZone('right'));
-        self::assertSame('en', $layout->getMainLocale());
-        self::assertSame(['en'], $layout->getAvailableLocales());
+        self::assertSame('en', $layout->mainLocale);
+        self::assertSame(['en'], $layout->availableLocales);
         self::assertTrue($layout->hasLocale('en'));
         self::assertFalse($layout->hasLocale('hr'));
 
-        self::assertCount(2, $layout->getZones());
-        self::assertSame($zones['left'], $layout->getZones()['left']);
-        self::assertSame($zones['right'], $layout->getZones()['right']);
+        self::assertCount(2, $layout->zones);
+        self::assertSame($zones['left'], $layout->zones['left']);
+        self::assertSame($zones['right'], $layout->zones['right']);
 
         self::assertSame($zones, [...$layout]);
 
@@ -85,7 +85,7 @@ final class LayoutTest extends TestCase
 
         $layout = Layout::fromArray(
             [
-                'zones' => new ArrayCollection($zones),
+                'zones' => ZoneList::fromArray($zones),
             ],
         );
 
@@ -104,7 +104,7 @@ final class LayoutTest extends TestCase
 
         $layout = Layout::fromArray(
             [
-                'zones' => new ArrayCollection($zones),
+                'zones' => ZoneList::fromArray($zones),
             ],
         );
 

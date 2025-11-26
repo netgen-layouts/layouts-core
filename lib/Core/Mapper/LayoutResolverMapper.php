@@ -6,12 +6,14 @@ namespace Netgen\Layouts\Core\Mapper;
 
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
-use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\Layout\ConditionTypeException;
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
@@ -67,13 +69,13 @@ final class LayoutResolverMapper
             'enabled' => $rule->enabled,
             'priority' => $rule->priority,
             'description' => $rule->description,
-            'targets' => new LazyCollection(
+            'targets' => TargetList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceTarget $target): Target => $this->mapTarget($target),
                     $this->layoutResolverHandler->loadRuleTargets($rule),
                 ),
             ),
-            'conditions' => new LazyCollection(
+            'conditions' => ConditionList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceRuleCondition $condition): RuleCondition => $this->mapRuleCondition($condition),
                     $this->layoutResolverHandler->loadRuleConditions($rule),
@@ -99,13 +101,13 @@ final class LayoutResolverMapper
             'description' => $ruleGroup->description,
             'enabled' => $ruleGroup->enabled,
             'priority' => $ruleGroup->priority,
-            'rules' => new LazyCollection(
+            'rules' => RuleList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceRule $rule): Rule => $this->mapRule($rule),
                     $this->layoutResolverHandler->loadRulesFromGroup($ruleGroup),
                 ),
             ),
-            'conditions' => new LazyCollection(
+            'conditions' => ConditionList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceRuleGroupCondition $condition): RuleGroupCondition => $this->mapRuleGroupCondition($condition),
                     $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup),

@@ -51,7 +51,7 @@ final class HelpersRuntime
         try {
             $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
 
-            return $layout->getName();
+            return $layout->name;
         } catch (Throwable) {
             return '';
         }
@@ -64,7 +64,7 @@ final class HelpersRuntime
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString($ruleId));
 
-        return $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
+        return $this->layoutResolverService->loadRuleGroup($rule->ruleGroupId);
     }
 
     /**
@@ -75,7 +75,7 @@ final class HelpersRuntime
         try {
             $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString($ruleGroupId));
 
-            return $ruleGroup->getName();
+            return $ruleGroup->name;
         } catch (Throwable) {
             return '';
         }
@@ -138,15 +138,15 @@ final class HelpersRuntime
      */
     public function getParentRuleGroups(Rule $rule): array
     {
-        $group = $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
+        $group = $this->layoutResolverService->loadRuleGroup($rule->ruleGroupId);
         $parentGroups = [$group];
 
-        $parentId = $group->getParentId();
+        $parentId = $group->parentId;
 
         while ($parentId !== null) {
             $group = $this->layoutResolverService->loadRuleGroup($parentId);
             array_unshift($parentGroups, $group);
-            $parentId = $group->getParentId();
+            $parentId = $group->parentId;
         }
 
         return $parentGroups;

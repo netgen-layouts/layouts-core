@@ -23,19 +23,19 @@ final class EditRuleConditionForm extends AbstractController
      */
     public function __invoke(RuleCondition $condition, Request $request): ViewInterface
     {
-        $rule = $this->layoutResolverService->loadRule($condition->getRuleId());
+        $rule = $this->layoutResolverService->loadRule($condition->ruleId);
 
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
-        $conditionType = $condition->getConditionType();
+        $conditionType = $condition->conditionType;
 
         $updateStruct = $this->layoutResolverService->newConditionUpdateStruct();
-        $updateStruct->value = $condition->getValue();
+        $updateStruct->value = $condition->value;
 
         $form = $this->createForm(
             ConditionType::class,
@@ -45,7 +45,7 @@ final class EditRuleConditionForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_rule_condition_form_edit',
                     [
-                        'conditionId' => $condition->getId()->toString(),
+                        'conditionId' => $condition->id->toString(),
                     ],
                 ),
             ],
@@ -62,7 +62,7 @@ final class EditRuleConditionForm extends AbstractController
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $condition->getRuleId(),
+                    $condition->ruleId,
                 ),
                 ViewInterface::CONTEXT_ADMIN,
             );

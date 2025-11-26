@@ -49,18 +49,18 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection);
 
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->getId()->toString());
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->getBlockId()->toString());
-        self::assertSame(10, $collection->getOffset());
-        self::assertSame(20, $collection->getLimit());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->id->toString());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->blockId->toString());
+        self::assertSame(10, $collection->offset);
+        self::assertSame(20, $collection->limit);
         self::assertTrue($collection->isPublished());
-        self::assertTrue($collection->isTranslatable());
-        self::assertSame('en', $collection->getMainLocale());
-        self::assertFalse($collection->isAlwaysAvailable());
-        self::assertSame(['en'], $collection->getAvailableLocales());
+        self::assertTrue($collection->isTranslatable);
+        self::assertSame('en', $collection->mainLocale);
+        self::assertFalse($collection->alwaysAvailable);
+        self::assertSame(['en'], $collection->availableLocales);
 
-        self::assertCount(3, $collection->getItems());
-        self::assertCount(2, $collection->getSlots());
+        self::assertCount(3, $collection->items);
+        self::assertCount(2, $collection->slots);
         self::assertInstanceOf(APIQuery::class, $collection->getQuery());
     }
 
@@ -84,8 +84,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['hr']);
 
-        self::assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
-        self::assertSame('hr', $collection->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $collection->availableLocales);
+        self::assertSame('hr', $collection->locale);
     }
 
     public function testMapCollectionWithLocales(): void
@@ -108,8 +108,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['hr', 'en']);
 
-        self::assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
-        self::assertSame('hr', $collection->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $collection->availableLocales);
+        self::assertSame('hr', $collection->locale);
     }
 
     public function testMapCollectionWithLocalesAndAlwaysAvailable(): void
@@ -132,8 +132,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
 
-        self::assertSame(['en', 'hr', 'de'], $collection->getAvailableLocales());
-        self::assertSame('en', $collection->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $collection->availableLocales);
+        self::assertSame('en', $collection->locale);
     }
 
     public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
@@ -192,17 +192,17 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $collection = $this->mapper->mapCollection($persistenceCollection);
 
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->getId()->toString());
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->getBlockId()->toString());
-        self::assertSame(0, $collection->getOffset());
-        self::assertSame(20, $collection->getLimit());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->id->toString());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->blockId->toString());
+        self::assertSame(0, $collection->offset);
+        self::assertSame(20, $collection->limit);
         self::assertTrue($collection->isPublished());
-        self::assertTrue($collection->isTranslatable());
-        self::assertSame('en', $collection->getMainLocale());
-        self::assertFalse($collection->isAlwaysAvailable());
-        self::assertSame(['en'], $collection->getAvailableLocales());
+        self::assertTrue($collection->isTranslatable);
+        self::assertSame('en', $collection->mainLocale);
+        self::assertFalse($collection->alwaysAvailable);
+        self::assertSame(['en'], $collection->availableLocales);
 
-        self::assertEmpty($collection->getItems());
+        self::assertEmpty($collection->items);
         self::assertNull($collection->getQuery());
     }
 
@@ -237,12 +237,12 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $item = $this->mapper->mapItem($persistenceItem);
 
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->getCollectionId()->toString());
-        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
-        self::assertSame(1, $item->getPosition());
-        self::assertSame('12', $item->getValue());
-        self::assertSame('overlay', $item->getViewType());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
+        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->definition);
+        self::assertSame(1, $item->position);
+        self::assertSame('12', $item->value);
+        self::assertSame('overlay', $item->viewType);
         self::assertSame($cmsItem, $item->getCmsItem());
         self::assertTrue($item->isPublished());
 
@@ -282,12 +282,12 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $item = $this->mapper->mapItem($persistenceItem);
 
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->getCollectionId()->toString());
-        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
-        self::assertSame(1, $item->getPosition());
-        self::assertNull($item->getValue());
-        self::assertSame('overlay', $item->getViewType());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
+        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->definition);
+        self::assertSame(1, $item->position);
+        self::assertNull($item->value);
+        self::assertSame('overlay', $item->viewType);
         self::assertInstanceOf(NullCmsItem::class, $item->getCmsItem());
         self::assertSame('my_value_type', $item->getCmsItem()->getValueType());
         self::assertTrue($item->isPublished());
@@ -331,12 +331,12 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $item = $this->mapper->mapItem($persistenceItem);
 
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->getCollectionId()->toString());
-        self::assertInstanceOf(NullItemDefinition::class, $item->getDefinition());
-        self::assertSame(1, $item->getPosition());
-        self::assertSame('12', $item->getValue());
-        self::assertNull($item->getViewType());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
+        self::assertInstanceOf(NullItemDefinition::class, $item->definition);
+        self::assertSame(1, $item->position);
+        self::assertSame('12', $item->value);
+        self::assertNull($item->viewType);
         self::assertSame($cmsItem, $item->getCmsItem());
         self::assertTrue($item->isPublished());
 
@@ -369,21 +369,21 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->queryTypeRegistry->getQueryType('my_query_type'),
-            $query->getQueryType(),
+            $query->queryType,
         );
 
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->getCollectionId()->toString());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->collectionId->toString());
         self::assertTrue($query->isPublished());
-        self::assertTrue($query->isTranslatable());
-        self::assertSame('en', $query->getMainLocale());
-        self::assertFalse($query->isAlwaysAvailable());
-        self::assertSame(['en'], $query->getAvailableLocales());
+        self::assertTrue($query->isTranslatable);
+        self::assertSame('en', $query->mainLocale);
+        self::assertFalse($query->alwaysAvailable);
+        self::assertSame(['en'], $query->availableLocales);
 
         self::assertSame('value', $query->getParameter('param')->getValue());
         self::assertNull($query->getParameter('param2')->getValue());
 
-        self::assertSame('en', $query->getLocale());
+        self::assertSame('en', $query->locale);
 
         self::assertSame('value', $query->getParameter('param')->getValue());
         self::assertNull($query->getParameter('param2')->getValue());
@@ -407,8 +407,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['hr']);
 
-        self::assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
-        self::assertSame('hr', $query->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $query->availableLocales);
+        self::assertSame('hr', $query->locale);
     }
 
     public function testMapQueryWithLocales(): void
@@ -429,8 +429,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['hr', 'en']);
 
-        self::assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
-        self::assertSame('hr', $query->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $query->availableLocales);
+        self::assertSame('hr', $query->locale);
     }
 
     public function testMapQueryWithLocalesAndAlwaysAvailable(): void
@@ -451,8 +451,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
 
-        self::assertSame(['en', 'hr', 'de'], $query->getAvailableLocales());
-        self::assertSame('en', $query->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $query->availableLocales);
+        self::assertSame('en', $query->locale);
     }
 
     public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
@@ -519,20 +519,20 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $query = $this->mapper->mapQuery($persistenceQuery);
 
-        self::assertInstanceOf(NullQueryType::class, $query->getQueryType());
+        self::assertInstanceOf(NullQueryType::class, $query->queryType);
 
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->getCollectionId()->toString());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->collectionId->toString());
         self::assertTrue($query->isPublished());
-        self::assertTrue($query->isTranslatable());
-        self::assertSame('en', $query->getMainLocale());
-        self::assertFalse($query->isAlwaysAvailable());
-        self::assertSame(['en'], $query->getAvailableLocales());
+        self::assertTrue($query->isTranslatable);
+        self::assertSame('en', $query->mainLocale);
+        self::assertFalse($query->alwaysAvailable);
+        self::assertSame(['en'], $query->availableLocales);
 
         self::assertFalse($query->hasParameter('param'));
         self::assertFalse($query->hasParameter('param2'));
 
-        self::assertSame('en', $query->getLocale());
+        self::assertSame('en', $query->locale);
     }
 
     public function testMapSlot(): void
@@ -551,10 +551,10 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $slot = $this->mapper->mapSlot($persistenceSlot);
 
-        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $slot->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $slot->getCollectionId()->toString());
-        self::assertSame(1, $slot->getPosition());
-        self::assertSame('overlay', $slot->getViewType());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $slot->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $slot->collectionId->toString());
+        self::assertSame(1, $slot->position);
+        self::assertSame('overlay', $slot->viewType);
         self::assertTrue($slot->isPublished());
     }
 }

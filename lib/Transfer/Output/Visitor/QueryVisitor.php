@@ -33,13 +33,13 @@ final class QueryVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'id' => $value->getId()->toString(),
-            'is_translatable' => $value->isTranslatable(),
-            'is_always_available' => $value->isAlwaysAvailable(),
-            'main_locale' => $value->getMainLocale(),
-            'available_locales' => $value->getAvailableLocales(),
+            'id' => $value->id->toString(),
+            'is_translatable' => $value->isTranslatable,
+            'is_always_available' => $value->alwaysAvailable,
+            'main_locale' => $value->mainLocale,
+            'available_locales' => $value->availableLocales,
             'parameters' => $this->visitParameters($value),
-            'query_type' => $value->getQueryType()->getType(),
+            'query_type' => $value->queryType->getType(),
         ];
     }
 
@@ -51,16 +51,16 @@ final class QueryVisitor implements VisitorInterface
     private function visitParameters(Query $query): array
     {
         $parametersByLanguage = [
-            $query->getLocale() => [...$this->visitTranslationParameters($query)],
+            $query->locale => [...$this->visitTranslationParameters($query)],
         ];
 
-        foreach ($query->getAvailableLocales() as $availableLocale) {
-            if ($availableLocale === $query->getLocale()) {
+        foreach ($query->availableLocales as $availableLocale) {
+            if ($availableLocale === $query->locale) {
                 continue;
             }
 
             $translatedQuery = $this->collectionService->loadQuery(
-                $query->getId(),
+                $query->id,
                 [$availableLocale],
                 false,
             );

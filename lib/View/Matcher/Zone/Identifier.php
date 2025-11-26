@@ -22,6 +22,6 @@ final class Identifier implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getZone()->getIdentifier(), $config, true);
+        return in_array($view->getZone()->identifier, $config, true);
     }
 }

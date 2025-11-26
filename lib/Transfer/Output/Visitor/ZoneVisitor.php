@@ -31,7 +31,7 @@ final class ZoneVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'identifier' => $value->getIdentifier(),
+            'identifier' => $value->identifier,
             'linked_zone' => $this->visitLinkedZone($value),
             'blocks' => [...$this->visitBlocks($value, $outputVisitor)],
         ];
@@ -51,8 +51,8 @@ final class ZoneVisitor implements VisitorInterface
         }
 
         return [
-            'identifier' => $linkedZone->getIdentifier(),
-            'layout_id' => $linkedZone->getLayoutId()->toString(),
+            'identifier' => $linkedZone->identifier,
+            'layout_id' => $linkedZone->layoutId->toString(),
         ];
     }
 

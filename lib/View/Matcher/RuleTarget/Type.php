@@ -23,7 +23,7 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        $targetType = $view->getTarget()->getTargetType();
+        $targetType = $view->getTarget()->targetType;
         if ($targetType instanceof NullTargetType) {
             return in_array('null', $config, true);
         }

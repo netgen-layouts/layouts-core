@@ -33,9 +33,9 @@ final class IdentifierTest extends TestCase
     #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
-        $layout = Layout::fromArray(['zones' => new ZoneList(['left' => Zone::fromArray(['identifier' => 'left'])])]);
+        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['left' => Zone::fromArray(['identifier' => 'left'])])]);
 
-        $view = new ZoneView(new ZoneReference($layout, 'left'), new BlockList());
+        $view = new ZoneView(new ZoneReference($layout, 'left'), BlockList::fromArray([]));
 
         self::assertSame($expected, $this->matcher->match($view, $config));
     }

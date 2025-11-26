@@ -4,31 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\Layouts\API\Values\LazyCollection;
 use Ramsey\Uuid\UuidInterface;
 
-use function array_filter;
 use function array_map;
 use function array_values;
 
 /**
- * @extends \Doctrine\Common\Collections\ArrayCollection<string, \Netgen\Layouts\API\Values\Collection\Collection>
+ * @extends \Netgen\Layouts\API\Values\LazyCollection<string, \Netgen\Layouts\API\Values\Collection\Collection>
  */
-final class CollectionList extends ArrayCollection
+final class CollectionList extends LazyCollection
 {
-    /**
-     * @param array<string, \Netgen\Layouts\API\Values\Collection\Collection> $collections
-     */
-    public function __construct(array $collections = [])
-    {
-        parent::__construct(
-            array_filter(
-                $collections,
-                static fn (Collection $collection): bool => true,
-            ),
-        );
-    }
-
     /**
      * @return array<string, \Netgen\Layouts\API\Values\Collection\Collection>
      */
@@ -44,7 +30,7 @@ final class CollectionList extends ArrayCollection
     {
         return array_values(
             array_map(
-                static fn (Collection $collection): UuidInterface => $collection->getId(),
+                static fn (Collection $collection): UuidInterface => $collection->id,
                 $this->getCollections(),
             ),
         );

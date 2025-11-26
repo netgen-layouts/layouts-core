@@ -29,10 +29,10 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $data->getValue();
-        $blockDefinition = $block->getDefinition();
+        $blockDefinition = $block->definition;
 
         $parameters = $this->buildValues($block->getParameters());
-        $placeholders = $this->buildValues($block->getPlaceholders()->getValues());
+        $placeholders = $this->buildValues($block->placeholders->getValues());
 
         $configuration = (function () use ($block): Generator {
             foreach ($block->getConfigs() as $configKey => $config) {
@@ -41,19 +41,19 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         })();
 
         $normalizedData = [
-            'id' => $block->getId()->toString(),
-            'layout_id' => $block->getLayoutId()->toString(),
+            'id' => $block->id->toString(),
+            'layout_id' => $block->layoutId->toString(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
-            'name' => $block->getName(),
-            'parent_position' => $block->getPosition(),
+            'name' => $block->name,
+            'parent_position' => $block->position,
             'parameters' => $this->normalizer->normalize($parameters, $format, $context),
-            'view_type' => $block->getViewType(),
-            'item_view_type' => $block->getItemViewType(),
+            'view_type' => $block->viewType,
+            'item_view_type' => $block->itemViewType,
             'published' => $block->isPublished(),
             'has_published_state' => $this->blockService->hasPublishedState($block),
-            'locale' => $block->getLocale(),
-            'is_translatable' => $block->isTranslatable(),
-            'always_available' => $block->isAlwaysAvailable(),
+            'locale' => $block->locale,
+            'is_translatable' => $block->isTranslatable,
+            'always_available' => $block->alwaysAvailable,
             'is_container' => false,
             'placeholders' => $this->normalizer->normalize($placeholders, $format, $context),
             'collections' => $this->normalizer->normalize($this->getBlockCollections($block), $format, $context),
@@ -91,16 +91,16 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
      */
     private function getBlockCollections(Block $block): Generator
     {
-        foreach ($block->getCollections() as $identifier => $collection) {
+        foreach ($block->collections as $identifier => $collection) {
             yield [
                 'identifier' => $identifier,
-                'collection_id' => $collection->getId()->toString(),
-                'collection_type' => match ($collection->getCollectionType()) {
+                'collection_id' => $collection->id->toString(),
+                'collection_type' => match ($collection->collectionType) {
                     CollectionType::Manual => 0,
                     CollectionType::Dynamic => 1,
                 },
-                'offset' => $collection->getOffset(),
-                'limit' => $collection->getLimit(),
+                'offset' => $collection->offset,
+                'limit' => $collection->limit,
             ];
         }
     }

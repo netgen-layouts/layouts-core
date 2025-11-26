@@ -26,9 +26,9 @@ final class ZoneTest extends TestCase
             ],
         );
 
-        self::assertSame('left', $zone->getIdentifier());
-        self::assertSame($layoutUuid, $zone->getLayoutId());
-        self::assertTrue($zone->hasLinkedZone());
+        self::assertSame('left', $zone->identifier);
+        self::assertSame($layoutUuid, $zone->layoutId);
+        self::assertTrue($zone->hasLinkedZone);
         self::assertSame($linkedZone, $zone->getLinkedZone());
     }
 }

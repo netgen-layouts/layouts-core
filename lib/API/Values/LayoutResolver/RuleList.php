@@ -4,30 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\Layouts\API\Values\LazyCollection;
 use Ramsey\Uuid\UuidInterface;
 
-use function array_filter;
 use function array_map;
 
 /**
- * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
+ * @extends \Netgen\Layouts\API\Values\LazyCollection<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
  */
-final class RuleList extends ArrayCollection
+final class RuleList extends LazyCollection
 {
-    /**
-     * @param \Netgen\Layouts\API\Values\LayoutResolver\Rule[] $rules
-     */
-    public function __construct(array $rules = [])
-    {
-        parent::__construct(
-            array_filter(
-                $rules,
-                static fn (Rule $rule): bool => true,
-            ),
-        );
-    }
-
     /**
      * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule[]
      */
@@ -42,7 +28,7 @@ final class RuleList extends ArrayCollection
     public function getRuleIds(): array
     {
         return array_map(
-            static fn (Rule $rule): UuidInterface => $rule->getId(),
+            static fn (Rule $rule): UuidInterface => $rule->id,
             $this->getRules(),
         );
     }

@@ -22,7 +22,7 @@ final class LayoutType implements MatcherInterface
             return false;
         }
 
-        $layoutType = $view->getLayout()->getLayoutType();
+        $layoutType = $view->getLayout()->layoutType;
 
         return in_array($layoutType->getIdentifier(), $config, true);
     }

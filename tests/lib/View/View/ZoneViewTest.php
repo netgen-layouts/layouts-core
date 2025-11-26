@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View\View;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\View\View\ZoneView;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -29,7 +29,7 @@ final class ZoneViewTest extends TestCase
         $this->zone = Zone::fromArray(['identifier' => 'zone']);
         $this->layout = Layout::fromArray(
             [
-                'zones' => new ArrayCollection(
+                'zones' => ZoneList::fromArray(
                     [
                         'zone' => $this->zone,
                     ],
@@ -37,7 +37,7 @@ final class ZoneViewTest extends TestCase
             ],
         );
 
-        $this->blocks = new BlockList();
+        $this->blocks = BlockList::fromArray([]);
 
         $this->view = new ZoneView(new ZoneReference($this->layout, 'zone'), $this->blocks);
 

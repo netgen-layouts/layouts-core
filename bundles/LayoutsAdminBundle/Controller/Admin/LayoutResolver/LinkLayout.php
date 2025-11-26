@@ -34,7 +34,7 @@ final class LinkLayout extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
@@ -57,7 +57,7 @@ final class LinkLayout extends AbstractController
         }
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = $layout->getId();
+        $ruleUpdateStruct->layoutId = $layout->id;
 
         $updatedRule = $this->layoutResolverService->updateRule(
             $rule,

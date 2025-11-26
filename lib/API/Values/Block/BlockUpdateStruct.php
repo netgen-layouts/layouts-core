@@ -47,7 +47,7 @@ final class BlockUpdateStruct implements ParameterStruct, ConfigAwareStruct
      */
     public function fillParametersFromBlock(Block $block): void
     {
-        $this->fillFromCollection($block->getDefinition(), $block);
+        $this->fillFromCollection($block->definition, $block);
     }
 
     /**

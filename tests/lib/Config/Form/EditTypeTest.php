@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Config\Form;
 
 use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Config\Form\EditType;
@@ -35,17 +36,19 @@ final class EditTypeTest extends FormTestCase
 
         $this->configurable = ConfigAwareValue::fromArray(
             [
-                'configs' => [
-                    'test' => Config::fromArray(
-                        [
-                            'definition' => ConfigDefinition::fromArray(
-                                [
-                                    'parameterDefinitions' => $handler->getParameterDefinitions(),
-                                ],
-                            ),
-                        ],
-                    ),
-                ],
+                'configs' => new ConfigList(
+                    [
+                        'test' => Config::fromArray(
+                            [
+                                'definition' => ConfigDefinition::fromArray(
+                                    [
+                                        'parameterDefinitions' => $handler->getParameterDefinitions(),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
             ],
         );
     }

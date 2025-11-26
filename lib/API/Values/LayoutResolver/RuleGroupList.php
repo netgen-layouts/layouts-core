@@ -42,7 +42,7 @@ final class RuleGroupList extends ArrayCollection
     public function getRuleGroupIds(): array
     {
         return array_map(
-            static fn (RuleGroup $ruleGroup): UuidInterface => $ruleGroup->getId(),
+            static fn (RuleGroup $ruleGroup): UuidInterface => $ruleGroup->id,
             $this->getRuleGroups(),
         );
     }

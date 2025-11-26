@@ -34,7 +34,7 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        $queryType = $query->getQueryType();
+        $queryType = $query->queryType;
         if ($queryType instanceof NullQueryType) {
             return in_array('null', $config, true);
         }

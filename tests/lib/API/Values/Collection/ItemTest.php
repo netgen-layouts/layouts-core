@@ -37,12 +37,12 @@ final class ItemTest extends TestCase
             ],
         );
 
-        self::assertSame($itemUuid->toString(), $item->getId()->toString());
-        self::assertSame($collectionUuid->toString(), $item->getCollectionId()->toString());
-        self::assertSame($definition, $item->getDefinition());
-        self::assertSame(3, $item->getPosition());
-        self::assertSame(32, $item->getValue());
-        self::assertSame('overlay', $item->getViewType());
+        self::assertSame($itemUuid->toString(), $item->id->toString());
+        self::assertSame($collectionUuid->toString(), $item->collectionId->toString());
+        self::assertSame($definition, $item->definition);
+        self::assertSame(3, $item->position);
+        self::assertSame(32, $item->value);
+        self::assertSame('overlay', $item->viewType);
         self::assertSame($cmsItem, $item->getCmsItem());
     }
 
@@ -58,7 +58,7 @@ final class ItemTest extends TestCase
             ],
         );
 
-        self::assertSame($isValid, $item->isValid());
+        self::assertSame($isValid, $item->isValid);
     }
 
     public function testIsValidWithNullCmsItem(): void
@@ -71,7 +71,7 @@ final class ItemTest extends TestCase
             ],
         );
 
-        self::assertFalse($item->isValid());
+        self::assertFalse($item->isValid);
     }
 
     public static function isValidDataProvider(): iterable

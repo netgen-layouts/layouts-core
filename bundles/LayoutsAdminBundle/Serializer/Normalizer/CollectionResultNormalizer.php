@@ -48,8 +48,8 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
 
         $slot = $result->getSlot();
         if ($slot instanceof Slot) {
-            $normalizedData['slot_id'] = $slot->getId()->toString();
-            $normalizedData['slot_view_type'] = $slot->getViewType();
+            $normalizedData['slot_id'] = $slot->id->toString();
+            $normalizedData['slot_view_type'] = $slot->viewType;
         }
 
         if ($overrideItem instanceof CmsItemInterface) {
@@ -95,7 +95,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         if ($resultItem instanceof ManualItem) {
             $collectionItem = $resultItem->getCollectionItem();
             $cmsItem = $collectionItem->getCmsItem();
-            $itemViewType = $collectionItem->getViewType();
+            $itemViewType = $collectionItem->viewType;
             $isDynamic = false;
         }
 
@@ -107,8 +107,8 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         })();
 
         $normalizedData = [
-            'id' => $collectionItem?->getId()->toString(),
-            'collection_id' => $collectionItem?->getCollectionId()->toString(),
+            'id' => $collectionItem?->id->toString(),
+            'collection_id' => $collectionItem?->collectionId->toString(),
             'visible' => $collectionItem !== null ?
                 $this->visibilityResolver->isVisible($collectionItem) :
                 true,

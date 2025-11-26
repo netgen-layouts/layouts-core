@@ -6,9 +6,12 @@ namespace Netgen\Layouts\Core\Mapper;
 
 use Generator;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Block\PlaceholderList;
 use Netgen\Layouts\API\Values\Collection\Collection;
-use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\Collection\CollectionList;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
@@ -16,6 +19,7 @@ use Netgen\Layouts\Block\NullBlockDefinition;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
@@ -95,30 +99,34 @@ final class BlockMapper
                 null,
             'parentPlaceholder' => $block->depth > 1 ? $block->placeholder : null,
             'status' => Status::from($block->status->value),
-            'placeholders' => [...$this->mapPlaceholders($block, $blockDefinition, $locales)],
-            'collections' => new LazyCollection(
+            'placeholders' => new PlaceholderList([...$this->mapPlaceholders($block, $blockDefinition, $locales)]),
+            'collections' => CollectionList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceCollection $collection): Collection => $this->collectionMapper->mapCollection($collection, $locales),
                     $this->collectionHandler->loadCollections($block),
                 ),
             ),
-            'configs' => [
-                ...$this->configMapper->mapConfig(
-                    $block->config,
-                    $blockDefinition->getConfigDefinitions(),
-                ),
-            ],
+            'configs' => new ConfigList(
+                [
+                    ...$this->configMapper->mapConfig(
+                        $block->config,
+                        $blockDefinition->getConfigDefinitions(),
+                    ),
+                ],
+            ),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
             'alwaysAvailable' => $block->alwaysAvailable,
             'availableLocales' => $block->availableLocales,
             'locale' => $blockLocale,
-            'parameters' => [
-                ...$this->parameterMapper->mapParameters(
-                    $blockDefinition,
-                    [...$block->parameters[$blockLocale], ...$untranslatableParams],
-                ),
-            ],
+            'parameters' => new ParameterList(
+                [
+                    ...$this->parameterMapper->mapParameters(
+                        $blockDefinition,
+                        [...$block->parameters[$blockLocale], ...$untranslatableParams],
+                    ),
+                ],
+            ),
         ];
 
         return Block::fromArray($blockData);
@@ -141,7 +149,7 @@ final class BlockMapper
             yield $placeholderIdentifier => Placeholder::fromArray(
                 [
                     'identifier' => $placeholderIdentifier,
-                    'blocks' => new LazyCollection(
+                    'blocks' => BlockList::fromCallable(
                         fn (): array => array_map(
                             fn (PersistenceBlock $childBlock): Block => $this->mapBlock($childBlock, $locales, false),
                             $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier),

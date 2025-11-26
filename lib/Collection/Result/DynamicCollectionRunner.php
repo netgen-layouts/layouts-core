@@ -51,12 +51,12 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             $totalCount = $this->queryRunner->count($collectionQuery);
         }
 
-        foreach ($collection->getItems() as $item) {
-            if ($item->getPosition() > $totalCount) {
+        foreach ($collection->items as $item) {
+            if ($item->position > $totalCount) {
                 break;
             }
 
-            if ($this->visibilityResolver->isVisible($item) && $item->isValid()) {
+            if ($this->visibilityResolver->isVisible($item) && $item->isValid) {
                 ++$totalCount;
             }
         }
@@ -74,25 +74,25 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      */
     private function buildManualResult(Collection $collection, CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
-        if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid()) {
+        if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid) {
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItemInterface) {
                 return null;
             }
 
             return new Result(
-                $collectionItem->getPosition(),
+                $collectionItem->position,
                 $queryValue,
                 new ManualItem($collectionItem),
-                $collection->getSlot($collectionItem->getPosition()),
+                $collection->getSlot($collectionItem->position),
             );
         }
 
         return new Result(
-            $collectionItem->getPosition(),
+            $collectionItem->position,
             new ManualItem($collectionItem),
             null,
-            $collection->getSlot($collectionItem->getPosition()),
+            $collection->getSlot($collectionItem->position),
         );
     }
 
@@ -138,13 +138,13 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     {
         $manualItemsCount = 0;
 
-        foreach ($collection->getItems() as $item) {
-            $itemPosition = $item->getPosition();
+        foreach ($collection->items as $item) {
+            $itemPosition = $item->position;
             if ($itemPosition < $startOffset || $itemPosition >= $endOffset) {
                 continue;
             }
 
-            if ($this->visibilityResolver->isVisible($item) && $item->isValid()) {
+            if ($this->visibilityResolver->isVisible($item) && $item->isValid) {
                 ++$manualItemsCount;
             }
         }

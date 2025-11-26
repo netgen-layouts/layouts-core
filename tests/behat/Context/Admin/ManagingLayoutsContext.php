@@ -33,7 +33,7 @@ final class ManagingLayoutsContext extends AdminContext
     {
         $this->indexPage->open();
 
-        $this->indexPage->editLayout($layout->getName());
+        $this->indexPage->editLayout($layout->name);
     }
 
     #[When('/^I click on a (layout called "[^"]+")$/')]
@@ -41,7 +41,7 @@ final class ManagingLayoutsContext extends AdminContext
     {
         $this->indexPage->open();
 
-        $this->indexPage->clickLayoutName($layout->getName());
+        $this->indexPage->clickLayoutName($layout->name);
     }
 
     #[When('/^I duplicate a (layout called "[^"]+")$/')]
@@ -49,7 +49,7 @@ final class ManagingLayoutsContext extends AdminContext
     {
         $this->indexPage->open();
 
-        $this->indexPage->openDuplicateLayoutModal($layout->getName());
+        $this->indexPage->openDuplicateLayoutModal($layout->name);
     }
 
     #[When('/^I set the layout name to "([^"]+)"$/')]
@@ -63,15 +63,15 @@ final class ManagingLayoutsContext extends AdminContext
     {
         $this->indexPage->open();
 
-        $this->indexPage->openDeleteLayoutModal($layout->getName());
+        $this->indexPage->openDeleteLayoutModal($layout->name);
     }
 
     #[Then('/^edit interface for (layout called "[^"]+") should open$/')]
     public function editInterfaceShouldOpen(Layout $layout): void
     {
         $this->appPage->verifyRoute();
-        $this->appPage->verifyUrlFragment('layout/' . $layout->getId()->toString());
-        $this->appPage->verifyLayout($layout->getName());
+        $this->appPage->verifyUrlFragment('layout/' . $layout->id->toString());
+        $this->appPage->verifyLayout($layout->name);
     }
 
     #[Then('/^interface for creating a new layout should open$/')]
@@ -96,7 +96,7 @@ final class ManagingLayoutsContext extends AdminContext
     #[Then('/^a (layout called "[^"]+") should exist$/')]
     public function layoutShouldExist(Layout $layout): void
     {
-        Assert::true($this->indexPage->layoutExists($layout->getName()), 'Layout with provided name does not exist');
+        Assert::true($this->indexPage->layoutExists($layout->name), 'Layout with provided name does not exist');
     }
 
     #[Then('/^a layout called "([^"]+)" should not exist$/')]

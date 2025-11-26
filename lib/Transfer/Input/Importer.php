@@ -75,7 +75,7 @@ final class Importer implements ImporterInterface
                     },
                 );
 
-                yield new SuccessResult($entityData['__type'], $entityData, $entity->getId(), $entity);
+                yield new SuccessResult($entityData['__type'], $entityData, $entity->id, $entity);
             } catch (Throwable $t) {
                 yield new ErrorResult($entityData['__type'], $entityData, $uuid, $t);
             }

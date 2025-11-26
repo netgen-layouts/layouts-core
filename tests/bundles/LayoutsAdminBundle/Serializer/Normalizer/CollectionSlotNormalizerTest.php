@@ -36,10 +36,10 @@ final class CollectionSlotNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $slot->getId()->toString(),
-                'collection_id' => $slot->getCollectionId()->toString(),
-                'position' => $slot->getPosition(),
-                'view_type' => $slot->getViewType(),
+                'id' => $slot->id->toString(),
+                'collection_id' => $slot->collectionId->toString(),
+                'position' => $slot->position,
+                'view_type' => $slot->viewType,
                 'empty' => false,
             ],
             $this->normalizer->normalize(new Value($slot)),

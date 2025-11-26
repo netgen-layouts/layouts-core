@@ -23,8 +23,8 @@ final class Restore extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:block:edit',
             [
-                'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId()->toString(),
+                'block_definition' => $block->definition,
+                'layout' => $block->layoutId->toString(),
             ],
         );
 

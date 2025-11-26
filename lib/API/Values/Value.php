@@ -11,14 +11,14 @@ interface Value
     /**
      * Returns the value UUID.
      */
-    public function getId(): UuidInterface;
+    public UuidInterface $id { get; }
 
     /**
      * Returns the status of the value.
      *
      * A value can have one of three statuses: draft, published or archived.
      */
-    public function getStatus(): Status;
+    public Status $status { get; }
 
     /**
      * Returns if the value is a draft.

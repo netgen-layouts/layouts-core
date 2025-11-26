@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Block\PlaceholderList;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Collection\Result\ManualItem;
@@ -68,8 +69,8 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderZone(): void
     {
         $zone = Zone::fromArray([]);
-        $blocks = new BlockList();
-        $layout = Layout::fromArray(['zones' => new ArrayCollection(['zone' => $zone])]);
+        $blocks = BlockList::fromArray([]);
+        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['zone' => $zone])]);
 
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
@@ -285,9 +286,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => Uuid::uuid4(),
-                'placeholders' => [
-                    'main' => $placeholder,
-                ],
+                'placeholders' => new PlaceholderList(['main' => $placeholder]),
             ],
         );
 
@@ -331,9 +330,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => Uuid::uuid4(),
-                'placeholders' => [
-                    'main' => $placeholder,
-                ],
+                'placeholders' => new PlaceholderList(['main' => $placeholder]),
             ],
         );
 
@@ -373,9 +370,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => Uuid::uuid4(),
-                'placeholders' => [
-                    'main' => $placeholder,
-                ],
+                'placeholders' => new PlaceholderList(['main' => $placeholder]),
             ],
         );
 
@@ -420,9 +415,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => Uuid::uuid4(),
-                'placeholders' => [
-                    'main' => $placeholder,
-                ],
+                'placeholders' => new PlaceholderList(['main' => $placeholder]),
             ],
         );
 
@@ -463,7 +456,7 @@ final class RenderingRuntimeTest extends TestCase
 
     public function testRenderPlaceholderReturnsEmptyStringOnException(): void
     {
-        $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => ['main' => new Placeholder()]]);
+        $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => new PlaceholderList(['main' => new Placeholder()])]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -489,7 +482,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->errorHandler->setThrow(true);
-        $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => ['main' => new Placeholder()]]);
+        $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => new PlaceholderList(['main' => new Placeholder()])]);
 
         $this->rendererMock
             ->expects(self::once())

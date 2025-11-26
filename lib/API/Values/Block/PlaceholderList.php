@@ -43,7 +43,7 @@ final class PlaceholderList extends ArrayCollection
     {
         return array_values(
             array_map(
-                static fn (Placeholder $placeholder): string => $placeholder->getIdentifier(),
+                static fn (Placeholder $placeholder): string => $placeholder->identifier,
                 $this->getPlaceholders(),
             ),
         );

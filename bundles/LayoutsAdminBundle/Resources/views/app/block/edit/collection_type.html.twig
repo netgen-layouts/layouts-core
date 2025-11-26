@@ -11,25 +11,25 @@
     {% set collection_config = block.definition.collection(collection_identifier) %}
 
     {% for query_type in query_types %}
-        {% if query_type.enabled and collection_config.validQueryType(query_type.type) %}
+        {% if query_type.isEnabled and collection_config.validQueryType(query_type.type) %}
             {% set allowed_query_types = allowed_query_types|merge([query_type]) %}
         {% endif %}
     {% endfor %}
 
     {% for value_type in value_types %}
-        {% if value_type.enabled and collection_config.validItemType(value_type.identifier) %}
+        {% if value_type.isEnabled and collection_config.validItemType(value_type.identifier) %}
             {% set allowed_value_types = allowed_value_types|merge([value_type]) %}
         {% endif %}
     {% endfor %}
 {% else %}
     {% for query_type in query_types %}
-        {% if query_type.enabled %}
+        {% if query_type.isEnabled %}
             {% set allowed_query_types = allowed_query_types|merge([query_type]) %}
         {% endif %}
     {% endfor %}
 
     {% for value_type in value_types %}
-        {% if value_type.enabled %}
+        {% if value_type.isEnabled %}
             {% set allowed_value_types = allowed_value_types|merge([value_type]) %}
         {% endif %}
     {% endfor %}

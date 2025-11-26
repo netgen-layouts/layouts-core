@@ -25,7 +25,7 @@ final class DefinitionPrefix implements MatcherInterface
             return false;
         }
 
-        $identifier = $view->getBlock()->getDefinition()->getIdentifier();
+        $identifier = $view->getBlock()->definition->getIdentifier();
 
         return array_any(
             $config,

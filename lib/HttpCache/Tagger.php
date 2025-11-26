@@ -16,7 +16,7 @@ final class Tagger implements TaggerInterface
 
     public function tagLayout(Layout $layout): void
     {
-        $this->responseTagger?->addTags(['ngl-all', 'ngl-layout-' . $layout->getId()->toString()]);
+        $this->responseTagger?->addTags(['ngl-all', 'ngl-layout-' . $layout->id->toString()]);
     }
 
     public function tagBlock(Block $block): void
@@ -24,8 +24,8 @@ final class Tagger implements TaggerInterface
         $this->responseTagger?->addTags(
             [
                 'ngl-all',
-                'ngl-block-' . $block->getId()->toString(),
-                'ngl-origin-layout-' . $block->getLayoutId()->toString(),
+                'ngl-block-' . $block->id->toString(),
+                'ngl-origin-layout-' . $block->layoutId->toString(),
             ],
         );
     }

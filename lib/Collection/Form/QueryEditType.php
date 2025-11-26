@@ -51,10 +51,10 @@ final class QueryEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $locale = $options['data']->locale;
-        $mainLocale = $options['query']->getMainLocale();
+        $mainLocale = $options['query']->mainLocale;
 
         /** @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface $queryType */
-        $queryType = $options['query']->getQueryType();
+        $queryType = $options['query']->queryType;
 
         $builder->add(
             'parameters',

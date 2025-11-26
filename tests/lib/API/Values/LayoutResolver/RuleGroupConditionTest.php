@@ -31,9 +31,9 @@ final class RuleGroupConditionTest extends TestCase
             ],
         );
 
-        self::assertSame($conditionUuid->toString(), $condition->getId()->toString());
-        self::assertSame($ruleGroupUuid->toString(), $condition->getRuleGroupId()->toString());
-        self::assertSame($conditionType, $condition->getConditionType());
-        self::assertSame(32, $condition->getValue());
+        self::assertSame($conditionUuid->toString(), $condition->id->toString());
+        self::assertSame($ruleGroupUuid->toString(), $condition->ruleGroupId->toString());
+        self::assertSame($conditionType, $condition->conditionType);
+        self::assertSame(32, $condition->value);
     }
 }

@@ -15,7 +15,7 @@ final class ContentEditType extends EditType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $locale = $options['data']->locale;
-        $mainLocale = $options['block']->getMainLocale();
+        $mainLocale = $options['block']->mainLocale;
 
         $this->addBlockNameForm($builder, $options);
         $this->addParametersForm(

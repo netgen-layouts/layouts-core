@@ -25,9 +25,9 @@ final class SlotVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'id' => $value->getId()->toString(),
-            'position' => $value->getPosition(),
-            'view_type' => $value->getViewType(),
+            'id' => $value->id->toString(),
+            'position' => $value->position,
+            'view_type' => $value->viewType,
         ];
     }
 }

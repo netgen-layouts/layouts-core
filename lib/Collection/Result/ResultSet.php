@@ -85,7 +85,7 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
      */
     public function isDynamic(): bool
     {
-        return $this->collection->hasQuery();
+        return $this->collection->hasQuery;
     }
 
     /**
@@ -98,7 +98,7 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
             return false;
         }
 
-        return $collectionQuery->isContextual();
+        return $collectionQuery->isContextual;
     }
 
     /**

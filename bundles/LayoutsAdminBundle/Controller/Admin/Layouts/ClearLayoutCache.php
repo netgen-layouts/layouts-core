@@ -34,7 +34,7 @@ final class ClearLayoutCache extends AbstractController
             );
         }
 
-        $this->invalidator->invalidateLayouts([$layout->getId()->toString()]);
+        $this->invalidator->invalidateLayouts([$layout->id->toString()]);
 
         $cacheCleared = $this->invalidator->commit();
 

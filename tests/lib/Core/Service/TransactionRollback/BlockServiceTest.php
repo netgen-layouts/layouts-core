@@ -8,6 +8,7 @@ use Exception;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Block\BlockDefinition;
@@ -150,7 +151,7 @@ final class BlockServiceTest extends TestCase
                     'id' => Uuid::uuid4(),
                     'status' => Status::Draft,
                     'definition' => new BlockDefinition(),
-                    'configs' => [],
+                    'configs' => new ConfigList(),
                 ],
             ),
             $struct,

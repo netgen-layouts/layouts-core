@@ -128,20 +128,20 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $firstBlock = $leftPlaceholder->getBlocks()[0];
-        $secondBlock = $leftPlaceholder->getBlocks()[1];
+        $firstBlock = $leftPlaceholder->blocks[0];
+        $secondBlock = $leftPlaceholder->blocks[1];
 
         self::assertInstanceOf(Block::class, $firstBlock);
         self::assertInstanceOf(Block::class, $secondBlock);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId()->toString(), $firstBlock->getId()->toString());
-        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $secondBlock->getId()->toString());
+        self::assertSame($block->id->toString(), $firstBlock->id->toString());
+        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $secondBlock->id->toString());
 
-        self::assertFalse($block->isTranslatable());
-        self::assertTrue($block->isAlwaysAvailable());
-        self::assertContains('en', $block->getAvailableLocales());
-        self::assertSame('en', $block->getLocale());
+        self::assertFalse($block->isTranslatable);
+        self::assertTrue($block->alwaysAvailable);
+        self::assertContains('en', $block->availableLocales);
+        self::assertSame('en', $block->locale);
     }
 
     public function testCreateBlockWithCollection(): void
@@ -157,20 +157,20 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         self::assertTrue($block->isDraft());
 
-        $collections = $block->getCollections();
+        $collections = $block->collections;
         self::assertCount(1, $collections);
         self::assertArrayHasKey('default', $collections);
 
         /** @var \Netgen\Layouts\API\Values\Collection\Collection $defaultCollection */
         $defaultCollection = $collections['default'];
 
-        self::assertSame(0, $defaultCollection->getOffset());
-        self::assertNull($defaultCollection->getLimit());
-        self::assertFalse($defaultCollection->hasQuery());
-        self::assertSame($block->isTranslatable(), $defaultCollection->isTranslatable());
-        self::assertSame($block->isAlwaysAvailable(), $defaultCollection->isAlwaysAvailable());
-        self::assertSame($block->getAvailableLocales(), $defaultCollection->getAvailableLocales());
-        self::assertSame($block->getMainLocale(), $defaultCollection->getMainLocale());
+        self::assertSame(0, $defaultCollection->offset);
+        self::assertNull($defaultCollection->limit);
+        self::assertFalse($defaultCollection->hasQuery);
+        self::assertSame($block->isTranslatable, $defaultCollection->isTranslatable);
+        self::assertSame($block->alwaysAvailable, $defaultCollection->alwaysAvailable);
+        self::assertSame($block->availableLocales, $defaultCollection->availableLocales);
+        self::assertSame($block->mainLocale, $defaultCollection->mainLocale);
     }
 
     public function testCreateBlockWithDynamicCollection(): void
@@ -195,22 +195,22 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         self::assertTrue($block->isDraft());
 
-        $collections = $block->getCollections();
+        $collections = $block->collections;
         self::assertCount(1, $collections);
         self::assertArrayHasKey('default', $collections);
 
         /** @var \Netgen\Layouts\API\Values\Collection\Collection $defaultCollection */
         $defaultCollection = $collections['default'];
 
-        self::assertSame(0, $defaultCollection->getOffset());
-        self::assertNull($defaultCollection->getLimit());
-        self::assertTrue($defaultCollection->hasQuery());
+        self::assertSame(0, $defaultCollection->offset);
+        self::assertNull($defaultCollection->limit);
+        self::assertTrue($defaultCollection->hasQuery);
         self::assertInstanceOf(Query::class, $defaultCollection->getQuery());
-        self::assertSame('my_query_type', $defaultCollection->getQuery()->getQueryType()->getType());
-        self::assertSame($block->isTranslatable(), $defaultCollection->isTranslatable());
-        self::assertSame($block->isAlwaysAvailable(), $defaultCollection->isAlwaysAvailable());
-        self::assertSame($block->getAvailableLocales(), $defaultCollection->getAvailableLocales());
-        self::assertSame($block->getMainLocale(), $defaultCollection->getMainLocale());
+        self::assertSame('my_query_type', $defaultCollection->getQuery()->queryType->getType());
+        self::assertSame($block->isTranslatable, $defaultCollection->isTranslatable);
+        self::assertSame($block->alwaysAvailable, $defaultCollection->alwaysAvailable);
+        self::assertSame($block->availableLocales, $defaultCollection->availableLocales);
+        self::assertSame($block->mainLocale, $defaultCollection->mainLocale);
     }
 
     public function testCreateTranslatableBlock(): void
@@ -226,12 +226,12 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone, 0);
 
         self::assertTrue($block->isDraft());
-        self::assertTrue($block->isTranslatable());
-        self::assertSame('en', $block->getMainLocale());
-        self::assertCount(2, $block->getAvailableLocales());
-        self::assertContains('en', $block->getAvailableLocales());
-        self::assertContains('hr', $block->getAvailableLocales());
-        self::assertSame('en', $block->getLocale());
+        self::assertTrue($block->isTranslatable);
+        self::assertSame('en', $block->mainLocale);
+        self::assertCount(2, $block->availableLocales);
+        self::assertContains('en', $block->availableLocales);
+        self::assertContains('hr', $block->availableLocales);
+        self::assertSame('en', $block->locale);
     }
 
     public function testCreateTranslatableBlockWithNonTranslatableTargetBlock(): void
@@ -252,12 +252,12 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($block->isDraft());
-        self::assertFalse($block->isTranslatable());
-        self::assertSame('en', $block->getMainLocale());
-        self::assertCount(1, $block->getAvailableLocales());
-        self::assertContains('en', $block->getAvailableLocales());
-        self::assertNotContains('hr', $block->getAvailableLocales());
-        self::assertSame('en', $block->getLocale());
+        self::assertFalse($block->isTranslatable);
+        self::assertSame('en', $block->mainLocale);
+        self::assertCount(1, $block->availableLocales);
+        self::assertContains('en', $block->availableLocales);
+        self::assertNotContains('hr', $block->availableLocales);
+        self::assertSame('en', $block->locale);
     }
 
     public function testCreateBlockWithConfig(): void
@@ -285,9 +285,9 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($blockConfig->getParameter('param1')->getValue());
         self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
 
-        self::assertFalse($block->isTranslatable());
-        self::assertContains('en', $block->getAvailableLocales());
-        self::assertSame('en', $block->getLocale());
+        self::assertFalse($block->isTranslatable);
+        self::assertContains('en', $block->availableLocales);
+        self::assertSame('en', $block->locale);
     }
 
     public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
@@ -356,11 +356,11 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $secondBlock = $leftPlaceholder->getBlocks()[1];
+        $secondBlock = $leftPlaceholder->blocks[1];
         self::assertInstanceOf(Block::class, $secondBlock);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId()->toString(), $secondBlock->getId()->toString());
+        self::assertSame($block->id->toString(), $secondBlock->id->toString());
     }
 
     public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
@@ -419,9 +419,9 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Block::class, $blocks[1]);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId()->toString(), $blocks[0]->getId()->toString());
+        self::assertSame($block->id->toString(), $blocks[0]->id->toString());
 
-        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->getId()->toString());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->id->toString());
     }
 
     public function testCreateBlockInZoneWithContainerBlock(): void
@@ -436,7 +436,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
             0,
         );
 
-        self::assertCount(2, $block->getPlaceholders());
+        self::assertCount(2, $block->placeholders);
 
         self::assertTrue($block->hasPlaceholder('main'));
         self::assertTrue($block->hasPlaceholder('other'));
@@ -465,10 +465,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Block::class, $blocks[1]);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId()->toString(), $blocks[0]->getId()->toString());
-        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->getId()->toString());
+        self::assertSame($block->id->toString(), $blocks[0]->id->toString());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->id->toString());
 
-        $collections = $block->getCollections();
+        $collections = $block->collections;
         self::assertCount(0, $collections);
     }
 
@@ -538,7 +538,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Block::class, $blocks[2]);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId()->toString(), $blocks[2]->getId()->toString());
+        self::assertSame($block->id->toString(), $blocks[2]->id->toString());
     }
 
     public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
@@ -585,8 +585,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertTrue($updatedBlock->isDraft());
-        self::assertSame('small', $updatedBlock->getViewType());
-        self::assertSame('Super cool block', $updatedBlock->getName());
+        self::assertSame('small', $updatedBlock->viewType);
+        self::assertSame('Super cool block', $updatedBlock->name);
 
         self::assertSame('css-class', $updatedBlock->getParameter('css_class')->getValue());
         self::assertSame('css-id', $updatedBlock->getParameter('css_id')->getValue());
@@ -612,8 +612,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertTrue($updatedBlock->isDraft());
-        self::assertSame('small', $updatedBlock->getViewType());
-        self::assertSame('Super cool block', $updatedBlock->getName());
+        self::assertSame('small', $updatedBlock->viewType);
+        self::assertSame('Super cool block', $updatedBlock->name);
 
         self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
@@ -685,8 +685,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertTrue($updatedBlock->isDraft());
-        self::assertSame('small', $updatedBlock->getViewType());
-        self::assertSame('My block', $updatedBlock->getName());
+        self::assertSame('small', $updatedBlock->viewType);
+        self::assertSame('My block', $updatedBlock->name);
 
         self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
@@ -704,8 +704,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertTrue($updatedBlock->isDraft());
-        self::assertSame('list', $updatedBlock->getViewType());
-        self::assertSame('Super cool block', $updatedBlock->getName());
+        self::assertSame('list', $updatedBlock->viewType);
+        self::assertSame('Super cool block', $updatedBlock->name);
 
         self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
@@ -756,11 +756,11 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
-        self::assertSame(0, $originalBlock->getPosition());
+        self::assertSame(0, $originalBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(1, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(1, $copiedBlock->position);
     }
 
     public function testCopyBlockWithPosition(): void
@@ -777,11 +777,11 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
-        self::assertSame(0, $originalBlock->getPosition());
+        self::assertSame(0, $originalBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(1, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(1, $copiedBlock->position);
     }
 
     public function testCopyBlockWithSamePosition(): void
@@ -798,11 +798,11 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
-        self::assertSame(1, $firstBlockInTargetBlock->getPosition());
+        self::assertSame(1, $firstBlockInTargetBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(0, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(0, $copiedBlock->position);
     }
 
     public function testCopyBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
@@ -917,14 +917,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
-        self::assertSame(0, $originalBlock->getPosition());
+        self::assertSame(0, $originalBlock->position);
 
         $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
-        self::assertSame(1, $secondBlock->getPosition());
+        self::assertSame(1, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(2, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(2, $copiedBlock->position);
 
         self::assertTrue($copiedBlock->getCollection('default')->isDraft());
         self::assertTrue($copiedBlock->getCollection('featured')->isDraft());
@@ -958,14 +958,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
-        self::assertSame(0, $originalBlock->getPosition());
+        self::assertSame(0, $originalBlock->position);
 
         $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
-        self::assertSame(2, $secondBlock->getPosition());
+        self::assertSame(2, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(1, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(1, $copiedBlock->position);
     }
 
     public function testCopyBlockToZoneWithSamePosition(): void
@@ -996,14 +996,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
-        self::assertSame(1, $originalBlock->getPosition());
+        self::assertSame(1, $originalBlock->position);
 
         $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
-        self::assertSame(2, $secondBlock->getPosition());
+        self::assertSame(2, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(0, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(0, $copiedBlock->position);
     }
 
     public function testCopyBlockToZoneWithLastPosition(): void
@@ -1034,14 +1034,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
-        self::assertSame(0, $originalBlock->getPosition());
+        self::assertSame(0, $originalBlock->position);
 
         $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
-        self::assertSame(1, $secondBlock->getPosition());
+        self::assertSame(1, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(2, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(2, $copiedBlock->position);
     }
 
     public function testCopyBlockToZoneWithLowerPosition(): void
@@ -1064,14 +1064,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
-        self::assertSame(1, $originalBlock->getPosition());
+        self::assertSame(1, $originalBlock->position);
 
         $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
-        self::assertSame(2, $secondBlock->getPosition());
+        self::assertSame(2, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
-        self::assertSame(0, $copiedBlock->getPosition());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertSame(0, $copiedBlock->position);
     }
 
     public function testCopyBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
@@ -1140,15 +1140,15 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame('42446cc9-24c3-573c-9022-6b3a764727b5', $movedBlock->getId()->toString());
+        self::assertSame('42446cc9-24c3-573c-9022-6b3a764727b5', $movedBlock->id->toString());
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $firstBlock = $leftPlaceholder->getBlocks()[0];
+        $firstBlock = $leftPlaceholder->blocks[0];
         self::assertInstanceOf(Block::class, $firstBlock);
 
-        self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
+        self::assertSame($movedBlock->id->toString(), $firstBlock->id->toString());
     }
 
     public function testMoveBlockToDifferentPlaceholder(): void
@@ -1161,17 +1161,17 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $movedBlock->getId()->toString());
+        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $movedBlock->id->toString());
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
         $rightPlaceholder = $targetBlock->getPlaceholder('right');
 
-        $firstBlock = $rightPlaceholder->getBlocks()[0];
+        $firstBlock = $rightPlaceholder->blocks[0];
         self::assertInstanceOf(Block::class, $firstBlock);
 
-        self::assertEmpty($leftPlaceholder->getBlocks());
-        self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
+        self::assertEmpty($leftPlaceholder->blocks);
+        self::assertSame($movedBlock->id->toString(), $firstBlock->id->toString());
     }
 
     public function testMoveBlockToDifferentBlock(): void
@@ -1184,18 +1184,18 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $movedBlock->getId()->toString());
+        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $movedBlock->id->toString());
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6'));
         $originalPlaceholder = $originalBlock->getPlaceholder('left');
         $targetPlaceholder = $targetBlock->getPlaceholder('main');
 
-        $firstBlock = $targetPlaceholder->getBlocks()[0];
+        $firstBlock = $targetPlaceholder->blocks[0];
         self::assertInstanceOf(Block::class, $firstBlock);
 
-        self::assertEmpty($originalPlaceholder->getBlocks());
-        self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
+        self::assertEmpty($originalPlaceholder->blocks);
+        self::assertSame($movedBlock->id->toString(), $firstBlock->id->toString());
     }
 
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock(): void
@@ -1298,14 +1298,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $movedBlock->getId()->toString());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $movedBlock->id->toString());
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertInstanceOf(Block::class, $blocks[0]);
 
-        self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
+        self::assertSame($movedBlock->id->toString(), $blocks[0]->id->toString());
     }
 
     public function testMoveBlockToDifferentZone(): void
@@ -1317,14 +1317,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $movedBlock->getId()->toString());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $movedBlock->id->toString());
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertInstanceOf(Block::class, $blocks[0]);
 
-        self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
+        self::assertSame($movedBlock->id->toString(), $blocks[0]->id->toString());
     }
 
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
@@ -1393,21 +1393,21 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         // Move block so we can make sure position is kept while restoring the block.
 
-        $zone = $this->layoutService->loadLayoutDraft($block->getLayoutId())->getZone('left');
+        $zone = $this->layoutService->loadLayoutDraft($block->layoutId)->getZone('left');
         $movedBlock = $this->blockService->moveBlockToZone($block, $zone, 1);
-        $movedPersistenceBlock = $this->blockHandler->loadBlock($movedBlock->getId(), PersistenceStatus::from($movedBlock->getStatus()->value));
+        $movedPersistenceBlock = $this->blockHandler->loadBlock($movedBlock->id, PersistenceStatus::from($movedBlock->status->value));
 
         $restoredBlock = $this->blockService->restoreBlock($movedBlock);
 
         self::assertTrue($restoredBlock->isDraft());
-        self::assertSame('grid', $restoredBlock->getViewType());
-        self::assertSame('standard_with_intro', $restoredBlock->getItemViewType());
-        self::assertSame('My published block', $restoredBlock->getName());
+        self::assertSame('grid', $restoredBlock->viewType);
+        self::assertSame('standard_with_intro', $restoredBlock->itemViewType);
+        self::assertSame('My published block', $restoredBlock->name);
 
         self::assertSame('some-class', $restoredBlock->getParameter('css_class')->getValue());
         self::assertNull($restoredBlock->getParameter('css_id')->getValue());
 
-        $collections = $restoredBlock->getCollections();
+        $collections = $restoredBlock->collections;
         self::assertCount(2, $collections);
         self::assertArrayHasKey('default', $collections);
         self::assertArrayHasKey('featured', $collections);
@@ -1415,10 +1415,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Collection::class, $collections['default']);
         self::assertInstanceOf(Collection::class, $collections['featured']);
 
-        self::assertSame('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a', $collections['default']->getId()->toString());
-        self::assertSame('da050624-8ae0-5fb9-ae85-092bf8242b89', $collections['featured']->getId()->toString());
+        self::assertSame('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a', $collections['default']->id->toString());
+        self::assertSame('da050624-8ae0-5fb9-ae85-092bf8242b89', $collections['featured']->id->toString());
 
-        $restoredPersistenceBlock = $this->blockHandler->loadBlock($restoredBlock->getId(), PersistenceStatus::from($restoredBlock->getStatus()->value));
+        $restoredPersistenceBlock = $this->blockHandler->loadBlock($restoredBlock->id, PersistenceStatus::from($restoredBlock->status->value));
 
         // Make sure the position is not moved.
 
@@ -1440,11 +1440,11 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $restoredBlock = $this->blockService->restoreBlock($block);
 
         self::assertTrue($restoredBlock->isDraft());
-        self::assertTrue($restoredBlock->isTranslatable());
-        self::assertCount(3, $restoredBlock->getAvailableLocales());
-        self::assertContains('en', $restoredBlock->getAvailableLocales());
-        self::assertContains('hr', $restoredBlock->getAvailableLocales());
-        self::assertContains('de', $restoredBlock->getAvailableLocales());
+        self::assertTrue($restoredBlock->isTranslatable);
+        self::assertCount(3, $restoredBlock->availableLocales);
+        self::assertContains('en', $restoredBlock->availableLocales);
+        self::assertContains('hr', $restoredBlock->availableLocales);
+        self::assertContains('de', $restoredBlock->availableLocales);
     }
 
     public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock(): void
@@ -1463,12 +1463,12 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $updatedBlock = $this->blockService->enableTranslations($block);
 
-        $layout = $this->layoutService->loadLayoutDraft($block->getLayoutId());
-        foreach ($layout->getAvailableLocales() as $locale) {
-            self::assertContains($locale, $updatedBlock->getAvailableLocales());
+        $layout = $this->layoutService->loadLayoutDraft($block->layoutId);
+        foreach ($layout->availableLocales as $locale) {
+            self::assertContains($locale, $updatedBlock->availableLocales);
         }
 
-        self::assertTrue($updatedBlock->isTranslatable());
+        self::assertTrue($updatedBlock->isTranslatable);
     }
 
     public function testEnableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
@@ -1510,10 +1510,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $updatedBlock = $this->blockService->disableTranslations($block);
 
-        self::assertFalse($updatedBlock->isTranslatable());
+        self::assertFalse($updatedBlock->isTranslatable);
 
-        self::assertNotContains('hr', $updatedBlock->getAvailableLocales());
-        self::assertContains('en', $updatedBlock->getAvailableLocales());
+        self::assertNotContains('hr', $updatedBlock->availableLocales);
+        self::assertContains('en', $updatedBlock->availableLocales);
     }
 
     public function testDisableTranslationsOnContainer(): void
@@ -1524,17 +1524,17 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->enableTranslations($childBlock);
         $block = $this->blockService->disableTranslations($block);
 
-        self::assertFalse($block->isTranslatable());
+        self::assertFalse($block->isTranslatable);
 
-        self::assertNotContains('hr', $block->getAvailableLocales());
-        self::assertContains('en', $block->getAvailableLocales());
+        self::assertNotContains('hr', $block->availableLocales);
+        self::assertContains('en', $block->availableLocales);
 
         $childBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
 
-        self::assertFalse($childBlock->isTranslatable());
+        self::assertFalse($childBlock->isTranslatable);
 
-        self::assertNotContains('hr', $childBlock->getAvailableLocales());
-        self::assertContains('en', $childBlock->getAvailableLocales());
+        self::assertNotContains('hr', $childBlock->availableLocales);
+        self::assertContains('en', $childBlock->availableLocales);
     }
 
     public function testDisableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
@@ -1565,7 +1565,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         $this->blockService->deleteBlock($block);
 
-        $this->blockService->loadBlockDraft($block->getId());
+        $this->blockService->loadBlockDraft($block->id);
     }
 
     public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock(): void

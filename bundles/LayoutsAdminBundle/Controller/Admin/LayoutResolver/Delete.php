@@ -68,12 +68,12 @@ final class Delete extends AbstractController
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString($ruleId));
 
-        if ($rule->getRuleGroupId()->toString() !== $ruleGroup->getId()->toString()) {
+        if ($rule->ruleGroupId->toString() !== $ruleGroup->id->toString()) {
             throw new BadStateException(
                 'rule',
                 sprintf(
                     'Rule with ID %s does not belong to provided group.',
-                    $rule->getRuleGroupId()->toString(),
+                    $rule->ruleGroupId->toString(),
                 ),
             );
         }
@@ -90,12 +90,12 @@ final class Delete extends AbstractController
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString($ruleGroupId));
 
-        if ($ruleGroup->getParentId() === null || $ruleGroup->getParentId()->toString() !== $parentGroup->getId()->toString()) {
+        if ($ruleGroup->parentId === null || $ruleGroup->parentId->toString() !== $parentGroup->id->toString()) {
             throw new BadStateException(
                 'rule group',
                 sprintf(
                     'Rule group with ID %s does not belong to provided group.',
-                    $ruleGroup->getId()->toString(),
+                    $ruleGroup->id->toString(),
                 ),
             );
         }

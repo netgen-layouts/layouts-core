@@ -7,8 +7,8 @@ namespace Netgen\Layouts\API\Values\Layout;
 use ArrayAccess;
 use Countable;
 use DateTimeImmutable;
-use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Exception\API\LayoutException;
@@ -29,101 +29,57 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     use HydratorTrait;
     use ValueStatusTrait;
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private LayoutTypeInterface $layoutType;
-
-    private string $name;
-
-    private string $description;
-
-    private DateTimeImmutable $created;
-
-    private DateTimeImmutable $modified;
-
-    private bool $shared;
-
-    private string $mainLocale;
-
-    /**
-     * @var string[]
-     */
-    private array $availableLocales;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<string, \Netgen\Layouts\API\Values\Layout\Zone>
-     */
-    private Collection $zones;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    public private(set) Status $status;
 
     /**
      * Returns the layout type.
      */
-    public function getLayoutType(): LayoutTypeInterface
-    {
-        return $this->layoutType;
-    }
+    public private(set) LayoutTypeInterface $layoutType;
 
     /**
      * Returns human readable name of the layout.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Return human readable description of the layout.
      */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
+    public private(set) string $description;
 
     /**
      * Returns when was the layout first created.
      */
-    public function getCreated(): DateTimeImmutable
-    {
-        return $this->created;
-    }
+    public private(set) DateTimeImmutable $created;
 
     /**
      * Returns when was the layout last updated.
      */
-    public function getModified(): DateTimeImmutable
-    {
-        return $this->modified;
-    }
+    public private(set) DateTimeImmutable $modified;
 
     /**
      * Returns if the layout is shared.
      */
-    public function isShared(): bool
-    {
-        return $this->shared;
-    }
+    public private(set) bool $shared;
 
     /**
      * Returns the main locale of the layout.
      */
-    public function getMainLocale(): string
-    {
-        return $this->mainLocale;
-    }
+    public private(set) string $mainLocale;
 
     /**
      * Returns the list of all available locales in the layout.
      *
-     * @return string[]
+     * @var string[]
      */
-    public function getAvailableLocales(): array
-    {
-        return $this->availableLocales;
+    public private(set) array $availableLocales;
+
+    /**
+     * Returns all zones from the layout.
+     */
+    public private(set) ZoneList $zones {
+        get => ZoneList::fromArray($this->zones->toArray());
     }
 
     /**
@@ -132,14 +88,6 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     public function hasLocale(string $locale): bool
     {
         return in_array($locale, $this->availableLocales, true);
-    }
-
-    /**
-     * Returns all zones from the layout.
-     */
-    public function getZones(): ZoneList
-    {
-        return new ZoneList($this->zones->toArray());
     }
 
     /**

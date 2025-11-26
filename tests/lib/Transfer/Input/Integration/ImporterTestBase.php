@@ -156,7 +156,7 @@ abstract class ImporterTestBase extends CoreTestCase
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
             self::assertInstanceOf(Rule::class, $result->getEntity());
-            self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
+            self::assertSame($result->getEntity()->id->toString(), $result->getEntityId()->toString());
 
             $ruleData = $decodedData['entities'][$index];
             $exportedRuleData = $this->serializer->serialize([$result->getEntityId()->toString() => $ruleData['__type']]);
@@ -198,7 +198,7 @@ abstract class ImporterTestBase extends CoreTestCase
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
             self::assertInstanceOf(RuleGroup::class, $result->getEntity());
-            self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
+            self::assertSame($result->getEntity()->id->toString(), $result->getEntityId()->toString());
 
             $ruleData = $decodedData['entities'][$index];
             $exportedRuleData = $this->serializer->serialize([$result->getEntityId()->toString() => $ruleData['__type']]);
@@ -231,7 +231,7 @@ abstract class ImporterTestBase extends CoreTestCase
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
             self::assertInstanceOf(Layout::class, $result->getEntity());
-            self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
+            self::assertSame($result->getEntity()->id->toString(), $result->getEntityId()->toString());
 
             $layoutData = $decodedData['entities'][$index];
             $exportedLayoutData = $this->serializer->serialize([$result->getEntityId()->toString() => $layoutData['__type']]);

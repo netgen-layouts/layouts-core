@@ -8,10 +8,8 @@ interface ParameterCollectionInterface
 {
     /**
      * Returns all parameters from the collection.
-     *
-     * @return \Netgen\Layouts\Parameters\Parameter[]
      */
-    public function getParameters(): array;
+    public function getParameters(): ParameterList;
 
     /**
      * Returns the parameter with provided name.

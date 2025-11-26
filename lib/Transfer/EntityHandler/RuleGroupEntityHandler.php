@@ -75,7 +75,7 @@ final class RuleGroupEntityHandler implements EntityHandlerInterface
     private function createSubGroups(RuleGroup $ruleGroup, array $ruleGroupsData, bool $keepUuid): void
     {
         foreach ($ruleGroupsData as $ruleGroupData) {
-            $ruleGroupData['parent_id'] = $ruleGroup->getId()->toString();
+            $ruleGroupData['parent_id'] = $ruleGroup->id->toString();
             $this->importEntity($ruleGroupData, $keepUuid);
         }
     }
@@ -88,7 +88,7 @@ final class RuleGroupEntityHandler implements EntityHandlerInterface
     private function createRules(RuleGroup $ruleGroup, array $rulesData, bool $keepUuid): void
     {
         foreach ($rulesData as $ruleData) {
-            $ruleData['rule_group_id'] = $ruleGroup->getId()->toString();
+            $ruleData['rule_group_id'] = $ruleGroup->id->toString();
             $this->ruleEntityHandler->importEntity($ruleData, $keepUuid);
         }
     }

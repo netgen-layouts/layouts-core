@@ -26,7 +26,7 @@ final class PlaceholderVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'identifier' => $value->getIdentifier(),
+            'identifier' => $value->identifier,
             'blocks' => [...$this->visitBlocks($value, $outputVisitor)],
         ];
     }

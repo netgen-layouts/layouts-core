@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Closure;
-use Doctrine\Common\Collections\Collection;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
@@ -19,40 +19,45 @@ final class Rule implements Value
     use LazyPropertyTrait;
     use ValueStatusTrait;
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private UuidInterface $ruleGroupId;
-
-    private Layout|Closure|null $layout;
-
-    private bool $enabled;
-
-    private int $priority;
-
-    private string $description;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Target>
-     */
-    private Collection $targets;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Condition>
-     */
-    private Collection $conditions;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    public private(set) Status $status;
 
     /**
      * Returns the UUID of the rule group where this rule belongs.
      */
-    public function getRuleGroupId(): UuidInterface
-    {
-        return $this->ruleGroupId;
+    public private(set) UuidInterface $ruleGroupId;
+
+    /**
+     * Returns if the rule is enabled.
+     */
+    public private(set) bool $enabled;
+
+    /**
+     * Returns the rule priority.
+     */
+    public private(set) int $priority;
+
+    /**
+     * Returns the rule description.
+     */
+    public private(set) string $description;
+
+    /**
+     * Returns all the targets in the rule.
+     */
+    public private(set) TargetList $targets {
+        get => TargetList::fromArray($this->targets->toArray());
     }
+
+    /**
+     * Returns all conditions in the rule.
+     */
+    public private(set) ConditionList $conditions {
+        get => ConditionList::fromArray($this->conditions->toArray());
+    }
+
+    private Layout|Closure|null $layout;
 
     /**
      * Returns the layout mapped to this rule.
@@ -60,45 +65,5 @@ final class Rule implements Value
     public function getLayout(): ?Layout
     {
         return $this->getLazyProperty($this->layout);
-    }
-
-    /**
-     * Returns if the rule is enabled.
-     */
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Returns the rule priority.
-     */
-    public function getPriority(): int
-    {
-        return $this->priority;
-    }
-
-    /**
-     * Returns the rule description.
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Returns all the targets in the rule.
-     */
-    public function getTargets(): TargetList
-    {
-        return new TargetList($this->targets->toArray());
-    }
-
-    /**
-     * Returns all conditions in the rule.
-     */
-    public function getConditions(): ConditionList
-    {
-        return new ConditionList($this->conditions->toArray());
     }
 }

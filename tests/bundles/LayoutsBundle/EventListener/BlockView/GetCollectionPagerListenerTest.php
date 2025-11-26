@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\BlockView;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionList;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
@@ -17,6 +17,7 @@ use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\Layouts\Event\CollectViewParametersEvent;
 use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\BlockView;
@@ -75,7 +76,7 @@ final class GetCollectionPagerListenerTest extends TestCase
             Block::fromArray(
                 [
                     'definition' => new BlockDefinition(),
-                    'collections' => new ArrayCollection(
+                    'collections' => CollectionList::fromArray(
                         [
                             'default' => $collection,
                         ],
@@ -127,11 +128,13 @@ final class GetCollectionPagerListenerTest extends TestCase
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
                         ],
                     ),
-                    'parameters' => [
-                        'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
-                        'paged_collections:max_pages' => Parameter::fromArray(['value' => 2]),
-                    ],
-                    'collections' => new ArrayCollection(
+                    'parameters' => new ParameterList(
+                        [
+                            'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
+                            'paged_collections:max_pages' => Parameter::fromArray(['value' => 2]),
+                        ],
+                    ),
+                    'collections' => CollectionList::fromArray(
                         [
                             'default' => $collection,
                         ],
@@ -183,11 +186,13 @@ final class GetCollectionPagerListenerTest extends TestCase
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
                         ],
                     ),
-                    'parameters' => [
-                        'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
-                        'paged_collections:max_pages' => Parameter::fromArray(['value' => null]),
-                    ],
-                    'collections' => new ArrayCollection(
+                    'parameters' => new ParameterList(
+                        [
+                            'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
+                            'paged_collections:max_pages' => Parameter::fromArray(['value' => null]),
+                        ],
+                    ),
+                    'collections' => CollectionList::fromArray(
                         [
                             'default' => $collection,
                         ],
@@ -239,10 +244,12 @@ final class GetCollectionPagerListenerTest extends TestCase
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
                         ],
                     ),
-                    'parameters' => [
-                        'paged_collections:enabled' => Parameter::fromArray(['value' => false]),
-                    ],
-                    'collections' => new ArrayCollection(
+                    'parameters' => new ParameterList(
+                        [
+                            'paged_collections:enabled' => Parameter::fromArray(['value' => false]),
+                        ],
+                    ),
+                    'collections' => CollectionList::fromArray(
                         [
                             'default' => $collection,
                         ],

@@ -23,19 +23,19 @@ final class EditTargetForm extends AbstractController
      */
     public function __invoke(Target $target, Request $request): ViewInterface
     {
-        $rule = $this->layoutResolverService->loadRule($target->getRuleId());
+        $rule = $this->layoutResolverService->loadRule($target->ruleId);
 
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
-        $targetType = $target->getTargetType();
+        $targetType = $target->targetType;
 
         $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();
-        $updateStruct->value = $target->getValue();
+        $updateStruct->value = $target->value;
 
         $form = $this->createForm(
             TargetType::class,
@@ -45,7 +45,7 @@ final class EditTargetForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_target_form_edit',
                     [
-                        'targetId' => $target->getId()->toString(),
+                        'targetId' => $target->id->toString(),
                     ],
                 ),
             ],
@@ -62,7 +62,7 @@ final class EditTargetForm extends AbstractController
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $target->getRuleId(),
+                    $target->ruleId,
                 ),
                 ViewInterface::CONTEXT_ADMIN,
             );

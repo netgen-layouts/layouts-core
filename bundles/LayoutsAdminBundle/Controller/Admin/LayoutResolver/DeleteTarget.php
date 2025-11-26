@@ -20,12 +20,12 @@ final class DeleteTarget extends AbstractController
      */
     public function __invoke(Target $target): ViewInterface
     {
-        $rule = $this->layoutResolverService->loadRule($target->getRuleId());
+        $rule = $this->layoutResolverService->loadRule($target->ruleId);
 
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
@@ -33,7 +33,7 @@ final class DeleteTarget extends AbstractController
 
         return $this->buildView(
             $this->layoutResolverService->loadRuleDraft(
-                $target->getRuleId(),
+                $target->ruleId,
             ),
             ViewInterface::CONTEXT_ADMIN,
         );

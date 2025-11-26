@@ -38,37 +38,37 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         $layout = $data->getValue();
-        $layoutType = $layout->getLayoutType();
+        $layoutType = $layout->layoutType;
 
         $availableLocales = [];
-        foreach ($layout->getAvailableLocales() as $locale) {
+        foreach ($layout->availableLocales as $locale) {
             $availableLocales[$locale] = Locales::getName($locale);
         }
 
         $normalizedData = [
-            'id' => $layout->getId()->toString(),
+            'id' => $layout->id->toString(),
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
-            'has_published_state' => $this->layoutService->layoutExists($layout->getId(), Status::Published),
-            'created_at' => $layout->getCreated()->format(DateTimeInterface::ATOM),
-            'updated_at' => $layout->getModified()->format(DateTimeInterface::ATOM),
+            'has_published_state' => $this->layoutService->layoutExists($layout->id, Status::Published),
+            'created_at' => $layout->created->format(DateTimeInterface::ATOM),
+            'updated_at' => $layout->modified->format(DateTimeInterface::ATOM),
             'has_archived_state' => false,
             'archive_created_at' => null,
             'archive_updated_at' => null,
-            'shared' => $layout->isShared(),
-            'name' => $layout->getName(),
-            'description' => $layout->getDescription(),
-            'main_locale' => $layout->getMainLocale(),
+            'shared' => $layout->shared,
+            'name' => $layout->name,
+            'description' => $layout->description,
+            'main_locale' => $layout->mainLocale,
             'available_locales' => $availableLocales,
             'zones' => $this->normalizer->normalize($this->getZones($layout, $layoutType), $format, $context),
         ];
 
         try {
-            $archivedLayout = $this->layoutService->loadLayoutArchive($layout->getId());
+            $archivedLayout = $this->layoutService->loadLayoutArchive($layout->id);
 
             $normalizedData['has_archived_state'] = true;
-            $normalizedData['archive_created_at'] = $archivedLayout->getCreated()->format(DateTimeInterface::ATOM);
-            $normalizedData['archive_updated_at'] = $archivedLayout->getModified()->format(DateTimeInterface::ATOM);
+            $normalizedData['archive_created_at'] = $archivedLayout->created->format(DateTimeInterface::ATOM);
+            $normalizedData['archive_updated_at'] = $archivedLayout->modified->format(DateTimeInterface::ATOM);
         } catch (NotFoundException) {
             // Do nothing
         }
@@ -118,8 +118,8 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             ];
 
             if ($linkedZone instanceof Zone) {
-                $normalizedData['linked_layout_id'] = $linkedZone->getLayoutId()->toString();
-                $normalizedData['linked_zone_identifier'] = $linkedZone->getIdentifier();
+                $normalizedData['linked_layout_id'] = $linkedZone->layoutId->toString();
+                $normalizedData['linked_zone_identifier'] = $linkedZone->identifier;
             }
 
             yield $normalizedData;
@@ -131,11 +131,11 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
      */
     private function getZoneName(Zone $zone, LayoutTypeInterface $layoutType): string
     {
-        if ($layoutType->hasZone($zone->getIdentifier())) {
-            return $layoutType->getZone($zone->getIdentifier())->getName();
+        if ($layoutType->hasZone($zone->identifier)) {
+            return $layoutType->getZone($zone->identifier)->getName();
         }
 
-        return $zone->getIdentifier();
+        return $zone->identifier;
     }
 
     /**
@@ -146,8 +146,8 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
      */
     private function getAllowedBlocks(Zone $zone, LayoutTypeInterface $layoutType): array|true
     {
-        if ($layoutType->hasZone($zone->getIdentifier())) {
-            $layoutTypeZone = $layoutType->getZone($zone->getIdentifier());
+        if ($layoutType->hasZone($zone->identifier)) {
+            $layoutTypeZone = $layoutType->getZone($zone->identifier);
             $allowedBlockDefinitions = $layoutTypeZone->getAllowedBlockDefinitions();
 
             if (count($allowedBlockDefinitions) > 0) {

@@ -46,17 +46,17 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         $rule = $this->mapper->mapRule($persistenceRule);
 
-        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $rule->getId()->toString());
-        self::assertSame(RuleGroup::ROOT_UUID, $rule->getRuleGroupId()->toString());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $rule->id->toString());
+        self::assertSame(RuleGroup::ROOT_UUID, $rule->ruleGroupId->toString());
         self::assertInstanceOf(Layout::class, $rule->getLayout());
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->getLayout()->getId()->toString());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->getLayout()->id->toString());
         self::assertTrue($rule->isPublished());
-        self::assertTrue($rule->isEnabled());
-        self::assertSame(12, $rule->getPriority());
-        self::assertSame('Description', $rule->getDescription());
+        self::assertTrue($rule->enabled);
+        self::assertSame(12, $rule->priority);
+        self::assertSame('Description', $rule->description);
 
-        self::assertCount(2, $rule->getTargets());
-        self::assertCount(2, $rule->getConditions());
+        self::assertCount(2, $rule->targets);
+        self::assertCount(2, $rule->conditions);
     }
 
     public function testMapRuleWithNonExistingLayout(): void
@@ -99,17 +99,17 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         $ruleGroup = $this->mapper->mapRuleGroup($persistenceRuleGroup);
 
-        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $ruleGroup->getId()->toString());
-        self::assertInstanceOf(UuidInterface::class, $ruleGroup->getParentId());
-        self::assertSame(RuleGroup::ROOT_UUID, $ruleGroup->getParentId()->toString());
+        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $ruleGroup->id->toString());
+        self::assertInstanceOf(UuidInterface::class, $ruleGroup->parentId);
+        self::assertSame(RuleGroup::ROOT_UUID, $ruleGroup->parentId->toString());
         self::assertTrue($ruleGroup->isPublished());
-        self::assertSame('Name', $ruleGroup->getName());
-        self::assertSame('Description', $ruleGroup->getDescription());
-        self::assertTrue($ruleGroup->isEnabled());
-        self::assertSame(1, $ruleGroup->getPriority());
+        self::assertSame('Name', $ruleGroup->name);
+        self::assertSame('Description', $ruleGroup->description);
+        self::assertTrue($ruleGroup->enabled);
+        self::assertSame(1, $ruleGroup->priority);
 
-        self::assertCount(2, $ruleGroup->getRules());
-        self::assertCount(2, $ruleGroup->getConditions());
+        self::assertCount(2, $ruleGroup->rules);
+        self::assertCount(2, $ruleGroup->conditions);
     }
 
     public function testMapTarget(): void
@@ -130,13 +130,13 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->targetTypeRegistry->getTargetType('target1'),
-            $target->getTargetType(),
+            $target->targetType,
         );
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->getId()->toString());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->id->toString());
         self::assertTrue($target->isPublished());
-        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->getRuleId()->toString());
-        self::assertSame(42, $target->getValue());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->ruleId->toString());
+        self::assertSame(42, $target->value);
     }
 
     public function testMapTargetWithInvalidTargetType(): void
@@ -155,12 +155,12 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         $target = $this->mapper->mapTarget($persistenceTarget);
 
-        self::assertInstanceOf(NullTargetType::class, $target->getTargetType());
+        self::assertInstanceOf(NullTargetType::class, $target->targetType);
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->getId()->toString());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->id->toString());
         self::assertTrue($target->isPublished());
-        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->getRuleId()->toString());
-        self::assertSame(42, $target->getValue());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->ruleId->toString());
+        self::assertSame(42, $target->value);
     }
 
     public function testMapRuleCondition(): void
@@ -181,13 +181,13 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
-            $condition->getConditionType(),
+            $condition->conditionType,
         );
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
         self::assertTrue($condition->isPublished());
-        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleId()->toString());
-        self::assertSame(42, $condition->getValue());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleId->toString());
+        self::assertSame(42, $condition->value);
     }
 
     public function testMapRuleConditionWithInvalidConditionType(): void
@@ -206,12 +206,12 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         $condition = $this->mapper->mapRuleCondition($persistenceCondition);
 
-        self::assertInstanceOf(NullConditionType::class, $condition->getConditionType());
+        self::assertInstanceOf(NullConditionType::class, $condition->conditionType);
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
         self::assertTrue($condition->isPublished());
-        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleId()->toString());
-        self::assertSame(42, $condition->getValue());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleId->toString());
+        self::assertSame(42, $condition->value);
     }
 
     public function testMapRuleGroupCondition(): void
@@ -232,13 +232,13 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
-            $condition->getConditionType(),
+            $condition->conditionType,
         );
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
         self::assertTrue($condition->isPublished());
-        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleGroupId()->toString());
-        self::assertSame(42, $condition->getValue());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleGroupId->toString());
+        self::assertSame(42, $condition->value);
     }
 
     public function testMapRuleGroupConditionWithInvalidConditionType(): void
@@ -257,11 +257,11 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         $condition = $this->mapper->mapRuleGroupCondition($persistenceCondition);
 
-        self::assertInstanceOf(NullConditionType::class, $condition->getConditionType());
+        self::assertInstanceOf(NullConditionType::class, $condition->conditionType);
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
         self::assertTrue($condition->isPublished());
-        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleGroupId()->toString());
-        self::assertSame(42, $condition->getValue());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleGroupId->toString());
+        self::assertSame(42, $condition->value);
     }
 }

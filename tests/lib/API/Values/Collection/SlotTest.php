@@ -26,10 +26,10 @@ final class SlotTest extends TestCase
             ],
         );
 
-        self::assertSame($slotUuid->toString(), $slot->getId()->toString());
-        self::assertSame($collectionUuid->toString(), $slot->getCollectionId()->toString());
-        self::assertSame(3, $slot->getPosition());
-        self::assertSame('overlay', $slot->getViewType());
-        self::assertFalse($slot->isEmpty());
+        self::assertSame($slotUuid->toString(), $slot->id->toString());
+        self::assertSame($collectionUuid->toString(), $slot->collectionId->toString());
+        self::assertSame(3, $slot->position);
+        self::assertSame('overlay', $slot->viewType);
+        self::assertFalse($slot->isEmpty);
     }
 }

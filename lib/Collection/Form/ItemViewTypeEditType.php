@@ -47,7 +47,7 @@ final class ItemViewTypeEditType extends AbstractType
                     yield '<No override>' => '';
 
                     $block = $options['block'];
-                    foreach ($block->getDefinition()->getViewType($block->getViewType(), $block)->getItemViewTypes() as $itemViewType) {
+                    foreach ($block->definition->getViewType($block->viewType, $block)->getItemViewTypes() as $itemViewType) {
                         yield $itemViewType->getName() => $itemViewType->getIdentifier();
                     }
                 })(),

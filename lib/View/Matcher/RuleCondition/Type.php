@@ -23,7 +23,7 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        $conditionType = $view->getCondition()->getConditionType();
+        $conditionType = $view->getCondition()->conditionType;
         if ($conditionType instanceof NullConditionType) {
             return in_array('null', $config, true);
         }

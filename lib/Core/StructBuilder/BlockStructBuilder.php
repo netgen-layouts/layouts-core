@@ -57,10 +57,10 @@ final class BlockStructBuilder
             return $blockUpdateStruct;
         }
 
-        $blockUpdateStruct->viewType = $block->getViewType();
-        $blockUpdateStruct->itemViewType = $block->getItemViewType();
-        $blockUpdateStruct->name = $block->getName();
-        $blockUpdateStruct->alwaysAvailable = $block->isAlwaysAvailable();
+        $blockUpdateStruct->viewType = $block->viewType;
+        $blockUpdateStruct->itemViewType = $block->itemViewType;
+        $blockUpdateStruct->name = $block->name;
+        $blockUpdateStruct->alwaysAvailable = $block->alwaysAvailable;
         $blockUpdateStruct->fillParametersFromBlock($block);
 
         $this->configStructBuilder->buildConfigUpdateStructs($block, $blockUpdateStruct);

@@ -29,11 +29,11 @@ final class LoadZoneBlocks extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         $layout = $zone->isPublished() ?
-            $this->layoutService->loadLayout($zone->getLayoutId()) :
-            $this->layoutService->loadLayoutDraft($zone->getLayoutId());
+            $this->layoutService->loadLayout($zone->layoutId) :
+            $this->layoutService->loadLayoutDraft($zone->layoutId);
 
         if (!$layout->hasLocale($locale)) {
-            throw new NotFoundException('layout', $layout->getId()->toString());
+            throw new NotFoundException('layout', $layout->id->toString());
         }
 
         $blocks = [];

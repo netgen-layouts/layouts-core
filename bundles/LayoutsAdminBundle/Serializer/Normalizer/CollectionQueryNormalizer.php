@@ -26,12 +26,12 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
         $parameters = $this->buildValues($query->getParameters());
 
         return [
-            'id' => $query->getId()->toString(),
-            'collection_id' => $query->getCollectionId()->toString(),
-            'type' => $query->getQueryType()->getType(),
-            'locale' => $query->getLocale(),
-            'is_translatable' => $query->isTranslatable(),
-            'always_available' => $query->isAlwaysAvailable(),
+            'id' => $query->id->toString(),
+            'collection_id' => $query->collectionId->toString(),
+            'type' => $query->queryType->getType(),
+            'locale' => $query->locale,
+            'is_translatable' => $query->isTranslatable,
+            'always_available' => $query->alwaysAvailable,
             'parameters' => $this->normalizer->normalize($parameters, $format, $context),
         ];
     }

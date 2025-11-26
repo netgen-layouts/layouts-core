@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Parameters;
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterCollectionTrait;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ final class ParameterCollectionTraitTest extends TestCase
         $parameter = new Parameter();
 
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => $parameter]],
+            ['parameters' => new ParameterList(['name' => $parameter])],
         );
 
         self::assertSame($parameter, $parameters->getParameter('name'));
@@ -31,7 +32,7 @@ final class ParameterCollectionTraitTest extends TestCase
         $this->expectExceptionMessage('Parameter with "test" name does not exist.');
 
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => new Parameter()]],
+            ['parameters' => new ParameterList(['name' => new Parameter()])],
         );
 
         $parameters->getParameter('test');
@@ -42,19 +43,19 @@ final class ParameterCollectionTraitTest extends TestCase
         $parameter = new Parameter();
 
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => $parameter]],
+            ['parameters' => new ParameterList(['name' => $parameter])],
         );
 
         self::assertSame(
             ['name' => $parameter],
-            $parameters->getParameters(),
+            $parameters->getParameters()->toArray(),
         );
     }
 
     public function testHasParameter(): void
     {
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => new Parameter()]],
+            ['parameters' => new ParameterList(['name' => new Parameter()])],
         );
 
         self::assertFalse($parameters->hasParameter('test'));

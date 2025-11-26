@@ -28,15 +28,15 @@ final class CollectionVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'id' => $value->getId()->toString(),
-            'offset' => $value->getOffset(),
-            'limit' => $value->getLimit(),
-            'is_translatable' => $value->isTranslatable(),
-            'is_always_available' => $value->isAlwaysAvailable(),
-            'main_locale' => $value->getMainLocale(),
-            'available_locales' => $value->getAvailableLocales(),
-            'items' => [...$this->visitItems($value->getItems(), $outputVisitor)],
-            'slots' => [...$this->visitSlots($value->getSlots(), $outputVisitor)],
+            'id' => $value->id->toString(),
+            'offset' => $value->offset,
+            'limit' => $value->limit,
+            'is_translatable' => $value->isTranslatable,
+            'is_always_available' => $value->alwaysAvailable,
+            'main_locale' => $value->mainLocale,
+            'available_locales' => $value->availableLocales,
+            'items' => [...$this->visitItems($value->items, $outputVisitor)],
+            'slots' => [...$this->visitSlots($value->slots, $outputVisitor)],
             'query' => $this->visitQuery($value, $outputVisitor),
         ];
     }

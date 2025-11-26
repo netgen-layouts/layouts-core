@@ -55,7 +55,7 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
         $collections = [];
         $pagers = [];
 
-        foreach ($block->getCollections() as $identifier => $collection) {
+        foreach ($block->collections as $identifier => $collection) {
             // In non AJAX scenarios, we're always rendering the first page of the collection
             // as specified by offset and limit in the collection itself
             $pager = $this->pagerFactory->getPager(
@@ -79,7 +79,7 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
      */
     private function getMaxPages(Block $block): ?int
     {
-        if (!$block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
+        if (!$block->definition->hasPlugin(PagedCollectionsPlugin::class)) {
             return null;
         }
 

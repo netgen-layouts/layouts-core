@@ -28,7 +28,7 @@ final class LinkZone extends AbstractController
      */
     public function __invoke(Zone $zone, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit', ['layout' => $zone->getLayoutId()->toString()]);
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', ['layout' => $zone->layoutId->toString()]);
 
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);

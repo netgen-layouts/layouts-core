@@ -25,13 +25,13 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         $itemCount = 0;
         $skippedCount = 0;
 
-        foreach ($collection->getItems() as $collectionItem) {
+        foreach ($collection->items as $collectionItem) {
             if ($itemCount >= $limit) {
                 return;
             }
 
             $includeResult = false;
-            $itemValid = $this->visibilityResolver->isVisible($collectionItem) && $collectionItem->isValid();
+            $itemValid = $this->visibilityResolver->isVisible($collectionItem) && $collectionItem->isValid;
 
             if ($itemValid && $skippedCount >= $offset) {
                 // We're always including valid items once we skip up to $offset visible items
@@ -39,7 +39,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
                 $includeResult = true;
             }
 
-            if (!$itemValid && $collectionItem->getPosition() >= $offset) {
+            if (!$itemValid && $collectionItem->position >= $offset) {
                 // We're including all invalid items located after the offset.
                 // These are included only if provided flags allow them to be included
                 // and these are the ones that could've been displayed if no invalid
@@ -51,10 +51,10 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
 
             if ($includeResult) {
                 yield new Result(
-                    $collectionItem->getPosition(),
+                    $collectionItem->position,
                     new ManualItem($collectionItem),
                     null,
-                    $collection->getSlot($collectionItem->getPosition()),
+                    $collection->getSlot($collectionItem->position),
                 );
             }
 
@@ -68,8 +68,8 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
     {
         $totalCount = 0;
 
-        foreach ($collection->getItems() as $collectionItem) {
-            if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid()) {
+        foreach ($collection->items as $collectionItem) {
+            if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid) {
                 continue;
             }
 

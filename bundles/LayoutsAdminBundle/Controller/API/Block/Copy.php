@@ -31,8 +31,8 @@ final class Copy extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:block:add',
             [
-                'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId()->toString(),
+                'block_definition' => $block->definition,
+                'layout' => $block->layoutId->toString(),
             ],
         );
 

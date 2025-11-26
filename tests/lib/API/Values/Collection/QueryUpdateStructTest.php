@@ -11,6 +11,7 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -35,20 +36,22 @@ final class QueryUpdateStructTest extends TestCase
         $query = Query::fromArray(
             [
                 'queryType' => $queryType,
-                'parameters' => [
-                    'css_class' => Parameter::fromArray(
-                        [
-                            'value' => 'css',
-                            'parameterDefinition' => $queryType->getParameterDefinition('css_class'),
-                        ],
-                    ),
-                    'inner' => Parameter::fromArray(
-                        [
-                            'value' => 'inner',
-                            'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
-                        ],
-                    ),
-                ],
+                'parameters' => new ParameterList(
+                    [
+                        'css_class' => Parameter::fromArray(
+                            [
+                                'value' => 'css',
+                                'parameterDefinition' => $queryType->getParameterDefinition('css_class'),
+                            ],
+                        ),
+                        'inner' => Parameter::fromArray(
+                            [
+                                'value' => 'inner',
+                                'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
+                            ],
+                        ),
+                    ],
+                ),
             ],
         );
 

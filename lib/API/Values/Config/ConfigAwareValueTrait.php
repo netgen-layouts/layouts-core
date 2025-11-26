@@ -6,21 +6,16 @@ namespace Netgen\Layouts\API\Values\Config;
 
 use Netgen\Layouts\Exception\API\ConfigException;
 
-use function array_key_exists;
-
 trait ConfigAwareValueTrait
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Config\Config[]
-     */
-    private array $configs = [];
+    private ConfigList $configs;
 
     /**
      * Returns all available configs.
      */
     public function getConfigs(): ConfigList
     {
-        return new ConfigList($this->configs);
+        return new ConfigList($this->configs->toArray());
     }
 
     /**
@@ -30,11 +25,8 @@ trait ConfigAwareValueTrait
      */
     public function getConfig(string $configKey): Config
     {
-        if ($this->hasConfig($configKey)) {
-            return $this->configs[$configKey];
-        }
-
-        throw ConfigException::noConfig($configKey);
+        return $this->configs->get($configKey) ??
+            throw ConfigException::noConfig($configKey);
     }
 
     /**
@@ -42,6 +34,6 @@ trait ConfigAwareValueTrait
      */
     public function hasConfig(string $configKey): bool
     {
-        return array_key_exists($configKey, $this->configs);
+        return $this->configs->containsKey($configKey);
     }
 }

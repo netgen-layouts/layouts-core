@@ -14,7 +14,7 @@ final class FullEditType extends EditType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $locale = $options['data']->locale;
-        $mainLocale = $options['block']->getMainLocale();
+        $mainLocale = $options['block']->mainLocale;
 
         $this->addViewTypeForm($builder, $options);
         $this->addBlockNameForm($builder, $options);

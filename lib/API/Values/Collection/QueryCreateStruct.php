@@ -13,17 +13,12 @@ final class QueryCreateStruct implements ParameterStruct
     use ParameterStructTrait;
 
     public function __construct(
-        private QueryTypeInterface $queryType,
+        /**
+         * Returns the query  type that will be used to create a query with this struct.
+         */
+        private(set) QueryTypeInterface $queryType,
     ) {
         $this->fillDefault($this->queryType);
-    }
-
-    /**
-     * Returns the query  type that will be used to create a query with this struct.
-     */
-    public function getQueryType(): QueryTypeInterface
-    {
-        return $this->queryType;
     }
 
     /**

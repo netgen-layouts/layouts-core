@@ -78,13 +78,13 @@ final class CollectionResultNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $collectionItem->getId()->toString(),
-                'collection_id' => $collectionItem->getCollectionId()->toString(),
+                'id' => $collectionItem->id->toString(),
+                'collection_id' => $collectionItem->collectionId->toString(),
                 'visible' => true,
                 'is_dynamic' => false,
                 'value' => $collectionItem->getCmsItem()->getValue(),
                 'value_type' => $collectionItem->getCmsItem()->getValueType(),
-                'item_view_type' => $collectionItem->getViewType(),
+                'item_view_type' => $collectionItem->viewType,
                 'name' => $collectionItem->getCmsItem()->getName(),
                 'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                 'cms_url' => '/some/url',
@@ -134,13 +134,13 @@ final class CollectionResultNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $collectionItem->getId()->toString(),
-                'collection_id' => $collectionItem->getCollectionId()->toString(),
+                'id' => $collectionItem->id->toString(),
+                'collection_id' => $collectionItem->collectionId->toString(),
                 'visible' => true,
                 'is_dynamic' => false,
                 'value' => $collectionItem->getCmsItem()->getValue(),
                 'value_type' => $collectionItem->getCmsItem()->getValueType(),
-                'item_view_type' => $collectionItem->getViewType(),
+                'item_view_type' => $collectionItem->viewType,
                 'name' => $collectionItem->getCmsItem()->getName(),
                 'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                 'cms_url' => '/some/url',
@@ -253,8 +253,8 @@ final class CollectionResultNormalizerTest extends TestCase
                 'slot_id' => null,
                 'slot_view_type' => null,
                 'override_item' => [
-                    'id' => $collectionItem->getId()->toString(),
-                    'collection_id' => $collectionItem->getCollectionId()->toString(),
+                    'id' => $collectionItem->id->toString(),
+                    'collection_id' => $collectionItem->collectionId->toString(),
                     'visible' => true,
                     'is_dynamic' => false,
                     'value' => $collectionItem->getCmsItem()->getValue(),

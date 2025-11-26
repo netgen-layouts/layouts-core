@@ -99,14 +99,14 @@ final class LayoutEntityHandler implements EntityHandlerInterface
      */
     private function processZones(Layout $layout, array $layoutData): void
     {
-        foreach ($layout->getZones() as $zone) {
-            if (!array_key_exists($zone->getIdentifier(), $layoutData['zones'])) {
+        foreach ($layout->zones as $zone) {
+            if (!array_key_exists($zone->identifier, $layoutData['zones'])) {
                 throw new RuntimeException(
-                    sprintf('Missing data for zone "%s"', $zone->getIdentifier()),
+                    sprintf('Missing data for zone "%s"', $zone->identifier),
                 );
             }
 
-            $this->processZone($zone, $layoutData['zones'][$zone->getIdentifier()]);
+            $this->processZone($zone, $layoutData['zones'][$zone->identifier]);
         }
     }
 
@@ -150,9 +150,9 @@ final class LayoutEntityHandler implements EntityHandlerInterface
      */
     private function updateBlockTranslations(Block $block, array $translationsData): void
     {
-        $mainLocale = $block->getMainLocale();
+        $mainLocale = $block->mainLocale;
 
-        foreach ($block->getAvailableLocales() as $locale) {
+        foreach ($block->availableLocales as $locale) {
             if ($locale === $mainLocale) {
                 continue;
             }
@@ -175,7 +175,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
     private function updateBlockTranslation(Block $block, array $parameterData, string $locale): void
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
-        $updateStruct->fillParametersFromHash($block->getDefinition(), $parameterData, true);
+        $updateStruct->fillParametersFromHash($block->definition, $parameterData, true);
 
         $this->blockService->updateBlock($block, $updateStruct);
     }
@@ -191,9 +191,9 @@ final class LayoutEntityHandler implements EntityHandlerInterface
      */
     private function updateQueryTranslations(Query $query, array $translationsData): void
     {
-        $mainLocale = $query->getMainLocale();
+        $mainLocale = $query->mainLocale;
 
-        foreach ($query->getAvailableLocales() as $locale) {
+        foreach ($query->availableLocales as $locale) {
             if ($locale === $mainLocale) {
                 continue;
             }
@@ -216,7 +216,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
     private function updateQueryTranslation(Query $query, array $parameterData, string $locale): void
     {
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
-        $updateStruct->fillParametersFromHash($query->getQueryType(), $parameterData, true);
+        $updateStruct->fillParametersFromHash($query->queryType, $parameterData, true);
 
         $this->collectionService->updateQuery($query, $updateStruct);
     }
@@ -394,7 +394,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
      */
     private function processCollections(Block $block, array $collectionsData): void
     {
-        foreach ($block->getCollections() as $identifier => $collection) {
+        foreach ($block->collections as $identifier => $collection) {
             $collectionData = $collectionsData[$identifier];
 
             $collectionQuery = $collection->getQuery();

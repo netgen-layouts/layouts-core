@@ -4,30 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Block;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\Layouts\API\Values\LazyCollection;
 use Ramsey\Uuid\UuidInterface;
 
-use function array_filter;
 use function array_map;
 
 /**
- * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\Block\Block>
+ * @extends \Netgen\Layouts\API\Values\LazyCollection<int, \Netgen\Layouts\API\Values\Block\Block>
  */
-final class BlockList extends ArrayCollection
+final class BlockList extends LazyCollection
 {
-    /**
-     * @param \Netgen\Layouts\API\Values\Block\Block[] $blocks
-     */
-    public function __construct(array $blocks = [])
-    {
-        parent::__construct(
-            array_filter(
-                $blocks,
-                static fn (Block $block): bool => true,
-            ),
-        );
-    }
-
     /**
      * @return \Netgen\Layouts\API\Values\Block\Block[]
      */
@@ -42,7 +28,7 @@ final class BlockList extends ArrayCollection
     public function getBlockIds(): array
     {
         return array_map(
-            static fn (Block $block): UuidInterface => $block->getId(),
+            static fn (Block $block): UuidInterface => $block->id,
             $this->getBlocks(),
         );
     }

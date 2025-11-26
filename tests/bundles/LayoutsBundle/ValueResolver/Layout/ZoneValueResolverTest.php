@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Layout;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -47,7 +47,7 @@ final class ZoneValueResolverTest extends TestCase
     public function testLoadValue(): void
     {
         $zone = new Zone();
-        $layout = Layout::fromArray(['zones' => new ArrayCollection(['left' => $zone])]);
+        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['left' => $zone])]);
 
         $uuid = Uuid::uuid4();
 
@@ -72,7 +72,7 @@ final class ZoneValueResolverTest extends TestCase
     public function testLoadValueDraft(): void
     {
         $zone = new Zone();
-        $layout = Layout::fromArray(['zones' => new ArrayCollection(['left' => $zone])]);
+        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['left' => $zone])]);
 
         $uuid = Uuid::uuid4();
 
@@ -100,7 +100,7 @@ final class ZoneValueResolverTest extends TestCase
         $this->expectExceptionMessage('Could not find zone with identifier "left"');
 
         $zone = new Zone();
-        $layout = Layout::fromArray(['zones' => new ArrayCollection(['right' => $zone])]);
+        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['right' => $zone])]);
 
         $uuid = Uuid::uuid4();
 

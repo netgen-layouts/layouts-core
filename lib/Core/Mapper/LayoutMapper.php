@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
@@ -82,7 +82,7 @@ final class LayoutMapper
             'shared' => $layout->shared,
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
-            'zones' => new LazyCollection(
+            'zones' => ZoneList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceZone $zone): Zone => $this->mapZone($zone),
                     $this->layoutHandler->loadLayoutZones($layout),

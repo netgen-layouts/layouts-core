@@ -44,7 +44,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
         }
 
         $block = $constraint->payload;
-        $blockDefinition = $block->getDefinition();
+        $blockDefinition = $block->definition;
 
         $validator = $this->context->getValidator()->inContext($this->context);
 
@@ -73,7 +73,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                 $value->itemViewType,
                 [
                     new BlockItemViewType(
-                        viewType: $value->viewType ?? $block->getViewType(),
+                        viewType: $value->viewType ?? $block->viewType,
                         definition: $blockDefinition,
                         payload: $block,
                     ),

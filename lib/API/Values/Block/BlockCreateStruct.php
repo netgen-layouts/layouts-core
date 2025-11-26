@@ -56,20 +56,15 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
      *
      * @var \Netgen\Layouts\API\Values\Collection\CollectionCreateStruct[]
      */
-    private array $collectionCreateStructs = [];
+    public private(set) array $collectionCreateStructs = [];
 
     public function __construct(
-        private BlockDefinitionInterface $definition,
+        /**
+         * Returns the block definition that will be used to create a block with this struct.
+         */
+        private(set) BlockDefinitionInterface $definition,
     ) {
         $this->fillDefault($this->definition);
-    }
-
-    /**
-     * Returns the block definition that will be used to create a block with this struct.
-     */
-    public function getDefinition(): BlockDefinitionInterface
-    {
-        return $this->definition;
     }
 
     /**
@@ -78,16 +73,6 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     public function addCollectionCreateStruct(string $identifier, CollectionCreateStruct $collectionCreateStruct): void
     {
         $this->collectionCreateStructs[$identifier] = $collectionCreateStruct;
-    }
-
-    /**
-     * Returns all collection create structs from this struct.
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\CollectionCreateStruct[]
-     */
-    public function getCollectionCreateStructs(): array
-    {
-        return $this->collectionCreateStructs;
     }
 
     /**

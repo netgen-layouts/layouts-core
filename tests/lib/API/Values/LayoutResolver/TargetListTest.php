@@ -9,34 +9,15 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use stdClass;
-use TypeError;
-
-use function sprintf;
-use function str_replace;
 
 #[CoversClass(TargetList::class)]
 final class TargetListTest extends TestCase
 {
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->expectExceptionMessageMatches(
-            sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
-                str_replace('\\', '\\\\', Target::class),
-                stdClass::class,
-            ),
-        );
-
-        new TargetList([new Target(), new stdClass(), new Target()]);
-    }
-
     public function testGetTargets(): void
     {
         $targets = [new Target(), new Target()];
 
-        self::assertSame($targets, new TargetList($targets)->getTargets());
+        self::assertSame($targets, TargetList::fromArray($targets)->getTargets());
     }
 
     public function testGetTargetIds(): void
@@ -46,6 +27,6 @@ final class TargetListTest extends TestCase
 
         $targets = [Target::fromArray(['id' => $uuid1]), Target::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], new TargetList($targets)->getTargetIds());
+        self::assertSame([$uuid1, $uuid2], TargetList::fromArray($targets)->getTargetIds());
     }
 }

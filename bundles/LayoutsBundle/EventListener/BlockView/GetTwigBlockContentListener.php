@@ -32,7 +32,7 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
         }
 
         $block = $view->getBlock();
-        $blockDefinition = $block->getDefinition();
+        $blockDefinition = $block->definition;
 
         if (!$blockDefinition instanceof TwigBlockDefinitionInterface) {
             return;

@@ -31,7 +31,7 @@ final class CopyRuleForm extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
@@ -53,7 +53,7 @@ final class CopyRuleForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_rule_copy_form',
                     [
-                        'ruleId' => $rule->getId()->toString(),
+                        'ruleId' => $rule->id->toString(),
                     ],
                 ),
             ],
@@ -77,16 +77,16 @@ final class CopyRuleForm extends AbstractController
         $copiedRule = $this->layoutResolverService->transaction(
             function () use ($rule, $form, $layoutCopyStruct, $originalLayout): Rule {
                 $ruleMetadataUpdateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
-                $ruleMetadataUpdateStruct->priority = $rule->getPriority() - 1;
+                $ruleMetadataUpdateStruct->priority = $rule->priority - 1;
 
-                $targetGroup = $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
+                $targetGroup = $this->layoutResolverService->loadRuleGroup($rule->ruleGroupId);
 
                 $copiedRule = $this->layoutResolverService->updateRuleMetadata(
                     $this->layoutResolverService->copyRule($rule, $targetGroup),
                     $ruleMetadataUpdateStruct,
                 );
 
-                if ($copiedRule->isEnabled()) {
+                if ($copiedRule->enabled) {
                     $copiedRule = $this->layoutResolverService->disableRule($copiedRule);
                 }
 
@@ -98,7 +98,7 @@ final class CopyRuleForm extends AbstractController
                 $layoutCopyStruct->description = $form->get('layout_description')->getData();
 
                 $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-                $ruleUpdateStruct->layoutId = $this->layoutService->copyLayout($originalLayout, $layoutCopyStruct)->getId();
+                $ruleUpdateStruct->layoutId = $this->layoutService->copyLayout($originalLayout, $layoutCopyStruct)->id;
 
                 $draftRule = $this->layoutResolverService->updateRule(
                     $this->layoutResolverService->createRuleDraft($copiedRule),

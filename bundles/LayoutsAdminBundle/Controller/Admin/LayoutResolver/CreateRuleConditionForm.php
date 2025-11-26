@@ -28,7 +28,7 @@ final class CreateRuleConditionForm extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
@@ -43,7 +43,7 @@ final class CreateRuleConditionForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_rule_condition_form_create',
                     [
-                        'ruleId' => $rule->getId()->toString(),
+                        'ruleId' => $rule->id->toString(),
                         'type' => $type,
                     ],
                 ),
@@ -61,7 +61,7 @@ final class CreateRuleConditionForm extends AbstractController
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $rule->getId(),
+                    $rule->id,
                 ),
                 ViewInterface::CONTEXT_ADMIN,
             );

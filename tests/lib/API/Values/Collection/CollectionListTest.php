@@ -9,34 +9,15 @@ use Netgen\Layouts\API\Values\Collection\CollectionList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use stdClass;
-use TypeError;
-
-use function sprintf;
-use function str_replace;
 
 #[CoversClass(CollectionList::class)]
 final class CollectionListTest extends TestCase
 {
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->expectExceptionMessageMatches(
-            sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
-                str_replace('\\', '\\\\', Collection::class),
-                stdClass::class,
-            ),
-        );
-
-        new CollectionList(['one' => new Collection(), 'two' => new stdClass(), 'three' => new Collection()]);
-    }
-
     public function testGetCollections(): void
     {
         $collections = ['one' => new Collection(), 'two' => new Collection()];
 
-        self::assertSame($collections, new CollectionList($collections)->getCollections());
+        self::assertSame($collections, CollectionList::fromArray($collections)->getCollections());
     }
 
     public function testGetCollectionIds(): void
@@ -49,6 +30,6 @@ final class CollectionListTest extends TestCase
             'two' => Collection::fromArray(['id' => $uuid2]),
         ];
 
-        self::assertSame([$uuid1, $uuid2], new CollectionList($collections)->getCollectionIds());
+        self::assertSame([$uuid1, $uuid2], CollectionList::fromArray($collections)->getCollectionIds());
     }
 }

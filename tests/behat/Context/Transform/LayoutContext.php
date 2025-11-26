@@ -26,7 +26,7 @@ final class LayoutContext implements Context
         $layouts = $this->layoutService->loadLayouts();
 
         foreach ($layouts as $layout) {
-            if ($layout->getName() === $layoutName) {
+            if ($layout->name === $layoutName) {
                 return $layout;
             }
         }
@@ -44,7 +44,7 @@ final class LayoutContext implements Context
         $layouts = $this->layoutService->loadSharedLayouts();
 
         foreach ($layouts as $layout) {
-            if ($layout->getName() === $layoutName) {
+            if ($layout->name === $layoutName) {
                 return $layout;
             }
         }

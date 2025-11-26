@@ -33,7 +33,7 @@ final class ClearLayoutsCacheType extends AbstractType
             ChoiceType::class,
             [
                 'choices' => $options['layouts'],
-                'choice_name' => static fn (Layout $layout): string => $layout->getId()->toString(),
+                'choice_name' => static fn (Layout $layout): string => $layout->id->toString(),
                 'choice_value' => 'id',
                 'choice_label' => 'name',
                 'translation_domain' => false,
@@ -52,11 +52,11 @@ final class ClearLayoutsCacheType extends AbstractType
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         foreach ($options['layouts'] as $layout) {
-            if (!isset($view['layouts'][$layout->getId()->toString()])) {
+            if (!isset($view['layouts'][$layout->id->toString()])) {
                 continue;
             }
 
-            $view['layouts'][$layout->getId()->toString()]->vars['layout'] = $layout;
+            $view['layouts'][$layout->id->toString()]->vars['layout'] = $layout;
         }
     }
 }

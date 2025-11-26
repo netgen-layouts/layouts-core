@@ -77,13 +77,13 @@ final class CollectionItemNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $item->getId()->toString(),
-                'collection_id' => $item->getCollectionId()->toString(),
-                'position' => $item->getPosition(),
+                'id' => $item->id->toString(),
+                'collection_id' => $item->collectionId->toString(),
+                'position' => $item->position,
                 'visible' => true,
-                'value' => $item->getValue(),
-                'value_type' => $item->getDefinition()->getValueType(),
-                'item_view_type' => $item->getViewType(),
+                'value' => $item->value,
+                'value_type' => $item->definition->getValueType(),
+                'item_view_type' => $item->viewType,
                 'name' => 'Value name',
                 'cms_visible' => true,
                 'cms_url' => '/some/url',

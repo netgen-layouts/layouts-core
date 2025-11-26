@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -34,25 +35,25 @@ final class RuleGroupTest extends TestCase
                 'description' => 'Description',
                 'priority' => 13,
                 'enabled' => true,
-                'rules' => new ArrayCollection([$rule1, $rule2]),
-                'conditions' => new ArrayCollection([$condition]),
+                'rules' => RuleList::fromArray([$rule1, $rule2]),
+                'conditions' => ConditionList::fromArray([$condition]),
             ],
         );
 
-        self::assertSame($uuid->toString(), $ruleGroup->getId()->toString());
-        self::assertInstanceOf(UuidInterface::class, $ruleGroup->getParentId());
-        self::assertSame($parentUuid->toString(), $ruleGroup->getParentId()->toString());
-        self::assertSame('Name', $ruleGroup->getName());
-        self::assertSame('Description', $ruleGroup->getDescription());
-        self::assertSame(13, $ruleGroup->getPriority());
-        self::assertTrue($ruleGroup->isEnabled());
+        self::assertSame($uuid->toString(), $ruleGroup->id->toString());
+        self::assertInstanceOf(UuidInterface::class, $ruleGroup->parentId);
+        self::assertSame($parentUuid->toString(), $ruleGroup->parentId->toString());
+        self::assertSame('Name', $ruleGroup->name);
+        self::assertSame('Description', $ruleGroup->description);
+        self::assertSame(13, $ruleGroup->priority);
+        self::assertTrue($ruleGroup->enabled);
 
-        self::assertCount(2, $ruleGroup->getRules());
-        self::assertCount(1, $ruleGroup->getConditions());
+        self::assertCount(2, $ruleGroup->rules);
+        self::assertCount(1, $ruleGroup->conditions);
 
-        self::assertSame($rule1, $ruleGroup->getRules()[0]);
-        self::assertSame($rule2, $ruleGroup->getRules()[1]);
+        self::assertSame($rule1, $ruleGroup->rules[0]);
+        self::assertSame($rule2, $ruleGroup->rules[1]);
 
-        self::assertSame($condition, $ruleGroup->getConditions()[0]);
+        self::assertSame($condition, $ruleGroup->conditions[0]);
     }
 }

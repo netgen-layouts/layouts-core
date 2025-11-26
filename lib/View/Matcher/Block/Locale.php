@@ -22,6 +22,6 @@ final class Locale implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getBlock()->getLocale(), $config, true);
+        return in_array($view->getBlock()->locale, $config, true);
     }
 }

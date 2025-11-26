@@ -138,7 +138,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceLayout = $this->layoutHandler->loadLayout(
-            $layout->getId(),
+            $layout->id,
             PersistenceStatus::Published,
         );
 
@@ -149,7 +149,7 @@ final class LayoutResolverService implements APILayoutResolverService
             $ascending,
         );
 
-        return new RuleList(
+        return RuleList::fromArray(
             array_map(
                 fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
                 $persistenceRules,
@@ -164,7 +164,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceLayout = $this->layoutHandler->loadLayout(
-            $layout->getId(),
+            $layout->id,
             PersistenceStatus::Published,
         );
 
@@ -178,7 +178,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
-            $ruleGroup->getId(),
+            $ruleGroup->id,
             PersistenceStatus::Published,
         );
 
@@ -189,7 +189,7 @@ final class LayoutResolverService implements APILayoutResolverService
             $ascending,
         );
 
-        return new RuleList(
+        return RuleList::fromArray(
             array_map(
                 fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
                 $persistenceRules,
@@ -204,7 +204,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
-            $ruleGroup->getId(),
+            $ruleGroup->id,
             PersistenceStatus::Published,
         );
 
@@ -218,7 +218,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceParentGroup = $this->layoutResolverHandler->loadRuleGroup(
-            $parentGroup->getId(),
+            $parentGroup->id,
             PersistenceStatus::Published,
         );
 
@@ -244,7 +244,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceParentGroup = $this->layoutResolverHandler->loadRuleGroup(
-            $parentGroup->getId(),
+            $parentGroup->id,
             PersistenceStatus::Published,
         );
 
@@ -254,11 +254,11 @@ final class LayoutResolverService implements APILayoutResolverService
     public function matchRules(RuleGroup $ruleGroup, string $targetType, mixed $targetValue): RuleList
     {
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
-            $ruleGroup->getId(),
-            PersistenceStatus::from($ruleGroup->getStatus()->value),
+            $ruleGroup->id,
+            PersistenceStatus::from($ruleGroup->status->value),
         );
 
-        return new RuleList(
+        return RuleList::fromArray(
             array_map(
                 fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
                 $this->layoutResolverHandler->matchRules($persistenceGroup, $targetType, $targetValue),
@@ -353,7 +353,7 @@ final class LayoutResolverService implements APILayoutResolverService
                         'status' => PersistenceStatus::Draft,
                     ],
                 ),
-                $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), PersistenceStatus::Published),
+                $this->layoutResolverHandler->loadRuleGroup($targetGroup->id, PersistenceStatus::Published),
             ),
         );
 
@@ -366,7 +366,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Only draft rules can be updated.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Draft);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Draft);
 
         $this->validator->validateRuleUpdateStruct($ruleUpdateStruct);
 
@@ -393,7 +393,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Metadata can be updated only for published rules.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Published);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
 
         $updatedRule = $this->transaction(
             fn (): PersistenceRule => $this->layoutResolverHandler->updateRuleMetadata(
@@ -419,8 +419,8 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('targetGroup', 'Rules can be copied only to published groups.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Published);
-        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), PersistenceStatus::Published);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
+        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->id, PersistenceStatus::Published);
 
         $copiedRule = $this->transaction(
             fn (): PersistenceRule => $this->layoutResolverHandler->copyRule($persistenceRule, $persistenceGroup),
@@ -439,8 +439,8 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('targetGroup', 'Rules can be moved only to published groups.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Published);
-        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), PersistenceStatus::Published);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
+        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->id, PersistenceStatus::Published);
 
         $movedRule = $this->transaction(
             fn (): PersistenceRule => $this->layoutResolverHandler->moveRule(
@@ -459,7 +459,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Drafts can only be created from published rules.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Published);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
 
         if (!$discardExisting && $this->layoutResolverHandler->ruleExists($persistenceRule->id, PersistenceStatus::Draft)) {
             throw new BadStateException('rule', 'The provided rule already has a draft.');
@@ -482,7 +482,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Only draft rules can be discarded.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Draft);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Draft);
 
         $this->transaction(
             function () use ($persistenceRule): void {
@@ -500,7 +500,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Only draft rules can be published.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Draft);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Draft);
 
         $publishedRule = $this->transaction(
             function () use ($persistenceRule): PersistenceRule {
@@ -534,12 +534,12 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Only archived rules can be restored.');
         }
 
-        $archivedRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Archived);
+        $archivedRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Archived);
 
         $draftRule = null;
 
         try {
-            $draftRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Draft);
+            $draftRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Draft);
         } catch (NotFoundException) {
             // Do nothing
         }
@@ -559,7 +559,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function deleteRule(Rule $rule): void
     {
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::from($rule->getStatus()->value));
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::from($rule->status->value));
 
         $this->transaction(
             function () use ($persistenceRule): void {
@@ -598,7 +598,7 @@ final class LayoutResolverService implements APILayoutResolverService
                     ],
                 ),
                 $parentGroup !== null ?
-                    $this->layoutResolverHandler->loadRuleGroup($parentGroup->getId(), PersistenceStatus::Published) :
+                    $this->layoutResolverHandler->loadRuleGroup($parentGroup->id, PersistenceStatus::Published) :
                     null,
             ),
         );
@@ -612,7 +612,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Only draft rule groups can be updated.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Draft);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Draft);
 
         $this->validator->validateRuleGroupUpdateStruct($ruleGroupUpdateStruct);
 
@@ -637,7 +637,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Metadata can be updated only for published rule groups.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Published);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
 
         $updatedRuleGroup = $this->transaction(
             fn (): PersistenceRuleGroup => $this->layoutResolverHandler->updateRuleGroupMetadata(
@@ -663,8 +663,8 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('targetGroup', 'Rule groups can be copied only to published groups.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Published);
-        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), PersistenceStatus::Published);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
+        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->id, PersistenceStatus::Published);
 
         $copiedRuleGroup = $this->transaction(
             fn (): PersistenceRuleGroup => $this->layoutResolverHandler->copyRuleGroup($persistenceRuleGroup, $persistenceTargetGroup, $copyChildren),
@@ -683,8 +683,8 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('targetGroup', 'Rule groups can be moved only to published groups.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Published);
-        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), PersistenceStatus::Published);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
+        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->id, PersistenceStatus::Published);
 
         $movedRuleGroup = $this->transaction(
             fn (): PersistenceRuleGroup => $this->layoutResolverHandler->moveRuleGroup(
@@ -703,7 +703,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Drafts can only be created from published rule groups.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Published);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
 
         if (!$discardExisting && $this->layoutResolverHandler->ruleGroupExists($persistenceRuleGroup->id, PersistenceStatus::Draft)) {
             throw new BadStateException('ruleGroup', 'The provided rule group already has a draft.');
@@ -726,7 +726,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Only draft rule groups can be discarded.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Draft);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Draft);
 
         $this->transaction(
             function () use ($persistenceRuleGroup): void {
@@ -744,7 +744,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Only draft rule groups can be published.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Draft);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Draft);
 
         $publishedRuleGroup = $this->transaction(
             function () use ($persistenceRuleGroup): PersistenceRuleGroup {
@@ -778,12 +778,12 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Only archived rule groups can be restored.');
         }
 
-        $archivedRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Archived);
+        $archivedRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Archived);
 
         $draftRuleGroup = null;
 
         try {
-            $draftRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Draft);
+            $draftRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Draft);
         } catch (NotFoundException) {
             // Do nothing
         }
@@ -803,7 +803,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function deleteRuleGroup(RuleGroup $ruleGroup): void
     {
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::from($ruleGroup->getStatus()->value));
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::from($ruleGroup->status->value));
 
         $this->transaction(
             function () use ($persistenceRuleGroup): void {
@@ -820,7 +820,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Only published rules can be enabled.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Published);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
 
         if ($persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already enabled.');
@@ -846,7 +846,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Only published rules can be disabled.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Published);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
 
         if (!$persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already disabled.');
@@ -872,7 +872,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Only published rule groups can be enabled.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Published);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
 
         if ($persistenceRuleGroup->enabled) {
             throw new BadStateException('ruleGroup', 'Rule group is already enabled.');
@@ -898,7 +898,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Only published rule groups can be disabled.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Published);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
 
         if (!$persistenceRuleGroup->enabled) {
             throw new BadStateException('ruleGroup', 'Rule group is already disabled.');
@@ -924,7 +924,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Targets can be added only to draft rules.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Draft);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Draft);
         $ruleTargets = $this->layoutResolverHandler->loadRuleTargets($persistenceRule);
 
         if (count($ruleTargets) > 0 && $ruleTargets[0]->type !== $targetCreateStruct->type) {
@@ -932,7 +932,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 'rule',
                 sprintf(
                     'Rule with UUID "%s" only accepts targets with "%s" target type.',
-                    $rule->getId()->toString(),
+                    $rule->id->toString(),
                     $ruleTargets[0]->type,
                 ),
             );
@@ -961,7 +961,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('target', 'Only draft targets can be updated.');
         }
 
-        $persistenceTarget = $this->layoutResolverHandler->loadTarget($target->getId(), PersistenceStatus::Draft);
+        $persistenceTarget = $this->layoutResolverHandler->loadTarget($target->id, PersistenceStatus::Draft);
 
         $this->validator->validateTargetUpdateStruct($target, $targetUpdateStruct);
 
@@ -985,7 +985,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('target', 'Only draft targets can be deleted.');
         }
 
-        $persistenceTarget = $this->layoutResolverHandler->loadTarget($target->getId(), PersistenceStatus::Draft);
+        $persistenceTarget = $this->layoutResolverHandler->loadTarget($target->id, PersistenceStatus::Draft);
 
         $this->transaction(
             function () use ($persistenceTarget): void {
@@ -1000,7 +1000,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
         }
 
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), PersistenceStatus::Draft);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Draft);
 
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
 
@@ -1025,7 +1025,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('ruleGroup', 'Conditions can be added only to draft rule groups.');
         }
 
-        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), PersistenceStatus::Draft);
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Draft);
 
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
 
@@ -1050,7 +1050,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
         }
 
-        $persistenceCondition = $this->layoutResolverHandler->loadRuleCondition($condition->getId(), PersistenceStatus::Draft);
+        $persistenceCondition = $this->layoutResolverHandler->loadRuleCondition($condition->id, PersistenceStatus::Draft);
 
         $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
 
@@ -1074,7 +1074,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
         }
 
-        $persistenceCondition = $this->layoutResolverHandler->loadRuleGroupCondition($condition->getId(), PersistenceStatus::Draft);
+        $persistenceCondition = $this->layoutResolverHandler->loadRuleGroupCondition($condition->id, PersistenceStatus::Draft);
 
         $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
 
@@ -1099,8 +1099,8 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceCondition = $condition instanceof RuleCondition ?
-            $this->layoutResolverHandler->loadRuleCondition($condition->getId(), PersistenceStatus::Draft) :
-            $this->layoutResolverHandler->loadRuleGroupCondition($condition->getId(), PersistenceStatus::Draft);
+            $this->layoutResolverHandler->loadRuleCondition($condition->id, PersistenceStatus::Draft) :
+            $this->layoutResolverHandler->loadRuleGroupCondition($condition->id, PersistenceStatus::Draft);
 
         $this->transaction(
             function () use ($persistenceCondition): void {

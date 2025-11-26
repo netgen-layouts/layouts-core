@@ -27,11 +27,11 @@ final class EditSlotViewTypeForm extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:collection:items');
 
-        $collection = $this->collectionService->loadCollectionDraft($slot->getCollectionId());
-        $block = $this->blockService->loadBlockDraft($collection->getBlockId());
+        $collection = $this->collectionService->loadCollectionDraft($slot->collectionId);
+        $block = $this->blockService->loadBlockDraft($collection->blockId);
 
         $updateStruct = $this->collectionService->newSlotUpdateStruct();
-        $updateStruct->viewType = $slot->getViewType();
+        $updateStruct->viewType = $slot->viewType;
 
         $form = $this->createForm(
             SlotViewTypeEditType::class,
@@ -42,7 +42,7 @@ final class EditSlotViewTypeForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_collection_slot_view_type_form_edit',
                     [
-                        'slotId' => $slot->getId()->toString(),
+                        'slotId' => $slot->id->toString(),
                     ],
                 ),
             ],
@@ -57,7 +57,7 @@ final class EditSlotViewTypeForm extends AbstractController
         if ($form->isValid()) {
             $updatedSlot = $this->collectionService->updateSlot($slot, $form->getData());
 
-            if ($updatedSlot->isEmpty()) {
+            if ($updatedSlot->isEmpty) {
                 $this->collectionService->deleteSlot($updatedSlot);
             }
 

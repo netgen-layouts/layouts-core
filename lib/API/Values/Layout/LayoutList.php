@@ -42,7 +42,7 @@ final class LayoutList extends ArrayCollection
     public function getLayoutIds(): array
     {
         return array_map(
-            static fn (Layout $layout): UuidInterface => $layout->getId(),
+            static fn (Layout $layout): UuidInterface => $layout->id,
             $this->getLayouts(),
         );
     }

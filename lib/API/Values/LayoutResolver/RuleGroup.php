@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Doctrine\Common\Collections\Collection;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
@@ -22,88 +22,48 @@ final class RuleGroup implements Value
      */
     public const string ROOT_UUID = '00000000-0000-0000-0000-000000000000';
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private ?UuidInterface $parentId;
-
-    private string $name;
-
-    private string $description;
-
-    private bool $enabled;
-
-    private int $priority;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
-     */
-    private Collection $rules;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Condition>
-     */
-    private Collection $conditions;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    public private(set) Status $status;
 
     /**
      * Returns the UUID of the parent rule group where this rule group is located.
      *
      * If rule group does not have a parent rule group, null is returned.
      */
-    public function getParentId(): ?UuidInterface
-    {
-        return $this->parentId;
-    }
+    public private(set) ?UuidInterface $parentId;
 
     /**
      * Returns human readable name of the rule group.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Return human readable description of the rule group.
      */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
+    public private(set) string $description;
 
     /**
      * Returns if the rule group is enabled.
      */
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
+    public private(set) bool $enabled;
 
     /**
      * Returns the rule group priority.
      */
-    public function getPriority(): int
-    {
-        return $this->priority;
-    }
+    public private(set) int $priority;
 
     /**
      * Returns all the rules in the rule group.
      */
-    public function getRules(): RuleList
-    {
-        return new RuleList($this->rules->toArray());
+    public private(set) RuleList $rules {
+        get => RuleList::fromArray($this->rules->toArray());
     }
 
     /**
      * Returns all conditions in the rule group.
      */
-    public function getConditions(): ConditionList
-    {
-        return new ConditionList($this->conditions->toArray());
+    public private(set) ConditionList $conditions {
+        get => ConditionList::fromArray($this->conditions->toArray());
     }
 }

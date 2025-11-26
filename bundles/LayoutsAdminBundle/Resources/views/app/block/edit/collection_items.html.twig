@@ -18,7 +18,7 @@
             <div class="collection-items" {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
                 <div class="value-type-wrapper">
                     <select class="js-browser-item-type">
-                        {% for value_type in nglayouts.config.parameter('value_types')|filter(value_type => value_type.enabled and value_type.supportsManualItems) %}
+                        {% for value_type in nglayouts.config.parameter('value_types')|filter(value_type => value_type.isEnabled and value_type.supportsManualItems) %}
                             {% if collection_config is not null and collection_config.validItemType(value_type.identifier) %}
                                 <option data-max_selected="0" value="{{ value_type.identifier }}" >{{ value_type.name }}</option>
                             {% endif %}

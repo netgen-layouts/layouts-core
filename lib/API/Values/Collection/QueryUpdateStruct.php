@@ -24,7 +24,7 @@ final class QueryUpdateStruct implements ParameterStruct
      */
     public function fillParametersFromQuery(Query $query): void
     {
-        $this->fillFromCollection($query->getQueryType(), $query);
+        $this->fillFromCollection($query->queryType, $query);
     }
 
     /**

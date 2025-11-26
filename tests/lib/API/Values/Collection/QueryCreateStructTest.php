@@ -31,7 +31,7 @@ final class QueryCreateStructTest extends TestCase
     {
         $queryCreateStruct = new QueryCreateStruct($this->queryType);
 
-        self::assertSame($this->queryType, $queryCreateStruct->getQueryType());
+        self::assertSame($this->queryType, $queryCreateStruct->queryType);
     }
 
     public function testFillParametersFromHash(): void

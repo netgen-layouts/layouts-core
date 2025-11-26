@@ -33,15 +33,15 @@ final class BlockVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'id' => $value->getId()->toString(),
-            'definition_identifier' => $value->getDefinition()->getIdentifier(),
-            'is_translatable' => $value->isTranslatable(),
-            'is_always_available' => $value->isAlwaysAvailable(),
-            'main_locale' => $value->getMainLocale(),
-            'available_locales' => $value->getAvailableLocales(),
-            'view_type' => $value->getViewType(),
-            'item_view_type' => $value->getItemViewType(),
-            'name' => $value->getName(),
+            'id' => $value->id->toString(),
+            'definition_identifier' => $value->definition->getIdentifier(),
+            'is_translatable' => $value->isTranslatable,
+            'is_always_available' => $value->alwaysAvailable,
+            'main_locale' => $value->mainLocale,
+            'available_locales' => $value->availableLocales,
+            'view_type' => $value->viewType,
+            'item_view_type' => $value->itemViewType,
+            'name' => $value->name,
             'placeholders' => [...$this->visitPlaceholders($value, $outputVisitor)],
             'parameters' => $this->visitParameters($value),
             'configuration' => [...$this->visitConfiguration($value, $outputVisitor)],
@@ -56,8 +56,8 @@ final class BlockVisitor implements VisitorInterface
      */
     private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): Generator
     {
-        foreach ($block->getPlaceholders() as $placeholder) {
-            yield $placeholder->getIdentifier() => $outputVisitor->visit($placeholder);
+        foreach ($block->placeholders as $placeholder) {
+            yield $placeholder->identifier => $outputVisitor->visit($placeholder);
         }
     }
 
@@ -69,16 +69,16 @@ final class BlockVisitor implements VisitorInterface
     private function visitParameters(Block $block): array
     {
         $parametersByLanguage = [
-            $block->getLocale() => [...$this->visitTranslationParameters($block)],
+            $block->locale => [...$this->visitTranslationParameters($block)],
         ];
 
-        foreach ($block->getAvailableLocales() as $availableLocale) {
-            if ($availableLocale === $block->getLocale()) {
+        foreach ($block->availableLocales as $availableLocale) {
+            if ($availableLocale === $block->locale) {
                 continue;
             }
 
             $translatedBlock = $this->blockService->loadBlock(
-                $block->getId(),
+                $block->id,
                 [$availableLocale],
                 false,
             );
@@ -125,7 +125,7 @@ final class BlockVisitor implements VisitorInterface
      */
     private function visitCollections(Block $block, OutputVisitor $outputVisitor): Generator
     {
-        foreach ($block->getCollections() as $identifier => $collection) {
+        foreach ($block->collections as $identifier => $collection) {
             yield $identifier => $outputVisitor->visit($collection);
         }
     }

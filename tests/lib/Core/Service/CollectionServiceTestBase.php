@@ -64,8 +64,8 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
         self::assertTrue($updatedCollection->isDraft());
-        self::assertSame(6, $updatedCollection->getOffset());
-        self::assertSame(3, $updatedCollection->getLimit());
+        self::assertSame(6, $updatedCollection->offset);
+        self::assertSame(3, $updatedCollection->limit);
     }
 
     public function testUpdateCollectionWithNoLimit(): void
@@ -80,8 +80,8 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
         self::assertTrue($updatedCollection->isDraft());
-        self::assertSame(6, $updatedCollection->getOffset());
-        self::assertNull($updatedCollection->getLimit());
+        self::assertSame(6, $updatedCollection->offset);
+        self::assertNull($updatedCollection->limit);
     }
 
     public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection(): void
@@ -202,7 +202,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($updatedCollection->isDraft());
-        self::assertCount(count($collection->getItems()), $updatedCollection->getItems());
+        self::assertCount(count($collection->items), $updatedCollection->items);
         self::assertInstanceOf(Query::class, $updatedCollection->getQuery());
     }
 
@@ -216,14 +216,14 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($updatedCollection->isDraft());
-        self::assertCount(count($collection->getItems()), $updatedCollection->getItems());
+        self::assertCount(count($collection->items), $updatedCollection->items);
         self::assertNull($updatedCollection->getQuery());
 
-        foreach ($updatedCollection->getItems() as $index => $item) {
-            self::assertSame($index, $item->getPosition());
+        foreach ($updatedCollection->items as $index => $item) {
+            self::assertSame($index, $item->position);
         }
 
-        self::assertSame(0, $updatedCollection->getOffset());
+        self::assertSame(0, $updatedCollection->offset);
     }
 
     public function testChangeCollectionTypeThrowsBadStateExceptionWithNonDraftCollection(): void
@@ -344,10 +344,10 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($movedItem->isDraft());
-        self::assertSame(1, $movedItem->getPosition());
+        self::assertSame(1, $movedItem->position);
 
         $secondItem = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
-        self::assertSame(0, $secondItem->getPosition());
+        self::assertSame(0, $secondItem->position);
     }
 
     public function testMoveItemThrowsBadStateExceptionWithNonDraftItem(): void
@@ -378,14 +378,14 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->collectionService->deleteItem($item);
 
         try {
-            $this->collectionService->loadItemDraft($item->getId());
+            $this->collectionService->loadItemDraft($item->id);
             self::fail('Item still exists after deleting.');
         } catch (NotFoundException) {
             // Do nothing
         }
 
         $secondItem = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
-        self::assertSame(0, $secondItem->getPosition());
+        self::assertSame(0, $secondItem->position);
     }
 
     public function testDeleteItemThrowsBadStateExceptionWithNonDraftItem(): void
@@ -402,7 +402,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
         $collection = $this->collectionService->deleteItems($collection);
 
-        self::assertCount(0, $collection->getItems());
+        self::assertCount(0, $collection->items);
     }
 
     public function testDeleteItemsThrowsBadStateExceptionWithNonDraftCollection(): void
@@ -426,7 +426,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertTrue($updatedQuery->isDraft());
-        self::assertSame('my_query_type', $updatedQuery->getQueryType()->getType());
+        self::assertSame('my_query_type', $updatedQuery->queryType->getType());
 
         self::assertNull($updatedQuery->getParameter('param')->getValue());
         self::assertNull($updatedQuery->getParameter('param2')->getValue());
@@ -451,7 +451,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertTrue($updatedQuery->isDraft());
-        self::assertSame('my_query_type', $updatedQuery->getQueryType()->getType());
+        self::assertSame('my_query_type', $updatedQuery->queryType->getType());
 
         $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 
@@ -506,8 +506,8 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($createdSlot->isDraft());
-        self::assertSame(1, $createdSlot->getPosition());
-        self::assertSame('my_view_type', $createdSlot->getViewType());
+        self::assertSame(1, $createdSlot->position);
+        self::assertSame('my_view_type', $createdSlot->viewType);
     }
 
     public function testAddSlotThrowsBadStateExceptionWithNonDraftCollection(): void
@@ -536,7 +536,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedSlot = $this->collectionService->updateSlot($slot, $slotUpdateStruct);
 
         self::assertTrue($updatedSlot->isDraft());
-        self::assertSame('my_view_type', $updatedSlot->getViewType());
+        self::assertSame('my_view_type', $updatedSlot->viewType);
     }
 
     public function testUpdateSlotThrowsBadStateExceptionWithNonDraftSlot(): void
@@ -575,7 +575,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
         $collection = $this->collectionService->deleteSlots($collection);
 
-        self::assertCount(0, $collection->getSlots());
+        self::assertCount(0, $collection->slots);
     }
 
     public function testDeleteSlotsThrowsBadStateExceptionWithNonDraftCollection(): void

@@ -9,18 +9,34 @@ use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @extends \Doctrine\Common\Collections\AbstractLazyCollection<array-key, object>
+ * @template TKey of array-key
+ * @template TValue of object
+ *
+ * @extends \Doctrine\Common\Collections\AbstractLazyCollection<TKey, TValue>
  */
-final class LazyCollection extends AbstractLazyCollection
+abstract class LazyCollection extends AbstractLazyCollection
 {
     private Closure $closure;
 
-    public function __construct(callable $callable)
+    private function __construct(callable $callable)
     {
         $this->closure = $callable(...);
     }
 
-    protected function doInitialize(): void
+    final public static function fromCallable(callable $callable): static
+    {
+        return new static($callable);
+    }
+
+    /**
+     * @param array<TKey, TValue> $array
+     */
+    final public static function fromArray(array $array): static
+    {
+        return new static(static fn (): array => $array);
+    }
+
+    final protected function doInitialize(): void
     {
         $this->collection = new ArrayCollection(($this->closure)());
     }

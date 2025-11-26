@@ -34,8 +34,8 @@ final class ValueResolverTest extends TestCase
 
         self::assertArrayHasKey(0, $values);
         self::assertInstanceOf(Value::class, $values[0]);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->getId()->toString());
-        self::assertSame(Status::Draft, $values[0]->getStatus());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->id->toString());
+        self::assertSame(Status::Draft, $values[0]->status);
     }
 
     public function testResolveWithLocale(): void
@@ -49,9 +49,9 @@ final class ValueResolverTest extends TestCase
 
         self::assertArrayHasKey(0, $values);
         self::assertInstanceOf(Value::class, $values[0]);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->getId()->toString());
-        self::assertSame('en', $values[0]->getLocale());
-        self::assertSame(Status::Draft, $values[0]->getStatus());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->id->toString());
+        self::assertSame('en', $values[0]->locale);
+        self::assertSame(Status::Draft, $values[0]->status);
     }
 
     public function testResolveWithPublishedRouteStatusParam(): void
@@ -65,8 +65,8 @@ final class ValueResolverTest extends TestCase
 
         self::assertArrayHasKey(0, $values);
         self::assertInstanceOf(Value::class, $values[0]);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->getId()->toString());
-        self::assertSame(Status::Published, $values[0]->getStatus());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->id->toString());
+        self::assertSame(Status::Published, $values[0]->status);
     }
 
     public function testResolveWithArchivedRouteStatusParam(): void
@@ -80,8 +80,8 @@ final class ValueResolverTest extends TestCase
 
         self::assertArrayHasKey(0, $values);
         self::assertInstanceOf(Value::class, $values[0]);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->getId()->toString());
-        self::assertSame(Status::Archived, $values[0]->getStatus());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->id->toString());
+        self::assertSame(Status::Archived, $values[0]->status);
     }
 
     public function testResolveWithDraftRouteStatusParam(): void
@@ -95,8 +95,8 @@ final class ValueResolverTest extends TestCase
 
         self::assertArrayHasKey(0, $values);
         self::assertInstanceOf(Value::class, $values[0]);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->getId()->toString());
-        self::assertSame(Status::Draft, $values[0]->getStatus());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->id->toString());
+        self::assertSame(Status::Draft, $values[0]->status);
     }
 
     public function testResolveWithPublishedQueryStatusParam(): void
@@ -110,8 +110,8 @@ final class ValueResolverTest extends TestCase
 
         self::assertArrayHasKey(0, $values);
         self::assertInstanceOf(Value::class, $values[0]);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->getId()->toString());
-        self::assertSame(Status::Published, $values[0]->getStatus());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->id->toString());
+        self::assertSame(Status::Published, $values[0]->status);
     }
 
     public function testResolveWithDraftQueryStatusParam(): void
@@ -125,8 +125,8 @@ final class ValueResolverTest extends TestCase
 
         self::assertArrayHasKey(0, $values);
         self::assertInstanceOf(Value::class, $values[0]);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->getId()->toString());
-        self::assertSame(Status::Draft, $values[0]->getStatus());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $values[0]->id->toString());
+        self::assertSame(Status::Draft, $values[0]->status);
     }
 
     public function testResolveWithNoAttribute(): void

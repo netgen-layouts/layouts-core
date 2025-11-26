@@ -23,7 +23,7 @@ final class EnableRule extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:activate',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 

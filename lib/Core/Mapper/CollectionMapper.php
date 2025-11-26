@@ -6,9 +6,11 @@ namespace Netgen\Layouts\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\Slot;
-use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\Collection\SlotList;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use Netgen\Layouts\Collection\QueryType\NullQueryType;
@@ -20,6 +22,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
@@ -76,7 +79,7 @@ final class CollectionMapper
             'status' => Status::from($collection->status->value),
             'offset' => $collection->offset,
             'limit' => $collection->limit,
-            'items' => new LazyCollection(
+            'items' => ItemList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceItem $item): Item => $this->mapItem($item),
                     $this->collectionHandler->loadCollectionItems($collection),
@@ -91,7 +94,7 @@ final class CollectionMapper
 
                 return $this->mapQuery($persistenceQuery, $locales, false);
             },
-            'slots' => new LazyCollection(
+            'slots' => SlotList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceSlot $slot): Slot => $this->mapSlot($slot),
                     $this->collectionHandler->loadCollectionSlots($collection),
@@ -126,12 +129,14 @@ final class CollectionMapper
             'position' => $item->position,
             'value' => $item->value,
             'viewType' => $item->viewType,
-            'configs' => [
-                ...$this->configMapper->mapConfig(
-                    $item->config,
-                    $itemDefinition->getConfigDefinitions(),
-                ),
-            ],
+            'configs' => new ConfigList(
+                [
+                    ...$this->configMapper->mapConfig(
+                        $item->config,
+                        $itemDefinition->getConfigDefinitions(),
+                    ),
+                ],
+            ),
             'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
                 $valueType = !$itemDefinition instanceof NullItemDefinition ?
                     $itemDefinition->getValueType() :
@@ -198,12 +203,14 @@ final class CollectionMapper
             'alwaysAvailable' => $query->alwaysAvailable,
             'availableLocales' => $query->availableLocales,
             'locale' => $queryLocale,
-            'parameters' => [
-                ...$this->parameterMapper->mapParameters(
-                    $queryType,
-                    [...$query->parameters[$queryLocale], ...$untranslatableParams],
-                ),
-            ],
+            'parameters' => new ParameterList(
+                [
+                    ...$this->parameterMapper->mapParameters(
+                        $queryType,
+                        [...$query->parameters[$queryLocale], ...$untranslatableParams],
+                    ),
+                ],
+            ),
         ];
 
         return Query::fromArray($queryData);

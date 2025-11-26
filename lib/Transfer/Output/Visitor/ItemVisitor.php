@@ -26,11 +26,11 @@ final class ItemVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'id' => $value->getId()->toString(),
-            'position' => $value->getPosition(),
+            'id' => $value->id->toString(),
+            'position' => $value->position,
             'value' => $value->getCmsItem()->getRemoteId(),
-            'value_type' => $value->getDefinition()->getValueType(),
-            'view_type' => $value->getViewType(),
+            'value_type' => $value->definition->getValueType(),
+            'view_type' => $value->viewType,
             'configuration' => [...$this->visitConfiguration($value, $outputVisitor)],
         ];
     }

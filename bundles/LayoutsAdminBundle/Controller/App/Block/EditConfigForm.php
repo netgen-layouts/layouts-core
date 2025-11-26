@@ -26,8 +26,8 @@ final class EditConfigForm extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:block:edit_config',
             [
-                'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId()->toString(),
+                'block_definition' => $block->definition,
+                'layout' => $block->layoutId->toString(),
             ],
         );
 
@@ -43,7 +43,7 @@ final class EditConfigForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_block_form_edit_config',
                     [
-                        'blockId' => $block->getId()->toString(),
+                        'blockId' => $block->id->toString(),
                         'locale' => $locale,
                         'configKey' => $configKey,
                     ],

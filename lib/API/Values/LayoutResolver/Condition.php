@@ -13,37 +13,19 @@ abstract class Condition implements Value
 {
     use HydratorTrait;
 
-    final protected UuidInterface $id;
-
-    final protected ConditionTypeInterface $conditionType;
-
-    /**
-     * @var int|string|array<mixed>
-     */
-    final protected int|string|array $value;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    final public protected(set) UuidInterface $id;
 
     /**
      * Returns the condition type.
      */
-    public function getConditionType(): ConditionTypeInterface
-    {
-        return $this->conditionType;
-    }
+    final public protected(set) ConditionTypeInterface $conditionType;
 
     /**
      * Returns the condition value.
      *
      * Can be a scalar or a multidimensional array of scalars.
      *
-     * @return int|string|array<mixed>
+     * @var int|string|array<mixed>
      */
-    public function getValue(): int|string|array
-    {
-        return $this->value;
-    }
+    final public protected(set) int|string|array $value;
 }

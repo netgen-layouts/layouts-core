@@ -11,6 +11,7 @@ use Netgen\Layouts\Config\ConfigDefinitionInterface;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -35,20 +36,22 @@ final class ConfigStructTest extends TestCase
         $config = Config::fromArray(
             [
                 'definition' => $configDefinition,
-                'parameters' => [
-                    'css_class' => Parameter::fromArray(
-                        [
-                            'value' => 'css',
-                            'parameterDefinition' => $configDefinition->getParameterDefinition('css_class'),
-                        ],
-                    ),
-                    'inner' => Parameter::fromArray(
-                        [
-                            'value' => 'inner',
-                            'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
-                        ],
-                    ),
-                ],
+                'parameters' => new ParameterList(
+                    [
+                        'css_class' => Parameter::fromArray(
+                            [
+                                'value' => 'css',
+                                'parameterDefinition' => $configDefinition->getParameterDefinition('css_class'),
+                            ],
+                        ),
+                        'inner' => Parameter::fromArray(
+                            [
+                                'value' => 'inner',
+                                'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
+                            ],
+                        ),
+                    ],
+                ),
             ],
         );
 

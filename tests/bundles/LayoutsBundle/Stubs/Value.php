@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Stubs;
 
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value as APIValue;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
@@ -14,17 +15,9 @@ final class Value implements APIValue
     use HydratorTrait;
     use ValueStatusTrait;
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private string $locale;
+    public private(set) Status $status;
 
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
-
-    public function getLocale(): string
-    {
-        return $this->locale;
-    }
+    public private(set) string $locale;
 }

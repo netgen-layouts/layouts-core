@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -30,18 +31,18 @@ final class QueryTest extends TestCase
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'locale' => 'en',
-                'parameters' => [],
+                'parameters' => new ParameterList(),
             ],
         );
 
-        self::assertSame($queryUuid->toString(), $query->getId()->toString());
-        self::assertSame($collectionUuid->toString(), $query->getCollectionId()->toString());
-        self::assertSame($queryType, $query->getQueryType());
-        self::assertTrue($query->isTranslatable());
-        self::assertSame('en', $query->getMainLocale());
-        self::assertTrue($query->isAlwaysAvailable());
-        self::assertSame(['en'], $query->getAvailableLocales());
-        self::assertSame('en', $query->getLocale());
+        self::assertSame($queryUuid->toString(), $query->id->toString());
+        self::assertSame($collectionUuid->toString(), $query->collectionId->toString());
+        self::assertSame($queryType, $query->queryType);
+        self::assertTrue($query->isTranslatable);
+        self::assertSame('en', $query->mainLocale);
+        self::assertTrue($query->alwaysAvailable);
+        self::assertSame(['en'], $query->availableLocales);
+        self::assertSame('en', $query->locale);
     }
 
     public function testIsContextual(): void
@@ -54,6 +55,6 @@ final class QueryTest extends TestCase
             ],
         );
 
-        self::assertFalse($query->isContextual());
+        self::assertFalse($query->isContextual);
     }
 }

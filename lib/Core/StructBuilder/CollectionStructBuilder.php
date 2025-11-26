@@ -46,8 +46,8 @@ final class CollectionStructBuilder
         $collectionUpdateStruct = new CollectionUpdateStruct();
 
         if ($collection !== null) {
-            $collectionUpdateStruct->offset = $collection->getOffset();
-            $collectionUpdateStruct->limit = $collection->getLimit() ?? 0;
+            $collectionUpdateStruct->offset = $collection->offset;
+            $collectionUpdateStruct->limit = $collection->limit ?? 0;
         }
 
         return $collectionUpdateStruct;
@@ -78,7 +78,7 @@ final class CollectionStructBuilder
             return $itemUpdateStruct;
         }
 
-        $itemUpdateStruct->viewType = $item->getViewType() ?? '';
+        $itemUpdateStruct->viewType = $item->viewType ?? '';
 
         $this->configStructBuilder->buildConfigUpdateStructs($item, $itemUpdateStruct);
 
@@ -133,7 +133,7 @@ final class CollectionStructBuilder
             return $slotUpdateStruct;
         }
 
-        $slotUpdateStruct->viewType = $slot->getViewType();
+        $slotUpdateStruct->viewType = $slot->viewType;
 
         return $slotUpdateStruct;
     }

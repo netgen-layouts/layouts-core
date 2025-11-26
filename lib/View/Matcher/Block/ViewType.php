@@ -22,6 +22,6 @@ final class ViewType implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getBlock()->getViewType(), $config, true);
+        return in_array($view->getBlock()->viewType, $config, true);
     }
 }

@@ -39,7 +39,7 @@ final class CollectionRunnerFactory
     {
         $showUnknownItems = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
 
-        if ($showUnknownItems && $query->isContextual()) {
+        if ($showUnknownItems && $query->isContextual) {
             return new ContextualQueryRunner();
         }
 

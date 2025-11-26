@@ -60,7 +60,7 @@ final class RenderZoneTest extends NodeTestBase
                 <<<EOT
                 // line 1
                 \$nglZone = {$zoneNodeGetter};
-                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->identifier : \$nglZone;
                 \$nglContext = {$contextNodeGetter};
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
@@ -72,7 +72,7 @@ final class RenderZoneTest extends NodeTestBase
                 <<<EOT
                 // line 1
                 \$nglZone = "zone";
-                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->identifier : \$nglZone;
                 \$nglContext = {$contextNodeGetter};
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
@@ -84,7 +84,7 @@ final class RenderZoneTest extends NodeTestBase
                 <<<EOT
                 // line 1
                 \$nglZone = {$zoneNodeGetter};
-                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->identifier : \$nglZone;
                 \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
@@ -96,7 +96,7 @@ final class RenderZoneTest extends NodeTestBase
                 <<<EOT
                 // line 1
                 \$nglZone = "zone";
-                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->identifier : \$nglZone;
                 \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
                 \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
                 yield \$this->env->getRuntime("{$runtimeClass}")->renderZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);

@@ -9,6 +9,7 @@ use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterCollection;
@@ -123,20 +124,22 @@ final class ParameterStructTraitTest extends TestCase
 
         $parameters = ParameterCollection::fromArray(
             [
-                'parameters' => [
-                    'css_class' => Parameter::fromArray(
-                        [
-                            'value' => 'css',
-                            'parameterDefinition' => $parameterDefinitions->getParameterDefinition('css_class'),
-                        ],
-                    ),
-                    'inner' => Parameter::fromArray(
-                        [
-                            'value' => 'inner',
-                            'parameterDefinition' => $compoundParameter->getParameterDefinition('inner'),
-                        ],
-                    ),
-                ],
+                'parameters' => new ParameterList(
+                    [
+                        'css_class' => Parameter::fromArray(
+                            [
+                                'value' => 'css',
+                                'parameterDefinition' => $parameterDefinitions->getParameterDefinition('css_class'),
+                            ],
+                        ),
+                        'inner' => Parameter::fromArray(
+                            [
+                                'value' => 'inner',
+                                'parameterDefinition' => $compoundParameter->getParameterDefinition('inner'),
+                            ],
+                        ),
+                    ],
+                ),
             ],
         );
 

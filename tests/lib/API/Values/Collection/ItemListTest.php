@@ -9,34 +9,15 @@ use Netgen\Layouts\API\Values\Collection\ItemList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use stdClass;
-use TypeError;
-
-use function sprintf;
-use function str_replace;
 
 #[CoversClass(ItemList::class)]
 final class ItemListTest extends TestCase
 {
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->expectExceptionMessageMatches(
-            sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
-                str_replace('\\', '\\\\', Item::class),
-                stdClass::class,
-            ),
-        );
-
-        new ItemList([new Item(), new stdClass(), new Item()]);
-    }
-
     public function testGetItems(): void
     {
         $items = [new Item(), new Item()];
 
-        self::assertSame($items, new ItemList($items)->getItems());
+        self::assertSame($items, ItemList::fromArray($items)->getItems());
     }
 
     public function testGetItemIds(): void
@@ -46,6 +27,6 @@ final class ItemListTest extends TestCase
 
         $items = [Item::fromArray(['id' => $uuid1]), Item::fromArray(['id' => $uuid2])];
 
-        self::assertSame([$uuid1, $uuid2], new ItemList($items)->getItemIds());
+        self::assertSame([$uuid1, $uuid2], ItemList::fromArray($items)->getItemIds());
     }
 }

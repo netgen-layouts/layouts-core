@@ -19,11 +19,11 @@ final class CollectionSlotNormalizer implements NormalizerInterface
         $slot = $data->getValue();
 
         return [
-            'id' => $slot->getId()->toString(),
-            'collection_id' => $slot->getCollectionId()->toString(),
-            'position' => $slot->getPosition(),
-            'view_type' => $slot->getViewType(),
-            'empty' => $slot->isEmpty(),
+            'id' => $slot->id->toString(),
+            'collection_id' => $slot->collectionId->toString(),
+            'position' => $slot->position,
+            'view_type' => $slot->viewType,
+            'empty' => $slot->isEmpty,
         ];
     }
 

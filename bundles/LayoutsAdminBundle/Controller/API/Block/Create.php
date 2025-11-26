@@ -48,7 +48,7 @@ final class Create extends AbstractController
             'nglayouts:block:add',
             [
                 'block_definition' => $blockType->getDefinition(),
-                'layout' => $block->getLayoutId()->toString(),
+                'layout' => $block->layoutId->toString(),
             ],
         );
 

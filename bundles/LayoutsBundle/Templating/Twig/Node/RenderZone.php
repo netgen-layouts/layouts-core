@@ -35,7 +35,7 @@ final class RenderZone extends Node
             ->write('$nglZone = ')
                 ->subcompile($this->getNode('zone'))
             ->write(';' . PHP_EOL)
-            ->write('$nglZoneIdentifier = $nglZone instanceof ' . Zone::class . ' ? $nglZone->getIdentifier() : $nglZone;' . PHP_EOL);
+            ->write('$nglZoneIdentifier = $nglZone instanceof ' . Zone::class . ' ? $nglZone->identifier : $nglZone;' . PHP_EOL);
 
         $this->compileContextNode($compiler);
         $compiler->write('$nglTemplate = new ' . ContextualizedTwigTemplate::class . '($this, $context, $blocks);' . PHP_EOL);

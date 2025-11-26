@@ -24,7 +24,7 @@ final class DeleteRule extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:delete',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 

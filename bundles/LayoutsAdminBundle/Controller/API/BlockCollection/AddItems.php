@@ -94,7 +94,7 @@ final class AddItems extends AbstractController
             'items',
         );
 
-        $blockDefinition = $block->getDefinition();
+        $blockDefinition = $block->definition;
         if (!$blockDefinition->hasCollection($collectionIdentifier)) {
             return;
         }

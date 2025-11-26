@@ -144,7 +144,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                 self::isInstanceOf(Zone::class),
                 self::identicalTo($request instanceof Request ? ['en'] : null),
             )
-            ->willReturn(new BlockList());
+            ->willReturn(BlockList::fromArray([]));
 
         $this->rendererMock
             ->method('renderValue')

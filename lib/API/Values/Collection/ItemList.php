@@ -4,30 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\Layouts\API\Values\LazyCollection;
 use Ramsey\Uuid\UuidInterface;
 
-use function array_filter;
 use function array_map;
 
 /**
- * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\Collection\Item>
+ * @extends \Netgen\Layouts\API\Values\LazyCollection<int, \Netgen\Layouts\API\Values\Collection\Item>
  */
-final class ItemList extends ArrayCollection
+final class ItemList extends LazyCollection
 {
-    /**
-     * @param \Netgen\Layouts\API\Values\Collection\Item[] $items
-     */
-    public function __construct(array $items = [])
-    {
-        parent::__construct(
-            array_filter(
-                $items,
-                static fn (Item $item): bool => true,
-            ),
-        );
-    }
-
     /**
      * @return \Netgen\Layouts\API\Values\Collection\Item[]
      */
@@ -42,7 +28,7 @@ final class ItemList extends ArrayCollection
     public function getItemIds(): array
     {
         return array_map(
-            static fn (Item $item): UuidInterface => $item->getId(),
+            static fn (Item $item): UuidInterface => $item->id,
             $this->getItems(),
         );
     }

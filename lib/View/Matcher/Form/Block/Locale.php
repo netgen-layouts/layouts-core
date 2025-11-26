@@ -33,6 +33,6 @@ final class Locale implements MatcherInterface
             return false;
         }
 
-        return in_array($block->getLocale(), $config, true);
+        return in_array($block->locale, $config, true);
     }
 }

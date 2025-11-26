@@ -44,7 +44,7 @@ final class TranslatableTypeStub extends AbstractType
                 'inherit_data' => true,
                 'label_prefix' => 'label_prefix',
                 'property_path' => 'parameterValues',
-                'parameter_definitions' => $options['block']->getDefinition(),
+                'parameter_definitions' => $options['block']->definition,
             ],
         );
 

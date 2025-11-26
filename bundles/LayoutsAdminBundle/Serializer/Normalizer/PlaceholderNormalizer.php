@@ -27,7 +27,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
         $blocks = $this->buildViewValues($placeholder);
 
         return [
-            'identifier' => $placeholder->getIdentifier(),
+            'identifier' => $placeholder->identifier,
             'blocks' => $this->normalizer->normalize($blocks, $format, $context),
         ];
     }

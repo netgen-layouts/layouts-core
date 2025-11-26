@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values\Block;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Block\PlaceholderList;
 use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionList;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Exception\API\BlockException;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -41,45 +43,41 @@ final class BlockTest extends TestCase
                 'position' => 3,
                 'parentBlockId' => $parentUuid,
                 'parentPlaceholder' => 'main',
-                'placeholders' => [
-                    'main' => $placeholder,
-                ],
-                'collections' => new ArrayCollection(
-                    ['default' => $collection],
-                ),
+                'placeholders' => new PlaceholderList(['main' => $placeholder]),
+                'collections' => CollectionList::fromArray(['default' => $collection]),
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'locale' => 'en',
-                'parameters' => [],
+                'parameters' => new ParameterList(),
             ],
         );
 
-        self::assertSame($blockUuid->toString(), $block->getId()->toString());
-        self::assertSame($layoutUuid->toString(), $block->getLayoutId()->toString());
-        self::assertSame($definition, $block->getDefinition());
+        self::assertSame($blockUuid->toString(), $block->id->toString());
+        self::assertSame($layoutUuid->toString(), $block->layoutId->toString());
+        self::assertSame($definition, $block->definition);
         self::assertSame($placeholder, $block->getPlaceholder('main'));
         self::assertFalse($block->hasPlaceholder('test'));
         self::assertTrue($block->hasPlaceholder('main'));
         self::assertSame($collection, $block->getCollection('default'));
         self::assertFalse($block->hasCollection('test'));
         self::assertTrue($block->hasCollection('default'));
-        self::assertSame('default', $block->getViewType());
-        self::assertSame('standard', $block->getItemViewType());
-        self::assertSame('My block', $block->getName());
-        self::assertSame(3, $block->getPosition());
-        self::assertInstanceOf(UuidInterface::class, $block->getParentBlockId());
-        self::assertSame($parentUuid->toString(), $block->getParentBlockId()->toString());
-        self::assertSame('main', $block->getParentPlaceholder());
-        self::assertTrue($block->isTranslatable());
-        self::assertSame('en', $block->getMainLocale());
-        self::assertTrue($block->isAlwaysAvailable());
-        self::assertSame(['en'], $block->getAvailableLocales());
-        self::assertSame('en', $block->getLocale());
+        self::assertSame('default', $block->viewType);
+        self::assertSame('standard', $block->itemViewType);
+        self::assertSame('My block', $block->name);
+        self::assertSame(3, $block->position);
+        self::assertInstanceOf(UuidInterface::class, $block->parentBlockId);
+        self::assertSame($parentUuid->toString(), $block->parentBlockId->toString());
+        self::assertSame('main', $block->parentPlaceholder);
+        self::assertTrue($block->isTranslatable);
+        self::assertSame('en', $block->mainLocale);
+        self::assertTrue($block->alwaysAvailable);
+        self::assertSame(['en'], $block->availableLocales);
+        self::assertSame('en', $block->locale);
 
-        self::assertCount(1, $block->getPlaceholders());
-        self::assertSame($placeholder, $block->getPlaceholders()['main']);
+        self::assertCount(1, $block->placeholders);
+        self::assertSame($placeholder, $block->placeholders['main']);
 
         try {
             $block->getPlaceholder('test');
@@ -87,8 +85,8 @@ final class BlockTest extends TestCase
             // Do nothing
         }
 
-        self::assertCount(1, $block->getCollections());
-        self::assertSame($collection, $block->getCollections()['default']);
+        self::assertCount(1, $block->collections);
+        self::assertSame($collection, $block->collections['default']);
 
         try {
             $block->getCollection('test');
@@ -121,7 +119,7 @@ final class BlockTest extends TestCase
 
     public function testIsContextual(): void
     {
-        $query = Block::fromArray(
+        $block = Block::fromArray(
             [
                 'definition' => BlockDefinition::fromArray(
                     [
@@ -131,6 +129,6 @@ final class BlockTest extends TestCase
             ],
         );
 
-        self::assertFalse($query->isContextual());
+        self::assertFalse($block->isContextual);
     }
 }

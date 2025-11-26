@@ -27,7 +27,7 @@ final class Move extends AbstractController
      */
     public function __invoke(Block $block, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:reorder', ['layout' => $block->getLayoutId()->toString()]);
+        $this->denyAccessUnlessGranted('nglayouts:block:reorder', ['layout' => $block->layoutId->toString()]);
 
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);

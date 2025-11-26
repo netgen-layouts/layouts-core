@@ -37,7 +37,7 @@ final class EditItemConfigForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_collection_form_edit_item_config',
                     [
-                        'itemId' => $item->getId(),
+                        'itemId' => $item->id,
                         'configKey' => $configKey,
                     ],
                 ),

@@ -10,11 +10,11 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 final class Item implements ItemInterface, LayoutInterface
 {
     public string $value {
-        get => $this->layout->getId()->toString();
+        get => $this->layout->id->toString();
     }
 
     public string $name {
-        get => $this->layout->getName();
+        get => $this->layout->name;
     }
 
     public true $isVisible {

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -36,24 +37,24 @@ final class RuleTest extends TestCase
                 'priority' => 13,
                 'enabled' => true,
                 'description' => 'Description',
-                'targets' => new ArrayCollection([$target1, $target2]),
-                'conditions' => new ArrayCollection([$condition]),
+                'targets' => TargetList::fromArray([$target1, $target2]),
+                'conditions' => ConditionList::fromArray([$condition]),
             ],
         );
 
-        self::assertSame($uuid->toString(), $rule->getId()->toString());
-        self::assertSame($ruleGroupUuid->toString(), $rule->getRuleGroupId()->toString());
+        self::assertSame($uuid->toString(), $rule->id->toString());
+        self::assertSame($ruleGroupUuid->toString(), $rule->ruleGroupId->toString());
         self::assertSame($layout, $rule->getLayout());
-        self::assertSame(13, $rule->getPriority());
-        self::assertTrue($rule->isEnabled());
-        self::assertSame('Description', $rule->getDescription());
+        self::assertSame(13, $rule->priority);
+        self::assertTrue($rule->enabled);
+        self::assertSame('Description', $rule->description);
 
-        self::assertCount(2, $rule->getTargets());
-        self::assertCount(1, $rule->getConditions());
+        self::assertCount(2, $rule->targets);
+        self::assertCount(1, $rule->conditions);
 
-        self::assertSame($target1, $rule->getTargets()[0]);
-        self::assertSame($target2, $rule->getTargets()[1]);
+        self::assertSame($target1, $rule->targets[0]);
+        self::assertSame($target2, $rule->targets[1]);
 
-        self::assertSame($condition, $rule->getConditions()[0]);
+        self::assertSame($condition, $rule->conditions[0]);
     }
 }

@@ -16,7 +16,7 @@ final class QueryRunner implements QueryRunnerInterface
 
     public function runQuery(Query $query, int $offset = 0, ?int $limit = null): Iterator
     {
-        $queryValues = $query->getQueryType()->getValues($query, $offset, $limit);
+        $queryValues = $query->queryType->getValues($query, $offset, $limit);
 
         foreach ($queryValues as $queryValue) {
             yield $this->cmsItemBuilder->build($queryValue);
@@ -25,6 +25,6 @@ final class QueryRunner implements QueryRunnerInterface
 
     public function count(Query $query): int
     {
-        return $query->getQueryType()->getCount($query);
+        return $query->queryType->getCount($query);
     }
 }

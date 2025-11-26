@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Block;
 
-use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionList;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
@@ -26,129 +26,103 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     use ParameterCollectionTrait;
     use ValueStatusTrait;
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private UuidInterface $layoutId;
-
-    private BlockDefinitionInterface $definition;
-
-    private string $viewType;
-
-    private string $itemViewType;
-
-    private string $name;
-
-    private int $position;
-
-    private ?UuidInterface $parentBlockId;
-
-    private ?string $parentPlaceholder;
-
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\Placeholder[]
-     */
-    private array $placeholders;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<string, \Netgen\Layouts\API\Values\Collection\Collection>
-     */
-    private DoctrineCollection $collections;
-
-    private DynamicParameters $dynamicParameters;
-
-    /**
-     * @var string[]
-     */
-    private array $availableLocales;
-
-    private string $mainLocale;
-
-    private bool $isTranslatable;
-
-    private bool $alwaysAvailable;
-
-    private string $locale;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    public private(set) Status $status;
 
     /**
      * Returns the UUID of the layout where the block is located.
      */
-    public function getLayoutId(): UuidInterface
-    {
-        return $this->layoutId;
-    }
+    public private(set) UuidInterface $layoutId;
 
     /**
      * Returns the block definition.
      */
-    public function getDefinition(): BlockDefinitionInterface
-    {
-        return $this->definition;
-    }
+    public private(set) BlockDefinitionInterface $definition;
 
     /**
      * Returns view type which will be used to render this block.
      */
-    public function getViewType(): string
-    {
-        return $this->viewType;
-    }
+    public private(set) string $viewType;
 
     /**
      * Returns item view type which will be used to render block items.
      */
-    public function getItemViewType(): string
-    {
-        return $this->itemViewType;
-    }
+    public private(set) string $itemViewType;
 
     /**
      * Returns the human readable name of the block.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Returns the position of the block in the parent block or zone.
      */
-    public function getPosition(): int
-    {
-        return $this->position;
-    }
+    public private(set) int $position;
 
     /**
      * Returns the UUID of the parent block where this block is located.
      *
      * If block does not have a parent block, null is returned.
      */
-    public function getParentBlockId(): ?UuidInterface
-    {
-        return $this->parentBlockId;
-    }
+    public private(set) ?UuidInterface $parentBlockId;
 
     /**
      * Returns the placeholder identifier in the parent block where this block is located.
      *
      * If block does not have a parent block, null is returned.
      */
-    public function getParentPlaceholder(): ?string
-    {
-        return $this->parentPlaceholder;
-    }
+    public private(set) ?string $parentPlaceholder;
 
     /**
      * Returns all placeholders from this block.
      */
-    public function getPlaceholders(): PlaceholderList
-    {
-        return new PlaceholderList($this->placeholders);
+    public private(set) PlaceholderList $placeholders {
+        get => new PlaceholderList($this->placeholders->toArray());
     }
+
+    /**
+     * Returns all collections from this block.
+     */
+    public private(set) CollectionList $collections {
+        get => CollectionList::fromArray($this->collections->toArray());
+    }
+
+    /**
+     * Returns the list of all available locales in the block.
+     *
+     * @var string[]
+     */
+    public private(set) array $availableLocales;
+
+    /**
+     * Returns the main locale for the block.
+     */
+    public private(set) string $mainLocale;
+
+    /**
+     * Returns if the block is translatable.
+     */
+    public private(set) bool $isTranslatable;
+
+    /**
+     * Returns if the block is always available.
+     */
+    public private(set) bool $alwaysAvailable;
+
+    /**
+     * Returns the locale of the currently loaded translation.
+     */
+    public private(set) string $locale;
+
+    /**
+     * Returns if the block is dependent on a context, i.e. currently displayed page.
+     */
+    public bool $isContextual {
+        get => $this->definition->isContextual($this);
+    }
+
+    private DynamicParameters $dynamicParameters;
 
     /**
      * Returns the specified placeholder.
@@ -157,11 +131,8 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
      */
     public function getPlaceholder(string $identifier): Placeholder
     {
-        if ($this->hasPlaceholder($identifier)) {
-            return $this->placeholders[$identifier];
-        }
-
-        throw BlockException::noPlaceholder($identifier);
+        return $this->placeholders->get($identifier) ??
+            throw BlockException::noPlaceholder($identifier);
     }
 
     /**
@@ -169,15 +140,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
      */
     public function hasPlaceholder(string $identifier): bool
     {
-        return isset($this->placeholders[$identifier]);
-    }
-
-    /**
-     * Returns all collections from this block.
-     */
-    public function getCollections(): CollectionList
-    {
-        return new CollectionList($this->collections->toArray());
+        return $this->placeholders->containsKey($identifier);
     }
 
     /**
@@ -217,56 +180,6 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
         $this->buildDynamicParameters();
 
         return $this->dynamicParameters->offsetExists($parameter);
-    }
-
-    /**
-     * Returns if the block is dependent on a context, i.e. currently displayed page.
-     */
-    public function isContextual(): bool
-    {
-        return $this->definition->isContextual($this);
-    }
-
-    /**
-     * Returns the list of all available locales in the block.
-     *
-     * @return string[]
-     */
-    public function getAvailableLocales(): array
-    {
-        return $this->availableLocales;
-    }
-
-    /**
-     * Returns the main locale for the block.
-     */
-    public function getMainLocale(): string
-    {
-        return $this->mainLocale;
-    }
-
-    /**
-     * Returns if the block is translatable.
-     */
-    public function isTranslatable(): bool
-    {
-        return $this->isTranslatable;
-    }
-
-    /**
-     * Returns if the block is always available.
-     */
-    public function isAlwaysAvailable(): bool
-    {
-        return $this->alwaysAvailable;
-    }
-
-    /**
-     * Returns the locale of the currently loaded translation.
-     */
-    public function getLocale(): string
-    {
-        return $this->locale;
     }
 
     /**

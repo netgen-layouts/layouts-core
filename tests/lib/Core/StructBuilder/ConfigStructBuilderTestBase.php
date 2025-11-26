@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Tests\Core\StructBuilder;
 
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
+use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
@@ -29,17 +31,20 @@ abstract class ConfigStructBuilderTestBase extends CoreTestCase
 
         $block = ConfigAwareValue::fromArray(
             [
-                'configs' => [
-                    'config' => Config::fromArray(
-                        [
-                            'definition' => ConfigDefinition::fromArray(
-                                [
-                                    'parameterDefinitions' => $handler->getParameterDefinitions(),
-                                ],
-                            ),
-                        ],
-                    ),
-                ],
+                'configs' => new ConfigList(
+                    [
+                        'config' => Config::fromArray(
+                            [
+                                'parameters' => new ParameterList(),
+                                'definition' => ConfigDefinition::fromArray(
+                                    [
+                                        'parameterDefinitions' => $handler->getParameterDefinitions(),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
             ],
         );
 

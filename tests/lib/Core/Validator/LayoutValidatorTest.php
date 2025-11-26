@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\Core\Validator\LayoutValidator;
 use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
@@ -352,7 +352,7 @@ final class LayoutValidatorTest extends TestCase
     {
         return Layout::fromArray(
             [
-                'zones' => new ArrayCollection(
+                'zones' => ZoneList::fromArray(
                     [
                         'top' => new Zone(),
                         'bottom' => new Zone(),

@@ -139,7 +139,7 @@ abstract class EditType extends AbstractType
     protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = []): void
     {
         /** @var \Netgen\Layouts\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['block']->getDefinition();
+        $blockDefinition = $options['block']->definition;
 
         $builder->add(
             'parameters',
@@ -166,9 +166,9 @@ abstract class EditType extends AbstractType
      */
     private function processViewTypeConfig(Block $block): void
     {
-        $blockDefinitionParameters = array_keys($block->getDefinition()->getParameterDefinitions());
+        $blockDefinitionParameters = array_keys($block->definition->getParameterDefinitions());
 
-        foreach ($block->getDefinition()->getViewTypes($block) as $viewType) {
+        foreach ($block->definition->getViewTypes($block) as $viewType) {
             $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();
 
             foreach ($viewType->getItemViewTypes() as $itemViewType) {

@@ -19,6 +19,7 @@ parameters:
 
         # PHPStan
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface::\w+\(\).#'
+        - '#Method Netgen\\Layouts\\API\\Values\\\w+\\\w+::count\(\) should return int<0, max> but returns int.#'
 
         # Netgen Layouts specifics
 
@@ -26,8 +27,8 @@ parameters:
             message: '#Variable property access on object.#'
             path: lib/Utils/Hydrator.php
 
-        -
-            message: '#Unsafe usage of new static\(\).#'
-            path: lib/Utils/HydratorTrait.php
+        - '#Unsafe usage of new static\(\).#'
 
         - '#Property Netgen\\Layouts\\Parameters\\Value\\LinkValue::\$linkType \(Netgen\\Layouts\\Parameters\\Value\\LinkType\|null\) is never assigned#'
+
+        - '#Method Netgen\\Layouts\\API\\Values\\LazyCollection::from(Callable|Array)\(\) should return static#'

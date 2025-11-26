@@ -83,10 +83,10 @@ final class LayoutsDataCollector extends DataCollector
         $template = $layoutView->getTemplate();
 
         $this->data['layout'] = [
-            'id' => $layout->getId()->toString(),
-            'path' => $this->layoutUrlGenerator->generateLayoutUrl($layout->getId()),
-            'name' => $layout->getName(),
-            'type' => $layout->getLayoutType()->getName(),
+            'id' => $layout->id->toString(),
+            'path' => $this->layoutUrlGenerator->generateLayoutUrl($layout->id),
+            'name' => $layout->name,
+            'type' => $layout->layoutType->getName(),
             'context' => $layoutView->getContext(),
             'template' => null,
             'template_path' => null,
@@ -106,20 +106,20 @@ final class LayoutsDataCollector extends DataCollector
     public function collectRule(Rule $rule): void
     {
         $ruleData = [
-            'id' => $rule->getId()->toString(),
+            'id' => $rule->id->toString(),
         ];
 
-        foreach ($rule->getTargets() as $target) {
+        foreach ($rule->targets as $target) {
             $ruleData['targets'][] = [
-                'type' => $target->getTargetType()::getType(),
-                'value' => $this->cloneVar($target->getValue()),
+                'type' => $target->targetType::getType(),
+                'value' => $this->cloneVar($target->value),
             ];
         }
 
-        foreach ($rule->getConditions() as $condition) {
+        foreach ($rule->conditions as $condition) {
             $ruleData['conditions'][] = [
-                'type' => $condition->getConditionType()::getType(),
-                'value' => $this->cloneVar($condition->getValue()),
+                'type' => $condition->conditionType::getType(),
+                'value' => $this->cloneVar($condition->value),
             ];
         }
 
@@ -132,26 +132,26 @@ final class LayoutsDataCollector extends DataCollector
     public function collectBlockView(BlockViewInterface $blockView): void
     {
         $block = $blockView->getBlock();
-        $blockDefinition = $block->getDefinition();
+        $blockDefinition = $block->definition;
         $template = $blockView->getTemplate();
 
-        $layoutId = $block->getLayoutId()->toString();
+        $layoutId = $block->layoutId->toString();
         $this->layoutCache[$layoutId] ??= $this->layoutHandler->loadLayout(
-            $block->getLayoutId(),
-            Status::from($block->getStatus()->value),
+            $block->layoutId,
+            Status::from($block->status->value),
         );
 
         $blockData = [
-            'id' => $block->getId()->toString(),
-            'name' => $block->getName(),
+            'id' => $block->id->toString(),
+            'name' => $block->name,
             'layout_id' => $layoutId,
-            'layout_path' => $this->layoutUrlGenerator->generateLayoutUrl($block->getLayoutId()),
+            'layout_path' => $this->layoutUrlGenerator->generateLayoutUrl($block->layoutId),
             'layout_name' => $this->layoutCache[$layoutId]->name,
             'definition' => $blockDefinition->getName(),
-            'view_type' => $blockDefinition->hasViewType($block->getViewType(), $block) ?
-                $blockDefinition->getViewType($block->getViewType(), $block)->getName() :
+            'view_type' => $blockDefinition->hasViewType($block->viewType, $block) ?
+                $blockDefinition->getViewType($block->viewType, $block)->getName() :
                 'Invalid view type',
-            'locale' => $block->getLocale(),
+            'locale' => $block->locale,
             'template' => null,
             'template_path' => null,
         ];

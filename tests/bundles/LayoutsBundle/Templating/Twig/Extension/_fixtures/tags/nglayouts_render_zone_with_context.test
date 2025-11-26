@@ -7,7 +7,7 @@
 return [
     'nglayouts' => new \Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension\Stubs\GlobalVariable(
         \Netgen\Layouts\API\Values\Layout\Layout::fromArray([
-            'zones' => new \Doctrine\Common\Collections\ArrayCollection([
+            'zones' => \Netgen\Layouts\API\Values\Layout\ZoneList::fromArray([
                 'zone' => \Netgen\Layouts\API\Values\Layout\Zone::fromArray(['identifier' => 'zone']),
             ])
         ])

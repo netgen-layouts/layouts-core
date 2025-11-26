@@ -60,7 +60,7 @@ final class CreateForm extends AbstractController
 
             return $this->json(
                 [
-                    'id' => $createdLayout->getId()->toString(),
+                    'id' => $createdLayout->id->toString(),
                 ],
                 Response::HTTP_CREATED,
             );

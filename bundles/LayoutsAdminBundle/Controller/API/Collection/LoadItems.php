@@ -19,7 +19,7 @@ final class LoadItems extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         $items = [];
-        foreach ($collection->getItems() as $item) {
+        foreach ($collection->items as $item) {
             $items[] = new Value($item);
         }
 

@@ -46,7 +46,7 @@ final class ChangeCollectionType extends AbstractController
         $newType = CollectionType::from($requestData->get('new_type'));
 
         if ($newType === CollectionType::Manual) {
-            if (!$collection->hasQuery()) {
+            if (!$collection->hasQuery) {
                 // Noop
                 return new Response(null, Response::HTTP_NO_CONTENT);
             }
@@ -81,7 +81,7 @@ final class ChangeCollectionType extends AbstractController
 
         $this->validate($queryType, $queryTypeConstraints, 'query_type');
 
-        $blockDefinition = $block->getDefinition();
+        $blockDefinition = $block->definition;
         if (!$blockDefinition->hasCollection($collectionIdentifier)) {
             return;
         }

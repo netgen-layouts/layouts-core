@@ -71,7 +71,7 @@ final class RouteGeneratorTest extends TestCase
                 self::identicalTo('nglayouts_ajax_block'),
                 self::identicalTo(
                     [
-                        'blockId' => $block->getId()->toString(),
+                        'blockId' => $block->id->toString(),
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
                         'nglContext' => ['var' => 'value'],
@@ -111,7 +111,7 @@ final class RouteGeneratorTest extends TestCase
                 self::identicalTo('nglayouts_ajax_block'),
                 self::identicalTo(
                     [
-                        'blockId' => $block->getId()->toString(),
+                        'blockId' => $block->id->toString(),
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
                         'nglContext' => ['var' => 'value'],

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\API\Values\Block;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -21,14 +21,14 @@ final class PlaceholderTest extends TestCase
         $placeholder = Placeholder::fromArray(
             [
                 'identifier' => 'placeholder',
-                'blocks' => new ArrayCollection([$block]),
+                'blocks' => BlockList::fromArray([$block]),
             ],
         );
 
-        self::assertSame('placeholder', $placeholder->getIdentifier());
+        self::assertSame('placeholder', $placeholder->identifier);
 
-        self::assertCount(1, $placeholder->getBlocks());
-        self::assertSame($block, $placeholder->getBlocks()[0]);
+        self::assertCount(1, $placeholder->blocks);
+        self::assertSame($block, $placeholder->blocks[0]);
 
         self::assertSame([$block], [...$placeholder]);
 
@@ -45,7 +45,7 @@ final class PlaceholderTest extends TestCase
 
         $placeholder = Placeholder::fromArray(
             [
-                'blocks' => new ArrayCollection([new Block()]),
+                'blocks' => BlockList::fromArray([new Block()]),
             ],
         );
 
@@ -59,7 +59,7 @@ final class PlaceholderTest extends TestCase
 
         $placeholder = Placeholder::fromArray(
             [
-                'blocks' => new ArrayCollection([new Block()]),
+                'blocks' => BlockList::fromArray([new Block()]),
             ],
         );
 

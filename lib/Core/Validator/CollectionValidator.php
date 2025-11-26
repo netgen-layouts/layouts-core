@@ -69,7 +69,7 @@ final class CollectionValidator
             $this->validate(
                 $collectionUpdateStruct->offset,
                 [
-                    $collection->hasQuery() ?
+                    $collection->hasQuery ?
                         new Constraints\PositiveOrZero() :
                         new Constraints\EqualTo(value: 0),
                 ],
@@ -128,7 +128,7 @@ final class CollectionValidator
             $itemUpdateStruct,
             new ConfigAwareStructConstraint(
                 allowMissingFields: true,
-                payload: $item->getDefinition(),
+                payload: $item->definition,
             ),
         );
     }
@@ -144,7 +144,7 @@ final class CollectionValidator
             $queryCreateStruct,
             [
                 new ParameterStruct(
-                    parameterDefinitions: $queryCreateStruct->getQueryType(),
+                    parameterDefinitions: $queryCreateStruct->queryType,
                 ),
             ],
             'parameterValues',

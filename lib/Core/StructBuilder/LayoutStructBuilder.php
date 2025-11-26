@@ -38,8 +38,8 @@ final class LayoutStructBuilder
             return $layoutUpdateStruct;
         }
 
-        $layoutUpdateStruct->name = $layout->getName();
-        $layoutUpdateStruct->description = $layout->getDescription();
+        $layoutUpdateStruct->name = $layout->name;
+        $layoutUpdateStruct->description = $layout->description;
 
         return $layoutUpdateStruct;
     }
@@ -59,7 +59,7 @@ final class LayoutStructBuilder
             return $layoutCopyStruct;
         }
 
-        $layoutCopyStruct->name = $layout->getName() . ' (copy)';
+        $layoutCopyStruct->name = $layout->name . ' (copy)';
 
         return $layoutCopyStruct;
     }

@@ -39,13 +39,13 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         $zone = $this->mapper->mapZone($persistenceZone);
 
-        self::assertSame('right', $zone->getIdentifier());
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->getLayoutId()->toString());
+        self::assertSame('right', $zone->identifier);
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
         self::assertTrue($zone->isPublished());
         self::assertInstanceOf(APIZone::class, $zone->getLinkedZone());
         self::assertTrue($zone->getLinkedZone()->isPublished());
-        self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $zone->getLinkedZone()->getLayoutId()->toString());
-        self::assertSame('right', $zone->getLinkedZone()->getIdentifier());
+        self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $zone->getLinkedZone()->layoutId->toString());
+        self::assertSame('right', $zone->getLinkedZone()->identifier);
     }
 
     public function testMapZoneWithNoLinkedZone(): void
@@ -64,8 +64,8 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         $zone = $this->mapper->mapZone($persistenceZone);
 
-        self::assertSame('right', $zone->getIdentifier());
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->getLayoutId()->toString());
+        self::assertSame('right', $zone->identifier);
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
         self::assertTrue($zone->isPublished());
         self::assertNull($zone->getLinkedZone());
     }
@@ -86,8 +86,8 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         $zone = $this->mapper->mapZone($persistenceZone);
 
-        self::assertSame('right', $zone->getIdentifier());
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->getLayoutId()->toString());
+        self::assertSame('right', $zone->identifier);
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
         self::assertTrue($zone->isPublished());
         self::assertNull($zone->getLinkedZone());
     }
@@ -114,17 +114,17 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
-            $layout->getLayoutType(),
+            $layout->layoutType,
         );
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $layout->getId()->toString());
-        self::assertSame('My layout', $layout->getName());
-        self::assertSame('My description', $layout->getDescription());
-        self::assertSame(1_447_065_813, $layout->getCreated()->getTimestamp());
-        self::assertSame(1_447_065_813, $layout->getModified()->getTimestamp());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $layout->id->toString());
+        self::assertSame('My layout', $layout->name);
+        self::assertSame('My description', $layout->description);
+        self::assertSame(1_447_065_813, $layout->created->getTimestamp());
+        self::assertSame(1_447_065_813, $layout->modified->getTimestamp());
         self::assertTrue($layout->isPublished());
-        self::assertTrue($layout->isShared());
-        self::assertCount(4, $layout->getZones());
+        self::assertTrue($layout->shared);
+        self::assertCount(4, $layout->zones);
     }
 
     public function testMapLayoutWithInvalidLayoutType(): void
@@ -147,15 +147,15 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         $layout = $this->mapper->mapLayout($persistenceLayout);
 
-        self::assertInstanceOf(NullLayoutType::class, $layout->getLayoutType());
+        self::assertInstanceOf(NullLayoutType::class, $layout->layoutType);
 
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $layout->getId()->toString());
-        self::assertSame('My layout', $layout->getName());
-        self::assertSame('My description', $layout->getDescription());
-        self::assertSame(1_447_065_813, $layout->getCreated()->getTimestamp());
-        self::assertSame(1_447_065_813, $layout->getModified()->getTimestamp());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $layout->id->toString());
+        self::assertSame('My layout', $layout->name);
+        self::assertSame('My description', $layout->description);
+        self::assertSame(1_447_065_813, $layout->created->getTimestamp());
+        self::assertSame(1_447_065_813, $layout->modified->getTimestamp());
         self::assertTrue($layout->isPublished());
-        self::assertTrue($layout->isShared());
-        self::assertCount(4, $layout->getZones());
+        self::assertTrue($layout->shared);
+        self::assertCount(4, $layout->zones);
     }
 }

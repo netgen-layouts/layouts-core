@@ -45,7 +45,7 @@ final class CollectionEditType extends AbstractType
                 'label' => 'collection.offset',
                 'property_path' => 'offset',
                 // Manual collections do not support the offset
-                'disabled' => !$options['collection']->hasQuery(),
+                'disabled' => !$options['collection']->hasQuery,
                 'constraints' => [
                     new Constraints\NotBlank(),
                     new Constraints\Type(type: 'int'),

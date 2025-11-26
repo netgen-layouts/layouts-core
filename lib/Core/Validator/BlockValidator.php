@@ -39,11 +39,11 @@ final class BlockValidator
         $this->validate(
             $blockCreateStruct,
             new ConfigAwareStructConstraint(
-                payload: $blockCreateStruct->getDefinition(),
+                payload: $blockCreateStruct->definition,
             ),
         );
 
-        $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
+        $collectionCreateStructs = $blockCreateStruct->collectionCreateStructs;
         if (count($collectionCreateStructs) > 0) {
             foreach ($collectionCreateStructs as $collectionCreateStruct) {
                 $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
@@ -71,7 +71,7 @@ final class BlockValidator
             $blockUpdateStruct,
             new ConfigAwareStructConstraint(
                 allowMissingFields: true,
-                payload: $block->getDefinition(),
+                payload: $block->definition,
             ),
         );
     }

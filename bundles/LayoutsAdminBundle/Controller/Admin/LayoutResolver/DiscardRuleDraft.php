@@ -23,13 +23,13 @@ final class DiscardRuleDraft extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:mapping:edit',
             [
-                'rule_group' => $rule->getRuleGroupId()->toString(),
+                'rule_group' => $rule->ruleGroupId->toString(),
             ],
         );
 
         $this->layoutResolverService->discardRuleDraft($rule);
 
-        $publishedRule = $this->layoutResolverService->loadRule($rule->getId());
+        $publishedRule = $this->layoutResolverService->loadRule($rule->id);
 
         return $this->buildView($publishedRule, ViewInterface::CONTEXT_ADMIN);
     }

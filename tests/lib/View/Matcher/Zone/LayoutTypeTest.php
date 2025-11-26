@@ -37,11 +37,11 @@ final class LayoutTypeTest extends TestCase
         $layout = Layout::fromArray(
             [
                 'layoutType' => LayoutType::fromArray(['identifier' => '4_zones_a']),
-                'zones' => new ZoneList(['left' => Zone::fromArray(['identifier' => 'left'])]),
+                'zones' => ZoneList::fromArray(['left' => Zone::fromArray(['identifier' => 'left'])]),
             ],
         );
 
-        $view = new ZoneView(new ZoneReference($layout, 'left'), new BlockList());
+        $view = new ZoneView(new ZoneReference($layout, 'left'), BlockList::fromArray([]));
 
         self::assertSame($expected, $this->matcher->match($view, $config));
     }

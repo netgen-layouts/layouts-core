@@ -20,7 +20,7 @@ final class UnlinkZone extends AbstractController
      */
     public function __invoke(Zone $zone): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit', ['layout' => $zone->getLayoutId()->toString()]);
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', ['layout' => $zone->layoutId->toString()]);
 
         $this->layoutService->unlinkZone($zone);
 

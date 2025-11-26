@@ -37,13 +37,13 @@ final class RuleGroupVisitor implements VisitorInterface
     {
         return [
             '__type' => self::ENTITY_TYPE,
-            'id' => $value->getId()->toString(),
+            'id' => $value->id->toString(),
             'status' => $this->getStatusString($value),
-            'parent_id' => $value->getParentId()?->toString(),
-            'name' => $value->getName(),
-            'description' => $value->getDescription(),
-            'is_enabled' => $value->isEnabled(),
-            'priority' => $value->getPriority(),
+            'parent_id' => $value->parentId?->toString(),
+            'name' => $value->name,
+            'description' => $value->description,
+            'is_enabled' => $value->enabled,
+            'priority' => $value->priority,
             'groups' => [...$this->visitSubGroups($value, $outputVisitor)],
             'rules' => [...$this->visitRules($value, $outputVisitor)],
             'conditions' => [...$this->visitConditions($value, $outputVisitor)],
@@ -69,7 +69,7 @@ final class RuleGroupVisitor implements VisitorInterface
      */
     private function visitRules(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): Generator
     {
-        foreach ($ruleGroup->getRules() as $rule) {
+        foreach ($ruleGroup->rules as $rule) {
             yield $outputVisitor->visit($rule);
         }
     }
@@ -81,7 +81,7 @@ final class RuleGroupVisitor implements VisitorInterface
      */
     private function visitConditions(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): Generator
     {
-        foreach ($ruleGroup->getConditions() as $condition) {
+        foreach ($ruleGroup->conditions as $condition) {
             yield $outputVisitor->visit($condition);
         }
     }

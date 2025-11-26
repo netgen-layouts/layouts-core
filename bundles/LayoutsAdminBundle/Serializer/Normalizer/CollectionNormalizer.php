@@ -20,15 +20,15 @@ final class CollectionNormalizer implements NormalizerInterface
         $collection = $data->getValue();
 
         return [
-            'id' => $collection->getId()->toString(),
-            'type' => match ($collection->getCollectionType()) {
+            'id' => $collection->id->toString(),
+            'type' => match ($collection->collectionType) {
                 CollectionType::Manual => 0,
                 CollectionType::Dynamic => 1,
             },
-            'is_translatable' => $collection->isTranslatable(),
-            'main_locale' => $collection->getMainLocale(),
-            'always_available' => $collection->isAlwaysAvailable(),
-            'available_locales' => $collection->getAvailableLocales(),
+            'is_translatable' => $collection->isTranslatable,
+            'main_locale' => $collection->mainLocale,
+            'always_available' => $collection->alwaysAvailable,
+            'available_locales' => $collection->availableLocales,
         ];
     }
 

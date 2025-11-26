@@ -63,18 +63,18 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
-            $block->getDefinition(),
+            $block->definition,
         );
 
-        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $block->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $block->getLayoutId()->toString());
-        self::assertSame('default', $block->getViewType());
-        self::assertSame('standard', $block->getItemViewType());
-        self::assertSame('My block', $block->getName());
-        self::assertSame(3, $block->getPosition());
-        self::assertInstanceOf(UuidInterface::class, $block->getParentBlockId());
-        self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->getParentBlockId()->toString());
-        self::assertSame('main', $block->getParentPlaceholder());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $block->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $block->layoutId->toString());
+        self::assertSame('default', $block->viewType);
+        self::assertSame('standard', $block->itemViewType);
+        self::assertSame('My block', $block->name);
+        self::assertSame(3, $block->position);
+        self::assertInstanceOf(UuidInterface::class, $block->parentBlockId);
+        self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->parentBlockId->toString());
+        self::assertSame('main', $block->parentPlaceholder);
         self::assertTrue($block->isPublished());
         self::assertSame('test', $block->getParameter('css_class')->getValue());
         self::assertNull($block->getParameter('css_id')->getValue());
@@ -85,12 +85,12 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertTrue($blockConfig->getParameter('param1')->getValue());
         self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
 
-        self::assertTrue($block->isTranslatable());
-        self::assertSame('en', $block->getMainLocale());
-        self::assertFalse($block->isAlwaysAvailable());
-        self::assertSame(['en'], $block->getAvailableLocales());
+        self::assertTrue($block->isTranslatable);
+        self::assertSame('en', $block->mainLocale);
+        self::assertFalse($block->alwaysAvailable);
+        self::assertSame(['en'], $block->availableLocales);
 
-        self::assertSame('en', $block->getLocale());
+        self::assertSame('en', $block->locale);
 
         self::assertSame('test', $block->getParameter('css_class')->getValue());
         self::assertNull($block->getParameter('css_id')->getValue());
@@ -124,9 +124,9 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         $block = $this->mapper->mapBlock($persistenceBlock);
 
-        self::assertSame(3, $block->getPosition());
-        self::assertNull($block->getParentBlockId());
-        self::assertNull($block->getParentPlaceholder());
+        self::assertSame(3, $block->position);
+        self::assertNull($block->parentBlockId);
+        self::assertNull($block->parentPlaceholder);
     }
 
     public function testMapBlockWithLocale(): void
@@ -157,8 +157,8 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         $block = $this->mapper->mapBlock($persistenceBlock, ['hr']);
 
-        self::assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
-        self::assertSame('hr', $block->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $block->availableLocales);
+        self::assertSame('hr', $block->locale);
     }
 
     public function testMapBlockWithLocales(): void
@@ -189,8 +189,8 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         $block = $this->mapper->mapBlock($persistenceBlock, ['hr', 'en']);
 
-        self::assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
-        self::assertSame('hr', $block->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $block->availableLocales);
+        self::assertSame('hr', $block->locale);
     }
 
     public function testMapBlockWithLocalesAndAlwaysAvailable(): void
@@ -221,8 +221,8 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         $block = $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
 
-        self::assertSame(['en', 'hr', 'de'], $block->getAvailableLocales());
-        self::assertSame('en', $block->getLocale());
+        self::assertSame(['en', 'hr', 'de'], $block->availableLocales);
+        self::assertSame('en', $block->locale);
     }
 
     public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
@@ -319,14 +319,14 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         $block = $this->mapper->mapBlock($persistenceBlock);
 
-        self::assertInstanceOf(NullBlockDefinition::class, $block->getDefinition());
+        self::assertInstanceOf(NullBlockDefinition::class, $block->definition);
 
-        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $block->getId()->toString());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $block->getLayoutId()->toString());
-        self::assertSame('default', $block->getViewType());
-        self::assertSame('standard', $block->getItemViewType());
-        self::assertSame('My block', $block->getName());
-        self::assertSame(3, $block->getPosition());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $block->id->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $block->layoutId->toString());
+        self::assertSame('default', $block->viewType);
+        self::assertSame('standard', $block->itemViewType);
+        self::assertSame('My block', $block->name);
+        self::assertSame(3, $block->position);
         self::assertTrue($block->isPublished());
 
         self::assertFalse($block->hasParameter('css_class'));
@@ -334,12 +334,12 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertFalse($block->hasConfig('key'));
 
-        self::assertTrue($block->isTranslatable());
-        self::assertSame('en', $block->getMainLocale());
-        self::assertFalse($block->isAlwaysAvailable());
-        self::assertSame(['en'], $block->getAvailableLocales());
+        self::assertTrue($block->isTranslatable);
+        self::assertSame('en', $block->mainLocale);
+        self::assertFalse($block->alwaysAvailable);
+        self::assertSame(['en'], $block->availableLocales);
 
-        self::assertSame('en', $block->getLocale());
+        self::assertSame('en', $block->locale);
     }
 
     public function testMapContainerBlock(): void
@@ -377,19 +377,19 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('two_columns'),
-            $block->getDefinition(),
+            $block->definition,
         );
 
         self::assertTrue($block->hasPlaceholder('left'));
 
         $placeholder = $block->getPlaceholder('left');
-        self::assertSame('left', $placeholder->getIdentifier());
-        self::assertCount(1, $placeholder->getBlocks());
+        self::assertSame('left', $placeholder->identifier);
+        self::assertCount(1, $placeholder->blocks);
         self::assertTrue($block->hasPlaceholder('right'));
 
         $placeholder = $block->getPlaceholder('right');
-        self::assertSame('right', $placeholder->getIdentifier());
-        self::assertCount(0, $placeholder->getBlocks());
+        self::assertSame('right', $placeholder->identifier);
+        self::assertCount(0, $placeholder->blocks);
     }
 
     public function testMapBlockWithCollections(): void
@@ -431,7 +431,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
-            $block->getDefinition(),
+            $block->definition,
         );
 
         self::assertTrue($block->hasCollection('default'));

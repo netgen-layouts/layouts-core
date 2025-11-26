@@ -32,8 +32,8 @@ final class PublishDraft extends AbstractController
         $this->layoutService->publishLayout($layout);
 
         if ($this->automaticCacheClear || $request->query->getBoolean('clearCache')) {
-            $this->invalidator->invalidateLayouts([$layout->getId()->toString()]);
-            $this->invalidator->invalidateLayoutBlocks([$layout->getId()->toString()]);
+            $this->invalidator->invalidateLayouts([$layout->id->toString()]);
+            $this->invalidator->invalidateLayoutBlocks([$layout->id->toString()]);
         }
 
         return new Response(null, Response::HTTP_NO_CONTENT);

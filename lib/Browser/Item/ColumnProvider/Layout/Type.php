@@ -16,6 +16,6 @@ final class Type implements ColumnValueProviderInterface
             return null;
         }
 
-        return $item->layout->getLayoutType()->getName();
+        return $item->layout->layoutType->getName();
     }
 }

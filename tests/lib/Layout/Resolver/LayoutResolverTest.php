@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Layout\Resolver;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use Netgen\Layouts\Layout\Resolver\LayoutResolver;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
@@ -58,8 +59,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -68,8 +69,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -78,8 +79,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -88,8 +89,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -103,8 +104,8 @@ final class LayoutResolverTest extends TestCase
             ->method('matchRules')
             ->willReturnMap(
                 [
-                    [$ruleGroup, 'target1', 42, new RuleList([$rule1, $rule2])],
-                    [$ruleGroup, 'target2', 84, new RuleList([$rule3, $rule4])],
+                    [$ruleGroup, 'target1', 42, RuleList::fromArray([$rule1, $rule2])],
+                    [$ruleGroup, 'target2', 84, RuleList::fromArray([$rule3, $rule4])],
                 ],
             );
 
@@ -129,8 +130,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -139,8 +140,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -153,7 +154,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([$rule1], $this->layoutResolver->resolveRules(Request::create('/')));
     }
@@ -169,8 +170,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -179,8 +180,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => false,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -193,7 +194,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([$rule1], $this->layoutResolver->resolveRules(Request::create('/')));
     }
@@ -209,8 +210,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 2,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -219,8 +220,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -233,7 +234,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([], $this->layoutResolver->resolveRules(Request::create('/')));
     }
@@ -254,8 +255,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -264,8 +265,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 7,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -278,7 +279,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules(Request::create('/')));
     }
@@ -326,9 +327,9 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
                 'priority' => 4,
-                'conditions' => new ArrayCollection([RuleCondition::fromArray(['value' => 42, 'conditionType' => new ConditionType2(false)])]),
+                'conditions' => ConditionList::fromArray([RuleCondition::fromArray(['value' => 42, 'conditionType' => new ConditionType2(false)])]),
             ],
         );
 
@@ -336,9 +337,9 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
                 'priority' => 2,
-                'conditions' => new ArrayCollection($conditions),
+                'conditions' => ConditionList::fromArray($conditions),
             ],
         );
 
@@ -352,7 +353,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame(
             $resolved ? [$rule2] : [],
@@ -379,8 +380,8 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection($conditions),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray($conditions),
             ],
         );
 
@@ -394,7 +395,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule]));
+            ->willReturn(RuleList::fromArray([$rule]));
 
         self::assertSame(
             $resolved ? [$rule] : [],
@@ -418,8 +419,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -428,8 +429,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -438,8 +439,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -448,8 +449,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -463,8 +464,8 @@ final class LayoutResolverTest extends TestCase
             ->method('matchRules')
             ->willReturnMap(
                 [
-                    [$ruleGroup, 'target1', 42, new RuleList([$rule1, $rule2])],
-                    [$ruleGroup, 'target2', 84, new RuleList([$rule3, $rule4])],
+                    [$ruleGroup, 'target1', 42, RuleList::fromArray([$rule1, $rule2])],
+                    [$ruleGroup, 'target2', 84, RuleList::fromArray([$rule3, $rule4])],
                 ],
             );
 
@@ -482,8 +483,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -492,8 +493,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -506,7 +507,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame($rule1, $this->layoutResolver->resolveRule(Request::create('/')));
     }
@@ -522,8 +523,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 2,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -532,8 +533,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 4,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -546,7 +547,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertNull($this->layoutResolver->resolveRule(Request::create('/')));
     }
@@ -567,8 +568,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -577,8 +578,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 7,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection(),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray([]),
             ],
         );
 
@@ -591,7 +592,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
-            ->willReturn(new RuleList([$rule1, $rule2]));
+            ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame($rule2, $this->layoutResolver->resolveRule(Request::create('/')));
     }
@@ -639,8 +640,8 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection($conditions),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray($conditions),
             ],
         );
 
@@ -654,7 +655,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule]));
+            ->willReturn(RuleList::fromArray([$rule]));
 
         self::assertSame(
             $resolved ? $rule : null,
@@ -684,8 +685,8 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
-                'targets' => new ArrayCollection(),
-                'conditions' => new ArrayCollection($conditions),
+                'targets' => TargetList::fromArray([]),
+                'conditions' => ConditionList::fromArray($conditions),
             ],
         );
 
@@ -699,7 +700,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule]));
+            ->willReturn(RuleList::fromArray([$rule]));
 
         self::assertSame($resolved ? $rule : null, $this->layoutResolver->resolveRule(Request::create('/')));
     }

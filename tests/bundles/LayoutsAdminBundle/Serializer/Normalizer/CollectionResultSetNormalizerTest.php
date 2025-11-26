@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ArrayValueNormalizer;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultSetNormalizer;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Stubs\NormalizerStub;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Collection\Result\ResultSet;
@@ -45,7 +45,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
             [
                 'collection' => Collection::fromArray(
                     [
-                        'items' => new ArrayCollection([$item1, $item2, $item3, $item4]),
+                        'items' => ItemList::fromArray([$item1, $item2, $item3, $item4]),
                     ],
                 ),
                 'results' => [$result1, $result2],

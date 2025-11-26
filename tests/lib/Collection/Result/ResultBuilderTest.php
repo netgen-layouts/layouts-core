@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\SlotList;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
@@ -184,8 +185,8 @@ final class ResultBuilderTest extends TestCase
 
         return Collection::fromArray(
             [
-                'items' => new ArrayCollection($items),
-                'slots' => new ArrayCollection(),
+                'items' => ItemList::fromArray($items),
+                'slots' => SlotList::fromArray([]),
                 'query' => Query::fromArray(
                     [
                         'queryType' => new QueryType(

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemList;
+use Netgen\Layouts\API\Values\Collection\SlotList;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
 use Netgen\Layouts\Collection\Result\ManualCollectionRunner;
@@ -52,7 +53,7 @@ final class ManualCollectionRunnerTest extends TestCase
             );
         }
 
-        $collection = Collection::fromArray(['items' => new ArrayCollection($items), 'slots' => new ArrayCollection()]);
+        $collection = Collection::fromArray(['items' => ItemList::fromArray($items), 'slots' => SlotList::fromArray([])]);
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
         $collectionRunner = $factory->getCollectionRunner($collection);
 

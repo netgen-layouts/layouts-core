@@ -35,8 +35,8 @@ final class RouteGenerator
         $currentRequest = $this->requestStack->getCurrentRequest();
 
         $routeParams = [
-            'blockId' => $block->getId()->toString(),
-            'locale' => $block->getLocale(),
+            'blockId' => $block->id->toString(),
+            'locale' => $block->locale,
             'collectionIdentifier' => $collectionIdentifier,
             'nglContext' => $context,
         ];

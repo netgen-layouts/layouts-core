@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Collection;
 
 use Closure;
-use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
@@ -18,72 +18,98 @@ final class Collection implements Value
     use LazyPropertyTrait;
     use ValueStatusTrait;
 
-    private UuidInterface $id;
+    public private(set) UuidInterface $id;
 
-    private UuidInterface $blockId;
-
-    private int $offset;
-
-    private ?int $limit;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Collection\Item>
-     */
-    private DoctrineCollection $items;
-
-    private Query|Closure|null $query;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Collection\Slot>
-     */
-    private DoctrineCollection $slots;
-
-    /**
-     * @var string[]
-     */
-    private array $availableLocales;
-
-    private string $mainLocale;
-
-    private bool $isTranslatable;
-
-    private bool $alwaysAvailable;
-
-    private string $locale;
-
-    public function getId(): UuidInterface
-    {
-        return $this->id;
-    }
+    public private(set) Status $status;
 
     /**
      * Returns the UUID of the block where this collection located.
      */
-    public function getBlockId(): UuidInterface
-    {
-        return $this->blockId;
-    }
+    public private(set) UuidInterface $blockId;
 
     /**
      * Returns the starting collection offset.
      */
-    public function getOffset(): int
-    {
-        if (!$this->hasQuery()) {
-            // Manual collections always use offset of 0
-            return 0;
-        }
+    public private(set) int $offset {
+        get {
+            if (!$this->hasQuery) {
+                // Manual collections always use offset of 0
+                return 0;
+            }
 
-        return $this->offset;
+            return $this->offset;
+        }
     }
 
     /**
      * Returns the starting collection limit or null if no limit is set.
      */
-    public function getLimit(): ?int
-    {
-        return $this->limit;
+    public private(set) ?int $limit;
+
+    /**
+     * Returns if the query exists in the collection.
+     */
+    public bool $hasQuery {
+        get => $this->getQuery() instanceof Query;
     }
+
+    public CollectionType $collectionType {
+        get => $this->hasQuery ? CollectionType::Dynamic : CollectionType::Manual;
+    }
+
+    public bool $isManual {
+        get => $this->collectionType === CollectionType::Manual;
+    }
+
+    public bool $isDynamic {
+        get => $this->collectionType === CollectionType::Dynamic;
+    }
+
+    /**
+     * Returns all collection items.
+     */
+    public private(set) ItemList $items {
+        get => ItemList::fromArray($this->items->toArray());
+    }
+
+    /**
+     * Returns all collection slots.
+     *
+     * Slots are indexed by their position in the collection.
+     */
+    public private(set) SlotList $slots {
+        get => SlotList::fromArray($this->slots->toArray());
+    }
+
+    /**
+     * Returns the list of all available locales in the collection.
+     *
+     * @var string[]
+     */
+    public private(set) array $availableLocales;
+
+    /**
+     * Returns the main locale for the collection.
+     */
+    public private(set) string $mainLocale;
+
+    /**
+     * Returns if the collection is translatable.
+     */
+    public private(set) bool $isTranslatable;
+
+    /**
+     * Returns if the main translation of the collection will be used
+     * in case there are no prioritized translations.
+     */
+    public private(set) bool $alwaysAvailable;
+
+    /**
+     * Returns the locale of the currently loaded translation.
+     */
+    public private(set) string $locale;
+
+    private Query|Closure|null $query;
 
     /**
      * Returns if the item exists at specified position.
@@ -91,7 +117,7 @@ final class Collection implements Value
     public function hasItem(int $position): bool
     {
         return $this->items->exists(
-            static fn ($key, Item $item): bool => $item->getPosition() === $position,
+            static fn ($key, Item $item): bool => $item->position === $position,
         );
     }
 
@@ -101,20 +127,12 @@ final class Collection implements Value
     public function getItem(int $position): ?Item
     {
         foreach ($this->items as $item) {
-            if ($item->getPosition() === $position) {
+            if ($item->position === $position) {
                 return $item;
             }
         }
 
         return null;
-    }
-
-    /**
-     * Returns all collection items.
-     */
-    public function getItems(): ItemList
-    {
-        return new ItemList($this->items->toArray());
     }
 
     /**
@@ -126,35 +144,12 @@ final class Collection implements Value
     }
 
     /**
-     * Returns if the query exists in the collection.
-     */
-    public function hasQuery(): bool
-    {
-        return $this->getQuery() instanceof Query;
-    }
-
-    public function getCollectionType(): CollectionType
-    {
-        return $this->hasQuery() ? CollectionType::Dynamic : CollectionType::Manual;
-    }
-
-    public function isManual(): bool
-    {
-        return $this->hasQuery() === false;
-    }
-
-    public function isDynamic(): bool
-    {
-        return $this->hasQuery() === true;
-    }
-
-    /**
      * Returns if the slot exists at specified position.
      */
     public function hasSlot(int $position): bool
     {
         return $this->slots->exists(
-            static fn ($key, Slot $slot): bool => $slot->getPosition() === $position,
+            static fn ($key, Slot $slot): bool => $slot->position === $position,
         );
     }
 
@@ -164,64 +159,11 @@ final class Collection implements Value
     public function getSlot(int $position): ?Slot
     {
         foreach ($this->slots as $slot) {
-            if ($slot->getPosition() === $position) {
+            if ($slot->position === $position) {
                 return $slot;
             }
         }
 
         return null;
-    }
-
-    /**
-     * Returns all collection slots.
-     *
-     * Slots are indexed by their position in the collection.
-     */
-    public function getSlots(): SlotList
-    {
-        return new SlotList($this->slots->toArray());
-    }
-
-    /**
-     * Returns the list of all available locales in the collection.
-     *
-     * @return string[]
-     */
-    public function getAvailableLocales(): array
-    {
-        return $this->availableLocales;
-    }
-
-    /**
-     * Returns the main locale for the collection.
-     */
-    public function getMainLocale(): string
-    {
-        return $this->mainLocale;
-    }
-
-    /**
-     * Returns if the collection is translatable.
-     */
-    public function isTranslatable(): bool
-    {
-        return $this->isTranslatable;
-    }
-
-    /**
-     * Returns if the main translation of the collection will be used
-     * in case there are no prioritized translations.
-     */
-    public function isAlwaysAvailable(): bool
-    {
-        return $this->alwaysAvailable;
-    }
-
-    /**
-     * Returns the locale of the currently loaded translation.
-     */
-    public function getLocale(): string
-    {
-        return $this->locale;
     }
 }
