@@ -16,3 +16,4 @@ phpunit.phar
 studio.json
 yarn.lock
 yarn-error.log
+tests/application/config/reference.php
