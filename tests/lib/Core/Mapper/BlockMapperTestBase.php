@@ -39,7 +39,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'position' => 3,
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'placeholder' => 'main',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -87,7 +87,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertTrue($block->isTranslatable);
         self::assertSame('en', $block->mainLocale);
-        self::assertFalse($block->alwaysAvailable);
+        self::assertFalse($block->isAlwaysAvailable);
         self::assertSame(['en'], $block->availableLocales);
 
         self::assertSame('en', $block->locale);
@@ -112,7 +112,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'position' => 3,
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'placeholder' => 'main',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -145,7 +145,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'depth' => 1,
                 'position' => 3,
                 'placeholder' => 'main',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -177,7 +177,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'depth' => 1,
                 'position' => 3,
                 'placeholder' => 'main',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -209,7 +209,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'depth' => 1,
                 'position' => 3,
                 'placeholder' => 'main',
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -238,7 +238,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'text',
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
@@ -268,7 +268,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'text',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
@@ -297,7 +297,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'depth' => 2,
                 'path' => '/13/31/',
                 'position' => 3,
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -336,7 +336,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertTrue($block->isTranslatable);
         self::assertSame('en', $block->mainLocale);
-        self::assertFalse($block->alwaysAvailable);
+        self::assertFalse($block->isAlwaysAvailable);
         self::assertSame(['en'], $block->availableLocales);
 
         self::assertSame('en', $block->locale);
@@ -360,7 +360,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'position' => 3,
                 'placeholder' => 'main',
                 'isTranslatable' => true,
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'parameters' => ['en' => []],
@@ -407,7 +407,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'depth' => 1,
                 'position' => 3,
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],

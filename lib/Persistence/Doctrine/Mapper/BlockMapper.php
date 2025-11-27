@@ -48,7 +48,7 @@ final class BlockMapper
                 'name' => $dataItem['name'],
                 'isTranslatable' => (bool) $dataItem['translatable'],
                 'mainLocale' => $dataItem['main_locale'],
-                'alwaysAvailable' => (bool) $dataItem['always_available'],
+                'isAlwaysAvailable' => (bool) $dataItem['always_available'],
                 'status' => Status::from((int) $dataItem['status']),
                 'config' => $this->buildParameters((string) $dataItem['config']),
                 'parameters' => [],

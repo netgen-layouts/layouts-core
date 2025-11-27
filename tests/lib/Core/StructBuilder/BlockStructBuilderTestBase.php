@@ -31,10 +31,10 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'collectionCreateStructs' => [],
                 'configStructs' => [],
                 'definition' => $blockDefinition,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'name' => '',
@@ -54,8 +54,8 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => null,
                 'configStructs' => [],
+                'isAlwaysAvailable' => null,
                 'itemViewType' => null,
                 'locale' => 'en',
                 'name' => null,
@@ -75,7 +75,6 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'configStructs' => [
                     'key' => [
                         'parameterValues' => [
@@ -84,6 +83,7 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
                         ],
                     ],
                 ],
+                'isAlwaysAvailable' => true,
                 'itemViewType' => 'standard',
                 'locale' => 'en',
                 'name' => 'My sixth block',

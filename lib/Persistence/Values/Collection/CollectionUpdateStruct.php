@@ -25,7 +25,7 @@ final class CollectionUpdateStruct
     /**
      * Flag indicating if the collection will be always available.
      */
-    public ?bool $alwaysAvailable = null;
+    public ?bool $isAlwaysAvailable = null;
 
     /**
      * Flag indicating if the collection will be translatable.

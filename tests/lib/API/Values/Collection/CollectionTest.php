@@ -43,7 +43,7 @@ final class CollectionTest extends TestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr'],
                 'isTranslatable' => true,
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'locale' => 'en',
                 'items' => ItemList::fromArray($items),
                 'slots' => SlotList::fromArray($slots),
@@ -58,7 +58,7 @@ final class CollectionTest extends TestCase
         self::assertSame('en', $collection->mainLocale);
         self::assertSame(['en', 'hr'], $collection->availableLocales);
         self::assertTrue($collection->isTranslatable);
-        self::assertFalse($collection->alwaysAvailable);
+        self::assertFalse($collection->isAlwaysAvailable);
         self::assertSame('en', $collection->locale);
 
         self::assertCount(2, $collection->items);

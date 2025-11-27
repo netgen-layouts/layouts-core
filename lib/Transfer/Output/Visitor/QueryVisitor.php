@@ -35,7 +35,7 @@ final class QueryVisitor implements VisitorInterface
         return [
             'id' => $value->id->toString(),
             'is_translatable' => $value->isTranslatable,
-            'is_always_available' => $value->alwaysAvailable,
+            'is_always_available' => $value->isAlwaysAvailable,
             'main_locale' => $value->mainLocale,
             'available_locales' => $value->availableLocales,
             'parameters' => $this->visitParameters($value),

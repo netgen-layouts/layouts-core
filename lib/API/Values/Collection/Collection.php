@@ -101,7 +101,7 @@ final class Collection implements Value
      * Returns if the main translation of the collection will be used
      * in case there are no prioritized translations.
      */
-    public private(set) bool $alwaysAvailable;
+    public private(set) bool $isAlwaysAvailable;
 
     /**
      * Returns the locale of the currently loaded translation.

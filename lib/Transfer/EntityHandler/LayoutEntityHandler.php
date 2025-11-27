@@ -326,7 +326,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         $blockCreateStruct->viewType = $blockData['view_type'];
         $blockCreateStruct->itemViewType = $blockData['item_view_type'];
         $blockCreateStruct->isTranslatable = $blockData['is_translatable'];
-        $blockCreateStruct->alwaysAvailable = $blockData['is_always_available'];
+        $blockCreateStruct->isAlwaysAvailable = $blockData['is_always_available'];
         $blockCreateStruct->fillParametersFromHash($blockData['parameters'][$blockData['main_locale']], true);
         $this->setConfigStructs($blockCreateStruct, $blockDefinition, $blockData['configuration'] ?? []);
         $this->setCollectionStructs($blockCreateStruct, $blockData['collections']);

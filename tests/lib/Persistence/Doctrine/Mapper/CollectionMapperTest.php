@@ -73,11 +73,11 @@ final class CollectionMapperTest extends TestCase
 
         $expectedData = [
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'blockId' => 24,
                 'blockUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'id' => 42,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'limit' => 10,
                 'mainLocale' => 'en',
@@ -86,11 +86,11 @@ final class CollectionMapperTest extends TestCase
                 'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'id' => 43,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'limit' => 20,
                 'mainLocale' => 'en',
@@ -152,11 +152,11 @@ final class CollectionMapperTest extends TestCase
 
         $expectedData = [
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'blockId' => 34,
                 'blockUuid' => '08f48ee7-da70-42a6-bb49-07ac14f7a6b0',
                 'id' => 42,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'limit' => 10,
                 'mainLocale' => 'en',
@@ -165,11 +165,11 @@ final class CollectionMapperTest extends TestCase
                 'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
             ],
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '08f48ee7-da70-42a6-bb49-07ac14f7a6b0',
                 'id' => 43,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'limit' => 20,
                 'mainLocale' => 'en',

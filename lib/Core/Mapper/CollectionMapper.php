@@ -64,7 +64,7 @@ final class CollectionMapper
     public function mapCollection(PersistenceCollection $collection, ?array $locales = null, bool $useMainLocale = true): Collection
     {
         $locales = is_array($locales) && count($locales) > 0 ? $locales : [$collection->mainLocale];
-        if ($useMainLocale && $collection->alwaysAvailable) {
+        if ($useMainLocale && $collection->isAlwaysAvailable) {
             $locales[] = $collection->mainLocale;
         }
 
@@ -93,7 +93,7 @@ final class CollectionMapper
             ),
             'isTranslatable' => $collection->isTranslatable,
             'mainLocale' => $collection->mainLocale,
-            'alwaysAvailable' => $collection->alwaysAvailable,
+            'isAlwaysAvailable' => $collection->isAlwaysAvailable,
             'availableLocales' => $collection->availableLocales,
             'locale' => array_first($validLocales),
         ];
@@ -183,7 +183,7 @@ final class CollectionMapper
         }
 
         $locales = is_array($locales) && count($locales) > 0 ? $locales : [$query->mainLocale];
-        if ($useMainLocale && $query->alwaysAvailable) {
+        if ($useMainLocale && $query->isAlwaysAvailable) {
             $locales[] = $query->mainLocale;
         }
 
@@ -208,7 +208,7 @@ final class CollectionMapper
             'queryType' => $queryType,
             'isTranslatable' => $query->isTranslatable,
             'mainLocale' => $query->mainLocale,
-            'alwaysAvailable' => $query->alwaysAvailable,
+            'isAlwaysAvailable' => $query->isAlwaysAvailable,
             'availableLocales' => $query->availableLocales,
             'locale' => $queryLocale,
             'parameters' => new ParameterList(

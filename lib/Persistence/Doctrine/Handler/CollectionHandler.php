@@ -149,7 +149,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $query->isTranslatable = $collection->isTranslatable;
         $query->mainLocale = $collection->mainLocale;
-        $query->alwaysAvailable = $collection->alwaysAvailable;
+        $query->isAlwaysAvailable = $collection->isAlwaysAvailable;
 
         return $query;
     }
@@ -166,7 +166,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $query->isTranslatable = $collection->isTranslatable;
         $query->mainLocale = $collection->mainLocale;
-        $query->alwaysAvailable = $collection->alwaysAvailable;
+        $query->isAlwaysAvailable = $collection->isAlwaysAvailable;
 
         return $query;
     }
@@ -211,7 +211,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'offset' => $collectionCreateStruct->offset,
                 'limit' => $collectionCreateStruct->limit,
                 'isTranslatable' => $collectionCreateStruct->isTranslatable,
-                'alwaysAvailable' => $collectionCreateStruct->alwaysAvailable,
+                'isAlwaysAvailable' => $collectionCreateStruct->isAlwaysAvailable,
                 'mainLocale' => $collectionCreateStruct->mainLocale,
                 'availableLocales' => [$collectionCreateStruct->mainLocale],
             ],
@@ -327,8 +327,8 @@ final class CollectionHandler implements CollectionHandlerInterface
             $updatedCollection->isTranslatable = $collectionUpdateStruct->isTranslatable;
         }
 
-        if (is_bool($collectionUpdateStruct->alwaysAvailable)) {
-            $updatedCollection->alwaysAvailable = $collectionUpdateStruct->alwaysAvailable;
+        if (is_bool($collectionUpdateStruct->isAlwaysAvailable)) {
+            $updatedCollection->isAlwaysAvailable = $collectionUpdateStruct->isAlwaysAvailable;
         }
 
         $this->queryHandler->updateCollection($updatedCollection);
@@ -696,7 +696,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'type' => $queryCreateStruct->type,
                 'status' => $collection->status,
                 'isTranslatable' => $collection->isTranslatable,
-                'alwaysAvailable' => $collection->alwaysAvailable,
+                'isAlwaysAvailable' => $collection->isAlwaysAvailable,
                 'mainLocale' => $collection->mainLocale,
                 'availableLocales' => $collection->availableLocales,
                 'parameters' => array_fill_keys(

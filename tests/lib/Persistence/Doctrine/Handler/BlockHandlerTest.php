@@ -67,12 +67,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard_with_intro',
                 'layoutId' => 1,
@@ -143,12 +143,12 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 31,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard_with_intro',
                     'layoutId' => 1,
@@ -173,12 +173,12 @@ final class BlockHandlerTest extends TestCase
                     'viewType' => 'grid',
                 ],
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 35,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => false,
                     'itemViewType' => 'standard',
                     'layoutId' => 1,
@@ -216,12 +216,12 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en'],
                     'config' => [],
                     'definitionIdentifier' => 'text',
                     'depth' => 2,
                     'id' => 37,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => false,
                     'itemViewType' => 'standard',
                     'layoutId' => 2,
@@ -261,7 +261,7 @@ final class BlockHandlerTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
-        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->isAlwaysAvailable = true;
         $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
@@ -291,7 +291,6 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [
                     'config_key' => [
@@ -301,6 +300,7 @@ final class BlockHandlerTest extends TestCase
                 'definitionIdentifier' => 'new_block',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -341,12 +341,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -392,12 +392,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -460,7 +460,7 @@ final class BlockHandlerTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = false;
-        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->isAlwaysAvailable = true;
         $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
@@ -488,7 +488,6 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [
                     'config_key' => [
@@ -498,6 +497,7 @@ final class BlockHandlerTest extends TestCase
                 'definitionIdentifier' => 'new_block',
                 'depth' => 0,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -527,7 +527,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->position = null;
         $blockCreateStruct->isTranslatable = true;
-        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->isAlwaysAvailable = true;
         $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
@@ -556,7 +556,6 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [
                     'config_key' => [
@@ -566,6 +565,7 @@ final class BlockHandlerTest extends TestCase
                 'definitionIdentifier' => 'new_block',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -600,7 +600,7 @@ final class BlockHandlerTest extends TestCase
 
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
-        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->isAlwaysAvailable = true;
         $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
@@ -627,7 +627,7 @@ final class BlockHandlerTest extends TestCase
 
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
-        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->isAlwaysAvailable = true;
         $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = -5;
@@ -654,7 +654,7 @@ final class BlockHandlerTest extends TestCase
 
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
-        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->isAlwaysAvailable = true;
         $blockCreateStruct->status = Status::Draft;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 9999;
@@ -681,7 +681,7 @@ final class BlockHandlerTest extends TestCase
         $blockUpdateStruct->itemViewType = 'new';
         $blockUpdateStruct->name = 'Updated name';
         $blockUpdateStruct->isTranslatable = false;
-        $blockUpdateStruct->alwaysAvailable = false;
+        $blockUpdateStruct->isAlwaysAvailable = false;
         $blockUpdateStruct->config = [
             'config_key' => [
                 'config_param' => 'Config value',
@@ -695,7 +695,6 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => false,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [
                     'config_key' => [
@@ -705,6 +704,7 @@ final class BlockHandlerTest extends TestCase
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => false,
                 'itemViewType' => 'new',
                 'layoutId' => 1,
@@ -746,12 +746,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -799,12 +799,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -846,12 +846,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -939,12 +939,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1026,12 +1026,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1091,12 +1091,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1156,12 +1156,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1213,12 +1213,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1286,12 +1286,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => 'two_columns',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 2,
@@ -1317,12 +1317,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => 'text',
                 'depth' => 2,
                 'id' => 40,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'layoutId' => 2,
@@ -1390,12 +1390,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 2,
@@ -1481,12 +1481,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => 'two_columns',
                 'depth' => 1,
                 'id' => 33,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1510,12 +1510,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => 'text',
                 'depth' => 2,
                 'id' => 37,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1614,12 +1614,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1662,12 +1662,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 35,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,
@@ -1741,12 +1741,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard_with_intro',
                 'layoutId' => 1,
@@ -1801,12 +1801,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard_with_intro',
                 'layoutId' => 1,
@@ -1909,12 +1909,12 @@ final class BlockHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => 'list',
                 'depth' => 1,
                 'id' => 31,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 1,

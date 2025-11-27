@@ -29,7 +29,7 @@ final class CollectionCreateStruct
     /**
      * Flag indicating if the collection will be always available.
      */
-    public bool $alwaysAvailable;
+    public bool $isAlwaysAvailable;
 
     /**
      * Flag indicating if the collection will be translatable.

@@ -70,7 +70,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -84,7 +84,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'viewType' => 'large',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -98,21 +98,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => self::getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -127,7 +113,21 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'definition' => self::getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -142,7 +142,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => '',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -157,7 +157,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => true,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -172,7 +172,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => '',
                         'css_id' => 'id',
@@ -187,7 +187,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => null,
                         'css_id' => 'id',
@@ -202,7 +202,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_id' => 'id',
                     ],
@@ -216,7 +216,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => '',
@@ -231,7 +231,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => null,
@@ -246,7 +246,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                     ],
@@ -260,7 +260,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                 ],
                 false,
             ],
@@ -271,7 +271,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [],
                 ],
                 false,
@@ -286,7 +286,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',

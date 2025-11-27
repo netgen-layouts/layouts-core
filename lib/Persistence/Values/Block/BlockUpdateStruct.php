@@ -28,7 +28,7 @@ final class BlockUpdateStruct
     /**
      * Flag indicating if the block will be always available.
      */
-    public ?bool $alwaysAvailable = null;
+    public ?bool $isAlwaysAvailable = null;
 
     /**
      * Flag indicating if the block will be translatable.

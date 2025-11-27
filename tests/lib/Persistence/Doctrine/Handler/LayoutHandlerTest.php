@@ -814,12 +814,12 @@ final class LayoutHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [],
                 'definitionIdentifier' => '',
                 'depth' => 0,
                 'id' => 39,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => '',
                 'layoutId' => $createdZone->layoutId,
@@ -989,7 +989,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'config' => [
                         'key' => [
@@ -999,6 +998,7 @@ final class LayoutHandlerTest extends TestCase
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 41,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard',
                     'layoutId' => $copiedLayout->id,
@@ -1033,12 +1033,12 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 43,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard_with_intro',
                     'layoutId' => $copiedLayout->id,
@@ -1063,12 +1063,12 @@ final class LayoutHandlerTest extends TestCase
                     'viewType' => 'grid',
                 ],
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 44,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => false,
                     'itemViewType' => 'standard',
                     'layoutId' => $copiedLayout->id,
@@ -1210,7 +1210,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'config' => [
                         'key' => [
@@ -1220,6 +1219,7 @@ final class LayoutHandlerTest extends TestCase
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 32,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard',
                     'layoutId' => 1,
@@ -1244,12 +1244,12 @@ final class LayoutHandlerTest extends TestCase
                     'viewType' => 'grid',
                 ],
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 31,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard',
                     'layoutId' => 1,
@@ -1277,12 +1277,12 @@ final class LayoutHandlerTest extends TestCase
                     'viewType' => 'list',
                 ],
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 35,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => false,
                     'itemViewType' => 'standard',
                     'layoutId' => 1,
@@ -1406,7 +1406,6 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'config' => [
                         'key' => [
@@ -1416,6 +1415,7 @@ final class LayoutHandlerTest extends TestCase
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 32,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard',
                     'layoutId' => 1,
@@ -1450,12 +1450,12 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 31,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard_with_intro',
                     'layoutId' => 1,
@@ -1480,12 +1480,12 @@ final class LayoutHandlerTest extends TestCase
                     'viewType' => 'grid',
                 ],
                 [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en'],
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
                     'id' => 35,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => false,
                     'itemViewType' => 'standard',
                     'layoutId' => 1,

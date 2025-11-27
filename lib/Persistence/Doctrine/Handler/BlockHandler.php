@@ -94,7 +94,7 @@ final class BlockHandler implements BlockHandlerInterface
                 'itemViewType' => $blockCreateStruct->itemViewType,
                 'name' => mb_trim($blockCreateStruct->name),
                 'isTranslatable' => $blockCreateStruct->isTranslatable,
-                'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
+                'isAlwaysAvailable' => $blockCreateStruct->isAlwaysAvailable,
                 'mainLocale' => $layout->mainLocale,
                 'status' => $blockCreateStruct->status,
                 'parameters' => [],
@@ -166,8 +166,8 @@ final class BlockHandler implements BlockHandlerInterface
             $updatedBlock->isTranslatable = $blockUpdateStruct->isTranslatable;
         }
 
-        if (is_bool($blockUpdateStruct->alwaysAvailable)) {
-            $updatedBlock->alwaysAvailable = $blockUpdateStruct->alwaysAvailable;
+        if (is_bool($blockUpdateStruct->isAlwaysAvailable)) {
+            $updatedBlock->isAlwaysAvailable = $blockUpdateStruct->isAlwaysAvailable;
         }
 
         if (is_string($blockUpdateStruct->name)) {
@@ -183,7 +183,7 @@ final class BlockHandler implements BlockHandlerInterface
         foreach ($this->collectionHandler->loadCollections($block) as $collection) {
             $collectionUpdateStruct = CollectionUpdateStruct::fromArray(
                 [
-                    'alwaysAvailable' => $updatedBlock->alwaysAvailable,
+                    'isAlwaysAvailable' => $updatedBlock->isAlwaysAvailable,
                     'isTranslatable' => $updatedBlock->isTranslatable,
                 ],
             );

@@ -44,7 +44,7 @@ final class BlockCreateStruct
     /**
      * Flag indicating if the block is always available.
      */
-    public bool $alwaysAvailable;
+    public bool $isAlwaysAvailable;
 
     /**
      * Flag indicating if the block is translatable.

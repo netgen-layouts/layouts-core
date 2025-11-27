@@ -192,7 +192,7 @@ final class BlockQueryHandler extends QueryHandler
             ->setParameter('item_view_type', $block->itemViewType, Types::STRING)
             ->setParameter('name', $block->name, Types::STRING)
             ->setParameter('translatable', $block->isTranslatable, Types::BOOLEAN)
-            ->setParameter('always_available', $block->alwaysAvailable, Types::BOOLEAN)
+            ->setParameter('always_available', $block->isAlwaysAvailable, Types::BOOLEAN)
             ->setParameter('main_locale', $block->mainLocale, Types::STRING)
             ->setParameter('config', $block->config, Types::JSON);
 
@@ -288,7 +288,7 @@ final class BlockQueryHandler extends QueryHandler
             ->setParameter('name', $block->name, Types::STRING)
             ->setParameter('translatable', $block->isTranslatable, Types::BOOLEAN)
             ->setParameter('main_locale', $block->mainLocale, Types::STRING)
-            ->setParameter('always_available', $block->alwaysAvailable, Types::BOOLEAN)
+            ->setParameter('always_available', $block->isAlwaysAvailable, Types::BOOLEAN)
             ->setParameter('config', $block->config, Types::JSON);
 
         $this->applyStatusCondition($query, $block->status);

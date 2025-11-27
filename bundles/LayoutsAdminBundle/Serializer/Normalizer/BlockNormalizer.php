@@ -53,7 +53,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
             'has_published_state' => $this->blockService->hasPublishedState($block),
             'locale' => $block->locale,
             'is_translatable' => $block->isTranslatable,
-            'always_available' => $block->alwaysAvailable,
+            'always_available' => $block->isAlwaysAvailable,
             'is_container' => false,
             'placeholders' => $this->normalizer->normalize($placeholders, $format, $context),
             'collections' => $this->normalizer->normalize($this->getBlockCollections($block), $format, $context),

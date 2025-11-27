@@ -27,7 +27,7 @@ final class CollectionNormalizer implements NormalizerInterface
             },
             'is_translatable' => $collection->isTranslatable,
             'main_locale' => $collection->mainLocale,
-            'always_available' => $collection->alwaysAvailable,
+            'always_available' => $collection->isAlwaysAvailable,
             'available_locales' => $collection->availableLocales,
         ];
     }

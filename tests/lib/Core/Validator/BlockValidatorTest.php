@@ -100,7 +100,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -114,7 +114,7 @@ final class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -128,21 +128,7 @@ final class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => self::getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -157,7 +143,21 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'definition' => self::getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -172,7 +172,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => '',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -187,7 +187,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => true,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -202,7 +202,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => '',
                         'css_id' => 'id',
@@ -217,7 +217,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => null,
                         'css_id' => 'id',
@@ -232,7 +232,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_id' => 'id',
                     ],
@@ -246,7 +246,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => '',
@@ -261,7 +261,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => null,
@@ -276,7 +276,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                     ],
@@ -290,7 +290,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                 ],
                 false,
             ],
@@ -301,7 +301,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [],
                 ],
                 false,
@@ -316,7 +316,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -332,7 +332,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -348,7 +348,7 @@ final class BlockValidatorTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => false,
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'parameterValues' => [
                         'css_class' => 'class',
                         'css_id' => 'id',
@@ -368,7 +368,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -381,7 +381,7 @@ final class BlockValidatorTest extends TestCase
             ],
             [
                 [
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -395,7 +395,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => '',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -409,7 +409,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'nonexistent',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -436,7 +436,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => null,
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -450,7 +450,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => null,
                     'itemViewType' => null,
                     'name' => 'My block',
@@ -464,7 +464,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => '',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -478,7 +478,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => '',
                     'name' => 'My block',
@@ -492,7 +492,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'nonexistent',
                     'name' => 'My block',
@@ -506,7 +506,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
@@ -520,7 +520,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
@@ -534,7 +534,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -548,7 +548,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -562,7 +562,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -575,7 +575,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -589,7 +589,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -603,7 +603,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -616,7 +616,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -627,7 +627,7 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',

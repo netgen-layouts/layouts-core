@@ -64,11 +64,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -97,11 +97,11 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'default' => [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'blockId' => 31,
                     'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                     'id' => 1,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'limit' => null,
                     'mainLocale' => 'en',
@@ -110,11 +110,11 @@ final class CollectionHandlerTest extends TestCase
                     'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 ],
                 'featured' => [
-                    'alwaysAvailable' => true,
                     'availableLocales' => ['en', 'hr'],
                     'blockId' => 31,
                     'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                     'id' => 3,
+                    'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'limit' => 2,
                     'mainLocale' => 'en',
@@ -266,11 +266,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -311,11 +311,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -411,7 +411,7 @@ final class CollectionHandlerTest extends TestCase
         $collectionCreateStruct->limit = 10;
         $collectionCreateStruct->mainLocale = 'en';
         $collectionCreateStruct->isTranslatable = true;
-        $collectionCreateStruct->alwaysAvailable = true;
+        $collectionCreateStruct->isAlwaysAvailable = true;
 
         $createdCollection = $this->withUuids(
             fn (): Collection => $this->collectionHandler->createCollection($collectionCreateStruct, $block, 'default'),
@@ -420,11 +420,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'blockId' => 38,
                 'blockUuid' => 'a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6',
                 'id' => 7,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => 10,
                 'mainLocale' => 'en',
@@ -449,7 +449,7 @@ final class CollectionHandlerTest extends TestCase
         $collectionCreateStruct->limit = 10;
         $collectionCreateStruct->mainLocale = 'en';
         $collectionCreateStruct->isTranslatable = true;
-        $collectionCreateStruct->alwaysAvailable = true;
+        $collectionCreateStruct->isAlwaysAvailable = true;
 
         $this->collectionHandler->createCollection($collectionCreateStruct, $block, 'default');
     }
@@ -464,11 +464,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 2,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -483,11 +483,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['de', 'en', 'hr'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -528,11 +528,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 2,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -547,11 +547,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['de', 'en', 'hr'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -592,11 +592,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -689,7 +689,7 @@ final class CollectionHandlerTest extends TestCase
         $collectionUpdateStruct->offset = 5;
         $collectionUpdateStruct->limit = 10;
         $collectionUpdateStruct->isTranslatable = false;
-        $collectionUpdateStruct->alwaysAvailable = false;
+        $collectionUpdateStruct->isAlwaysAvailable = false;
 
         $updatedCollection = $this->collectionHandler->updateCollection(
             $this->collectionHandler->loadCollection(1, Status::Draft),
@@ -698,11 +698,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => false,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 1,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => false,
                 'limit' => 10,
                 'mainLocale' => 'en',
@@ -727,11 +727,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 3,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -754,11 +754,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -793,11 +793,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '42446cc9-24c3-573c-9022-6b3a764727b5',
                 'id' => 7,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => 2,
                 'mainLocale' => 'en',
@@ -856,11 +856,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'collectionId' => $copiedCollection->id,
                 'collectionUuid' => $copiedCollection->uuid,
                 'id' => 5,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -933,11 +933,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 34,
                 'blockUuid' => '42446cc9-24c3-573c-9022-6b3a764727b5',
                 'id' => 7,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -1042,11 +1042,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 3,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => 2,
                 'mainLocale' => 'en',
@@ -1103,11 +1103,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'id' => 2,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -1169,11 +1169,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -1301,11 +1301,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 2,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -1320,11 +1320,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -1352,11 +1352,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'blockId' => 31,
                 'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'limit' => null,
                 'mainLocale' => 'en',
@@ -1977,11 +1977,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'id' => 5,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -2034,11 +2034,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [
@@ -2073,11 +2073,11 @@ final class CollectionHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr'],
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'id' => 1,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'parameters' => [

@@ -47,7 +47,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
      *
      * Required.
      */
-    public bool $alwaysAvailable;
+    public bool $isAlwaysAvailable;
 
     /**
      * The list of collections to create in the block.

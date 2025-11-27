@@ -47,7 +47,7 @@ final class BlockTest extends TestCase
                 'collections' => CollectionList::fromArray(['default' => $collection]),
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'locale' => 'en',
                 'parameters' => new ParameterList(),
@@ -72,7 +72,7 @@ final class BlockTest extends TestCase
         self::assertSame('main', $block->parentPlaceholder);
         self::assertTrue($block->isTranslatable);
         self::assertSame('en', $block->mainLocale);
-        self::assertTrue($block->alwaysAvailable);
+        self::assertTrue($block->isAlwaysAvailable);
         self::assertSame(['en'], $block->availableLocales);
         self::assertSame('en', $block->locale);
 

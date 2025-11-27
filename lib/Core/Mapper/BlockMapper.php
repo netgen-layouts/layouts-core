@@ -68,7 +68,7 @@ final class BlockMapper
         }
 
         $locales = is_array($locales) && count($locales) > 0 ? $locales : [$block->mainLocale];
-        if ($useMainLocale && $block->alwaysAvailable) {
+        if ($useMainLocale && $block->isAlwaysAvailable) {
             $locales[] = $block->mainLocale;
         }
 
@@ -116,7 +116,7 @@ final class BlockMapper
             ),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
-            'alwaysAvailable' => $block->alwaysAvailable,
+            'isAlwaysAvailable' => $block->isAlwaysAvailable,
             'availableLocales' => $block->availableLocales,
             'locale' => $blockLocale,
             'parameters' => new ParameterList(

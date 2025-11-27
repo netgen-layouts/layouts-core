@@ -24,7 +24,7 @@ final class QueryTest extends TestCase
                 'parameters' => ['en' => ['param' => 'value']],
                 'status' => Status::Published,
                 'isTranslatable' => true,
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
             ],
@@ -39,7 +39,7 @@ final class QueryTest extends TestCase
         self::assertSame(Status::Published, $query->status);
         self::assertSame('en', $query->mainLocale);
         self::assertTrue($query->isTranslatable);
-        self::assertTrue($query->alwaysAvailable);
+        self::assertTrue($query->isAlwaysAvailable);
         self::assertSame(['en'], $query->availableLocales);
     }
 }

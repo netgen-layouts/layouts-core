@@ -39,7 +39,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
                 'limit' => 20,
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -56,7 +56,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertTrue($collection->isPublished);
         self::assertTrue($collection->isTranslatable);
         self::assertSame('en', $collection->mainLocale);
-        self::assertFalse($collection->alwaysAvailable);
+        self::assertFalse($collection->isAlwaysAvailable);
         self::assertSame(['en'], $collection->availableLocales);
 
         self::assertCount(3, $collection->items);
@@ -75,7 +75,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
                 'limit' => 20,
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -99,7 +99,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
                 'limit' => 20,
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -124,7 +124,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'mainLocale' => 'en',
                 'offset' => 10,
                 'limit' => 20,
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
             ],
@@ -146,7 +146,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
             ],
         );
@@ -164,7 +164,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'availableLocales' => ['en', 'hr', 'de'],
             ],
         );
@@ -182,7 +182,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
                 'limit' => 20,
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -199,7 +199,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertTrue($collection->isPublished);
         self::assertTrue($collection->isTranslatable);
         self::assertSame('en', $collection->mainLocale);
-        self::assertFalse($collection->alwaysAvailable);
+        self::assertFalse($collection->isAlwaysAvailable);
         self::assertSame(['en'], $collection->availableLocales);
 
         self::assertEmpty($collection->items);
@@ -353,7 +353,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -377,7 +377,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertTrue($query->isPublished);
         self::assertTrue($query->isTranslatable);
         self::assertSame('en', $query->mainLocale);
-        self::assertFalse($query->alwaysAvailable);
+        self::assertFalse($query->isAlwaysAvailable);
         self::assertSame(['en'], $query->availableLocales);
 
         self::assertSame('value', $query->getParameter('param')->value);
@@ -397,7 +397,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'isTranslatable' => true,
@@ -419,7 +419,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'isTranslatable' => true,
@@ -441,7 +441,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'isTranslatable' => true,
@@ -465,7 +465,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
@@ -485,7 +485,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
@@ -505,7 +505,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'unknown',
-                'alwaysAvailable' => false,
+                'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -526,7 +526,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertTrue($query->isPublished);
         self::assertTrue($query->isTranslatable);
         self::assertSame('en', $query->mainLocale);
-        self::assertFalse($query->alwaysAvailable);
+        self::assertFalse($query->isAlwaysAvailable);
         self::assertSame(['en'], $query->availableLocales);
 
         self::assertFalse($query->hasParameter('param'));

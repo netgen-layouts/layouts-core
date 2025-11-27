@@ -63,5 +63,5 @@ final class Query extends Value
     /**
      * Returns if main locale of this query will be always available.
      */
-    public bool $alwaysAvailable;
+    public bool $isAlwaysAvailable;
 }

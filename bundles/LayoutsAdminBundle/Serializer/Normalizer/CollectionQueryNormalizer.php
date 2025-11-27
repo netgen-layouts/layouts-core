@@ -31,7 +31,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
             'type' => $query->queryType->type,
             'locale' => $query->locale,
             'is_translatable' => $query->isTranslatable,
-            'always_available' => $query->alwaysAvailable,
+            'always_available' => $query->isAlwaysAvailable,
             'parameters' => $this->normalizer->normalize($parameters, $format, $context),
         ];
     }

@@ -139,7 +139,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('129f51de-a535-5094-8517-45d672e06302', $secondBlock->id->toString());
 
         self::assertFalse($block->isTranslatable);
-        self::assertTrue($block->alwaysAvailable);
+        self::assertTrue($block->isAlwaysAvailable);
         self::assertContains('en', $block->availableLocales);
         self::assertSame('en', $block->locale);
     }
@@ -168,7 +168,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertNull($defaultCollection->limit);
         self::assertFalse($defaultCollection->hasQuery);
         self::assertSame($block->isTranslatable, $defaultCollection->isTranslatable);
-        self::assertSame($block->alwaysAvailable, $defaultCollection->alwaysAvailable);
+        self::assertSame($block->isAlwaysAvailable, $defaultCollection->isAlwaysAvailable);
         self::assertSame($block->availableLocales, $defaultCollection->availableLocales);
         self::assertSame($block->mainLocale, $defaultCollection->mainLocale);
     }
@@ -208,7 +208,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertInstanceOf(Query::class, $defaultCollection->query);
         self::assertSame('my_query_type', $defaultCollection->query->queryType->type);
         self::assertSame($block->isTranslatable, $defaultCollection->isTranslatable);
-        self::assertSame($block->alwaysAvailable, $defaultCollection->alwaysAvailable);
+        self::assertSame($block->isAlwaysAvailable, $defaultCollection->isAlwaysAvailable);
         self::assertSame($block->availableLocales, $defaultCollection->availableLocales);
         self::assertSame($block->mainLocale, $defaultCollection->mainLocale);
     }
@@ -1585,10 +1585,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'collectionCreateStructs' => [],
                 'configStructs' => [],
                 'definition' => $blockDefinition,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'name' => '',
@@ -1608,8 +1608,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => null,
                 'configStructs' => [],
+                'isAlwaysAvailable' => null,
                 'itemViewType' => null,
                 'locale' => 'en',
                 'name' => null,
@@ -1629,7 +1629,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         self::assertSame(
             [
-                'alwaysAvailable' => true,
                 'configStructs' => [
                     'key' => [
                         'parameterValues' => [
@@ -1638,6 +1637,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
                         ],
                     ],
                 ],
+                'isAlwaysAvailable' => true,
                 'itemViewType' => 'standard',
                 'locale' => 'en',
                 'name' => 'My sixth block',

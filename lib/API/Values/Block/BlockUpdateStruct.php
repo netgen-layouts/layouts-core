@@ -40,7 +40,7 @@ final class BlockUpdateStruct implements ParameterStruct, ConfigAwareStruct
     /**
      * New state of the always available flag.
      */
-    public ?bool $alwaysAvailable = null;
+    public ?bool $isAlwaysAvailable = null;
 
     /**
      * Fills the parameter values based on provided block.

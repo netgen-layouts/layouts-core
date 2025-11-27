@@ -76,7 +76,6 @@ final class BlockMapperTest extends TestCase
 
         $expectedData = [
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [
                     'config1' => 'config2',
@@ -84,6 +83,7 @@ final class BlockMapperTest extends TestCase
                 'definitionIdentifier' => 'text',
                 'depth' => 1,
                 'id' => 42,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'layoutId' => 24,
@@ -105,7 +105,6 @@ final class BlockMapperTest extends TestCase
                 'viewType' => 'default',
             ],
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [
                     'config1' => 42,
@@ -113,6 +112,7 @@ final class BlockMapperTest extends TestCase
                 'definitionIdentifier' => 'title',
                 'depth' => 1,
                 'id' => 84,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => true,
                 'itemViewType' => 'standard',
                 'layoutId' => 48,
@@ -171,7 +171,6 @@ final class BlockMapperTest extends TestCase
 
         $expectedData = [
             [
-                'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'config' => [
                     'config1' => 'config2',
@@ -179,6 +178,7 @@ final class BlockMapperTest extends TestCase
                 'definitionIdentifier' => 'text',
                 'depth' => 1,
                 'id' => 42,
+                'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'layoutId' => 24,

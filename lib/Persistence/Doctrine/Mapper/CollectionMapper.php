@@ -47,7 +47,7 @@ final class CollectionMapper
                 'limit' => $dataItem['length'] !== null ? (int) $dataItem['length'] : null,
                 'isTranslatable' => (bool) $dataItem['translatable'],
                 'mainLocale' => $dataItem['main_locale'],
-                'alwaysAvailable' => (bool) $dataItem['always_available'],
+                'isAlwaysAvailable' => (bool) $dataItem['always_available'],
                 'availableLocales' => [],
             ];
 

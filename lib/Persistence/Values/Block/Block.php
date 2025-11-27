@@ -115,5 +115,5 @@ final class Block extends Value
     /**
      * Returns if main locale of this block will be always available.
      */
-    public bool $alwaysAvailable;
+    public bool $isAlwaysAvailable;
 }

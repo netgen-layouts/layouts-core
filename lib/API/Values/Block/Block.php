@@ -105,7 +105,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     /**
      * Returns if the block is always available.
      */
-    public private(set) bool $alwaysAvailable;
+    public private(set) bool $isAlwaysAvailable;
 
     /**
      * Returns the locale of the currently loaded translation.

@@ -24,7 +24,7 @@ final class CollectionTest extends TestCase
                 'offset' => 10,
                 'limit' => 20,
                 'isTranslatable' => true,
-                'alwaysAvailable' => true,
+                'isAlwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
             ],
@@ -39,7 +39,7 @@ final class CollectionTest extends TestCase
         self::assertSame(20, $collection->limit);
         self::assertSame('en', $collection->mainLocale);
         self::assertTrue($collection->isTranslatable);
-        self::assertTrue($collection->alwaysAvailable);
+        self::assertTrue($collection->isAlwaysAvailable);
         self::assertSame(['en'], $collection->availableLocales);
     }
 }

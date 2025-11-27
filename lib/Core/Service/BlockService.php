@@ -256,7 +256,7 @@ final class BlockService implements BlockServiceInterface
                             'viewType' => $blockUpdateStruct->viewType,
                             'itemViewType' => $blockUpdateStruct->itemViewType,
                             'name' => $blockUpdateStruct->name,
-                            'alwaysAvailable' => $blockUpdateStruct->alwaysAvailable,
+                            'isAlwaysAvailable' => $blockUpdateStruct->isAlwaysAvailable,
                             'config' => [
                                 ...$this->configMapper->serializeValues(
                                     $blockUpdateStruct->configStructs,
@@ -643,7 +643,7 @@ final class BlockService implements BlockServiceInterface
                             'viewType' => $blockCreateStruct->viewType,
                             'itemViewType' => $blockCreateStruct->itemViewType,
                             'name' => $blockCreateStruct->name,
-                            'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
+                            'isAlwaysAvailable' => $blockCreateStruct->isAlwaysAvailable,
                             'isTranslatable' => $blockCreateStruct->isTranslatable,
                             'parameters' => [
                                 ...$this->parameterMapper->serializeValues(
@@ -673,7 +673,7 @@ final class BlockService implements BlockServiceInterface
                                     'status' => PersistenceStatus::Draft,
                                     'offset' => $collectionCreateStruct->offset,
                                     'limit' => $collectionCreateStruct->limit,
-                                    'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
+                                    'isAlwaysAvailable' => $blockCreateStruct->isAlwaysAvailable,
                                     'isTranslatable' => $blockCreateStruct->isTranslatable,
                                     'mainLocale' => $layout->mainLocale,
                                 ],

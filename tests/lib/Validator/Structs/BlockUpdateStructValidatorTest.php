@@ -89,7 +89,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => '',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -103,7 +103,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en-US',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -117,7 +117,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en_US.utf8',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -131,7 +131,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'nonexistent',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -158,7 +158,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -172,7 +172,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => null,
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -186,7 +186,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => null,
                     'itemViewType' => null,
                     'name' => 'My block',
@@ -200,7 +200,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => '',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -214,7 +214,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => '',
                     'name' => 'My block',
@@ -228,7 +228,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'nonexistent',
                     'name' => 'My block',
@@ -242,7 +242,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
@@ -256,7 +256,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
@@ -270,7 +270,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -284,7 +284,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -298,7 +298,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -311,7 +311,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -325,7 +325,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -339,7 +339,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'locale' => 'en',
-                    'alwaysAvailable' => true,
+                    'isAlwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',

@@ -37,7 +37,7 @@ final class BlockStructBuilder
         }
 
         $blockCreateStruct->isTranslatable = $blockDefinition->isTranslatable;
-        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->isAlwaysAvailable = true;
 
         return $blockCreateStruct;
     }
@@ -59,7 +59,7 @@ final class BlockStructBuilder
         $blockUpdateStruct->viewType = $block->viewType;
         $blockUpdateStruct->itemViewType = $block->itemViewType;
         $blockUpdateStruct->name = $block->name;
-        $blockUpdateStruct->alwaysAvailable = $block->alwaysAvailable;
+        $blockUpdateStruct->isAlwaysAvailable = $block->isAlwaysAvailable;
         $blockUpdateStruct->fillParametersFromBlock($block);
 
         $this->configStructBuilder->buildConfigUpdateStructs($block, $blockUpdateStruct);

@@ -49,7 +49,7 @@ final class BlockCreateStructValidator extends ConstraintValidator
             return;
         }
 
-        if (!isset($value->alwaysAvailable)) {
+        if (!isset($value->isAlwaysAvailable)) {
             $this->context->buildViolation(sprintf('"alwaysAvailable" is required in %s', BlockCreateStruct::class))
                 ->addViolation();
 

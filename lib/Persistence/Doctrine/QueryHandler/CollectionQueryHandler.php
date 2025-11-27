@@ -270,7 +270,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('length', $collection->limit, Types::INTEGER)
             ->setParameter('translatable', $collection->isTranslatable, Types::BOOLEAN)
             ->setParameter('main_locale', $collection->mainLocale, Types::STRING)
-            ->setParameter('always_available', $collection->alwaysAvailable, Types::BOOLEAN);
+            ->setParameter('always_available', $collection->isAlwaysAvailable, Types::BOOLEAN);
 
         $query->executeStatement();
 
@@ -349,7 +349,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('length', $collection->limit, Types::INTEGER)
             ->setParameter('translatable', $collection->isTranslatable, Types::BOOLEAN)
             ->setParameter('main_locale', $collection->mainLocale, Types::STRING)
-            ->setParameter('always_available', $collection->alwaysAvailable, Types::BOOLEAN);
+            ->setParameter('always_available', $collection->isAlwaysAvailable, Types::BOOLEAN);
 
         $this->applyStatusCondition($query, $collection->status);
 

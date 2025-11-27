@@ -32,7 +32,7 @@ final class CollectionVisitor implements VisitorInterface
             'offset' => $value->offset,
             'limit' => $value->limit,
             'is_translatable' => $value->isTranslatable,
-            'is_always_available' => $value->alwaysAvailable,
+            'is_always_available' => $value->isAlwaysAvailable,
             'main_locale' => $value->mainLocale,
             'available_locales' => $value->availableLocales,
             'items' => [...$this->visitItems($value->items, $outputVisitor)],
