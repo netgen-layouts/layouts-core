@@ -15,15 +15,39 @@ final class Parameter
 {
     use HydratorTrait;
 
-    private string $name;
+    /**
+     * Returns the parameter name.
+     */
+    public private(set) string $name;
 
-    private ParameterDefinition $parameterDefinition;
+    /**
+     * Returns the parameter definition.
+     */
+    public private(set) ParameterDefinition $parameterDefinition;
 
-    private mixed $value;
+    /**
+     * Returns the parameter value.
+     */
+    public private(set) mixed $value;
 
-    private ?object $valueObject;
+    /**
+     * Returns if the parameter value is empty.
+     */
+    public private(set) bool $isEmpty;
 
-    private bool $isEmpty;
+    /**
+     * Returns the value object if the parameter type supports it.
+     */
+    public private(set) ?object $valueObject {
+        get {
+            $parameterType = $this->parameterDefinition->type;
+            if (!$parameterType instanceof ValueObjectProviderInterface) {
+                throw ParameterException::valueObjectNotSupported($this->name, $parameterType::class);
+            }
+
+            return $this->valueObject ??= $parameterType->getValueObject($this->value);
+        }
+    }
 
     /**
      * Returns the string representation of the parameter value.
@@ -35,51 +59,5 @@ final class Parameter
         }
 
         return (string) $this->value;
-    }
-
-    /**
-     * Returns the parameter name.
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Returns the parameter definition.
-     */
-    public function getParameterDefinition(): ParameterDefinition
-    {
-        return $this->parameterDefinition;
-    }
-
-    /**
-     * Returns the parameter value.
-     */
-    public function getValue(): mixed
-    {
-        return $this->value;
-    }
-
-    public function getValueObject(): ?object
-    {
-        if (isset($this->valueObject)) {
-            return $this->valueObject;
-        }
-
-        $parameterType = $this->parameterDefinition->type;
-        if (!$parameterType instanceof ValueObjectProviderInterface) {
-            throw ParameterException::valueObjectNotSupported($this->name, $parameterType::class);
-        }
-
-        return $this->valueObject = $parameterType->getValueObject($this->value);
-    }
-
-    /**
-     * Returns if the parameter value is empty.
-     */
-    public function isEmpty(): bool
-    {
-        return $this->isEmpty;
     }
 }

@@ -53,21 +53,21 @@ final class ParameterMapperTest extends TestCase
 
         self::assertContainsOnlyInstancesOf(Parameter::class, $mappedParameters);
 
-        self::assertSame($blockDefinition->getParameterDefinition('css_class'), $mappedParameters['css_class']->getParameterDefinition());
-        self::assertSame('some-class', $mappedParameters['css_class']->getValue());
-        self::assertFalse($mappedParameters['css_class']->isEmpty());
+        self::assertSame($blockDefinition->getParameterDefinition('css_class'), $mappedParameters['css_class']->parameterDefinition);
+        self::assertSame('some-class', $mappedParameters['css_class']->value);
+        self::assertFalse($mappedParameters['css_class']->isEmpty);
 
-        self::assertSame($blockDefinition->getParameterDefinition('css_id'), $mappedParameters['css_id']->getParameterDefinition());
-        self::assertSame('some-id', $mappedParameters['css_id']->getValue());
-        self::assertFalse($mappedParameters['css_id']->isEmpty());
+        self::assertSame($blockDefinition->getParameterDefinition('css_id'), $mappedParameters['css_id']->parameterDefinition);
+        self::assertSame('some-id', $mappedParameters['css_id']->value);
+        self::assertFalse($mappedParameters['css_id']->isEmpty);
 
-        self::assertSame($blockDefinition->getParameterDefinition('compound'), $mappedParameters['compound']->getParameterDefinition());
-        self::assertTrue($mappedParameters['compound']->getValue());
-        self::assertFalse($mappedParameters['compound']->isEmpty());
+        self::assertSame($blockDefinition->getParameterDefinition('compound'), $mappedParameters['compound']->parameterDefinition);
+        self::assertTrue($mappedParameters['compound']->value);
+        self::assertFalse($mappedParameters['compound']->isEmpty);
 
-        self::assertSame($compoundParameter->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
-        self::assertSame('inner-value', $mappedParameters['inner']->getValue());
-        self::assertFalse($mappedParameters['inner']->isEmpty());
+        self::assertSame($compoundParameter->getParameterDefinition('inner'), $mappedParameters['inner']->parameterDefinition);
+        self::assertSame('inner-value', $mappedParameters['inner']->value);
+        self::assertFalse($mappedParameters['inner']->isEmpty);
     }
 
     public function testSerializeValues(): void

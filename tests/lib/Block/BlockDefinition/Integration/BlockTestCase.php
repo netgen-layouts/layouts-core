@@ -48,7 +48,7 @@ abstract class BlockTestCase extends CoreTestCase
 
         $createdParameters = [];
         foreach ($createdBlock->parameters as $parameterName => $parameter) {
-            $createdParameters[$parameterName] = $parameter->getValue();
+            $createdParameters[$parameterName] = $parameter->value;
         }
 
         self::assertSame(array_keys($expectedParameters), array_keys($createdParameters));

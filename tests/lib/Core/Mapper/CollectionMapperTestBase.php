@@ -250,8 +250,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $itemConfig = $item->getConfig('key');
 
-        self::assertTrue($itemConfig->getParameter('param1')->getValue());
-        self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
+        self::assertTrue($itemConfig->getParameter('param1')->value);
+        self::assertSame(42, $itemConfig->getParameter('param2')->value);
     }
 
     public function testMapItemWithNullItemValue(): void
@@ -296,8 +296,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $itemConfig = $item->getConfig('key');
 
-        self::assertTrue($itemConfig->getParameter('param1')->getValue());
-        self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
+        self::assertTrue($itemConfig->getParameter('param1')->value);
+        self::assertSame(42, $itemConfig->getParameter('param2')->value);
     }
 
     public function testMapItemWithInvalidItemDefinition(): void
@@ -380,13 +380,13 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertFalse($query->alwaysAvailable);
         self::assertSame(['en'], $query->availableLocales);
 
-        self::assertSame('value', $query->getParameter('param')->getValue());
-        self::assertNull($query->getParameter('param2')->getValue());
+        self::assertSame('value', $query->getParameter('param')->value);
+        self::assertNull($query->getParameter('param2')->value);
 
         self::assertSame('en', $query->locale);
 
-        self::assertSame('value', $query->getParameter('param')->getValue());
-        self::assertNull($query->getParameter('param2')->getValue());
+        self::assertSame('value', $query->getParameter('param')->value);
+        self::assertNull($query->getParameter('param2')->value);
     }
 
     public function testMapQueryWithLocale(): void

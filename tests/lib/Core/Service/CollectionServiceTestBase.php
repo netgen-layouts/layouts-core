@@ -321,8 +321,8 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($updatedItem->hasConfig('key'));
 
         $itemConfig = $updatedItem->getConfig('key');
-        self::assertNull($itemConfig->getParameter('param1')->getValue());
-        self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
+        self::assertNull($itemConfig->getParameter('param1')->value);
+        self::assertSame(42, $itemConfig->getParameter('param2')->value);
     }
 
     public function testUpdateItemThrowsBadStateExceptionWithNonDraftItem(): void
@@ -428,15 +428,15 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         self::assertTrue($updatedQuery->isDraft);
         self::assertSame('my_query_type', $updatedQuery->queryType->type);
 
-        self::assertNull($updatedQuery->getParameter('param')->getValue());
-        self::assertNull($updatedQuery->getParameter('param2')->getValue());
+        self::assertNull($updatedQuery->getParameter('param')->value);
+        self::assertNull($updatedQuery->getParameter('param2')->value);
 
         $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
-        self::assertNull($croQuery->getParameter('param')->getValue());
+        self::assertNull($croQuery->getParameter('param')->value);
 
-        self::assertSame(3, $croQuery->getParameter('param2')->getValue());
+        self::assertSame(3, $croQuery->getParameter('param2')->value);
     }
 
     public function testUpdateQueryInMainLocale(): void
@@ -455,13 +455,13 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 
-        self::assertSame('new_value', $updatedQuery->getParameter('param')->getValue());
-        self::assertSame(3, $updatedQuery->getParameter('param2')->getValue());
+        self::assertSame('new_value', $updatedQuery->getParameter('param')->value);
+        self::assertSame(3, $updatedQuery->getParameter('param2')->value);
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
-        self::assertSame('new_value', $croQuery->getParameter('param')->getValue());
+        self::assertSame('new_value', $croQuery->getParameter('param')->value);
 
-        self::assertNull($croQuery->getParameter('param2')->getValue());
+        self::assertNull($croQuery->getParameter('param2')->value);
     }
 
     public function testUpdateQueryThrowsBadStateExceptionWithNonDraftQuery(): void

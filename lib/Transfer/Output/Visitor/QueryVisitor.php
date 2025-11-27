@@ -81,10 +81,10 @@ final class QueryVisitor implements VisitorInterface
     private function visitTranslationParameters(Query $query): Generator
     {
         foreach ($query->parameters as $parameter) {
-            $definition = $parameter->getParameterDefinition();
-            $exportedValue = $definition->type->export($definition, $parameter->getValue());
+            $definition = $parameter->parameterDefinition;
+            $exportedValue = $definition->type->export($definition, $parameter->value);
 
-            yield $parameter->getName() => $exportedValue;
+            yield $parameter->name => $exportedValue;
         }
     }
 }

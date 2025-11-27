@@ -28,10 +28,10 @@ final class ParameterTest extends TestCase
             ],
         );
 
-        self::assertSame('param_name', $parameter->getName());
-        self::assertSame($parameterDefinition, $parameter->getParameterDefinition());
-        self::assertSame(42, $parameter->getValue());
-        self::assertFalse($parameter->isEmpty());
+        self::assertSame('param_name', $parameter->name);
+        self::assertSame($parameterDefinition, $parameter->parameterDefinition);
+        self::assertSame(42, $parameter->value);
+        self::assertFalse($parameter->isEmpty);
     }
 
     public function testToString(): void

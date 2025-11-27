@@ -43,7 +43,7 @@ final class ParameterList extends ArrayCollection
     {
         return array_values(
             array_map(
-                static fn (Parameter $parameter): string => $parameter->getName(),
+                static fn (Parameter $parameter): string => $parameter->name,
                 $this->getParameters(),
             ),
         );

@@ -15,9 +15,9 @@ final class ParameterNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\Layouts\Parameters\Parameter $parameter */
         $parameter = $data->value;
-        $parameterDefinition = $parameter->getParameterDefinition();
+        $parameterDefinition = $parameter->parameterDefinition;
 
-        return $parameterDefinition->type->toHash($parameterDefinition, $parameter->getValue());
+        return $parameterDefinition->type->toHash($parameterDefinition, $parameter->value);
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool

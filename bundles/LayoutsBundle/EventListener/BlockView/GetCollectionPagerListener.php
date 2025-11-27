@@ -76,10 +76,10 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
             return null;
         }
 
-        if ($block->getParameter('paged_collections:enabled')->getValue() !== true) {
+        if ($block->getParameter('paged_collections:enabled')->value !== true) {
             return null;
         }
 
-        return $block->getParameter('paged_collections:max_pages')->getValue();
+        return $block->getParameter('paged_collections:max_pages')->value;
     }
 }

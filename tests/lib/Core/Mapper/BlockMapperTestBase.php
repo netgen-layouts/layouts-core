@@ -76,14 +76,14 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->parentBlockId->toString());
         self::assertSame('main', $block->parentPlaceholder);
         self::assertTrue($block->isPublished);
-        self::assertSame('test', $block->getParameter('css_class')->getValue());
-        self::assertNull($block->getParameter('css_id')->getValue());
+        self::assertSame('test', $block->getParameter('css_class')->value);
+        self::assertNull($block->getParameter('css_id')->value);
         self::assertTrue($block->hasConfig('key'));
 
         $blockConfig = $block->getConfig('key');
 
-        self::assertTrue($blockConfig->getParameter('param1')->getValue());
-        self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
+        self::assertTrue($blockConfig->getParameter('param1')->value);
+        self::assertSame(400, $blockConfig->getParameter('param2')->value);
 
         self::assertTrue($block->isTranslatable);
         self::assertSame('en', $block->mainLocale);
@@ -92,8 +92,8 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertSame('en', $block->locale);
 
-        self::assertSame('test', $block->getParameter('css_class')->getValue());
-        self::assertNull($block->getParameter('css_id')->getValue());
+        self::assertSame('test', $block->getParameter('css_class')->value);
+        self::assertNull($block->getParameter('css_id')->value);
     }
 
     public function testMapBlockWithNoParent(): void

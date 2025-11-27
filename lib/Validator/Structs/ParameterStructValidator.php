@@ -59,7 +59,7 @@ final class ParameterStructValidator extends ConstraintValidator
             if ($constraint->checkReadOnlyFields && $parameterDefinition->isReadOnly) {
                 if (
                     $parameterValue !== null
-                    && $parameterValue !== $constraint->payload->getParameter($parameterName)->getValue()
+                    && $parameterValue !== $constraint->payload->getParameter($parameterName)->value
                 ) {
                     $this->context->buildViolation($constraint->fieldReadOnlyMessage)
                         ->setParameter('%parameterName%', $parameterDefinition->name)

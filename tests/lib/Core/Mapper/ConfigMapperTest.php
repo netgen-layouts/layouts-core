@@ -58,7 +58,7 @@ final class ConfigMapperTest extends TestCase
         self::assertSame($this->configDefinition, $config->definition);
 
         self::assertTrue($config->hasParameter('param'));
-        self::assertSame('value', $config->getParameter('param')->getValue());
+        self::assertSame('value', $config->getParameter('param')->value);
     }
 
     public function testSerializeValues(): void

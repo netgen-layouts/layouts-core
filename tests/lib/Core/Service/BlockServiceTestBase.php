@@ -282,8 +282,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->hasConfig('key'));
 
         $blockConfig = $block->getConfig('key');
-        self::assertTrue($blockConfig->getParameter('param1')->getValue());
-        self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
+        self::assertTrue($blockConfig->getParameter('param1')->value);
+        self::assertSame(400, $blockConfig->getParameter('param2')->value);
 
         self::assertFalse($block->isTranslatable);
         self::assertContains('en', $block->availableLocales);
@@ -588,15 +588,15 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('small', $updatedBlock->viewType);
         self::assertSame('Super cool block', $updatedBlock->name);
 
-        self::assertSame('css-class', $updatedBlock->getParameter('css_class')->getValue());
-        self::assertSame('css-id', $updatedBlock->getParameter('css_id')->getValue());
+        self::assertSame('css-class', $updatedBlock->getParameter('css_class')->value);
+        self::assertSame('css-id', $updatedBlock->getParameter('css_id')->value);
 
         $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
 
-        self::assertSame('test_value', $croBlock->getParameter('css_class')->getValue());
+        self::assertSame('test_value', $croBlock->getParameter('css_class')->value);
 
         // CSS ID is untranslatable, meaning it keeps the value from main locale
-        self::assertSame('css-id', $croBlock->getParameter('css_id')->getValue());
+        self::assertSame('css-id', $croBlock->getParameter('css_id')->value);
     }
 
     public function testUpdateBlockInMainLocale(): void
@@ -615,15 +615,15 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('small', $updatedBlock->viewType);
         self::assertSame('Super cool block', $updatedBlock->name);
 
-        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
-        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
+        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->value);
+        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
 
         $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
 
-        self::assertSame('css-class-hr', $croBlock->getParameter('css_class')->getValue());
+        self::assertSame('css-class-hr', $croBlock->getParameter('css_class')->value);
 
         // CSS ID is untranslatable, meaning it receives the value from the main locale
-        self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
+        self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->value);
     }
 
     public function testUpdateBlockWithUntranslatableParameters(): void
@@ -644,11 +644,11 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
 
-        self::assertSame('english_css', $block->getParameter('css_class')->getValue());
-        self::assertSame('some_other_test_value', $block->getParameter('css_id')->getValue());
+        self::assertSame('english_css', $block->getParameter('css_class')->value);
+        self::assertSame('some_other_test_value', $block->getParameter('css_id')->value);
 
-        self::assertSame('croatian_css', $croBlock->getParameter('css_class')->getValue());
-        self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
+        self::assertSame('croatian_css', $croBlock->getParameter('css_class')->value);
+        self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->value);
     }
 
     public function testUpdateBlockWithConfig(): void
@@ -669,8 +669,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($updatedBlock->hasConfig('key'));
 
         $blockConfig = $updatedBlock->getConfig('key');
-        self::assertTrue($blockConfig->getParameter('param1')->getValue());
-        self::assertSame(400, $blockConfig->getParameter('param2')->getValue());
+        self::assertTrue($blockConfig->getParameter('param1')->value);
+        self::assertSame(400, $blockConfig->getParameter('param2')->value);
     }
 
     public function testUpdateBlockWithBlankName(): void
@@ -688,8 +688,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('small', $updatedBlock->viewType);
         self::assertSame('My block', $updatedBlock->name);
 
-        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
-        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
+        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->value);
+        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
     }
 
     public function testUpdateBlockWithBlankViewType(): void
@@ -707,8 +707,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('list', $updatedBlock->viewType);
         self::assertSame('Super cool block', $updatedBlock->name);
 
-        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
-        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
+        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->value);
+        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
     }
 
     public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock(): void
@@ -1404,8 +1404,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('standard_with_intro', $restoredBlock->itemViewType);
         self::assertSame('My published block', $restoredBlock->name);
 
-        self::assertSame('some-class', $restoredBlock->getParameter('css_class')->getValue());
-        self::assertNull($restoredBlock->getParameter('css_id')->getValue());
+        self::assertSame('some-class', $restoredBlock->getParameter('css_class')->value);
+        self::assertNull($restoredBlock->getParameter('css_id')->value);
 
         $collections = $restoredBlock->collections;
         self::assertCount(2, $collections);

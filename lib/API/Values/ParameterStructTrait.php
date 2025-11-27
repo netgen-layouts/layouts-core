@@ -76,8 +76,8 @@ trait ParameterStructTrait
 
             if ($parameters->hasParameter($name)) {
                 $parameter = $parameters->getParameter($name);
-                if ($parameter->getParameterDefinition()->type::getIdentifier() === $definition->type::getIdentifier()) {
-                    $value = $parameter->getValue();
+                if ($parameter->parameterDefinition->type::getIdentifier() === $definition->type::getIdentifier()) {
+                    $value = $parameter->value;
 
                     if (is_object($value) && new ReflectionClass($value::class)->isCloneable()) {
                         $value = clone $value;
