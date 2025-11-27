@@ -98,7 +98,7 @@ final class BlockVisitor implements VisitorInterface
      */
     private function visitTranslationParameters(Block $block): Generator
     {
-        foreach ($block->getParameters() as $parameter) {
+        foreach ($block->parameters as $parameter) {
             $definition = $parameter->getParameterDefinition();
             $exportedValue = $definition->getType()->export($definition, $parameter->getValue());
 

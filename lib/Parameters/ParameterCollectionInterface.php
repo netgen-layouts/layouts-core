@@ -9,7 +9,7 @@ interface ParameterCollectionInterface
     /**
      * Returns all parameters from the collection.
      */
-    public function getParameters(): ParameterList;
+    public ParameterList $parameters { get; }
 
     /**
      * Returns the parameter with provided name.

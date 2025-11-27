@@ -35,7 +35,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
 
         $configuration = (function () use ($collectionItem): Generator {
             foreach ($collectionItem->configs as $configKey => $config) {
-                yield $configKey => $this->buildValues($config->getParameters());
+                yield $configKey => $this->buildValues($config->parameters);
             }
         })();
 

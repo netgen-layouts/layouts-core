@@ -23,7 +23,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
         /** @var \Netgen\Layouts\API\Values\Collection\Query $query */
         $query = $data->value;
 
-        $parameters = $this->buildValues($query->getParameters());
+        $parameters = $this->buildValues($query->parameters);
 
         return [
             'id' => $query->id->toString(),

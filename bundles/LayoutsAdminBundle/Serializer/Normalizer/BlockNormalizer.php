@@ -31,12 +31,12 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         $block = $data->value;
         $blockDefinition = $block->definition;
 
-        $parameters = $this->buildValues($block->getParameters());
+        $parameters = $this->buildValues($block->parameters);
         $placeholders = $this->buildValues($block->placeholders->getValues());
 
         $configuration = (function () use ($block): Generator {
             foreach ($block->configs as $configKey => $config) {
-                yield $configKey => $this->buildValues($config->getParameters());
+                yield $configKey => $this->buildValues($config->parameters);
             }
         })();
 

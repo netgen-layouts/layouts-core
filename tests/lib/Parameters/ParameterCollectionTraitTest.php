@@ -48,7 +48,7 @@ final class ParameterCollectionTraitTest extends TestCase
 
         self::assertSame(
             ['name' => $parameter],
-            $parameters->getParameters()->toArray(),
+            $parameters->parameters->toArray(),
         );
     }
 

@@ -33,7 +33,7 @@ final class ConfigVisitor implements VisitorInterface
 
                 return $definition->getType()->export($definition, $parameter->getValue());
             },
-            $value->getParameters()->toArray(),
+            $value->parameters->toArray(),
         );
     }
 }

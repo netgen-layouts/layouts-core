@@ -47,7 +47,7 @@ abstract class BlockTestCase extends CoreTestCase
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
         $createdParameters = [];
-        foreach ($createdBlock->getParameters() as $parameterName => $parameter) {
+        foreach ($createdBlock->parameters as $parameterName => $parameter) {
             $createdParameters[$parameterName] = $parameter->getValue();
         }
 

@@ -8,14 +8,8 @@ use Netgen\Layouts\Exception\Parameters\ParameterException;
 
 trait ParameterCollectionTrait
 {
-    private ParameterList $parameters;
-
-    /**
-     * Returns all parameters from the collection.
-     */
-    public function getParameters(): ParameterList
-    {
-        return new ParameterList($this->parameters->toArray());
+    public private(set) ParameterList $parameters {
+        get => new ParameterList($this->parameters->toArray());
     }
 
     /**
