@@ -21,7 +21,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Query $query */
-        $query = $data->getValue();
+        $query = $data->value;
 
         $parameters = $this->buildValues($query->getParameters());
 
@@ -42,7 +42,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
             return false;
         }
 
-        return $data->getValue() instanceof Query;
+        return $data->value instanceof Query;
     }
 
     /**

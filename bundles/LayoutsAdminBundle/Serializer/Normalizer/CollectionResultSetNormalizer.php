@@ -24,7 +24,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
-        $resultSet = $data->getValue();
+        $resultSet = $data->value;
 
         $results = $this->buildValues($resultSet);
         $overflowItems = $this->buildValues($this->getOverflowItems($resultSet));
@@ -41,7 +41,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
             return false;
         }
 
-        return $data->getValue() instanceof ResultSet;
+        return $data->value instanceof ResultSet;
     }
 
     /**

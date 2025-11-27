@@ -17,7 +17,7 @@ final class CollectionNormalizer implements NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Collection $collection */
-        $collection = $data->getValue();
+        $collection = $data->value;
 
         return [
             'id' => $collection->id->toString(),
@@ -38,7 +38,7 @@ final class CollectionNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Collection;
+        return $data->value instanceof Collection;
     }
 
     /**

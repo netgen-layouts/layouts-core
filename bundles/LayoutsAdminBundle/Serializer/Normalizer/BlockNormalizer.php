@@ -28,7 +28,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
-        $block = $data->getValue();
+        $block = $data->value;
         $blockDefinition = $block->definition;
 
         $parameters = $this->buildValues($block->getParameters());
@@ -73,7 +73,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
             return false;
         }
 
-        return $data->getValue() instanceof Block;
+        return $data->value instanceof Block;
     }
 
     /**

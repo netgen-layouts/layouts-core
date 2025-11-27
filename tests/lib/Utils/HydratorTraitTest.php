@@ -16,9 +16,9 @@ final class HydratorTraitTest extends TestCase
     {
         $value = Value::fromArray(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
 
-        self::assertSame('foo', $value->getA());
-        self::assertSame('bar', $value->getB());
-        self::assertSame('baz', $value->getC());
+        self::assertSame('foo', $value->a);
+        self::assertSame('bar', $value->b);
+        self::assertSame('baz', $value->c);
     }
 
     public function testHydrate(): void
@@ -27,8 +27,8 @@ final class HydratorTraitTest extends TestCase
 
         $value->hydrate(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
 
-        self::assertSame('foo', $value->getA());
-        self::assertSame('bar', $value->getB());
-        self::assertSame('baz', $value->getC());
+        self::assertSame('foo', $value->a);
+        self::assertSame('bar', $value->b);
+        self::assertSame('baz', $value->c);
     }
 }

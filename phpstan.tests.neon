@@ -27,8 +27,13 @@ parameters:
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
         - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
 
-        # Disable errors for various "only read/written" properties
-        - '#\$\w+ is never (written|read), only (read|written).#'
+        # PHPStan
+
+        - "#PHPDoc tag @var with type array\\<string, string> is not subtype of type array\\<int\\|string, '(\\?|string)'>#"
+
+        # Netgen Layouts specifics
+
+        - '#Method Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'
 
         -
             message: '#Undefined variable: \$this#'
@@ -39,11 +44,3 @@ parameters:
             path: tests/lib/Core/Service/TransactionRollback
 
         - '#Netgen\\Layouts\\Tests\\Persistence\\Doctrine\\Stubs\\EmptyQueryHandler::__construct\(\) does not call parent constructor#'
-
-        # PHPStan
-
-        - "#PHPDoc tag @var with type array\\<string, string> is not subtype of type array\\<int\\|string, '(\\?|string)'>#"
-
-        # Netgen Layouts specifics
-
-        - '#Method Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'

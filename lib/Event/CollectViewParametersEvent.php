@@ -19,24 +19,14 @@ final class CollectViewParametersEvent extends Event
      *
      * @var array<string, mixed>
      */
-    private array $parameters = [];
+    public private(set) array $parameters = [];
 
     public function __construct(
         /**
          * The view object that is being built.
          */
-        private ViewInterface $view,
+        private(set) ViewInterface $view,
     ) {}
-
-    /**
-     * Returns the parameters that will be injected into the View.
-     *
-     * @return array<string, mixed>
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
-    }
 
     /**
      * Adds the parameter to the view.
@@ -44,13 +34,5 @@ final class CollectViewParametersEvent extends Event
     public function addParameter(string $parameterName, mixed $parameterValue): void
     {
         $this->parameters[$parameterName] = $parameterValue;
-    }
-
-    /**
-     * Returns the view object.
-     */
-    public function getView(): ViewInterface
-    {
-        return $this->view;
     }
 }

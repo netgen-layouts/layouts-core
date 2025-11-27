@@ -101,14 +101,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->getParameters()['collection'];
+        $result = $event->parameters['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
-        self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
+        self::assertSame(3, $event->parameters['pager']->getCurrentPage());
     }
 
     public function testOnRenderViewWithPagedCollection(): void
@@ -159,14 +159,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->getParameters()['collection'];
+        $result = $event->parameters['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
-        self::assertSame(2, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
+        self::assertSame(2, $event->parameters['pager']->getCurrentPage());
     }
 
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
@@ -217,14 +217,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->getParameters()['collection'];
+        $result = $event->parameters['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
-        self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
+        self::assertSame(3, $event->parameters['pager']->getCurrentPage());
     }
 
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
@@ -274,14 +274,14 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->getParameters()['collection'];
+        $result = $event->parameters['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
-        self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
+        self::assertSame(3, $event->parameters['pager']->getCurrentPage());
     }
 
     public function testOnRenderViewWithNoCurrentRequest(): void
@@ -292,7 +292,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 
     public function testOnRenderViewWithNoBlockView(): void
@@ -305,7 +305,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 
     public function testOnRenderViewWithNoCollectionIdentifier(): void
@@ -317,7 +317,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 
     public function testOnRenderViewWithWrongContext(): void
@@ -331,6 +331,6 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 }

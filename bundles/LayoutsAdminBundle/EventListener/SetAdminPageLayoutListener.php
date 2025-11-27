@@ -24,12 +24,10 @@ final class SetAdminPageLayoutListener implements EventSubscriberInterface
      */
     public function onAdminMatch(AdminMatchEvent $event): void
     {
-        $pageLayoutTemplate = $event->getPageLayoutTemplate();
-
-        if ($pageLayoutTemplate === null) {
+        if ($event->pageLayoutTemplate === null) {
             return;
         }
 
-        $this->globalVariable->setPageLayoutTemplate($pageLayoutTemplate);
+        $this->globalVariable->setPageLayoutTemplate($event->pageLayoutTemplate);
     }
 }

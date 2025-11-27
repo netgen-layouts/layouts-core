@@ -29,6 +29,4 @@ parameters:
 
         - '#Unsafe usage of new static\(\).#'
 
-        - '#Property Netgen\\Layouts\\Parameters\\Value\\LinkValue::\$linkType \(Netgen\\Layouts\\Parameters\\Value\\LinkType\|null\) is never assigned#'
-
         - '#Method Netgen\\Layouts\\API\\Values\\LazyCollection::from(Callable|Array)\(\) should return static#'

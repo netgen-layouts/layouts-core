@@ -54,7 +54,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
         $request->attributes->set('_route', 'nglayouts_admin_layout_resolver_index');
 
         $event = new AdminMatchEvent($request, HttpKernelInterface::MAIN_REQUEST);
-        $event->setPageLayoutTemplate('template.html.twig');
+        $event->pageLayoutTemplate = 'template.html.twig';
         $this->listener->onAdminMatch($event);
 
         self::assertSame(

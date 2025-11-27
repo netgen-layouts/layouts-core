@@ -27,7 +27,7 @@ final class QueryRunnerTest extends TestCase
         $this->cmsItemBuilderMock
             ->method('build')
             ->willReturnCallback(
-                static fn (Value $value): CmsItemInterface => CmsItem::fromArray(['value' => $value->getValue(), 'isVisible' => true]),
+                static fn (Value $value): CmsItemInterface => CmsItem::fromArray(['value' => $value->value, 'isVisible' => true]),
             );
     }
 

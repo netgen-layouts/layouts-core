@@ -30,21 +30,21 @@ final class ErrorResultTest extends TestCase
 
     public function testGetEntityType(): void
     {
-        self::assertSame('type', $this->result->getEntityType());
+        self::assertSame('type', $this->result->entityType);
     }
 
     public function testGetData(): void
     {
-        self::assertSame(['key' => 'data'], $this->result->getData());
+        self::assertSame(['key' => 'data'], $this->result->data);
     }
 
     public function testGetEntityId(): void
     {
-        self::assertSame($this->entityId, $this->result->getEntityId());
+        self::assertSame($this->entityId, $this->result->entityId);
     }
 
     public function testGetError(): void
     {
-        self::assertSame($this->error, $this->result->getError());
+        self::assertSame($this->error, $this->result->error);
     }
 }

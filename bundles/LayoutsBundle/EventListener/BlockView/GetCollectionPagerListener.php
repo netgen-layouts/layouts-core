@@ -43,7 +43,7 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
             return;
         }
 
-        $view = $event->getView();
+        $view = $event->view;
         if (!$view instanceof BlockViewInterface || !$view->hasParameter('collection_identifier')) {
             return;
         }

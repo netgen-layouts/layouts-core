@@ -44,10 +44,10 @@ final class Renderer implements RendererInterface
         ob_start();
 
         try {
-            foreach ($this->pluginCollections[$pluginName]->getPlugins() as $plugin) {
+            foreach ($this->pluginCollections[$pluginName]->plugins as $plugin) {
                 $this->twig->display(
-                    $plugin->getTemplateName(),
-                    [...$parameters, ...$plugin->getParameters()],
+                    $plugin->templateName,
+                    [...$parameters, ...$plugin->parameters],
                 );
             }
         } catch (Throwable $t) {

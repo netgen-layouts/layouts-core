@@ -32,11 +32,11 @@ final class ConfigureMenuEventTest extends TestCase
 
     public function testGetFactory(): void
     {
-        self::assertSame($this->factory, $this->event->getFactory());
+        self::assertSame($this->factory, $this->event->factory);
     }
 
     public function testGetMenu(): void
     {
-        self::assertSame($this->menu, $this->event->getMenu());
+        self::assertSame($this->menu, $this->event->menu);
     }
 }

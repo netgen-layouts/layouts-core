@@ -155,11 +155,11 @@ abstract class ImporterTestBase extends CoreTestCase
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
-            self::assertInstanceOf(Rule::class, $result->getEntity());
-            self::assertSame($result->getEntity()->id->toString(), $result->getEntityId()->toString());
+            self::assertInstanceOf(Rule::class, $result->entity);
+            self::assertSame($result->entity->id->toString(), $result->entityId->toString());
 
             $ruleData = $decodedData['entities'][$index];
-            $exportedRuleData = $this->serializer->serialize([$result->getEntityId()->toString() => $ruleData['__type']]);
+            $exportedRuleData = $this->serializer->serialize([$result->entityId->toString() => $ruleData['__type']]);
 
             $exportedRuleData = $exportedRuleData['entities'][0];
 
@@ -197,11 +197,11 @@ abstract class ImporterTestBase extends CoreTestCase
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
-            self::assertInstanceOf(RuleGroup::class, $result->getEntity());
-            self::assertSame($result->getEntity()->id->toString(), $result->getEntityId()->toString());
+            self::assertInstanceOf(RuleGroup::class, $result->entity);
+            self::assertSame($result->entity->id->toString(), $result->entityId->toString());
 
             $ruleData = $decodedData['entities'][$index];
-            $exportedRuleData = $this->serializer->serialize([$result->getEntityId()->toString() => $ruleData['__type']]);
+            $exportedRuleData = $this->serializer->serialize([$result->entityId->toString() => $ruleData['__type']]);
 
             $exportedRuleData = $exportedRuleData['entities'][0];
 
@@ -230,11 +230,11 @@ abstract class ImporterTestBase extends CoreTestCase
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
-            self::assertInstanceOf(Layout::class, $result->getEntity());
-            self::assertSame($result->getEntity()->id->toString(), $result->getEntityId()->toString());
+            self::assertInstanceOf(Layout::class, $result->entity);
+            self::assertSame($result->entity->id->toString(), $result->entityId->toString());
 
             $layoutData = $decodedData['entities'][$index];
-            $exportedLayoutData = $this->serializer->serialize([$result->getEntityId()->toString() => $layoutData['__type']]);
+            $exportedLayoutData = $this->serializer->serialize([$result->entityId->toString() => $layoutData['__type']]);
 
             $exportedLayoutData = $exportedLayoutData['entities'][0];
 
@@ -277,8 +277,8 @@ abstract class ImporterTestBase extends CoreTestCase
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
-        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        self::assertSame('Could not find locale "hr" in the given query data', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(RuntimeException::class, $result[0]->error);
+        self::assertSame('Could not find locale "hr" in the given query data', $result[0]->error->getMessage());
     }
 
     public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
@@ -290,8 +290,8 @@ abstract class ImporterTestBase extends CoreTestCase
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
-        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        self::assertSame('Missing data for query main locale "en"', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(RuntimeException::class, $result[0]->error);
+        self::assertSame('Missing data for query main locale "en"', $result[0]->error->getMessage());
     }
 
     public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
@@ -303,8 +303,8 @@ abstract class ImporterTestBase extends CoreTestCase
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
-        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        self::assertSame('Could not find locale "hr" in the given block data', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(RuntimeException::class, $result[0]->error);
+        self::assertSame('Could not find locale "hr" in the given block data', $result[0]->error->getMessage());
     }
 
     public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
@@ -316,8 +316,8 @@ abstract class ImporterTestBase extends CoreTestCase
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
-        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        self::assertSame('Missing data for block main locale "en"', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(RuntimeException::class, $result[0]->error);
+        self::assertSame('Missing data for block main locale "en"', $result[0]->error->getMessage());
     }
 
     public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void
@@ -329,8 +329,8 @@ abstract class ImporterTestBase extends CoreTestCase
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
-        self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
-        self::assertSame('Missing data for zone "right"', $result[0]->getError()->getMessage());
+        self::assertInstanceOf(RuntimeException::class, $result[0]->error);
+        self::assertSame('Missing data for zone "right"', $result[0]->error->getMessage());
     }
 
     protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry

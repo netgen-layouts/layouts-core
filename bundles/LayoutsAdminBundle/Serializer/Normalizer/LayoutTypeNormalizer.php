@@ -23,7 +23,7 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType */
-        $layoutType = $data->getValue();
+        $layoutType = $data->value;
 
         return [
             'identifier' => $layoutType->identifier,
@@ -39,7 +39,7 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
             return false;
         }
 
-        return $data->getValue() instanceof LayoutTypeInterface;
+        return $data->value instanceof LayoutTypeInterface;
     }
 
     /**

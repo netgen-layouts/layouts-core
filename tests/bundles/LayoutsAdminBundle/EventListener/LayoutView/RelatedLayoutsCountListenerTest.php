@@ -61,7 +61,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
             [
                 'related_layouts_count' => 3,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -81,7 +81,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
             [
                 'related_layouts_count' => 0,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -101,7 +101,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
             [
                 'related_layouts_count' => 0,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -111,7 +111,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 
     public function testOnBuildViewWithWrongContext(): void
@@ -122,6 +122,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 }

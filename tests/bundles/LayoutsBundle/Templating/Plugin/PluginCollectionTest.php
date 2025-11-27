@@ -34,11 +34,11 @@ final class PluginCollectionTest extends TestCase
 
     public function testGetPluginName(): void
     {
-        self::assertSame('plugin', $this->pluginCollection->getPluginName());
+        self::assertSame('plugin', $this->pluginCollection->pluginName);
     }
 
     public function testGetPlugins(): void
     {
-        self::assertSame([$this->plugin1, $this->plugin2], $this->pluginCollection->getPlugins());
+        self::assertSame([$this->plugin1, $this->plugin2], $this->pluginCollection->plugins);
     }
 }

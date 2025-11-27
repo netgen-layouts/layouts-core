@@ -26,14 +26,14 @@ final class LinkDataMapper implements DataMapperInterface
 
         $forms = [...$forms];
 
-        $forms['link_type']->setData($viewData->getLinkType());
-        $forms['link_suffix']->setData($viewData->getLinkSuffix());
-        $forms['new_window']->setData($viewData->getNewWindow());
+        $forms['link_type']->setData($viewData->linkType);
+        $forms['link_suffix']->setData($viewData->linkSuffix);
+        $forms['new_window']->setData($viewData->newWindow);
 
-        $linkType = $viewData->getLinkType()->value ?? '';
+        $linkType = $viewData->linkType->value ?? '';
 
         if (isset($forms[$linkType])) {
-            $forms[$linkType]->setData($viewData->getLink());
+            $forms[$linkType]->setData($viewData->link);
         }
     }
 

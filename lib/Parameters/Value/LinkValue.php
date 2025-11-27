@@ -13,48 +13,28 @@ final class LinkValue implements Stringable
 {
     use HydratorTrait;
 
-    private ?LinkType $linkType = null;
-
-    private string $link = '';
-
-    private string $linkSuffix = '';
-
-    private bool $newWindow = false;
-
-    public function __toString(): string
-    {
-        return sprintf('%s%s', $this->link, $this->linkSuffix);
-    }
-
     /**
      * Returns the link type.
      */
-    public function getLinkType(): ?LinkType
-    {
-        return $this->linkType;
-    }
+    public private(set) ?LinkType $linkType = null;
 
     /**
      * Returns the link value.
      */
-    public function getLink(): string
-    {
-        return $this->link;
-    }
+    public private(set) string $link = '';
 
     /**
      * Returns the link suffix.
      */
-    public function getLinkSuffix(): string
-    {
-        return $this->linkSuffix;
-    }
+    public private(set) string $linkSuffix = '';
 
     /**
      * Returns if the link should be opened in new window.
      */
-    public function getNewWindow(): bool
+    public private(set) bool $newWindow = false;
+
+    public function __toString(): string
     {
-        return $this->newWindow;
+        return sprintf('%s%s', $this->link, $this->linkSuffix);
     }
 }

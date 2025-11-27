@@ -22,7 +22,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Block\Placeholder $placeholder */
-        $placeholder = $data->getValue();
+        $placeholder = $data->value;
 
         $blocks = $this->buildViewValues($placeholder);
 
@@ -38,7 +38,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
             return false;
         }
 
-        return $data->getValue() instanceof Placeholder;
+        return $data->value instanceof Placeholder;
     }
 
     /**

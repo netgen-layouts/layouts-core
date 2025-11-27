@@ -30,7 +30,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Item $collectionItem */
-        $collectionItem = $data->getValue();
+        $collectionItem = $data->value;
         $cmsItem = $collectionItem->cmsItem;
 
         $configuration = (function () use ($collectionItem): Generator {
@@ -68,7 +68,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
             return false;
         }
 
-        return $data->getValue() instanceof Item;
+        return $data->value instanceof Item;
     }
 
     /**

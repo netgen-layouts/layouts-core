@@ -16,7 +16,7 @@ final class CollectionSlotNormalizer implements NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Slot $slot */
-        $slot = $data->getValue();
+        $slot = $data->value;
 
         return [
             'id' => $slot->id->toString(),
@@ -33,7 +33,7 @@ final class CollectionSlotNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Slot;
+        return $data->value instanceof Slot;
     }
 
     /**

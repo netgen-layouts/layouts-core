@@ -48,11 +48,11 @@ final class ViewBuilder implements ViewBuilderInterface
 
         $event = new CollectViewParametersEvent($view);
         $this->eventDispatcher->dispatch($event);
-        $view->addParameters($event->getParameters());
+        $view->addParameters($event->parameters);
 
         $event = new CollectViewParametersEvent($view);
         $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, $view::getIdentifier()));
-        $view->addParameters($event->getParameters());
+        $view->addParameters($event->parameters);
 
         return $view;
     }

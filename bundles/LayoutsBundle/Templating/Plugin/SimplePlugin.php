@@ -10,17 +10,7 @@ final class SimplePlugin implements PluginInterface
      * @param array<string, mixed> $parameters
      */
     public function __construct(
-        private string $templateName,
-        private array $parameters = [],
+        private(set) string $templateName,
+        private(set) array $parameters = [],
     ) {}
-
-    public function getTemplateName(): string
-    {
-        return $this->templateName;
-    }
-
-    public function getParameters(): array
-    {
-        return $this->parameters;
-    }
 }

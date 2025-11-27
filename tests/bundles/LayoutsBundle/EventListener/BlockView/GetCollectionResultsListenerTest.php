@@ -90,7 +90,7 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $collections = $event->getParameters()['collections'];
+        $collections = $event->parameters['collections'];
 
         self::assertArrayHasKey('collection1', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection1']);
@@ -102,8 +102,8 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame($collection2, $collections['collection2']->collection);
         self::assertSame(0, $collections['collection2']->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection1']);
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection2']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pagers']['collection1']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pagers']['collection2']);
     }
 
     public function testOnRenderViewWithPagedCollection(): void
@@ -148,15 +148,15 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $collections = $event->getParameters()['collections'];
+        $collections = $event->parameters['collections'];
 
         self::assertArrayHasKey('collection', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection']);
         self::assertSame($collection, $collections['collection']->collection);
         self::assertSame(1000, $collections['collection']->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
-        self::assertSame(10, $event->getParameters()['pagers']['collection']->getNbResults());
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pagers']['collection']);
+        self::assertSame(10, $event->parameters['pagers']['collection']->getNbResults());
     }
 
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
@@ -201,15 +201,15 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $collections = $event->getParameters()['collections'];
+        $collections = $event->parameters['collections'];
 
         self::assertArrayHasKey('collection', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection']);
         self::assertSame($collection, $collections['collection']->collection);
         self::assertSame(1000, $collections['collection']->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
-        self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pagers']['collection']);
+        self::assertSame(997, $event->parameters['pagers']['collection']->getNbResults());
     }
 
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
@@ -253,15 +253,15 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $collections = $event->getParameters()['collections'];
+        $collections = $event->parameters['collections'];
 
         self::assertArrayHasKey('collection', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection']);
         self::assertSame($collection, $collections['collection']->collection);
         self::assertSame(1000, $collections['collection']->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
-        self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pagers']['collection']);
+        self::assertSame(997, $event->parameters['pagers']['collection']->getNbResults());
     }
 
     public function testOnRenderViewWithAPIContext(): void
@@ -296,14 +296,14 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $collections = $event->getParameters()['collections'];
+        $collections = $event->parameters['collections'];
 
         self::assertArrayHasKey('collection1', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection1']);
         self::assertSame($collection1, $collections['collection1']->collection);
         self::assertSame(0, $collections['collection1']->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection1']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pagers']['collection1']);
     }
 
     public function testOnRenderViewWithNoBlockView(): void
@@ -312,7 +312,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 
     public function testOnRenderViewWithWrongContext(): void
@@ -323,6 +323,6 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 }

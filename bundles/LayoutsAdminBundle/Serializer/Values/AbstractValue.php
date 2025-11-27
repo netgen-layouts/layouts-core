@@ -9,23 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class AbstractValue
 {
     public function __construct(
-        private mixed $value,
-        private int $statusCode = Response::HTTP_OK,
+        /**
+         * Returns the serialized value.
+         */
+        private(set) mixed $value,
+        /**
+         * Returns the status code of the response that should be used.
+         */
+        private(set) int $statusCode = Response::HTTP_OK,
     ) {}
-
-    /**
-     * Returns the serialized value.
-     */
-    public function getValue(): mixed
-    {
-        return $this->value;
-    }
-
-    /**
-     * Returns the status code of the response that should be used.
-     */
-    public function getStatusCode(): int
-    {
-        return $this->statusCode;
-    }
 }

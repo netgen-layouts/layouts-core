@@ -54,7 +54,7 @@ final class CacheEnabledListenerTest extends TestCase
             [
                 'http_cache_enabled' => false,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -70,7 +70,7 @@ final class CacheEnabledListenerTest extends TestCase
             [
                 'http_cache_enabled' => false,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -88,7 +88,7 @@ final class CacheEnabledListenerTest extends TestCase
             [
                 'http_cache_enabled' => true,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -98,7 +98,7 @@ final class CacheEnabledListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 
     public function testOnBuildViewWithWrongContext(): void
@@ -109,6 +109,6 @@ final class CacheEnabledListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 }

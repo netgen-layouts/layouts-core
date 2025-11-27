@@ -37,7 +37,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
-        $layout = $data->getValue();
+        $layout = $data->value;
         $layoutType = $layout->layoutType;
 
         $availableLocales = [];
@@ -82,7 +82,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             return false;
         }
 
-        return $data->getValue() instanceof Layout;
+        return $data->value instanceof Layout;
     }
 
     /**

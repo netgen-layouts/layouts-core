@@ -91,9 +91,9 @@ final class ImportCommand extends Command
                 $this->io->note(
                     sprintf(
                         'Skipped importing %1$s #%2$d with UUID %3$s',
-                        $result->getEntityType(),
+                        $result->entityType,
                         $index + 1,
-                        $result->getEntityId()->toString(),
+                        $result->entityId->toString(),
                     ),
                 );
 
@@ -104,9 +104,9 @@ final class ImportCommand extends Command
                 $this->io->note(
                     sprintf(
                         'Imported %1$s #%2$d into %1$s UUID %3$s',
-                        $result->getEntityType(),
+                        $result->entityType,
                         $index + 1,
-                        $result->getEntityId()->toString(),
+                        $result->entityId->toString(),
                     ),
                 );
 
@@ -114,8 +114,8 @@ final class ImportCommand extends Command
             }
 
             if ($result instanceof ErrorResult) {
-                $this->io->error(sprintf('Could not import %s #%d with UUID %s', $result->getEntityType(), $index + 1, $result->getEntityId()->toString()));
-                $this->renderError($result->getError());
+                $this->io->error(sprintf('Could not import %s #%d with UUID %s', $result->entityType, $index + 1, $result->entityId->toString()));
+                $this->renderError($result->error);
                 $this->io->newLine();
 
                 ++$errorCount;

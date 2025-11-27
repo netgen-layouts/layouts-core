@@ -23,10 +23,10 @@ final class LinkValueTest extends TestCase
             ],
         );
 
-        self::assertSame(LinkType::Email, $linkValue->getLinkType());
-        self::assertSame('info@netgen.io', $linkValue->getLink());
-        self::assertSame('?suffix', $linkValue->getLinkSuffix());
-        self::assertTrue($linkValue->getNewWindow());
+        self::assertSame(LinkType::Email, $linkValue->linkType);
+        self::assertSame('info@netgen.io', $linkValue->link);
+        self::assertSame('?suffix', $linkValue->linkSuffix);
+        self::assertTrue($linkValue->newWindow);
     }
 
     public function testToString(): void

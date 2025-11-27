@@ -35,7 +35,7 @@ final class LinkValidator extends ConstraintValidator
 
         $validator = $this->context->getValidator()->inContext($this->context);
 
-        $linkType = $value->getLinkType();
+        $linkType = $value->linkType;
 
         $validator->atPath('linkType')->validate(
             $linkType,
@@ -76,10 +76,10 @@ final class LinkValidator extends ConstraintValidator
             };
         }
 
-        $validator->atPath('link')->validate($value->getLink(), $linkConstraints);
+        $validator->atPath('link')->validate($value->link, $linkConstraints);
 
         $validator->atPath('linkSuffix')->validate(
-            $value->getLinkSuffix(),
+            $value->linkSuffix,
             [
                 new Constraints\NotNull(),
                 new Constraints\Type(type: 'string'),
@@ -87,7 +87,7 @@ final class LinkValidator extends ConstraintValidator
         );
 
         $validator->atPath('newWindow')->validate(
-            $value->getNewWindow(),
+            $value->newWindow,
             [
                 new Constraints\NotNull(),
                 new Constraints\Type(type: 'bool'),

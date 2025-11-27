@@ -14,7 +14,7 @@ final class ParameterNormalizer implements NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): ArrayObject|array|string|int|float|bool|null
     {
         /** @var \Netgen\Layouts\Parameters\Parameter $parameter */
-        $parameter = $data->getValue();
+        $parameter = $data->value;
         $parameterDefinition = $parameter->getParameterDefinition();
 
         return $parameterDefinition->getType()->toHash($parameterDefinition, $parameter->getValue());
@@ -26,7 +26,7 @@ final class ParameterNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof Parameter;
+        return $data->value instanceof Parameter;
     }
 
     /**

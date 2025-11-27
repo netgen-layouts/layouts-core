@@ -11,17 +11,17 @@ interface ResultInterface
     /**
      * Returns the entity type which was being imported.
      */
-    public function getEntityType(): string;
+    public string $entityType { get; }
 
     /**
      * Returns the data which was being imported.
      *
-     * @return array<string, mixed>
+     * @var array<string, mixed>
      */
-    public function getData(): array;
+    public array $data { get; }
 
     /**
      * Returns the UUID of the entity which was imported.
      */
-    public function getEntityId(): UuidInterface;
+    public UuidInterface $entityId { get; }
 }

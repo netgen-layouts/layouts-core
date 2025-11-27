@@ -32,23 +32,16 @@ final class AdminMatchEventTest extends TestCase
 
     public function testGetRequest(): void
     {
-        self::assertSame($this->request, $this->event->getRequest());
+        self::assertSame($this->request, $this->event->request);
     }
 
     public function testGetRequestType(): void
     {
-        self::assertSame($this->requestType, $this->event->getRequestType());
+        self::assertSame($this->requestType, $this->event->requestType);
     }
 
     public function testGetPageLayoutTemplate(): void
     {
-        self::assertNull($this->event->getPageLayoutTemplate());
-    }
-
-    public function testSetPageLayoutTemplate(): void
-    {
-        $this->event->setPageLayoutTemplate('template.html.twig');
-
-        self::assertSame('template.html.twig', $this->event->getPageLayoutTemplate());
+        self::assertNull($this->event->pageLayoutTemplate);
     }
 }

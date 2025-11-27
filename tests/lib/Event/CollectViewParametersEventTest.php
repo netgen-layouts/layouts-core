@@ -26,17 +26,17 @@ final class CollectViewParametersEventTest extends TestCase
 
     public function testGetParameters(): void
     {
-        self::assertSame([], $this->event->getParameters());
+        self::assertSame([], $this->event->parameters);
     }
 
     public function testAddParameter(): void
     {
         $this->event->addParameter('param', 'value');
-        self::assertSame(['param' => 'value'], $this->event->getParameters());
+        self::assertSame(['param' => 'value'], $this->event->parameters);
     }
 
     public function testGetView(): void
     {
-        self::assertSame($this->view, $this->event->getView());
+        self::assertSame($this->view, $this->event->view);
     }
 }

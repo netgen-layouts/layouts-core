@@ -12,22 +12,7 @@ final class Value
 
     public string $a;
 
-    protected string $b;
+    public protected(set) string $b;
 
-    private string $c;
-
-    public function getA(): string
-    {
-        return $this->a;
-    }
-
-    public function getB(): string
-    {
-        return $this->b;
-    }
-
-    public function getC(): string
-    {
-        return $this->c;
-    }
+    public private(set) string $c;
 }

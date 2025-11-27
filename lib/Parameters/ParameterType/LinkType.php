@@ -77,10 +77,10 @@ final class LinkType extends ParameterType
         }
 
         return [
-            'link_type' => $value->getLinkType()->value ?? '',
-            'link' => $value->getLink(),
-            'link_suffix' => $value->getLinkSuffix(),
-            'new_window' => $value->getNewWindow(),
+            'link_type' => $value->linkType->value ?? '',
+            'link' => $value->link,
+            'link_suffix' => $value->linkSuffix,
+            'new_window' => $value->newWindow,
         ];
     }
 
@@ -109,19 +109,19 @@ final class LinkType extends ParameterType
             return null;
         }
 
-        $valueLink = $value->getLink();
+        $valueLink = $value->link;
 
         // If the link is internal, we need to convert the format
         // from value_type://value to value_type://remote_id
-        if ($value->getLinkType() === LinkTypeEnum::Internal) {
+        if ($value->linkType === LinkTypeEnum::Internal) {
             $valueLink = $this->remoteIdConverter->convertToRemoteId($valueLink);
         }
 
         return [
-            'link_type' => $value->getLinkType()->value ?? '',
+            'link_type' => $value->linkType->value ?? '',
             'link' => $valueLink,
-            'link_suffix' => $value->getLinkSuffix(),
-            'new_window' => $value->getNewWindow(),
+            'link_suffix' => $value->linkSuffix,
+            'new_window' => $value->newWindow,
         ];
     }
 
@@ -155,15 +155,15 @@ final class LinkType extends ParameterType
             return true;
         }
 
-        if ($value->getLinkType() === null) {
+        if ($value->linkType === null) {
             return true;
         }
 
-        if (in_array($value->getLinkType(), [LinkTypeEnum::Url, LinkTypeEnum::RelativeUrl], true)) {
-            return $value->getLink() === '' && $value->getLinkSuffix() === '';
+        if (in_array($value->linkType, [LinkTypeEnum::Url, LinkTypeEnum::RelativeUrl], true)) {
+            return $value->link === '' && $value->linkSuffix === '';
         }
 
-        return $value->getLink() === '';
+        return $value->link === '';
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array

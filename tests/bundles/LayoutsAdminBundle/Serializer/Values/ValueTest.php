@@ -26,11 +26,11 @@ final class ValueTest extends TestCase
 
     public function testGetValue(): void
     {
-        self::assertSame($this->innerValue, $this->value->getValue());
+        self::assertSame($this->innerValue, $this->value->value);
     }
 
     public function testGetStatusCode(): void
     {
-        self::assertSame(Response::HTTP_ACCEPTED, $this->value->getStatusCode());
+        self::assertSame(Response::HTTP_ACCEPTED, $this->value->statusCode);
     }
 }

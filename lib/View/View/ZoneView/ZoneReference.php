@@ -9,18 +9,12 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 
 final class ZoneReference
 {
+    public Zone $zone {
+        get => $this->layout->getZone($this->zoneIdentifier);
+    }
+
     public function __construct(
-        private Layout $layout,
+        private(set) Layout $layout,
         private string $zoneIdentifier,
     ) {}
-
-    public function getLayout(): Layout
-    {
-        return $this->layout;
-    }
-
-    public function getZone(): Zone
-    {
-        return $this->layout->getZone($this->zoneIdentifier);
-    }
 }

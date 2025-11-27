@@ -19,7 +19,7 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup $blockTypeGroup */
-        $blockTypeGroup = $data->getValue();
+        $blockTypeGroup = $data->value;
 
         return [
             'identifier' => $blockTypeGroup->identifier,
@@ -38,7 +38,7 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
             return false;
         }
 
-        return $data->getValue() instanceof BlockTypeGroup;
+        return $data->value instanceof BlockTypeGroup;
     }
 
     /**

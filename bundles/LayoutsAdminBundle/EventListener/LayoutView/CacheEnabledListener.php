@@ -37,7 +37,7 @@ final class CacheEnabledListener implements EventSubscriberInterface
      */
     public function onBuildView(CollectViewParametersEvent $event): void
     {
-        $view = $event->getView();
+        $view = $event->view;
         if (!$view instanceof LayoutViewInterface && !$view instanceof RuleViewInterface) {
             return;
         }

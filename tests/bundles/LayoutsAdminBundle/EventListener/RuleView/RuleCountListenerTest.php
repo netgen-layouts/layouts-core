@@ -62,7 +62,7 @@ final class RuleCountListenerTest extends TestCase
             [
                 'rule_count' => 3,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -82,7 +82,7 @@ final class RuleCountListenerTest extends TestCase
             [
                 'rule_count' => 0,
             ],
-            $event->getParameters(),
+            $event->parameters,
         );
     }
 
@@ -92,6 +92,6 @@ final class RuleCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 }

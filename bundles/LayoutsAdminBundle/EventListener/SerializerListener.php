@@ -41,7 +41,7 @@ final class SerializerListener implements EventSubscriberInterface
             $context['disable_html'] = true;
         }
 
-        $response = new JsonResponse(null, $value->getStatusCode());
+        $response = new JsonResponse(null, $value->statusCode);
         $response->setContent(
             $this->serializer->serialize($value, 'json', $context),
         );

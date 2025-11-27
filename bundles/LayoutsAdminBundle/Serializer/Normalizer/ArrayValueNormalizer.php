@@ -18,7 +18,7 @@ final class ArrayValueNormalizer implements NormalizerInterface, NormalizerAware
      */
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
-        return (array) $this->normalizer->normalize($data->getValue(), $format, $context);
+        return (array) $this->normalizer->normalize($data->value, $format, $context);
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool

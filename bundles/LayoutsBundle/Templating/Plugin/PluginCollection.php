@@ -12,30 +12,20 @@ final class PluginCollection
      * @param \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[] $plugins
      */
     public function __construct(
-        private string $pluginName,
-        private array $plugins,
+        /**
+         * Returns the plugin name for this collection.
+         */
+        private(set) string $pluginName,
+        /**
+         * Returns all the plugins registered in the collection.
+         *
+         * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[]
+         */
+        private(set) array $plugins,
     ) {
         $this->plugins = array_filter(
             $this->plugins,
             static fn (PluginInterface $plugin): bool => true,
         );
-    }
-
-    /**
-     * Returns the plugin name for this collection.
-     */
-    public function getPluginName(): string
-    {
-        return $this->pluginName;
-    }
-
-    /**
-     * Returns all the plugins registered in the collection.
-     *
-     * @return \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[]
-     */
-    public function getPlugins(): array
-    {
-        return $this->plugins;
     }
 }

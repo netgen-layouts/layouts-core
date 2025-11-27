@@ -28,8 +28,8 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
         /** @var array<string, mixed> $normalizedData */
         $normalizedData = $this->normalizer->normalize(
             new Value(
-                $data->getValue(),
-                $data->getStatusCode(),
+                $data->value,
+                $data->statusCode,
             ),
             $format,
             $context,
@@ -37,7 +37,7 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
 
         if (($context['disable_html'] ?? false) !== true) {
             $normalizedData['html'] = $this->viewRenderer->renderValue(
-                $data->getValue(),
+                $data->value,
                 ViewInterface::CONTEXT_APP,
             );
         }

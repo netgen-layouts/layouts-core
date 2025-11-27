@@ -78,8 +78,8 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        self::assertArrayHasKey('twig_content', $event->getParameters());
-        self::assertSame('rendered twig block', $event->getParameters()['twig_content']);
+        self::assertArrayHasKey('twig_content', $event->parameters);
+        self::assertSame('rendered twig block', $event->parameters['twig_content']);
     }
 
     public function testOnRenderViewWithBlockOnSecondPlace(): void
@@ -124,8 +124,8 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        self::assertArrayHasKey('twig_content', $event->getParameters());
-        self::assertSame('rendered twig block', $event->getParameters()['twig_content']);
+        self::assertArrayHasKey('twig_content', $event->parameters);
+        self::assertSame('rendered twig block', $event->parameters['twig_content']);
     }
 
     public function testOnRenderViewWithNoBlocks(): void
@@ -158,8 +158,8 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        self::assertArrayHasKey('twig_content', $event->getParameters());
-        self::assertSame('', $event->getParameters()['twig_content']);
+        self::assertArrayHasKey('twig_content', $event->parameters);
+        self::assertSame('', $event->parameters['twig_content']);
     }
 
     public function testOnRenderViewWithNoTwigBlock(): void
@@ -175,7 +175,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 
     public function testOnRenderViewInvalidTwigTemplate(): void
@@ -193,8 +193,8 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        self::assertArrayHasKey('twig_content', $event->getParameters());
-        self::assertSame('', $event->getParameters()['twig_content']);
+        self::assertArrayHasKey('twig_content', $event->parameters);
+        self::assertSame('', $event->parameters['twig_content']);
     }
 
     public function testOnRenderViewWithNoTwigTemplate(): void
@@ -211,8 +211,8 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);
 
-        self::assertArrayHasKey('twig_content', $event->getParameters());
-        self::assertSame('', $event->getParameters()['twig_content']);
+        self::assertArrayHasKey('twig_content', $event->parameters);
+        self::assertSame('', $event->parameters['twig_content']);
     }
 
     public function testOnRenderViewWithNoBlockView(): void
@@ -221,6 +221,6 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->getParameters());
+        self::assertSame([], $event->parameters);
     }
 }

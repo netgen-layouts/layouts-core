@@ -22,11 +22,11 @@ final class ViewRenderer implements ViewRendererInterface
     {
         $event = new CollectViewParametersEvent($view);
         $this->eventDispatcher->dispatch($event);
-        $view->addParameters($event->getParameters());
+        $view->addParameters($event->parameters);
 
         $event = new CollectViewParametersEvent($view);
         $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, $view::getIdentifier()));
-        $view->addParameters($event->getParameters());
+        $view->addParameters($event->parameters);
 
         $viewTemplate = $view->getTemplate();
         if ($viewTemplate === null) {

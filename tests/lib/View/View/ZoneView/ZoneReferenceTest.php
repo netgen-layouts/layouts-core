@@ -29,11 +29,11 @@ final class ZoneReferenceTest extends TestCase
 
     public function testGetLayout(): void
     {
-        self::assertSame($this->layout, $this->zoneReference->getLayout());
+        self::assertSame($this->layout, $this->zoneReference->layout);
     }
 
     public function testGetZone(): void
     {
-        self::assertSame($this->zone, $this->zoneReference->getZone());
+        self::assertSame($this->zone, $this->zoneReference->zone);
     }
 }

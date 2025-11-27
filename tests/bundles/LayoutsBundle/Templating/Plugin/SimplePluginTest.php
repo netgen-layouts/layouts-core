@@ -20,11 +20,11 @@ final class SimplePluginTest extends TestCase
 
     public function testGetTemplateName(): void
     {
-        self::assertSame('template.html.twig', $this->plugin->getTemplateName());
+        self::assertSame('template.html.twig', $this->plugin->templateName);
     }
 
     public function testGetParameters(): void
     {
-        self::assertSame(['param' => 'value'], $this->plugin->getParameters());
+        self::assertSame(['param' => 'value'], $this->plugin->parameters);
     }
 }

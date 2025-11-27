@@ -34,7 +34,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\Result $result */
-        $result = $data->getValue();
+        $result = $data->value;
 
         $mainItem = $result->subItem instanceof CmsItemInterface ? $result->subItem : $result->item;
         $overrideItem = $result->subItem instanceof CmsItemInterface ? $result->item : null;
@@ -63,7 +63,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
             return false;
         }
 
-        return $data->getValue() instanceof Result;
+        return $data->value instanceof Result;
     }
 
     /**

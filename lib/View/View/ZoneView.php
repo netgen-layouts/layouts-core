@@ -14,8 +14,8 @@ final class ZoneView extends View implements ZoneViewInterface
 {
     public function __construct(ZoneReference $zoneReference, BlockList $blocks)
     {
-        $this->parameters['layout'] = $zoneReference->getLayout();
-        $this->parameters['zone'] = $zoneReference->getZone();
+        $this->parameters['layout'] = $zoneReference->layout;
+        $this->parameters['zone'] = $zoneReference->zone;
         $this->parameters['blocks'] = $blocks;
     }
 

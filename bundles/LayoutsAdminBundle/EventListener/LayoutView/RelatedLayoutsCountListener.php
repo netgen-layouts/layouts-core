@@ -30,7 +30,7 @@ final class RelatedLayoutsCountListener implements EventSubscriberInterface
      */
     public function onBuildView(CollectViewParametersEvent $event): void
     {
-        $view = $event->getView();
+        $view = $event->view;
         if (!$view instanceof LayoutViewInterface) {
             return;
         }

@@ -23,12 +23,12 @@ final class ValueConverter implements ValueConverterInterface
 
     public function getId(object $object): int
     {
-        return $object->getId();
+        return $object->id;
     }
 
     public function getRemoteId(object $object): string
     {
-        return $object->getRemoteId();
+        return $object->remoteId;
     }
 
     public function getName(object $object): string
@@ -38,7 +38,7 @@ final class ValueConverter implements ValueConverterInterface
 
     public function getIsVisible(object $object): bool
     {
-        return $object->isVisible();
+        return $object->isVisible;
     }
 
     public function getObject(object $object): Value
