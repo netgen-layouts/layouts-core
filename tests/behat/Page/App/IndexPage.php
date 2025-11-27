@@ -37,23 +37,23 @@ final class IndexPage extends SymfonyPage
             throw new PageException('Expected to have a form for creating a layout but none found.');
         }
 
-        if (!$this->getDocument()->hasField('create[shared]')) {
-            throw new PageException('Expected to have a field named "create[shared]" but none found.');
+        if (!$this->getDocument()->hasField('create[isShared]')) {
+            throw new PageException('Expected to have a field named "create[isShared]" but none found.');
         }
 
-        $sharedLayoutField = $this->getDocument()->findField('create[shared]');
+        $sharedLayoutField = $this->getDocument()->findField('create[isShared]');
         if (!$sharedLayoutField instanceof NodeElement) {
-            throw new PageException('Expected to have a field named "create[shared]", but found none.');
+            throw new PageException('Expected to have a field named "create[isShared]", but found none.');
         }
 
         $sharedLayoutValue = $sharedLayoutField->getValue();
 
         if ($shared && $sharedLayoutValue !== '1') {
-            throw new PageException(sprintf('Expected to have a field named "create[shared]" with value "1", but found value "%s".', var_export($sharedLayoutValue, true)));
+            throw new PageException(sprintf('Expected to have a field named "create[isShared]" with value "1", but found value "%s".', var_export($sharedLayoutValue, true)));
         }
 
         if (!$shared && $sharedLayoutValue === '1') {
-            throw new PageException('Expected to have a field named "create[shared]" with value different from "1", but found value "1".');
+            throw new PageException('Expected to have a field named "create[isShared]" with value different from "1", but found value "1".');
         }
     }
 
