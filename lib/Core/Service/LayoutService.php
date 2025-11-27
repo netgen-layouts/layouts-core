@@ -146,7 +146,7 @@ final class LayoutService implements LayoutServiceInterface
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for published shared layouts.');
         }
 
-        if (!$sharedLayout->shared) {
+        if (!$sharedLayout->isShared) {
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for shared layouts.');
         }
 
@@ -166,7 +166,7 @@ final class LayoutService implements LayoutServiceInterface
             throw new BadStateException('sharedLayout', 'Count of related layouts can only be loaded for published shared layouts.');
         }
 
-        if (!$sharedLayout->shared) {
+        if (!$sharedLayout->isShared) {
             throw new BadStateException('sharedLayout', 'Count of related layouts can only be loaded for shared layouts.');
         }
 
@@ -201,7 +201,7 @@ final class LayoutService implements LayoutServiceInterface
         $persistenceLinkedLayout = $this->layoutHandler->loadLayout($linkedZone->layoutId, PersistenceStatus::Published);
         $persistenceLinkedZone = $this->layoutHandler->loadZone($linkedZone->layoutId, PersistenceStatus::Published, $linkedZone->identifier);
 
-        if ($persistenceLayout->shared) {
+        if ($persistenceLayout->isShared) {
             throw new BadStateException('zone', 'Zone cannot be in the shared layout.');
         }
 
@@ -209,7 +209,7 @@ final class LayoutService implements LayoutServiceInterface
             throw new BadStateException('linkedZone', 'Linked zone needs to be in a different layout.');
         }
 
-        if (!$persistenceLinkedLayout->shared) {
+        if (!$persistenceLinkedLayout->isShared) {
             throw new BadStateException('linkedZone', 'Linked zone is not in the shared layout.');
         }
 
@@ -269,7 +269,7 @@ final class LayoutService implements LayoutServiceInterface
                             'name' => $layoutCreateStruct->name,
                             'description' => $layoutCreateStruct->description,
                             'status' => PersistenceStatus::Draft,
-                            'shared' => $layoutCreateStruct->shared,
+                            'isShared' => $layoutCreateStruct->isShared,
                             'mainLocale' => $layoutCreateStruct->mainLocale,
                         ],
                     ),

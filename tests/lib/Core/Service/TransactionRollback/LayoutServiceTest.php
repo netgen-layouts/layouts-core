@@ -30,8 +30,8 @@ final class LayoutServiceTest extends TestCase
         $this->layoutHandler
             ->method('loadLayout')
             ->willReturnOnConsecutiveCalls(
-                PersistenceLayout::fromArray(['shared' => false]),
-                PersistenceLayout::fromArray(['shared' => true]),
+                PersistenceLayout::fromArray(['isShared' => false]),
+                PersistenceLayout::fromArray(['isShared' => true]),
             );
 
         $this->layoutHandler

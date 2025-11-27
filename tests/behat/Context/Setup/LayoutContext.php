@@ -31,12 +31,12 @@ final class LayoutContext implements Context
         $this->createLayout($layoutName, null, 'en', true);
     }
 
-    private function createLayout(string $layoutName, ?LayoutTypeInterface $layoutType = null, string $mainLocale = 'en', bool $shared = false): void
+    private function createLayout(string $layoutName, ?LayoutTypeInterface $layoutType = null, string $mainLocale = 'en', bool $isShared = false): void
     {
         $layoutType ??= $this->getFirstLayoutType();
 
         $createStruct = $this->layoutService->newLayoutCreateStruct($layoutType, $layoutName, $mainLocale);
-        $createStruct->shared = $shared;
+        $createStruct->isShared = $isShared;
 
         $layoutDraft = $this->layoutService->createLayout($createStruct);
 

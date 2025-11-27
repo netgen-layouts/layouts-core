@@ -37,7 +37,7 @@ final class LayoutCreateStruct
     /**
      * Specifies if this layout will be shared or not.
      */
-    public bool $shared = false;
+    public bool $isShared = false;
 
     /**
      * Specifies the main locale of the layout.

@@ -73,7 +73,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         );
 
         $createStruct->description = $data['description'];
-        $createStruct->shared = $data['is_shared'];
+        $createStruct->isShared = $data['is_shared'];
 
         if ($keepUuid) {
             $createStruct->uuid = Uuid::fromString($data['id']);

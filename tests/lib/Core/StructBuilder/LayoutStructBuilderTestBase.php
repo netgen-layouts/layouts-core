@@ -36,10 +36,10 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         self::assertSame(
             [
                 'description' => '',
+                'isShared' => false,
                 'layoutType' => $layoutType,
                 'mainLocale' => 'en',
                 'name' => 'New layout',
-                'shared' => false,
                 'uuid' => null,
             ],
             $this->exportObject($struct),

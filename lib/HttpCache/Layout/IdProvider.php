@@ -32,7 +32,7 @@ final class IdProvider implements IdProviderInterface
             return $layoutIds;
         }
 
-        if (!$layout->shared) {
+        if (!$layout->isShared) {
             return $layoutIds;
         }
 

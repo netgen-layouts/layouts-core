@@ -58,7 +58,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns if the layout is shared.
      */
-    public private(set) bool $shared;
+    public private(set) bool $isShared;
 
     /**
      * Returns the main locale of the layout.

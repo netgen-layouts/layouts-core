@@ -83,7 +83,7 @@ final class LayoutMapper
             'created' => DateTimeUtils::create($layout->created),
             'modified' => DateTimeUtils::create($layout->modified),
             'status' => Status::from($layout->status->value),
-            'shared' => $layout->shared,
+            'isShared' => $layout->isShared,
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
             'zones' => ZoneList::fromCallable(

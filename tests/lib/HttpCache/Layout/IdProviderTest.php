@@ -40,7 +40,7 @@ final class IdProviderTest extends TestCase
                 Layout::fromArray(
                     [
                         'id' => $uuid,
-                        'shared' => false,
+                        'isShared' => false,
                     ],
                 ),
             );
@@ -74,7 +74,7 @@ final class IdProviderTest extends TestCase
         $sharedLayout = Layout::fromArray(
             [
                 'id' => $uuid1,
-                'shared' => true,
+                'isShared' => true,
             ],
         );
 

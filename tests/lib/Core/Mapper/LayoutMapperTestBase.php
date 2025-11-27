@@ -106,7 +106,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'shared' => true,
+                'isShared' => true,
             ],
         );
 
@@ -123,7 +123,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertSame(1_447_065_813, $layout->created->getTimestamp());
         self::assertSame(1_447_065_813, $layout->modified->getTimestamp());
         self::assertTrue($layout->isPublished);
-        self::assertTrue($layout->shared);
+        self::assertTrue($layout->isShared);
         self::assertCount(4, $layout->zones);
     }
 
@@ -141,7 +141,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-                'shared' => true,
+                'isShared' => true,
             ],
         );
 
@@ -155,7 +155,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertSame(1_447_065_813, $layout->created->getTimestamp());
         self::assertSame(1_447_065_813, $layout->modified->getTimestamp());
         self::assertTrue($layout->isPublished);
-        self::assertTrue($layout->shared);
+        self::assertTrue($layout->isShared);
         self::assertCount(4, $layout->zones);
     }
 }

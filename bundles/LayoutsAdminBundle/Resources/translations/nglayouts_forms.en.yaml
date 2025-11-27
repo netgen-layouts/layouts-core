@@ -2,7 +2,7 @@ layout.type: 'Layout type'
 layout.name: 'Name'
 layout.main_locale: 'Main translation'
 layout.description: 'Description'
-layout.shared: 'Shared'
+layout.is_shared: 'Shared'
 
 block.view_type: 'View type'
 block.item_view_type: 'Item view type'

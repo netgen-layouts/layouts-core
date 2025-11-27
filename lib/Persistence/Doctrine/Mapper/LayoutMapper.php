@@ -38,7 +38,7 @@ final class LayoutMapper
                 'created' => (int) $dataItem['created'],
                 'modified' => (int) $dataItem['modified'],
                 'status' => Status::from((int) $dataItem['status']),
-                'shared' => (bool) $dataItem['shared'],
+                'isShared' => (bool) $dataItem['shared'],
                 'mainLocale' => $dataItem['main_locale'],
                 'availableLocales' => [],
             ];

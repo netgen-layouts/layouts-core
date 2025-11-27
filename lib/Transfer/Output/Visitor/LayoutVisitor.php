@@ -41,7 +41,7 @@ final class LayoutVisitor implements VisitorInterface
             'available_locales' => $value->availableLocales,
             'creation_date' => $value->created->getTimestamp(),
             'modification_date' => $value->modified->getTimestamp(),
-            'is_shared' => $value->shared,
+            'is_shared' => $value->isShared,
             'zones' => [...$this->visitZones($value, $outputVisitor)],
         ];
     }

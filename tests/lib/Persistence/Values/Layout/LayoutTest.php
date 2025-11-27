@@ -21,7 +21,7 @@ final class LayoutTest extends TestCase
                 'type' => '4_zones_a',
                 'name' => 'My layout',
                 'description' => 'My description',
-                'shared' => true,
+                'isShared' => true,
                 'created' => 123,
                 'modified' => 456,
                 'status' => Status::Published,
@@ -33,7 +33,7 @@ final class LayoutTest extends TestCase
         self::assertSame('4_zones_a', $layout->type);
         self::assertSame('My layout', $layout->name);
         self::assertSame('My description', $layout->description);
-        self::assertTrue($layout->shared);
+        self::assertTrue($layout->isShared);
         self::assertSame(123, $layout->created);
         self::assertSame(456, $layout->modified);
         self::assertSame(Status::Published, $layout->status);

@@ -27,6 +27,6 @@ final class Shared implements MatcherInterface
             return true;
         }
 
-        return $view->getLayout()->shared === array_first($config);
+        return $view->getLayout()->isShared === array_first($config);
     }
 }

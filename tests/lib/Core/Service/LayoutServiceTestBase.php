@@ -73,7 +73,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(3, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertFalse($layout->shared);
+            self::assertFalse($layout->isShared);
             self::assertTrue($layout->isPublished);
         }
     }
@@ -85,7 +85,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(5, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertFalse($layout->shared);
+            self::assertFalse($layout->isShared);
 
             if (!$layout->isPublished) {
                 try {
@@ -115,7 +115,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(2, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertTrue($layout->shared);
+            self::assertTrue($layout->isShared);
             self::assertTrue($layout->isPublished);
         }
     }
@@ -149,7 +149,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(1, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertFalse($layout->shared);
+            self::assertFalse($layout->isShared);
             self::assertTrue($layout->isPublished);
         }
     }
@@ -1111,10 +1111,10 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertSame(
             [
                 'description' => '',
+                'isShared' => false,
                 'layoutType' => $layoutType,
                 'mainLocale' => 'en',
                 'name' => 'New layout',
-                'shared' => false,
                 'uuid' => null,
             ],
             $this->exportObject($struct),

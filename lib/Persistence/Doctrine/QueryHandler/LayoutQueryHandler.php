@@ -372,7 +372,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('description', $layout->description, Types::STRING)
             ->setParameter('created', $layout->created, Types::INTEGER)
             ->setParameter('modified', $layout->modified, Types::INTEGER)
-            ->setParameter('shared', $layout->shared, Types::BOOLEAN)
+            ->setParameter('shared', $layout->isShared, Types::BOOLEAN)
             ->setParameter('main_locale', $layout->mainLocale, Types::STRING);
 
         $query->executeStatement();
@@ -456,7 +456,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('description', $layout->description, Types::STRING)
             ->setParameter('created', $layout->created, Types::INTEGER)
             ->setParameter('modified', $layout->modified, Types::INTEGER)
-            ->setParameter('shared', $layout->shared, Types::BOOLEAN)
+            ->setParameter('shared', $layout->isShared, Types::BOOLEAN)
             ->setParameter('main_locale', $layout->mainLocale, Types::STRING);
 
         $this->applyStatusCondition($query, $layout->status);

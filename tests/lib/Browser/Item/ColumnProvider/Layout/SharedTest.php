@@ -26,7 +26,7 @@ final class SharedTest extends TestCase
         $item = new Item(
             Layout::fromArray(
                 [
-                    'shared' => true,
+                    'isShared' => true,
                 ],
             ),
         );

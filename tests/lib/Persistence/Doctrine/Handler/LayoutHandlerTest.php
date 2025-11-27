@@ -67,10 +67,10 @@ final class LayoutHandlerTest extends TestCase
                 'created' => 1_447_065_813,
                 'description' => 'My layout description',
                 'id' => 1,
+                'isShared' => false,
                 'mainLocale' => 'en',
                 'modified' => 1_447_065_813,
                 'name' => 'My layout',
-                'shared' => false,
                 'status' => Status::Published,
                 'type' => '4_zones_a',
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -126,10 +126,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My layout description',
                     'id' => 1,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_a',
                     'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -139,10 +139,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My other layout description',
                     'id' => 2,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My other layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
@@ -152,10 +152,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My sixth layout description',
                     'id' => 6,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My sixth layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '7900306c-0351-5f0a-9b33-5d4f5a1f3943',
@@ -178,10 +178,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My fourth layout description',
                     'id' => 4,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My fourth layout',
-                    'shared' => false,
                     'status' => Status::Draft,
                     'type' => '4_zones_b',
                     'uuid' => '8626a1ca-6413-5f54-acef-de7db06272ce',
@@ -191,10 +191,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My layout description',
                     'id' => 1,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_a',
                     'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -204,10 +204,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My other layout description',
                     'id' => 2,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My other layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
@@ -217,10 +217,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My seventh layout description',
                     'id' => 7,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My seventh layout',
-                    'shared' => false,
                     'status' => Status::Draft,
                     'type' => '4_zones_b',
                     'uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503',
@@ -230,10 +230,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My sixth layout description',
                     'id' => 6,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My sixth layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '7900306c-0351-5f0a-9b33-5d4f5a1f3943',
@@ -256,10 +256,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My layout description',
                     'id' => 1,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_a',
                     'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -269,10 +269,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My other layout description',
                     'id' => 2,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My other layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
@@ -295,10 +295,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My fourth layout description',
                     'id' => 4,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My fourth layout',
-                    'shared' => false,
                     'status' => Status::Draft,
                     'type' => '4_zones_b',
                     'uuid' => '8626a1ca-6413-5f54-acef-de7db06272ce',
@@ -308,10 +308,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My layout description',
                     'id' => 1,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_a',
                     'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -321,10 +321,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My other layout description',
                     'id' => 2,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My other layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
@@ -357,10 +357,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My fifth layout description',
                     'id' => 5,
+                    'isShared' => true,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My fifth layout',
-                    'shared' => true,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '399ad9ac-777a-50ba-945a-06e9f57add12',
@@ -370,10 +370,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My third layout description',
                     'id' => 3,
+                    'isShared' => true,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My third layout',
-                    'shared' => true,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
@@ -401,10 +401,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My fifth layout description',
                     'id' => 5,
+                    'isShared' => true,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My fifth layout',
-                    'shared' => true,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '399ad9ac-777a-50ba-945a-06e9f57add12',
@@ -414,10 +414,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My layout description',
                     'id' => 1,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_a',
                     'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -427,10 +427,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My other layout description',
                     'id' => 2,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My other layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
@@ -440,10 +440,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My sixth layout description',
                     'id' => 6,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My sixth layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '7900306c-0351-5f0a-9b33-5d4f5a1f3943',
@@ -453,10 +453,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My third layout description',
                     'id' => 3,
+                    'isShared' => true,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My third layout',
-                    'shared' => true,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
@@ -486,10 +486,10 @@ final class LayoutHandlerTest extends TestCase
                     'created' => 1_447_065_813,
                     'description' => 'My other layout description',
                     'id' => 2,
+                    'isShared' => false,
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My other layout',
-                    'shared' => false,
                     'status' => Status::Published,
                     'type' => '4_zones_b',
                     'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
@@ -656,7 +656,7 @@ final class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->description = 'New description';
-        $layoutCreateStruct->shared = true;
+        $layoutCreateStruct->isShared = true;
         $layoutCreateStruct->status = Status::Draft;
         $layoutCreateStruct->mainLocale = 'en';
 
@@ -671,7 +671,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('New layout', $createdLayout->name);
         self::assertSame('New description', $createdLayout->description);
         self::assertSame(Status::Draft, $createdLayout->status);
-        self::assertTrue($createdLayout->shared);
+        self::assertTrue($createdLayout->isShared);
         self::assertSame('en', $createdLayout->mainLocale);
         self::assertGreaterThan(0, $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->modified);
@@ -684,7 +684,7 @@ final class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->description = 'New description';
-        $layoutCreateStruct->shared = true;
+        $layoutCreateStruct->isShared = true;
         $layoutCreateStruct->status = Status::Draft;
         $layoutCreateStruct->mainLocale = 'en';
 
@@ -696,7 +696,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('New layout', $createdLayout->name);
         self::assertSame('New description', $createdLayout->description);
         self::assertSame(Status::Draft, $createdLayout->status);
-        self::assertTrue($createdLayout->shared);
+        self::assertTrue($createdLayout->isShared);
         self::assertSame('en', $createdLayout->mainLocale);
         self::assertGreaterThan(0, $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->modified);
@@ -712,7 +712,7 @@ final class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->description = 'New description';
-        $layoutCreateStruct->shared = true;
+        $layoutCreateStruct->isShared = true;
         $layoutCreateStruct->status = Status::Draft;
         $layoutCreateStruct->mainLocale = 'en';
 
@@ -933,7 +933,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('New name', $copiedLayout->name);
         self::assertSame('New description', $copiedLayout->description);
         self::assertSame(Status::Published, $copiedLayout->status);
-        self::assertFalse($copiedLayout->shared);
+        self::assertFalse($copiedLayout->isShared);
         self::assertSame('en', $copiedLayout->mainLocale);
         self::assertSame(['en', 'hr'], $copiedLayout->availableLocales);
 
@@ -1156,7 +1156,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('My layout', $updatedLayout->name);
         self::assertSame('My layout description', $updatedLayout->description);
         self::assertSame(Status::Draft, $updatedLayout->status);
-        self::assertFalse($updatedLayout->shared);
+        self::assertFalse($updatedLayout->isShared);
 
         self::assertSame($originalLayout->created, $updatedLayout->created);
         self::assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
@@ -1352,7 +1352,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('My layout', $copiedLayout->name);
         self::assertSame('My layout description', $copiedLayout->description);
         self::assertSame(Status::Archived, $copiedLayout->status);
-        self::assertFalse($copiedLayout->shared);
+        self::assertFalse($copiedLayout->isShared);
         self::assertSame('en', $copiedLayout->mainLocale);
         self::assertSame(['en', 'hr'], $copiedLayout->availableLocales);
 

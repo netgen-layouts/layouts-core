@@ -42,7 +42,7 @@ final class RelatedLayoutsCountListener implements EventSubscriberInterface
         $layout = $view->getLayout();
 
         $relatedLayoutsCount = 0;
-        if ($layout->shared && $layout->isPublished) {
+        if ($layout->isShared && $layout->isPublished) {
             $relatedLayoutsCount = $this->layoutService->getRelatedLayoutsCount($layout);
         }
 

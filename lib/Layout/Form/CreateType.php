@@ -81,14 +81,14 @@ final class CreateType extends AbstractType
         );
 
         $builder->add(
-            'shared',
+            'isShared',
             CheckboxType::class,
             [
-                'label' => 'layout.shared',
+                'label' => 'layout.is_shared',
                 'constraints' => [
                     new Constraints\NotNull(),
                 ],
-                'property_path' => 'shared',
+                'property_path' => 'isShared',
             ],
         );
     }

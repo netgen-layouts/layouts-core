@@ -44,7 +44,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
 
     public function testOnBuildView(): void
     {
-        $layout = Layout::fromArray(['shared' => true, 'status' => Status::Published]);
+        $layout = Layout::fromArray(['isShared' => true, 'status' => Status::Published]);
         $view = new LayoutView($layout);
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
@@ -67,7 +67,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
 
     public function testOnBuildViewWithDraftLayout(): void
     {
-        $view = new LayoutView(Layout::fromArray(['shared' => true, 'status' => Status::Draft]));
+        $view = new LayoutView(Layout::fromArray(['isShared' => true, 'status' => Status::Draft]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -87,7 +87,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
 
     public function testOnBuildViewWithNonSharedLayout(): void
     {
-        $view = new LayoutView(Layout::fromArray(['shared' => false, 'status' => Status::Published]));
+        $view = new LayoutView(Layout::fromArray(['isShared' => false, 'status' => Status::Published]));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 

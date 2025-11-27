@@ -40,7 +40,7 @@ final class LayoutCreateStruct
     /**
      * Flag indicating if the layout will be shared.
      */
-    public bool $shared;
+    public bool $isShared;
 
     /**
      * Main locale of the new layout.

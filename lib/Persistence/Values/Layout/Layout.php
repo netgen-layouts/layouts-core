@@ -39,7 +39,7 @@ final class Layout extends Value
     /**
      * Flag indicating if this layout is shared.
      */
-    public bool $shared;
+    public bool $isShared;
 
     /**
      * Timestamp when the layout was created.

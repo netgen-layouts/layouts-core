@@ -39,7 +39,7 @@ final class LayoutTest extends TestCase
                 'description' => 'My description',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
-                'shared' => true,
+                'isShared' => true,
                 'zones' => ZoneList::fromArray($zones),
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -52,7 +52,7 @@ final class LayoutTest extends TestCase
         self::assertSame('My description', $layout->description);
         self::assertSame($createdDate, $layout->created);
         self::assertSame($modifiedDate, $layout->modified);
-        self::assertTrue($layout->shared);
+        self::assertTrue($layout->isShared);
         self::assertFalse($layout->hasZone('test'));
         self::assertSame($zones['right'], $layout->getZone('right'));
         self::assertTrue($layout->hasZone('right'));

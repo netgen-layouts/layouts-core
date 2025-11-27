@@ -55,7 +55,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             'has_archived_state' => false,
             'archive_created_at' => null,
             'archive_updated_at' => null,
-            'shared' => $layout->shared,
+            'shared' => $layout->isShared,
             'name' => $layout->name,
             'description' => $layout->description,
             'main_locale' => $layout->mainLocale,

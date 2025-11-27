@@ -55,7 +55,7 @@ final class CreateTypeTest extends FormTestCase
             'name' => 'My layout',
             'description' => 'My layout description',
             'layoutType' => '4_zones_a',
-            'shared' => true,
+            'isShared' => true,
         ];
 
         $struct = new LayoutCreateStruct();
@@ -71,7 +71,7 @@ final class CreateTypeTest extends FormTestCase
 
         self::assertSame('My layout', $struct->name);
         self::assertSame('My layout description', $struct->description);
-        self::assertTrue($struct->shared);
+        self::assertTrue($struct->isShared);
 
         self::assertInstanceOf(LayoutType::class, $struct->layoutType);
         self::assertSame('4_zones_a', $struct->layoutType->identifier);
