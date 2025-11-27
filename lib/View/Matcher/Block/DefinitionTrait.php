@@ -20,11 +20,10 @@ trait DefinitionTrait
      */
     private function doMatch(Block $block, array $config): bool
     {
-        $blockDefinition = $block->definition;
-        if ($blockDefinition instanceof NullBlockDefinition) {
+        if ($block->definition instanceof NullBlockDefinition) {
             return in_array('null', $config, true);
         }
 
-        return in_array($blockDefinition->identifier, $config, true);
+        return in_array($block->definition->identifier, $config, true);
     }
 }

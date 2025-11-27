@@ -14,7 +14,7 @@ final class ParameterViewProvider implements ViewProviderInterface
     {
         $view = new ParameterView($value);
 
-        $view->setFallbackContext(ParameterView::CONTEXT_DEFAULT);
+        $view->setFallbackContext(ViewInterface::CONTEXT_DEFAULT);
 
         return $view;
     }
