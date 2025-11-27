@@ -17,7 +17,7 @@ final class Link extends Constraint
         /**
          * If true, link value cannot be empty.
          */
-        public bool $required = false,
+        public bool $isRequired = false,
         /**
          * If not empty, will limit valid value types to the specified list.
          */

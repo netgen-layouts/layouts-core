@@ -15,14 +15,14 @@ final class DebugErrorHandler implements ErrorHandlerInterface
 {
     public function __construct(
         private LoggerInterface $logger = new NullLogger(),
-        private bool $debug = false,
+        private bool $isDebug = false,
     ) {}
 
     public function handleError(Throwable $throwable, ?string $message = null, array $context = []): void
     {
         $this->logError($throwable, $message, $context);
 
-        if ($this->debug) {
+        if ($this->isDebug) {
             throw $throwable;
         }
     }

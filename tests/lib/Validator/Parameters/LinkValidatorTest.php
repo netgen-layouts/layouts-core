@@ -29,9 +29,9 @@ final class LinkValidatorTest extends ValidatorTestCase
      * @param mixed[] $valueTypes
      */
     #[DataProvider('validateDataProvider')]
-    public function testValidate(?LinkValue $value, bool $required, array $valueTypes, bool $isValid): void
+    public function testValidate(?LinkValue $value, bool $isRequired, array $valueTypes, bool $isValid): void
     {
-        $this->constraint->required = $required;
+        $this->constraint->isRequired = $isRequired;
         $this->constraint->valueTypes = $valueTypes;
 
         $this->assertValid($isValid, $value);

@@ -57,7 +57,7 @@ final class LinkValidator extends ConstraintValidator
         $linkConstraints = [];
         if ($linkType === null) {
             $linkConstraints[] = new Constraints\IdenticalTo('');
-        } elseif ($constraint->required) {
+        } elseif ($constraint->isRequired) {
             $linkConstraints[] = new Constraints\NotBlank();
         }
 
