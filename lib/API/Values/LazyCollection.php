@@ -18,7 +18,7 @@ abstract class LazyCollection extends AbstractLazyCollection
 {
     private Closure $closure;
 
-    private function __construct(callable $callable)
+    final private function __construct(callable $callable)
     {
         $this->closure = $callable(...);
     }

@@ -13,6 +13,8 @@ trait HydratorTrait
 {
     private static Hydrator $__hydrator;
 
+    final public function __construct() {}
+
     /**
      * Creates a new instance of a class on which the method is called
      * and return the object hydrated with provided data.

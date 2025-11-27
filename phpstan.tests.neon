@@ -44,5 +44,3 @@ parameters:
         -
             message: '#Call to an undefined method Netgen\\Layouts\\Persistence(\\Handler)?\\\w+Interface::(method|expects)#'
             path: tests/lib/Core/Service/TransactionRollback
-
-        - '#Netgen\\Layouts\\Tests\\Persistence\\Doctrine\\Stubs\\EmptyQueryHandler::__construct\(\) does not call parent constructor#'

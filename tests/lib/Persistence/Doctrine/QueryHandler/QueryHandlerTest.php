@@ -7,9 +7,10 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\QueryHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Tools\DsnParser;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler;
 use Netgen\Layouts\Persistence\Values\Status;
-use Netgen\Layouts\Tests\Persistence\Doctrine\Stubs\EmptyQueryHandler;
+use Netgen\Layouts\Tests\Persistence\Doctrine\Stubs\QueryHandlerStub;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,7 @@ final class QueryHandlerTest extends TestCase
 {
     private Connection $databaseConnection;
 
-    private EmptyQueryHandler $queryHandler;
+    private QueryHandler $queryHandler;
 
     protected function setUp(): void
     {
@@ -27,7 +28,10 @@ final class QueryHandlerTest extends TestCase
             $dsnParser->parse('sqlite://:memory:'),
         );
 
-        $this->queryHandler = new EmptyQueryHandler();
+        $this->queryHandler = new QueryHandlerStub(
+            $this->databaseConnection,
+            new ConnectionHelper($this->databaseConnection),
+        );
     }
 
     public function testApplyIdCondition(): void

@@ -28,6 +28,4 @@ parameters:
             message: '#Variable property access on object.#'
             path: lib/Utils/Hydrator.php
 
-        - '#Unsafe usage of new static\(\).#'
-
         - '#Method Netgen\\Layouts\\API\\Values\\LazyCollection::from(Callable|Array)\(\) should return static#'
