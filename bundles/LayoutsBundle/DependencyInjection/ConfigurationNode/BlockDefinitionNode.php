@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
 use Netgen\Layouts\Block\Form\ContentEditType;
 use Netgen\Layouts\Block\Form\DesignEditType;
 use Netgen\Layouts\Block\Form\FullEditType;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
@@ -19,7 +19,10 @@ use function is_string;
 
 final class BlockDefinitionNode implements ConfigurationNodeInterface
 {
-    public function getConfigurationNode(): NodeDefinition
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition<\Symfony\Component\Config\Definition\Builder\NodeParentInterface>
+     */
+    public function getConfigurationNode(): ArrayNodeDefinition
     {
         $treeBuilder = new TreeBuilder('block_definitions');
         $node = $treeBuilder->getRootNode();

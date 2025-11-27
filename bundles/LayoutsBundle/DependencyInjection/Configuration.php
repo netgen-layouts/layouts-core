@@ -14,6 +14,9 @@ final class Configuration implements ConfigurationInterface
         private NetgenLayoutsExtension $extension,
     ) {}
 
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder<'array'>
+     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder($this->extension->getAlias());

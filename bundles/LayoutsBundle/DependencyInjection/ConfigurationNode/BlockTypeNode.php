@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
@@ -13,7 +13,10 @@ use function is_string;
 
 final class BlockTypeNode implements ConfigurationNodeInterface
 {
-    public function getConfigurationNode(): NodeDefinition
+    /**
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition<\Symfony\Component\Config\Definition\Builder\NodeParentInterface>
+     */
+    public function getConfigurationNode(): ArrayNodeDefinition
     {
         $treeBuilder = new TreeBuilder('block_types');
         $node = $treeBuilder->getRootNode();

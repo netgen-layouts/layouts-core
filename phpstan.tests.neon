@@ -18,6 +18,7 @@ parameters:
         - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'
 
         # Disable errors for various tests that verify values have correct types or arrays not having certain elements
+
         - '#Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given.#'
         - '#Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given.#'
         - '#expects array<Closure\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'
@@ -30,6 +31,7 @@ parameters:
         # PHPStan
 
         - "#PHPDoc tag @var with type array\\<string, string> is not subtype of type array\\<int\\|string, '(\\?|string)'>#"
+        - '#Call to method \w+\(\) on an unknown class Symfony\\Component\\Config\\Definition\\Builder\\\w+<Symfony\\Component\\Config\\Definition\\Builder\\\w+(<.*>)?>#'
 
         # Netgen Layouts specifics
 

@@ -19,6 +19,8 @@ interface ExtensionPluginInterface
 
     /**
      * Processes the configuration for the bundle.
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition<\Symfony\Component\Config\Definition\Builder\NodeParentInterface> $rootNode
      */
     public function addConfiguration(ArrayNodeDefinition $rootNode): void;
 
