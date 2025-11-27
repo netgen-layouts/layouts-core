@@ -11,12 +11,12 @@ use Netgen\Layouts\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Uri\InvalidUriException;
-use Uri\Rfc3986\Uri;
 
 use function count;
 use function in_array;
+use function is_array;
 use function is_string;
+use function parse_url;
 use function str_replace;
 
 /**
@@ -44,19 +44,9 @@ final class ItemLinkValidator extends ConstraintValidator
 
         $validator = $this->context->getValidator()->inContext($this->context);
 
-        try {
-            $uri = new Uri($value);
-        } catch (InvalidUriException) {
-            $this->context->buildViolation($constraint->invalidItemMessage)
-                ->addViolation();
+        $parsedValue = parse_url($value);
 
-            return;
-        }
-
-        $scheme = (string) $uri->getScheme();
-        $host = (string) $uri->getHost();
-
-        if ($scheme === '' || $host === '') {
+        if (!is_array($parsedValue) || ($parsedValue['scheme'] ?? '') === '' || !isset($parsedValue['host'])) {
             $this->context->buildViolation($constraint->invalidItemMessage)
                 ->addViolation();
 
@@ -64,8 +54,8 @@ final class ItemLinkValidator extends ConstraintValidator
         }
 
         if (!$constraint->allowInvalid) {
-            $valueType = str_replace('-', '_', $scheme);
-            $itemValue = $host;
+            $valueType = str_replace('-', '_', $parsedValue['scheme'] ?? '');
+            $itemValue = $parsedValue['host'];
 
             $validator->validate($valueType, new ValueType());
             if (count($validator->getViolations()) > 0) {

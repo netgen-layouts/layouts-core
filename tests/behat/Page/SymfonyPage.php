@@ -6,8 +6,10 @@ namespace Netgen\Layouts\Behat\Page;
 
 use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage as BaseSymfonyPage;
 use FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException;
-use Uri\Rfc3986\Uri;
 
+use function array_key_exists;
+use function is_array;
+use function parse_url;
 use function sprintf;
 use function str_contains;
 
@@ -15,17 +17,17 @@ abstract class SymfonyPage extends BaseSymfonyPage
 {
     public function verifyUrlFragment(string $fragment): void
     {
-        $parsedUrl = new Uri($this->getDriver()->getCurrentUrl());
+        $parsedUrl = parse_url($this->getDriver()->getCurrentUrl());
 
-        if ($parsedUrl->getFragment() === null) {
+        if (!is_array($parsedUrl) || !array_key_exists('fragment', $parsedUrl)) {
             throw new UnexpectedPageException(sprintf('%s URL is not valid or does not contain a fragment', $this->getDriver()->getCurrentUrl()));
         }
 
-        if (str_contains($parsedUrl->getFragment(), $fragment)) {
+        if (str_contains($parsedUrl['fragment'], $fragment)) {
             return;
         }
 
-        throw new UnexpectedPageException(sprintf('Expected to have "%s" fragment but found "%s" instead', $fragment, $parsedUrl->getFragment()));
+        throw new UnexpectedPageException(sprintf('Expected to have "%s" fragment but found "%s" instead', $fragment, $parsedUrl['fragment']));
     }
 
     /**

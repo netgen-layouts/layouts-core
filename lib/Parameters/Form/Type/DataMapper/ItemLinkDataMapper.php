@@ -6,10 +6,10 @@ namespace Netgen\Layouts\Parameters\Form\Type\DataMapper;
 
 use Symfony\Component\Form\DataMapperInterface;
 use Traversable;
-use Uri\InvalidUriException;
-use Uri\Rfc3986\Uri;
 
+use function is_array;
 use function is_string;
+use function parse_url;
 use function str_replace;
 
 /**
@@ -25,19 +25,11 @@ final class ItemLinkDataMapper implements DataMapperInterface
         }
 
         $forms = [...$forms];
+        $parsedData = parse_url($viewData);
 
-        try {
-            $uri = new Uri($viewData);
-        } catch (InvalidUriException) {
-            return;
-        }
-
-        $scheme = (string) $uri->getScheme();
-        $host = (string) $uri->getHost();
-
-        if ($scheme !== '' && $host !== '') {
-            $forms['item_type']->setData(str_replace('-', '_', $scheme));
-            $forms['item_value']->setData($host);
+        if (is_array($parsedData) && ($parsedData['scheme'] ?? '') !== '' && isset($parsedData['host'])) {
+            $forms['item_value']->setData($parsedData['host']);
+            $forms['item_type']->setData(str_replace('-', '_', $parsedData['scheme'] ?? ''));
         }
     }
 

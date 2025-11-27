@@ -12,11 +12,11 @@ use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink as ItemLinkConstrain
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
-use Uri\InvalidUriException;
-use Uri\Rfc3986\Uri;
 
 use function count;
+use function is_array;
 use function is_string;
+use function parse_url;
 
 /**
  * Parameter type used to store and validate a link to an existing item in the system.
@@ -89,16 +89,12 @@ final class ItemLinkType extends ParameterType
             return true;
         }
 
-        try {
-            $uri = new Uri($value);
-        } catch (InvalidUriException) {
+        $value = parse_url($value);
+        if (!is_array($value)) {
             return true;
         }
 
-        $scheme = (string) $uri->getScheme();
-        $host = (string) $uri->getHost();
-
-        return $scheme === '' || $host === '';
+        return ($value['scheme'] ?? '') === '' || !isset($value['host']);
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
