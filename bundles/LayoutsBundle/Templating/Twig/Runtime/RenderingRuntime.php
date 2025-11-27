@@ -60,8 +60,8 @@ final class RenderingRuntime
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering an item with value "%s" and value type "%s"',
-                $item->getValue(),
-                $item->getValueType(),
+                $item->value,
+                $item->valueType,
             );
 
             $this->errorHandler->handleError($t, $message);
@@ -78,18 +78,15 @@ final class RenderingRuntime
      */
     public function renderResult(array $context, Result $result, ?string $overrideViewType = null, ?string $fallbackViewType = null, array $parameters = [], ?string $viewContext = null): string
     {
-        $item = $result->getItem();
-        $slot = $result->getSlot();
-
         try {
             $viewType = $fallbackViewType;
 
             if ($overrideViewType !== null) {
                 $viewType = $overrideViewType;
-            } elseif ($item instanceof ManualItem && $item->getCollectionItem()->viewType !== null) {
-                $viewType = $item->getCollectionItem()->viewType;
-            } elseif ($slot instanceof Slot && $slot->viewType !== null) {
-                $viewType = $slot->viewType;
+            } elseif ($result->item instanceof ManualItem && $result->item->collectionItem->viewType !== null) {
+                $viewType = $result->item->collectionItem->viewType;
+            } elseif ($result->slot instanceof Slot && $result->slot->viewType !== null) {
+                $viewType = $result->slot->viewType;
             }
 
             if ($viewType === null) {
@@ -99,12 +96,12 @@ final class RenderingRuntime
                 );
             }
 
-            return $this->renderItem($context, $item, $viewType, $parameters, $viewContext);
+            return $this->renderItem($context, $result->item, $viewType, $parameters, $viewContext);
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering an item with value "%s" and value type "%s"',
-                $item->getValue(),
-                $item->getValueType(),
+                $result->item->value,
+                $result->item->valueType,
             );
 
             $this->errorHandler->handleError($t, $message);

@@ -14,45 +14,25 @@ use Netgen\Layouts\Item\CmsItemInterface;
 final class Result
 {
     public function __construct(
-        private int $position,
-        private CmsItemInterface $item,
-        private ?CmsItemInterface $subItem = null,
-        private ?Slot $slot = null,
+        /**
+         * Returns the position of the result in the result set.
+         */
+        private(set) int $position,
+        /**
+         * Returns the item that will be displayed.
+         */
+        private(set) CmsItemInterface $item,
+        /**
+         * Returns the item that was overridden by item returned by self::getItem or null
+         * if no item was overridden.
+         *
+         * E.g. This can be the manual item that is not visible or is invalid and thus
+         * replaced by a dynamic item for display purposes.
+         */
+        private(set) ?CmsItemInterface $subItem = null,
+        /**
+         * If defined, returns the slot where the result in the result set is positioned.
+         */
+        private(set) ?Slot $slot = null,
     ) {}
-
-    /**
-     * Returns the position of the result in the result set.
-     */
-    public function getPosition(): int
-    {
-        return $this->position;
-    }
-
-    /**
-     * Returns the item that will be displayed.
-     */
-    public function getItem(): CmsItemInterface
-    {
-        return $this->item;
-    }
-
-    /**
-     * Returns the item that was overridden by item returned by self::getItem or null
-     * if no item was overridden.
-     *
-     * E.g. This can be the manual item that is not visible or is invalid and thus
-     * replaced by a dynamic item for display purposes.
-     */
-    public function getSubItem(): ?CmsItemInterface
-    {
-        return $this->subItem;
-    }
-
-    /**
-     * If defined, returns the slot where the result in the result set is positioned.
-     */
-    public function getSlot(): ?Slot
-    {
-        return $this->slot;
-    }
 }

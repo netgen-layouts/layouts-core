@@ -22,12 +22,12 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
         $blockTypeGroup = $data->getValue();
 
         return [
-            'identifier' => $blockTypeGroup->getIdentifier(),
-            'enabled' => $blockTypeGroup->isEnabled(),
-            'name' => $blockTypeGroup->getName(),
+            'identifier' => $blockTypeGroup->identifier,
+            'enabled' => $blockTypeGroup->isEnabled,
+            'name' => $blockTypeGroup->name,
             'block_types' => array_map(
-                static fn (BlockType $blockType): string => $blockType->getIdentifier(),
-                $blockTypeGroup->getBlockTypes(true),
+                static fn (BlockType $blockType): string => $blockType->identifier,
+                $blockTypeGroup->enabledBlockTypes,
             ),
         ];
     }

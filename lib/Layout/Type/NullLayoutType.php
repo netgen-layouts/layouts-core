@@ -9,39 +9,29 @@ use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 
 final class NullLayoutType implements LayoutTypeInterface
 {
+    public true $isEnabled {
+        get => true;
+    }
+
+    public string $name {
+        get => 'Invalid layout type';
+    }
+
+    public string $icon {
+        get => '';
+    }
+
+    public array $zones {
+        get => [];
+    }
+
+    public array $zoneIdentifiers {
+        get => [];
+    }
+
     public function __construct(
-        private string $layoutType,
+        private(set) string $identifier,
     ) {}
-
-    public function getIdentifier(): string
-    {
-        return $this->layoutType;
-    }
-
-    public function isEnabled(): true
-    {
-        return true;
-    }
-
-    public function getName(): string
-    {
-        return 'Invalid layout type';
-    }
-
-    public function getIcon(): string
-    {
-        return '';
-    }
-
-    public function getZones(): array
-    {
-        return [];
-    }
-
-    public function getZoneIdentifiers(): array
-    {
-        return [];
-    }
 
     public function hasZone(string $zoneIdentifier): bool
     {
@@ -50,7 +40,7 @@ final class NullLayoutType implements LayoutTypeInterface
 
     public function getZone(string $zoneIdentifier): Zone
     {
-        throw LayoutTypeException::noZone($this->layoutType, $zoneIdentifier);
+        throw LayoutTypeException::noZone($this->identifier, $zoneIdentifier);
     }
 
     public function isBlockAllowedInZone(BlockDefinitionInterface $definition, string $zoneIdentifier): true

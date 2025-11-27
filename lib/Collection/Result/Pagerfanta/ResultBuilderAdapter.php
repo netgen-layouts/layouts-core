@@ -71,7 +71,7 @@ final class ResultBuilderAdapter implements AdapterInterface
     private function setTotalCount(ResultSet $result): void
     {
         /** @var int<0, max> $totalCount */
-        $totalCount = $result->getTotalCount() - $this->startingOffset;
+        $totalCount = $result->totalCount - $this->startingOffset;
         $this->totalCount = max($totalCount, 0);
 
         if ($this->maxTotalCount !== null && $this->totalCount >= $this->maxTotalCount) {

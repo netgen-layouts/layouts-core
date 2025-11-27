@@ -26,12 +26,12 @@ final class CollectionTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('collection', $this->collection->getIdentifier());
+        self::assertSame('collection', $this->collection->identifier);
     }
 
     public function testGetValidQueryTypes(): void
     {
-        self::assertSame(['query'], $this->collection->getValidQueryTypes());
+        self::assertSame(['query'], $this->collection->validQueryTypes);
     }
 
     public function testIsValidQueryType(): void
@@ -66,7 +66,7 @@ final class CollectionTest extends TestCase
 
     public function testGetValidItemTypes(): void
     {
-        self::assertSame(['item'], $this->collection->getValidItemTypes());
+        self::assertSame(['item'], $this->collection->validItemTypes);
     }
 
     public function testIsValidItemType(): void

@@ -56,7 +56,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 break;
             }
 
-            if ($this->visibilityResolver->isVisible($item) && $item->isValid) {
+            if ($item->isValid && $this->visibilityResolver->isVisible($item)) {
                 ++$totalCount;
             }
         }
@@ -74,7 +74,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      */
     private function buildManualResult(Collection $collection, CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
-        if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid) {
+        if (!$collectionItem->isValid || !$this->visibilityResolver->isVisible($collectionItem)) {
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItemInterface) {
                 return null;
@@ -144,7 +144,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 continue;
             }
 
-            if ($this->visibilityResolver->isVisible($item) && $item->isValid) {
+            if ($item->isValid && $this->visibilityResolver->isVisible($item)) {
                 ++$manualItemsCount;
             }
         }

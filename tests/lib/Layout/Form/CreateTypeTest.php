@@ -74,7 +74,7 @@ final class CreateTypeTest extends FormTestCase
         self::assertTrue($struct->shared);
 
         self::assertInstanceOf(LayoutType::class, $struct->layoutType);
-        self::assertSame('4_zones_a', $struct->layoutType->getIdentifier());
+        self::assertSame('4_zones_a', $struct->layoutType->identifier);
 
         $view = $form->createView();
 

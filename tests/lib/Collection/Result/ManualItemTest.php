@@ -35,12 +35,12 @@ final class ManualItemTest extends TestCase
 
         $value = new ManualItem($collectionItem);
 
-        self::assertSame($collectionItem, $value->getCollectionItem());
-        self::assertSame(42, $value->getValue());
-        self::assertSame('abc', $value->getRemoteId());
-        self::assertSame('type', $value->getValueType());
-        self::assertSame('Value name', $value->getName());
-        self::assertTrue($value->isVisible());
-        self::assertSame($object, $value->getObject());
+        self::assertSame($collectionItem, $value->collectionItem);
+        self::assertSame(42, $value->value);
+        self::assertSame('abc', $value->remoteId);
+        self::assertSame('type', $value->valueType);
+        self::assertSame('Value name', $value->name);
+        self::assertTrue($value->isVisible);
+        self::assertSame($object, $value->object);
     }
 }

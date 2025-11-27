@@ -39,9 +39,9 @@ final class BlockTypeGroupNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'identifier' => $blockTypeGroup->getIdentifier(),
+                'identifier' => $blockTypeGroup->identifier,
                 'enabled' => true,
-                'name' => $blockTypeGroup->getName(),
+                'name' => $blockTypeGroup->name,
                 'block_types' => ['type2'],
             ],
             $this->normalizer->normalize(new Value($blockTypeGroup)),

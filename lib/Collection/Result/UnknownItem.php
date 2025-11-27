@@ -12,33 +12,27 @@ use Netgen\Layouts\Item\CmsItemInterface;
  */
 final class UnknownItem implements CmsItemInterface
 {
-    public function getValue(): int
-    {
-        return 0;
+    public int $value {
+        get => 0;
     }
 
-    public function getRemoteId(): int
-    {
-        return 0;
+    public int $remoteId {
+        get => 0;
     }
 
-    public function getValueType(): string
-    {
-        return 'unknown';
+    public string $valueType {
+        get => 'unknown';
     }
 
-    public function getName(): string
-    {
-        return '(UNKNOWN ITEM)';
+    public string $name {
+        get => '(UNKNOWN ITEM)';
     }
 
-    public function isVisible(): true
-    {
-        return true;
+    public true $isVisible {
+        get => true;
     }
 
-    public function getObject(): null
-    {
-        return null;
+    public null $object {
+        get => null;
     }
 }

@@ -52,14 +52,14 @@ final class ResultBuilderTest extends TestCase
 
         $resultSet = $this->resultBuilder->build($collection, 0, 5);
 
-        self::assertSame($collection, $resultSet->getCollection());
-        self::assertSame(0, $resultSet->getOffset());
-        self::assertSame(5, $resultSet->getLimit());
-        self::assertContainsOnlyInstancesOf(Result::class, $resultSet->getResults());
+        self::assertSame($collection, $resultSet->collection);
+        self::assertSame(0, $resultSet->offset);
+        self::assertSame(5, $resultSet->limit);
+        self::assertContainsOnlyInstancesOf(Result::class, $resultSet->results);
 
         foreach ($resultSet as $index => $result) {
-            self::assertInstanceOf(ManualItem::class, $result->getItem());
-            self::assertSame($index, $result->getPosition());
+            self::assertInstanceOf(ManualItem::class, $result->item);
+            self::assertSame($index, $result->position);
         }
     }
 
@@ -73,14 +73,14 @@ final class ResultBuilderTest extends TestCase
 
         $resultSet = $resultBuilder->build($collection, 0, 5);
 
-        self::assertSame($collection, $resultSet->getCollection());
-        self::assertSame(0, $resultSet->getOffset());
-        self::assertSame(3, $resultSet->getLimit());
-        self::assertContainsOnlyInstancesOf(Result::class, $resultSet->getResults());
+        self::assertSame($collection, $resultSet->collection);
+        self::assertSame(0, $resultSet->offset);
+        self::assertSame(3, $resultSet->limit);
+        self::assertContainsOnlyInstancesOf(Result::class, $resultSet->results);
 
         foreach ($resultSet as $index => $result) {
-            self::assertInstanceOf(ManualItem::class, $result->getItem());
-            self::assertSame($index, $result->getPosition());
+            self::assertInstanceOf(ManualItem::class, $result->item);
+            self::assertSame($index, $result->position);
         }
     }
 
@@ -94,13 +94,13 @@ final class ResultBuilderTest extends TestCase
 
         $result = $this->resultBuilder->build($collection, 0, 5);
 
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame(0, $result->getOffset());
-        self::assertSame(5, $result->getLimit());
-        self::assertContainsOnlyInstancesOf(Result::class, $result->getResults());
+        self::assertSame($collection, $result->collection);
+        self::assertSame(0, $result->offset);
+        self::assertSame(5, $result->limit);
+        self::assertContainsOnlyInstancesOf(Result::class, $result->results);
 
-        foreach ($result->getResults() as $index => $resultItem) {
-            self::assertSame($index, $resultItem->getPosition());
+        foreach ($result->results as $index => $resultItem) {
+            self::assertSame($index, $resultItem->position);
             // @todo Test item types
         }
     }
@@ -116,13 +116,13 @@ final class ResultBuilderTest extends TestCase
 
         $result = $this->resultBuilder->build($collection, 0, 20, PHP_INT_MAX);
 
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame(0, $result->getOffset());
-        self::assertSame(12, $result->getLimit());
-        self::assertContainsOnlyInstancesOf(Result::class, $result->getResults());
+        self::assertSame($collection, $result->collection);
+        self::assertSame(0, $result->offset);
+        self::assertSame(12, $result->limit);
+        self::assertContainsOnlyInstancesOf(Result::class, $result->results);
 
-        foreach ($result->getResults() as $index => $resultItem) {
-            self::assertSame($index, $resultItem->getPosition());
+        foreach ($result->results as $index => $resultItem) {
+            self::assertSame($index, $resultItem->position);
             // @todo Test item types
         }
     }
@@ -138,13 +138,13 @@ final class ResultBuilderTest extends TestCase
 
         $result = $this->resultBuilder->build($collection, 0, 5, PHP_INT_MAX);
 
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame(0, $result->getOffset());
-        self::assertSame(5, $result->getLimit());
-        self::assertContainsOnlyInstancesOf(Result::class, $result->getResults());
+        self::assertSame($collection, $result->collection);
+        self::assertSame(0, $result->offset);
+        self::assertSame(5, $result->limit);
+        self::assertContainsOnlyInstancesOf(Result::class, $result->results);
 
-        foreach ($result->getResults() as $index => $resultItem) {
-            self::assertSame($index, $resultItem->getPosition());
+        foreach ($result->results as $index => $resultItem) {
+            self::assertSame($index, $resultItem->position);
             // @todo Test item types
         }
     }

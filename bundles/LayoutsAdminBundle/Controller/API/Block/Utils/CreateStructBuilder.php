@@ -22,32 +22,30 @@ final class CreateStructBuilder
      */
     public function buildCreateStruct(BlockType $blockType): BlockCreateStruct
     {
-        $blockDefinition = $blockType->getDefinition();
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockType->definition);
+        $blockCreateStruct->name = $blockType->defaultName;
 
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
-        $blockCreateStruct->name = $blockType->getDefaultName();
-
-        if (!isset($blockCreateStruct->viewType) || $blockType->getDefaultViewType() !== '') {
-            $blockCreateStruct->viewType = $blockType->getDefaultViewType();
+        if (!isset($blockCreateStruct->viewType) || $blockType->defaultViewType !== '') {
+            $blockCreateStruct->viewType = $blockType->defaultViewType;
         }
 
-        if ($blockType->getDefaultItemViewType() === '' && $blockDefinition->hasViewType($blockCreateStruct->viewType)) {
-            $itemViewTypes = $blockDefinition
+        if ($blockType->defaultItemViewType === '' && $blockType->definition->hasViewType($blockCreateStruct->viewType)) {
+            $itemViewTypes = $blockType->definition
                 ->getViewType($blockCreateStruct->viewType)
-                ->getItemViewTypeIdentifiers();
+                ->itemViewTypeIdentifiers;
 
             if (count($itemViewTypes) > 0) {
                 $blockCreateStruct->itemViewType = $itemViewTypes[0];
             }
-        } elseif (!isset($blockCreateStruct->itemViewType) || $blockType->getDefaultItemViewType() !== '') {
-            $blockCreateStruct->itemViewType = $blockType->getDefaultItemViewType();
+        } elseif (!isset($blockCreateStruct->itemViewType) || $blockType->defaultItemViewType !== '') {
+            $blockCreateStruct->itemViewType = $blockType->defaultItemViewType;
         }
 
-        $blockCreateStruct->fillParametersFromHash($blockType->getDefaultParameters());
+        $blockCreateStruct->fillParametersFromHash($blockType->defaultParameters);
 
-        foreach ($blockDefinition->getCollections() as $collectionConfig) {
+        foreach ($blockType->definition->getCollections() as $collectionConfig) {
             $blockCreateStruct->addCollectionCreateStruct(
-                $collectionConfig->getIdentifier(),
+                $collectionConfig->identifier,
                 new CollectionCreateStruct(),
             );
         }

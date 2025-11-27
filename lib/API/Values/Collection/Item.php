@@ -64,7 +64,7 @@ final class Item implements Value, ConfigAwareValue
                 return false;
             }
 
-            return $this->cmsItem->isVisible();
+            return $this->cmsItem->isVisible;
         }
     }
 }

@@ -32,6 +32,6 @@ final class Type implements MatcherInterface
             return in_array('null', $config, true);
         }
 
-        return in_array($layoutType->getIdentifier(), $config, true);
+        return in_array($layoutType->identifier, $config, true);
     }
 }

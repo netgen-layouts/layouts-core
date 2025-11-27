@@ -10,23 +10,13 @@ final class ItemViewType
 {
     use HydratorTrait;
 
-    private string $identifier;
-
-    private string $name;
-
     /**
      * Returns the item view type identifier.
      */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    public private(set) string $identifier;
 
     /**
      * Returns the item view type name.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 }

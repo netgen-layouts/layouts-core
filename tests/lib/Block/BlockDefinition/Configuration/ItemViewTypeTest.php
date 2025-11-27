@@ -20,11 +20,11 @@ final class ItemViewTypeTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('standard', $this->itemViewType->getIdentifier());
+        self::assertSame('standard', $this->itemViewType->identifier);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Standard', $this->itemViewType->getName());
+        self::assertSame('Standard', $this->itemViewType->name);
     }
 }

@@ -169,21 +169,20 @@ abstract class EditType extends AbstractType
         $blockDefinitionParameters = array_keys($block->definition->getParameterDefinitions());
 
         foreach ($block->definition->getViewTypes($block) as $viewType) {
-            $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();
+            $this->viewTypes[$viewType->identifier] = $viewType->name;
 
-            foreach ($viewType->getItemViewTypes() as $itemViewType) {
-                $this->itemViewTypes[$viewType->getIdentifier()][$itemViewType->getIdentifier()] = $itemViewType->getName();
-                $this->viewTypesByItemViewType[$itemViewType->getIdentifier()][] = $viewType->getIdentifier();
+            foreach ($viewType->itemViewTypes as $itemViewType) {
+                $this->itemViewTypes[$viewType->identifier][$itemViewType->identifier] = $itemViewType->name;
+                $this->viewTypesByItemViewType[$itemViewType->identifier][] = $viewType->identifier;
             }
 
             $includedParameters = [];
             $excludedParameters = [];
 
-            $validParameters = $viewType->getValidParameters();
-            if (!is_array($validParameters)) {
+            if (!is_array($viewType->validParameters)) {
                 $includedParameters = $blockDefinitionParameters;
-            } elseif (count($validParameters) > 0) {
-                foreach ($validParameters as $validParameter) {
+            } elseif (count($viewType->validParameters) > 0) {
+                foreach ($viewType->validParameters as $validParameter) {
                     str_starts_with($validParameter, '!') ?
                         $excludedParameters[] = mb_substr($validParameter, 1) :
                         $includedParameters[] = $validParameter;
@@ -196,7 +195,7 @@ abstract class EditType extends AbstractType
 
             foreach ($includedParameters as $includedParameter) {
                 if (!in_array($includedParameter, $excludedParameters, true)) {
-                    $this->viewTypesByParameters[$includedParameter][] = $viewType->getIdentifier();
+                    $this->viewTypesByParameters[$includedParameter][] = $viewType->identifier;
                 }
             }
         }

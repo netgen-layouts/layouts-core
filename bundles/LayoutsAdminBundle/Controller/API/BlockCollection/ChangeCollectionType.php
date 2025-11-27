@@ -99,7 +99,7 @@ final class ChangeCollectionType extends AbstractController
                 );
             }
         } elseif ($newType === CollectionType::Manual) {
-            if ($collectionConfig->getValidItemTypes() === []) {
+            if ($collectionConfig->validItemTypes === []) {
                 throw ValidationException::validationFailed(
                     'new_type',
                     'Selected block does not allow manual collections.',

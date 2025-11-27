@@ -289,7 +289,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertNull($item->value);
         self::assertSame('overlay', $item->viewType);
         self::assertInstanceOf(NullCmsItem::class, $item->cmsItem);
-        self::assertSame('my_value_type', $item->cmsItem->getValueType());
+        self::assertSame('my_value_type', $item->cmsItem->valueType);
         self::assertTrue($item->isPublished);
 
         self::assertTrue($item->hasConfig('key'));

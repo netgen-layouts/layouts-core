@@ -46,7 +46,7 @@ final class RemoteIdConverter
             return self::NULL_LINK;
         }
 
-        return $scheme . '://' . $item->getRemoteId();
+        return $scheme . '://' . $item->remoteId;
     }
 
     /**
@@ -76,6 +76,6 @@ final class RemoteIdConverter
             return self::NULL_LINK;
         }
 
-        return $scheme . '://' . $item->getValue();
+        return $scheme . '://' . $item->value;
     }
 }

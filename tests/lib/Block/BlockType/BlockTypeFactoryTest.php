@@ -35,6 +35,10 @@ final class BlockTypeFactoryTest extends TestCase
 
         self::assertSame(
             [
+                'defaultItemViewType' => '',
+                'defaultName' => '',
+                'defaultParameters' => [],
+                'defaultViewType' => '',
                 'defaults' => [
                     'viewType' => 'default',
                 ],

@@ -39,27 +39,27 @@ final class BlockTypeTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('title', $this->blockType->getIdentifier());
+        self::assertSame('title', $this->blockType->identifier);
     }
 
     public function testIsEnabled(): void
     {
-        self::assertFalse($this->blockType->isEnabled());
+        self::assertFalse($this->blockType->isEnabled);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Title', $this->blockType->getName());
+        self::assertSame('Title', $this->blockType->name);
     }
 
     public function testGetIcon(): void
     {
-        self::assertSame('/icon.svg', $this->blockType->getIcon());
+        self::assertSame('/icon.svg', $this->blockType->icon);
     }
 
     public function testGetDefinition(): void
     {
-        self::assertSame($this->blockDefinition, $this->blockType->getDefinition());
+        self::assertSame($this->blockDefinition, $this->blockType->definition);
     }
 
     public function testGetDefaults(): void
@@ -71,55 +71,55 @@ final class BlockTypeTest extends TestCase
                 'item_view_type' => 'standard',
                 'parameters' => ['tag' => 'h3'],
             ],
-            $this->blockType->getDefaults(),
+            $this->blockType->defaults,
         );
     }
 
     public function testGetDefaultName(): void
     {
-        self::assertSame('Name', $this->blockType->getDefaultName());
+        self::assertSame('Name', $this->blockType->defaultName);
     }
 
     public function testGetDefaultViewType(): void
     {
-        self::assertSame('default', $this->blockType->getDefaultViewType());
+        self::assertSame('default', $this->blockType->defaultViewType);
     }
 
     public function testGetDefaultItemViewType(): void
     {
-        self::assertSame('standard', $this->blockType->getDefaultItemViewType());
+        self::assertSame('standard', $this->blockType->defaultItemViewType);
     }
 
     public function testGetDefaultParameters(): void
     {
-        self::assertSame(['tag' => 'h3'], $this->blockType->getDefaultParameters());
+        self::assertSame(['tag' => 'h3'], $this->blockType->defaultParameters);
     }
 
     public function testGetDefaultEmptyName(): void
     {
         $this->blockType = new BlockType();
 
-        self::assertSame('', $this->blockType->getDefaultName());
+        self::assertSame('', $this->blockType->defaultName);
     }
 
     public function testGetDefaultEmptyViewType(): void
     {
         $this->blockType = new BlockType();
 
-        self::assertSame('', $this->blockType->getDefaultViewType());
+        self::assertSame('', $this->blockType->defaultViewType);
     }
 
     public function testGetDefaultEmptyItemViewType(): void
     {
         $this->blockType = new BlockType();
 
-        self::assertSame('', $this->blockType->getDefaultItemViewType());
+        self::assertSame('', $this->blockType->defaultItemViewType);
     }
 
     public function testGetDefaultEmptyParameters(): void
     {
         $this->blockType = new BlockType();
 
-        self::assertSame([], $this->blockType->getDefaultParameters());
+        self::assertSame([], $this->blockType->defaultParameters);
     }
 }

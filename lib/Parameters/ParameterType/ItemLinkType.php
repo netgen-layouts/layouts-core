@@ -49,7 +49,7 @@ final class ItemLinkType extends ParameterType
                     $valueTypes = [];
 
                     foreach ($this->valueTypeRegistry->getValueTypes(true) as $identifier => $valueType) {
-                        if ($valueType->supportsManualItems()) {
+                        if ($valueType->supportsManualItems) {
                             $valueTypes[] = $identifier;
                         }
                     }

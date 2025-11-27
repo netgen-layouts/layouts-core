@@ -15,18 +15,17 @@ final class UrlGenerator implements UrlGeneratorInterface
 
     public function generate(CmsItemInterface $item, UrlType $type = UrlType::Default): string
     {
-        $object = $item->getObject();
-        if ($item instanceof NullCmsItem || $object === null) {
+        if ($item instanceof NullCmsItem || $item->object === null) {
             return '';
         }
 
-        $valueUrlGenerator = $this->getValueUrlGenerator($item->getValueType());
+        $valueUrlGenerator = $this->getValueUrlGenerator($item->valueType);
 
         if ($type === UrlType::Admin) {
-            return $valueUrlGenerator->generateAdminUrl($object) ?? '';
+            return $valueUrlGenerator->generateAdminUrl($item->object) ?? '';
         }
 
-        return $valueUrlGenerator->generateDefaultUrl($object) ?? '';
+        return $valueUrlGenerator->generateDefaultUrl($item->object) ?? '';
     }
 
     /**

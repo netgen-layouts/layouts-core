@@ -13,30 +13,30 @@ interface CmsItemInterface
     /**
      * Returns the scalar ID of the value from CMS that this item wraps.
      */
-    public function getValue(): int|string|null;
+    public int|string|null $value { get; }
 
     /**
      * Returns the scalar remote ID of the value from CMS that this item wraps.
      */
-    public function getRemoteId(): int|string|null;
+    public int|string|null $remoteId { get; }
 
     /**
      * Returns the type of the value from CMS that this item wraps.
      */
-    public function getValueType(): string;
+    public string $valueType { get; }
 
     /**
      * Returns the name of the value from CMS that this item wraps.
      */
-    public function getName(): string;
+    public string $name { get; }
 
     /**
      * Returns if the value from CMS is visible.
      */
-    public function isVisible(): bool;
+    public bool $isVisible { get; }
 
     /**
      * Returns the original value as supplied by the CMS or null if value does not exist.
      */
-    public function getObject(): ?object;
+    public ?object $object { get; }
 }

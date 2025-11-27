@@ -17,47 +17,18 @@ final class LayoutType implements LayoutTypeInterface
 {
     use HydratorTrait;
 
-    private string $identifier;
+    public private(set) string $identifier;
 
-    private bool $isEnabled;
+    public private(set) bool $isEnabled;
 
-    private string $name;
+    public private(set) string $name;
 
-    private ?string $icon;
+    public private(set) ?string $icon;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Type\Zone[]
-     */
-    private array $zones = [];
+    public private(set) array $zones = [];
 
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    public function isEnabled(): bool
-    {
-        return $this->isEnabled;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function getZones(): array
-    {
-        return $this->zones;
-    }
-
-    public function getZoneIdentifiers(): array
-    {
-        return array_keys($this->zones);
+    public array $zoneIdentifiers {
+        get => array_keys($this->zones);
     }
 
     public function hasZone(string $zoneIdentifier): bool
@@ -82,11 +53,10 @@ final class LayoutType implements LayoutTypeInterface
 
         $zone = $this->getZone($zoneIdentifier);
 
-        $allowedBlockDefinitions = $zone->getAllowedBlockDefinitions();
-        if (count($allowedBlockDefinitions) === 0) {
+        if (count($zone->allowedBlockDefinitions) === 0) {
             return true;
         }
 
-        return in_array($definition->getIdentifier(), $allowedBlockDefinitions, true);
+        return in_array($definition->getIdentifier(), $zone->allowedBlockDefinitions, true);
     }
 }

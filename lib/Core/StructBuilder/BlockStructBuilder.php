@@ -30,10 +30,9 @@ final class BlockStructBuilder
             $blockCreateStruct->viewType = $viewTypeIdentifiers[0];
 
             $viewType = $blockDefinition->getViewType($viewTypeIdentifiers[0]);
-            $itemViewTypeIdentifiers = $viewType->getItemViewTypeIdentifiers();
 
-            if (count($itemViewTypeIdentifiers) > 0) {
-                $blockCreateStruct->itemViewType = $itemViewTypeIdentifiers[0];
+            if (count($viewType->itemViewTypeIdentifiers) > 0) {
+                $blockCreateStruct->itemViewType = $viewType->itemViewTypeIdentifiers[0];
             }
         }
 

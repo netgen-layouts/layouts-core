@@ -69,7 +69,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         $totalCount = 0;
 
         foreach ($collection->items as $collectionItem) {
-            if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid) {
+            if (!$collectionItem->isValid || !$this->visibilityResolver->isVisible($collectionItem)) {
                 continue;
             }
 

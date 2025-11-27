@@ -20,10 +20,10 @@ final class ResultTest extends TestCase
 
         $result = new Result(0, $item1, $item2);
 
-        self::assertSame(0, $result->getPosition());
-        self::assertSame($item1, $result->getItem());
-        self::assertSame($item2, $result->getSubItem());
-        self::assertNull($result->getSlot());
+        self::assertSame(0, $result->position);
+        self::assertSame($item1, $result->item);
+        self::assertSame($item2, $result->subItem);
+        self::assertNull($result->slot);
     }
 
     public function testObjectWithSlot(): void
@@ -34,9 +34,9 @@ final class ResultTest extends TestCase
 
         $result = new Result(0, $item1, $item2, $slot);
 
-        self::assertSame(0, $result->getPosition());
-        self::assertSame($item1, $result->getItem());
-        self::assertSame($item2, $result->getSubItem());
-        self::assertSame($slot, $result->getSlot());
+        self::assertSame(0, $result->position);
+        self::assertSame($item1, $result->item);
+        self::assertSame($item2, $result->subItem);
+        self::assertSame($slot, $result->slot);
     }
 }

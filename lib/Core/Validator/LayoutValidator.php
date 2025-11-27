@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Validator\ValidatorTrait;
@@ -109,7 +108,7 @@ final class LayoutValidator
                     sprintf(
                         'Zone "%s" does not exist in "%s" layout type.',
                         $newZone,
-                        $targetLayoutType->getIdentifier(),
+                        $targetLayoutType->identifier,
                     ),
                 );
             }

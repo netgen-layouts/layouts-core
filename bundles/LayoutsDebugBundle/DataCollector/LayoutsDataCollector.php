@@ -86,7 +86,7 @@ final class LayoutsDataCollector extends DataCollector
             'id' => $layout->id->toString(),
             'path' => $this->layoutUrlGenerator->generateLayoutUrl($layout->id),
             'name' => $layout->name,
-            'type' => $layout->layoutType->getName(),
+            'type' => $layout->layoutType->name,
             'context' => $layoutView->getContext(),
             'template' => null,
             'template_path' => null,
@@ -149,7 +149,7 @@ final class LayoutsDataCollector extends DataCollector
             'layout_name' => $this->layoutCache[$layoutId]->name,
             'definition' => $blockDefinition->getName(),
             'view_type' => $blockDefinition->hasViewType($block->viewType, $block) ?
-                $blockDefinition->getViewType($block->viewType, $block)->getName() :
+                $blockDefinition->getViewType($block->viewType, $block)->name :
                 'Invalid view type',
             'locale' => $block->locale,
             'template' => null,

@@ -64,20 +64,17 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
     private function getOverflowItems(ResultSet $resultSet): Generator
     {
         $includedPositions = [];
-        foreach ($resultSet->getResults() as $result) {
-            $item = $result->getItem();
-            $subItem = $result->getSubItem();
-
-            if ($item instanceof ManualItem) {
-                $includedPositions[] = $item->getCollectionItem()->position;
+        foreach ($resultSet->results as $result) {
+            if ($result->item instanceof ManualItem) {
+                $includedPositions[] = $result->item->collectionItem->position;
             }
 
-            if ($subItem instanceof ManualItem) {
-                $includedPositions[] = $subItem->getCollectionItem()->position;
+            if ($result->subItem instanceof ManualItem) {
+                $includedPositions[] = $result->subItem->collectionItem->position;
             }
         }
 
-        foreach ($resultSet->getCollection()->items as $collectionItem) {
+        foreach ($resultSet->collection->items as $collectionItem) {
             if (!in_array($collectionItem->position, $includedPositions, true)) {
                 yield $collectionItem;
             }

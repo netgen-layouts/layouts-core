@@ -585,7 +585,7 @@ final class BlockService implements BlockServiceInterface
     private function resetItemViewTypes(Block $block, PersistenceBlock $updatedBlock): void
     {
         $blockViewType = $block->definition->getViewType($updatedBlock->viewType, $block);
-        $allowedItemViewTypes = $blockViewType->getItemViewTypeIdentifiers();
+        $allowedItemViewTypes = $blockViewType->itemViewTypeIdentifiers;
         $itemUpdateStruct = ItemUpdateStruct::fromArray(['viewType' => $allowedItemViewTypes[0]]);
 
         foreach ($this->collectionHandler->loadCollections($updatedBlock) as $collection) {
@@ -604,7 +604,7 @@ final class BlockService implements BlockServiceInterface
     private function resetSlotViewTypes(Block $block, PersistenceBlock $updatedBlock): void
     {
         $blockViewType = $block->definition->getViewType($updatedBlock->viewType, $block);
-        $allowedItemViewTypes = $blockViewType->getItemViewTypeIdentifiers();
+        $allowedItemViewTypes = $blockViewType->itemViewTypeIdentifiers;
         $slotUpdateStruct = SlotUpdateStruct::fromArray(['viewType' => $allowedItemViewTypes[0]]);
 
         foreach ($this->collectionHandler->loadCollections($updatedBlock) as $collection) {

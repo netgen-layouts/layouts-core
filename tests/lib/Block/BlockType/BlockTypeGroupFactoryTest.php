@@ -17,7 +17,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
 
     public function testBuildBlockTypeGroup(): void
     {
-        $blockType = BlockType::fromArray(['identifier' => 'title']);
+        $blockType = BlockType::fromArray(['identifier' => 'title', 'isEnabled' => false]);
 
         $blockTypeGroup = BlockTypeGroupFactory::buildBlockTypeGroup(
             'simple_blocks',
@@ -32,6 +32,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
         self::assertSame(
             [
                 'blockTypes' => [$blockType],
+                'enabledBlockTypes' => [],
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,
                 'name' => 'Simple blocks',

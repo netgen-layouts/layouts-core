@@ -47,7 +47,7 @@ final class Create extends AbstractController
         $this->denyAccessUnlessGranted(
             'nglayouts:block:add',
             [
-                'block_definition' => $blockType->getDefinition(),
+                'block_definition' => $blockType->definition,
                 'layout' => $block->layoutId->toString(),
             ],
         );

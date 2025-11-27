@@ -10,38 +10,20 @@ final class Zone
 {
     use HydratorTrait;
 
-    private string $identifier;
-
-    private string $name;
-
-    /**
-     * @var string[]
-     */
-    private array $allowedBlockDefinitions = [];
-
     /**
      * Returns the zone identifier.
      */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    public private(set) string $identifier;
 
     /**
      * Returns the zone name.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Returns allowed block definition identifiers.
      *
-     * @return string[]
+     * @var string[]
      */
-    public function getAllowedBlockDefinitions(): array
-    {
-        return $this->allowedBlockDefinitions;
-    }
+    public private(set) array $allowedBlockDefinitions = [];
 }

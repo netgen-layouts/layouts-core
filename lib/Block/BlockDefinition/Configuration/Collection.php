@@ -13,36 +13,39 @@ final class Collection
 {
     use HydratorTrait;
 
-    private string $identifier;
-
-    /**
-     * @var string[]|null
-     */
-    private ?array $validItemTypes;
-
-    /**
-     * @var string[]|null
-     */
-    private ?array $validQueryTypes;
-
     /**
      * Returns the collection identifier.
      */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    public private(set) string $identifier;
+
+    /**
+     * Returns the valid item types.
+     *
+     * If null, all item types are valid.
+     *
+     * @var string[]|null
+     */
+    public private(set) ?array $validItemTypes;
 
     /**
      * Returns the valid query types.
      *
      * If null, all query types are valid.
      *
-     * @return string[]|null
+     * @var string[]|null
      */
-    public function getValidQueryTypes(): ?array
+    public private(set) ?array $validQueryTypes;
+
+    /**
+     * Returns if the provided item type is valid.
+     */
+    public function isValidItemType(string $itemType): bool
     {
-        return $this->validQueryTypes;
+        if (!is_array($this->validItemTypes)) {
+            return true;
+        }
+
+        return in_array($itemType, $this->validItemTypes, true);
     }
 
     /**
@@ -55,29 +58,5 @@ final class Collection
         }
 
         return in_array($queryType, $this->validQueryTypes, true);
-    }
-
-    /**
-     * Returns the valid item types.
-     *
-     * If null, all item types are valid.
-     *
-     * @return string[]|null
-     */
-    public function getValidItemTypes(): ?array
-    {
-        return $this->validItemTypes;
-    }
-
-    /**
-     * Returns if the provided item type is valid.
-     */
-    public function isValidItemType(string $itemType): bool
-    {
-        if (!is_array($this->validItemTypes)) {
-            return true;
-        }
-
-        return in_array($itemType, $this->validItemTypes, true);
     }
 }

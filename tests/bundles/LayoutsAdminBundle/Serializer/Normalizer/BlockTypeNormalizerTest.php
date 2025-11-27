@@ -48,13 +48,13 @@ final class BlockTypeNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'identifier' => $blockType->getIdentifier(),
+                'identifier' => $blockType->identifier,
                 'enabled' => false,
-                'name' => $blockType->getName(),
-                'icon' => $blockType->getIcon(),
+                'name' => $blockType->name,
+                'icon' => $blockType->icon,
                 'definition_identifier' => $this->blockDefinition->getIdentifier(),
                 'is_container' => false,
-                'defaults' => $blockType->getDefaults(),
+                'defaults' => $blockType->defaults,
             ],
             $this->normalizer->normalize(new Value($blockType)),
         );

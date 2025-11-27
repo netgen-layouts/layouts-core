@@ -94,13 +94,13 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         self::assertArrayHasKey('collection1', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection1']);
-        self::assertSame($collection1, $collections['collection1']->getCollection());
-        self::assertSame(0, $collections['collection1']->getTotalCount());
+        self::assertSame($collection1, $collections['collection1']->collection);
+        self::assertSame(0, $collections['collection1']->totalCount);
 
         self::assertArrayHasKey('collection2', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection2']);
-        self::assertSame($collection2, $collections['collection2']->getCollection());
-        self::assertSame(0, $collections['collection2']->getTotalCount());
+        self::assertSame($collection2, $collections['collection2']->collection);
+        self::assertSame(0, $collections['collection2']->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection1']);
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection2']);
@@ -152,8 +152,8 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         self::assertArrayHasKey('collection', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection']);
-        self::assertSame($collection, $collections['collection']->getCollection());
-        self::assertSame(1000, $collections['collection']->getTotalCount());
+        self::assertSame($collection, $collections['collection']->collection);
+        self::assertSame(1000, $collections['collection']->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
         self::assertSame(10, $event->getParameters()['pagers']['collection']->getNbResults());
@@ -205,8 +205,8 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         self::assertArrayHasKey('collection', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection']);
-        self::assertSame($collection, $collections['collection']->getCollection());
-        self::assertSame(1000, $collections['collection']->getTotalCount());
+        self::assertSame($collection, $collections['collection']->collection);
+        self::assertSame(1000, $collections['collection']->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
         self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
@@ -257,8 +257,8 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         self::assertArrayHasKey('collection', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection']);
-        self::assertSame($collection, $collections['collection']->getCollection());
-        self::assertSame(1000, $collections['collection']->getTotalCount());
+        self::assertSame($collection, $collections['collection']->collection);
+        self::assertSame(1000, $collections['collection']->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
         self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
@@ -300,8 +300,8 @@ final class GetCollectionResultsListenerTest extends TestCase
 
         self::assertArrayHasKey('collection1', $collections);
         self::assertInstanceOf(ResultSet::class, $collections['collection1']);
-        self::assertSame($collection1, $collections['collection1']->getCollection());
-        self::assertSame(0, $collections['collection1']->getTotalCount());
+        self::assertSame($collection1, $collections['collection1']->collection);
+        self::assertSame(0, $collections['collection1']->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection1']);
     }

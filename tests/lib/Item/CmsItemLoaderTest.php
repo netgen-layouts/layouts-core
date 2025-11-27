@@ -64,7 +64,7 @@ final class CmsItemLoaderTest extends TestCase
         $loadedValue = $this->cmsItemLoader->load(42, 'value');
 
         self::assertInstanceOf(NullCmsItem::class, $loadedValue);
-        self::assertSame('value', $loadedValue->getValueType());
+        self::assertSame('value', $loadedValue->valueType);
     }
 
     public function testLoadItemThrowsItemException(): void
@@ -112,7 +112,7 @@ final class CmsItemLoaderTest extends TestCase
         $loadedValue = $this->cmsItemLoader->loadByRemoteId(42, 'value');
 
         self::assertInstanceOf(NullCmsItem::class, $loadedValue);
-        self::assertSame('value', $loadedValue->getValueType());
+        self::assertSame('value', $loadedValue->valueType);
     }
 
     public function testLoadByRemoteIdItemThrowsItemExceptionWithNoLoader(): void

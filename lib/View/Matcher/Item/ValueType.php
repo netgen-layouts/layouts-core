@@ -28,6 +28,6 @@ final class ValueType implements MatcherInterface
             return in_array('null', $config, true);
         }
 
-        return in_array($item->getValueType(), $config, true);
+        return in_array($item->valueType, $config, true);
     }
 }

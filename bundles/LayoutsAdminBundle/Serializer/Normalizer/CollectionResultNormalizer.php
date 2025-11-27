@@ -35,21 +35,19 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     {
         /** @var \Netgen\Layouts\Collection\Result\Result $result */
         $result = $data->getValue();
-        $subItem = $result->getSubItem();
 
-        $mainItem = $subItem instanceof CmsItemInterface ? $subItem : $result->getItem();
-        $overrideItem = $subItem instanceof CmsItemInterface ? $result->getItem() : null;
+        $mainItem = $result->subItem instanceof CmsItemInterface ? $result->subItem : $result->item;
+        $overrideItem = $result->subItem instanceof CmsItemInterface ? $result->item : null;
 
         $normalizedData = $this->normalizeResultItem($mainItem, $format, $context);
 
-        $normalizedData['position'] = $result->getPosition();
+        $normalizedData['position'] = $result->position;
         $normalizedData['slot_id'] = null;
         $normalizedData['slot_view_type'] = null;
 
-        $slot = $result->getSlot();
-        if ($slot instanceof Slot) {
-            $normalizedData['slot_id'] = $slot->id->toString();
-            $normalizedData['slot_view_type'] = $slot->viewType;
+        if ($result->slot instanceof Slot) {
+            $normalizedData['slot_id'] = $result->slot->id->toString();
+            $normalizedData['slot_view_type'] = $result->slot->viewType;
         }
 
         if ($overrideItem instanceof CmsItemInterface) {
@@ -93,7 +91,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         $isDynamic = true;
 
         if ($resultItem instanceof ManualItem) {
-            $collectionItem = $resultItem->getCollectionItem();
+            $collectionItem = $resultItem->collectionItem;
             $cmsItem = $collectionItem->cmsItem;
             $itemViewType = $collectionItem->viewType;
             $isDynamic = false;
@@ -113,11 +111,11 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
                 $this->visibilityResolver->isVisible($collectionItem) :
                 true,
             'is_dynamic' => $isDynamic,
-            'value' => $cmsItem->getValue(),
-            'value_type' => $cmsItem->getValueType(),
+            'value' => $cmsItem->value,
+            'value_type' => $cmsItem->valueType,
             'item_view_type' => $itemViewType,
-            'name' => $cmsItem->getName(),
-            'cms_visible' => $cmsItem->isVisible(),
+            'name' => $cmsItem->name,
+            'cms_visible' => $cmsItem->isVisible,
             'cms_url' => '',
             'config' => $this->normalizer->normalize($configuration, $format, $context),
         ];

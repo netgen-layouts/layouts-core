@@ -54,22 +54,22 @@ final class LayoutTypeTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('4_zones_a', $this->layoutType->getIdentifier());
+        self::assertSame('4_zones_a', $this->layoutType->identifier);
     }
 
     public function testIsEnabled(): void
     {
-        self::assertFalse($this->layoutType->isEnabled());
+        self::assertFalse($this->layoutType->isEnabled);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('4 zones A', $this->layoutType->getName());
+        self::assertSame('4 zones A', $this->layoutType->name);
     }
 
     public function testGetIcon(): void
     {
-        self::assertSame('/icon.svg', $this->layoutType->getIcon());
+        self::assertSame('/icon.svg', $this->layoutType->icon);
     }
 
     public function testGetZones(): void
@@ -79,13 +79,13 @@ final class LayoutTypeTest extends TestCase
                 'left' => $this->zone1,
                 'right' => $this->zone2,
             ],
-            $this->layoutType->getZones(),
+            $this->layoutType->zones,
         );
     }
 
     public function testGetZoneIdentifiers(): void
     {
-        self::assertSame(['left', 'right'], $this->layoutType->getZoneIdentifiers());
+        self::assertSame(['left', 'right'], $this->layoutType->zoneIdentifiers);
     }
 
     public function testHasZone(): void

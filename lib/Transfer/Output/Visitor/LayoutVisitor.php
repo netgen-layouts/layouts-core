@@ -33,7 +33,7 @@ final class LayoutVisitor implements VisitorInterface
         return [
             '__type' => self::ENTITY_TYPE,
             'id' => $value->id->toString(),
-            'type_identifier' => $value->layoutType->getIdentifier(),
+            'type_identifier' => $value->layoutType->identifier,
             'name' => $value->name,
             'description' => $value->description,
             'status' => $this->getStatusString($value),

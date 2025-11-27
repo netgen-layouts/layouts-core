@@ -17,43 +17,23 @@ final class ValueType
 {
     use HydratorTrait;
 
-    private string $identifier;
-
-    private bool $isEnabled;
-
-    private string $name;
-
-    private bool $supportsManualItems;
-
     /**
      * Returns the value type identifier.
      */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    public private(set) string $identifier;
 
     /**
      * Returns if the value type is enabled or not.
      */
-    public function isEnabled(): bool
-    {
-        return $this->isEnabled;
-    }
+    public private(set) bool $isEnabled;
 
     /**
      * Returns the value type name.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Returns if the value type supports selecting manual items through Content Browser.
      */
-    public function supportsManualItems(): bool
-    {
-        return $this->supportsManualItems;
-    }
+    public private(set) bool $supportsManualItems;
 }

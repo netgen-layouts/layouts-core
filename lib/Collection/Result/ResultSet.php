@@ -49,80 +49,51 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
      */
     public const int INCLUDE_ALL_ITEMS = PHP_INT_MAX;
 
-    private Collection $collection;
-
-    /**
-     * @var \Netgen\Layouts\Collection\Result\Result[]
-     */
-    private array $results;
-
-    private int $totalCount;
-
-    private int $offset;
-
-    private ?int $limit;
-
     /**
      * Returns the collection from which was this result generated.
      */
-    public function getCollection(): Collection
-    {
-        return $this->collection;
-    }
+    public private(set) Collection $collection;
 
     /**
      * Returns the results.
      *
-     * @return \Netgen\Layouts\Collection\Result\Result[]
+     * @var \Netgen\Layouts\Collection\Result\Result[]
      */
-    public function getResults(): array
-    {
-        return $this->results;
-    }
+    public private(set) array $results;
+
+    /**
+     * Returns the total count of items in this result.
+     */
+    public private(set) int $totalCount;
+
+    /**
+     * Returns the offset with which was this result generated.
+     */
+    public private(set) int $offset;
+
+    /**
+     * Returns the limit with which was this result generated.
+     */
+    public private(set) ?int $limit;
 
     /**
      * Returns if the result set is dynamic (i.e. if generated from the dynamic collection).
      */
-    public function isDynamic(): bool
-    {
-        return $this->collection->hasQuery;
+    public bool $isDynamic {
+        get => $this->collection->hasQuery;
     }
 
     /**
      * Returns if the result set is dependent on a context, i.e. current request.
      */
-    public function isContextual(): bool
-    {
-        $collectionQuery = $this->collection->query;
-        if (!$collectionQuery instanceof Query) {
-            return false;
+    public bool $isContextual {
+        get {
+            if (!$this->collection->query instanceof Query) {
+                return false;
+            }
+
+            return $this->collection->query->isContextual;
         }
-
-        return $collectionQuery->isContextual;
-    }
-
-    /**
-     * Returns the total count of items in this result.
-     */
-    public function getTotalCount(): int
-    {
-        return $this->totalCount;
-    }
-
-    /**
-     * Returns the offset with which was this result generated.
-     */
-    public function getOffset(): int
-    {
-        return $this->offset;
-    }
-
-    /**
-     * Returns the limit with which was this result generated.
-     */
-    public function getLimit(): ?int
-    {
-        return $this->limit;
     }
 
     public function getIterator(): Traversable

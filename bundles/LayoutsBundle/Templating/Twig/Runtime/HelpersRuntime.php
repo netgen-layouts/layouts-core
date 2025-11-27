@@ -87,7 +87,7 @@ final class HelpersRuntime
     public function getValueTypeName(CmsItemInterface $cmsItem): string
     {
         try {
-            return $this->valueTypeRegistry->getValueType($cmsItem->getValueType())->getName();
+            return $this->valueTypeRegistry->getValueType($cmsItem->valueType)->name;
         } catch (ItemException) {
             return '';
         }

@@ -135,6 +135,7 @@ final class BlockDefinitionFactoryTest extends TestCase
             [
                 'view_type' => [
                     'identifier' => 'view_type',
+                    'itemViewTypeIdentifiers' => ['item_view_type', 'standard'],
                     'itemViewTypes' => [
                         'item_view_type' => [
                             'identifier' => 'item_view_type',

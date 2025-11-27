@@ -10,37 +10,27 @@ namespace Netgen\Layouts\Item;
  */
 final class NullCmsItem implements CmsItemInterface
 {
+    public null $value {
+        get => null;
+    }
+
+    public null $remoteId {
+        get => null;
+    }
+
+    public string $name {
+        get => '(INVALID ITEM)';
+    }
+
+    public true $isVisible {
+        get => true;
+    }
+
+    public null $object {
+        get => null;
+    }
+
     public function __construct(
-        private string $valueType,
+        private(set) string $valueType,
     ) {}
-
-    public function getValue(): null
-    {
-        return null;
-    }
-
-    public function getRemoteId(): null
-    {
-        return null;
-    }
-
-    public function getValueType(): string
-    {
-        return $this->valueType;
-    }
-
-    public function getName(): string
-    {
-        return '(INVALID ITEM)';
-    }
-
-    public function isVisible(): true
-    {
-        return true;
-    }
-
-    public function getObject(): null
-    {
-        return null;
-    }
 }

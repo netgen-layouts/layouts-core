@@ -9,45 +9,34 @@ use Netgen\Layouts\Item\CmsItemInterface;
 
 final class ManualItem implements CmsItemInterface
 {
+    public int|string|null $value {
+        get => $this->collectionItem->cmsItem->value;
+    }
+
+    public int|string|null $remoteId {
+        get => $this->collectionItem->cmsItem->remoteId;
+    }
+
+    public string $valueType {
+        get => $this->collectionItem->cmsItem->valueType;
+    }
+
+    public string $name {
+        get => $this->collectionItem->cmsItem->name;
+    }
+
+    public bool $isVisible {
+        get => $this->collectionItem->cmsItem->isVisible;
+    }
+
+    public ?object $object {
+        get => $this->collectionItem->cmsItem->object;
+    }
+
     public function __construct(
-        private Item $collectionItem,
+        /**
+         * Returns the collection item that was used to generate this manual item.
+         */
+        private(set) Item $collectionItem,
     ) {}
-
-    /**
-     * Returns the collection item that was used to generate this manual item.
-     */
-    public function getCollectionItem(): Item
-    {
-        return $this->collectionItem;
-    }
-
-    public function getValue(): int|string|null
-    {
-        return $this->collectionItem->cmsItem->getValue();
-    }
-
-    public function getRemoteId(): int|string|null
-    {
-        return $this->collectionItem->cmsItem->getRemoteId();
-    }
-
-    public function getValueType(): string
-    {
-        return $this->collectionItem->cmsItem->getValueType();
-    }
-
-    public function getName(): string
-    {
-        return $this->collectionItem->cmsItem->getName();
-    }
-
-    public function isVisible(): bool
-    {
-        return $this->collectionItem->cmsItem->isVisible();
-    }
-
-    public function getObject(): ?object
-    {
-        return $this->collectionItem->cmsItem->getObject();
-    }
 }

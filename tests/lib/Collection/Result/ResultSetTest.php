@@ -33,12 +33,12 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame([$resultItem], $result->getResults());
-        self::assertFalse($result->isContextual());
-        self::assertSame(15, $result->getTotalCount());
-        self::assertSame(3, $result->getOffset());
-        self::assertSame(5, $result->getLimit());
+        self::assertSame($collection, $result->collection);
+        self::assertSame([$resultItem], $result->results);
+        self::assertFalse($result->isContextual);
+        self::assertSame(15, $result->totalCount);
+        self::assertSame(3, $result->offset);
+        self::assertSame(5, $result->limit);
 
         self::assertSame([$resultItem], [...$result]);
 
@@ -88,7 +88,7 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        self::assertTrue($result->isDynamic());
+        self::assertTrue($result->isDynamic);
     }
 
     public function testIsDynamicWithManualCollection(): void
@@ -99,7 +99,7 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        self::assertFalse($result->isDynamic());
+        self::assertFalse($result->isDynamic);
     }
 
     public function testIsContextual(): void
@@ -118,7 +118,7 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        self::assertFalse($result->isContextual());
+        self::assertFalse($result->isContextual);
     }
 
     public function testIsContextualWithManualCollection(): void
@@ -129,7 +129,7 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        self::assertFalse($result->isContextual());
+        self::assertFalse($result->isContextual);
     }
 
     public function testIsContextualWithContextualQuery(): void
@@ -148,6 +148,6 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        self::assertTrue($result->isContextual());
+        self::assertTrue($result->isContextual);
     }
 }

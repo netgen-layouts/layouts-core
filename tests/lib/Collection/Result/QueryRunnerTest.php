@@ -43,12 +43,12 @@ final class QueryRunnerTest extends TestCase
         self::assertContainsOnlyInstancesOf(CmsItemInterface::class, $items);
 
         foreach ($items as $item) {
-            self::assertTrue($item->isVisible());
+            self::assertTrue($item->isVisible);
         }
 
-        self::assertSame(40, $items[0]->getValue());
-        self::assertSame(41, $items[1]->getValue());
-        self::assertSame(42, $items[2]->getValue());
+        self::assertSame(40, $items[0]->value);
+        self::assertSame(41, $items[1]->value);
+        self::assertSame(42, $items[2]->value);
 
         self::assertSame(3, $queryRunner->count($query));
     }

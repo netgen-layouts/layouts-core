@@ -15,9 +15,9 @@ final class UnknownItemTest extends TestCase
     {
         $value = new UnknownItem();
 
-        self::assertSame(0, $value->getValue());
-        self::assertSame(0, $value->getRemoteId());
-        self::assertSame('unknown', $value->getValueType());
-        self::assertSame('(UNKNOWN ITEM)', $value->getName());
+        self::assertSame(0, $value->value);
+        self::assertSame(0, $value->remoteId);
+        self::assertSame('unknown', $value->valueType);
+        self::assertSame('(UNKNOWN ITEM)', $value->name);
     }
 }

@@ -17,102 +17,65 @@ final class BlockType
 {
     use HydratorTrait;
 
-    private string $identifier;
-
-    private bool $isEnabled;
-
-    private string $name;
-
-    private ?string $icon;
-
-    private BlockDefinitionInterface $definition;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $defaults = [];
-
     /**
      * Returns the block type identifier.
      */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    public private(set) string $identifier;
 
     /**
      * Returns if the block type is enabled or not.
      */
-    public function isEnabled(): bool
-    {
-        return $this->isEnabled;
-    }
+    public private(set) bool $isEnabled;
 
     /**
      * Returns the block type name.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Returns the block type icon.
      */
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
+    public private(set) ?string $icon;
 
     /**
      * Returns the block definition.
      */
-    public function getDefinition(): BlockDefinitionInterface
-    {
-        return $this->definition;
-    }
+    public private(set) BlockDefinitionInterface $definition;
 
     /**
      * Returns the default block values.
      *
-     * @return array<string, mixed>
+     * @var array<string, mixed>
      */
-    public function getDefaults(): array
-    {
-        return $this->defaults;
-    }
+    public private(set) array $defaults = [];
 
     /**
      * Returns the default block name.
      */
-    public function getDefaultName(): string
-    {
-        return $this->defaults['name'] ?? '';
+    public string $defaultName {
+        get => $this->defaults['name'] ?? '';
     }
 
     /**
      * Returns the default block view type.
      */
-    public function getDefaultViewType(): string
-    {
-        return $this->defaults['view_type'] ?? '';
+    public string $defaultViewType {
+        get => $this->defaults['view_type'] ?? '';
     }
 
     /**
      * Returns the default block item view type.
      */
-    public function getDefaultItemViewType(): string
-    {
-        return $this->defaults['item_view_type'] ?? '';
+    public string $defaultItemViewType {
+        get => $this->defaults['item_view_type'] ?? '';
     }
 
     /**
      * Returns the default block parameters.
      *
-     * @return array<string, mixed>
+     * @var array<string, mixed>
      */
-    public function getDefaultParameters(): array
-    {
-        return $this->defaults['parameters'] ?? [];
+    public array $defaultParameters {
+        get => $this->defaults['parameters'] ?? [];
     }
 }

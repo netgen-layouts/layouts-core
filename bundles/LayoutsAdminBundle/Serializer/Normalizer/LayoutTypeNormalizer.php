@@ -26,9 +26,9 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
         $layoutType = $data->getValue();
 
         return [
-            'identifier' => $layoutType->getIdentifier(),
-            'name' => $layoutType->getName(),
-            'icon' => $layoutType->getIcon(),
+            'identifier' => $layoutType->identifier,
+            'name' => $layoutType->name,
+            'icon' => $layoutType->icon,
             'zones' => $this->normalizer->normalize($this->getZones($layoutType), $format, $context),
         ];
     }
@@ -59,14 +59,12 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
      */
     private function getZones(LayoutTypeInterface $layoutType): Generator
     {
-        foreach ($layoutType->getZones() as $zone) {
-            $allowedBlockDefinitions = $zone->getAllowedBlockDefinitions();
-
+        foreach ($layoutType->zones as $zone) {
             yield [
-                'identifier' => $zone->getIdentifier(),
-                'name' => $zone->getName(),
-                'allowed_block_definitions' => count($allowedBlockDefinitions) > 0 ?
-                    $allowedBlockDefinitions :
+                'identifier' => $zone->identifier,
+                'name' => $zone->name,
+                'allowed_block_definitions' => count($zone->allowedBlockDefinitions) > 0 ?
+                    $zone->allowedBlockDefinitions :
                     true,
             ];
         }

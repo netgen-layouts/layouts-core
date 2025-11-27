@@ -21,27 +21,27 @@ final class NullLayoutTypeTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('type', $this->layoutType->getIdentifier());
+        self::assertSame('type', $this->layoutType->identifier);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Invalid layout type', $this->layoutType->getName());
+        self::assertSame('Invalid layout type', $this->layoutType->name);
     }
 
     public function testGetIcon(): void
     {
-        self::assertSame('', $this->layoutType->getIcon());
+        self::assertSame('', $this->layoutType->icon);
     }
 
     public function testGetZones(): void
     {
-        self::assertSame([], $this->layoutType->getZones());
+        self::assertSame([], $this->layoutType->zones);
     }
 
     public function testGetZoneIdentifiers(): void
     {
-        self::assertSame([], $this->layoutType->getZoneIdentifiers());
+        self::assertSame([], $this->layoutType->zoneIdentifiers);
     }
 
     public function testHasZone(): void

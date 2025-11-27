@@ -13,54 +13,30 @@ final class ViewType
 {
     use HydratorTrait;
 
-    private string $identifier;
-
-    private string $name;
-
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType[]
-     */
-    private array $itemViewTypes = [];
-
-    /**
-     * @var string[]|null
-     */
-    private ?array $validParameters;
-
     /**
      * Returns the view type identifier.
      */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    public private(set) string $identifier;
 
     /**
      * Returns the view type name.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Returns the item view types.
      *
-     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType[]
      */
-    public function getItemViewTypes(): array
-    {
-        return $this->itemViewTypes;
-    }
+    public private(set) array $itemViewTypes = [];
 
     /**
      * Returns the item view type identifiers.
      *
-     * @return string[]
+     * @var string[]
      */
-    public function getItemViewTypeIdentifiers(): array
-    {
-        return array_keys($this->itemViewTypes);
+    public array $itemViewTypeIdentifiers {
+        get => array_keys($this->itemViewTypes);
     }
 
     /**
@@ -68,12 +44,9 @@ final class ViewType
      *
      * If null is returned, all parameters are valid.
      *
-     * @return string[]|null
+     * @var string[]|null
      */
-    public function getValidParameters(): ?array
-    {
-        return $this->validParameters;
-    }
+    public private(set) ?array $validParameters;
 
     /**
      * Returns if the view type has an item view type with provided identifier.

@@ -26,7 +26,7 @@ final class EditForm extends AbstractController
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(
-            $block->definition->getForm($formName)->getType(),
+            $block->definition->getForm($formName)->type,
             $updateStruct,
             [
                 'block' => $block,

@@ -265,7 +265,7 @@ final class LayoutService implements LayoutServiceInterface
                             'uuid' => $layoutCreateStruct->uuid instanceof UuidInterface ?
                                 $layoutCreateStruct->uuid->toString() :
                                 $layoutCreateStruct->uuid,
-                            'type' => $layoutCreateStruct->layoutType->getIdentifier(),
+                            'type' => $layoutCreateStruct->layoutType->identifier,
                             'name' => $layoutCreateStruct->name,
                             'description' => $layoutCreateStruct->description,
                             'status' => PersistenceStatus::Draft,
@@ -275,7 +275,7 @@ final class LayoutService implements LayoutServiceInterface
                     ),
                 );
 
-                foreach ($layoutCreateStruct->layoutType->getZoneIdentifiers() as $zoneIdentifier) {
+                foreach ($layoutCreateStruct->layoutType->zoneIdentifiers as $zoneIdentifier) {
                     $this->layoutHandler->createZone(
                         $createdLayout,
                         ZoneCreateStruct::fromArray(
@@ -414,7 +414,7 @@ final class LayoutService implements LayoutServiceInterface
         $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
         $zoneMappings = [
-            ...array_fill_keys($targetLayoutType->getZoneIdentifiers(), []),
+            ...array_fill_keys($targetLayoutType->zoneIdentifiers, []),
             ...$zoneMappings,
         ];
 
@@ -422,7 +422,7 @@ final class LayoutService implements LayoutServiceInterface
             function () use ($persistenceLayout, $layoutZones, $targetLayoutType, $zoneMappings, $preserveSharedZones): PersistenceLayout {
                 $updatedLayout = $this->layoutHandler->changeLayoutType(
                     $persistenceLayout,
-                    $targetLayoutType->getIdentifier(),
+                    $targetLayoutType->identifier,
                     $zoneMappings,
                 );
 

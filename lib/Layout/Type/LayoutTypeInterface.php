@@ -16,36 +16,36 @@ interface LayoutTypeInterface
     /**
      * Returns the layout type identifier.
      */
-    public function getIdentifier(): string;
+    public string $identifier { get; }
 
     /**
      * Returns if the layout type is enabled or not.
      */
-    public function isEnabled(): bool;
+    public bool $isEnabled { get; }
 
     /**
      * Returns the layout type name.
      */
-    public function getName(): string;
+    public string $name { get; }
 
     /**
      * Returns the layout type icon.
      */
-    public function getIcon(): ?string;
+    public ?string $icon { get; }
 
     /**
      * Returns the layout type zones.
      *
-     * @return \Netgen\Layouts\Layout\Type\Zone[]
+     * @var \Netgen\Layouts\Layout\Type\Zone[]
      */
-    public function getZones(): array;
+    public array $zones { get; }
 
     /**
      * Returns the layout type zone identifiers.
      *
-     * @return string[]
+     * @var string[]
      */
-    public function getZoneIdentifiers(): array;
+    public array $zoneIdentifiers { get; }
 
     /**
      * Returns if the layout type has a zone with provided identifier.

@@ -39,6 +39,7 @@ final class LayoutTypeFactoryTest extends TestCase
                 'identifier' => '4_zones_a',
                 'isEnabled' => false,
                 'name' => '4 zones A',
+                'zoneIdentifiers' => ['left'],
                 'zones' => [
                     'left' => [
                         'allowedBlockDefinitions' => ['title', 'text'],

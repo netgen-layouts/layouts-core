@@ -623,7 +623,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_b', $updatedLayout->layoutType->getIdentifier());
+        self::assertSame('4_zones_b', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -675,7 +675,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_a', $updatedLayout->layoutType->getIdentifier());
+        self::assertSame('4_zones_a', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -727,7 +727,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_a', $updatedLayout->layoutType->getIdentifier());
+        self::assertSame('4_zones_a', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -780,7 +780,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_b', $updatedLayout->layoutType->getIdentifier());
+        self::assertSame('4_zones_b', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -834,7 +834,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_a', $updatedLayout->layoutType->getIdentifier());
+        self::assertSame('4_zones_a', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -880,7 +880,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_b', $updatedLayout->layoutType->getIdentifier());
+        self::assertSame('4_zones_b', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),

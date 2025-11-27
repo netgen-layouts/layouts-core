@@ -104,8 +104,8 @@ final class GetCollectionPagerListenerTest extends TestCase
         $result = $event->getParameters()['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame(1000, $result->getTotalCount());
+        self::assertSame($collection, $result->collection);
+        self::assertSame(1000, $result->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
@@ -162,8 +162,8 @@ final class GetCollectionPagerListenerTest extends TestCase
         $result = $event->getParameters()['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame(1000, $result->getTotalCount());
+        self::assertSame($collection, $result->collection);
+        self::assertSame(1000, $result->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(2, $event->getParameters()['pager']->getCurrentPage());
@@ -220,8 +220,8 @@ final class GetCollectionPagerListenerTest extends TestCase
         $result = $event->getParameters()['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame(1000, $result->getTotalCount());
+        self::assertSame($collection, $result->collection);
+        self::assertSame(1000, $result->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
@@ -277,8 +277,8 @@ final class GetCollectionPagerListenerTest extends TestCase
         $result = $event->getParameters()['collection'];
 
         self::assertInstanceOf(ResultSet::class, $result);
-        self::assertSame($collection, $result->getCollection());
-        self::assertSame(1000, $result->getTotalCount());
+        self::assertSame($collection, $result->collection);
+        self::assertSame(1000, $result->totalCount);
 
         self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());

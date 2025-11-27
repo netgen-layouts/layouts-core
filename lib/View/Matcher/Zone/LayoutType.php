@@ -24,6 +24,6 @@ final class LayoutType implements MatcherInterface
 
         $layoutType = $view->getLayout()->layoutType;
 
-        return in_array($layoutType->getIdentifier(), $config, true);
+        return in_array($layoutType->identifier, $config, true);
     }
 }

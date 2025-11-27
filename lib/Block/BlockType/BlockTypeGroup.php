@@ -17,67 +17,46 @@ final class BlockTypeGroup
 {
     use HydratorTrait;
 
-    private string $identifier;
-
-    private bool $isEnabled;
-
-    private int $priority;
-
-    private string $name;
-
-    /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockType[]
-     */
-    private array $blockTypes = [];
-
     /**
      * Returns the block type group identifier.
      */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
+    public private(set) string $identifier;
 
     /**
      * Returns if the block type group is enabled or not.
      */
-    public function isEnabled(): bool
-    {
-        return $this->isEnabled;
-    }
+    public private(set) bool $isEnabled;
 
     /**
      * Returns the priority of the block type group.
      */
-    public function getPriority(): int
-    {
-        return $this->priority;
-    }
+    public private(set) int $priority;
 
     /**
      * Returns the block type group name.
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+    public private(set) string $name;
 
     /**
      * Returns the block types in this group.
      *
-     * @return \Netgen\Layouts\Block\BlockType\BlockType[]
+     * @var \Netgen\Layouts\Block\BlockType\BlockType[]
      */
-    public function getBlockTypes(bool $onlyEnabled = false): array
-    {
-        if (!$onlyEnabled) {
-            return $this->blockTypes;
-        }
+    public private(set) array $blockTypes = [];
 
-        return array_values(
-            array_filter(
-                $this->blockTypes,
-                static fn (BlockType $blockType): bool => $blockType->isEnabled(),
-            ),
-        );
+    /**
+     * Returns enabled block types in this group.
+     *
+     * @var \Netgen\Layouts\Block\BlockType\BlockType[]
+     */
+    public array $enabledBlockTypes {
+        get {
+            return array_values(
+                array_filter(
+                    $this->blockTypes,
+                    static fn (BlockType $blockType): bool => $blockType->isEnabled,
+                ),
+            );
+        }
     }
 }

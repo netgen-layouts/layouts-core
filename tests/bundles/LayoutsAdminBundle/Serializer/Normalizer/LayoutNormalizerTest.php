@@ -145,7 +145,7 @@ final class LayoutNormalizerTest extends TestCase
         self::assertSame(
             [
                 'id' => $layout->id->toString(),
-                'type' => $this->layoutType->getIdentifier(),
+                'type' => $this->layoutType->identifier,
                 'published' => false,
                 'has_published_state' => true,
                 'created_at' => $layout->created->format(DateTimeInterface::ATOM),

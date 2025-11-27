@@ -27,21 +27,21 @@ final class ValueTypeTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('value', $this->valueType->getIdentifier());
+        self::assertSame('value', $this->valueType->identifier);
     }
 
     public function testIsEnabled(): void
     {
-        self::assertFalse($this->valueType->isEnabled());
+        self::assertFalse($this->valueType->isEnabled);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Value type', $this->valueType->getName());
+        self::assertSame('Value type', $this->valueType->name);
     }
 
     public function testSupportsManualItems(): void
     {
-        self::assertTrue($this->valueType->supportsManualItems());
+        self::assertTrue($this->valueType->supportsManualItems);
     }
 }

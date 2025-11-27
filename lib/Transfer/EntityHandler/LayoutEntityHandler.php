@@ -428,7 +428,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
 
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
-                $item->getValue(),
+                $item->value,
             );
 
             $itemCreateStruct->viewType = $collectionItemData['view_type'];

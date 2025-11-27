@@ -96,11 +96,11 @@ final class CreateType extends AbstractType
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
-            if (!isset($view['layoutType'][$layoutType->getIdentifier()])) {
+            if (!isset($view['layoutType'][$layoutType->identifier])) {
                 continue;
             }
 
-            $view['layoutType'][$layoutType->getIdentifier()]->vars['layout_type'] = $layoutType;
+            $view['layoutType'][$layoutType->identifier]->vars['layout_type'] = $layoutType;
         }
     }
 }

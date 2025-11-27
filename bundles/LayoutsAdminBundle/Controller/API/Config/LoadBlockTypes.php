@@ -28,7 +28,7 @@ final class LoadBlockTypes extends AbstractController
 
         $blockTypeGroups = [];
         foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups(true) as $blockTypeGroup) {
-            if (count($blockTypeGroup->getBlockTypes(true)) > 0) {
+            if (count($blockTypeGroup->enabledBlockTypes) > 0) {
                 $blockTypeGroups[] = new Value($blockTypeGroup);
             }
         }

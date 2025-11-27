@@ -18,19 +18,18 @@ final class BlockTypeNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\Layouts\Block\BlockType\BlockType $blockType */
         $blockType = $data->getValue();
-        $blockDefinition = $blockType->getDefinition();
 
         $normalizedData = [
-            'identifier' => $blockType->getIdentifier(),
-            'enabled' => $blockType->isEnabled(),
-            'name' => $blockType->getName(),
-            'icon' => $blockType->getIcon(),
-            'definition_identifier' => $blockDefinition->getIdentifier(),
+            'identifier' => $blockType->identifier,
+            'enabled' => $blockType->isEnabled,
+            'name' => $blockType->name,
+            'icon' => $blockType->icon,
+            'definition_identifier' => $blockType->definition->getIdentifier(),
             'is_container' => false,
-            'defaults' => $blockType->getDefaults(),
+            'defaults' => $blockType->defaults,
         ];
 
-        if ($blockDefinition instanceof ContainerDefinitionInterface) {
+        if ($blockType->definition instanceof ContainerDefinitionInterface) {
             $normalizedData['is_container'] = true;
         }
 

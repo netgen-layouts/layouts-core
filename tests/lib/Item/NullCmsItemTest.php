@@ -15,7 +15,7 @@ final class NullCmsItemTest extends TestCase
     {
         $value = new NullCmsItem('value');
 
-        self::assertSame('value', $value->getValueType());
-        self::assertSame('(INVALID ITEM)', $value->getName());
+        self::assertSame('value', $value->valueType);
+        self::assertSame('(INVALID ITEM)', $value->name);
     }
 }
