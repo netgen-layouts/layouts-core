@@ -33,7 +33,7 @@
         "symfony/http-kernel": "^7.3",
         "symfony/intl": "^7.3",
         "symfony/mime": "^7.3",
-        "symfony/monolog-bundle": "^3.10",
+        "symfony/monolog-bundle": "^3.11 || ^4.0",
         "symfony/options-resolver": "^7.3",
         "symfony/polyfill-php85": "^1.33",
         "symfony/property-access": "^7.3",
