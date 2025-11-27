@@ -19,7 +19,7 @@ final class QueryType implements QueryTypeInterface
 
     public private(set) string $name;
 
-    private QueryTypeHandlerInterface $handler;
+    public private(set) QueryTypeHandlerInterface $handler;
 
     public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable
     {

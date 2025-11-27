@@ -8,12 +8,11 @@ parameters:
 
     ignoreErrors:
         # Doctrine DBAL
+
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
 
-        # Disable errors for various "only read/written" properties
-        - '#\$\w+ is never (written|read), only (read|written).#'
-
         # Symfony
+
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
         - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
 

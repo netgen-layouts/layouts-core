@@ -16,7 +16,7 @@ final class QueryType implements QueryTypeInterface
         get => $this->type;
     }
 
-    private QueryTypeHandler $handler;
+    public private(set) QueryTypeHandler $handler;
 
     /**
      * @param mixed[] $values

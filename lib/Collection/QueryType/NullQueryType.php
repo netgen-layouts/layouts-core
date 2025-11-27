@@ -19,6 +19,10 @@ final class NullQueryType implements QueryTypeInterface
         get => 'Invalid query type';
     }
 
+    public QueryTypeHandlerInterface $handler {
+        get => new NullQueryTypeHandler();
+    }
+
     public function __construct(
         private(set) string $type,
     ) {}

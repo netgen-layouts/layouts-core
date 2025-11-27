@@ -29,6 +29,11 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
     public string $name { get; }
 
     /**
+     * Returns the query type handler.
+     */
+    public QueryTypeHandlerInterface $handler { get; }
+
+    /**
      * Returns the values from the query.
      *
      * @return iterable<object>
