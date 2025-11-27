@@ -47,7 +47,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
 
         self::assertSame(
             ['name' => $definition],
-            $parameterDefinitions->getParameterDefinitions(),
+            $parameterDefinitions->parameterDefinitions,
         );
     }
 

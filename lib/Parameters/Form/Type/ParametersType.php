@@ -60,15 +60,15 @@ final class ParametersType extends AbstractType
         /** @var \Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions */
         $parameterDefinitions = $options['parameter_definitions'];
 
-        foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($parameterDefinitions->parameterDefinitions as $parameterDefinition) {
             if (!$this->includeParameter($parameterDefinition, $options['groups'])) {
                 continue;
             }
 
-            $parameterName = $parameterDefinition->getName();
-            $parameterLabel = $parameterDefinition->getLabel();
+            $parameterName = $parameterDefinition->name;
+            $parameterLabel = $parameterDefinition->label;
 
-            $mapper = $this->getMapper($parameterDefinition->getType()::getIdentifier());
+            $mapper = $this->getMapper($parameterDefinition->type::getIdentifier());
 
             $defaultOptions = [
                 'label' => $parameterLabel ?? $options['label_prefix'] . '.' . $parameterName,
@@ -103,13 +103,11 @@ final class ParametersType extends AbstractType
      */
     private function includeParameter(ParameterDefinition $parameterDefinition, array $groups): bool
     {
-        $parameterGroups = $parameterDefinition->getGroups();
-
-        if (count($parameterGroups) === 0 || count($groups) === 0) {
+        if (count($parameterDefinition->groups) === 0 || count($groups) === 0) {
             return true;
         }
 
-        return count(array_intersect($parameterGroups, $groups)) > 0;
+        return count(array_intersect($parameterDefinition->groups, $groups)) > 0;
     }
 
     /**

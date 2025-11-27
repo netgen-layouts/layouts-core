@@ -45,7 +45,7 @@ final class BooleanType extends CompoundParameterType
 
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
-        if ($parameterDefinition->isRequired()) {
+        if ($parameterDefinition->isRequired) {
             return [
                 new Constraints\NotNull(),
             ];

@@ -22,13 +22,13 @@ final class ParameterMapper
      */
     public function mapParameters(ParameterDefinitionCollectionInterface $definitions, array $values): Generator
     {
-        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
-            $parameterName = $parameterDefinition->getName();
-            $parameterType = $parameterDefinition->getType();
+        foreach ($definitions->parameterDefinitions as $parameterDefinition) {
+            $parameterName = $parameterDefinition->name;
+            $parameterType = $parameterDefinition->type;
 
             $value = array_key_exists($parameterName, $values) ?
                 $parameterType->fromHash($parameterDefinition, $values[$parameterName]) :
-                $parameterDefinition->getDefaultValue();
+                $parameterDefinition->defaultValue;
 
             yield $parameterName => Parameter::fromArray(
                 [
@@ -57,13 +57,13 @@ final class ParameterMapper
     {
         yield from $fallbackValues;
 
-        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
-            $parameterName = $parameterDefinition->getName();
+        foreach ($definitions->parameterDefinitions as $parameterDefinition) {
+            $parameterName = $parameterDefinition->name;
             if (!array_key_exists($parameterName, $values)) {
                 continue;
             }
 
-            yield $parameterName => $parameterDefinition->getType()->toHash(
+            yield $parameterName => $parameterDefinition->type->toHash(
                 $parameterDefinition,
                 $values[$parameterName],
             );
@@ -81,7 +81,7 @@ final class ParameterMapper
      */
     public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $definitions, array $values): Generator
     {
-        foreach ($definitions->getParameterDefinitions() as $paramName => $parameterDefinition) {
+        foreach ($definitions->parameterDefinitions as $paramName => $parameterDefinition) {
             if ($parameterDefinition->getOption('translatable') === true) {
                 continue;
             }
@@ -89,7 +89,7 @@ final class ParameterMapper
             yield $paramName => $values[$paramName] ?? null;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                foreach ($parameterDefinition->getParameterDefinitions() as $subParamName => $subParameterDefinition) {
+                foreach ($parameterDefinition->parameterDefinitions as $subParamName => $subParameterDefinition) {
                     yield $subParamName => $values[$subParamName] ?? null;
                 }
             }

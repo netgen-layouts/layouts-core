@@ -24,7 +24,7 @@ final class CompoundParameterDefinitionTest extends TestCase
             ],
         );
 
-        self::assertSame(['name' => $innerDefinition], $parameterDefinition->getParameterDefinitions());
+        self::assertSame(['name' => $innerDefinition], $parameterDefinition->parameterDefinitions);
 
         self::assertFalse($parameterDefinition->hasParameterDefinition('test'));
         self::assertTrue($parameterDefinition->hasParameterDefinition('name'));

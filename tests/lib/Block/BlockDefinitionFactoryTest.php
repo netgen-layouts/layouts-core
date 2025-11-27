@@ -122,7 +122,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertSame('definition', $blockDefinition->identifier);
         self::assertFalse($blockDefinition->isTranslatable);
 
-        self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
+        self::assertArrayHasKey('test_param', $blockDefinition->parameterDefinitions);
         self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         self::assertTrue($blockDefinition->hasViewType('view_type'));
@@ -218,7 +218,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertSame('definition', $blockDefinition->identifier);
         self::assertTrue($blockDefinition->isTranslatable);
 
-        self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
+        self::assertArrayHasKey('test_param', $blockDefinition->parameterDefinitions);
         self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $configDefinitions = $blockDefinition->configDefinitions;
@@ -262,7 +262,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertSame('definition', $blockDefinition->identifier);
         self::assertFalse($blockDefinition->isTranslatable);
 
-        self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
+        self::assertArrayHasKey('test_param', $blockDefinition->parameterDefinitions);
         self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $configDefinitions = $blockDefinition->configDefinitions;

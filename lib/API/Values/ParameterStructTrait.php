@@ -55,8 +55,8 @@ trait ParameterStructTrait
      */
     private function fillDefault(ParameterDefinitionCollectionInterface $definitionCollection): void
     {
-        foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
-            $this->setParameterValue($name, $definition->getDefaultValue());
+        foreach ($definitionCollection->parameterDefinitions as $name => $definition) {
+            $this->setParameterValue($name, $definition->defaultValue);
 
             if ($definition instanceof CompoundParameterDefinition) {
                 $this->fillDefault($definition);
@@ -71,12 +71,12 @@ trait ParameterStructTrait
         ParameterDefinitionCollectionInterface $definitionCollection,
         ParameterCollectionInterface $parameters,
     ): void {
-        foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
+        foreach ($definitionCollection->parameterDefinitions as $name => $definition) {
             $value = null;
 
             if ($parameters->hasParameter($name)) {
                 $parameter = $parameters->getParameter($name);
-                if ($parameter->getParameterDefinition()->getType()::getIdentifier() === $definition->getType()::getIdentifier()) {
+                if ($parameter->getParameterDefinition()->type::getIdentifier() === $definition->type::getIdentifier()) {
                     $value = $parameter->getValue();
 
                     if (is_object($value) && new ReflectionClass($value::class)->isCloneable()) {
@@ -113,9 +113,9 @@ trait ParameterStructTrait
         array $values,
         bool $doImport = false,
     ): void {
-        foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
-            $value = $definition->getDefaultValue();
-            $parameterType = $definition->getType();
+        foreach ($definitionCollection->parameterDefinitions as $name => $definition) {
+            $value = $definition->defaultValue;
+            $parameterType = $definition->type;
 
             if (array_key_exists($name, $values)) {
                 $value = $doImport ?

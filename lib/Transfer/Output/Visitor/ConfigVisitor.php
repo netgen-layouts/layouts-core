@@ -31,7 +31,7 @@ final class ConfigVisitor implements VisitorInterface
             static function (Parameter $parameter) {
                 $definition = $parameter->getParameterDefinition();
 
-                return $definition->getType()->export($definition, $parameter->getValue());
+                return $definition->type->export($definition, $parameter->getValue());
             },
             $value->parameters->toArray(),
         );

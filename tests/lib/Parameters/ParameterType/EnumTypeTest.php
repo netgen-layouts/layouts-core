@@ -34,8 +34,8 @@ final class EnumTypeTest extends TestCase
     #[DataProvider('defaultValueDataProvider')]
     public function testGetDefaultValue(array $options, bool $required, mixed $defaultValue, mixed $expected): void
     {
-        $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
-        self::assertSame($expected, $parameter->getDefaultValue());
+        $parameterDefinition = $this->getParameterDefinition($options, $required, $defaultValue);
+        self::assertSame($expected, $parameterDefinition->defaultValue);
     }
 
     /**
@@ -45,8 +45,8 @@ final class EnumTypeTest extends TestCase
     #[DataProvider('validOptionsDataProvider')]
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
-        $parameter = $this->getParameterDefinition($options);
-        self::assertSame($resolvedOptions, $parameter->getOptions());
+        $parameterDefinition = $this->getParameterDefinition($options);
+        self::assertSame($resolvedOptions, $parameterDefinition->options);
     }
 
     /**

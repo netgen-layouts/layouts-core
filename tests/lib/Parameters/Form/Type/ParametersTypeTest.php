@@ -129,7 +129,7 @@ final class ParametersTypeTest extends FormTestCase
             );
 
             self::assertSame(
-                $parameterDefinitions->getParameterDefinition($key)->getLabel() ?? 'label.' . $key,
+                $parameterDefinitions->getParameterDefinition($key)->label ?? 'label.' . $key,
                 $paramForm->getConfig()->getOption('label'),
             );
         }

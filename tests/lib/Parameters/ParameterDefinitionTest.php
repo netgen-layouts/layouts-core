@@ -32,17 +32,17 @@ final class ParameterDefinitionTest extends TestCase
             ],
         );
 
-        self::assertSame('name', $parameterDefinition->getName());
-        self::assertSame($type, $parameterDefinition->getType());
-        self::assertSame(['option' => 'value'], $parameterDefinition->getOptions());
+        self::assertSame('name', $parameterDefinition->name);
+        self::assertSame($type, $parameterDefinition->type);
+        self::assertSame(['option' => 'value'], $parameterDefinition->options);
         self::assertTrue($parameterDefinition->hasOption('option'));
         self::assertFalse($parameterDefinition->hasOption('other'));
         self::assertSame('value', $parameterDefinition->getOption('option'));
-        self::assertTrue($parameterDefinition->isRequired());
-        self::assertSame(42, $parameterDefinition->getDefaultValue());
-        self::assertSame('Custom label', $parameterDefinition->getLabel());
-        self::assertSame(['group'], $parameterDefinition->getGroups());
-        self::assertSame($constraints, $parameterDefinition->getConstraints());
+        self::assertTrue($parameterDefinition->isRequired);
+        self::assertSame(42, $parameterDefinition->defaultValue);
+        self::assertSame('Custom label', $parameterDefinition->label);
+        self::assertSame(['group'], $parameterDefinition->groups);
+        self::assertSame($constraints, $parameterDefinition->constraints);
 
         try {
             $parameterDefinition->getOption('other');

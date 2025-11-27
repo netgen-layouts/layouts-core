@@ -17,7 +17,7 @@ final class ParameterNormalizer implements NormalizerInterface
         $parameter = $data->value;
         $parameterDefinition = $parameter->getParameterDefinition();
 
-        return $parameterDefinition->getType()->toHash($parameterDefinition, $parameter->getValue());
+        return $parameterDefinition->type->toHash($parameterDefinition, $parameter->getValue());
     }
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool

@@ -166,7 +166,7 @@ abstract class EditType extends AbstractType
      */
     private function processViewTypeConfig(Block $block): void
     {
-        $blockDefinitionParameters = array_keys($block->definition->getParameterDefinitions());
+        $blockDefinitionParameters = array_keys($block->definition->parameterDefinitions);
 
         foreach ($block->definition->getBlockViewTypes($block) as $viewType) {
             $this->viewTypes[$viewType->identifier] = $viewType->name;

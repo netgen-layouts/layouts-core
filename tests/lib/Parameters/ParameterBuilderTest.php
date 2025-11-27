@@ -715,7 +715,7 @@ final class ParameterBuilderTest extends TestCase
         $compoundDefinition = $parameterDefinitions['compound'];
         self::assertInstanceOf(CompoundParameterDefinition::class, $compoundDefinition);
 
-        $innerDefinitions = $compoundDefinition->getParameterDefinitions();
+        $innerDefinitions = $compoundDefinition->parameterDefinitions;
 
         self::assertArrayHasKey('test2', $innerDefinitions);
 

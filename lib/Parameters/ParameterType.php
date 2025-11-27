@@ -14,9 +14,9 @@ abstract class ParameterType implements ParameterTypeInterface
 
     public function getConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
-        if ($parameterDefinition->getType()::getIdentifier() !== $this::getIdentifier()) {
+        if ($parameterDefinition->type::getIdentifier() !== $this::getIdentifier()) {
             throw ParameterTypeException::unsupportedParameterType(
-                $parameterDefinition->getType()::getIdentifier(),
+                $parameterDefinition->type::getIdentifier(),
             );
         }
 
@@ -95,7 +95,7 @@ abstract class ParameterType implements ParameterTypeInterface
      */
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
-        if ($parameterDefinition->isRequired()) {
+        if ($parameterDefinition->isRequired) {
             return [
                 new Constraints\NotBlank(),
             ];

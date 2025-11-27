@@ -10,20 +10,7 @@ use function array_key_exists;
 
 trait ParameterDefinitionCollectionTrait
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterDefinition[]
-     */
-    final protected array $parameterDefinitions = [];
-
-    /**
-     * Returns all parameter definitions from the collection.
-     *
-     * @return \Netgen\Layouts\Parameters\ParameterDefinition[]
-     */
-    public function getParameterDefinitions(): array
-    {
-        return $this->parameterDefinitions;
-    }
+    final public protected(set) array $parameterDefinitions = [];
 
     /**
      * Returns the parameter definition with provided name.

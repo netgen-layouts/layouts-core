@@ -67,7 +67,7 @@ final class Parameter
             return $this->valueObject;
         }
 
-        $parameterType = $this->parameterDefinition->getType();
+        $parameterType = $this->parameterDefinition->type;
         if (!$parameterType instanceof ValueObjectProviderInterface) {
             throw ParameterException::valueObjectNotSupported($this->name, $parameterType::class);
         }

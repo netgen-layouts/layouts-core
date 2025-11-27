@@ -82,7 +82,7 @@ final class QueryVisitor implements VisitorInterface
     {
         foreach ($query->parameters as $parameter) {
             $definition = $parameter->getParameterDefinition();
-            $exportedValue = $definition->getType()->export($definition, $parameter->getValue());
+            $exportedValue = $definition->type->export($definition, $parameter->getValue());
 
             yield $parameter->getName() => $exportedValue;
         }

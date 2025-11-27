@@ -30,7 +30,7 @@ final class BooleanType extends ParameterType
 
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
-        if ($parameterDefinition->isRequired()) {
+        if ($parameterDefinition->isRequired) {
             return [
                 new Constraints\NotNull(),
             ];

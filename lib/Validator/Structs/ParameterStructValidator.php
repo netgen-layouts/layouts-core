@@ -52,24 +52,24 @@ final class ParameterStructValidator extends ConstraintValidator
 
         // Then we validate with runtime constraints coming from parameter definition
         // allowing for validation of values dependent on other parameter struct values
-        foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
-            $parameterName = $parameterDefinition->getName();
+        foreach ($constraint->parameterDefinitions->parameterDefinitions as $parameterDefinition) {
+            $parameterName = $parameterDefinition->name;
             $parameterValue = $value->getParameterValue($parameterName);
 
-            if ($constraint->checkReadOnlyFields && $parameterDefinition->isReadOnly()) {
+            if ($constraint->checkReadOnlyFields && $parameterDefinition->isReadOnly) {
                 if (
                     $parameterValue !== null
                     && $parameterValue !== $constraint->payload->getParameter($parameterName)->getValue()
                 ) {
                     $this->context->buildViolation($constraint->fieldReadOnlyMessage)
-                        ->setParameter('%parameterName%', $parameterDefinition->getName())
+                        ->setParameter('%parameterName%', $parameterDefinition->name)
                         ->addViolation();
 
                     return;
                 }
             }
 
-            $validator->atPath('[' . $parameterDefinition->getName() . ']')->validate(
+            $validator->atPath('[' . $parameterDefinition->name . ']')->validate(
                 $parameterValue,
                 [
                     ...$this->getRuntimeParameterConstraints(
@@ -92,18 +92,18 @@ final class ParameterStructValidator extends ConstraintValidator
         ParameterStruct $parameterStruct,
         ParameterStructConstraint $constraint,
     ): Generator {
-        foreach ($constraint->parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($constraint->parameterDefinitions->parameterDefinitions as $parameterDefinition) {
             $constraints = $this->getParameterConstraints($parameterDefinition, $parameterStruct);
 
-            if (!$parameterDefinition->isRequired()) {
+            if (!$parameterDefinition->isRequired) {
                 $constraints = new Constraints\Optional($constraints);
             }
 
-            yield $parameterDefinition->getName() => $constraints;
+            yield $parameterDefinition->name => $constraints;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
-                    yield $subParameterDefinition->getName() => new Constraints\Optional(
+                foreach ($parameterDefinition->parameterDefinitions as $subParameterDefinition) {
+                    yield $subParameterDefinition->name => new Constraints\Optional(
                         // Sub parameter values are always optional (either missing or set to null)
                         // so we don't have to validate empty values
                         $this->getParameterConstraints($subParameterDefinition, $parameterStruct, false),
@@ -127,14 +127,14 @@ final class ParameterStructValidator extends ConstraintValidator
         bool $validateEmptyValue = true,
     ): array {
         $parameterValue = $parameterStruct->getParameterValue(
-            $parameterDefinition->getName(),
+            $parameterDefinition->name,
         );
 
         if (!$validateEmptyValue && $parameterValue === null) {
             return [];
         }
 
-        return $parameterDefinition->getType()->getConstraints(
+        return $parameterDefinition->type->getConstraints(
             $parameterDefinition,
             $parameterValue,
         );
@@ -152,7 +152,7 @@ final class ParameterStructValidator extends ConstraintValidator
         mixed $parameterValue,
         array $allParameterValues,
     ): Generator {
-        foreach ($parameterDefinition->getConstraints() as $constraint) {
+        foreach ($parameterDefinition->constraints as $constraint) {
             if ($constraint instanceof Closure) {
                 $constraint = $constraint($parameterValue, $allParameterValues, $parameterDefinition);
             }
@@ -170,12 +170,12 @@ final class ParameterStructValidator extends ConstraintValidator
         ParameterDefinitionCollectionInterface $definitions,
         ParameterStruct $parameterStruct,
     ): Generator {
-        foreach ($definitions->getParameterDefinitions() as $parameterDefinition) {
-            yield $parameterDefinition->getName() => null;
+        foreach ($definitions->parameterDefinitions as $parameterDefinition) {
+            yield $parameterDefinition->name => null;
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
-                    yield $subParameterDefinition->getName() => null;
+                foreach ($parameterDefinition->parameterDefinitions as $subParameterDefinition) {
+                    yield $subParameterDefinition->name => null;
                 }
             }
         }

@@ -53,6 +53,6 @@ final class LinkDataMapper implements DataMapperInterface
             ];
         }
 
-        $viewData = $this->parameterDefinition->getType()->fromHash($this->parameterDefinition, $viewData);
+        $viewData = $this->parameterDefinition->type->fromHash($this->parameterDefinition, $viewData);
     }
 }

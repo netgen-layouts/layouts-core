@@ -174,16 +174,16 @@ final class MigrateQueryOffsetLimitCommand extends Command
      */
     private function getQueryTypeParameters(QueryTypeInterface $queryType): Generator
     {
-        foreach ($queryType->getParameterDefinitions() as $parameterDefinition) {
+        foreach ($queryType->parameterDefinitions as $parameterDefinition) {
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
-                foreach ($parameterDefinition->getParameterDefinitions() as $innerParameterDefinition) {
-                    yield $innerParameterDefinition->getName();
+                foreach ($parameterDefinition->parameterDefinitions as $innerParameterDefinition) {
+                    yield $innerParameterDefinition->name;
                 }
 
                 continue;
             }
 
-            yield $parameterDefinition->getName();
+            yield $parameterDefinition->name;
         }
     }
 
