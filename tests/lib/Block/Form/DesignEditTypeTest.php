@@ -125,7 +125,7 @@ final class DesignEditTypeTest extends FormTestCase
 
         self::assertSame('large', $struct->viewType);
         self::assertSame('standard', $struct->itemViewType);
-        self::assertSame(['css_class' => 'Some CSS class'], $struct->getParameterValues());
+        self::assertSame(['css_class' => 'Some CSS class'], $struct->parameterValues);
 
         $view = $form->createView();
         $children = $view->children;

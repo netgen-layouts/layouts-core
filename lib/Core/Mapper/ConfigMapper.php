@@ -58,7 +58,7 @@ final class ConfigMapper
             $configValues = [];
 
             if (($configStructs[$configKey] ?? null) instanceof ParameterStruct) {
-                $configValues = $configStructs[$configKey]->getParameterValues();
+                $configValues = $configStructs[$configKey]->parameterValues;
             }
 
             yield $configKey => [

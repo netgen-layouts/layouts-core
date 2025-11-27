@@ -41,7 +41,7 @@ final class ParameterStructValidator extends ConstraintValidator
 
         // First we validate the value format with constraints coming from the parameter type
         $validator->validate(
-            $value->getParameterValues(),
+            $value->parameterValues,
             new Constraints\Collection(
                 fields: [...$this->buildConstraintFields($value, $constraint)],
                 allowMissingFields: $constraint->allowMissingFields,
@@ -180,6 +180,6 @@ final class ParameterStructValidator extends ConstraintValidator
             }
         }
 
-        yield from $parameterStruct->getParameterValues();
+        yield from $parameterStruct->parameterValues;
     }
 }

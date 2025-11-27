@@ -29,25 +29,7 @@ final class ParameterStructTraitTest extends TestCase
 
     public function testDefaultProperties(): void
     {
-        self::assertSame([], $this->struct->getParameterValues());
-    }
-
-    public function testSetParameterValues(): void
-    {
-        $this->struct->setParameterValues(
-            [
-                'some_param' => 'some_value',
-                'some_other_param' => 'some_other_value',
-            ],
-        );
-
-        self::assertSame(
-            [
-                'some_param' => 'some_value',
-                'some_other_param' => 'some_other_value',
-            ],
-            $this->struct->getParameterValues(),
-        );
+        self::assertSame([], $this->struct->parameterValues);
     }
 
     public function testSetParameterValue(): void
@@ -60,7 +42,7 @@ final class ParameterStructTraitTest extends TestCase
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -69,7 +51,7 @@ final class ParameterStructTraitTest extends TestCase
         $this->struct->setParameterValue('some_param', 'some_value');
         $this->struct->setParameterValue('some_param', 'new_value');
 
-        self::assertSame(['some_param' => 'new_value'], $this->struct->getParameterValues());
+        self::assertSame(['some_param' => 'new_value'], $this->struct->parameterValues);
     }
 
     public function testGetParameterValue(): void
@@ -111,7 +93,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner_default',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -152,7 +134,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => null,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -176,7 +158,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -198,7 +180,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -222,7 +204,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -244,7 +226,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 

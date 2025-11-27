@@ -219,7 +219,7 @@ final class CollectionService implements APICollectionService
                                 'parameters' => [
                                     ...$this->parameterMapper->serializeValues(
                                         $queryType,
-                                        $queryCreateStruct->getParameterValues(),
+                                        $queryCreateStruct->parameterValues,
                                     ),
                                 ],
                             ],
@@ -520,7 +520,7 @@ final class CollectionService implements APICollectionService
                         'parameters' => [
                             ...$this->parameterMapper->serializeValues(
                                 $queryType,
-                                $queryUpdateStruct->getParameterValues(),
+                                $queryUpdateStruct->parameterValues,
                                 $persistenceQuery->parameters[$persistenceQuery->mainLocale],
                             ),
                         ],
@@ -554,7 +554,7 @@ final class CollectionService implements APICollectionService
                 $params = [
                     ...$this->parameterMapper->serializeValues(
                         $queryType,
-                        $queryUpdateStruct->getParameterValues(),
+                        $queryUpdateStruct->parameterValues,
                         $params,
                     ),
                 ];

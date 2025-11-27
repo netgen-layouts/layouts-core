@@ -648,7 +648,7 @@ final class BlockService implements BlockServiceInterface
                             'parameters' => [
                                 ...$this->parameterMapper->serializeValues(
                                     $blockDefinition,
-                                    $blockCreateStruct->getParameterValues(),
+                                    $blockCreateStruct->parameterValues,
                                 ),
                             ],
                             'config' => [
@@ -692,7 +692,7 @@ final class BlockService implements BlockServiceInterface
                                         'parameters' => [
                                             ...$this->parameterMapper->serializeValues(
                                                 $queryType,
-                                                $collectionCreateStruct->queryCreateStruct->getParameterValues(),
+                                                $collectionCreateStruct->queryCreateStruct->parameterValues,
                                             ),
                                         ],
                                     ],
@@ -798,7 +798,7 @@ final class BlockService implements BlockServiceInterface
                         'parameters' => [
                             ...$this->parameterMapper->serializeValues(
                                 $blockDefinition,
-                                $blockUpdateStruct->getParameterValues(),
+                                $blockUpdateStruct->parameterValues,
                                 $persistenceBlock->parameters[$persistenceBlock->mainLocale],
                             ),
                         ],
@@ -832,7 +832,7 @@ final class BlockService implements BlockServiceInterface
                 $params = [
                     ...$this->parameterMapper->serializeValues(
                         $blockDefinition,
-                        $blockUpdateStruct->getParameterValues(),
+                        $blockUpdateStruct->parameterValues,
                         $params,
                     ),
                 ];

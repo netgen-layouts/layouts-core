@@ -66,24 +66,27 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param mixed[] $value
+     * @param mixed[] $parameters
      */
     #[DataProvider('validateDataProvider')]
-    public function testValidate(array $value, bool $required, bool $isValid): void
+    public function testValidate(array $parameters, bool $required, bool $isValid): void
     {
         $this->constraint->allowMissingFields = !$required;
 
         $blockCreateStruct = new BlockCreateStruct(new BlockDefinition());
-        $blockCreateStruct->setParameterValues($value);
+
+        foreach ($parameters as $parameterName => $value) {
+            $blockCreateStruct->setParameterValue($parameterName, $value);
+        }
 
         $this->assertValid($isValid, $blockCreateStruct);
     }
 
     /**
-     * @param mixed[] $value
+     * @param mixed[] $parameters
      */
     #[DataProvider('validateWithRuntimeConstraintsDataProvider')]
-    public function testValidateWithRuntimeConstraints(array $value, bool $required, bool $isValid): void
+    public function testValidateWithRuntimeConstraints(array $parameters, bool $required, bool $isValid): void
     {
         $compoundParameter = CompoundParameterDefinition::fromArray(
             [
@@ -128,7 +131,10 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         $this->constraint->allowMissingFields = !$required;
 
         $blockCreateStruct = new BlockCreateStruct(new BlockDefinition());
-        $blockCreateStruct->setParameterValues($value);
+
+        foreach ($parameters as $parameterName => $value) {
+            $blockCreateStruct->setParameterValue($parameterName, $value);
+        }
 
         $this->assertValid($isValid, $blockCreateStruct);
     }

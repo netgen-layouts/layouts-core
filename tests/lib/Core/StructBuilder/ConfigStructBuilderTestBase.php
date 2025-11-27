@@ -56,6 +56,6 @@ abstract class ConfigStructBuilderTestBase extends CoreTestCase
 
         $configStruct = $struct->getConfigStruct('config');
 
-        self::assertSame(['param' => null, 'param2' => null], $configStruct->getParameterValues());
+        self::assertSame(['param' => null, 'param2' => null], $configStruct->parameterValues);
     }
 }

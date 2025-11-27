@@ -114,7 +114,7 @@ final class FullEditTypeTest extends FormTestCase
 
         self::assertSame(
             ['css_class' => 'Some CSS class', 'css_id' => 'Some CSS ID'],
-            $struct->getParameterValues(),
+            $struct->parameterValues,
         );
 
         $view = $form->createView();

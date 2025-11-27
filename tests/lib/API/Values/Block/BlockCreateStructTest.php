@@ -80,7 +80,7 @@ final class BlockCreateStructTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -100,7 +100,7 @@ final class BlockCreateStructTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 

@@ -177,7 +177,7 @@ final class CollectionValidatorTest extends TestCase
     public static function validateCollectionCreateStructDataProvider(): iterable
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('test'));
-        $queryCreateStruct->setParameterValues(['param' => 'value']);
+        $queryCreateStruct->setParameterValue('param', 'value');
 
         return [
             [

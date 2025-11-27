@@ -17,19 +17,7 @@ trait ParameterStructTrait
     /**
      * @var array<string, mixed>
      */
-    private array $parameterValues = [];
-
-    /**
-     * Sets the provided parameter values to the struct.
-     *
-     * The values need to be in the domain format of the value for the parameter.
-     *
-     * @param array<string, mixed> $parameterValues
-     */
-    public function setParameterValues(array $parameterValues): void
-    {
-        $this->parameterValues = $parameterValues;
-    }
+    public array $parameterValues = [];
 
     /**
      * Sets the parameter value to the struct.
@@ -39,16 +27,6 @@ trait ParameterStructTrait
     public function setParameterValue(string $parameterName, mixed $parameterValue): void
     {
         $this->parameterValues[$parameterName] = $parameterValue;
-    }
-
-    /**
-     * Returns all parameter values from the struct.
-     *
-     * @return array<string, mixed>
-     */
-    public function getParameterValues(): array
-    {
-        return $this->parameterValues;
     }
 
     /**

@@ -114,7 +114,7 @@ final class ParametersTypeTest extends FormTestCase
                 'compound' => true,
                 'inner' => 'Inner value',
             ],
-            $struct->getParameterValues(),
+            $struct->parameterValues,
         );
 
         self::assertCount(3, $parentForm->get('parameter_values')->all());
@@ -234,7 +234,7 @@ final class ParametersTypeTest extends FormTestCase
 
         self::assertTrue($parentForm->isSynchronized());
 
-        self::assertSame(['css_id' => 'Some CSS ID'], $struct->getParameterValues());
+        self::assertSame(['css_id' => 'Some CSS ID'], $struct->parameterValues);
 
         self::assertCount(1, $parentForm->get('parameter_values')->all());
         self::assertTrue($parentForm->get('parameter_values')->has('css_id'));

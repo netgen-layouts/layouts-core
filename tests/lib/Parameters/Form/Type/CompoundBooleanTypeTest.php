@@ -69,7 +69,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
                 'css_class' => 'Some CSS class',
                 'css_id' => 'Some CSS ID',
             ],
-            $struct->getParameterValues(),
+            $struct->parameterValues,
         );
 
         $view = $parentForm->createView();
@@ -130,7 +130,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'main_checkbox' => false,
             ],
-            $struct->getParameterValues(),
+            $struct->parameterValues,
         );
 
         $view = $parentForm->createView();
@@ -188,7 +188,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'main_checkbox' => false,
             ],
-            $struct->getParameterValues(),
+            $struct->parameterValues,
         );
 
         $view = $parentForm->createView();
@@ -249,7 +249,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'main_checkbox' => true,
             ],
-            $struct->getParameterValues(),
+            $struct->parameterValues,
         );
 
         $view = $parentForm->createView();
@@ -313,7 +313,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
                 'css_class' => 'Some CSS class',
                 'css_id' => 'Some CSS ID',
             ],
-            $struct->getParameterValues(),
+            $struct->parameterValues,
         );
 
         $view = $parentForm->createView();

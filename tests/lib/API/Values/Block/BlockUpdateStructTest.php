@@ -64,7 +64,7 @@ final class BlockUpdateStructTest extends TestCase
                 'compound' => null,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -88,7 +88,7 @@ final class BlockUpdateStructTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 
@@ -110,7 +110,7 @@ final class BlockUpdateStructTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues(),
+            $this->struct->parameterValues,
         );
     }
 

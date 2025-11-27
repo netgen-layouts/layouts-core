@@ -7,13 +7,11 @@ namespace Netgen\Layouts\API\Values;
 interface ParameterStruct
 {
     /**
-     * Sets the provided parameter values to the struct.
+     * Returns all parameter values from the struct.
      *
-     * The values need to be in the domain format of the value for the parameter.
-     *
-     * @param array<string, mixed> $parameterValues
+     * @var array<string, mixed>
      */
-    public function setParameterValues(array $parameterValues): void;
+    public array $parameterValues { get; set; }
 
     /**
      * Sets the parameter value to the struct.
@@ -21,13 +19,6 @@ interface ParameterStruct
      * The value needs to be in the domain format of the value for the parameter.
      */
     public function setParameterValue(string $parameterName, mixed $parameterValue): void;
-
-    /**
-     * Returns all parameter values from the struct.
-     *
-     * @return array<string, mixed>
-     */
-    public function getParameterValues(): array;
 
     /**
      * Returns the parameter value with provided name or null if parameter does not exist.
