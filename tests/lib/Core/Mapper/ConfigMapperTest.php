@@ -51,9 +51,11 @@ final class ConfigMapperTest extends TestCase
         self::assertArrayHasKey('config_key', $mappedConfig);
         self::assertContainsOnlyInstancesOf(Config::class, $mappedConfig);
 
+        /** @var \Netgen\Layouts\API\Values\Config\Config $config */
         $config = $mappedConfig['config_key'];
-        self::assertSame('config_key', $config->getConfigKey());
-        self::assertSame($this->configDefinition, $config->getDefinition());
+
+        self::assertSame('config_key', $config->configKey);
+        self::assertSame($this->configDefinition, $config->definition);
 
         self::assertTrue($config->hasParameter('param'));
         self::assertSame('value', $config->getParameter('param')->getValue());

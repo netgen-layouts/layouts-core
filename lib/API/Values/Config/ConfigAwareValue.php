@@ -9,7 +9,7 @@ interface ConfigAwareValue
     /**
      * Returns all available configs.
      */
-    public function getConfigs(): ConfigList;
+    public ConfigList $configs { get; }
 
     /**
      * Returns the config with specified config key.

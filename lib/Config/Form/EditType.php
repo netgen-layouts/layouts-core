@@ -33,8 +33,8 @@ final class EditType extends AbstractType
             static fn (Options $options): array => [
                 new ConfigAwareStructConstraint(
                     payload: array_map(
-                        static fn (Config $config): ConfigDefinitionInterface => $config->getDefinition(),
-                        $options['configurable']->getConfigs()->toArray(),
+                        static fn (Config $config): ConfigDefinitionInterface => $config->definition,
+                        $options['configurable']->configs->toArray(),
                     ),
                 ),
             ],
@@ -67,7 +67,7 @@ final class EditType extends AbstractType
 
         $configKeys = [$options['config_key']];
         if ($options['config_key'] === null) {
-            $configKeys = array_keys($data->getConfigStructs());
+            $configKeys = array_keys($data->configStructs);
         }
 
         foreach ($configKeys as $configKey) {
@@ -81,7 +81,7 @@ final class EditType extends AbstractType
                 [
                     'data' => $data->getConfigStruct($configKey),
                     'property_path' => 'configStructs[' . $configKey . ']',
-                    'parameter_definitions' => $value->getConfig($configKey)->getDefinition(),
+                    'parameter_definitions' => $value->getConfig($configKey)->definition,
                     'label_prefix' => $options['label_prefix'] . '.' . $configKey,
                 ],
             );

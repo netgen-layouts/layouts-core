@@ -42,8 +42,8 @@ final class ItemVisitor implements VisitorInterface
      */
     private function visitConfiguration(Item $item, OutputVisitor $outputVisitor): Generator
     {
-        foreach ($item->getConfigs() as $config) {
-            yield $config->getConfigKey() => $outputVisitor->visit($config);
+        foreach ($item->configs as $config) {
+            yield $config->configKey => $outputVisitor->visit($config);
         }
     }
 }

@@ -52,7 +52,7 @@ abstract class ConfigStructBuilderTestBase extends CoreTestCase
 
         $this->structBuilder->buildConfigUpdateStructs($block, $struct);
 
-        self::assertArrayHasKey('config', $struct->getConfigStructs());
+        self::assertArrayHasKey('config', $struct->configStructs);
 
         $configStruct = $struct->getConfigStruct('config');
 

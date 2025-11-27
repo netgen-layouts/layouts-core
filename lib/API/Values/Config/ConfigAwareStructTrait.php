@@ -10,10 +10,7 @@ use function array_key_exists;
 
 trait ConfigAwareStructTrait
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Config\ConfigStruct[]
-     */
-    private array $configStructs = [];
+    public private(set) array $configStructs = [];
 
     /**
      * Sets the config struct to this struct.
@@ -43,15 +40,5 @@ trait ConfigAwareStructTrait
         }
 
         return $this->configStructs[$configKey];
-    }
-
-    /**
-     * Returns all config structs from the struct.
-     *
-     * @return \Netgen\Layouts\API\Values\Config\ConfigStruct[]
-     */
-    public function getConfigStructs(): array
-    {
-        return $this->configStructs;
     }
 }

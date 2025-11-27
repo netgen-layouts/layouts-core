@@ -679,7 +679,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
         $struct = $this->collectionService->newItemUpdateStruct($item);
 
-        self::assertArrayHasKey('key', $struct->getConfigStructs());
+        self::assertArrayHasKey('key', $struct->configStructs);
 
         self::assertSame(
             [
@@ -702,7 +702,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
         $struct = $this->collectionService->newItemUpdateStruct($item);
 
-        self::assertArrayHasKey('key', $struct->getConfigStructs());
+        self::assertArrayHasKey('key', $struct->configStructs);
 
         self::assertSame(
             [

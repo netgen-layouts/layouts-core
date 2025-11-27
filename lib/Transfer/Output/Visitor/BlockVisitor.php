@@ -113,8 +113,8 @@ final class BlockVisitor implements VisitorInterface
      */
     private function visitConfiguration(Block $block, OutputVisitor $outputVisitor): Generator
     {
-        foreach ($block->getConfigs() as $config) {
-            yield $config->getConfigKey() => $outputVisitor->visit($config);
+        foreach ($block->configs as $config) {
+            yield $config->configKey => $outputVisitor->visit($config);
         }
     }
 

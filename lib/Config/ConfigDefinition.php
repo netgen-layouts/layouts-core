@@ -12,10 +12,5 @@ final class ConfigDefinition implements ConfigDefinitionInterface
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
-    private string $configKey;
-
-    public function getConfigKey(): string
-    {
-        return $this->configKey;
-    }
+    public private(set) string $configKey;
 }

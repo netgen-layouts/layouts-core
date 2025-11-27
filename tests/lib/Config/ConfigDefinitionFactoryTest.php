@@ -35,6 +35,6 @@ final class ConfigDefinitionFactoryTest extends TestCase
             $handlerMock,
         );
 
-        self::assertSame('definition', $configDefinition->getConfigKey());
+        self::assertSame('definition', $configDefinition->configKey);
     }
 }

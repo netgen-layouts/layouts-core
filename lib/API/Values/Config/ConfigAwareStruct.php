@@ -7,6 +7,13 @@ namespace Netgen\Layouts\API\Values\Config;
 interface ConfigAwareStruct
 {
     /**
+     * Returns all config structs from the struct.
+     *
+     * @var \Netgen\Layouts\API\Values\Config\ConfigStruct[]
+     */
+    public array $configStructs { get; }
+
+    /**
      * Sets the config struct to this struct.
      */
     public function setConfigStruct(string $configKey, ConfigStruct $configStruct): void;
@@ -15,13 +22,6 @@ interface ConfigAwareStruct
      * Returns if the struct has a config struct with provided config key.
      */
     public function hasConfigStruct(string $configKey): bool;
-
-    /**
-     * Returns all config structs from the struct.
-     *
-     * @return \Netgen\Layouts\API\Values\Config\ConfigStruct[]
-     */
-    public function getConfigStructs(): array;
 
     /**
      * Gets the config struct with provided config key.

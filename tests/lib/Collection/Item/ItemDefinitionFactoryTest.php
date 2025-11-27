@@ -43,7 +43,7 @@ final class ItemDefinitionFactoryTest extends TestCase
 
         self::assertSame('value_type', $itemDefinition->valueType);
 
-        $configDefinitions = $itemDefinition->getConfigDefinitions();
+        $configDefinitions = $itemDefinition->configDefinitions;
         self::assertArrayHasKey('test', $configDefinitions);
         self::assertArrayHasKey('test2', $configDefinitions);
         self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);

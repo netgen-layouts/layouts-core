@@ -17,7 +17,7 @@ final class ConfigStruct implements ParameterStruct
      */
     public function fillParametersFromConfig(Config $config): void
     {
-        $this->fillFromCollection($config->getDefinition(), $config);
+        $this->fillFromCollection($config->definition, $config);
     }
 
     /**

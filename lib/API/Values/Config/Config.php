@@ -14,23 +14,13 @@ final class Config implements ParameterCollectionInterface
     use HydratorTrait;
     use ParameterCollectionTrait;
 
-    private string $configKey;
-
-    private ConfigDefinitionInterface $definition;
-
     /**
      * Returns the config key.
      */
-    public function getConfigKey(): string
-    {
-        return $this->configKey;
-    }
+    public private(set) string $configKey;
 
     /**
      * Returns the config definition.
      */
-    public function getDefinition(): ConfigDefinitionInterface
-    {
-        return $this->definition;
-    }
+    public private(set) ConfigDefinitionInterface $definition;
 }

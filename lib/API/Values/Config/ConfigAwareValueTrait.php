@@ -8,14 +8,8 @@ use Netgen\Layouts\Exception\API\ConfigException;
 
 trait ConfigAwareValueTrait
 {
-    private ConfigList $configs;
-
-    /**
-     * Returns all available configs.
-     */
-    public function getConfigs(): ConfigList
-    {
-        return new ConfigList($this->configs->toArray());
+    public private(set) ConfigList $configs {
+        get => new ConfigList($this->configs->toArray());
     }
 
     /**

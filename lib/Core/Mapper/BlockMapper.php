@@ -110,7 +110,7 @@ final class BlockMapper
                 [
                     ...$this->configMapper->mapConfig(
                         $block->config,
-                        $blockDefinition->getConfigDefinitions(),
+                        $blockDefinition->configDefinitions,
                     ),
                 ],
             ),

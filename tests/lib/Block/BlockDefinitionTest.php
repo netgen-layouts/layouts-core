@@ -248,7 +248,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             ['config' => $this->configDefinition],
-            $this->blockDefinition->getConfigDefinitions(),
+            $this->blockDefinition->configDefinitions,
         );
     }
 

@@ -24,6 +24,6 @@ final class ConfigDefinitionTest extends TestCase
 
     public function testGetConfigKey(): void
     {
-        self::assertSame('config_definition', $this->configDefinition->getConfigKey());
+        self::assertSame('config_definition', $this->configDefinition->configKey);
     }
 }

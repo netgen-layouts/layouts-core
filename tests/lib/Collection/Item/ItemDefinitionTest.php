@@ -64,7 +64,7 @@ final class ItemDefinitionTest extends TestCase
     {
         self::assertSame(
             ['config' => $this->configDefinition],
-            $this->itemDefinition->getConfigDefinitions(),
+            $this->itemDefinition->configDefinitions,
         );
     }
 }

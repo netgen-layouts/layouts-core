@@ -7,6 +7,13 @@ namespace Netgen\Layouts\Config;
 interface ConfigDefinitionAwareInterface
 {
     /**
+     * Returns the available config definitions.
+     *
+     * @var \Netgen\Layouts\Config\ConfigDefinitionInterface[]
+     */
+    public array $configDefinitions { get; }
+
+    /**
      * Returns the config definition with provided config key.
      *
      * @throws \Netgen\Layouts\Exception\Config\ConfigDefinitionException if config definition does not exist
@@ -17,11 +24,4 @@ interface ConfigDefinitionAwareInterface
      * Returns if the config definition with provided config key exists.
      */
     public function hasConfigDefinition(string $configKey): bool;
-
-    /**
-     * Returns the available config definitions.
-     *
-     * @return \Netgen\Layouts\Config\ConfigDefinitionInterface[]
-     */
-    public function getConfigDefinitions(): array;
 }

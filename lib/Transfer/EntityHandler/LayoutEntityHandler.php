@@ -374,7 +374,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         ConfigDefinitionAwareInterface $configDefinitionAware,
         array $configurationData,
     ): void {
-        $configDefinitions = $configDefinitionAware->getConfigDefinitions();
+        $configDefinitions = $configDefinitionAware->configDefinitions;
 
         foreach ($configurationData as $configKey => $hash) {
             if (!($configDefinitions[$configKey] ?? null) instanceof ConfigDefinitionInterface) {

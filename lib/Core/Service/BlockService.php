@@ -259,8 +259,8 @@ final class BlockService implements BlockServiceInterface
                             'alwaysAvailable' => $blockUpdateStruct->alwaysAvailable,
                             'config' => [
                                 ...$this->configMapper->serializeValues(
-                                    $blockUpdateStruct->getConfigStructs(),
-                                    $blockDefinition->getConfigDefinitions(),
+                                    $blockUpdateStruct->configStructs,
+                                    $blockDefinition->configDefinitions,
                                     $persistenceBlock->config,
                                 ),
                             ],
@@ -653,8 +653,8 @@ final class BlockService implements BlockServiceInterface
                             ],
                             'config' => [
                                 ...$this->configMapper->serializeValues(
-                                    $blockCreateStruct->getConfigStructs(),
-                                    $blockDefinition->getConfigDefinitions(),
+                                    $blockCreateStruct->configStructs,
+                                    $blockDefinition->configDefinitions,
                                 ),
                             ],
                         ],

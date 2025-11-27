@@ -261,8 +261,8 @@ final class CollectionService implements APICollectionService
                         'viewType' => $itemCreateStruct->viewType,
                         'config' => [
                             ...$this->configMapper->serializeValues(
-                                $itemCreateStruct->getConfigStructs(),
-                                $itemCreateStruct->definition->getConfigDefinitions(),
+                                $itemCreateStruct->configStructs,
+                                $itemCreateStruct->definition->configDefinitions,
                             ),
                         ],
                     ],
@@ -293,8 +293,8 @@ final class CollectionService implements APICollectionService
                         'viewType' => $itemUpdateStruct->viewType,
                         'config' => [
                             ...$this->configMapper->serializeValues(
-                                $itemUpdateStruct->getConfigStructs(),
-                                $itemDefinition->getConfigDefinitions(),
+                                $itemUpdateStruct->configStructs,
+                                $itemDefinition->configDefinitions,
                                 $persistenceItem->config,
                             ),
                         ],

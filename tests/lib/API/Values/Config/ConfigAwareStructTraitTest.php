@@ -54,6 +54,6 @@ final class ConfigAwareStructTraitTest extends TestCase
 
         $this->struct->setConfigStruct('test', $struct);
 
-        self::assertSame(['test' => $struct], $this->struct->getConfigStructs());
+        self::assertSame(['test' => $struct], $this->struct->configStructs);
     }
 }

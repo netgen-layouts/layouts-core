@@ -1625,7 +1625,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
         $struct = $this->blockService->newBlockUpdateStruct('en', $block);
 
-        self::assertArrayHasKey('key', $struct->getConfigStructs());
+        self::assertArrayHasKey('key', $struct->configStructs);
 
         self::assertSame(
             [

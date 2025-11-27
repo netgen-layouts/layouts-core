@@ -23,7 +23,7 @@ final class ConfigTest extends TestCase
             ],
         );
 
-        self::assertSame('config', $config->getConfigKey());
-        self::assertSame($definition, $config->getDefinition());
+        self::assertSame('config', $config->configKey);
+        self::assertSame($definition, $config->definition);
     }
 }

@@ -137,7 +137,7 @@ final class CollectionMapper
                 [
                     ...$this->configMapper->mapConfig(
                         $item->config,
-                        $itemDefinition->getConfigDefinitions(),
+                        $itemDefinition->configDefinitions,
                     ),
                 ],
             ),

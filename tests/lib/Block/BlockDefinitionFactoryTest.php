@@ -182,7 +182,7 @@ final class BlockDefinitionFactoryTest extends TestCase
             $this->exportObjectList($blockDefinition->collections),
         );
 
-        $configDefinitions = $blockDefinition->getConfigDefinitions();
+        $configDefinitions = $blockDefinition->configDefinitions;
         self::assertArrayHasKey('test', $configDefinitions);
         self::assertArrayHasKey('test2', $configDefinitions);
         self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);
@@ -221,7 +221,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
-        $configDefinitions = $blockDefinition->getConfigDefinitions();
+        $configDefinitions = $blockDefinition->configDefinitions;
         self::assertArrayHasKey('test', $configDefinitions);
         self::assertArrayHasKey('test2', $configDefinitions);
 
@@ -265,7 +265,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         self::assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         self::assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
-        $configDefinitions = $blockDefinition->getConfigDefinitions();
+        $configDefinitions = $blockDefinition->configDefinitions;
         self::assertArrayHasKey('test', $configDefinitions);
         self::assertArrayHasKey('test2', $configDefinitions);
         self::assertContainsOnlyInstancesOf(ConfigDefinitionInterface::class, $configDefinitions);

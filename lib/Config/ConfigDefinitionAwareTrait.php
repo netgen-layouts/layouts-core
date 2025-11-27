@@ -11,9 +11,11 @@ use function array_key_exists;
 trait ConfigDefinitionAwareTrait
 {
     /**
+     * Returns the available config definitions.
+     *
      * @var \Netgen\Layouts\Config\ConfigDefinitionInterface[]
      */
-    final protected array $configDefinitions = [];
+    final public protected(set) array $configDefinitions = [];
 
     /**
      * Returns the config definition with provided config key.
@@ -35,15 +37,5 @@ trait ConfigDefinitionAwareTrait
     public function hasConfigDefinition(string $configKey): bool
     {
         return array_key_exists($configKey, $this->configDefinitions);
-    }
-
-    /**
-     * Returns the available config definitions.
-     *
-     * @return \Netgen\Layouts\Config\ConfigDefinitionInterface[]
-     */
-    public function getConfigDefinitions(): array
-    {
-        return $this->configDefinitions;
     }
 }

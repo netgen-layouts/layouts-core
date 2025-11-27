@@ -43,7 +43,7 @@ final class ConfigList extends ArrayCollection
     {
         return array_values(
             array_map(
-                static fn (Config $config): string => $config->getConfigKey(),
+                static fn (Config $config): string => $config->configKey,
                 $this->getConfigs(),
             ),
         );

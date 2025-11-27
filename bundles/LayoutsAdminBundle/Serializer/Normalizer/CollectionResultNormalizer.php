@@ -98,7 +98,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         }
 
         $configuration = (function () use ($collectionItem): Generator {
-            $itemConfigs = $collectionItem?->getConfigs() ?? new ConfigList();
+            $itemConfigs = $collectionItem->configs ?? new ConfigList();
             foreach ($itemConfigs as $configKey => $config) {
                 yield $configKey => $this->buildValues($config->getParameters());
             }

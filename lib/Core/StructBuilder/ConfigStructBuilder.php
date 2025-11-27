@@ -15,7 +15,7 @@ final class ConfigStructBuilder
      */
     public function buildConfigUpdateStructs(ConfigAwareValue $configAwareValue, ConfigAwareStruct $configAwareStruct): void
     {
-        foreach ($configAwareValue->getConfigs() as $configKey => $config) {
+        foreach ($configAwareValue->configs as $configKey => $config) {
             $configStruct = new ConfigStruct();
             $configStruct->fillParametersFromConfig($config);
             $configAwareStruct->setConfigStruct($configKey, $configStruct);
