@@ -21,7 +21,7 @@ interface ParameterTypeInterface
     /**
      * Returns the parameter constraints.
      *
-     * @return \Symfony\Component\Validator\Constraint[]
+     * @return list<\Symfony\Component\Validator\Constraint>
      */
     public function getConstraints(ParameterDefinition $parameterDefinition, mixed $value): array;
 

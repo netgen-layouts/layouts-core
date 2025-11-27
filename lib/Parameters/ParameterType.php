@@ -91,7 +91,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * Boolean parameter types have this overridden due to `false` value being a valid value
      * which would not validated by a `NotBlank` constraint.
      *
-     * @return \Symfony\Component\Validator\Constraint[]
+     * @return list<\Symfony\Component\Validator\Constraint>
      */
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
@@ -113,7 +113,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * separately, based on if the parameter is specified as a sub-parameter of a compound
      * boolean.
      *
-     * @return \Symfony\Component\Validator\Constraint[]
+     * @return list<\Symfony\Component\Validator\Constraint>
      */
     abstract protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array;
 }

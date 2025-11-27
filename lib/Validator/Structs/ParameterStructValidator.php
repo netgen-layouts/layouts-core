@@ -86,7 +86,7 @@ final class ParameterStructValidator extends ConstraintValidator
      * Builds the "fields" array of the Collection constraint from provided parameters
      * and parameter values.
      *
-     * @return \Generator<string, \Symfony\Component\Validator\Constraint[]|\Symfony\Component\Validator\Constraint>
+     * @return \Generator<string, list<\Symfony\Component\Validator\Constraint>|\Symfony\Component\Validator\Constraint>
      */
     private function buildConstraintFields(
         ParameterStruct $parameterStruct,
@@ -119,7 +119,7 @@ final class ParameterStructValidator extends ConstraintValidator
      * If $validateEmptyValue is false, values equal to null will not be validated
      * and will simply return an empty array of constraints.
      *
-     * @return \Symfony\Component\Validator\Constraint[]
+     * @return list<\Symfony\Component\Validator\Constraint>
      */
     private function getParameterConstraints(
         ParameterDefinition $parameterDefinition,
