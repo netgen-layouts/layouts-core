@@ -102,7 +102,7 @@ final class BlockNormalizerTest extends TestCase
             [
                 'id' => $block->id->toString(),
                 'layout_id' => $block->layoutId->toString(),
-                'definition_identifier' => $block->definition->getIdentifier(),
+                'definition_identifier' => $block->definition->identifier,
                 'name' => $block->name,
                 'parent_position' => $block->position,
                 'parameters' => ['param' => 'data'],

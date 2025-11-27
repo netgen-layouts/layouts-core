@@ -149,7 +149,7 @@ abstract class EditType extends AbstractType
                 'inherit_data' => true,
                 'property_path' => 'parameterValues',
                 'parameter_definitions' => $blockDefinition,
-                'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
+                'label_prefix' => 'block.' . $blockDefinition->identifier,
                 'groups' => $groups,
             ],
         );
@@ -168,7 +168,7 @@ abstract class EditType extends AbstractType
     {
         $blockDefinitionParameters = array_keys($block->definition->getParameterDefinitions());
 
-        foreach ($block->definition->getViewTypes($block) as $viewType) {
+        foreach ($block->definition->getBlockViewTypes($block) as $viewType) {
             $this->viewTypes[$viewType->identifier] = $viewType->name;
 
             foreach ($viewType->itemViewTypes as $itemViewType) {

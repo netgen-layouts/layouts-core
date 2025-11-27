@@ -41,7 +41,7 @@ final class ItemDefinitionFactoryTest extends TestCase
             ],
         );
 
-        self::assertSame('value_type', $itemDefinition->getValueType());
+        self::assertSame('value_type', $itemDefinition->valueType);
 
         $configDefinitions = $itemDefinition->getConfigDefinitions();
         self::assertArrayHasKey('test', $configDefinitions);

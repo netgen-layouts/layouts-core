@@ -82,7 +82,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => $item->position,
                 'visible' => true,
                 'value' => $item->value,
-                'value_type' => $item->definition->getValueType(),
+                'value_type' => $item->definition->valueType,
                 'item_view_type' => $item->viewType,
                 'name' => 'Value name',
                 'cms_visible' => true,

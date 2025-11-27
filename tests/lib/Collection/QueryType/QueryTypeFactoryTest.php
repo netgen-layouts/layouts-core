@@ -37,10 +37,10 @@ final class QueryTypeFactoryTest extends TestCase
             ],
         );
 
-        self::assertSame('type', $queryType->getType());
+        self::assertSame('type', $queryType->type);
 
-        self::assertFalse($queryType->isEnabled());
-        self::assertSame('Query type', $queryType->getName());
+        self::assertFalse($queryType->isEnabled);
+        self::assertSame('Query type', $queryType->name);
     }
 
     public function testBuildQueryTypeWithEmptyName(): void
@@ -53,9 +53,9 @@ final class QueryTypeFactoryTest extends TestCase
             ],
         );
 
-        self::assertSame('type', $queryType->getType());
+        self::assertSame('type', $queryType->type);
 
-        self::assertTrue($queryType->isEnabled());
-        self::assertSame('', $queryType->getName());
+        self::assertTrue($queryType->isEnabled);
+        self::assertSame('', $queryType->name);
     }
 }

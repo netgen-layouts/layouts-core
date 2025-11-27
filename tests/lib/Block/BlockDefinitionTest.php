@@ -75,22 +75,22 @@ final class BlockDefinitionTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('block_definition', $this->blockDefinition->getIdentifier());
+        self::assertSame('block_definition', $this->blockDefinition->identifier);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Block definition', $this->blockDefinition->getName());
+        self::assertSame('Block definition', $this->blockDefinition->name);
     }
 
     public function testGetIcon(): void
     {
-        self::assertSame('/icon.svg', $this->blockDefinition->getIcon());
+        self::assertSame('/icon.svg', $this->blockDefinition->icon);
     }
 
     public function testIsTranslatable(): void
     {
-        self::assertTrue($this->blockDefinition->isTranslatable());
+        self::assertTrue($this->blockDefinition->isTranslatable);
     }
 
     public function testGetForms(): void
@@ -99,7 +99,7 @@ final class BlockDefinitionTest extends TestCase
             [
                 'content' => $this->form,
             ],
-            $this->blockDefinition->getForms(),
+            $this->blockDefinition->forms,
         );
     }
 
@@ -131,7 +131,7 @@ final class BlockDefinitionTest extends TestCase
             [
                 'collection' => $this->collection,
             ],
-            $this->blockDefinition->getCollections(),
+            $this->blockDefinition->collections,
         );
     }
 
@@ -164,7 +164,7 @@ final class BlockDefinitionTest extends TestCase
                 'large' => $this->viewType1,
                 'small' => $this->viewType2,
             ],
-            $this->blockDefinition->getViewTypes(),
+            $this->blockDefinition->viewTypes,
         );
     }
 
@@ -172,7 +172,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             ['large', 'small'],
-            $this->blockDefinition->getViewTypeIdentifiers(),
+            $this->blockDefinition->viewTypeIdentifiers,
         );
     }
 
@@ -252,34 +252,34 @@ final class BlockDefinitionTest extends TestCase
         );
     }
 
-    public function testHasPlugin(): void
+    public function testHasHandlerPlugin(): void
     {
-        self::assertTrue($this->blockDefinition->hasPlugin(HandlerPlugin::class));
+        self::assertTrue($this->blockDefinition->hasHandlerPlugin(HandlerPlugin::class));
     }
 
-    public function testHasPluginWithUnknownPlugin(): void
+    public function testHasHandlerPluginWithUnknownPlugin(): void
     {
-        self::assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
+        self::assertFalse($this->blockDefinition->hasHandlerPlugin(stdClass::class));
     }
 
-    public function testGetPlugin(): void
+    public function testGetHandlerPlugin(): void
     {
         $this->expectNotToPerformAssertions();
 
-        $this->blockDefinition->getPlugin(HandlerPlugin::class);
+        $this->blockDefinition->getHandlerPlugin(HandlerPlugin::class);
     }
 
-    public function testGetPluginWithUnknownPlugin(): void
+    public function testGetHandlerPluginWithUnknownPlugin(): void
     {
         $this->expectException(BlockDefinitionException::class);
         $this->expectExceptionMessage(sprintf('Block definition with "%s" identifier does not have a plugin with "%s" class.', 'block_definition', stdClass::class));
 
-        $this->blockDefinition->getPlugin(stdClass::class);
+        $this->blockDefinition->getHandlerPlugin(stdClass::class);
     }
 
-    public function testGetPlugins(): void
+    public function testGetHandlerPlugins(): void
     {
-        $plugins = $this->blockDefinition->getPlugins();
+        $plugins = $this->blockDefinition->handlerPlugins;
 
         self::assertCount(1, $plugins);
         self::assertInstanceOf(HandlerPlugin::class, $plugins[0]);

@@ -29,7 +29,7 @@ final class ContainerDefinitionTest extends TestCase
 
     public function testGetPlaceholders(): void
     {
-        self::assertSame(['left', 'right'], $this->blockDefinition->getPlaceholders());
+        self::assertSame(['left', 'right'], $this->blockDefinition->placeholders);
     }
 
     public function testGetDynamicParameters(): void

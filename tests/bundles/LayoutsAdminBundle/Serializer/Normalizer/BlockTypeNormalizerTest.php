@@ -52,7 +52,7 @@ final class BlockTypeNormalizerTest extends TestCase
                 'enabled' => false,
                 'name' => $blockType->name,
                 'icon' => $blockType->icon,
-                'definition_identifier' => $this->blockDefinition->getIdentifier(),
+                'definition_identifier' => $this->blockDefinition->identifier,
                 'is_container' => false,
                 'defaults' => $blockType->defaults,
             ],

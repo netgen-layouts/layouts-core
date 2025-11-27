@@ -20,34 +20,45 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     use ConfigDefinitionAwareTrait;
     use ParameterDefinitionCollectionTrait;
 
+    public string $name {
+        get => 'Invalid block definition';
+    }
+
+    public string $icon {
+        get => '';
+    }
+
+    public BlockDefinitionHandlerInterface $handler {
+        get => new class extends BlockDefinitionHandler {};
+    }
+
+    public array $handlerPlugins {
+        get => [];
+    }
+
+    public false $isTranslatable {
+        get => false;
+    }
+
+    public array $collections {
+        get => [];
+    }
+
+    public array $forms {
+        get => [];
+    }
+
+    public array $viewTypes {
+        get => [];
+    }
+
+    public array $viewTypeIdentifiers {
+        get => [];
+    }
+
     public function __construct(
-        private string $identifier,
+        private(set) string $identifier,
     ) {}
-
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    public function getName(): string
-    {
-        return 'Invalid block definition';
-    }
-
-    public function getIcon(): string
-    {
-        return '';
-    }
-
-    public function isTranslatable(): bool
-    {
-        return false;
-    }
-
-    public function getCollections(): array
-    {
-        return [];
-    }
 
     public function hasCollection(string $identifier): bool
     {
@@ -57,11 +68,6 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     public function getCollection(string $identifier): Collection
     {
         throw BlockDefinitionException::noCollection($this->identifier, $identifier);
-    }
-
-    public function getForms(): array
-    {
-        return [];
     }
 
     public function hasForm(string $formName): bool
@@ -74,12 +80,12 @@ final class NullBlockDefinition implements BlockDefinitionInterface
         throw BlockDefinitionException::noForm($this->identifier, $formName);
     }
 
-    public function getViewTypes(?Block $block = null): array
+    public function getBlockViewTypes(Block $block): array
     {
         return [];
     }
 
-    public function getViewTypeIdentifiers(?Block $block = null): array
+    public function getBlockViewTypeIdentifiers(Block $block): array
     {
         return [];
     }
@@ -104,23 +110,13 @@ final class NullBlockDefinition implements BlockDefinitionInterface
         return false;
     }
 
-    public function hasPlugin(string $className): bool
+    public function hasHandlerPlugin(string $className): bool
     {
         return false;
     }
 
-    public function getPlugin(string $className): PluginInterface
+    public function getHandlerPlugin(string $className): PluginInterface
     {
         throw BlockDefinitionException::noPlugin($this->identifier, $className);
-    }
-
-    public function getPlugins(): array
-    {
-        return [];
-    }
-
-    public function getHandler(): BlockDefinitionHandlerInterface
-    {
-        return new class extends BlockDefinitionHandler {};
     }
 }

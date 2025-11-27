@@ -26,27 +26,22 @@ final class NullBlockDefinitionTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('definition', $this->blockDefinition->getIdentifier());
+        self::assertSame('definition', $this->blockDefinition->identifier);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Invalid block definition', $this->blockDefinition->getName());
+        self::assertSame('Invalid block definition', $this->blockDefinition->name);
     }
 
     public function testGetIcon(): void
     {
-        self::assertSame('', $this->blockDefinition->getIcon());
-    }
-
-    public function testIsTranslatable(): void
-    {
-        self::assertFalse($this->blockDefinition->isTranslatable());
+        self::assertSame('', $this->blockDefinition->icon);
     }
 
     public function testGetForms(): void
     {
-        self::assertSame([], $this->blockDefinition->getForms());
+        self::assertSame([], $this->blockDefinition->forms);
     }
 
     public function testHasForm(): void
@@ -64,7 +59,7 @@ final class NullBlockDefinitionTest extends TestCase
 
     public function testGetCollections(): void
     {
-        self::assertSame([], $this->blockDefinition->getCollections());
+        self::assertSame([], $this->blockDefinition->collections);
     }
 
     public function testHasCollection(): void
@@ -82,12 +77,12 @@ final class NullBlockDefinitionTest extends TestCase
 
     public function testGetViewTypes(): void
     {
-        self::assertSame([], $this->blockDefinition->getViewTypes());
+        self::assertSame([], $this->blockDefinition->viewTypes);
     }
 
     public function testGetViewTypeIdentifiers(): void
     {
-        self::assertSame([], $this->blockDefinition->getViewTypeIdentifiers());
+        self::assertSame([], $this->blockDefinition->viewTypeIdentifiers);
     }
 
     public function testHasViewType(): void
@@ -115,26 +110,26 @@ final class NullBlockDefinitionTest extends TestCase
         self::assertFalse($this->blockDefinition->isContextual(new Block()));
     }
 
-    public function testHasPlugin(): void
+    public function testHasHandlerPlugin(): void
     {
-        self::assertFalse($this->blockDefinition->hasPlugin(HandlerPlugin::class));
+        self::assertFalse($this->blockDefinition->hasHandlerPlugin(HandlerPlugin::class));
     }
 
-    public function testHasPluginWithUnknownPlugin(): void
+    public function testHasHandlerPluginWithUnknownPlugin(): void
     {
-        self::assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
+        self::assertFalse($this->blockDefinition->hasHandlerPlugin(stdClass::class));
     }
 
-    public function testGetPlugin(): void
+    public function testGetHandlerPlugin(): void
     {
         $this->expectException(BlockDefinitionException::class);
         $this->expectExceptionMessage(sprintf('Block definition with "%s" identifier does not have a plugin with "%s" class.', 'definition', HandlerPlugin::class));
 
-        $this->blockDefinition->getPlugin(HandlerPlugin::class);
+        $this->blockDefinition->getHandlerPlugin(HandlerPlugin::class);
     }
 
-    public function testGetPlugins(): void
+    public function testGetHandlerPlugins(): void
     {
-        self::assertCount(0, $this->blockDefinition->getPlugins());
+        self::assertCount(0, $this->blockDefinition->handlerPlugins);
     }
 }

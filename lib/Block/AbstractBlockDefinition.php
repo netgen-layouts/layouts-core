@@ -26,55 +26,38 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
-    final protected string $identifier;
+    final public protected(set) string $identifier;
 
-    final protected string $name;
+    final public protected(set) string $name;
 
-    final protected ?string $icon;
-
-    final protected bool $isTranslatable;
-
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection[]
-     */
-    final protected array $collections = [];
-
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form[]
-     */
-    final protected array $forms = [];
+    final public protected(set) ?string $icon;
 
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
-    final protected array $handlerPlugins = [];
+    final public protected(set) array $handlerPlugins = [];
+
+    final public protected(set) bool $isTranslatable;
+
+    /**
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection[]
+     */
+    final public protected(set) array $collections = [];
+
+    /**
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form[]
+     */
+    final public protected(set) array $forms = [];
+
+    public array $viewTypes {
+        get => $this->configProvider->provideViewTypes();
+    }
+
+    public array $viewTypeIdentifiers {
+        get => array_keys($this->configProvider->provideViewTypes());
+    }
 
     final protected ConfigProviderInterface $configProvider;
-
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function isTranslatable(): bool
-    {
-        return $this->isTranslatable;
-    }
-
-    public function getCollections(): array
-    {
-        return $this->collections;
-    }
 
     public function hasCollection(string $identifier): bool
     {
@@ -88,11 +71,6 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         }
 
         return $this->collections[$identifier];
-    }
-
-    public function getForms(): array
-    {
-        return $this->forms;
     }
 
     public function hasForm(string $formName): bool
@@ -109,12 +87,12 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         return $this->forms[$formName];
     }
 
-    public function getViewTypes(?Block $block = null): array
+    public function getBlockViewTypes(Block $block): array
     {
         return $this->configProvider->provideViewTypes($block);
     }
 
-    public function getViewTypeIdentifiers(?Block $block = null): array
+    public function getBlockViewTypeIdentifiers(Block $block): array
     {
         return array_keys($this->configProvider->provideViewTypes($block));
     }
@@ -139,7 +117,7 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
     {
         $dynamicParams = new DynamicParameters();
 
-        $this->getHandler()->getDynamicParameters($dynamicParams, $block);
+        $this->handler->getDynamicParameters($dynamicParams, $block);
 
         foreach ($this->handlerPlugins as $handlerPlugin) {
             $handlerPlugin->getDynamicParameters($dynamicParams, $block);
@@ -150,10 +128,10 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
 
     public function isContextual(Block $block): bool
     {
-        return $this->getHandler()->isContextual($block);
+        return $this->handler->isContextual($block);
     }
 
-    public function hasPlugin(string $className): bool
+    public function hasHandlerPlugin(string $className): bool
     {
         return array_any(
             $this->handlerPlugins,
@@ -161,12 +139,7 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         );
     }
 
-    /**
-     * Returns the block definition plugin with provided FQCN.
-     *
-     * @param class-string $className
-     */
-    public function getPlugin(string $className): PluginInterface
+    public function getHandlerPlugin(string $className): PluginInterface
     {
         foreach ($this->handlerPlugins as $handlerPlugin) {
             if (is_a($handlerPlugin, $className, true)) {
@@ -175,10 +148,5 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         }
 
         throw BlockDefinitionException::noPlugin($this->identifier, $className);
-    }
-
-    public function getPlugins(): array
-    {
-        return $this->handlerPlugins;
     }
 }

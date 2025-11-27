@@ -12,17 +12,21 @@ final class QueryType implements QueryTypeInterface
 {
     use ParameterDefinitionCollectionTrait;
 
+    public string $name {
+        get => $this->type;
+    }
+
     private QueryTypeHandler $handler;
 
     /**
      * @param mixed[] $values
      */
     public function __construct(
-        private string $type,
+        private(set) string $type,
         array $values = [],
         ?int $count = null,
         bool $isContextual = false,
-        private bool $enabled = true,
+        private(set) bool $isEnabled = true,
     ) {
         $this->handler = new QueryTypeHandler($values, $count, $isContextual);
         $this->parameterDefinitions = $this->handler->getParameterDefinitions();
@@ -41,20 +45,5 @@ final class QueryType implements QueryTypeInterface
     public function isContextual(Query $query): bool
     {
         return $this->handler->isContextual($query);
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    public function getName(): string
-    {
-        return $this->type;
     }
 }

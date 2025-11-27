@@ -16,17 +16,17 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
     /**
      * Returns the query type.
      */
-    public function getType(): string;
+    public string $type { get; }
 
     /**
      * Returns if the query type is enabled or not.
      */
-    public function isEnabled(): bool;
+    public bool $isEnabled { get; }
 
     /**
      * Returns the query type name.
      */
-    public function getName(): string;
+    public string $name { get; }
 
     /**
      * Returns the values from the query.

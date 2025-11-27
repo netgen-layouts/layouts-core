@@ -11,24 +11,17 @@ final class NullQueryType implements QueryTypeInterface
 {
     use ParameterDefinitionCollectionTrait;
 
+    public true $isEnabled {
+        get => true;
+    }
+
+    public string $name {
+        get => 'Invalid query type';
+    }
+
     public function __construct(
-        private string $queryType,
+        private(set) string $type,
     ) {}
-
-    public function getType(): string
-    {
-        return $this->queryType;
-    }
-
-    public function isEnabled(): true
-    {
-        return true;
-    }
-
-    public function getName(): string
-    {
-        return 'Invalid query type';
-    }
 
     public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable
     {

@@ -14,7 +14,7 @@ interface ContainerDefinitionInterface extends BlockDefinitionInterface
     /**
      * Returns all placeholder identifiers in this definition.
      *
-     * @return string[]
+     * @var string[]
      */
-    public function getPlaceholders(): array;
+    public array $placeholders { get; }
 }

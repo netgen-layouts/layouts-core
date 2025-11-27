@@ -24,7 +24,7 @@ final class BlockTypeNormalizer implements NormalizerInterface
             'enabled' => $blockType->isEnabled,
             'name' => $blockType->name,
             'icon' => $blockType->icon,
-            'definition_identifier' => $blockType->definition->getIdentifier(),
+            'definition_identifier' => $blockType->definition->identifier,
             'is_container' => false,
             'defaults' => $blockType->defaults,
         ];

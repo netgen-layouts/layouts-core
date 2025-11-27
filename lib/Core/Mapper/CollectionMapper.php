@@ -148,7 +148,7 @@ final class CollectionMapper
             [
                 'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
                     $valueType = !$itemDefinition instanceof NullItemDefinition ?
-                        $itemDefinition->getValueType() :
+                        $itemDefinition->valueType :
                         'null';
 
                     if ($item->value === null) {

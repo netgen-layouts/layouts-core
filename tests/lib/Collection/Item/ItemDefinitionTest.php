@@ -31,7 +31,7 @@ final class ItemDefinitionTest extends TestCase
 
     public function testGetValueType(): void
     {
-        self::assertSame('value_type', $this->itemDefinition->getValueType());
+        self::assertSame('value_type', $this->itemDefinition->valueType);
     }
 
     public function testGetConfigDefinition(): void

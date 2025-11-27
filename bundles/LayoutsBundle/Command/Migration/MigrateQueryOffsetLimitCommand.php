@@ -95,7 +95,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $queryTypeParameters = [];
 
         foreach ($queryTypes as $queryType) {
-            $queryTypeIdentifier = $queryType->getType();
+            $queryTypeIdentifier = $queryType->type;
             if (isset(self::KNOWN_QUERY_TYPES[$queryTypeIdentifier])) {
                 $queryTypeParameters[$queryTypeIdentifier] = self::KNOWN_QUERY_TYPES[$queryTypeIdentifier];
 
@@ -155,8 +155,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 sprintf(
                     'Select the %1$s parameter from the "%2$s" (%3$s) query type (Use "NO PARAMETER" option if your query type does not have the %1$s parameter)',
                     $parameter,
-                    $queryType->getType(),
-                    $queryType->getName(),
+                    $queryType->type,
+                    $queryType->name,
                 ),
                 $queryTypeParameters,
             );

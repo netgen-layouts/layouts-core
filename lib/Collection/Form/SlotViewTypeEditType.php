@@ -46,9 +46,11 @@ final class SlotViewTypeEditType extends AbstractType
                 'choices' => (static function () use ($options): Generator {
                     yield '<No override>' => '';
 
+                    /** @var \Netgen\Layouts\API\Values\Block\Block $block */
                     $block = $options['block'];
-                    foreach ($block->definition->getViewType($block->viewType, $block)->getItemViewTypes() as $itemViewType) {
-                        yield $itemViewType->getName() => $itemViewType->getIdentifier();
+
+                    foreach ($block->definition->getViewType($block->viewType, $block)->itemViewTypes as $itemViewType) {
+                        yield $itemViewType->name => $itemViewType->identifier;
                     }
                 })(),
             ],

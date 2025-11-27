@@ -15,5 +15,5 @@ interface ItemDefinitionInterface extends ConfigDefinitionAwareInterface
     /**
      * Returns the value type for this definition.
      */
-    public function getValueType(): string;
+    public string $valueType { get; }
 }

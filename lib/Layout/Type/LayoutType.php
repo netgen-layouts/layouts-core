@@ -57,6 +57,6 @@ final class LayoutType implements LayoutTypeInterface
             return true;
         }
 
-        return in_array($definition->getIdentifier(), $zone->allowedBlockDefinitions, true);
+        return in_array($definition->identifier, $zone->allowedBlockDefinitions, true);
     }
 }

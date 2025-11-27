@@ -43,7 +43,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         $normalizedData = [
             'id' => $block->id->toString(),
             'layout_id' => $block->layoutId->toString(),
-            'definition_identifier' => $blockDefinition->getIdentifier(),
+            'definition_identifier' => $blockDefinition->identifier,
             'name' => $block->name,
             'parent_position' => $block->position,
             'parameters' => $this->normalizer->normalize($parameters, $format, $context),

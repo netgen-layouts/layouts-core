@@ -12,10 +12,5 @@ final class ItemDefinition implements ItemDefinitionInterface
     use ConfigDefinitionAwareTrait;
     use HydratorTrait;
 
-    private string $valueType;
-
-    public function getValueType(): string
-    {
-        return $this->valueType;
-    }
+    public private(set) string $valueType;
 }

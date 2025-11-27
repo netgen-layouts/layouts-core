@@ -13,28 +13,13 @@ final class QueryType implements QueryTypeInterface
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
-    private string $type;
+    public private(set) string $type;
 
-    private bool $isEnabled;
+    public private(set) bool $isEnabled;
 
-    private string $name;
+    public private(set) string $name;
 
     private QueryTypeHandlerInterface $handler;
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function isEnabled(): bool
-    {
-        return $this->isEnabled;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
 
     public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable
     {

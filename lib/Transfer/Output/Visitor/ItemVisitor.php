@@ -29,7 +29,7 @@ final class ItemVisitor implements VisitorInterface
             'id' => $value->id->toString(),
             'position' => $value->position,
             'value' => $value->cmsItem->remoteId,
-            'value_type' => $value->definition->getValueType(),
+            'value_type' => $value->definition->valueType,
             'view_type' => $value->viewType,
             'configuration' => [...$this->visitConfiguration($value, $outputVisitor)],
         ];

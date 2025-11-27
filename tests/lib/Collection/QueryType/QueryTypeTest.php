@@ -37,17 +37,17 @@ final class QueryTypeTest extends TestCase
 
     public function testGetType(): void
     {
-        self::assertSame('query_type', $this->queryType->getType());
+        self::assertSame('query_type', $this->queryType->type);
     }
 
     public function testIsEnabled(): void
     {
-        self::assertFalse($this->queryType->isEnabled());
+        self::assertFalse($this->queryType->isEnabled);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Query type', $this->queryType->getName());
+        self::assertSame('Query type', $this->queryType->name);
     }
 
     public function testGetValues(): void

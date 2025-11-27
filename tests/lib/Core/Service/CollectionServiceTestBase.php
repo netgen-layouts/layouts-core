@@ -426,7 +426,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertTrue($updatedQuery->isDraft);
-        self::assertSame('my_query_type', $updatedQuery->queryType->getType());
+        self::assertSame('my_query_type', $updatedQuery->queryType->type);
 
         self::assertNull($updatedQuery->getParameter('param')->getValue());
         self::assertNull($updatedQuery->getParameter('param2')->getValue());
@@ -451,7 +451,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertTrue($updatedQuery->isDraft);
-        self::assertSame('my_query_type', $updatedQuery->queryType->getType());
+        self::assertSame('my_query_type', $updatedQuery->queryType->type);
 
         $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 

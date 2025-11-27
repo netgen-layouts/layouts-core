@@ -21,12 +21,12 @@ final class NullQueryTypeTest extends TestCase
 
     public function testGetType(): void
     {
-        self::assertSame('type', $this->queryType->getType());
+        self::assertSame('type', $this->queryType->type);
     }
 
     public function testGetName(): void
     {
-        self::assertSame('Invalid query type', $this->queryType->getName());
+        self::assertSame('Invalid query type', $this->queryType->name);
     }
 
     public function testGetValues(): void

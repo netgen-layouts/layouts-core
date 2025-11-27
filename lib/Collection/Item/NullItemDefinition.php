@@ -11,11 +11,6 @@ final class NullItemDefinition implements ItemDefinitionInterface
     use ConfigDefinitionAwareTrait;
 
     public function __construct(
-        private string $valueType,
+        private(set) string $valueType,
     ) {}
-
-    public function getValueType(): string
-    {
-        return $this->valueType;
-    }
 }

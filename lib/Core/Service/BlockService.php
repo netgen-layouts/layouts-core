@@ -176,7 +176,7 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!in_array($placeholder, $targetBlockDefinition->getPlaceholders(), true)) {
+        if (!in_array($placeholder, $targetBlockDefinition->placeholders, true)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
@@ -306,7 +306,7 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!in_array($placeholder, $targetBlockDefinition->getPlaceholders(), true)) {
+        if (!in_array($placeholder, $targetBlockDefinition->placeholders, true)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
@@ -382,7 +382,7 @@ final class BlockService implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!in_array($placeholder, $targetBlockDefinition->getPlaceholders(), true)) {
+        if (!in_array($placeholder, $targetBlockDefinition->placeholders, true)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
@@ -639,7 +639,7 @@ final class BlockService implements BlockServiceInterface
                         [
                             'status' => $targetBlock->status,
                             'position' => $position,
-                            'definitionIdentifier' => $blockDefinition->getIdentifier(),
+                            'definitionIdentifier' => $blockDefinition->identifier,
                             'viewType' => $blockCreateStruct->viewType,
                             'itemViewType' => $blockCreateStruct->itemViewType,
                             'name' => $blockCreateStruct->name,
@@ -688,7 +688,7 @@ final class BlockService implements BlockServiceInterface
                                 $createdCollection,
                                 QueryCreateStruct::fromArray(
                                     [
-                                        'type' => $queryType->getType(),
+                                        'type' => $queryType->type,
                                         'parameters' => [
                                             ...$this->parameterMapper->serializeValues(
                                                 $queryType,

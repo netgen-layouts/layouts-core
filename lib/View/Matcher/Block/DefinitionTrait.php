@@ -25,6 +25,6 @@ trait DefinitionTrait
             return in_array('null', $config, true);
         }
 
-        return in_array($blockDefinition->getIdentifier(), $config, true);
+        return in_array($blockDefinition->identifier, $config, true);
     }
 }

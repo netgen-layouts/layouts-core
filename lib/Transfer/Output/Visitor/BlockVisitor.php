@@ -34,7 +34,7 @@ final class BlockVisitor implements VisitorInterface
     {
         return [
             'id' => $value->id->toString(),
-            'definition_identifier' => $value->definition->getIdentifier(),
+            'definition_identifier' => $value->definition->identifier,
             'is_translatable' => $value->isTranslatable,
             'is_always_available' => $value->alwaysAvailable,
             'main_locale' => $value->mainLocale,

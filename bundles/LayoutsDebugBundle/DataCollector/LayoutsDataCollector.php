@@ -147,7 +147,7 @@ final class LayoutsDataCollector extends DataCollector
             'layout_id' => $layoutId,
             'layout_path' => $this->layoutUrlGenerator->generateLayoutUrl($block->layoutId),
             'layout_name' => $this->layoutCache[$layoutId]->name,
-            'definition' => $blockDefinition->getName(),
+            'definition' => $blockDefinition->name,
             'view_type' => $blockDefinition->hasViewType($block->viewType, $block) ?
                 $blockDefinition->getViewType($block->viewType, $block)->name :
                 'Invalid view type',

@@ -43,7 +43,7 @@ final class CreateStructBuilder
 
         $blockCreateStruct->fillParametersFromHash($blockType->defaultParameters);
 
-        foreach ($blockType->definition->getCollections() as $collectionConfig) {
+        foreach ($blockType->definition->collections as $collectionConfig) {
             $blockCreateStruct->addCollectionCreateStruct(
                 $collectionConfig->identifier,
                 new CollectionCreateStruct(),

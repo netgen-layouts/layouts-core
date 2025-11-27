@@ -24,7 +24,7 @@ final class BlockStructBuilder
     {
         $blockCreateStruct = new BlockCreateStruct($blockDefinition);
 
-        $viewTypeIdentifiers = $blockDefinition->getViewTypeIdentifiers();
+        $viewTypeIdentifiers = $blockDefinition->viewTypeIdentifiers;
 
         if (count($viewTypeIdentifiers) > 0) {
             $blockCreateStruct->viewType = $viewTypeIdentifiers[0];
@@ -36,7 +36,7 @@ final class BlockStructBuilder
             }
         }
 
-        $blockCreateStruct->isTranslatable = $blockDefinition->isTranslatable();
+        $blockCreateStruct->isTranslatable = $blockDefinition->isTranslatable;
         $blockCreateStruct->alwaysAvailable = true;
 
         return $blockCreateStruct;

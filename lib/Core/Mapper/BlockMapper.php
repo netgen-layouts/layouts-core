@@ -145,7 +145,7 @@ final class BlockMapper
             return;
         }
 
-        foreach ($blockDefinition->getPlaceholders() as $placeholderIdentifier) {
+        foreach ($blockDefinition->placeholders as $placeholderIdentifier) {
             yield $placeholderIdentifier => Placeholder::fromArray(
                 [
                     'identifier' => $placeholderIdentifier,

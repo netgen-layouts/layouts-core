@@ -215,7 +215,7 @@ final class CollectionService implements APICollectionService
                         $persistenceCollection,
                         QueryCreateStruct::fromArray(
                             [
-                                'type' => $queryType->getType(),
+                                'type' => $queryType->type,
                                 'parameters' => [
                                     ...$this->parameterMapper->serializeValues(
                                         $queryType,
@@ -257,7 +257,7 @@ final class CollectionService implements APICollectionService
                     [
                         'position' => $position,
                         'value' => $itemCreateStruct->value,
-                        'valueType' => $itemCreateStruct->definition->getValueType(),
+                        'valueType' => $itemCreateStruct->definition->valueType,
                         'viewType' => $itemCreateStruct->viewType,
                         'config' => [
                             ...$this->configMapper->serializeValues(

@@ -23,34 +23,62 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     /**
      * Returns the block definition identifier.
      */
-    public function getIdentifier(): string;
+    public string $identifier { get; }
 
     /**
      * Returns the block definition human readable name.
      */
-    public function getName(): string;
+    public string $name { get; }
 
     /**
      * Returns the block definition icon.
      */
-    public function getIcon(): ?string;
+    public ?string $icon { get; }
 
     /**
      * Returns the handler object of this block definition.
      */
-    public function getHandler(): BlockDefinitionHandlerInterface;
+    public BlockDefinitionHandlerInterface $handler { get; }
+
+    /**
+     * Returns all block definition handler plugins.
+     *
+     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
+     */
+    public array $handlerPlugins { get; }
 
     /**
      * Returns if the block will be translatable when created.
      */
-    public function isTranslatable(): bool;
+    public bool $isTranslatable { get; }
 
     /**
      * Returns all collections.
      *
-     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection[]
      */
-    public function getCollections(): array;
+    public array $collections { get; }
+
+    /**
+     * Returns all forms.
+     *
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form[]
+     */
+    public array $forms { get; }
+
+    /**
+     * Returns the block definition view types.
+     *
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
+     */
+    public array $viewTypes { get; }
+
+    /**
+     * Returns the block definition view type identifiers.
+     *
+     * @var string[]
+     */
+    public array $viewTypeIdentifiers { get; }
 
     /**
      * Returns if the block definition has a collection with provided identifier.
@@ -63,13 +91,6 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      * @throws \Netgen\Layouts\Exception\Block\BlockDefinitionException If collection does not exist
      */
     public function getCollection(string $identifier): Collection;
-
-    /**
-     * Returns all forms.
-     *
-     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\Form[]
-     */
-    public function getForms(): array;
 
     /**
      * Returns if the block definition has a form with provided name.
@@ -88,14 +109,14 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
      *
      * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
      */
-    public function getViewTypes(?Block $block = null): array;
+    public function getBlockViewTypes(Block $block): array;
 
     /**
      * Returns the block definition view type identifiers.
      *
      * @return string[]
      */
-    public function getViewTypeIdentifiers(?Block $block = null): array;
+    public function getBlockViewTypeIdentifiers(Block $block): array;
 
     /**
      * Returns if the block definition has a view type with provided identifier.
@@ -120,23 +141,16 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     public function isContextual(Block $block): bool;
 
     /**
-     * Returns if the block definition has a plugin with provided FQCN.
+     * Returns if the block definition handler has a plugin with provided FQCN.
      *
      * @param class-string $className
      */
-    public function hasPlugin(string $className): bool;
+    public function hasHandlerPlugin(string $className): bool;
 
     /**
-     * Returns the block definition plugin with provided FQCN.
+     * Returns the block definition handler plugin with provided FQCN.
      *
      * @param class-string $className
      */
-    public function getPlugin(string $className): PluginInterface;
-
-    /**
-     * Returns all block definition plugins.
-     *
-     * @return \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
-     */
-    public function getPlugins(): array;
+    public function getHandlerPlugin(string $className): PluginInterface;
 }

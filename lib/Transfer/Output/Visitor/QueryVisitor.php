@@ -39,7 +39,7 @@ final class QueryVisitor implements VisitorInterface
             'main_locale' => $value->mainLocale,
             'available_locales' => $value->availableLocales,
             'parameters' => $this->visitParameters($value),
-            'query_type' => $value->queryType->getType(),
+            'query_type' => $value->queryType->type,
         ];
     }
 

@@ -82,7 +82,7 @@ final class CollectionQueryNormalizerTest extends TestCase
             [
                 'id' => $query->id->toString(),
                 'collection_id' => $query->collectionId->toString(),
-                'type' => $query->queryType->getType(),
+                'type' => $query->queryType->type,
                 'locale' => $query->locale,
                 'is_translatable' => $query->isTranslatable,
                 'always_available' => $query->alwaysAvailable,
