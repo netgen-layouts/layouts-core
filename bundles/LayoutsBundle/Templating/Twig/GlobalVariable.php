@@ -247,7 +247,7 @@ final class GlobalVariable
         if (!$usedLayout instanceof Layout) {
             $resolvedRule = $this->layoutResolver->resolveRule($currentRequest);
             if ($resolvedRule instanceof Rule) {
-                $usedLayout = $resolvedRule->getLayout();
+                $usedLayout = $resolvedRule->layout;
                 $viewParams = ['rule' => $resolvedRule];
             }
         }

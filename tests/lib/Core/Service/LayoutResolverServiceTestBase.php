@@ -398,8 +398,8 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
 
         self::assertTrue($createdRule->isDraft());
-        self::assertInstanceOf(Layout::class, $createdRule->getLayout());
-        self::assertSame($ruleCreateStruct->layoutId->toString(), $createdRule->getLayout()->id->toString());
+        self::assertInstanceOf(Layout::class, $createdRule->layout);
+        self::assertSame($ruleCreateStruct->layoutId->toString(), $createdRule->layout->id->toString());
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->ruleGroupId->toString());
     }
 
@@ -442,9 +442,9 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertTrue($updatedRule->isDraft());
-        self::assertInstanceOf(Layout::class, $updatedRule->getLayout());
-        self::assertTrue($updatedRule->getLayout()->isPublished());
-        self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $updatedRule->getLayout()->id->toString());
+        self::assertInstanceOf(Layout::class, $updatedRule->layout);
+        self::assertTrue($updatedRule->layout->isPublished());
+        self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $updatedRule->layout->id->toString());
         self::assertSame('Updated description', $updatedRule->description);
     }
 
@@ -458,9 +458,9 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertTrue($updatedRule->isDraft());
-        self::assertInstanceOf(Layout::class, $updatedRule->getLayout());
-        self::assertTrue($updatedRule->getLayout()->isPublished());
-        self::assertSame('71cbe281-430c-51d5-8e21-c3cc4e656dac', $updatedRule->getLayout()->id->toString());
+        self::assertInstanceOf(Layout::class, $updatedRule->layout);
+        self::assertTrue($updatedRule->layout->isPublished());
+        self::assertSame('71cbe281-430c-51d5-8e21-c3cc4e656dac', $updatedRule->layout->id->toString());
         self::assertSame('Updated description', $updatedRule->description);
     }
 
@@ -475,7 +475,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertTrue($updatedRule->isDraft());
-        self::assertNull($updatedRule->getLayout());
+        self::assertNull($updatedRule->layout);
         self::assertSame('Updated description', $updatedRule->description);
     }
 

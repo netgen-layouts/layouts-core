@@ -66,7 +66,7 @@ final class LayoutResolver implements LayoutResolverInterface
                 continue;
             }
 
-            if (!$match->getLayout() instanceof Layout) {
+            if (!$match->layout instanceof Layout) {
                 continue;
             }
 

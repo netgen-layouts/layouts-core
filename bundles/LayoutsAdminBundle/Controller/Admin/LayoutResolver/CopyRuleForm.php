@@ -35,13 +35,13 @@ final class CopyRuleForm extends AbstractController
             ],
         );
 
-        $originalLayout = $rule->getLayout();
+        $originalLayout = $rule->layout;
 
         if (!$originalLayout instanceof Layout) {
             throw new BadRequestHttpException('Mapping can be copied via this form only if it is related to a layout.');
         }
 
-        $layoutCopyStruct = $this->layoutService->newLayoutCopyStruct($rule->getLayout());
+        $layoutCopyStruct = $this->layoutService->newLayoutCopyStruct($rule->layout);
 
         $form = $this->createForm(
             CopyRuleType::class,

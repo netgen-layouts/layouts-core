@@ -33,7 +33,7 @@ final class UnlinkLayout extends AbstractController
             ],
         );
 
-        if (!$rule->getLayout() instanceof Layout) {
+        if (!$rule->layout instanceof Layout) {
             throw new BadStateException('rule', 'Rule does not have a linked layout.');
         }
 

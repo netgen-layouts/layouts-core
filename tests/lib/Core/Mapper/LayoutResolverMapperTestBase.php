@@ -48,8 +48,8 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $rule->id->toString());
         self::assertSame(RuleGroup::ROOT_UUID, $rule->ruleGroupId->toString());
-        self::assertInstanceOf(Layout::class, $rule->getLayout());
-        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->getLayout()->id->toString());
+        self::assertInstanceOf(Layout::class, $rule->layout);
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->layout->id->toString());
         self::assertTrue($rule->isPublished());
         self::assertTrue($rule->enabled);
         self::assertSame(12, $rule->priority);
@@ -76,7 +76,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
 
         $rule = $this->mapper->mapRule($persistenceRule);
 
-        self::assertNull($rule->getLayout());
+        self::assertNull($rule->layout);
     }
 
     public function testMapRuleGroup(): void

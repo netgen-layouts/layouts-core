@@ -30,14 +30,12 @@ final class RuleVisitor implements VisitorInterface
 
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
-        $layout = $value->getLayout();
-
         return [
             '__type' => self::ENTITY_TYPE,
             'id' => $value->id->toString(),
             'status' => $this->getStatusString($value),
             'rule_group_id' => $value->ruleGroupId->toString(),
-            'layout_id' => $layout?->id->toString(),
+            'layout_id' => $value->layout?->id->toString(),
             'is_enabled' => $value->enabled,
             'priority' => $value->priority,
             'description' => $value->description,

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Closure;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -16,7 +14,6 @@ use Ramsey\Uuid\UuidInterface;
 final class Rule implements Value
 {
     use HydratorTrait;
-    use LazyPropertyTrait;
     use ValueStatusTrait;
 
     public private(set) UuidInterface $id;
@@ -27,6 +24,11 @@ final class Rule implements Value
      * Returns the UUID of the rule group where this rule belongs.
      */
     public private(set) UuidInterface $ruleGroupId;
+
+    /**
+     * Returns the layout mapped to this rule.
+     */
+    public private(set) ?Layout $layout;
 
     /**
      * Returns if the rule is enabled.
@@ -55,15 +57,5 @@ final class Rule implements Value
      */
     public private(set) ConditionList $conditions {
         get => ConditionList::fromArray($this->conditions->toArray());
-    }
-
-    private Layout|Closure|null $layout;
-
-    /**
-     * Returns the layout mapped to this rule.
-     */
-    public function getLayout(): ?Layout
-    {
-        return $this->getLazyProperty($this->layout);
     }
 }

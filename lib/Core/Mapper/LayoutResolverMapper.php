@@ -56,16 +56,6 @@ final class LayoutResolverMapper
                     PersistenceStatus::Published,
                 )->uuid,
             ),
-            'layout' => function () use ($rule): ?Layout {
-                try {
-                    // Layouts used by rule are always in published status
-                    return $rule->layoutUuid !== null ?
-                        $this->layoutService->loadLayout(Uuid::fromString($rule->layoutUuid)) :
-                        null;
-                } catch (NotFoundException) {
-                    return null;
-                }
-            },
             'enabled' => $rule->enabled,
             'priority' => $rule->priority,
             'description' => $rule->description,
@@ -83,7 +73,21 @@ final class LayoutResolverMapper
             ),
         ];
 
-        return Rule::fromArray($ruleData);
+        return Rule::fromArray(
+            $ruleData,
+            [
+                'layout' => function () use ($rule): ?Layout {
+                    try {
+                        // Layouts used by rule are always in published status
+                        return $rule->layoutUuid !== null ?
+                            $this->layoutService->loadLayout(Uuid::fromString($rule->layoutUuid)) :
+                            null;
+                    } catch (NotFoundException) {
+                        return null;
+                    }
+                },
+            ],
+        );
     }
 
     /**

@@ -44,7 +44,7 @@ final class RuleTest extends TestCase
 
         self::assertSame($uuid->toString(), $rule->id->toString());
         self::assertSame($ruleGroupUuid->toString(), $rule->ruleGroupId->toString());
-        self::assertSame($layout, $rule->getLayout());
+        self::assertSame($layout, $rule->layout);
         self::assertSame(13, $rule->priority);
         self::assertTrue($rule->enabled);
         self::assertSame('Description', $rule->description);
