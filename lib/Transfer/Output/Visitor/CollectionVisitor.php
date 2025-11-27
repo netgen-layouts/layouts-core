@@ -72,7 +72,7 @@ final class CollectionVisitor implements VisitorInterface
      */
     private function visitQuery(Collection $collection, OutputVisitor $outputVisitor): ?array
     {
-        $query = $collection->getQuery();
+        $query = $collection->query;
         if ($query === null) {
             return null;
         }

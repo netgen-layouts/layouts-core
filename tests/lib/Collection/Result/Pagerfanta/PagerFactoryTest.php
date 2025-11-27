@@ -31,7 +31,7 @@ final class PagerFactoryTest extends TestCase
     #[DataProvider('getPagerDataProvider')]
     public function testGetPager(int $startPage, int $currentPage): void
     {
-        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), $startPage);
+        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5, 'query' => null]), $startPage);
 
         self::assertTrue($pager->getNormalizeOutOfRangePages());
         self::assertSame(5, $pager->getMaxPerPage());
@@ -54,7 +54,7 @@ final class PagerFactoryTest extends TestCase
     #[DataProvider('getMaxPagesPagerDataProvider')]
     public function testGetPagerWithMaxPages(int $maxPages, int $currentPage, int $nbPages): void
     {
-        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5]), 2, $maxPages);
+        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => 5, 'query' => null]), 2, $maxPages);
 
         self::assertTrue($pager->getNormalizeOutOfRangePages());
         self::assertSame(5, $pager->getMaxPerPage());
@@ -81,7 +81,7 @@ final class PagerFactoryTest extends TestCase
     #[DataProvider('getPagerWithCollectionLimitDataProvider')]
     public function testGetPagerWithCollectionLimit(int $limit, ?int $maxPages, int $maxPerPage, int $nbPages): void
     {
-        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => $limit]), 2, $maxPages);
+        $pager = $this->pagerFactory->getPager(Collection::fromArray(['offset' => 0, 'limit' => $limit, 'query' => null]), 2, $maxPages);
 
         self::assertTrue($pager->getNormalizeOutOfRangePages());
         self::assertSame($maxPerPage, $pager->getMaxPerPage());

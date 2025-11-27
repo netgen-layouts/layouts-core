@@ -93,7 +93,7 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
      */
     public function isContextual(): bool
     {
-        $collectionQuery = $this->collection->getQuery();
+        $collectionQuery = $this->collection->query;
         if (!$collectionQuery instanceof Query) {
             return false;
         }

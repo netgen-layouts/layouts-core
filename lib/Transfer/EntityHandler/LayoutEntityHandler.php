@@ -397,7 +397,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         foreach ($block->collections as $identifier => $collection) {
             $collectionData = $collectionsData[$identifier];
 
-            $collectionQuery = $collection->getQuery();
+            $collectionQuery = $collection->query;
 
             if ($collectionQuery instanceof Query && is_array($collectionData['query'])) {
                 $this->updateQueryTranslations(

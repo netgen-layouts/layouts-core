@@ -61,7 +61,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         self::assertCount(3, $collection->items);
         self::assertCount(2, $collection->slots);
-        self::assertInstanceOf(APIQuery::class, $collection->getQuery());
+        self::assertInstanceOf(APIQuery::class, $collection->query);
     }
 
     public function testMapCollectionWithLocale(): void
@@ -203,7 +203,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(['en'], $collection->availableLocales);
 
         self::assertEmpty($collection->items);
-        self::assertNull($collection->getQuery());
+        self::assertNull($collection->query);
     }
 
     public function testMapItem(): void

@@ -53,7 +53,7 @@ final class ManualCollectionRunnerTest extends TestCase
             );
         }
 
-        $collection = Collection::fromArray(['items' => ItemList::fromArray($items), 'slots' => SlotList::fromArray([])]);
+        $collection = Collection::fromArray(['items' => ItemList::fromArray($items), 'slots' => SlotList::fromArray([]), 'query' => null]);
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
         $collectionRunner = $factory->getCollectionRunner($collection);
 

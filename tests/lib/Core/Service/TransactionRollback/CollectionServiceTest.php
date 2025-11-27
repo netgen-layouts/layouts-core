@@ -74,7 +74,7 @@ final class CollectionServiceTest extends TestCase
         $itemCreateStruct->definition = ItemDefinition::fromArray(['valueType' => 'value_type']);
 
         $this->collectionService->addItem(
-            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'query' => null]),
             $itemCreateStruct,
         );
     }

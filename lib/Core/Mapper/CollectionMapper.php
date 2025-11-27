@@ -85,15 +85,6 @@ final class CollectionMapper
                     $this->collectionHandler->loadCollectionItems($collection),
                 ),
             ),
-            'query' => function () use ($collection, $locales): ?Query {
-                try {
-                    $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
-                } catch (NotFoundException) {
-                    return null;
-                }
-
-                return $this->mapQuery($persistenceQuery, $locales, false);
-            },
             'slots' => SlotList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceSlot $slot): Slot => $this->mapSlot($slot),
@@ -107,7 +98,20 @@ final class CollectionMapper
             'locale' => array_first($validLocales),
         ];
 
-        return Collection::fromArray($collectionData);
+        return Collection::fromArray(
+            $collectionData,
+            [
+                'query' => function () use ($collection, $locales): ?Query {
+                    try {
+                        $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
+                    } catch (NotFoundException) {
+                        return null;
+                    }
+
+                    return $this->mapQuery($persistenceQuery, $locales, false);
+                },
+            ],
+        );
     }
 
     /**

@@ -69,7 +69,7 @@ final class CollectionTest extends TestCase
         self::assertSame($slots[2], $collection->slots[2]);
         self::assertSame($slots[3], $collection->slots[3]);
 
-        self::assertSame($query, $collection->getQuery());
+        self::assertSame($query, $collection->query);
         self::assertTrue($collection->hasQuery);
 
         self::assertFalse($collection->hasItem(2));
@@ -94,6 +94,7 @@ final class CollectionTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'offset' => 5,
+                'query' => null,
             ],
         );
 

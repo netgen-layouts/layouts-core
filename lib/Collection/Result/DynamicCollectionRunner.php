@@ -46,7 +46,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     {
         $totalCount = 0;
 
-        $collectionQuery = $collection->getQuery();
+        $collectionQuery = $collection->query;
         if ($collectionQuery instanceof Query) {
             $totalCount = $this->queryRunner->count($collectionQuery);
         }
@@ -120,7 +120,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      */
     private function runQuery(Collection $collection, int $offset, int $limit): Iterator
     {
-        $collectionQuery = $collection->getQuery();
+        $collectionQuery = $collection->query;
         if (!$collectionQuery instanceof Query) {
             return new ArrayIterator();
         }

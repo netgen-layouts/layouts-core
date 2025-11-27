@@ -203,7 +203,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         self::assertTrue($updatedCollection->isDraft());
         self::assertCount(count($collection->items), $updatedCollection->items);
-        self::assertInstanceOf(Query::class, $updatedCollection->getQuery());
+        self::assertInstanceOf(Query::class, $updatedCollection->query);
     }
 
     public function testChangeCollectionTypeFromDynamicToManual(): void
@@ -217,7 +217,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         self::assertTrue($updatedCollection->isDraft());
         self::assertCount(count($collection->items), $updatedCollection->items);
-        self::assertNull($updatedCollection->getQuery());
+        self::assertNull($updatedCollection->query);
 
         foreach ($updatedCollection->items as $index => $item) {
             self::assertSame($index, $item->position);

@@ -31,7 +31,7 @@ final class CollectionRunnerFactoryTest extends TestCase
 
     public function testGetCollectionRunnerWithManualCollection(): void
     {
-        $runner = $this->factory->getCollectionRunner(new Collection());
+        $runner = $this->factory->getCollectionRunner(Collection::fromArray(['query' => null]));
 
         self::assertInstanceOf(ManualCollectionRunner::class, $runner);
     }

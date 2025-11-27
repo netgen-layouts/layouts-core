@@ -26,7 +26,7 @@ final class CollectionEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->collection = new Collection();
+        $this->collection = Collection::fromArray(['query' => null]);
     }
 
     public function testSubmitValidData(): void

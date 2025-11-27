@@ -52,6 +52,7 @@ final class BlockNormalizerTest extends TestCase
                 'status' => Status::Published,
                 'offset' => 10,
                 'limit' => 5,
+                'query' => null,
             ],
         );
 

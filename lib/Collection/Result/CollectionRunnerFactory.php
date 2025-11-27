@@ -21,7 +21,7 @@ final class CollectionRunnerFactory
      */
     public function getCollectionRunner(Collection $collection, int $flags = 0): CollectionRunnerInterface
     {
-        $collectionQuery = $collection->getQuery();
+        $collectionQuery = $collection->query;
 
         if ($collectionQuery instanceof Query) {
             $queryRunner = $this->getQueryRunner($collectionQuery, $flags);

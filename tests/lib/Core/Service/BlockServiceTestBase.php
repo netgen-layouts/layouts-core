@@ -205,8 +205,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(0, $defaultCollection->offset);
         self::assertNull($defaultCollection->limit);
         self::assertTrue($defaultCollection->hasQuery);
-        self::assertInstanceOf(Query::class, $defaultCollection->getQuery());
-        self::assertSame('my_query_type', $defaultCollection->getQuery()->queryType->getType());
+        self::assertInstanceOf(Query::class, $defaultCollection->query);
+        self::assertSame('my_query_type', $defaultCollection->query->queryType->getType());
         self::assertSame($block->isTranslatable, $defaultCollection->isTranslatable);
         self::assertSame($block->alwaysAvailable, $defaultCollection->alwaysAvailable);
         self::assertSame($block->availableLocales, $defaultCollection->availableLocales);

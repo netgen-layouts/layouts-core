@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
-use Closure;
-use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -15,7 +13,6 @@ use Ramsey\Uuid\UuidInterface;
 final class Collection implements Value
 {
     use HydratorTrait;
-    use LazyPropertyTrait;
     use ValueStatusTrait;
 
     public private(set) UuidInterface $id;
@@ -47,10 +44,15 @@ final class Collection implements Value
     public private(set) ?int $limit;
 
     /**
+     * Returns the query from the collection or null if no query exists.
+     */
+    public private(set) ?Query $query;
+
+    /**
      * Returns if the query exists in the collection.
      */
     public bool $hasQuery {
-        get => $this->getQuery() instanceof Query;
+        get => $this->query instanceof Query;
     }
 
     public CollectionType $collectionType {
@@ -109,8 +111,6 @@ final class Collection implements Value
      */
     public private(set) string $locale;
 
-    private Query|Closure|null $query;
-
     /**
      * Returns if the item exists at specified position.
      */
@@ -133,14 +133,6 @@ final class Collection implements Value
         }
 
         return null;
-    }
-
-    /**
-     * Returns the query from the collection or null if no query exists.
-     */
-    public function getQuery(): ?Query
-    {
-        return $this->getLazyProperty($this->query);
     }
 
     /**

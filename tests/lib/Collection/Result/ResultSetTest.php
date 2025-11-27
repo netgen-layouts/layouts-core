@@ -19,7 +19,7 @@ final class ResultSetTest extends TestCase
 {
     public function testObject(): void
     {
-        $collection = new Collection();
+        $collection = Collection::fromArray(['query' => null]);
 
         $resultItem = new Result(0, new CmsItem());
 
@@ -95,7 +95,7 @@ final class ResultSetTest extends TestCase
     {
         $result = ResultSet::fromArray(
             [
-                'collection' => new Collection(),
+                'collection' => Collection::fromArray(['query' => null]),
             ],
         );
 
@@ -125,7 +125,7 @@ final class ResultSetTest extends TestCase
     {
         $result = ResultSet::fromArray(
             [
-                'collection' => new Collection(),
+                'collection' => Collection::fromArray(['query' => null]),
             ],
         );
 
