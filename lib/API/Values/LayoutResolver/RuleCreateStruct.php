@@ -29,7 +29,7 @@ final class RuleCreateStruct
     /**
      * Specifies if the rule will be enabled or not.
      */
-    public bool $enabled = true;
+    public bool $isEnabled = true;
 
     /**
      * Description of the rule.

@@ -34,7 +34,7 @@ final class LayoutResolverMapper
                     'status' => Status::from((int) $dataItem['status']),
                     'ruleGroupId' => (int) $dataItem['rule_group_id'],
                     'layoutUuid' => $dataItem['layout_uuid'] ?? null,
-                    'enabled' => (bool) $dataItem['enabled'],
+                    'isEnabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
                     'description' => $dataItem['description'],
                 ],
@@ -67,7 +67,7 @@ final class LayoutResolverMapper
                     'parentUuid' => $dataItem['parent_uuid'] ?? null,
                     'name' => $dataItem['name'],
                     'description' => $dataItem['description'],
-                    'enabled' => (bool) $dataItem['enabled'],
+                    'isEnabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
                 ],
             );

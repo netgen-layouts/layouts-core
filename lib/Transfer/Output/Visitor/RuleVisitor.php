@@ -36,7 +36,7 @@ final class RuleVisitor implements VisitorInterface
             'status' => $this->getStatusString($value),
             'rule_group_id' => $value->ruleGroupId->toString(),
             'layout_id' => $value->layout?->id->toString(),
-            'is_enabled' => $value->enabled,
+            'is_enabled' => $value->isEnabled,
             'priority' => $value->priority,
             'description' => $value->description,
             'targets' => [...$this->visitTargets($value, $outputVisitor)],

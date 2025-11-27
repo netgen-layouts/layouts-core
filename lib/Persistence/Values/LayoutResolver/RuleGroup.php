@@ -61,7 +61,7 @@ final class RuleGroup extends Value
     /**
      * A flag indicating if the rule group is enabled or not.
      */
-    public bool $enabled;
+    public bool $isEnabled;
 
     /**
      * Rule group priority.

@@ -15,12 +15,12 @@
 {% set can_delete = is_granted('nglayouts:mapping:delete', { rule_group: rule.ruleGroupId.toString }) %}
 
 <div class="nl-rule-content
-    {% if not rule.enabled %}disabled{% endif %}"
+    {% if not rule.isEnabled %}disabled{% endif %}"
     data-id="{{ rule.id.toString }}"
     data-target-type="{{ target_type_identifier }}"
     data-layout-id="{% if rule.layout is not empty %}{{ rule.layout.id.toString }}{% endif %}"
     data-group-id="{{ rule.ruleGroupId.toString }}"
-    data-enabled="{{ rule.enabled }}"
+    data-enabled="{{ rule.isEnabled }}"
     >
 
     <div class="nl-rule-head">
@@ -119,7 +119,7 @@
                     {% endif %}
 
                     {% if can_activate %}
-                        {% if rule.enabled %}
+                        {% if rule.isEnabled %}
                             <li><a href="#" {% if not rule.isPublished %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
                         {% else %}
                             <li><a href="#" {% if not rule.isPublished %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>

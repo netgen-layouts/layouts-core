@@ -56,7 +56,7 @@ final class LayoutResolverMapper
                     PersistenceStatus::Published,
                 )->uuid,
             ),
-            'enabled' => $rule->enabled,
+            'isEnabled' => $rule->isEnabled,
             'priority' => $rule->priority,
             'description' => $rule->description,
             'targets' => TargetList::fromCallable(
@@ -103,7 +103,7 @@ final class LayoutResolverMapper
             'status' => Status::from($ruleGroup->status->value),
             'name' => $ruleGroup->name,
             'description' => $ruleGroup->description,
-            'enabled' => $ruleGroup->enabled,
+            'isEnabled' => $ruleGroup->isEnabled,
             'priority' => $ruleGroup->priority,
             'rules' => RuleList::fromCallable(
                 fn (): array => array_map(

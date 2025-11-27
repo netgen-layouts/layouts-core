@@ -43,7 +43,7 @@ final class RuleGroup implements Value
     /**
      * Returns if the rule group is enabled.
      */
-    public private(set) bool $enabled;
+    public private(set) bool $isEnabled;
 
     /**
      * Returns the rule group priority.

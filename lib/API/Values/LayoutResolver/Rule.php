@@ -30,7 +30,7 @@ final class Rule implements Value
     /**
      * Returns if the rule is enabled.
      */
-    public private(set) bool $enabled;
+    public private(set) bool $isEnabled;
 
     /**
      * Returns the rule priority.

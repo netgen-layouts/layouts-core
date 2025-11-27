@@ -204,12 +204,12 @@ final class LayoutResolverValidatorTest extends TestCase
     public static function validateRuleGroupCreateStructDataProvider(): iterable
     {
         return [
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
-            [['uuid' => Uuid::uuid4(), 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
-            [['uuid' => null, 'name' => '', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], false],
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => false, 'description' => 'Description'], true],
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => ''], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
+            [['uuid' => Uuid::uuid4(), 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
+            [['uuid' => null, 'name' => '', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], false],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => false, 'description' => 'Description'], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => ''], true],
         ];
     }
 

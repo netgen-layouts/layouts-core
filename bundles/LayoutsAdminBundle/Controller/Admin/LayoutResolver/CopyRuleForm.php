@@ -86,7 +86,7 @@ final class CopyRuleForm extends AbstractController
                     $ruleMetadataUpdateStruct,
                 );
 
-                if ($copiedRule->enabled) {
+                if ($copiedRule->isEnabled) {
                     $copiedRule = $this->layoutResolverService->disableRule($copiedRule);
                 }
 

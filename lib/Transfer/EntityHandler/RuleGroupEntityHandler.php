@@ -42,7 +42,7 @@ final class RuleGroupEntityHandler implements EntityHandlerInterface
         $createStruct = $this->layoutResolverService->newRuleGroupCreateStruct($data['name']);
 
         $createStruct->description = $data['description'];
-        $createStruct->enabled = $data['is_enabled'];
+        $createStruct->isEnabled = $data['is_enabled'];
         $createStruct->priority = $data['priority'];
 
         if ($keepUuid) {

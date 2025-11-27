@@ -293,7 +293,7 @@ final class LayoutResolverServiceTest extends TestCase
                 PersistenceRule::fromArray(
                     [
                         'layoutUuid' => Uuid::uuid4()->toString(),
-                        'enabled' => false,
+                        'isEnabled' => false,
                     ],
                 ),
             );
@@ -319,7 +319,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willReturn(
                 PersistenceRule::fromArray(
                     [
-                        'enabled' => true,
+                        'isEnabled' => true,
                     ],
                 ),
             );
@@ -596,7 +596,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willReturn(
                 PersistenceRuleGroup::fromArray(
                     [
-                        'enabled' => false,
+                        'isEnabled' => false,
                     ],
                 ),
             );
@@ -624,7 +624,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willReturn(
                 PersistenceRuleGroup::fromArray(
                     [
-                        'enabled' => true,
+                        'isEnabled' => true,
                     ],
                 ),
             );

@@ -58,7 +58,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -68,7 +68,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -78,7 +78,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -88,7 +88,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -129,7 +129,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -139,7 +139,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => null,
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -169,7 +169,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -179,7 +179,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
-                'enabled' => false,
+                'isEnabled' => false,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -209,7 +209,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => null,
                 'priority' => 2,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -219,7 +219,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => null,
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -254,7 +254,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -264,7 +264,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 7,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -326,7 +326,7 @@ final class LayoutResolverTest extends TestCase
         $rule1 = Rule::fromArray(
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'priority' => 4,
                 'conditions' => ConditionList::fromArray([RuleCondition::fromArray(['value' => 42, 'conditionType' => new ConditionType2(false)])]),
@@ -336,7 +336,7 @@ final class LayoutResolverTest extends TestCase
         $rule2 = Rule::fromArray(
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'priority' => 2,
                 'conditions' => ConditionList::fromArray($conditions),
@@ -379,7 +379,7 @@ final class LayoutResolverTest extends TestCase
         $rule = Rule::fromArray(
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray($conditions),
             ],
@@ -418,7 +418,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -428,7 +428,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -438,7 +438,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -448,7 +448,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -482,7 +482,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -492,7 +492,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => null,
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -522,7 +522,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => null,
                 'priority' => 2,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -532,7 +532,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => null,
                 'priority' => 4,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -567,7 +567,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -577,7 +577,7 @@ final class LayoutResolverTest extends TestCase
             [
                 'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 7,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray([]),
             ],
@@ -639,7 +639,7 @@ final class LayoutResolverTest extends TestCase
         $rule = Rule::fromArray(
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray($conditions),
             ],
@@ -684,7 +684,7 @@ final class LayoutResolverTest extends TestCase
         $rule = Rule::fromArray(
             [
                 'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
-                'enabled' => true,
+                'isEnabled' => true,
                 'targets' => TargetList::fromArray([]),
                 'conditions' => ConditionList::fromArray($conditions),
             ],

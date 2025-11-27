@@ -36,5 +36,5 @@ final class RuleGroupCreateStruct
     /**
      * Specifies if the rule group will be enabled or not.
      */
-    public bool $enabled = true;
+    public bool $isEnabled = true;
 }

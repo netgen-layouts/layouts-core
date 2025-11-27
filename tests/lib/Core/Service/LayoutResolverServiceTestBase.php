@@ -682,7 +682,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         self::assertTrue($publishedRule->isPublished);
-        self::assertTrue($publishedRule->enabled);
+        self::assertTrue($publishedRule->isEnabled);
 
         try {
             $this->layoutResolverService->loadRuleDraft($rule->id);
@@ -1020,7 +1020,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $publishedRuleGroup = $this->layoutResolverService->publishRuleGroup($ruleGroup);
 
         self::assertTrue($publishedRuleGroup->isPublished);
-        self::assertTrue($publishedRuleGroup->enabled);
+        self::assertTrue($publishedRuleGroup->isEnabled);
 
         try {
             $this->layoutResolverService->loadRuleGroupDraft($ruleGroup->id);
@@ -1076,7 +1076,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $enabledRule = $this->layoutResolverService->enableRule($rule);
 
-        self::assertTrue($enabledRule->enabled);
+        self::assertTrue($enabledRule->isEnabled);
         self::assertTrue($enabledRule->isPublished);
     }
 
@@ -1106,7 +1106,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $disabledRule = $this->layoutResolverService->disableRule($rule);
 
-        self::assertFalse($disabledRule->enabled);
+        self::assertFalse($disabledRule->isEnabled);
         self::assertTrue($disabledRule->isPublished);
     }
 
@@ -1136,7 +1136,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $enabledRuleGroup = $this->layoutResolverService->enableRuleGroup($ruleGroup);
 
-        self::assertTrue($enabledRuleGroup->enabled);
+        self::assertTrue($enabledRuleGroup->isEnabled);
         self::assertTrue($enabledRuleGroup->isPublished);
     }
 
@@ -1166,7 +1166,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $disabledRuleGroup = $this->layoutResolverService->disableRuleGroup($ruleGroup);
 
-        self::assertFalse($disabledRuleGroup->enabled);
+        self::assertFalse($disabledRuleGroup->isEnabled);
         self::assertTrue($disabledRuleGroup->isPublished);
     }
 
@@ -1447,7 +1447,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(
             [
                 'description' => '',
-                'enabled' => true,
+                'isEnabled' => true,
                 'layoutId' => null,
                 'priority' => null,
                 'uuid' => null,
@@ -1488,7 +1488,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(
             [
                 'description' => '',
-                'enabled' => true,
+                'isEnabled' => true,
                 'name' => 'Test group',
                 'priority' => null,
                 'uuid' => null,

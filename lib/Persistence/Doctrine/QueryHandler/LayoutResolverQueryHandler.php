@@ -517,7 +517,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     ],
                 )
                 ->setParameter('rule_id', $rule->id, Types::INTEGER)
-                ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
+                ->setParameter('enabled', $rule->isEnabled, Types::BOOLEAN)
                 ->setParameter('priority', $rule->priority, Types::INTEGER);
 
             $query->executeStatement();
@@ -564,7 +564,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('rule_id', ':rule_id'),
             )
             ->setParameter('rule_id', $rule->id, Types::INTEGER)
-            ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
+            ->setParameter('enabled', $rule->isEnabled, Types::BOOLEAN)
             ->setParameter('priority', $rule->priority, Types::INTEGER);
 
         $query->executeStatement();
@@ -649,7 +649,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     ],
                 )
                 ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
-                ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
+                ->setParameter('enabled', $ruleGroup->isEnabled, Types::BOOLEAN)
                 ->setParameter('priority', $ruleGroup->priority, Types::INTEGER);
 
             $query->executeStatement();
@@ -724,7 +724,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('rule_group_id', ':rule_group_id'),
             )
             ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
-            ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
+            ->setParameter('enabled', $ruleGroup->isEnabled, Types::BOOLEAN)
             ->setParameter('priority', $ruleGroup->priority, Types::INTEGER);
 
         $query->executeStatement();

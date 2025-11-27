@@ -42,7 +42,7 @@ final class RuleGroupVisitor implements VisitorInterface
             'parent_id' => $value->parentId?->toString(),
             'name' => $value->name,
             'description' => $value->description,
-            'is_enabled' => $value->enabled,
+            'is_enabled' => $value->isEnabled,
             'priority' => $value->priority,
             'groups' => [...$this->visitSubGroups($value, $outputVisitor)],
             'rules' => [...$this->visitRules($value, $outputVisitor)],

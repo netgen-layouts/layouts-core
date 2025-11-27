@@ -35,7 +35,7 @@ final class RuleGroupCreateStruct
     /**
      * Flag indicating if the new rule group will be enabled.
      */
-    public bool $enabled;
+    public bool $isEnabled;
 
     /**
      * Rule group status.

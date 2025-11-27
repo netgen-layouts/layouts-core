@@ -205,7 +205,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'status' => $ruleCreateStruct->status,
                 'ruleGroupId' => $targetGroup->id,
                 'layoutUuid' => $layout?->uuid,
-                'enabled' => $ruleCreateStruct->enabled,
+                'isEnabled' => $ruleCreateStruct->isEnabled,
                 'priority' => $ruleCreateStruct->priority ?? $this->getPriority($targetGroup),
                 'description' => mb_trim($ruleCreateStruct->description),
             ],
@@ -244,8 +244,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $updatedRule->priority = $ruleUpdateStruct->priority;
         }
 
-        if (is_bool($ruleUpdateStruct->enabled)) {
-            $updatedRule->enabled = $ruleUpdateStruct->enabled;
+        if (is_bool($ruleUpdateStruct->isEnabled)) {
+            $updatedRule->isEnabled = $ruleUpdateStruct->isEnabled;
         }
 
         $this->queryHandler->updateRuleData($updatedRule);
@@ -381,7 +381,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'parentUuid' => $parentGroup?->uuid,
                 'name' => mb_trim($ruleGroupCreateStruct->name),
                 'description' => mb_trim($ruleGroupCreateStruct->description),
-                'enabled' => $ruleGroupCreateStruct->enabled,
+                'isEnabled' => $ruleGroupCreateStruct->isEnabled,
                 'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
             ],
         );
@@ -421,8 +421,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $updatedRuleGroup->priority = $ruleGroupUpdateStruct->priority;
         }
 
-        if (is_bool($ruleGroupUpdateStruct->enabled)) {
-            $updatedRuleGroup->enabled = $ruleGroupUpdateStruct->enabled;
+        if (is_bool($ruleGroupUpdateStruct->isEnabled)) {
+            $updatedRuleGroup->isEnabled = $ruleGroupUpdateStruct->isEnabled;
         }
 
         $this->queryHandler->updateRuleGroupData($updatedRuleGroup);

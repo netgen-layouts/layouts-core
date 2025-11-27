@@ -30,7 +30,7 @@ final class RuleCreateStruct
     /**
      * Flag indicating if the new rule will be enabled.
      */
-    public bool $enabled;
+    public bool $isEnabled;
 
     /**
      * Human readable description of the rule.

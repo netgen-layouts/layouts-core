@@ -348,7 +348,7 @@ final class LayoutResolverService implements APILayoutResolverService
                             $ruleCreateStruct->layoutId->toString() :
                             $ruleCreateStruct->layoutId,
                         'priority' => $ruleCreateStruct->priority,
-                        'enabled' => $ruleCreateStruct->enabled,
+                        'isEnabled' => $ruleCreateStruct->isEnabled,
                         'description' => $ruleCreateStruct->description,
                         'status' => PersistenceStatus::Draft,
                     ],
@@ -593,7 +593,7 @@ final class LayoutResolverService implements APILayoutResolverService
                         'name' => $ruleGroupCreateStruct->name,
                         'description' => $ruleGroupCreateStruct->description,
                         'priority' => $ruleGroupCreateStruct->priority,
-                        'enabled' => $ruleGroupCreateStruct->enabled,
+                        'isEnabled' => $ruleGroupCreateStruct->isEnabled,
                         'status' => PersistenceStatus::Draft,
                     ],
                 ),
@@ -822,7 +822,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
 
-        if ($persistenceRule->enabled) {
+        if ($persistenceRule->isEnabled) {
             throw new BadStateException('rule', 'Rule is already enabled.');
         }
 
@@ -831,7 +831,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $persistenceRule,
                 RuleMetadataUpdateStruct::fromArray(
                     [
-                        'enabled' => true,
+                        'isEnabled' => true,
                     ],
                 ),
             ),
@@ -848,7 +848,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceRule = $this->layoutResolverHandler->loadRule($rule->id, PersistenceStatus::Published);
 
-        if (!$persistenceRule->enabled) {
+        if (!$persistenceRule->isEnabled) {
             throw new BadStateException('rule', 'Rule is already disabled.');
         }
 
@@ -857,7 +857,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $persistenceRule,
                 RuleMetadataUpdateStruct::fromArray(
                     [
-                        'enabled' => false,
+                        'isEnabled' => false,
                     ],
                 ),
             ),
@@ -874,7 +874,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
 
-        if ($persistenceRuleGroup->enabled) {
+        if ($persistenceRuleGroup->isEnabled) {
             throw new BadStateException('ruleGroup', 'Rule group is already enabled.');
         }
 
@@ -883,7 +883,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $persistenceRuleGroup,
                 RuleGroupMetadataUpdateStruct::fromArray(
                     [
-                        'enabled' => true,
+                        'isEnabled' => true,
                     ],
                 ),
             ),
@@ -900,7 +900,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->id, PersistenceStatus::Published);
 
-        if (!$persistenceRuleGroup->enabled) {
+        if (!$persistenceRuleGroup->isEnabled) {
             throw new BadStateException('ruleGroup', 'Rule group is already disabled.');
         }
 
@@ -909,7 +909,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $persistenceRuleGroup,
                 RuleGroupMetadataUpdateStruct::fromArray(
                     [
-                        'enabled' => false,
+                        'isEnabled' => false,
                     ],
                 ),
             ),

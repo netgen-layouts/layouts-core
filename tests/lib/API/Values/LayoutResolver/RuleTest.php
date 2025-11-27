@@ -35,7 +35,7 @@ final class RuleTest extends TestCase
                 'ruleGroupId' => $ruleGroupUuid,
                 'layout' => $layout,
                 'priority' => 13,
-                'enabled' => true,
+                'isEnabled' => true,
                 'description' => 'Description',
                 'targets' => TargetList::fromArray([$target1, $target2]),
                 'conditions' => ConditionList::fromArray([$condition]),
@@ -46,7 +46,7 @@ final class RuleTest extends TestCase
         self::assertSame($ruleGroupUuid->toString(), $rule->ruleGroupId->toString());
         self::assertSame($layout, $rule->layout);
         self::assertSame(13, $rule->priority);
-        self::assertTrue($rule->enabled);
+        self::assertTrue($rule->isEnabled);
         self::assertSame('Description', $rule->description);
 
         self::assertCount(2, $rule->targets);

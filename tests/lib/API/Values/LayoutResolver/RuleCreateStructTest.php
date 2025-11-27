@@ -15,6 +15,6 @@ final class RuleCreateStructTest extends TestCase
     {
         $ruleCreateStruct = new RuleCreateStruct();
 
-        self::assertTrue($ruleCreateStruct->enabled);
+        self::assertTrue($ruleCreateStruct->isEnabled);
     }
 }

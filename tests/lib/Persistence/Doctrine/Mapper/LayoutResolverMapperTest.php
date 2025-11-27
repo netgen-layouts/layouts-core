@@ -55,8 +55,8 @@ final class LayoutResolverMapperTest extends TestCase
         $expectedData = [
             [
                 'description' => 'Description',
-                'enabled' => true,
                 'id' => 42,
+                'isEnabled' => true,
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'priority' => 2,
                 'ruleGroupId' => 62,
@@ -65,8 +65,8 @@ final class LayoutResolverMapperTest extends TestCase
             ],
             [
                 'description' => '',
-                'enabled' => false,
                 'id' => 43,
+                'isEnabled' => false,
                 'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'priority' => 3,
                 'ruleGroupId' => 64,
@@ -116,8 +116,8 @@ final class LayoutResolverMapperTest extends TestCase
             [
                 'depth' => 1,
                 'description' => 'Description',
-                'enabled' => true,
                 'id' => 42,
+                'isEnabled' => true,
                 'name' => 'Name',
                 'parentId' => 62,
                 'parentUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -129,8 +129,8 @@ final class LayoutResolverMapperTest extends TestCase
             [
                 'depth' => 0,
                 'description' => '',
-                'enabled' => false,
                 'id' => 43,
+                'isEnabled' => false,
                 'name' => '',
                 'parentId' => null,
                 'parentUuid' => null,

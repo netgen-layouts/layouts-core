@@ -34,7 +34,7 @@ final class Rule extends Value
     /**
      * A flag indicating if the rule is enabled or not.
      */
-    public bool $enabled;
+    public bool $isEnabled;
 
     /**
      * Rule priority.

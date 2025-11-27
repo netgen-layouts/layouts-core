@@ -43,7 +43,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
     {
         $createStruct = $this->layoutResolverService->newRuleCreateStruct();
 
-        $createStruct->enabled = $data['is_enabled'];
+        $createStruct->isEnabled = $data['is_enabled'];
         $createStruct->description = $data['description'];
         $createStruct->priority = $data['priority'];
         $createStruct->layoutId = $data['layout_id'] !== null ?

@@ -13,7 +13,7 @@ final class RuleMetadataUpdateStruct
     /**
      * Flag indicating if the rule will be enabled or not.
      */
-    public ?bool $enabled = null;
+    public ?bool $isEnabled = null;
 
     /**
      * Priority of the rule.

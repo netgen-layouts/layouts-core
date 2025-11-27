@@ -34,7 +34,7 @@ final class RuleGroupTest extends TestCase
                 'name' => 'Name',
                 'description' => 'Description',
                 'priority' => 13,
-                'enabled' => true,
+                'isEnabled' => true,
                 'rules' => RuleList::fromArray([$rule1, $rule2]),
                 'conditions' => ConditionList::fromArray([$condition]),
             ],
@@ -46,7 +46,7 @@ final class RuleGroupTest extends TestCase
         self::assertSame('Name', $ruleGroup->name);
         self::assertSame('Description', $ruleGroup->description);
         self::assertSame(13, $ruleGroup->priority);
-        self::assertTrue($ruleGroup->enabled);
+        self::assertTrue($ruleGroup->isEnabled);
 
         self::assertCount(2, $ruleGroup->rules);
         self::assertCount(1, $ruleGroup->conditions);

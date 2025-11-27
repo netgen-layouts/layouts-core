@@ -38,7 +38,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'enabled' => true,
+                'isEnabled' => true,
                 'priority' => 12,
                 'description' => 'Description',
             ],
@@ -51,7 +51,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertInstanceOf(Layout::class, $rule->layout);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->layout->id->toString());
         self::assertTrue($rule->isPublished);
-        self::assertTrue($rule->enabled);
+        self::assertTrue($rule->isEnabled);
         self::assertSame(12, $rule->priority);
         self::assertSame('Description', $rule->description);
 
@@ -68,7 +68,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 1,
                 'layoutUuid' => Uuid::uuid4()->toString(),
-                'enabled' => true,
+                'isEnabled' => true,
                 'priority' => 12,
                 'description' => 'Description',
             ],
@@ -92,7 +92,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
                 'parentUuid' => RuleGroup::ROOT_UUID,
                 'name' => 'Name',
                 'description' => 'Description',
-                'enabled' => true,
+                'isEnabled' => true,
                 'priority' => 1,
             ],
         );
@@ -105,7 +105,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertTrue($ruleGroup->isPublished);
         self::assertSame('Name', $ruleGroup->name);
         self::assertSame('Description', $ruleGroup->description);
-        self::assertTrue($ruleGroup->enabled);
+        self::assertTrue($ruleGroup->isEnabled);
         self::assertSame(1, $ruleGroup->priority);
 
         self::assertCount(2, $ruleGroup->rules);
