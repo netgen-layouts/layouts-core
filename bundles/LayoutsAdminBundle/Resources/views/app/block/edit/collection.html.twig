@@ -5,7 +5,7 @@
 
     <div
         data-query-form="true"
-        data-form="{{ path('nglayouts_app_collection_collection_form_edit', {'collectionId': collection.id.toString}) }}"
+        data-form="{{ path('nglayouts_app_collection_collection_form_edit', { 'collectionId': collection.id.toString }) }}"
         data-input {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
     </div>
 {% endif %}

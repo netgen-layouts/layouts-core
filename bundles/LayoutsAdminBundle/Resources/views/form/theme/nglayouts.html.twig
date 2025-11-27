@@ -20,7 +20,7 @@
 
 {%- block file_row -%}
     <div class="row-input file-input-group{% if errors|length > 0 %} error-input{% endif %}{% if form.vars.disabled %} disabled-input{% endif %}">
-        {{- form_label(form, null, {label_attr: {class: 'nl-btn nl-btn-primary nl-btn-with-icon'}}) -}}
+        {{- form_label(form, null, { label_attr: { class: 'nl-btn nl-btn-primary nl-btn-with-icon' } }) -}}
         <span class="filename">{{ 'import.file.no_file_selected'|trans({}, 'nglayouts_forms') }}</span>
 
         {{- form_widget(form) -}}
@@ -114,7 +114,7 @@
                         <input type="text" class="datetime-input-locale" placeholder="{{ attr.placeholder ?? '' }}">
                         <i class="material-icons input-icon">today</i>
                     </div>
-                    {{ form_row(form.children.datetime, {attr: {placeholder: attr.placeholder ?? '', class: 'datetime-formatted'}}) }}
+                    {{ form_row(form.children.datetime, { attr: { placeholder: attr.placeholder ?? '', class: 'datetime-formatted' } }) }}
                     <button class="js-clear-input"><i class="material-icons">close</i></button>
                 </div>
             </div>

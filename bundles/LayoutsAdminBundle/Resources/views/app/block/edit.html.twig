@@ -6,7 +6,7 @@
     {% if block_definition.hasForm('full') %}
         {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_type.html.twig') }}
 
-        <div data-form="{{ path('nglayouts_app_block_form_edit', {'blockId': block.id.toString, 'locale': block.locale, 'formName': 'full'}) }}"></div>
+        <div data-form="{{ path('nglayouts_app_block_form_edit', { 'blockId': block.id.toString, 'locale': block.locale, 'formName': 'full' }) }}"></div>
 
         {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_query.html.twig') }}
 
@@ -28,7 +28,7 @@
                         </a>
 
                         <div class="collapse in" id="collapseSettings">
-                            <div data-form="{{ path('nglayouts_app_block_form_edit', {'blockId': block.id.toString, 'locale': block.locale, 'formName': 'content'}) }}"></div>
+                            <div data-form="{{ path('nglayouts_app_block_form_edit', { 'blockId': block.id.toString, 'locale': block.locale, 'formName': 'content' }) }}"></div>
 
                             {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_type.html.twig') }}
 
@@ -40,12 +40,12 @@
 
                     {{ include('@NetgenLayoutsAdmin/app/block/edit/collection_items.html.twig') }}
                 {% else %}
-                    <div data-form="{{ path('nglayouts_app_block_form_edit', {'blockId': block.id.toString, 'locale': block.locale, 'formName': 'content'}) }}"></div>
+                    <div data-form="{{ path('nglayouts_app_block_form_edit', { 'blockId': block.id.toString, 'locale': block.locale, 'formName': 'content' }) }}"></div>
                 {% endif %}
             </div>
 
             <div class="tab-pane" id="design-tab">
-                <div data-form="{{ path('nglayouts_app_block_form_edit', {'blockId': block.id.toString, 'locale': block.locale, 'formName': 'design'}) }}"></div>
+                <div data-form="{{ path('nglayouts_app_block_form_edit', { 'blockId': block.id.toString, 'locale': block.locale, 'formName': 'design' }) }}"></div>
             </div>
         </div>
     {% else %}

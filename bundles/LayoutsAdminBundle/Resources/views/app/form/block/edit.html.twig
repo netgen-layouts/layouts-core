@@ -11,6 +11,6 @@
             {% set view_types = form.vars.parameter_view_types[key] %}
         {% endif %}
 
-        {{ form_row(parameters[key], {attr: {'data-view-type': view_types|join(',')}}) }}
+        {{ form_row(parameters[key], { attr: { 'data-view-type': view_types|join(',') } }) }}
     {% endfor %}
 {% endblock %}

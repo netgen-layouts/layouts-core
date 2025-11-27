@@ -16,7 +16,7 @@
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
 
                 {% if is_granted('nglayouts:layout:add') %}
-                    <a href="{{ path('nglayouts_app', {shared: true}) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">
+                    <a href="{{ path('nglayouts_app', { shared: true }) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">
                         <i class="material-icons">add</i> {{ 'shared_layouts.new_layout'|trans }}
                     </a>
                 {% endif %}

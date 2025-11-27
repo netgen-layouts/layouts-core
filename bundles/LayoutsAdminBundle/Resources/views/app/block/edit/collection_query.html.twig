@@ -4,6 +4,6 @@
     {% set collection = block.collection(collection_identifier) %}
 
     {% if collection.hasQuery %}
-        <div data-query-form="true" data-form="{{ path('nglayouts_app_collection_query_form_edit', {'queryId': collection.query.id.toString, 'locale': collection.query.locale}) }}"></div>
+        <div data-query-form="true" data-form="{{ path('nglayouts_app_collection_query_form_edit', { 'queryId': collection.query.id.toString, 'locale': collection.query.locale }) }}"></div>
     {% endif %}
 {% endif %}

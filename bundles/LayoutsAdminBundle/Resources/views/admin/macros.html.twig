@@ -1,5 +1,5 @@
 {% macro layout_path(layout_uuid) %}
-    {{- path('nglayouts_' ~ (nglayouts.debug ? 'dev_' : '') ~ 'app', {'_fragment': layout_uuid ? 'layout/' ~ layout_uuid : ''}) -}}
+    {{- path('nglayouts_' ~ (nglayouts.debug ? 'dev_' : '') ~ 'app', { '_fragment': layout_uuid ? 'layout/' ~ layout_uuid : '' }) -}}
 {% endmacro %}
 
 {% macro country_flags(locales) %}

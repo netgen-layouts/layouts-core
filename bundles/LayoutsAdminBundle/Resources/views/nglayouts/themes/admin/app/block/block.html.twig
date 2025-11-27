@@ -19,15 +19,15 @@
             <ul class="dropdown-menu dropdown-menu-right">
                 <li class="js-modal-mode"><a title="{{ 'layout.block.maximize'|trans }}">{{ 'layout.block.maximize'|trans }}</a></li>
 
-                {% if is_granted('nglayouts:block:edit', {block_definition: block.definition, layout: block.layoutId.toString}) %}
+                {% if is_granted('nglayouts:block:edit', { block_definition: block.definition, layout: block.layoutId.toString }) %}
                     <li class="js-revert"><a title="{{ 'layout.block.revert'|trans }}">{{ 'layout.block.revert'|trans }}<span class="note">{{ 'layout.block.revert_note'|trans }}</span></a></li>
                 {% endif %}
 
-                {% if is_granted('nglayouts:block:add', {block_definition: block.definition, layout: block.layoutId.toString}) %}
+                {% if is_granted('nglayouts:block:add', { block_definition: block.definition, layout: block.layoutId.toString }) %}
                     <li class="js-copy"><a title="{{ 'layout.block.copy'|trans }}">{{ 'layout.block.copy'|trans }}</a></li>
                 {% endif %}
 
-                {% if is_granted('nglayouts:block:delete', {block_definition: block.definition, layout: block.layoutId.toString}) %}
+                {% if is_granted('nglayouts:block:delete', { block_definition: block.definition, layout: block.layoutId.toString }) %}
                     <li class="js-destroy"><a title="{{ 'layout.block.delete'|trans }}">{{ 'layout.block.delete'|trans }}</a></li>
                 {% endif %}
 
