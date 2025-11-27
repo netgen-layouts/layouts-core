@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionList;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
-use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
@@ -27,8 +26,6 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     use ValueStatusTrait;
 
     public private(set) UuidInterface $id;
-
-    public private(set) Status $status;
 
     /**
      * Returns the UUID of the layout where the block is located.

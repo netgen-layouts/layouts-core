@@ -8,7 +8,6 @@ use ArrayAccess;
 use Countable;
 use DateTimeImmutable;
 use IteratorAggregate;
-use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Exception\API\LayoutException;
@@ -30,8 +29,6 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     use ValueStatusTrait;
 
     public private(set) UuidInterface $id;
-
-    public private(set) Status $status;
 
     /**
      * Returns the layout type.

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
-use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
@@ -20,8 +19,6 @@ final class Query implements Value, ParameterCollectionInterface
     use ValueStatusTrait;
 
     public private(set) UuidInterface $id;
-
-    public private(set) Status $status;
 
     /**
      * Returns the UUID of the collection to which this query belongs.

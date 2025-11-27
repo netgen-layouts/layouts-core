@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Layout;
 
-use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
@@ -13,8 +12,6 @@ final class Zone
 {
     use HydratorTrait;
     use ValueStatusTrait;
-
-    public private(set) Status $status;
 
     /**
      * Returns the zone identifier.

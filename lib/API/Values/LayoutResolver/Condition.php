@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
@@ -12,6 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 abstract class Condition implements Value
 {
     use HydratorTrait;
+    use ValueStatusTrait;
 
     final public protected(set) UuidInterface $id;
 

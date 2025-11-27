@@ -6,6 +6,8 @@ namespace Netgen\Layouts\API\Values;
 
 trait ValueStatusTrait
 {
+    final public protected(set) Status $status;
+
     public function isDraft(): bool
     {
         return $this->status === Status::Draft;

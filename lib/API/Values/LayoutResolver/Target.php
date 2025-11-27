@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Exception\Layout\TargetException;
@@ -19,8 +18,6 @@ final class Target implements Value
     use ValueStatusTrait;
 
     public private(set) UuidInterface $id;
-
-    public private(set) Status $status;
 
     /**
      * Returns the UUID of the rule where this target belongs.
