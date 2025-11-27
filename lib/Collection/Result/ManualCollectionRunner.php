@@ -50,11 +50,13 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
             }
 
             if ($includeResult) {
-                yield new Result(
-                    $collectionItem->position,
-                    new ManualItem($collectionItem),
-                    null,
-                    $collection->getSlot($collectionItem->position),
+                yield Result::fromArray(
+                    [
+                        'position' => $collectionItem->position,
+                        'item' => new ManualItem($collectionItem),
+                        'subItem' => null,
+                        'slot' => $collection->getSlot($collectionItem->position),
+                    ],
                 );
             }
 

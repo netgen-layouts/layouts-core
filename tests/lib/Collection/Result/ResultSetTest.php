@@ -21,7 +21,7 @@ final class ResultSetTest extends TestCase
     {
         $collection = Collection::fromArray(['query' => null]);
 
-        $resultItem = new Result(0, new CmsItem());
+        $resultItem = Result::fromArray(['position' => 0, 'item' => new CmsItem()]);
 
         $result = ResultSet::fromArray(
             [
@@ -55,11 +55,11 @@ final class ResultSetTest extends TestCase
 
         $result = ResultSet::fromArray(
             [
-                'results' => [new Result(0, new CmsItem())],
+                'results' => [Result::fromArray(['position' => 0, 'item' => new CmsItem()])],
             ],
         );
 
-        $result[0] = new Result(0, new CmsItem());
+        $result[0] = Result::fromArray(['position' => 0, 'item' => new CmsItem()]);
     }
 
     public function testUnset(): void
@@ -69,7 +69,7 @@ final class ResultSetTest extends TestCase
 
         $result = ResultSet::fromArray(
             [
-                'results' => [new Result(0, new CmsItem())],
+                'results' => [Result::fromArray(['position' => 0, 'item' => new CmsItem()])],
             ],
         );
 

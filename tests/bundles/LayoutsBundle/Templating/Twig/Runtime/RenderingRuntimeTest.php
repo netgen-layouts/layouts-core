@@ -633,7 +633,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultWithViewTypeInItem(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => 'standard', 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item, null, Slot::fromArray(['viewType' => 'overlay']));
+        $result = Result::fromArray(['position' => 0, 'item' => $item, 'subItem' => null, 'slot' => Slot::fromArray(['viewType' => 'overlay'])]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -660,7 +660,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultWithViewTypeInSlot(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item, null, Slot::fromArray(['viewType' => 'overlay']));
+        $result = Result::fromArray(['position' => 0, 'item' => $item, 'subItem' => null, 'slot' => Slot::fromArray(['viewType' => 'overlay'])]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -687,7 +687,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultWithOverrideViewType(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => 'standard', 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item, null, Slot::fromArray(['viewType' => 'overlay']));
+        $result = Result::fromArray(['position' => 0, 'item' => $item, 'subItem' => null, 'slot' => Slot::fromArray(['viewType' => 'overlay'])]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -714,7 +714,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultWithFallbackViewType(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item);
+        $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -741,7 +741,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultWithoutViewType(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item);
+        $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
             ->expects(self::never())
@@ -767,7 +767,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->errorHandler->setThrow(true);
 
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item);
+        $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
             ->expects(self::never())
@@ -785,7 +785,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultWithViewContext(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item);
+        $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -813,7 +813,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultWithViewContextFromTwigContext(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item);
+        $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -842,7 +842,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderResultReturnsEmptyStringOnException(): void
     {
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item);
+        $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -874,7 +874,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->errorHandler->setThrow(true);
 
         $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type'])]));
-        $result = new Result(0, $item);
+        $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
             ->expects(self::once())

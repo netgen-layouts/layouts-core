@@ -31,7 +31,14 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             if ($collectionItem instanceof CollectionItem) {
                 $result = $this->buildManualResult($collection, $collectionItem, $queryIterator);
             } elseif ($queryIterator->valid()) {
-                $result = new Result($i, $this->getQueryValue($queryIterator), null, $collection->getSlot($i));
+                $result = Result::fromArray(
+                    [
+                        'position' => $i,
+                        'item' => $this->getQueryValue($queryIterator),
+                        'subItem' => null,
+                        'slot' => $collection->getSlot($i),
+                    ],
+                );
             }
 
             if (!$result instanceof Result) {
@@ -80,19 +87,23 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 return null;
             }
 
-            return new Result(
-                $collectionItem->position,
-                $queryValue,
-                new ManualItem($collectionItem),
-                $collection->getSlot($collectionItem->position),
+            return Result::fromArray(
+                [
+                    'position' => $collectionItem->position,
+                    'item' => $queryValue,
+                    'subItem' => new ManualItem($collectionItem),
+                    'slot' => $collection->getSlot($collectionItem->position),
+                ],
             );
         }
 
-        return new Result(
-            $collectionItem->position,
-            new ManualItem($collectionItem),
-            null,
-            $collection->getSlot($collectionItem->position),
+        return Result::fromArray(
+            [
+                'position' => $collectionItem->position,
+                'item' => new ManualItem($collectionItem),
+                'subItem' => null,
+                'slot' => $collection->getSlot($collectionItem->position),
+            ],
         );
     }
 

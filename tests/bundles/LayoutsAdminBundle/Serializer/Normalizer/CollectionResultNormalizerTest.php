@@ -70,7 +70,15 @@ final class CollectionResultNormalizerTest extends TestCase
             ->willReturn($serializedConfig);
 
         $slotUuid = Uuid::uuid4();
-        $result = new Result(3, new ManualItem($collectionItem), null, Slot::fromArray(['id' => $slotUuid, 'viewType' => 'standard']));
+        $result = Result::fromArray(
+            [
+                'position' => 3,
+                'item' => new ManualItem($collectionItem),
+                'subItem' => null,
+                'slot' => Slot::fromArray(['id' => $slotUuid, 'viewType' => 'standard']),
+            ],
+        );
+
         $this->urlGeneratorMock
             ->method('generate')
             ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
@@ -126,7 +134,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('normalize')
             ->willReturn($serializedConfig);
 
-        $result = new Result(3, new ManualItem($collectionItem));
+        $result = Result::fromArray(['position' => 3, 'item' => new ManualItem($collectionItem)]);
         $this->urlGeneratorMock
             ->method('generate')
             ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
@@ -164,7 +172,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ],
         );
 
-        $result = new Result(3, $item);
+        $result = Result::fromArray(['position' => 3, 'item' => $item]);
 
         $this->normalizerMock
             ->method('normalize')
@@ -230,7 +238,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 $serializedConfig,
             );
 
-        $result = new Result(3, new ManualItem($collectionItem), $item);
+        $result = Result::fromArray(['position' => 3, 'item' => new ManualItem($collectionItem), 'subItem' => $item]);
         $this->urlGeneratorMock
             ->method('generate')
             ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
@@ -287,9 +295,9 @@ final class CollectionResultNormalizerTest extends TestCase
             [42, false],
             [42.12, false],
             [new APIValue(), false],
-            [new Result(0, new CmsItem()), false],
+            [Result::fromArray(['position' => 0, 'item' => new CmsItem()]), false],
             [new Value(new APIValue()), false],
-            [new Value(new Result(0, new CmsItem())), true],
+            [new Value(Result::fromArray(['position' => 0, 'item' => new CmsItem()])), true],
         ];
     }
 }

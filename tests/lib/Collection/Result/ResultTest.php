@@ -18,7 +18,13 @@ final class ResultTest extends TestCase
         $item1 = CmsItem::fromArray(['value' => 42]);
         $item2 = CmsItem::fromArray(['value' => 43]);
 
-        $result = new Result(0, $item1, $item2);
+        $result = Result::fromArray(
+            [
+                'position' => 0,
+                'item' => $item1,
+                'subItem' => $item2,
+            ],
+        );
 
         self::assertSame(0, $result->position);
         self::assertSame($item1, $result->item);
@@ -32,7 +38,14 @@ final class ResultTest extends TestCase
         $item2 = CmsItem::fromArray(['value' => 43]);
         $slot = Slot::fromArray(['position' => 0]);
 
-        $result = new Result(0, $item1, $item2, $slot);
+        $result = Result::fromArray(
+            [
+                'position' => 0,
+                'item' => $item1,
+                'subItem' => $item2,
+                'slot' => $slot,
+            ],
+        );
 
         self::assertSame(0, $result->position);
         self::assertSame($item1, $result->item);

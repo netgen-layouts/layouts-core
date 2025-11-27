@@ -38,8 +38,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
         $item3 = Item::fromArray(['position' => 2]);
         $item4 = Item::fromArray(['position' => 3]);
 
-        $result1 = new Result(0, new ManualItem($item2));
-        $result2 = new Result(1, new ManualItem($item3));
+        $result1 = Result::fromArray(['position' => 0, 'item' => new ManualItem($item2)]);
+        $result2 = Result::fromArray(['position' => 1, 'item' => new ManualItem($item3)]);
 
         $result = ResultSet::fromArray(
             [
