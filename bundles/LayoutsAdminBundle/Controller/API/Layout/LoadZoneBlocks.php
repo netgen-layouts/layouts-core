@@ -28,7 +28,7 @@ final class LoadZoneBlocks extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:api:read');
 
-        $layout = $zone->isPublished() ?
+        $layout = $zone->isPublished ?
             $this->layoutService->loadLayout($zone->layoutId) :
             $this->layoutService->loadLayoutDraft($zone->layoutId);
 

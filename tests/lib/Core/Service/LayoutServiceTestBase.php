@@ -25,7 +25,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
     {
         $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
-        self::assertTrue($layout->isPublished());
+        self::assertTrue($layout->isPublished);
     }
 
     public function testLoadLayoutThrowsNotFoundException(): void
@@ -40,7 +40,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
     {
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
-        self::assertTrue($layout->isDraft());
+        self::assertTrue($layout->isDraft);
     }
 
     public function testLoadLayoutDraftThrowsNotFoundException(): void
@@ -55,7 +55,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
     {
         $layout = $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
 
-        self::assertTrue($layout->isArchived());
+        self::assertTrue($layout->isArchived);
     }
 
     public function testLoadLayoutArchiveThrowsNotFoundException(): void
@@ -74,7 +74,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         foreach ($layouts as $layout) {
             self::assertFalse($layout->shared);
-            self::assertTrue($layout->isPublished());
+            self::assertTrue($layout->isPublished);
         }
     }
 
@@ -87,7 +87,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         foreach ($layouts as $layout) {
             self::assertFalse($layout->shared);
 
-            if (!$layout->isPublished()) {
+            if (!$layout->isPublished) {
                 try {
                     $this->layoutService->loadLayout($layout->id);
                     self::fail('Layout in draft status with existing published version loaded.');
@@ -116,7 +116,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         foreach ($layouts as $layout) {
             self::assertTrue($layout->shared);
-            self::assertTrue($layout->isPublished());
+            self::assertTrue($layout->isPublished);
         }
     }
 
@@ -132,7 +132,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         self::assertCount(5, $layouts);
 
         foreach ($layouts as $layout) {
-            self::assertTrue($layout->isPublished());
+            self::assertTrue($layout->isPublished);
         }
     }
 
@@ -150,7 +150,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         foreach ($layouts as $layout) {
             self::assertFalse($layout->shared);
-            self::assertTrue($layout->isPublished());
+            self::assertTrue($layout->isPublished);
         }
     }
 
@@ -233,7 +233,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
 
         self::assertInstanceOf(Zone::class, $updatedZone->linkedZone);
-        self::assertTrue($updatedZone->linkedZone->isPublished());
+        self::assertTrue($updatedZone->linkedZone->isPublished);
         self::assertSame($linkedZone->layoutId->toString(), $updatedZone->linkedZone->layoutId->toString());
         self::assertSame($linkedZone->identifier, $updatedZone->linkedZone->identifier);
     }
@@ -324,7 +324,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
-        self::assertTrue($createdLayout->isDraft());
+        self::assertTrue($createdLayout->isDraft);
 
         self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->created);
 
@@ -346,7 +346,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
-        self::assertTrue($createdLayout->isDraft());
+        self::assertTrue($createdLayout->isDraft);
         self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->created);
         self::assertSame($layoutCreateStruct->uuid->toString(), $createdLayout->id->toString());
 
@@ -534,7 +534,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $updatedLayout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
 
-        self::assertTrue($updatedLayout->isDraft());
+        self::assertTrue($updatedLayout->isDraft);
         self::assertSame('New name', $updatedLayout->name);
         self::assertSame('New description', $updatedLayout->description);
 
@@ -584,7 +584,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 
-        self::assertSame($layout->isPublished(), $copiedLayout->isPublished());
+        self::assertSame($layout->isPublished, $copiedLayout->isPublished);
 
         self::assertGreaterThan($layout->created, $copiedLayout->created);
 
@@ -931,7 +931,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayout(Uuid::fromString('7900306c-0351-5f0a-9b33-5d4f5a1f3943'));
         $draftLayout = $this->layoutService->createDraft($layout);
 
-        self::assertTrue($draftLayout->isDraft());
+        self::assertTrue($draftLayout->isDraft);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -946,7 +946,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $draftLayout = $this->layoutService->createDraft($layout, true);
 
-        self::assertTrue($draftLayout->isDraft());
+        self::assertTrue($draftLayout->isDraft);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -1000,7 +1000,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $currentlyPublishedLayout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $publishedLayout = $this->layoutService->publishLayout($layout);
 
-        self::assertTrue($publishedLayout->isPublished());
+        self::assertTrue($publishedLayout->isPublished);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -1041,7 +1041,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')),
         );
 
-        self::assertTrue($restoredLayout->isDraft());
+        self::assertTrue($restoredLayout->isDraft);
         self::assertSame($publishedLayout->name, $restoredLayout->name);
 
         self::assertSame(
@@ -1062,7 +1062,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
             $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')),
         );
 
-        self::assertTrue($restoredLayout->isDraft());
+        self::assertTrue($restoredLayout->isDraft);
         self::assertSame($publishedLayout->name, $restoredLayout->name);
     }
 

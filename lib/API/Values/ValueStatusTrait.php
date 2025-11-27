@@ -8,18 +8,15 @@ trait ValueStatusTrait
 {
     final public protected(set) Status $status;
 
-    public function isDraft(): bool
-    {
-        return $this->status === Status::Draft;
+    public bool $isDraft {
+        get => $this->status === Status::Draft;
     }
 
-    public function isPublished(): bool
-    {
-        return $this->status === Status::Published;
+    public bool $isPublished {
+        get => $this->status === Status::Published;
     }
 
-    public function isArchived(): bool
-    {
-        return $this->status === Status::Archived;
+    public bool $isArchived {
+        get => $this->status === Status::Archived;
     }
 }

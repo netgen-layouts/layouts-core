@@ -133,7 +133,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList
     {
-        if (!$layout->isPublished()) {
+        if (!$layout->isPublished) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
@@ -159,7 +159,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function getRuleCountForLayout(Layout $layout): int
     {
-        if (!$layout->isPublished()) {
+        if (!$layout->isPublished) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
@@ -173,7 +173,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Rules can be loaded only from published rule groups.');
         }
 
@@ -199,7 +199,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function getRuleCountFromGroup(RuleGroup $ruleGroup): int
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Rule count can be fetched only for published rule groups.');
         }
 
@@ -213,7 +213,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function loadRuleGroups(RuleGroup $parentGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleGroupList
     {
-        if (!$parentGroup->isPublished()) {
+        if (!$parentGroup->isPublished) {
             throw new BadStateException('parentGroup', 'Rule groups can be loaded only from published parent groups.');
         }
 
@@ -239,7 +239,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function getRuleGroupCount(RuleGroup $parentGroup): int
     {
-        if (!$parentGroup->isPublished()) {
+        if (!$parentGroup->isPublished) {
             throw new BadStateException('parentGroup', 'Rule group count can be fetched only for published parent groups.');
         }
 
@@ -333,7 +333,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function createRule(APIRuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): Rule
     {
-        if (!$targetGroup->isPublished()) {
+        if (!$targetGroup->isPublished) {
             throw new BadStateException('targetGroup', 'Rules can be created only in published groups.');
         }
 
@@ -362,7 +362,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function updateRule(Rule $rule, APIRuleUpdateStruct $ruleUpdateStruct): Rule
     {
-        if (!$rule->isDraft()) {
+        if (!$rule->isDraft) {
             throw new BadStateException('rule', 'Only draft rules can be updated.');
         }
 
@@ -389,7 +389,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function updateRuleMetadata(Rule $rule, APIRuleMetadataUpdateStruct $ruleUpdateStruct): Rule
     {
-        if (!$rule->isPublished()) {
+        if (!$rule->isPublished) {
             throw new BadStateException('rule', 'Metadata can be updated only for published rules.');
         }
 
@@ -411,11 +411,11 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function copyRule(Rule $rule, RuleGroup $targetGroup): Rule
     {
-        if (!$rule->isPublished()) {
+        if (!$rule->isPublished) {
             throw new BadStateException('rule', 'Only published rules can be copied.');
         }
 
-        if (!$targetGroup->isPublished()) {
+        if (!$targetGroup->isPublished) {
             throw new BadStateException('targetGroup', 'Rules can be copied only to published groups.');
         }
 
@@ -431,11 +431,11 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function moveRule(Rule $rule, RuleGroup $targetGroup, ?int $newPriority = null): Rule
     {
-        if (!$rule->isPublished()) {
+        if (!$rule->isPublished) {
             throw new BadStateException('rule', 'Only published rules can be moved.');
         }
 
-        if (!$targetGroup->isPublished()) {
+        if (!$targetGroup->isPublished) {
             throw new BadStateException('targetGroup', 'Rules can be moved only to published groups.');
         }
 
@@ -455,7 +455,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function createRuleDraft(Rule $rule, bool $discardExisting = false): Rule
     {
-        if (!$rule->isPublished()) {
+        if (!$rule->isPublished) {
             throw new BadStateException('rule', 'Drafts can only be created from published rules.');
         }
 
@@ -478,7 +478,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function discardRuleDraft(Rule $rule): void
     {
-        if (!$rule->isDraft()) {
+        if (!$rule->isDraft) {
             throw new BadStateException('rule', 'Only draft rules can be discarded.');
         }
 
@@ -496,7 +496,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function publishRule(Rule $rule): Rule
     {
-        if (!$rule->isDraft()) {
+        if (!$rule->isDraft) {
             throw new BadStateException('rule', 'Only draft rules can be published.');
         }
 
@@ -530,7 +530,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function restoreRuleFromArchive(Rule $rule): Rule
     {
-        if (!$rule->isArchived()) {
+        if (!$rule->isArchived) {
             throw new BadStateException('rule', 'Only archived rules can be restored.');
         }
 
@@ -579,7 +579,7 @@ final class LayoutResolverService implements APILayoutResolverService
     {
         $this->validator->validateRuleGroupCreateStruct($ruleGroupCreateStruct);
 
-        if ($parentGroup !== null && !$parentGroup->isPublished()) {
+        if ($parentGroup !== null && !$parentGroup->isPublished) {
             throw new BadStateException('parentGroup', 'Rule groups can be created only in published groups.');
         }
 
@@ -608,7 +608,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function updateRuleGroup(RuleGroup $ruleGroup, APIRuleGroupUpdateStruct $ruleGroupUpdateStruct): RuleGroup
     {
-        if (!$ruleGroup->isDraft()) {
+        if (!$ruleGroup->isDraft) {
             throw new BadStateException('ruleGroup', 'Only draft rule groups can be updated.');
         }
 
@@ -633,7 +633,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function updateRuleGroupMetadata(RuleGroup $ruleGroup, APIRuleGroupMetadataUpdateStruct $ruleGroupUpdateStruct): RuleGroup
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Metadata can be updated only for published rule groups.');
         }
 
@@ -655,11 +655,11 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function copyRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, bool $copyChildren = false): RuleGroup
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Only published rule groups can be copied.');
         }
 
-        if (!$targetGroup->isPublished()) {
+        if (!$targetGroup->isPublished) {
             throw new BadStateException('targetGroup', 'Rule groups can be copied only to published groups.');
         }
 
@@ -675,11 +675,11 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function moveRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, ?int $newPriority = null): RuleGroup
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Only published rule groups can be moved.');
         }
 
-        if (!$targetGroup->isPublished()) {
+        if (!$targetGroup->isPublished) {
             throw new BadStateException('targetGroup', 'Rule groups can be moved only to published groups.');
         }
 
@@ -699,7 +699,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function createRuleGroupDraft(RuleGroup $ruleGroup, bool $discardExisting = false): RuleGroup
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Drafts can only be created from published rule groups.');
         }
 
@@ -722,7 +722,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function discardRuleGroupDraft(RuleGroup $ruleGroup): void
     {
-        if (!$ruleGroup->isDraft()) {
+        if (!$ruleGroup->isDraft) {
             throw new BadStateException('ruleGroup', 'Only draft rule groups can be discarded.');
         }
 
@@ -740,7 +740,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function publishRuleGroup(RuleGroup $ruleGroup): RuleGroup
     {
-        if (!$ruleGroup->isDraft()) {
+        if (!$ruleGroup->isDraft) {
             throw new BadStateException('ruleGroup', 'Only draft rule groups can be published.');
         }
 
@@ -774,7 +774,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function restoreRuleGroupFromArchive(RuleGroup $ruleGroup): RuleGroup
     {
-        if (!$ruleGroup->isArchived()) {
+        if (!$ruleGroup->isArchived) {
             throw new BadStateException('ruleGroup', 'Only archived rule groups can be restored.');
         }
 
@@ -816,7 +816,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function enableRule(Rule $rule): Rule
     {
-        if (!$rule->isPublished()) {
+        if (!$rule->isPublished) {
             throw new BadStateException('rule', 'Only published rules can be enabled.');
         }
 
@@ -842,7 +842,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function disableRule(Rule $rule): Rule
     {
-        if (!$rule->isPublished()) {
+        if (!$rule->isPublished) {
             throw new BadStateException('rule', 'Only published rules can be disabled.');
         }
 
@@ -868,7 +868,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function enableRuleGroup(RuleGroup $ruleGroup): RuleGroup
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Only published rule groups can be enabled.');
         }
 
@@ -894,7 +894,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function disableRuleGroup(RuleGroup $ruleGroup): RuleGroup
     {
-        if (!$ruleGroup->isPublished()) {
+        if (!$ruleGroup->isPublished) {
             throw new BadStateException('ruleGroup', 'Only published rule groups can be disabled.');
         }
 
@@ -920,7 +920,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function addTarget(Rule $rule, APITargetCreateStruct $targetCreateStruct): Target
     {
-        if (!$rule->isDraft()) {
+        if (!$rule->isDraft) {
             throw new BadStateException('rule', 'Targets can be added only to draft rules.');
         }
 
@@ -957,7 +957,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function updateTarget(Target $target, APITargetUpdateStruct $targetUpdateStruct): Target
     {
-        if (!$target->isDraft()) {
+        if (!$target->isDraft) {
             throw new BadStateException('target', 'Only draft targets can be updated.');
         }
 
@@ -981,7 +981,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function deleteTarget(Target $target): void
     {
-        if (!$target->isDraft()) {
+        if (!$target->isDraft) {
             throw new BadStateException('target', 'Only draft targets can be deleted.');
         }
 
@@ -996,7 +996,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function addRuleCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): RuleCondition
     {
-        if (!$rule->isDraft()) {
+        if (!$rule->isDraft) {
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
         }
 
@@ -1021,7 +1021,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function addRuleGroupCondition(RuleGroup $ruleGroup, APIConditionCreateStruct $conditionCreateStruct): RuleGroupCondition
     {
-        if (!$ruleGroup->isDraft()) {
+        if (!$ruleGroup->isDraft) {
             throw new BadStateException('ruleGroup', 'Conditions can be added only to draft rule groups.');
         }
 
@@ -1046,7 +1046,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function updateRuleCondition(RuleCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleCondition
     {
-        if (!$condition->isDraft()) {
+        if (!$condition->isDraft) {
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
         }
 
@@ -1070,7 +1070,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function updateRuleGroupCondition(RuleGroupCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleGroupCondition
     {
-        if (!$condition->isDraft()) {
+        if (!$condition->isDraft) {
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
         }
 
@@ -1094,7 +1094,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function deleteCondition(Condition $condition): void
     {
-        if (!$condition->isDraft()) {
+        if (!$condition->isDraft) {
             throw new BadStateException('condition', 'Only draft conditions can be deleted.');
         }
 

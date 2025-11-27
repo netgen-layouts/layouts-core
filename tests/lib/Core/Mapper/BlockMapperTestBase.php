@@ -75,7 +75,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertInstanceOf(UuidInterface::class, $block->parentBlockId);
         self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->parentBlockId->toString());
         self::assertSame('main', $block->parentPlaceholder);
-        self::assertTrue($block->isPublished());
+        self::assertTrue($block->isPublished);
         self::assertSame('test', $block->getParameter('css_class')->getValue());
         self::assertNull($block->getParameter('css_id')->getValue());
         self::assertTrue($block->hasConfig('key'));
@@ -327,7 +327,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('standard', $block->itemViewType);
         self::assertSame('My block', $block->name);
         self::assertSame(3, $block->position);
-        self::assertTrue($block->isPublished());
+        self::assertTrue($block->isPublished);
 
         self::assertFalse($block->hasParameter('css_class'));
         self::assertFalse($block->hasParameter('css_id'));

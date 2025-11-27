@@ -50,7 +50,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertSame(RuleGroup::ROOT_UUID, $rule->ruleGroupId->toString());
         self::assertInstanceOf(Layout::class, $rule->layout);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->layout->id->toString());
-        self::assertTrue($rule->isPublished());
+        self::assertTrue($rule->isPublished);
         self::assertTrue($rule->enabled);
         self::assertSame(12, $rule->priority);
         self::assertSame('Description', $rule->description);
@@ -102,7 +102,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $ruleGroup->id->toString());
         self::assertInstanceOf(UuidInterface::class, $ruleGroup->parentId);
         self::assertSame(RuleGroup::ROOT_UUID, $ruleGroup->parentId->toString());
-        self::assertTrue($ruleGroup->isPublished());
+        self::assertTrue($ruleGroup->isPublished);
         self::assertSame('Name', $ruleGroup->name);
         self::assertSame('Description', $ruleGroup->description);
         self::assertTrue($ruleGroup->enabled);
@@ -134,7 +134,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         );
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->id->toString());
-        self::assertTrue($target->isPublished());
+        self::assertTrue($target->isPublished);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->ruleId->toString());
         self::assertSame(42, $target->value);
     }
@@ -158,7 +158,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertInstanceOf(NullTargetType::class, $target->targetType);
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->id->toString());
-        self::assertTrue($target->isPublished());
+        self::assertTrue($target->isPublished);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->ruleId->toString());
         self::assertSame(42, $target->value);
     }
@@ -185,7 +185,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         );
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
-        self::assertTrue($condition->isPublished());
+        self::assertTrue($condition->isPublished);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleId->toString());
         self::assertSame(42, $condition->value);
     }
@@ -209,7 +209,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertInstanceOf(NullConditionType::class, $condition->conditionType);
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
-        self::assertTrue($condition->isPublished());
+        self::assertTrue($condition->isPublished);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleId->toString());
         self::assertSame(42, $condition->value);
     }
@@ -236,7 +236,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         );
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
-        self::assertTrue($condition->isPublished());
+        self::assertTrue($condition->isPublished);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleGroupId->toString());
         self::assertSame(42, $condition->value);
     }
@@ -260,7 +260,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         self::assertInstanceOf(NullConditionType::class, $condition->conditionType);
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->id->toString());
-        self::assertTrue($condition->isPublished());
+        self::assertTrue($condition->isPublished);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->ruleGroupId->toString());
         self::assertSame(42, $condition->value);
     }

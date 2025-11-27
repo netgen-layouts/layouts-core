@@ -26,7 +26,7 @@
     <div class="nl-rule-head">
         <div class="nl-rule-cell">
             <div class="nl-export-checkbox">
-                <input type="checkbox" id="export{{ rule.id.toString }}" {% if not rule.published %}disabled{% endif %}>
+                <input type="checkbox" id="export{{ rule.id.toString }}" {% if not rule.isPublished %}disabled{% endif %}>
                 <label for="export{{ rule.id.toString }}"></label>
             </div>
         </div>
@@ -120,9 +120,9 @@
 
                     {% if can_activate %}
                         {% if rule.enabled %}
-                            <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
+                            <li><a href="#" {% if not rule.isPublished %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
                         {% else %}
-                            <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
+                            <li><a href="#" {% if not rule.isPublished %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
                         {% endif %}
                     {% endif %}
 
@@ -134,9 +134,9 @@
                         <li><a href="#" class="js-rule-unlink">{{ 'layout_resolver.rule.unlink_layout'|trans }}</a></li>
                     {% endif %}
 
-                    {% if rule.layout is empty or not rule.layout.published or is_granted('nglayouts:layout:clear_cache', rule.layout) %}
+                    {% if rule.layout is empty or not rule.layout.isPublished or is_granted('nglayouts:layout:clear_cache', rule.layout) %}
                         <li>
-                            <button class="js-layout-clear-cache" {% if rule.layout is empty or not rule.layout.published or not http_cache_enabled %}disabled="disabled"{% endif %}>
+                            <button class="js-layout-clear-cache" {% if rule.layout is empty or not rule.layout.isPublished or not http_cache_enabled %}disabled="disabled"{% endif %}>
                                 {{ 'layouts.layout.clear_cache'|trans }}
                             </button>
                         </li>

@@ -89,7 +89,7 @@ final class CollectionService implements APICollectionService
 
     public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct): Collection
     {
-        if (!$collection->isDraft()) {
+        if (!$collection->isDraft) {
             throw new BadStateException('collection', 'Only draft collections can be updated.');
         }
 
@@ -178,7 +178,7 @@ final class CollectionService implements APICollectionService
 
     public function changeCollectionType(Collection $collection, CollectionType $newType, ?APIQueryCreateStruct $queryCreateStruct = null): Collection
     {
-        if (!$collection->isDraft()) {
+        if (!$collection->isDraft) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
         }
 
@@ -236,7 +236,7 @@ final class CollectionService implements APICollectionService
 
     public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, ?int $position = null): Item
     {
-        if (!$collection->isDraft()) {
+        if (!$collection->isDraft) {
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
         }
 
@@ -275,7 +275,7 @@ final class CollectionService implements APICollectionService
 
     public function updateItem(Item $item, APIItemUpdateStruct $itemUpdateStruct): Item
     {
-        if (!$item->isDraft()) {
+        if (!$item->isDraft) {
             throw new BadStateException('item', 'Only draft items can be updated.');
         }
 
@@ -308,7 +308,7 @@ final class CollectionService implements APICollectionService
 
     public function moveItem(Item $item, int $position): Item
     {
-        if (!$item->isDraft()) {
+        if (!$item->isDraft) {
             throw new BadStateException('item', 'Only draft items can be moved.');
         }
 
@@ -328,7 +328,7 @@ final class CollectionService implements APICollectionService
 
     public function deleteItem(Item $item): void
     {
-        if (!$item->isDraft()) {
+        if (!$item->isDraft) {
             throw new BadStateException('item', 'Only draft items can be deleted.');
         }
 
@@ -343,7 +343,7 @@ final class CollectionService implements APICollectionService
 
     public function deleteItems(Collection $collection): Collection
     {
-        if (!$collection->isDraft()) {
+        if (!$collection->isDraft) {
             throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
         }
 
@@ -358,7 +358,7 @@ final class CollectionService implements APICollectionService
 
     public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct): Query
     {
-        if (!$query->isDraft()) {
+        if (!$query->isDraft) {
             throw new BadStateException('query', 'Only draft queries can be updated.');
         }
 
@@ -385,7 +385,7 @@ final class CollectionService implements APICollectionService
 
     public function addSlot(Collection $collection, APISlotCreateStruct $slotCreateStruct, int $position): Slot
     {
-        if (!$collection->isDraft()) {
+        if (!$collection->isDraft) {
             throw new BadStateException('collection', 'Slots can only be added to draft collections.');
         }
 
@@ -410,7 +410,7 @@ final class CollectionService implements APICollectionService
 
     public function updateSlot(Slot $slot, APISlotUpdateStruct $slotUpdateStruct): Slot
     {
-        if (!$slot->isDraft()) {
+        if (!$slot->isDraft) {
             throw new BadStateException('slot', 'Only draft slots can be updated.');
         }
 
@@ -432,7 +432,7 @@ final class CollectionService implements APICollectionService
 
     public function deleteSlot(Slot $slot): void
     {
-        if (!$slot->isDraft()) {
+        if (!$slot->isDraft) {
             throw new BadStateException('slot', 'Only draft slots can be deleted.');
         }
 
@@ -447,7 +447,7 @@ final class CollectionService implements APICollectionService
 
     public function deleteSlots(Collection $collection): Collection
     {
-        if (!$collection->isDraft()) {
+        if (!$collection->isDraft) {
             throw new BadStateException('collection', 'Only slots in draft collections can be deleted.');
         }
 

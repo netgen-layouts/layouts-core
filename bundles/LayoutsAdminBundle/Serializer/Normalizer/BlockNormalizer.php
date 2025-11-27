@@ -49,7 +49,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
             'parameters' => $this->normalizer->normalize($parameters, $format, $context),
             'view_type' => $block->viewType,
             'item_view_type' => $block->itemViewType,
-            'published' => $block->isPublished(),
+            'published' => $block->isPublished,
             'has_published_state' => $this->blockService->hasPublishedState($block),
             'locale' => $block->locale,
             'is_translatable' => $block->isTranslatable,

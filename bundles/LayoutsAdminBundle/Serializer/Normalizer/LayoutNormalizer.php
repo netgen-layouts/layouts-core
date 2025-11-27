@@ -48,7 +48,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         $normalizedData = [
             'id' => $layout->id->toString(),
             'type' => $layoutType->getIdentifier(),
-            'published' => $layout->isPublished(),
+            'published' => $layout->isPublished,
             'has_published_state' => $this->layoutService->layoutExists($layout->id, Status::Published),
             'created_at' => $layout->created->format(DateTimeInterface::ATOM),
             'updated_at' => $layout->modified->format(DateTimeInterface::ATOM),

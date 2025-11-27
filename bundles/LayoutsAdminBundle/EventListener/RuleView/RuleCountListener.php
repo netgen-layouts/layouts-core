@@ -38,7 +38,7 @@ final class RuleCountListener implements EventSubscriberInterface
         $layout = $view->getRule()->layout;
 
         $ruleCount = 0;
-        if ($layout instanceof Layout && $layout->isPublished()) {
+        if ($layout instanceof Layout && $layout->isPublished) {
             $ruleCount = $this->layoutResolverService->getRuleCountForLayout($layout);
         }
 

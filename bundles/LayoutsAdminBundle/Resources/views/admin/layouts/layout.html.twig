@@ -4,7 +4,7 @@
 
 <div class="nl-layout-content"
     data-id="{{ layout.id.toString }}"
-    {% if layout.published %}data-published="true"{% endif %}
+    {% if layout.isPublished %}data-published="true"{% endif %}
     data-name="{{ layout.name }}"
     data-description="{{ layout.description }}"
     data-modified="{{ layout.modified|date(constant('DateTimeInterface::ATOM')) }}"
@@ -14,7 +14,7 @@
     <div class="nl-layout-info">
 
         <div class="nl-export-checkbox">
-            <input type="checkbox" id="export{{ layout.id.toString }}" {% if not layout.published %}disabled{% endif %}>
+            <input type="checkbox" id="export{{ layout.id.toString }}" {% if not layout.isPublished %}disabled{% endif %}>
             <label for="export{{ layout.id.toString }}"></label>
         </div>
 
@@ -40,7 +40,7 @@
                 <p>{{ layout.description }}</p>
             </div>
 
-            {% if not layout.published %}
+            {% if not layout.isPublished %}
                 <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
             {% endif %}
 
@@ -75,7 +75,7 @@
                     <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
                 {% endif %}
 
-                {% if layout.published and is_granted('nglayouts:layout:clear_cache', layout) %}
+                {% if layout.isPublished and is_granted('nglayouts:layout:clear_cache', layout) %}
                     <li>
                         <button class="js-layout-clear-cache" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
                             {{ 'layouts.layout.clear_cache'|trans }}

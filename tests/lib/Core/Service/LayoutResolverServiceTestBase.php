@@ -26,7 +26,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
 
-        self::assertTrue($rule->isPublished());
+        self::assertTrue($rule->isPublished);
     }
 
     public function testLoadRuleThrowsNotFoundException(): void
@@ -41,7 +41,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
-        self::assertTrue($rule->isDraft());
+        self::assertTrue($rule->isDraft);
     }
 
     public function testLoadRuleDraftThrowsNotFoundException(): void
@@ -59,7 +59,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $ruleArchive = $this->layoutResolverService->loadRuleArchive(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
-        self::assertTrue($ruleArchive->isArchived());
+        self::assertTrue($ruleArchive->isArchived);
     }
 
     public function testLoadRuleArchiveThrowsNotFoundException(): void
@@ -74,7 +74,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
-        self::assertTrue($ruleGroup->isPublished());
+        self::assertTrue($ruleGroup->isPublished);
     }
 
     public function testLoadRuleGroupThrowsNotFoundException(): void
@@ -89,7 +89,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
-        self::assertTrue($ruleGroup->isDraft());
+        self::assertTrue($ruleGroup->isDraft);
     }
 
     public function testLoadRuleGroupDraftThrowsNotFoundException(): void
@@ -107,7 +107,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $ruleGroupArchive = $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
-        self::assertTrue($ruleGroupArchive->isArchived());
+        self::assertTrue($ruleGroupArchive->isArchived);
     }
 
     public function testLoadRuleGroupArchiveThrowsNotFoundException(): void
@@ -127,7 +127,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertCount(2, $rules);
 
         foreach ($rules as $rule) {
-            self::assertTrue($rule->isPublished());
+            self::assertTrue($rule->isPublished);
         }
     }
 
@@ -169,7 +169,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertCount(2, $rules);
 
         foreach ($rules as $rule) {
-            self::assertTrue($rule->isPublished());
+            self::assertTrue($rule->isPublished);
         }
     }
 
@@ -211,7 +211,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertCount(1, $ruleGroups);
 
         foreach ($ruleGroups as $ruleGroup) {
-            self::assertTrue($ruleGroup->isPublished());
+            self::assertTrue($ruleGroup->isPublished);
         }
     }
 
@@ -255,7 +255,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotEmpty($rules);
 
         foreach ($rules as $rule) {
-            self::assertTrue($rule->isPublished());
+            self::assertTrue($rule->isPublished);
         }
     }
 
@@ -263,7 +263,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $target = $this->layoutResolverService->loadTarget(Uuid::fromString('5f086fc4-4e1c-55eb-ae54-79fc296cda37'));
 
-        self::assertTrue($target->isPublished());
+        self::assertTrue($target->isPublished);
     }
 
     public function testLoadTargetThrowsNotFoundException(): void
@@ -278,7 +278,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
-        self::assertTrue($target->isDraft());
+        self::assertTrue($target->isDraft);
     }
 
     public function testLoadTargetDraftThrowsNotFoundException(): void
@@ -293,7 +293,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $condition = $this->layoutResolverService->loadRuleCondition(Uuid::fromString('35f4594c-6674-5815-add6-07f288b79686'));
 
-        self::assertTrue($condition->isPublished());
+        self::assertTrue($condition->isPublished);
     }
 
     public function testLoadRuleConditionThrowsNotFoundException(): void
@@ -308,7 +308,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $condition = $this->layoutResolverService->loadRuleConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
 
-        self::assertTrue($condition->isDraft());
+        self::assertTrue($condition->isDraft);
     }
 
     public function testLoadRuleConditionDraftThrowsNotFoundException(): void
@@ -323,7 +323,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $condition = $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
 
-        self::assertTrue($condition->isPublished());
+        self::assertTrue($condition->isPublished);
     }
 
     public function testLoadRuleGroupConditionThrowsNotFoundException(): void
@@ -338,7 +338,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     {
         $condition = $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
 
-        self::assertTrue($condition->isDraft());
+        self::assertTrue($condition->isDraft);
     }
 
     public function testLoadRuleGroupConditionDraftThrowsNotFoundException(): void
@@ -369,7 +369,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
 
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->ruleGroupId->toString());
-        self::assertTrue($createdRule->isDraft());
+        self::assertTrue($createdRule->isDraft);
     }
 
     public function testCreateRuleWithCustomUuid(): void
@@ -382,7 +382,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
-        self::assertTrue($createdRule->isDraft());
+        self::assertTrue($createdRule->isDraft);
         self::assertSame($ruleCreateStruct->uuid->toString(), $createdRule->id->toString());
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->ruleGroupId->toString());
     }
@@ -397,7 +397,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
-        self::assertTrue($createdRule->isDraft());
+        self::assertTrue($createdRule->isDraft);
         self::assertInstanceOf(Layout::class, $createdRule->layout);
         self::assertSame($ruleCreateStruct->layoutId->toString(), $createdRule->layout->id->toString());
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->ruleGroupId->toString());
@@ -441,9 +441,9 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
-        self::assertTrue($updatedRule->isDraft());
+        self::assertTrue($updatedRule->isDraft);
         self::assertInstanceOf(Layout::class, $updatedRule->layout);
-        self::assertTrue($updatedRule->layout->isPublished());
+        self::assertTrue($updatedRule->layout->isPublished);
         self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $updatedRule->layout->id->toString());
         self::assertSame('Updated description', $updatedRule->description);
     }
@@ -457,9 +457,9 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
-        self::assertTrue($updatedRule->isDraft());
+        self::assertTrue($updatedRule->isDraft);
         self::assertInstanceOf(Layout::class, $updatedRule->layout);
-        self::assertTrue($updatedRule->layout->isPublished());
+        self::assertTrue($updatedRule->layout->isPublished);
         self::assertSame('71cbe281-430c-51d5-8e21-c3cc4e656dac', $updatedRule->layout->id->toString());
         self::assertSame('Updated description', $updatedRule->description);
     }
@@ -474,7 +474,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
-        self::assertTrue($updatedRule->isDraft());
+        self::assertTrue($updatedRule->isDraft);
         self::assertNull($updatedRule->layout);
         self::assertSame('Updated description', $updatedRule->description);
     }
@@ -506,7 +506,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
 
         self::assertSame(50, $updatedRule->priority);
-        self::assertTrue($updatedRule->isPublished());
+        self::assertTrue($updatedRule->isPublished);
     }
 
     public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule(): void
@@ -529,7 +529,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $copiedRule = $this->layoutResolverService->copyRule($rule, $targetGroup);
 
-        self::assertSame($rule->isPublished(), $copiedRule->isPublished());
+        self::assertSame($rule->isPublished, $copiedRule->isPublished);
         self::assertSame($targetGroup->id->toString(), $copiedRule->ruleGroupId->toString());
         self::assertNotSame($rule->id->toString(), $copiedRule->id->toString());
     }
@@ -541,7 +541,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $copiedRule = $this->layoutResolverService->copyRule($rule, $targetGroup);
 
-        self::assertSame($rule->isPublished(), $copiedRule->isPublished());
+        self::assertSame($rule->isPublished, $copiedRule->isPublished);
         self::assertSame($targetGroup->id->toString(), $copiedRule->ruleGroupId->toString());
         self::assertNotSame($rule->id->toString(), $copiedRule->id->toString());
     }
@@ -575,7 +575,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $movedRule = $this->layoutResolverService->moveRule($rule, $targetGroup);
 
-        self::assertTrue($movedRule->isPublished());
+        self::assertTrue($movedRule->isPublished);
         self::assertSame($rule->id->toString(), $movedRule->id->toString());
         self::assertSame($rule->priority, $movedRule->priority);
         self::assertSame($targetGroup->id->toString(), $movedRule->ruleGroupId->toString());
@@ -588,7 +588,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $movedRule = $this->layoutResolverService->moveRule($rule, $targetGroup, 42);
 
-        self::assertTrue($movedRule->isPublished());
+        self::assertTrue($movedRule->isPublished);
         self::assertSame($rule->id->toString(), $movedRule->id->toString());
         self::assertSame(42, $movedRule->priority);
         self::assertSame($targetGroup->id->toString(), $movedRule->ruleGroupId->toString());
@@ -622,7 +622,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $draftRule = $this->layoutResolverService->createRuleDraft($rule);
 
-        self::assertTrue($draftRule->isDraft());
+        self::assertTrue($draftRule->isDraft);
     }
 
     public function testCreateRuleDraftWithDiscardingExistingDraft(): void
@@ -632,7 +632,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $draftRule = $this->layoutResolverService->createRuleDraft($rule, true);
 
-        self::assertTrue($draftRule->isDraft());
+        self::assertTrue($draftRule->isDraft);
     }
 
     public function testCreateRuleDraftThrowsBadStateExceptionWithNonPublishedRule(): void
@@ -681,7 +681,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
-        self::assertTrue($publishedRule->isPublished());
+        self::assertTrue($publishedRule->isPublished);
         self::assertTrue($publishedRule->enabled);
 
         try {
@@ -707,7 +707,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $this->layoutResolverService->loadRuleArchive(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')),
         );
 
-        self::assertTrue($restoredRule->isDraft());
+        self::assertTrue($restoredRule->isDraft);
     }
 
     public function testRestoreRuleFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
@@ -751,7 +751,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
-        self::assertTrue($createdRuleGroup->isDraft());
+        self::assertTrue($createdRuleGroup->isDraft);
         self::assertInstanceOf(UuidInterface::class, $createdRuleGroup->parentId);
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->parentId->toString());
     }
@@ -766,7 +766,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
-        self::assertTrue($createdRuleGroup->isDraft());
+        self::assertTrue($createdRuleGroup->isDraft);
         self::assertInstanceOf(UuidInterface::class, $createdRuleGroup->parentId);
         self::assertSame($ruleGroupCreateStruct->uuid->toString(), $createdRuleGroup->id->toString());
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->parentId->toString());
@@ -810,7 +810,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $updatedRuleGroup = $this->layoutResolverService->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
 
-        self::assertTrue($updatedRuleGroup->isDraft());
+        self::assertTrue($updatedRuleGroup->isDraft);
         self::assertSame('Updated description', $updatedRuleGroup->description);
     }
 
@@ -841,7 +841,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
 
         self::assertSame(50, $updatedRuleGroup->priority);
-        self::assertTrue($updatedRuleGroup->isPublished());
+        self::assertTrue($updatedRuleGroup->isPublished);
     }
 
     public function testUpdateRuleGroupMetadataThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
@@ -864,7 +864,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $copiedRuleGroup = $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
 
-        self::assertSame($ruleGroup->isPublished(), $copiedRuleGroup->isPublished());
+        self::assertSame($ruleGroup->isPublished, $copiedRuleGroup->isPublished);
         self::assertInstanceOf(UuidInterface::class, $copiedRuleGroup->parentId);
         self::assertSame($targetGroup->id->toString(), $copiedRuleGroup->parentId->toString());
         self::assertNotSame($ruleGroup->id->toString(), $copiedRuleGroup->id->toString());
@@ -877,7 +877,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $copiedRuleGroup = $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
 
-        self::assertSame($ruleGroup->isPublished(), $copiedRuleGroup->isPublished());
+        self::assertSame($ruleGroup->isPublished, $copiedRuleGroup->isPublished);
         self::assertInstanceOf(UuidInterface::class, $copiedRuleGroup->parentId);
         self::assertSame($targetGroup->id->toString(), $copiedRuleGroup->parentId->toString());
         self::assertNotSame($ruleGroup->id->toString(), $copiedRuleGroup->id->toString());
@@ -912,7 +912,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $movedRuleGroup = $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
 
-        self::assertTrue($movedRuleGroup->isPublished());
+        self::assertTrue($movedRuleGroup->isPublished);
         self::assertSame($ruleGroup->id->toString(), $movedRuleGroup->id->toString());
         self::assertSame($ruleGroup->priority, $movedRuleGroup->priority);
         self::assertInstanceOf(UuidInterface::class, $movedRuleGroup->parentId);
@@ -926,7 +926,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $movedRuleGroup = $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup, 42);
 
-        self::assertTrue($movedRuleGroup->isPublished());
+        self::assertTrue($movedRuleGroup->isPublished);
         self::assertSame($ruleGroup->id->toString(), $movedRuleGroup->id->toString());
         self::assertSame(42, $movedRuleGroup->priority);
         self::assertInstanceOf(UuidInterface::class, $movedRuleGroup->parentId);
@@ -961,7 +961,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $draftRuleGroup = $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
 
-        self::assertTrue($draftRuleGroup->isDraft());
+        self::assertTrue($draftRuleGroup->isDraft);
     }
 
     public function testCreateRuleGroupDraftWithDiscardingExistingDraft(): void
@@ -970,7 +970,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $draftRuleGroup = $this->layoutResolverService->createRuleGroupDraft($ruleGroup, true);
 
-        self::assertTrue($draftRuleGroup->isDraft());
+        self::assertTrue($draftRuleGroup->isDraft);
     }
 
     public function testCreateRuleGroupDraftThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
@@ -1019,7 +1019,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
         $publishedRuleGroup = $this->layoutResolverService->publishRuleGroup($ruleGroup);
 
-        self::assertTrue($publishedRuleGroup->isPublished());
+        self::assertTrue($publishedRuleGroup->isPublished);
         self::assertTrue($publishedRuleGroup->enabled);
 
         try {
@@ -1045,7 +1045,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399')),
         );
 
-        self::assertTrue($restoredRuleGroup->isDraft());
+        self::assertTrue($restoredRuleGroup->isDraft);
     }
 
     public function testRestoreRuleGroupFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
@@ -1077,7 +1077,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $enabledRule = $this->layoutResolverService->enableRule($rule);
 
         self::assertTrue($enabledRule->enabled);
-        self::assertTrue($enabledRule->isPublished());
+        self::assertTrue($enabledRule->isPublished);
     }
 
     public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
@@ -1107,7 +1107,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $disabledRule = $this->layoutResolverService->disableRule($rule);
 
         self::assertFalse($disabledRule->enabled);
-        self::assertTrue($disabledRule->isPublished());
+        self::assertTrue($disabledRule->isPublished);
     }
 
     public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
@@ -1137,7 +1137,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $enabledRuleGroup = $this->layoutResolverService->enableRuleGroup($ruleGroup);
 
         self::assertTrue($enabledRuleGroup->enabled);
-        self::assertTrue($enabledRuleGroup->isPublished());
+        self::assertTrue($enabledRuleGroup->isPublished);
     }
 
     public function testEnableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
@@ -1167,7 +1167,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $disabledRuleGroup = $this->layoutResolverService->disableRuleGroup($ruleGroup);
 
         self::assertFalse($disabledRuleGroup->enabled);
-        self::assertTrue($disabledRuleGroup->isPublished());
+        self::assertTrue($disabledRuleGroup->isPublished);
     }
 
     public function testDisableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
@@ -1205,7 +1205,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $targetCreateStruct,
         );
 
-        self::assertTrue($createdTarget->isDraft());
+        self::assertTrue($createdTarget->isDraft);
     }
 
     public function testAddTargetThrowsBadStateExceptionOnNonDraftRule(): void
@@ -1255,7 +1255,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $updatedTarget = $this->layoutResolverService->updateTarget($target, $targetUpdateStruct);
 
-        self::assertTrue($updatedTarget->isDraft());
+        self::assertTrue($updatedTarget->isDraft);
         self::assertSame('new_value', $updatedTarget->value);
     }
 
@@ -1309,7 +1309,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $conditionCreateStruct,
         );
 
-        self::assertTrue($createdCondition->isDraft());
+        self::assertTrue($createdCondition->isDraft);
     }
 
     public function testAddRuleConditionThrowsBadStateExceptionOnNonDraftRule(): void
@@ -1346,7 +1346,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
             $conditionCreateStruct,
         );
 
-        self::assertTrue($createdCondition->isDraft());
+        self::assertTrue($createdCondition->isDraft);
     }
 
     public function testAddRuleGroupConditionThrowsBadStateExceptionOnNonDraftRuleGroup(): void
@@ -1377,7 +1377,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $updatedCondition = $this->layoutResolverService->updateRuleCondition($condition, $conditionUpdateStruct);
 
-        self::assertTrue($updatedCondition->isDraft());
+        self::assertTrue($updatedCondition->isDraft);
         self::assertSame('new_value', $updatedCondition->value);
     }
 
@@ -1403,7 +1403,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
 
         $updatedCondition = $this->layoutResolverService->updateRuleGroupCondition($condition, $conditionUpdateStruct);
 
-        self::assertTrue($updatedCondition->isDraft());
+        self::assertTrue($updatedCondition->isDraft);
         self::assertSame('new_value', $updatedCondition->value);
     }
 

@@ -41,9 +41,9 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         self::assertSame('right', $zone->identifier);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
-        self::assertTrue($zone->isPublished());
+        self::assertTrue($zone->isPublished);
         self::assertInstanceOf(APIZone::class, $zone->linkedZone);
-        self::assertTrue($zone->linkedZone->isPublished());
+        self::assertTrue($zone->linkedZone->isPublished);
         self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $zone->linkedZone->layoutId->toString());
         self::assertSame('right', $zone->linkedZone->identifier);
     }
@@ -66,7 +66,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         self::assertSame('right', $zone->identifier);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
-        self::assertTrue($zone->isPublished());
+        self::assertTrue($zone->isPublished);
         self::assertNull($zone->linkedZone);
     }
 
@@ -88,7 +88,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 
         self::assertSame('right', $zone->identifier);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
-        self::assertTrue($zone->isPublished());
+        self::assertTrue($zone->isPublished);
         self::assertNull($zone->linkedZone);
     }
 
@@ -122,7 +122,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertSame('My description', $layout->description);
         self::assertSame(1_447_065_813, $layout->created->getTimestamp());
         self::assertSame(1_447_065_813, $layout->modified->getTimestamp());
-        self::assertTrue($layout->isPublished());
+        self::assertTrue($layout->isPublished);
         self::assertTrue($layout->shared);
         self::assertCount(4, $layout->zones);
     }
@@ -154,7 +154,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertSame('My description', $layout->description);
         self::assertSame(1_447_065_813, $layout->created->getTimestamp());
         self::assertSame(1_447_065_813, $layout->modified->getTimestamp());
-        self::assertTrue($layout->isPublished());
+        self::assertTrue($layout->isPublished);
         self::assertTrue($layout->shared);
         self::assertCount(4, $layout->zones);
     }

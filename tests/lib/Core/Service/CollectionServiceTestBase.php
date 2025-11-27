@@ -26,7 +26,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $collection = $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
-        self::assertTrue($collection->isPublished());
+        self::assertTrue($collection->isPublished);
     }
 
     public function testLoadCollectionThrowsNotFoundException(): void
@@ -41,7 +41,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
-        self::assertTrue($collection->isDraft());
+        self::assertTrue($collection->isDraft);
     }
 
     public function testLoadCollectionDraftThrowsNotFoundException(): void
@@ -63,7 +63,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
-        self::assertTrue($updatedCollection->isDraft());
+        self::assertTrue($updatedCollection->isDraft);
         self::assertSame(6, $updatedCollection->offset);
         self::assertSame(3, $updatedCollection->limit);
     }
@@ -79,7 +79,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
-        self::assertTrue($updatedCollection->isDraft());
+        self::assertTrue($updatedCollection->isDraft);
         self::assertSame(6, $updatedCollection->offset);
         self::assertNull($updatedCollection->limit);
     }
@@ -103,7 +103,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $item = $this->collectionService->loadItem(Uuid::fromString('89c214a3-204f-5352-85d7-8852b26ab6b0'));
 
-        self::assertTrue($item->isPublished());
+        self::assertTrue($item->isPublished);
     }
 
     public function testLoadItemThrowsNotFoundException(): void
@@ -118,7 +118,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('89c214a3-204f-5352-85d7-8852b26ab6b0'));
 
-        self::assertTrue($item->isDraft());
+        self::assertTrue($item->isDraft);
     }
 
     public function testLoadItemDraftThrowsNotFoundException(): void
@@ -133,7 +133,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $query = $this->collectionService->loadQuery(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
 
-        self::assertTrue($query->isPublished());
+        self::assertTrue($query->isPublished);
     }
 
     public function testLoadQueryThrowsNotFoundException(): void
@@ -148,7 +148,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
 
-        self::assertTrue($query->isDraft());
+        self::assertTrue($query->isDraft);
     }
 
     public function testLoadQueryDraftThrowsNotFoundException(): void
@@ -163,7 +163,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $slot = $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014'));
 
-        self::assertTrue($slot->isPublished());
+        self::assertTrue($slot->isPublished);
     }
 
     public function testLoadSlotThrowsNotFoundException(): void
@@ -178,7 +178,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     {
         $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
 
-        self::assertTrue($slot->isDraft());
+        self::assertTrue($slot->isDraft);
     }
 
     public function testLoadSlotDraftThrowsNotFoundException(): void
@@ -201,7 +201,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
             ),
         );
 
-        self::assertTrue($updatedCollection->isDraft());
+        self::assertTrue($updatedCollection->isDraft);
         self::assertCount(count($collection->items), $updatedCollection->items);
         self::assertInstanceOf(Query::class, $updatedCollection->query);
     }
@@ -215,7 +215,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
             CollectionType::Manual,
         );
 
-        self::assertTrue($updatedCollection->isDraft());
+        self::assertTrue($updatedCollection->isDraft);
         self::assertCount(count($collection->items), $updatedCollection->items);
         self::assertNull($updatedCollection->query);
 
@@ -267,7 +267,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
             1,
         );
 
-        self::assertTrue($createdItem->isDraft());
+        self::assertTrue($createdItem->isDraft);
     }
 
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection(): void
@@ -317,7 +317,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedItem = $this->collectionService->updateItem($item, $itemUpdateStruct);
 
-        self::assertTrue($updatedItem->isDraft());
+        self::assertTrue($updatedItem->isDraft);
         self::assertTrue($updatedItem->hasConfig('key'));
 
         $itemConfig = $updatedItem->getConfig('key');
@@ -343,7 +343,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
             1,
         );
 
-        self::assertTrue($movedItem->isDraft());
+        self::assertTrue($movedItem->isDraft);
         self::assertSame(1, $movedItem->position);
 
         $secondItem = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
@@ -425,7 +425,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
-        self::assertTrue($updatedQuery->isDraft());
+        self::assertTrue($updatedQuery->isDraft);
         self::assertSame('my_query_type', $updatedQuery->queryType->getType());
 
         self::assertNull($updatedQuery->getParameter('param')->getValue());
@@ -450,7 +450,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
-        self::assertTrue($updatedQuery->isDraft());
+        self::assertTrue($updatedQuery->isDraft);
         self::assertSame('my_query_type', $updatedQuery->queryType->getType());
 
         $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
@@ -505,7 +505,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
             1,
         );
 
-        self::assertTrue($createdSlot->isDraft());
+        self::assertTrue($createdSlot->isDraft);
         self::assertSame(1, $createdSlot->position);
         self::assertSame('my_view_type', $createdSlot->viewType);
     }
@@ -535,7 +535,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $updatedSlot = $this->collectionService->updateSlot($slot, $slotUpdateStruct);
 
-        self::assertTrue($updatedSlot->isDraft());
+        self::assertTrue($updatedSlot->isDraft);
         self::assertSame('my_view_type', $updatedSlot->viewType);
     }
 

@@ -4,7 +4,7 @@
 
 <div class="nl-layout-content"
     data-id="{{ layout.id.toString }}"
-    {% if layout.published %}data-published="true"{% endif %}
+    {% if layout.isPublished %}data-published="true"{% endif %}
     data-name="{{ layout.name }}"
     data-description="{{ layout.description }}"
     data-modified="{{ layout.modified|date(constant('DateTimeInterface::ATOM')) }}"
@@ -19,7 +19,7 @@
                 <p>{{ layout.description }}</p>
             </div>
 
-            {% if not layout.published %}
+            {% if not layout.isPublished %}
                 <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
             {% endif %}
 

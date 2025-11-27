@@ -142,7 +142,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function loadRelatedLayouts(Layout $sharedLayout): LayoutList
     {
-        if (!$sharedLayout->isPublished()) {
+        if (!$sharedLayout->isPublished) {
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for published shared layouts.');
         }
 
@@ -162,7 +162,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function getRelatedLayoutsCount(Layout $sharedLayout): int
     {
-        if (!$sharedLayout->isPublished()) {
+        if (!$sharedLayout->isPublished) {
             throw new BadStateException('sharedLayout', 'Count of related layouts can only be loaded for published shared layouts.');
         }
 
@@ -187,11 +187,11 @@ final class LayoutService implements LayoutServiceInterface
 
     public function linkZone(Zone $zone, Zone $linkedZone): void
     {
-        if (!$zone->isDraft()) {
+        if (!$zone->isDraft) {
             throw new BadStateException('zone', 'Only draft zones can be linked.');
         }
 
-        if (!$linkedZone->isPublished()) {
+        if (!$linkedZone->isPublished) {
             throw new BadStateException('linkedZone', 'Zones can only be linked to published zones.');
         }
 
@@ -229,7 +229,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function unlinkZone(Zone $zone): void
     {
-        if (!$zone->isDraft()) {
+        if (!$zone->isDraft) {
             throw new BadStateException('zone', 'Only draft zones can be unlinked.');
         }
 
@@ -296,7 +296,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function addTranslation(Layout $layout, string $locale, string $sourceLocale): Layout
     {
-        if (!$layout->isDraft()) {
+        if (!$layout->isDraft) {
             throw new BadStateException('layout', 'You can only add translation to draft layouts.');
         }
 
@@ -314,7 +314,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function setMainTranslation(Layout $layout, string $mainLocale): Layout
     {
-        if (!$layout->isDraft()) {
+        if (!$layout->isDraft) {
             throw new BadStateException('layout', 'You can only set main translation in draft layouts.');
         }
 
@@ -331,7 +331,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function removeTranslation(Layout $layout, string $locale): Layout
     {
-        if (!$layout->isDraft()) {
+        if (!$layout->isDraft) {
             throw new BadStateException('layout', 'You can only remove translations from draft layouts.');
         }
 
@@ -348,7 +348,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function updateLayout(Layout $layout, APILayoutUpdateStruct $layoutUpdateStruct): Layout
     {
-        if (!$layout->isDraft()) {
+        if (!$layout->isDraft) {
             throw new BadStateException('layout', 'Only draft layouts can be updated.');
         }
 
@@ -404,7 +404,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): Layout
     {
-        if (!$layout->isDraft()) {
+        if (!$layout->isDraft) {
             throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');
         }
 
@@ -463,7 +463,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function createDraft(Layout $layout, bool $discardExisting = false): Layout
     {
-        if (!$layout->isPublished()) {
+        if (!$layout->isPublished) {
             throw new BadStateException('layout', 'Drafts can only be created from published layouts.');
         }
 
@@ -486,7 +486,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function discardDraft(Layout $layout): void
     {
-        if (!$layout->isDraft()) {
+        if (!$layout->isDraft) {
             throw new BadStateException('layout', 'Only drafts can be discarded.');
         }
 
@@ -504,7 +504,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function publishLayout(Layout $layout): Layout
     {
-        if (!$layout->isDraft()) {
+        if (!$layout->isDraft) {
             throw new BadStateException('layout', 'Only drafts can be published.');
         }
 
@@ -549,7 +549,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function restoreFromArchive(Layout $layout): Layout
     {
-        if (!$layout->isArchived()) {
+        if (!$layout->isArchived) {
             throw new BadStateException('layout', 'Only archived layouts can be restored.');
         }
 

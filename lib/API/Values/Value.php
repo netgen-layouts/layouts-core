@@ -23,15 +23,15 @@ interface Value
     /**
      * Returns if the value is a draft.
      */
-    public function isDraft(): bool;
+    public bool $isDraft { get; }
 
     /**
      * Returns if the value is published.
      */
-    public function isPublished(): bool;
+    public bool $isPublished { get; }
 
     /**
      * Returns if the value is archived.
      */
-    public function isArchived(): bool;
+    public bool $isArchived { get; }
 }

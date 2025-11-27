@@ -53,7 +53,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->blockId->toString());
         self::assertSame(10, $collection->offset);
         self::assertSame(20, $collection->limit);
-        self::assertTrue($collection->isPublished());
+        self::assertTrue($collection->isPublished);
         self::assertTrue($collection->isTranslatable);
         self::assertSame('en', $collection->mainLocale);
         self::assertFalse($collection->alwaysAvailable);
@@ -196,7 +196,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->blockId->toString());
         self::assertSame(0, $collection->offset);
         self::assertSame(20, $collection->limit);
-        self::assertTrue($collection->isPublished());
+        self::assertTrue($collection->isPublished);
         self::assertTrue($collection->isTranslatable);
         self::assertSame('en', $collection->mainLocale);
         self::assertFalse($collection->alwaysAvailable);
@@ -244,7 +244,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('12', $item->value);
         self::assertSame('overlay', $item->viewType);
         self::assertSame($cmsItem, $item->cmsItem);
-        self::assertTrue($item->isPublished());
+        self::assertTrue($item->isPublished);
 
         self::assertTrue($item->hasConfig('key'));
 
@@ -290,7 +290,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('overlay', $item->viewType);
         self::assertInstanceOf(NullCmsItem::class, $item->cmsItem);
         self::assertSame('my_value_type', $item->cmsItem->getValueType());
-        self::assertTrue($item->isPublished());
+        self::assertTrue($item->isPublished);
 
         self::assertTrue($item->hasConfig('key'));
 
@@ -338,7 +338,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('12', $item->value);
         self::assertNull($item->viewType);
         self::assertSame($cmsItem, $item->cmsItem);
-        self::assertTrue($item->isPublished());
+        self::assertTrue($item->isPublished);
 
         self::assertFalse($item->hasConfig('key'));
     }
@@ -374,7 +374,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->collectionId->toString());
-        self::assertTrue($query->isPublished());
+        self::assertTrue($query->isPublished);
         self::assertTrue($query->isTranslatable);
         self::assertSame('en', $query->mainLocale);
         self::assertFalse($query->alwaysAvailable);
@@ -523,7 +523,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->collectionId->toString());
-        self::assertTrue($query->isPublished());
+        self::assertTrue($query->isPublished);
         self::assertTrue($query->isTranslatable);
         self::assertSame('en', $query->mainLocale);
         self::assertFalse($query->alwaysAvailable);
@@ -555,6 +555,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $slot->collectionId->toString());
         self::assertSame(1, $slot->position);
         self::assertSame('overlay', $slot->viewType);
-        self::assertTrue($slot->isPublished());
+        self::assertTrue($slot->isPublished);
     }
 }

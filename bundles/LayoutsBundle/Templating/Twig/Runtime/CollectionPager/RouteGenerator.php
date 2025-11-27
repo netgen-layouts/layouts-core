@@ -46,7 +46,7 @@ final class RouteGenerator
         }
 
         $uri = $this->urlGenerator->generate(
-            $block->isPublished() ? 'nglayouts_ajax_block' : 'nglayouts_ajax_block_draft',
+            $block->isPublished ? 'nglayouts_ajax_block' : 'nglayouts_ajax_block_draft',
             $routeParams,
         );
 

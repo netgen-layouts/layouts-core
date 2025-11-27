@@ -20,9 +20,9 @@ final class ValueStatusTraitTest extends TestCase
         $value = Value::fromArray(['status' => $status]);
 
         self::assertSame($status, $value->status);
-        self::assertSame($isDraft, $value->isDraft());
-        self::assertSame($isPublished, $value->isPublished());
-        self::assertSame($isArchived, $value->isArchived());
+        self::assertSame($isDraft, $value->isDraft);
+        self::assertSame($isPublished, $value->isPublished);
+        self::assertSame($isArchived, $value->isArchived);
     }
 
     public static function statusDataProvider(): iterable
