@@ -37,27 +37,31 @@ final class LayoutMapper
             'identifier' => $zone->identifier,
             'layoutId' => Uuid::fromString($zone->layoutUuid),
             'status' => Status::from($zone->status->value),
-            'linkedZone' => function () use ($zone): ?Zone {
-                if ($zone->linkedLayoutUuid === null || $zone->linkedZoneIdentifier === null) {
-                    return null;
-                }
-
-                try {
-                    // We're always using published versions of linked zones
-                    $linkedZone = $this->layoutHandler->loadZone(
-                        $zone->linkedLayoutUuid,
-                        PersistenceStatus::Published,
-                        $zone->linkedZoneIdentifier,
-                    );
-
-                    return $this->mapZone($linkedZone);
-                } catch (NotFoundException) {
-                    return null;
-                }
-            },
         ];
 
-        return Zone::fromArray($zoneData);
+        return Zone::fromArray(
+            $zoneData,
+            [
+                'linkedZone' => function () use ($zone): ?Zone {
+                    if ($zone->linkedLayoutUuid === null || $zone->linkedZoneIdentifier === null) {
+                        return null;
+                    }
+
+                    try {
+                        // We're always using published versions of linked zones
+                        $linkedZone = $this->layoutHandler->loadZone(
+                            $zone->linkedLayoutUuid,
+                            PersistenceStatus::Published,
+                            $zone->linkedZoneIdentifier,
+                        );
+
+                        return $this->mapZone($linkedZone);
+                    } catch (NotFoundException) {
+                        return null;
+                    }
+                },
+            ],
+        );
     }
 
     /**

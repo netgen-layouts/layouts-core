@@ -149,10 +149,9 @@ final class RenderingRuntime
         }
 
         $zone = $layout->getZone($zoneIdentifier);
-        $linkedZone = $zone->getLinkedZone();
 
         $blocks = $this->blockService->loadZoneBlocks(
-            $linkedZone ?? $zone,
+            $zone->linkedZone ?? $zone,
             $locales,
         );
 

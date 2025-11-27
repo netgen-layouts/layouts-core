@@ -232,10 +232,10 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $updatedZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
 
-        self::assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
-        self::assertTrue($updatedZone->getLinkedZone()->isPublished());
-        self::assertSame($linkedZone->layoutId->toString(), $updatedZone->getLinkedZone()->layoutId->toString());
-        self::assertSame($linkedZone->identifier, $updatedZone->getLinkedZone()->identifier);
+        self::assertInstanceOf(Zone::class, $updatedZone->linkedZone);
+        self::assertTrue($updatedZone->linkedZone->isPublished());
+        self::assertSame($linkedZone->layoutId->toString(), $updatedZone->linkedZone->layoutId->toString());
+        self::assertSame($linkedZone->identifier, $updatedZone->linkedZone->identifier);
     }
 
     public function testLinkZoneThrowsBadStateExceptionWhenInSharedLayout(): void
@@ -301,7 +301,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $updatedZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
 
-        self::assertNull($updatedZone->getLinkedZone());
+        self::assertNull($updatedZone->linkedZone);
     }
 
     public function testUnlinkZoneThrowsBadStateExceptionWithNonDraftZone(): void
@@ -760,11 +760,11 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $newTopZone = $layout->getZone('top');
 
-        self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
-        self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
+        self::assertInstanceOf(Zone::class, $topZone->linkedZone);
+        self::assertInstanceOf(Zone::class, $newTopZone->linkedZone);
 
-        self::assertSame($newTopZone->getLinkedZone()->layoutId->toString(), $topZone->getLinkedZone()->layoutId->toString());
-        self::assertSame($newTopZone->getLinkedZone()->identifier, $topZone->getLinkedZone()->identifier);
+        self::assertSame($newTopZone->linkedZone->layoutId->toString(), $topZone->linkedZone->layoutId->toString());
+        self::assertSame($newTopZone->linkedZone->identifier, $topZone->linkedZone->identifier);
     }
 
     public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZones(): void
@@ -813,11 +813,11 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $newTopZone = $layout->getZone('top');
 
-        self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
-        self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
+        self::assertInstanceOf(Zone::class, $topZone->linkedZone);
+        self::assertInstanceOf(Zone::class, $newTopZone->linkedZone);
 
-        self::assertSame($newTopZone->getLinkedZone()->layoutId->toString(), $topZone->getLinkedZone()->layoutId->toString());
-        self::assertSame($newTopZone->getLinkedZone()->identifier, $topZone->getLinkedZone()->identifier);
+        self::assertSame($newTopZone->linkedZone->layoutId->toString(), $topZone->linkedZone->layoutId->toString());
+        self::assertSame($newTopZone->linkedZone->identifier, $topZone->linkedZone->identifier);
     }
 
     public function testChangeLayoutTypeWithSharedZonesAndDiscardingSharedZones(): void

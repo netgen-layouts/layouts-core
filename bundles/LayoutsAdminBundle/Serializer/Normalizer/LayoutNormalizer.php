@@ -103,7 +103,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     private function getZones(Layout $layout, LayoutTypeInterface $layoutType): Generator
     {
         foreach ($layout as $zoneIdentifier => $zone) {
-            $linkedZone = $zone->getLinkedZone();
+            $linkedZone = $zone->linkedZone;
 
             $normalizedData = [
                 'identifier' => $zoneIdentifier,

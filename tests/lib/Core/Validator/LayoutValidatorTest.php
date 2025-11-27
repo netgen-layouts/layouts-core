@@ -354,8 +354,8 @@ final class LayoutValidatorTest extends TestCase
             [
                 'zones' => ZoneList::fromArray(
                     [
-                        'top' => new Zone(),
-                        'bottom' => new Zone(),
+                        'top' => Zone::fromArray(['linkedZone' => null]),
+                        'bottom' => Zone::fromArray(['linkedZone' => null]),
                         'shared' => Zone::fromArray(['linkedZone' => new Zone()]),
                     ],
                 ),

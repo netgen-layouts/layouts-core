@@ -116,6 +116,7 @@ final class LayoutNormalizerTest extends TestCase
                         'missing' => Zone::fromArray(
                             [
                                 'identifier' => 'missing',
+                                'linkedZone' => null,
                             ],
                         ),
                     ],

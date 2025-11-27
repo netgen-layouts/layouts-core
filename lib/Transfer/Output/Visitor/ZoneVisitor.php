@@ -44,7 +44,7 @@ final class ZoneVisitor implements VisitorInterface
      */
     private function visitLinkedZone(Zone $zone): ?array
     {
-        $linkedZone = $zone->getLinkedZone();
+        $linkedZone = $zone->linkedZone;
 
         if (!$linkedZone instanceof Zone) {
             return null;
