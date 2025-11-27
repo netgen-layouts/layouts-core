@@ -141,20 +141,24 @@ final class CollectionMapper
                     ),
                 ],
             ),
-            'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
-                $valueType = !$itemDefinition instanceof NullItemDefinition ?
-                    $itemDefinition->getValueType() :
-                    'null';
-
-                if ($item->value === null) {
-                    return new NullCmsItem($valueType);
-                }
-
-                return $this->cmsItemLoader->load($item->value, $valueType);
-            },
         ];
 
-        return Item::fromArray($itemData);
+        return Item::fromArray(
+            $itemData,
+            [
+                'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
+                    $valueType = !$itemDefinition instanceof NullItemDefinition ?
+                        $itemDefinition->getValueType() :
+                        'null';
+
+                    if ($item->value === null) {
+                        return new NullCmsItem($valueType);
+                    }
+
+                    return $this->cmsItemLoader->load($item->value, $valueType);
+                },
+            ],
+        );
     }
 
     /**

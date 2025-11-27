@@ -23,31 +23,31 @@ final class ManualItem implements CmsItemInterface
 
     public function getValue(): int|string|null
     {
-        return $this->collectionItem->getCmsItem()->getValue();
+        return $this->collectionItem->cmsItem->getValue();
     }
 
     public function getRemoteId(): int|string|null
     {
-        return $this->collectionItem->getCmsItem()->getRemoteId();
+        return $this->collectionItem->cmsItem->getRemoteId();
     }
 
     public function getValueType(): string
     {
-        return $this->collectionItem->getCmsItem()->getValueType();
+        return $this->collectionItem->cmsItem->getValueType();
     }
 
     public function getName(): string
     {
-        return $this->collectionItem->getCmsItem()->getName();
+        return $this->collectionItem->cmsItem->getName();
     }
 
     public function isVisible(): bool
     {
-        return $this->collectionItem->getCmsItem()->isVisible();
+        return $this->collectionItem->cmsItem->isVisible();
     }
 
     public function getObject(): ?object
     {
-        return $this->collectionItem->getCmsItem()->getObject();
+        return $this->collectionItem->cmsItem->getObject();
     }
 }

@@ -243,7 +243,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(1, $item->position);
         self::assertSame('12', $item->value);
         self::assertSame('overlay', $item->viewType);
-        self::assertSame($cmsItem, $item->getCmsItem());
+        self::assertSame($cmsItem, $item->cmsItem);
         self::assertTrue($item->isPublished());
 
         self::assertTrue($item->hasConfig('key'));
@@ -288,8 +288,8 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(1, $item->position);
         self::assertNull($item->value);
         self::assertSame('overlay', $item->viewType);
-        self::assertInstanceOf(NullCmsItem::class, $item->getCmsItem());
-        self::assertSame('my_value_type', $item->getCmsItem()->getValueType());
+        self::assertInstanceOf(NullCmsItem::class, $item->cmsItem);
+        self::assertSame('my_value_type', $item->cmsItem->getValueType());
         self::assertTrue($item->isPublished());
 
         self::assertTrue($item->hasConfig('key'));
@@ -337,7 +337,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(1, $item->position);
         self::assertSame('12', $item->value);
         self::assertNull($item->viewType);
-        self::assertSame($cmsItem, $item->getCmsItem());
+        self::assertSame($cmsItem, $item->cmsItem);
         self::assertTrue($item->isPublished());
 
         self::assertFalse($item->hasConfig('key'));

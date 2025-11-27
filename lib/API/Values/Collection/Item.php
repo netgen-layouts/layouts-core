@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
-use Closure;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
-use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -21,7 +19,6 @@ final class Item implements Value, ConfigAwareValue
 {
     use ConfigAwareValueTrait;
     use HydratorTrait;
-    use LazyPropertyTrait;
     use ValueStatusTrait;
 
     public private(set) UuidInterface $id;
@@ -56,26 +53,21 @@ final class Item implements Value, ConfigAwareValue
     public private(set) ?string $viewType;
 
     /**
+     * Returns the CMS item loaded from value and value type stored in this collection item.
+     */
+    public private(set) CmsItemInterface $cmsItem;
+
+    /**
      * Returns if the item is valid. An item is valid if the CMS item it wraps is visible and
      * if it actually exists in the CMS.
      */
     public bool $isValid {
         get {
-            if ($this->getCmsItem() instanceof NullCmsItem) {
+            if ($this->cmsItem instanceof NullCmsItem) {
                 return false;
             }
 
-            return $this->getCmsItem()->isVisible();
+            return $this->cmsItem->isVisible();
         }
-    }
-
-    private CmsItemInterface|Closure $cmsItem;
-
-    /**
-     * Returns the CMS item loaded from value and value type stored in this collection item.
-     */
-    public function getCmsItem(): CmsItemInterface
-    {
-        return $this->getLazyProperty($this->cmsItem);
     }
 }

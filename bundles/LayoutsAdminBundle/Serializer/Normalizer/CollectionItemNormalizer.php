@@ -31,7 +31,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Item $collectionItem */
         $collectionItem = $data->getValue();
-        $cmsItem = $collectionItem->getCmsItem();
+        $cmsItem = $collectionItem->cmsItem;
 
         $configuration = (function () use ($collectionItem): Generator {
             foreach ($collectionItem->getConfigs() as $configKey => $config) {

@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Tests\API\Values\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Item\CmsItem;
-use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -33,7 +32,7 @@ final class ItemTest extends TestCase
                 'position' => 3,
                 'value' => 32,
                 'viewType' => 'overlay',
-                'cmsItem' => static fn (): CmsItemInterface => $cmsItem,
+                'cmsItem' => $cmsItem,
             ],
         );
 
@@ -43,7 +42,7 @@ final class ItemTest extends TestCase
         self::assertSame(3, $item->position);
         self::assertSame(32, $item->value);
         self::assertSame('overlay', $item->viewType);
-        self::assertSame($cmsItem, $item->getCmsItem());
+        self::assertSame($cmsItem, $item->cmsItem);
     }
 
     #[DataProvider('isValidDataProvider')]

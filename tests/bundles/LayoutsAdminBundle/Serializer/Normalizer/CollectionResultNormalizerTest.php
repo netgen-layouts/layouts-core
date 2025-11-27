@@ -73,7 +73,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, new ManualItem($collectionItem), null, Slot::fromArray(['id' => $slotUuid, 'viewType' => 'standard']));
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlType::Admin))
+            ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -82,11 +82,11 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collection_id' => $collectionItem->collectionId->toString(),
                 'visible' => true,
                 'is_dynamic' => false,
-                'value' => $collectionItem->getCmsItem()->getValue(),
-                'value_type' => $collectionItem->getCmsItem()->getValueType(),
+                'value' => $collectionItem->cmsItem->getValue(),
+                'value_type' => $collectionItem->cmsItem->getValueType(),
                 'item_view_type' => $collectionItem->viewType,
-                'name' => $collectionItem->getCmsItem()->getName(),
-                'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
+                'name' => $collectionItem->cmsItem->getName(),
+                'cms_visible' => $collectionItem->cmsItem->isVisible(),
                 'cms_url' => '/some/url',
                 'config' => $serializedConfig,
                 'position' => $result->getPosition(),
@@ -129,7 +129,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, new ManualItem($collectionItem));
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlType::Admin))
+            ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -138,11 +138,11 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collection_id' => $collectionItem->collectionId->toString(),
                 'visible' => true,
                 'is_dynamic' => false,
-                'value' => $collectionItem->getCmsItem()->getValue(),
-                'value_type' => $collectionItem->getCmsItem()->getValueType(),
+                'value' => $collectionItem->cmsItem->getValue(),
+                'value_type' => $collectionItem->cmsItem->getValueType(),
                 'item_view_type' => $collectionItem->viewType,
-                'name' => $collectionItem->getCmsItem()->getName(),
-                'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
+                'name' => $collectionItem->cmsItem->getName(),
+                'cms_visible' => $collectionItem->cmsItem->isVisible(),
                 'cms_url' => '/some/url',
                 'config' => $serializedConfig,
                 'position' => $result->getPosition(),
@@ -233,7 +233,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, new ManualItem($collectionItem), $item);
         $this->urlGeneratorMock
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->getCmsItem()), self::identicalTo(UrlType::Admin))
+            ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -257,11 +257,11 @@ final class CollectionResultNormalizerTest extends TestCase
                     'collection_id' => $collectionItem->collectionId->toString(),
                     'visible' => true,
                     'is_dynamic' => false,
-                    'value' => $collectionItem->getCmsItem()->getValue(),
-                    'value_type' => $collectionItem->getCmsItem()->getValueType(),
+                    'value' => $collectionItem->cmsItem->getValue(),
+                    'value_type' => $collectionItem->cmsItem->getValueType(),
                     'item_view_type' => 'overlay',
-                    'name' => $collectionItem->getCmsItem()->getName(),
-                    'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
+                    'name' => $collectionItem->cmsItem->getName(),
+                    'cms_visible' => $collectionItem->cmsItem->isVisible(),
                     'cms_url' => '/some/url',
                     'config' => $serializedConfig,
                 ],

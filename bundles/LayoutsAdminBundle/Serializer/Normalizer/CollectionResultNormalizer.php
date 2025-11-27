@@ -94,7 +94,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
 
         if ($resultItem instanceof ManualItem) {
             $collectionItem = $resultItem->getCollectionItem();
-            $cmsItem = $collectionItem->getCmsItem();
+            $cmsItem = $collectionItem->cmsItem;
             $itemViewType = $collectionItem->viewType;
             $isDynamic = false;
         }
