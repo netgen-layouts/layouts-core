@@ -10,13 +10,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function is_string;
 
-class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
+final class ParameterBuilderFactory
 {
     public function __construct(
         private ParameterTypeRegistry $parameterTypeRegistry,
     ) {}
 
-    public function createParameterBuilder(array $config = []): ParameterBuilderInterface
+    /**
+     * Returns the new instance of parameter builder.
+     *
+     * @param array<string, mixed> $config
+     */
+    public function createParameterBuilder(array $config = [], bool $isTranslatable = false): ParameterBuilderInterface
     {
         $config = $this->resolveOptions($config);
 
@@ -26,6 +31,7 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
             $config['type'],
             $config['options'],
             $config['parent'],
+            $isTranslatable,
         );
     }
 
@@ -36,7 +42,7 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
      *
      * @return array<string, mixed> $config
      */
-    protected function resolveOptions(array $config): array
+    private function resolveOptions(array $config): array
     {
         $optionsResolver = new OptionsResolver();
 

@@ -37,7 +37,7 @@ services:
     netgen_layouts.collection.query_type_factory:
         class: Netgen\Layouts\Collection\QueryType\QueryTypeFactory
         arguments:
-            - "@netgen_layouts.parameters.translatable_parameter_builder_factory"
+            - "@netgen_layouts.parameters.parameter_builder_factory"
 
     netgen_layouts.collection.registry.item_definition:
         class: Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry

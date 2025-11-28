@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Parameters;
 use Closure;
 use Netgen\Layouts\Exception\BadMethodCallException;
 use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraint;
@@ -18,8 +19,9 @@ use function count;
 use function in_array;
 use function is_a;
 use function is_bool;
+use function sprintf;
 
-class ParameterBuilder implements ParameterBuilderInterface
+final class ParameterBuilder implements ParameterBuilderInterface
 {
     /**
      * @var array<string, mixed>
@@ -60,11 +62,12 @@ class ParameterBuilder implements ParameterBuilderInterface
      * @param array<string, mixed> $options
      */
     public function __construct(
-        private ParameterBuilderFactoryInterface $builderFactory,
-        protected ?string $name = null,
+        private ParameterBuilderFactory $builderFactory,
+        private ?string $name = null,
         private ?ParameterTypeInterface $type = null,
         array $options = [],
-        protected ?ParameterBuilderInterface $parentBuilder = null,
+        private ?ParameterBuilderInterface $parentBuilder = null,
+        private bool $isTranslatable = false,
     ) {
         $this->options = $this->resolveOptions($options);
     }
@@ -244,6 +247,7 @@ class ParameterBuilder implements ParameterBuilderInterface
                 'options' => $options,
                 'parent' => $this,
             ],
+            $this->isTranslatable,
         );
 
         return $this;
@@ -270,9 +274,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         return array_filter(
             $this->unresolvedChildren,
-            static fn (ParameterBuilderInterface $builder): bool => $group !== null ?
-                    in_array($group, $builder->getGroups(), true) :
-                    true,
+            static fn (ParameterBuilderInterface $builder): bool => $group === null || in_array($group, $builder->getGroups(), true),
         );
     }
 
@@ -315,11 +317,6 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         return $this->resolvedChildren;
     }
-
-    /**
-     * Configures the parameter options.
-     */
-    protected function configureOptions(OptionsResolver $optionsResolver): void {}
 
     /**
      * Builds the parameter definition.
@@ -413,11 +410,50 @@ class ParameterBuilder implements ParameterBuilderInterface
             ->allowedValues(fn (array $constraints): bool => $this->validateConstraints($constraints))
             ->info('It must be an array of constraints or closures.');
 
+        if ($this->isTranslatable) {
+            $optionsResolver
+                ->define('translatable')
+                ->required()
+                ->default(true)
+                ->allowedTypes('bool')
+                ->allowedValues(
+                    function (bool $value): bool {
+                        if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
+                            return true;
+                        }
+
+                        if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
+                            return true;
+                        }
+
+                        if ($value !== $this->parentBuilder->getOption('translatable')) {
+                            if ($value) {
+                                throw new InvalidOptionsException(
+                                    sprintf(
+                                        'Parameter "%s" cannot be translatable, since its parent parameter "%s" is not translatable',
+                                        $this->name ?? '',
+                                        $this->parentBuilder->getName() ?? '',
+                                    ),
+                                );
+                            }
+
+                            throw new InvalidOptionsException(
+                                sprintf(
+                                    'Parameter "%s" needs to be translatable, since its parent parameter "%s" is translatable',
+                                    $this->name ?? '',
+                                    $this->parentBuilder->getName() ?? '',
+                                ),
+                            );
+                        }
+
+                        return true;
+                    },
+                )->info('It must be translatable depending if the parent is translatable or not.');
+        }
+
         if ($this->type instanceof ParameterTypeInterface) {
             $this->type->configureOptions($optionsResolver);
         }
-
-        $this->configureOptions($optionsResolver);
 
         $resolvedOptions = $optionsResolver->resolve($options);
 

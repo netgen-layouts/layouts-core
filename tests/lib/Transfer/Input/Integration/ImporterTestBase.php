@@ -19,7 +19,6 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
-use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\TwoColumnsHandler;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\ListHandler;
@@ -349,16 +348,14 @@ abstract class ImporterTestBase extends CoreTestCase
             ],
         );
 
+        $parameterBuilderFactory = new ParameterBuilderFactory(
+            $this->createParameterTypeRegistry(),
+        );
+
         $blockDefinitionFactory = new BlockDefinitionFactory(
-            new TranslatableParameterBuilderFactory(
-                $this->createParameterTypeRegistry(),
-            ),
+            $parameterBuilderFactory,
             $handlerPluginRegistry,
-            new ConfigDefinitionFactory(
-                new ParameterBuilderFactory(
-                    $this->createParameterTypeRegistry(),
-                ),
-            ),
+            new ConfigDefinitionFactory($parameterBuilderFactory),
         );
 
         $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(

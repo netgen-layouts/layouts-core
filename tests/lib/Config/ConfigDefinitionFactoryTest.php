@@ -6,8 +6,8 @@ namespace Netgen\Layouts\Tests\Config;
 
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Config\ConfigDefinitionHandlerInterface;
-use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
-use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -18,12 +18,7 @@ final class ConfigDefinitionFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
-        $parameterBuilderFactoryMock
-            ->method('createParameterBuilder')
-            ->willReturn($this->createMock(ParameterBuilderInterface::class));
-
-        $this->factory = new ConfigDefinitionFactory($parameterBuilderFactoryMock);
+        $this->factory = new ConfigDefinitionFactory(new ParameterBuilderFactory(new ParameterTypeRegistry([])));
     }
 
     public function testBuildConfigDefinition(): void

@@ -10,7 +10,7 @@ services:
     netgen_layouts.block.block_definition_factory:
         class: Netgen\Layouts\Block\BlockDefinitionFactory
         arguments:
-            - "@netgen_layouts.parameters.translatable_parameter_builder_factory"
+            - "@netgen_layouts.parameters.parameter_builder_factory"
             - "@netgen_layouts.block.registry.handler_plugin"
             - "@netgen_layouts.config.config_definition_factory"
 

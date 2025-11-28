@@ -7,9 +7,9 @@ namespace Netgen\Layouts\Tests\Block\BlockDefinition;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\Layouts\Block\DynamicParameters;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\Layouts\Tests\Block\Stubs\EmptyBlockDefinitionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ final class BlockDefinitionHandlerTest extends TestCase
 {
     private EmptyBlockDefinitionHandler $handler;
 
-    private TranslatableParameterBuilderFactory $parameterBuilderFactory;
+    private ParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {
@@ -32,14 +32,14 @@ final class BlockDefinitionHandlerTest extends TestCase
             ],
         );
 
-        $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
+        $this->parameterBuilderFactory = new ParameterBuilderFactory(
             $parameterTypeRegistry,
         );
     }
 
     public function testBuildParameters(): void
     {
-        $builder = $this->parameterBuilderFactory->createParameterBuilder();
+        $builder = $this->parameterBuilderFactory->createParameterBuilder([], true);
         $this->handler->buildParameters($builder);
 
         self::assertCount(0, $builder);

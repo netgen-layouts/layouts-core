@@ -7,9 +7,9 @@ namespace Netgen\Layouts\Tests\Block\BlockDefinition\Handler;
 use Generator;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsBlockInterface;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +18,7 @@ final class PagedCollectionsPluginTest extends TestCase
 {
     private PagedCollectionsPlugin $plugin;
 
-    private TranslatableParameterBuilderFactory $parameterBuilderFactory;
+    private ParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {
@@ -33,7 +33,7 @@ final class PagedCollectionsPluginTest extends TestCase
             ],
         );
 
-        $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
+        $this->parameterBuilderFactory = new ParameterBuilderFactory(
             $parameterTypeRegistry,
         );
     }
@@ -48,7 +48,7 @@ final class PagedCollectionsPluginTest extends TestCase
 
     public function testBuildParameters(): void
     {
-        $builder = $this->parameterBuilderFactory->createParameterBuilder();
+        $builder = $this->parameterBuilderFactory->createParameterBuilder([], true);
         $this->plugin->buildParameters($builder);
 
         self::assertCount(1, $builder);

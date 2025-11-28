@@ -13,12 +13,12 @@ use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
-use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 
 final class BlockDefinitionFactory
 {
     public function __construct(
-        private ParameterBuilderFactoryInterface $parameterBuilderFactory,
+        private ParameterBuilderFactory $parameterBuilderFactory,
         private HandlerPluginRegistry $handlerPluginRegistry,
         private ConfigDefinitionFactory $configDefinitionFactory,
     ) {}
@@ -110,7 +110,7 @@ final class BlockDefinitionFactory
         array $config,
         array $configDefinitionHandlers,
     ): array {
-        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
+        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder([], true);
         $handler->buildParameters($parameterBuilder);
 
         $handlerPlugins = $this->handlerPluginRegistry->getPlugins($identifier, $handler::class);

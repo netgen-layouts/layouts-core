@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Config;
 
-use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 
 final class ConfigDefinitionFactory
 {
     public function __construct(
-        private ParameterBuilderFactoryInterface $parameterBuilderFactory,
+        private ParameterBuilderFactory $parameterBuilderFactory,
     ) {}
 
     /**

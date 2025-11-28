@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Collection\QueryType;
 
-use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 
 final class QueryTypeFactory
 {
     public function __construct(
-        private ParameterBuilderFactoryInterface $parameterBuilderFactory,
+        private ParameterBuilderFactory $parameterBuilderFactory,
     ) {}
 
     /**
@@ -19,7 +19,7 @@ final class QueryTypeFactory
      */
     public function buildQueryType(string $type, QueryTypeHandlerInterface $handler, array $config): QueryTypeInterface
     {
-        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
+        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder([], true);
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 

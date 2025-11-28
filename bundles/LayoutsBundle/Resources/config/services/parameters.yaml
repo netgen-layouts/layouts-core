@@ -6,15 +6,10 @@ services:
         arguments:
             - !tagged_iterator netgen_layouts.parameter_type
 
-    # Builder factories
+    # Parameter builder factory
 
     netgen_layouts.parameters.parameter_builder_factory:
         class: Netgen\Layouts\Parameters\ParameterBuilderFactory
-        arguments:
-            - "@netgen_layouts.parameters.registry.parameter_type"
-
-    netgen_layouts.parameters.translatable_parameter_builder_factory:
-        class: Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory
         arguments:
             - "@netgen_layouts.parameters.registry.parameter_type"
 

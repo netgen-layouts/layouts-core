@@ -73,7 +73,7 @@ class ParameterDefinition
     /**
      * Returns if the provided parameter option exists.
      */
-    public function hasOption(string $option): bool
+    final public function hasOption(string $option): bool
     {
         return array_key_exists($option, $this->options);
     }
@@ -83,7 +83,7 @@ class ParameterDefinition
      *
      * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If option does not exist
      */
-    public function getOption(string $option): mixed
+    final public function getOption(string $option): mixed
     {
         if (!$this->hasOption($option)) {
             throw ParameterException::noOption($option);

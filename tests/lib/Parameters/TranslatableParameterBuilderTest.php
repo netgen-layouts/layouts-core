@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters;
 
+use Netgen\Layouts\Parameters\ParameterBuilder;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\Layouts\Parameters\TranslatableParameterBuilder;
-use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
-#[CoversClass(TranslatableParameterBuilder::class)]
+#[CoversClass(ParameterBuilder::class)]
 final class TranslatableParameterBuilderTest extends TestCase
 {
     private ParameterBuilderInterface $builder;
@@ -27,9 +27,9 @@ final class TranslatableParameterBuilderTest extends TestCase
             ],
         );
 
-        $factory = new TranslatableParameterBuilderFactory($registry);
+        $factory = new ParameterBuilderFactory($registry);
 
-        $this->builder = $factory->createParameterBuilder();
+        $this->builder = $factory->createParameterBuilder([], true);
     }
 
     public function testSetTranslatableOption(): void
