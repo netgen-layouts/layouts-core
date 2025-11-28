@@ -56,14 +56,6 @@ final class Collection implements Value
         get => $this->hasQuery ? CollectionType::Dynamic : CollectionType::Manual;
     }
 
-    public bool $isManual {
-        get => $this->collectionType === CollectionType::Manual;
-    }
-
-    public bool $isDynamic {
-        get => $this->collectionType === CollectionType::Dynamic;
-    }
-
     /**
      * Returns all collection items.
      */
