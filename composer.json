@@ -24,7 +24,7 @@
         "symfony/doctrine-bridge": "^7.3",
         "symfony/error-handler": "^7.3",
         "symfony/event-dispatcher": "^7.3",
-        "symfony/event-dispatcher-contracts": "^3.6",
+        "symfony/event-dispatcher-contracts": "^2.5 || ^3.6",
         "symfony/expression-language": "^7.3",
         "symfony/form": "^7.3",
         "symfony/framework-bundle": "^7.3",
