@@ -49,22 +49,22 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
      */
     final public protected(set) array $forms = [];
 
-    public array $viewTypes {
+    final public array $viewTypes {
         get => $this->configProvider->provideViewTypes();
     }
 
-    public array $viewTypeIdentifiers {
+    final public array $viewTypeIdentifiers {
         get => array_keys($this->configProvider->provideViewTypes());
     }
 
     final protected ConfigProviderInterface $configProvider;
 
-    public function hasCollection(string $identifier): bool
+    final public function hasCollection(string $identifier): bool
     {
         return array_key_exists($identifier, $this->collections);
     }
 
-    public function getCollection(string $identifier): Collection
+    final public function getCollection(string $identifier): Collection
     {
         if (!$this->hasCollection($identifier)) {
             throw BlockDefinitionException::noCollection($this->identifier, $identifier);
@@ -73,12 +73,12 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         return $this->collections[$identifier];
     }
 
-    public function hasForm(string $formName): bool
+    final public function hasForm(string $formName): bool
     {
         return array_key_exists($formName, $this->forms);
     }
 
-    public function getForm(string $formName): Form
+    final public function getForm(string $formName): Form
     {
         if (!$this->hasForm($formName)) {
             throw BlockDefinitionException::noForm($this->identifier, $formName);
@@ -87,22 +87,22 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         return $this->forms[$formName];
     }
 
-    public function getBlockViewTypes(Block $block): array
+    final public function getBlockViewTypes(Block $block): array
     {
         return $this->configProvider->provideViewTypes($block);
     }
 
-    public function getBlockViewTypeIdentifiers(Block $block): array
+    final public function getBlockViewTypeIdentifiers(Block $block): array
     {
         return array_keys($this->configProvider->provideViewTypes($block));
     }
 
-    public function hasViewType(string $viewType, ?Block $block = null): bool
+    final public function hasViewType(string $viewType, ?Block $block = null): bool
     {
         return array_key_exists($viewType, $this->configProvider->provideViewTypes($block));
     }
 
-    public function getViewType(string $viewType, ?Block $block = null): ViewType
+    final public function getViewType(string $viewType, ?Block $block = null): ViewType
     {
         $viewTypes = $this->configProvider->provideViewTypes($block);
 
@@ -113,7 +113,7 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         return $viewTypes[$viewType];
     }
 
-    public function getDynamicParameters(Block $block): DynamicParameters
+    final public function getDynamicParameters(Block $block): DynamicParameters
     {
         $dynamicParams = new DynamicParameters();
 
@@ -126,12 +126,12 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         return $dynamicParams;
     }
 
-    public function isContextual(Block $block): bool
+    final public function isContextual(Block $block): bool
     {
         return $this->handler->isContextual($block);
     }
 
-    public function hasHandlerPlugin(string $className): bool
+    final public function hasHandlerPlugin(string $className): bool
     {
         return array_any(
             $this->handlerPlugins,
@@ -139,7 +139,7 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
         );
     }
 
-    public function getHandlerPlugin(string $className): PluginInterface
+    final public function getHandlerPlugin(string $className): PluginInterface
     {
         foreach ($this->handlerPlugins as $handlerPlugin) {
             if (is_a($handlerPlugin, $className, true)) {

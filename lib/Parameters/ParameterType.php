@@ -12,7 +12,7 @@ abstract class ParameterType implements ParameterTypeInterface
 {
     public function configureOptions(OptionsResolver $optionsResolver): void {}
 
-    public function getConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
+    final public function getConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
     {
         if ($parameterDefinition->type::getIdentifier() !== $this::getIdentifier()) {
             throw ParameterTypeException::unsupportedParameterType(

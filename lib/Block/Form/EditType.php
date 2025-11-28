@@ -84,7 +84,7 @@ abstract class EditType extends AbstractType
      *
      * @param array<string, mixed> $options
      */
-    protected function addViewTypeForm(FormBuilderInterface $builder, array $options): void
+    final protected function addViewTypeForm(FormBuilderInterface $builder, array $options): void
     {
         $this->processViewTypeConfig($options['block']);
 
@@ -117,7 +117,7 @@ abstract class EditType extends AbstractType
      *
      * @param array<string, mixed> $options
      */
-    protected function addBlockNameForm(FormBuilderInterface $builder, array $options): void
+    final protected function addBlockNameForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'name',
@@ -136,7 +136,7 @@ abstract class EditType extends AbstractType
      * @param array<string, mixed> $options
      * @param string[] $groups
      */
-    protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = []): void
+    final protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = []): void
     {
         /** @var \Netgen\Layouts\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['block']->definition;

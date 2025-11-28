@@ -30,53 +30,53 @@ abstract class View implements ViewInterface
      */
     private array $customParameters = [];
 
-    public function getContext(): ?string
+    final public function getContext(): ?string
     {
         return $this->context;
     }
 
-    public function setContext(string $context): void
+    final public function setContext(string $context): void
     {
         $this->context = $context;
     }
 
-    public function getFallbackContext(): ?string
+    final public function getFallbackContext(): ?string
     {
         return $this->fallbackContext;
     }
 
-    public function setFallbackContext(string $fallbackContext): void
+    final public function setFallbackContext(string $fallbackContext): void
     {
         $this->fallbackContext = $fallbackContext;
     }
 
-    public function getTemplate(): ?string
+    final public function getTemplate(): ?string
     {
         return $this->template;
     }
 
-    public function setTemplate(string $template): void
+    final public function setTemplate(string $template): void
     {
         $this->template = $template;
     }
 
-    public function getResponse(): ?Response
+    final public function getResponse(): ?Response
     {
         return $this->response;
     }
 
-    public function setResponse(Response $response): void
+    final public function setResponse(Response $response): void
     {
         $this->response = $response;
     }
 
-    public function hasParameter(string $identifier): bool
+    final public function hasParameter(string $identifier): bool
     {
         return array_key_exists($identifier, $this->parameters)
             || array_key_exists($identifier, $this->customParameters);
     }
 
-    public function getParameter(string $identifier): mixed
+    final public function getParameter(string $identifier): mixed
     {
         if (!$this->hasParameter($identifier)) {
             throw ViewException::parameterNotFound($identifier, get_debug_type($this));
@@ -92,12 +92,12 @@ abstract class View implements ViewInterface
     /**
      * @return array<string, mixed>
      */
-    public function getParameters(): array
+    final public function getParameters(): array
     {
         return [...$this->customParameters, ...$this->parameters];
     }
 
-    public function addParameter(string $parameterName, mixed $parameterValue): void
+    final public function addParameter(string $parameterName, mixed $parameterValue): void
     {
         $this->customParameters[$parameterName] = $parameterValue;
     }
@@ -105,7 +105,7 @@ abstract class View implements ViewInterface
     /**
      * @param array<string, mixed> $parameters
      */
-    public function addParameters(array $parameters): void
+    final public function addParameters(array $parameters): void
     {
         $this->customParameters = [...$this->customParameters, ...$parameters];
     }

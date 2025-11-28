@@ -23,7 +23,7 @@ abstract class QueryHandler
     /**
      * Applies ID condition to the query.
      */
-    public function applyIdCondition(QueryBuilder $query, int|string $id, string $idColumn = 'id', string $uuidColumn = 'uuid', string $idParamName = 'id', string $uuidParamName = 'uuid'): void
+    final public function applyIdCondition(QueryBuilder $query, int|string $id, string $idColumn = 'id', string $uuidColumn = 'uuid', string $idParamName = 'id', string $uuidParamName = 'uuid'): void
     {
         $isUuid = is_string($id);
 
@@ -41,7 +41,7 @@ abstract class QueryHandler
     /**
      * Applies status condition to the query.
      */
-    public function applyStatusCondition(QueryBuilder $query, Status $status, string $statusColumn = 'status', string $paramName = 'status'): void
+    final public function applyStatusCondition(QueryBuilder $query, Status $status, string $statusColumn = 'status', string $paramName = 'status'): void
     {
         $query->andWhere($query->expr()->eq($statusColumn, ':' . $paramName))
             ->setParameter($paramName, $status->value, Types::INTEGER);
@@ -50,7 +50,7 @@ abstract class QueryHandler
     /**
      * Applies offset and limit to the query.
      */
-    public function applyOffsetAndLimit(QueryBuilder $query, ?int $offset, ?int $limit): void
+    final public function applyOffsetAndLimit(QueryBuilder $query, ?int $offset, ?int $limit): void
     {
         $query->setFirstResult($offset ?? 0);
 

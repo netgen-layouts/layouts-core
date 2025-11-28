@@ -12,5 +12,5 @@ abstract class Value
     /**
      * Status of the value.
      */
-    public Status $status;
+    final public Status $status;
 }

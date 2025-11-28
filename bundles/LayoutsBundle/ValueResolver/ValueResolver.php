@@ -20,12 +20,12 @@ abstract class ValueResolver implements ValueResolverInterface
 
     final protected const string STATUS_ARCHIVED = 'archived';
 
-    private const ROUTE_STATUS_PARAM = '_nglayouts_status';
+    private const string ROUTE_STATUS_PARAM = '_nglayouts_status';
 
     /**
      * @return iterable<mixed>
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
+    final public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if (!is_a($argument->getType() ?? '', $this->getSupportedClass(), true)) {
             return [];
