@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\CompoundParameterType;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterDefinition;
@@ -39,7 +38,7 @@ final class CompoundParameterTypeTest extends TestCase
     public function testGetConstraints(): void
     {
         $constraints = $this->parameterType->getConstraints(
-            CompoundParameterDefinition::fromArray(
+            ParameterDefinition::fromArray(
                 [
                     'type' => new CompoundParameterTypeStub(),
                     'isRequired' => false,
@@ -55,7 +54,7 @@ final class CompoundParameterTypeTest extends TestCase
     public function testGetConstraintsWithRequiredParameter(): void
     {
         $constraints = $this->parameterType->getConstraints(
-            CompoundParameterDefinition::fromArray(
+            ParameterDefinition::fromArray(
                 [
                     'type' => new CompoundParameterTypeStub(),
                     'isRequired' => true,
@@ -75,7 +74,12 @@ final class CompoundParameterTypeTest extends TestCase
         $this->expectExceptionMessage('Parameter with "compound_boolean" type is not supported');
 
         $this->parameterType->getConstraints(
-            CompoundParameterDefinition::fromArray(['type' => new BooleanType(), 'isRequired' => false]),
+            ParameterDefinition::fromArray(
+                [
+                    'type' => new BooleanType(),
+                    'isRequired' => false,
+                ],
+            ),
             42,
         );
     }

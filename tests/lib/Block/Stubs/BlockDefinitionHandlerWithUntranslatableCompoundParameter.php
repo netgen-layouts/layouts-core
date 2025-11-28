@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Tests\Block\Stubs;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\Layouts\Block\DynamicParameters;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 
@@ -25,7 +24,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
      */
     public function getParameterDefinitions(): array
     {
-        $compoundParam = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -94,7 +93,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                     ],
                 ],
             ),
-            'compound' => $compoundParam,
+            'compound' => $compoundDefinition,
         ];
     }
 

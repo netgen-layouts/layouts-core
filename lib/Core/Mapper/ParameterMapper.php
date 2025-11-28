@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Core\Mapper;
 
 use Generator;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
@@ -39,7 +38,7 @@ final class ParameterMapper
                 ],
             );
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+            if ($parameterDefinition->isCompound) {
                 yield from $this->mapParameters($parameterDefinition, $values);
             }
         }
@@ -68,7 +67,7 @@ final class ParameterMapper
                 $values[$parameterName],
             );
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+            if ($parameterDefinition->isCompound) {
                 yield from $this->serializeValues($parameterDefinition, $values);
             }
         }
@@ -88,7 +87,7 @@ final class ParameterMapper
 
             yield $paramName => $values[$paramName] ?? null;
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+            if ($parameterDefinition->isCompound) {
                 foreach ($parameterDefinition->parameterDefinitions as $subParamName => $subParameterDefinition) {
                     yield $subParamName => $values[$subParamName] ?? null;
                 }

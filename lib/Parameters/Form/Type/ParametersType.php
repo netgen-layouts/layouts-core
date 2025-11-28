@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Parameters\Form\Type;
 
 use Netgen\Layouts\API\Values\ParameterStruct;
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Form\MapperInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
@@ -85,7 +84,7 @@ final class ParametersType extends AbstractType
 
             $mapper->handleForm($parameterForm, $parameterDefinition);
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+            if ($parameterDefinition->isCompound) {
                 $this->buildForm(
                     $parameterForm,
                     [...$options, 'parameter_definitions' => $parameterDefinition],

@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Tests\Parameters;
 
 use Netgen\Layouts\Exception\BadMethodCallException;
 use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterBuilder;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
@@ -710,28 +709,30 @@ final class ParameterBuilderTest extends TestCase
         self::assertArrayHasKey('compound', $parameterDefinitions);
 
         self::assertContainsOnlyInstancesOf(ParameterDefinition::class, $parameterDefinitions);
-        self::assertNotInstanceOf(CompoundParameterDefinition::class, $parameterDefinitions['test']);
+        self::assertFalse($parameterDefinitions['test']->isCompound);
 
         $compoundDefinition = $parameterDefinitions['compound'];
-        self::assertInstanceOf(CompoundParameterDefinition::class, $compoundDefinition);
+        self::assertTrue($compoundDefinition->isCompound);
 
         $innerDefinitions = $compoundDefinition->parameterDefinitions;
 
         self::assertArrayHasKey('test2', $innerDefinitions);
 
         self::assertContainsOnlyInstancesOf(ParameterDefinition::class, $innerDefinitions);
-        self::assertNotInstanceOf(CompoundParameterDefinition::class, $innerDefinitions['test2']);
+        self::assertFalse($innerDefinitions['test2']->isCompound);
 
         self::assertSame(
             [
                 'constraints' => $constraints,
                 'defaultValue' => 'test value',
                 'groups' => ['group'],
+                'isCompound' => false,
                 'isReadOnly' => true,
                 'isRequired' => true,
                 'label' => null,
                 'name' => 'test',
                 'options' => [],
+                'parameterDefinitions' => [],
                 'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($parameterDefinitions['test']),
@@ -742,6 +743,7 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => [],
                 'defaultValue' => true,
                 'groups' => ['group 2'],
+                'isCompound' => true,
                 'isReadOnly' => false,
                 'isRequired' => false,
                 'label' => false,
@@ -758,11 +760,13 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => [],
                 'defaultValue' => 'test value 2',
                 'groups' => ['group 2'],
+                'isCompound' => false,
                 'isReadOnly' => false,
                 'isRequired' => true,
                 'label' => 'Custom label',
                 'name' => 'test2',
                 'options' => [],
+                'parameterDefinitions' => [],
                 'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($innerDefinitions['test2']),
@@ -798,11 +802,13 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => $constraints,
                 'defaultValue' => 'test value',
                 'groups' => ['group'],
+                'isCompound' => false,
                 'isReadOnly' => false,
                 'isRequired' => true,
                 'label' => null,
                 'name' => 'test',
                 'options' => [],
+                'parameterDefinitions' => [],
                 'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($parameterDefinitions['test']),
@@ -823,11 +829,13 @@ final class ParameterBuilderTest extends TestCase
                 'constraints' => [],
                 'defaultValue' => null,
                 'groups' => [],
+                'isCompound' => false,
                 'isReadOnly' => false,
                 'isRequired' => false,
                 'label' => null,
                 'name' => 'test',
                 'options' => [],
+                'parameterDefinitions' => [],
                 'type' => $this->registry->getParameterType('text'),
             ],
             $this->exportObject($parameterDefinitions['test']),

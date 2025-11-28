@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values;
 
 use Netgen\Layouts\API\Values\ParameterStructTrait;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
@@ -101,8 +100,7 @@ final class ParameterStructTraitTest extends TestCase
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
-        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundParameter */
-        $compoundParameter = $parameterDefinitions->getParameterDefinition('compound');
+        $compoundDefinition = $parameterDefinitions->getParameterDefinition('compound');
 
         $parameters = ParameterCollection::fromArray(
             [
@@ -117,7 +115,7 @@ final class ParameterStructTraitTest extends TestCase
                         'inner' => Parameter::fromArray(
                             [
                                 'value' => 'inner',
-                                'parameterDefinition' => $compoundParameter->getParameterDefinition('inner'),
+                                'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
                             ],
                         ),
                     ],
@@ -232,7 +230,7 @@ final class ParameterStructTraitTest extends TestCase
 
     private function buildParameterDefinitionCollection(): ParameterDefinitionCollectionInterface
     {
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -268,7 +266,7 @@ final class ParameterStructTraitTest extends TestCase
                     'defaultValue' => 'id_default',
                 ],
             ),
-            'compound' => $compoundParameter,
+            'compound' => $compoundDefinition,
         ];
 
         return new ParameterDefinitionCollection($parameterDefinitions);

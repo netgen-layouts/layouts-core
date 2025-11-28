@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Config\ConfigDefinitionInterface;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterList;
@@ -30,7 +29,6 @@ final class ConfigStructTest extends TestCase
     {
         $configDefinition = $this->buildConfigDefinition();
 
-        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $configDefinition->getParameterDefinition('compound');
 
         $config = Config::fromArray(
@@ -116,7 +114,7 @@ final class ConfigStructTest extends TestCase
 
     private function buildConfigDefinition(): ConfigDefinitionInterface
     {
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -152,7 +150,7 @@ final class ConfigStructTest extends TestCase
                     'defaultValue' => 'id_default',
                 ],
             ),
-            'compound' => $compoundParameter,
+            'compound' => $compoundDefinition,
         ];
 
         return ConfigDefinition::fromArray(['parameterDefinitions' => $parameterDefinitions]);

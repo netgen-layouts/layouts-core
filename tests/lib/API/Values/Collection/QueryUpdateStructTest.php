@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
 use Netgen\Layouts\Collection\QueryType\QueryType;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterList;
@@ -30,7 +29,6 @@ final class QueryUpdateStructTest extends TestCase
     {
         $queryType = $this->buildQueryType();
 
-        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $queryType->getParameterDefinition('compound');
 
         $query = Query::fromArray(
@@ -116,7 +114,7 @@ final class QueryUpdateStructTest extends TestCase
 
     private function buildQueryType(): QueryTypeInterface
     {
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -152,7 +150,7 @@ final class QueryUpdateStructTest extends TestCase
                     'defaultValue' => 'id_default',
                 ],
             ),
-            'compound' => $compoundParameter,
+            'compound' => $compoundDefinition,
         ];
 
         return QueryType::fromArray(['parameterDefinitions' => $parameterDefinitions]);

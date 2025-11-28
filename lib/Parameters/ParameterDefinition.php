@@ -12,53 +12,61 @@ use function array_key_exists;
 /**
  * The definition of a parameter, specifying its name, type and various options.
  */
-class ParameterDefinition
+final class ParameterDefinition implements ParameterDefinitionCollectionInterface
 {
     use HydratorTrait;
+    use ParameterDefinitionCollectionTrait;
 
     /**
      * Returns the parameter name.
      */
-    final public protected(set) string $name;
+    public private(set) string $name;
 
     /**
      * Returns the parameter type.
      */
-    final public protected(set) ParameterTypeInterface $type;
+    public private(set) ParameterTypeInterface $type;
 
     /**
      * Returns the parameter options.
      *
      * @var array<string, mixed>
      */
-    final public protected(set) array $options = [];
+    public private(set) array $options = [];
 
     /**
      * Returns if the parameter is required.
      */
-    final public protected(set) bool $isRequired;
+    public private(set) bool $isRequired;
 
     /**
      * Returns if the parameter is readonly. A readonly parameter can be set only when creating a block.
      */
-    final public protected(set) bool $isReadOnly;
+    public private(set) bool $isReadOnly;
+
+    /**
+     * Returns if the parameter is compound. A compound parameter can contain other parameters.
+     */
+    public bool $isCompound {
+        get => $this->type instanceof CompoundParameterTypeInterface;
+    }
 
     /**
      * Returns the default parameter value.
      */
-    final public protected(set) mixed $defaultValue;
+    public private(set) mixed $defaultValue;
 
     /**
      * Returns the parameter label.
      */
-    final public protected(set) string|false|null $label;
+    public private(set) string|false|null $label;
 
     /**
      * Returns the list of all parameter groups.
      *
      * @var string[]
      */
-    final public protected(set) array $groups = [];
+    public private(set) array $groups = [];
 
     /**
      * Returns the list of constraints.
@@ -68,12 +76,12 @@ class ParameterDefinition
      *
      * @var array<\Symfony\Component\Validator\Constraint|\Closure>
      */
-    final public protected(set) array $constraints = [];
+    public private(set) array $constraints = [];
 
     /**
      * Returns if the provided parameter option exists.
      */
-    final public function hasOption(string $option): bool
+    public function hasOption(string $option): bool
     {
         return array_key_exists($option, $this->options);
     }
@@ -83,7 +91,7 @@ class ParameterDefinition
      *
      * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If option does not exist
      */
-    final public function getOption(string $option): mixed
+    public function getOption(string $option): mixed
     {
         if (!$this->hasOption($option)) {
             throw ParameterException::noOption($option);

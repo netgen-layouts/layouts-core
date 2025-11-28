@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Tests\Validator\Structs;
 
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Block\BlockDefinition;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
@@ -26,7 +25,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 {
     protected function setUp(): void
     {
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -56,7 +55,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                             'defaultValue' => null,
                         ],
                     ),
-                    'checkbox' => $compoundParameter,
+                    'checkbox' => $compoundDefinition,
                 ],
             ),
             allowMissingFields: true,
@@ -88,7 +87,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     #[DataProvider('validateWithRuntimeConstraintsDataProvider')]
     public function testValidateWithRuntimeConstraints(array $parameters, bool $required, bool $isValid): void
     {
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -122,7 +121,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                             ],
                         ],
                     ),
-                    'checkbox' => $compoundParameter,
+                    'checkbox' => $compoundDefinition,
                 ],
             ),
             allowMissingFields: true,

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values;
 
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 use ReflectionClass;
@@ -58,7 +57,7 @@ trait ParameterStructTrait
         foreach ($definitionCollection->parameterDefinitions as $name => $definition) {
             $this->setParameterValue($name, $definition->defaultValue);
 
-            if ($definition instanceof CompoundParameterDefinition) {
+            if ($definition->isCompound) {
                 $this->fillDefault($definition);
             }
         }
@@ -87,7 +86,7 @@ trait ParameterStructTrait
 
             $this->setParameterValue($name, $value);
 
-            if ($definition instanceof CompoundParameterDefinition) {
+            if ($definition->isCompound) {
                 $this->fillFromCollection($definition, $parameters);
             }
         }
@@ -125,7 +124,7 @@ trait ParameterStructTrait
 
             $this->setParameterValue($name, $value);
 
-            if ($definition instanceof CompoundParameterDefinition) {
+            if ($definition->isCompound) {
                 $this->fillFromHash($definition, $values, $doImport);
             }
         }

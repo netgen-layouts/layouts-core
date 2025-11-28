@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\Layouts\Parameters\ParameterType\TextType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -39,6 +40,7 @@ final class ParameterDefinitionTest extends TestCase
         self::assertFalse($parameterDefinition->hasOption('other'));
         self::assertSame('value', $parameterDefinition->getOption('option'));
         self::assertTrue($parameterDefinition->isRequired);
+        self::assertFalse($parameterDefinition->isCompound);
         self::assertSame(42, $parameterDefinition->defaultValue);
         self::assertSame('Custom label', $parameterDefinition->label);
         self::assertSame(['group'], $parameterDefinition->groups);
@@ -51,5 +53,34 @@ final class ParameterDefinitionTest extends TestCase
         } catch (ParameterException) {
             // Do nothing
         }
+    }
+
+    public function testSetPropertiesForCompoundParameterType(): void
+    {
+        $type = new BooleanType();
+        $innerDefinition = new ParameterDefinition();
+
+        $parameterDefinition = ParameterDefinition::fromArray(
+            [
+                'type' => $type,
+                'parameterDefinitions' => ['name' => $innerDefinition],
+            ],
+        );
+
+        self::assertSame($type, $parameterDefinition->type);
+        self::assertTrue($parameterDefinition->isCompound);
+        self::assertSame(['name' => $innerDefinition], $parameterDefinition->parameterDefinitions);
+
+        self::assertFalse($parameterDefinition->hasParameterDefinition('test'));
+        self::assertTrue($parameterDefinition->hasParameterDefinition('name'));
+
+        try {
+            $parameterDefinition->getParameterDefinition('test');
+            self::fail('Fetched a parameter in empty collection.');
+        } catch (ParameterException) {
+            // Do nothing
+        }
+
+        self::assertSame($innerDefinition, $parameterDefinition->getParameterDefinition('name'));
     }
 }

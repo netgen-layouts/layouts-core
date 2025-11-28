@@ -42,8 +42,7 @@ final class ParameterMapperTest extends TestCase
             ),
         ];
 
-        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundParameter */
-        $compoundParameter = $blockDefinition->getParameterDefinition('compound');
+        $compoundDefinition = $blockDefinition->getParameterDefinition('compound');
 
         self::assertCount(4, $mappedParameters);
         self::assertArrayHasKey('css_class', $mappedParameters);
@@ -65,7 +64,7 @@ final class ParameterMapperTest extends TestCase
         self::assertTrue($mappedParameters['compound']->value);
         self::assertFalse($mappedParameters['compound']->isEmpty);
 
-        self::assertSame($compoundParameter->getParameterDefinition('inner'), $mappedParameters['inner']->parameterDefinition);
+        self::assertSame($compoundDefinition->getParameterDefinition('inner'), $mappedParameters['inner']->parameterDefinition);
         self::assertSame('inner-value', $mappedParameters['inner']->value);
         self::assertFalse($mappedParameters['inner']->isEmpty);
     }

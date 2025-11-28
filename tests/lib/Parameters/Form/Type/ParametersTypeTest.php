@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Parameters\Form\Type;
 
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper;
@@ -52,7 +51,7 @@ final class ParametersTypeTest extends FormTestCase
             $struct,
         );
 
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -88,7 +87,7 @@ final class ParametersTypeTest extends FormTestCase
                         'label' => 'custom label',
                     ],
                 ),
-                'compound' => $compoundParameter,
+                'compound' => $compoundDefinition,
             ],
         );
 

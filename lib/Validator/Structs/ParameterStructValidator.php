@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Validator\Structs;
 use Closure;
 use Generator;
 use Netgen\Layouts\API\Values\ParameterStruct;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
@@ -101,7 +100,7 @@ final class ParameterStructValidator extends ConstraintValidator
 
             yield $parameterDefinition->name => $constraints;
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+            if ($parameterDefinition->isCompound) {
                 foreach ($parameterDefinition->parameterDefinitions as $subParameterDefinition) {
                     yield $subParameterDefinition->name => new Constraints\Optional(
                         // Sub parameter values are always optional (either missing or set to null)
@@ -173,7 +172,7 @@ final class ParameterStructValidator extends ConstraintValidator
         foreach ($definitions->parameterDefinitions as $parameterDefinition) {
             yield $parameterDefinition->name => null;
 
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+            if ($parameterDefinition->isCompound) {
                 foreach ($parameterDefinition->parameterDefinitions as $subParameterDefinition) {
                     yield $subParameterDefinition->name => null;
                 }

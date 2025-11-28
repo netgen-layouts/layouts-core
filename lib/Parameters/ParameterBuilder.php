@@ -155,6 +155,11 @@ final class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
+    public function isCompound(): bool
+    {
+        return $this->type instanceof CompoundParameterTypeInterface;
+    }
+
     public function getDefaultValue(): mixed
     {
         return $this->defaultValue;
@@ -338,13 +343,11 @@ final class ParameterBuilder implements ParameterBuilderInterface
         // We build the sub parameters in order to lock the child builders
         $subParameters = $builder->buildParameterDefinitions();
 
-        if (!$builder->getType() instanceof CompoundParameterTypeInterface) {
-            return ParameterDefinition::fromArray($data);
+        if ($builder->isCompound()) {
+            $data['parameterDefinitions'] = $subParameters;
         }
 
-        $data['parameterDefinitions'] = $subParameters;
-
-        return CompoundParameterDefinition::fromArray($data);
+        return ParameterDefinition::fromArray($data);
     }
 
     /**

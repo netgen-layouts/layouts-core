@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterList;
@@ -30,7 +29,6 @@ final class BlockUpdateStructTest extends TestCase
     {
         $blockDefinition = $this->buildBlockDefinition();
 
-        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $blockDefinition->getParameterDefinition('compound');
 
         $block = Block::fromArray(
@@ -116,7 +114,7 @@ final class BlockUpdateStructTest extends TestCase
 
     private function buildBlockDefinition(): BlockDefinitionInterface
     {
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -152,7 +150,7 @@ final class BlockUpdateStructTest extends TestCase
                     'defaultValue' => 'id_default',
                 ],
             ),
-            'compound' => $compoundParameter,
+            'compound' => $compoundDefinition,
         ];
 
         return BlockDefinition::fromArray(['parameterDefinitions' => $parameterDefinitions]);

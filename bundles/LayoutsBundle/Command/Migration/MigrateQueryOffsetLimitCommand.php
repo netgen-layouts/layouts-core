@@ -9,7 +9,6 @@ use Doctrine\DBAL\Types\Types;
 use Generator;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -177,7 +176,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
     private function getQueryTypeParameters(QueryTypeInterface $queryType): Generator
     {
         foreach ($queryType->parameterDefinitions as $parameterDefinition) {
-            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+            if ($parameterDefinition->isCompound) {
                 foreach ($parameterDefinition->parameterDefinitions as $innerParameterDefinition) {
                     yield $innerParameterDefinition->name;
                 }

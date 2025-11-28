@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
-use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -106,7 +105,7 @@ final class BlockCreateStructTest extends TestCase
 
     private function buildBlockDefinition(): BlockDefinitionInterface
     {
-        $compoundParameter = CompoundParameterDefinition::fromArray(
+        $compoundDefinition = ParameterDefinition::fromArray(
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -142,7 +141,7 @@ final class BlockCreateStructTest extends TestCase
                     'defaultValue' => 'id_default',
                 ],
             ),
-            'compound' => $compoundParameter,
+            'compound' => $compoundDefinition,
         ];
 
         return BlockDefinition::fromArray(['parameterDefinitions' => $parameterDefinitions]);
