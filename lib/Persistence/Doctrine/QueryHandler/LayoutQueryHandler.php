@@ -14,6 +14,7 @@ use Netgen\Layouts\Persistence\Values\Status;
 use function array_column;
 use function array_map;
 use function is_string;
+use function max;
 use function mb_trim;
 
 final class LayoutQueryHandler extends QueryHandler
@@ -91,6 +92,8 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads the layout count for provided parameters. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int<0, max>
      */
     public function getLayoutsCount(bool $includeDrafts, ?bool $shared = null): int
     {
@@ -135,7 +138,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $data = $query->fetchAllAssociative();
 
-        return (int) ($data[0]['count'] ?? 0);
+        return max(0, (int) ($data[0]['count'] ?? 0));
     }
 
     /**
@@ -220,6 +223,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Loads the count of layouts related to provided shared layout.
+     *
+     * @return int<0, max>
      */
     public function getRelatedLayoutsCount(Layout $sharedLayout): int
     {
@@ -248,7 +253,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $data = $query->fetchAllAssociative();
 
-        return (int) ($data[0]['count'] ?? 0);
+        return max(0, (int) ($data[0]['count'] ?? 0));
     }
 
     /**

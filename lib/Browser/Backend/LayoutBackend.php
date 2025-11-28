@@ -21,7 +21,6 @@ use Netgen\Layouts\Exception\NotFoundException as BaseNotFoundException;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
 
-use function max;
 use function sprintf;
 
 final class LayoutBackend implements BackendInterface
@@ -77,11 +76,9 @@ final class LayoutBackend implements BackendInterface
 
     public function getSubItemsCount(LocationInterface $location): int
     {
-        $count = $this->includeSharedLayouts() ?
+        return $this->includeSharedLayouts() ?
             $this->layoutService->getAllLayoutsCount() :
             $this->layoutService->getLayoutsCount();
-
-        return max(0, $count);
     }
 
     public function searchItems(SearchQuery $searchQuery): SearchResultInterface

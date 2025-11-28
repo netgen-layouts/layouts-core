@@ -83,6 +83,8 @@ interface LayoutResolverService extends TransactionService
      * Returns the number of published rules pointing to the provided layout.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
+     *
+     * @return int<0, max>
      */
     public function getRuleCountForLayout(Layout $layout): int;
 
@@ -95,6 +97,8 @@ interface LayoutResolverService extends TransactionService
 
     /**
      * Returns the number of rules from the provided parent group.
+     *
+     * @return int<0, max>
      */
     public function getRuleCountFromGroup(RuleGroup $ruleGroup): int;
 
@@ -107,6 +111,8 @@ interface LayoutResolverService extends TransactionService
 
     /**
      * Returns the number of rule groups from the provided parent group.
+     *
+     * @return int<0, max>
      */
     public function getRuleGroupCount(RuleGroup $parentGroup): int;
 

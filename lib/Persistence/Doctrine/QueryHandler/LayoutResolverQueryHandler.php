@@ -24,6 +24,7 @@ use function array_column;
 use function array_map;
 use function count;
 use function json_encode;
+use function max;
 use function min;
 
 final class LayoutResolverQueryHandler extends QueryHandler
@@ -74,6 +75,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns the number of rules mapped to provided layout.
+     *
+     * @return int<0, max>
      */
     public function getRuleCountForLayout(Status $ruleStatus, Layout $layout): int
     {
@@ -89,7 +92,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $data = $query->fetchAllAssociative();
 
-        return (int) ($data[0]['count'] ?? 0);
+        return max(0, (int) ($data[0]['count'] ?? 0));
     }
 
     /**
@@ -116,6 +119,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns the number of rules in provided group.
+     *
+     * @return int<0, max>
      */
     public function getRuleCountFromGroup(RuleGroup $ruleGroup): int
     {
@@ -132,7 +137,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $data = $query->fetchAllAssociative();
 
-        return (int) ($data[0]['count'] ?? 0);
+        return max(0, (int) ($data[0]['count'] ?? 0));
     }
 
     /**
@@ -237,6 +242,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns the number of rule groups.
+     *
+     * @return int<0, max>
      */
     public function getRuleGroupCount(RuleGroup $ruleGroup): int
     {
@@ -253,7 +260,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $data = $query->fetchAllAssociative();
 
-        return (int) ($data[0]['count'] ?? 0);
+        return max(0, (int) ($data[0]['count'] ?? 0));
     }
 
     /**

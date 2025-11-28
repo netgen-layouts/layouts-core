@@ -45,6 +45,8 @@ interface LayoutHandlerInterface
     /**
      * Returns the count of all non-shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int<0, max>
      */
     public function getLayoutsCount(bool $includeDrafts = false): int;
 
@@ -59,6 +61,8 @@ interface LayoutHandlerInterface
     /**
      * Returns the count of all shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int<0, max>
      */
     public function getSharedLayoutsCount(bool $includeDrafts = false): int;
 
@@ -73,6 +77,8 @@ interface LayoutHandlerInterface
     /**
      * Returns the count of all layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int<0, max>
      */
     public function getAllLayoutsCount(bool $includeDrafts = false): int;
 
@@ -85,6 +91,8 @@ interface LayoutHandlerInterface
 
     /**
      * Loads the count of layouts related to provided shared layout.
+     *
+     * @return int<0, max>
      */
     public function getRelatedLayoutsCount(Layout $sharedLayout): int;
 

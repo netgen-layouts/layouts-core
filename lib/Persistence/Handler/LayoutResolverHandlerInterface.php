@@ -55,6 +55,8 @@ interface LayoutResolverHandlerInterface
 
     /**
      * Returns the number of published rules mapped to provided layout.
+     *
+     * @return int<0, max>
      */
     public function getRuleCountForLayout(Layout $layout): int;
 
@@ -69,6 +71,8 @@ interface LayoutResolverHandlerInterface
 
     /**
      * Returns the number of rules from the provided parent group.
+     *
+     * @return int<0, max>
      */
     public function getRuleCountFromGroup(RuleGroup $ruleGroup): int;
 
@@ -83,6 +87,8 @@ interface LayoutResolverHandlerInterface
 
     /**
      * Returns the number of rule groups from the provided parent group.
+     *
+     * @return int<0, max>
      */
     public function getRuleGroupCount(RuleGroup $ruleGroup): int;
 

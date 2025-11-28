@@ -46,6 +46,8 @@ interface LayoutService extends TransactionService
     /**
      * Returns the count of all published non-shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int<0, max>
      */
     public function getLayoutsCount(bool $includeDrafts = false): int;
 
@@ -58,6 +60,8 @@ interface LayoutService extends TransactionService
     /**
      * Returns the count of all published shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int<0, max>
      */
     public function getSharedLayoutsCount(bool $includeDrafts = false): int;
 
@@ -70,6 +74,8 @@ interface LayoutService extends TransactionService
     /**
      * Returns the count of all published layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int<0, max>
      */
     public function getAllLayoutsCount(bool $includeDrafts = false): int;
 
@@ -86,6 +92,8 @@ interface LayoutService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not shared
      *                                                     If provided layout is not published
+     *
+     * @return int<0, max>
      */
     public function getRelatedLayoutsCount(Layout $sharedLayout): int;
 
