@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
+use JsonException;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Status;
 
@@ -13,6 +14,8 @@ use function is_array;
 use function json_decode;
 use function ksort;
 use function sort;
+
+use const JSON_THROW_ON_ERROR;
 
 final class BlockMapper
 {
@@ -79,7 +82,11 @@ final class BlockMapper
      */
     private function buildParameters(string $parameters): array
     {
-        $decodedParameters = json_decode($parameters, true);
+        try {
+            $decodedParameters = json_decode($parameters, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            return [];
+        }
 
         return is_array($decodedParameters) ? $decodedParameters : [];
     }

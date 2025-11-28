@@ -151,6 +151,8 @@ abstract class ImporterTestBase extends CoreTestCase
                 $importData,
             ),
             true,
+            512,
+            JSON_THROW_ON_ERROR,
         );
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
@@ -193,6 +195,8 @@ abstract class ImporterTestBase extends CoreTestCase
                 $importData,
             ),
             true,
+            512,
+            JSON_THROW_ON_ERROR,
         );
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {

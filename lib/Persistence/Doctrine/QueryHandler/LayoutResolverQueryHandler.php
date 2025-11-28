@@ -27,6 +27,8 @@ use function json_encode;
 use function max;
 use function min;
 
+use const JSON_THROW_ON_ERROR;
+
 final class LayoutResolverQueryHandler extends QueryHandler
 {
     public function __construct(
@@ -1182,7 +1184,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('id', $condition->id, Types::INTEGER)
             ->setParameter('uuid', $condition->uuid, Types::STRING)
             ->setParameter('type', $condition->type, Types::STRING)
-            ->setParameter('value', json_encode($condition->value), Types::STRING);
+            ->setParameter('value', json_encode($condition->value, JSON_THROW_ON_ERROR), Types::STRING);
 
         $this->applyStatusCondition($query, $condition->status);
 
@@ -1257,7 +1259,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('uuid', $condition->uuid, Types::STRING)
             ->setParameter('status', $condition->status->value, Types::INTEGER)
             ->setParameter('type', $condition->type, Types::STRING)
-            ->setParameter('value', json_encode($condition->value), Types::STRING);
+            ->setParameter('value', json_encode($condition->value, JSON_THROW_ON_ERROR), Types::STRING);
 
         $query->executeStatement();
 

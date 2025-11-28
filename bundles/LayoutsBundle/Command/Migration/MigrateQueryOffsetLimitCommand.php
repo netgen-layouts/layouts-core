@@ -19,6 +19,8 @@ use function count;
 use function json_decode;
 use function sprintf;
 
+use const JSON_THROW_ON_ERROR;
+
 final class MigrateQueryOffsetLimitCommand extends Command
 {
     private const array KNOWN_QUERY_TYPES = [
@@ -202,7 +204,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                     $offset = 0;
                     $limit = null;
 
-                    $parameters = json_decode($queryDataItem['parameters'], true);
+                    $parameters = json_decode($queryDataItem['parameters'], true, 512, JSON_THROW_ON_ERROR);
                     if ($queryTypeParameters[$queryDataItem['type']]['offset'] !== null) {
                         $offsetParameter = $queryTypeParameters[$queryDataItem['type']]['offset'];
                         $offset = (int) ($parameters[$offsetParameter] ?? 0);

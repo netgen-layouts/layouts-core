@@ -13,6 +13,8 @@ use Netgen\Layouts\Persistence\Values\Status;
 
 use function json_decode;
 
+use const JSON_THROW_ON_ERROR;
+
 final class LayoutResolverMapper
 {
     /**
@@ -124,7 +126,7 @@ final class LayoutResolverMapper
                     'ruleId' => (int) $dataItem['rule_id'],
                     'ruleUuid' => $dataItem['rule_uuid'],
                     'type' => $dataItem['type'],
-                    'value' => json_decode($dataItem['value'], true),
+                    'value' => json_decode($dataItem['value'], true, 512, JSON_THROW_ON_ERROR),
                 ],
             );
         }
@@ -152,7 +154,7 @@ final class LayoutResolverMapper
                     'ruleGroupId' => (int) $dataItem['rule_group_id'],
                     'ruleGroupUuid' => $dataItem['rule_group_uuid'],
                     'type' => $dataItem['type'],
-                    'value' => json_decode($dataItem['value'], true),
+                    'value' => json_decode($dataItem['value'], true, 512, JSON_THROW_ON_ERROR),
                 ],
             );
         }

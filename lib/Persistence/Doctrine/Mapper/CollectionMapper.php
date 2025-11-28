@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
+use JsonException;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
@@ -17,6 +18,8 @@ use function is_array;
 use function json_decode;
 use function ksort;
 use function sort;
+
+use const JSON_THROW_ON_ERROR;
 
 final class CollectionMapper
 {
@@ -204,7 +207,11 @@ final class CollectionMapper
      */
     private function buildParameters(string $parameters): array
     {
-        $decodedParameters = json_decode($parameters, true);
+        try {
+            $decodedParameters = json_decode($parameters, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            return [];
+        }
 
         return is_array($decodedParameters) ? $decodedParameters : [];
     }
