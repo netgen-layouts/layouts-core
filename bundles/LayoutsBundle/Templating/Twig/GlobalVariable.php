@@ -107,7 +107,7 @@ final class GlobalVariable
             return null;
         }
 
-        return $layoutView->getLayout();
+        return $layoutView->layout;
     }
 
     /**
@@ -157,7 +157,7 @@ final class GlobalVariable
             return $this->getPageLayoutTemplate();
         }
 
-        return $layoutView->getTemplate();
+        return $layoutView->template;
     }
 
     /**

@@ -25,11 +25,11 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        if (!$view->getForm()->getConfig()->hasOption('query')) {
+        if (!$view->form->getConfig()->hasOption('query')) {
             return false;
         }
 
-        $query = $view->getForm()->getConfig()->getOption('query');
+        $query = $view->form->getConfig()->getOption('query');
         if (!$query instanceof Query) {
             return false;
         }

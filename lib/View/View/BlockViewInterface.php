@@ -12,5 +12,5 @@ interface BlockViewInterface extends ViewInterface
     /**
      * Returns the block.
      */
-    public function getBlock(): Block;
+    public Block $block { get; }
 }

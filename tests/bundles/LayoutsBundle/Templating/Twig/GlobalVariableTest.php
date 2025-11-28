@@ -280,7 +280,7 @@ final class GlobalVariableTest extends TestCase
             ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $layoutView = new LayoutView($layout);
-        $layoutView->setTemplate('layout.html.twig');
+        $layoutView->template = 'layout.html.twig';
 
         $this->viewBuilderMock
             ->expects(self::once())
@@ -308,7 +308,7 @@ final class GlobalVariableTest extends TestCase
             ->method('resolveRule');
 
         $layoutView = new LayoutView($layout);
-        $layoutView->setTemplate('layout.html.twig');
+        $layoutView->template = 'layout.html.twig';
 
         $this->viewBuilderMock
             ->expects(self::once())
@@ -329,7 +329,7 @@ final class GlobalVariableTest extends TestCase
     {
         $layout = new Layout();
         $layoutView = new LayoutView($layout);
-        $layoutView->setTemplate('layout.html.twig');
+        $layoutView->template = 'layout.html.twig';
 
         $request = Request::create('/');
         $request->attributes->set('nglLayoutView', $layoutView);
@@ -383,7 +383,7 @@ final class GlobalVariableTest extends TestCase
             ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $layoutView = new LayoutView($layout);
-        $layoutView->setTemplate('layout.html.twig');
+        $layoutView->template = 'layout.html.twig';
 
         $this->viewBuilderMock
             ->expects(self::once())
@@ -404,7 +404,7 @@ final class GlobalVariableTest extends TestCase
     {
         $layout = new Layout();
         $layoutView = new LayoutView($layout);
-        $layoutView->setTemplate('layout.html.twig');
+        $layoutView->template = 'layout.html.twig';
 
         $request = Request::create('/');
         $request->attributes->set('exception', new Exception());

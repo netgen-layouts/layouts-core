@@ -9,18 +9,16 @@ use Netgen\Layouts\View\View;
 
 final class RuleConditionView extends View implements RuleConditionViewInterface
 {
+    public string $identifier {
+        get => 'rule_condition';
+    }
+
+    public Condition $condition {
+        get => $this->getParameter('condition');
+    }
+
     public function __construct(Condition $condition)
     {
-        $this->parameters['condition'] = $condition;
-    }
-
-    public function getCondition(): Condition
-    {
-        return $this->parameters['condition'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'rule_condition';
+        $this->addInternalParameter('condition', $condition);
     }
 }

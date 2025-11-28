@@ -29,18 +29,18 @@ final class RuleViewTest extends TestCase
 
     public function testGetRule(): void
     {
-        self::assertSame($this->rule, $this->view->getRule());
+        self::assertSame($this->rule, $this->view->rule);
         self::assertSame(
             [
                 'param' => 'value',
                 'rule' => $this->rule,
             ],
-            $this->view->getParameters(),
+            $this->view->parameters,
         );
     }
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('rule', $this->view::getIdentifier());
+        self::assertSame('rule', $this->view->identifier);
     }
 }

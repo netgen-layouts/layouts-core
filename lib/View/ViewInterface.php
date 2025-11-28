@@ -31,17 +31,12 @@ interface ViewInterface
     /**
      * Returns the view identifier.
      */
-    public static function getIdentifier(): string;
+    public string $identifier { get; }
 
     /**
      * Returns the view context.
      */
-    public function getContext(): ?string;
-
-    /**
-     * Sets the view context.
-     */
-    public function setContext(string $context): void;
+    public ?string $context { get; set; }
 
     /**
      * Returns the view fallback context.
@@ -49,36 +44,25 @@ interface ViewInterface
      * Fallback context will be used if no match rules
      * for the original context could be found.
      */
-    public function getFallbackContext(): ?string;
-
-    /**
-     * Sets the view fallback context.
-     *
-     * Fallback context will be used if no match rules
-     * for the original context could be found.
-     */
-    public function setFallbackContext(string $fallbackContext): void;
+    public ?string $fallbackContext { get; set; }
 
     /**
      * Returns the view template or null if template does not exist in the view.
      */
-    public function getTemplate(): ?string;
-
-    /**
-     * Sets the view template.
-     */
-    public function setTemplate(string $template): void;
+    public ?string $template { get; set; }
 
     /**
      * Returns the response which will be used to render the view
      * or null if no response has been set.
      */
-    public function getResponse(): ?Response;
+    public ?Response $response { get; set; }
 
     /**
-     * Sets the response which will be used to render the view.
+     * Returns the view parameters.
+     *
+     * @var array<string, mixed>
      */
-    public function setResponse(Response $response): void;
+    public array $parameters { get; }
 
     /**
      * Returns if the view has a parameter.
@@ -93,21 +77,14 @@ interface ViewInterface
     public function getParameter(string $identifier): mixed;
 
     /**
-     * Returns the view parameters.
-     *
-     * @return array<string, mixed>
-     */
-    public function getParameters(): array;
-
-    /**
      * Adds a parameter to the view.
      */
-    public function addParameter(string $parameterName, mixed $parameterValue): void;
+    public function addParameter(string $parameterName, mixed $parameterValue): static;
 
     /**
      * Adds parameters to the view.
      *
      * @param array<string, mixed> $parameters
      */
-    public function addParameters(array $parameters): void;
+    public function addParameters(array $parameters): static;
 }

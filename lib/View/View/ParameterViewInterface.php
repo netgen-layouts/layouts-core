@@ -12,5 +12,5 @@ interface ParameterViewInterface extends ViewInterface
     /**
      * Returns the parameter.
      */
-    public function getParameterValue(): Parameter;
+    public Parameter $parameterValue { get; }
 }

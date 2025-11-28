@@ -12,5 +12,5 @@ interface RuleViewInterface extends ViewInterface
     /**
      * Returns the rule.
      */
-    public function getRule(): Rule;
+    public Rule $rule { get; }
 }

@@ -28,15 +28,12 @@ final class TemplateResolver implements TemplateResolverInterface
     {
         $viewConfig = $this->configuration->getParameter('view');
 
-        $viewContext = $view->getContext();
-        $fallbackViewContext = $view->getFallbackContext();
-
-        $contextList = [$viewContext];
-        if (is_string($fallbackViewContext)) {
-            $contextList[] = $fallbackViewContext;
+        $contextList = [$view->context];
+        if ($view->fallbackContext !== null) {
+            $contextList[] = $view->fallbackContext;
         }
 
-        $viewIdentifier = sprintf('%s_view', $view::getIdentifier());
+        $viewIdentifier = sprintf('%s_view', $view->identifier);
         foreach ($contextList as $context) {
             if (!is_string($context) || !isset($viewConfig[$viewIdentifier][$context])) {
                 continue;
@@ -47,14 +44,14 @@ final class TemplateResolver implements TemplateResolverInterface
                     continue;
                 }
 
-                $view->setTemplate($config['template']);
+                $view->template = $config['template'];
                 $view->addParameters([...$this->evaluateParameters($view, $config['parameters'])]);
 
                 return;
             }
         }
 
-        throw TemplateResolverException::noTemplateMatch($viewIdentifier, $viewContext ?? '');
+        throw TemplateResolverException::noTemplateMatch($viewIdentifier, $view->context ?? '');
     }
 
     /**
@@ -91,7 +88,7 @@ final class TemplateResolver implements TemplateResolverInterface
                 $expressionLanguage = new ExpressionLanguage();
                 $value = $expressionLanguage->evaluate(
                     mb_substr($value, 2),
-                    [...$view->getParameters(), 'view' => $view],
+                    [...$view->parameters, 'view' => $view],
                 );
             }
 

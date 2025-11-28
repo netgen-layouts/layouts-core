@@ -34,12 +34,12 @@ final class PlaceholderViewTest extends TestCase
 
     public function testGetPlaceholder(): void
     {
-        self::assertSame($this->placeholder, $this->view->getPlaceholder());
+        self::assertSame($this->placeholder, $this->view->placeholder);
     }
 
     public function testGetBlock(): void
     {
-        self::assertSame($this->block, $this->view->getBlock());
+        self::assertSame($this->block, $this->view->block);
     }
 
     public function testGetParameters(): void
@@ -50,12 +50,12 @@ final class PlaceholderViewTest extends TestCase
                 'placeholder' => $this->placeholder,
                 'block' => $this->block,
             ],
-            $this->view->getParameters(),
+            $this->view->parameters,
         );
     }
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('placeholder', $this->view::getIdentifier());
+        self::assertSame('placeholder', $this->view->identifier);
     }
 }

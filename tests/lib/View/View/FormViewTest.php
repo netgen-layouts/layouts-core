@@ -23,7 +23,7 @@ final class FormViewTest extends TestCase
         $formFactory = Forms::createFormFactoryBuilder()
             ->getFormFactory();
 
-        $this->form = $formFactory->create(FormType::class);
+        $this->form = $formFactory->create();
 
         $this->view = new FormView($this->form);
 
@@ -33,15 +33,15 @@ final class FormViewTest extends TestCase
 
     public function testGetForm(): void
     {
-        self::assertSame($this->form, $this->view->getForm());
-        self::assertSame(FormType::class, $this->view->getFormType());
+        self::assertSame($this->form, $this->view->form);
+        self::assertSame(FormType::class, $this->view->formType);
 
-        self::assertSame($this->view->getFormView(), $this->view->getParameter('form'));
+        self::assertSame($this->view->formView, $this->view->getParameter('form'));
         self::assertSame('value', $this->view->getParameter('param'));
     }
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('form', $this->view::getIdentifier());
+        self::assertSame('form', $this->view->identifier);
     }
 }

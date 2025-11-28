@@ -42,26 +42,25 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
             return;
         }
 
-        if (!in_array($view->getContext(), $this->enabledContexts, true)) {
+        if (!in_array($view->context, $this->enabledContexts, true)) {
             return;
         }
 
         $flags = 0;
-        if ($view->getContext() === ViewInterface::CONTEXT_APP) {
+        if ($view->context === ViewInterface::CONTEXT_APP) {
             $flags = ResultSet::INCLUDE_UNKNOWN_ITEMS;
         }
 
-        $block = $view->getBlock();
         $collections = [];
         $pagers = [];
 
-        foreach ($block->collections as $identifier => $collection) {
+        foreach ($view->block->collections as $identifier => $collection) {
             // In non AJAX scenarios, we're always rendering the first page of the collection
             // as specified by offset and limit in the collection itself
             $pager = $this->pagerFactory->getPager(
                 $collection,
                 1,
-                $this->getMaxPages($block),
+                $this->getMaxPages($view->block),
                 $flags,
             );
 

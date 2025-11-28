@@ -76,7 +76,7 @@ final class GetCollectionResultsListenerTest extends TestCase
             ),
         );
 
-        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -133,7 +133,7 @@ final class GetCollectionResultsListenerTest extends TestCase
             ),
         );
 
-        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -186,7 +186,7 @@ final class GetCollectionResultsListenerTest extends TestCase
             ),
         );
 
-        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -238,7 +238,7 @@ final class GetCollectionResultsListenerTest extends TestCase
             ),
         );
 
-        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -281,7 +281,7 @@ final class GetCollectionResultsListenerTest extends TestCase
             ),
         );
 
-        $view->setContext(ViewInterface::CONTEXT_APP);
+        $view->context = ViewInterface::CONTEXT_APP;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -318,7 +318,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     public function testOnRenderViewWithWrongContext(): void
     {
         $view = new BlockView(new Block());
-        $view->setContext(ViewInterface::CONTEXT_ADMIN);
+        $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onRenderView($event);

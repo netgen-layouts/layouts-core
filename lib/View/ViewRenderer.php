@@ -25,14 +25,14 @@ final class ViewRenderer implements ViewRendererInterface
         $view->addParameters($event->parameters);
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, $view::getIdentifier()));
+        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, $view->identifier));
         $view->addParameters($event->parameters);
 
-        $viewTemplate = $view->getTemplate();
+        $viewTemplate = $view->template;
         if ($viewTemplate === null) {
             return '';
         }
 
-        return $this->twig->render($viewTemplate, $view->getParameters());
+        return $this->twig->render($viewTemplate, $view->parameters);
     }
 }

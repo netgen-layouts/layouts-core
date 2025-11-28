@@ -32,13 +32,13 @@ final class LayoutTypeViewProviderTest extends TestCase
 
         self::assertInstanceOf(LayoutTypeViewInterface::class, $view);
 
-        self::assertSame($layoutType, $view->getLayoutType());
-        self::assertNull($view->getTemplate());
+        self::assertSame($layoutType, $view->layoutType);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'layout_type' => $layoutType,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

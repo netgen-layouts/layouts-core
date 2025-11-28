@@ -23,11 +23,10 @@ final class ValueType implements MatcherInterface
             return false;
         }
 
-        $item = $view->getItem();
-        if ($item instanceof NullCmsItem) {
+        if ($view->item instanceof NullCmsItem) {
             return in_array('null', $config, true);
         }
 
-        return in_array($item->valueType, $config, true);
+        return in_array($view->item->valueType, $config, true);
     }
 }

@@ -24,11 +24,11 @@ final class Locale implements MatcherInterface
             return false;
         }
 
-        if (!$view->getForm()->getConfig()->hasOption('block')) {
+        if (!$view->form->getConfig()->hasOption('block')) {
             return false;
         }
 
-        $block = $view->getForm()->getConfig()->getOption('block');
+        $block = $view->form->getConfig()->getOption('block');
         if (!$block instanceof Block) {
             return false;
         }

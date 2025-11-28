@@ -12,5 +12,5 @@ interface RuleTargetViewInterface extends ViewInterface
     /**
      * Returns the target.
      */
-    public function getTarget(): Target;
+    public Target $target { get; }
 }

@@ -9,18 +9,16 @@ use Netgen\Layouts\View\View;
 
 final class BlockView extends View implements BlockViewInterface
 {
+    public string $identifier {
+        get => 'block';
+    }
+
+    public Block $block {
+        get => $this->getParameter('block');
+    }
+
     public function __construct(Block $block)
     {
-        $this->parameters['block'] = $block;
-    }
-
-    public function getBlock(): Block
-    {
-        return $this->parameters['block'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'block';
+        $this->addInternalParameter('block', $block);
     }
 }

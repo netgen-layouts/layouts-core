@@ -10,24 +10,22 @@ use Netgen\Layouts\View\View;
 
 final class PlaceholderView extends View implements PlaceholderViewInterface
 {
+    public string $identifier {
+        get => 'placeholder';
+    }
+
+    public Placeholder $placeholder {
+        get => $this->getParameter('placeholder');
+    }
+
+    public Block $block {
+        get => $this->getParameter('block');
+    }
+
     public function __construct(Placeholder $placeholder, Block $block)
     {
-        $this->parameters['placeholder'] = $placeholder;
-        $this->parameters['block'] = $block;
-    }
-
-    public function getPlaceholder(): Placeholder
-    {
-        return $this->parameters['placeholder'];
-    }
-
-    public function getBlock(): Block
-    {
-        return $this->parameters['block'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'placeholder';
+        $this
+            ->addInternalParameter('placeholder', $placeholder)
+            ->addInternalParameter('block', $block);
     }
 }

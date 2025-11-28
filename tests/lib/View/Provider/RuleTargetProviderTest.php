@@ -32,13 +32,13 @@ final class RuleTargetProviderTest extends TestCase
 
         self::assertInstanceOf(RuleTargetViewInterface::class, $view);
 
-        self::assertSame($target, $view->getTarget());
-        self::assertNull($view->getTemplate());
+        self::assertSame($target, $view->target);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'target' => $target,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

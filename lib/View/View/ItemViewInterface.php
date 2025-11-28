@@ -12,10 +12,10 @@ interface ItemViewInterface extends ViewInterface
     /**
      * Returns the CMS item.
      */
-    public function getItem(): CmsItemInterface;
+    public CmsItemInterface $item { get; }
 
     /**
      * Returns the view type with which the CMS item will be rendered.
      */
-    public function getViewType(): string;
+    public string $viewType { get; }
 }

@@ -79,21 +79,18 @@ final class LayoutsDataCollector extends DataCollector
      */
     public function collectLayout(LayoutViewInterface $layoutView): void
     {
-        $layout = $layoutView->getLayout();
-        $template = $layoutView->getTemplate();
-
         $this->data['layout'] = [
-            'id' => $layout->id->toString(),
-            'path' => $this->layoutUrlGenerator->generateLayoutUrl($layout->id),
-            'name' => $layout->name,
-            'type' => $layout->layoutType->name,
-            'context' => $layoutView->getContext(),
+            'id' => $layoutView->layout->id->toString(),
+            'path' => $this->layoutUrlGenerator->generateLayoutUrl($layoutView->layout->id),
+            'name' => $layoutView->layout->name,
+            'type' => $layoutView->layout->layoutType->name,
+            'context' => $layoutView->context,
             'template' => null,
             'template_path' => null,
         ];
 
-        if ($template !== null) {
-            $templateSource = $this->getTemplateSource($template);
+        if ($layoutView->template !== null) {
+            $templateSource = $this->getTemplateSource($layoutView->template);
 
             $this->data['layout']['template'] = $templateSource->getName();
             $this->data['layout']['template_path'] = $templateSource->getPath();
@@ -131,9 +128,7 @@ final class LayoutsDataCollector extends DataCollector
      */
     public function collectBlockView(BlockViewInterface $blockView): void
     {
-        $block = $blockView->getBlock();
-        $blockDefinition = $block->definition;
-        $template = $blockView->getTemplate();
+        $block = $blockView->block;
 
         $layoutId = $block->layoutId->toString();
         $this->layoutCache[$layoutId] ??= $this->layoutHandler->loadLayout(
@@ -147,17 +142,17 @@ final class LayoutsDataCollector extends DataCollector
             'layout_id' => $layoutId,
             'layout_path' => $this->layoutUrlGenerator->generateLayoutUrl($block->layoutId),
             'layout_name' => $this->layoutCache[$layoutId]->name,
-            'definition' => $blockDefinition->name,
-            'view_type' => $blockDefinition->hasViewType($block->viewType, $block) ?
-                $blockDefinition->getViewType($block->viewType, $block)->name :
+            'definition' => $block->definition->name,
+            'view_type' => $block->definition->hasViewType($block->viewType, $block) ?
+                $block->definition->getViewType($block->viewType, $block)->name :
                 'Invalid view type',
             'locale' => $block->locale,
             'template' => null,
             'template_path' => null,
         ];
 
-        if ($template !== null) {
-            $templateSource = $this->getTemplateSource($template);
+        if ($blockView->template !== null) {
+            $templateSource = $this->getTemplateSource($blockView->template);
 
             $blockData['template'] = $templateSource->getName();
             $blockData['template_path'] = $templateSource->getPath();

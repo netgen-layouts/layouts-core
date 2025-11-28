@@ -26,22 +26,18 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
      */
     public function onRenderView(CollectViewParametersEvent $event): void
     {
-        $view = $event->view;
-        if (!$view instanceof BlockViewInterface) {
+        if (!$event->view instanceof BlockViewInterface) {
             return;
         }
 
-        $block = $view->getBlock();
-        $blockDefinition = $block->definition;
-
-        if (!$blockDefinition instanceof TwigBlockDefinitionInterface) {
+        if (!$event->view->block->definition instanceof TwigBlockDefinitionInterface) {
             return;
         }
 
         $twigContent = $this->getTwigBlockContent(
-            $blockDefinition,
-            $block,
-            $view->getParameters(),
+            $event->view->block->definition,
+            $event->view->block,
+            $event->view->parameters,
         );
 
         $event->addParameter('twig_content', $twigContent);

@@ -29,18 +29,18 @@ final class RuleTargetViewTest extends TestCase
 
     public function testGetTarget(): void
     {
-        self::assertSame($this->target, $this->view->getTarget());
+        self::assertSame($this->target, $this->view->target);
         self::assertSame(
             [
                 'param' => 'value',
                 'target' => $this->target,
             ],
-            $this->view->getParameters(),
+            $this->view->parameters,
         );
     }
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('rule_target', $this->view::getIdentifier());
+        self::assertSame('rule_target', $this->view->identifier);
     }
 }

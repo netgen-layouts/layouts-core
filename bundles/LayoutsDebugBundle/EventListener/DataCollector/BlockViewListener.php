@@ -39,7 +39,7 @@ final class BlockViewListener implements EventSubscriberInterface
             return;
         }
 
-        if (!in_array($view->getContext(), $this->enabledContexts, true)) {
+        if (!in_array($view->context, $this->enabledContexts, true)) {
             return;
         }
 

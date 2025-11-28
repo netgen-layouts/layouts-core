@@ -9,18 +9,16 @@ use Netgen\Layouts\View\View;
 
 final class LayoutView extends View implements LayoutViewInterface
 {
+    public string $identifier {
+        get => 'layout';
+    }
+
+    public Layout $layout {
+        get => $this->getParameter('layout');
+    }
+
     public function __construct(Layout $layout)
     {
-        $this->parameters['layout'] = $layout;
-    }
-
-    public function getLayout(): Layout
-    {
-        return $this->parameters['layout'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'layout';
+        $this->addInternalParameter('layout', $layout);
     }
 }

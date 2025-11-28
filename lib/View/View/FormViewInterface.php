@@ -13,15 +13,15 @@ interface FormViewInterface extends ViewInterface
     /**
      * Returns the form.
      */
-    public function getForm(): FormInterface;
+    public FormInterface $form { get; }
 
     /**
      * Returns the form type.
      */
-    public function getFormType(): string;
+    public string $formType { get; }
 
     /**
      * Returns the form view.
      */
-    public function getFormView(): SymfonyFormView;
+    public SymfonyFormView $formView { get; }
 }

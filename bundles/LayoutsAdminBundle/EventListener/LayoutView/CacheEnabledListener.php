@@ -42,7 +42,7 @@ final class CacheEnabledListener implements EventSubscriberInterface
             return;
         }
 
-        if ($view->getContext() !== ViewInterface::CONTEXT_ADMIN) {
+        if ($view->context !== ViewInterface::CONTEXT_ADMIN) {
             return;
         }
 

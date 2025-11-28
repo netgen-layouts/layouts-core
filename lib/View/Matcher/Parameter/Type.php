@@ -22,7 +22,7 @@ final class Type implements MatcherInterface
             return false;
         }
 
-        $parameterType = $view->getParameterValue()->parameterDefinition->type;
+        $parameterType = $view->parameterValue->parameterDefinition->type;
 
         return in_array($parameterType::getIdentifier(), $config, true);
     }

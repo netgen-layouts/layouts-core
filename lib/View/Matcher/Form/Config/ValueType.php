@@ -24,11 +24,11 @@ final class ValueType implements MatcherInterface
             return false;
         }
 
-        if (!$view->getForm()->getConfig()->hasOption('configurable')) {
+        if (!$view->form->getConfig()->hasOption('configurable')) {
             return false;
         }
 
-        $value = $view->getForm()->getConfig()->getOption('configurable');
+        $value = $view->form->getConfig()->getOption('configurable');
 
         return array_any(
             $config,

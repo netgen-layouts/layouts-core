@@ -23,6 +23,6 @@ final class IsGroupCondition implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getCondition() instanceof RuleGroupCondition, $config, true);
+        return in_array($view->condition instanceof RuleGroupCondition, $config, true);
     }
 }

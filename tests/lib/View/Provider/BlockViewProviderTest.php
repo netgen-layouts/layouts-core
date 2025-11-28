@@ -36,13 +36,13 @@ final class BlockViewProviderTest extends TestCase
 
         self::assertInstanceOf(BlockViewInterface::class, $view);
 
-        self::assertSame($block, $view->getBlock());
-        self::assertNull($view->getTemplate());
+        self::assertSame($block, $view->block);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'block' => $block,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

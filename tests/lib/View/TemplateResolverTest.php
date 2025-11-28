@@ -32,7 +32,7 @@ final class TemplateResolverTest extends TestCase
         $this->value = new Value();
 
         $this->view = new View($this->value);
-        $this->view->setContext('context');
+        $this->view->context = 'context';
     }
 
     public function testResolveTemplate(): void
@@ -91,7 +91,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        self::assertSame('template2.html.twig', $this->view->getTemplate());
+        self::assertSame('template2.html.twig', $this->view->template);
 
         self::assertTrue($this->view->hasParameter('param'));
         self::assertSame('value2', $this->view->getParameter('param'));
@@ -128,7 +128,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        self::assertSame('template.html.twig', $this->view->getTemplate());
+        self::assertSame('template.html.twig', $this->view->template);
         self::assertTrue($this->view->hasParameter('param'));
         self::assertSame('value', $this->view->getParameter('param'));
     }
@@ -164,13 +164,13 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        self::assertSame('template.html.twig', $this->view->getTemplate());
+        self::assertSame('template.html.twig', $this->view->template);
     }
 
     public function testResolveTemplateWithFallbackContext(): void
     {
-        $this->view->setContext('context');
-        $this->view->setFallbackContext('fallback');
+        $this->view->context = 'context';
+        $this->view->fallbackContext = 'fallback';
 
         $viewConfiguration = [
             'stub_view' => [
@@ -196,7 +196,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver->resolveTemplate($this->view);
 
-        self::assertSame('template.html.twig', $this->view->getTemplate());
+        self::assertSame('template.html.twig', $this->view->template);
     }
 
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext(): void

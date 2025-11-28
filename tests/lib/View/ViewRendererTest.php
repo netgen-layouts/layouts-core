@@ -38,7 +38,7 @@ final class ViewRendererTest extends TestCase
     {
         $value = new Value();
         $view = new View($value);
-        $view->setTemplate('some_template.html.twig');
+        $view->template = 'some_template.html.twig';
         $view->addParameter('some_param', 'some_value');
 
         $this->twigEnvironmentMock

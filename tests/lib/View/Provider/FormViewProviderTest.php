@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormView as SymfonyFormView;
 
 #[CoversClass(FormViewProvider::class)]
 final class FormViewProviderTest extends TestCase
@@ -25,7 +25,7 @@ final class FormViewProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $formView = new FormView();
+        $formView = new SymfonyFormView();
         $form = $this->createMock(FormInterface::class);
         $form->expects(self::once())
             ->method('createView')
@@ -35,14 +35,14 @@ final class FormViewProviderTest extends TestCase
 
         self::assertInstanceOf(FormViewInterface::class, $view);
 
-        self::assertSame($form, $view->getForm());
-        self::assertNull($view->getTemplate());
+        self::assertSame($form, $view->form);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'form_object' => $form,
                 'form' => $formView,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

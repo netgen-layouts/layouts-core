@@ -41,8 +41,8 @@ final class RendererTest extends TestCase
     {
         $value = new Value();
         $view = new View($value);
-        $view->setContext(ViewInterface::CONTEXT_APP);
-        $view->setTemplate('some_template.html.twig');
+        $view->context = ViewInterface::CONTEXT_APP;
+        $view->template = 'some_template.html.twig';
         $view->addParameter('some_param', 'some_value');
 
         $this->viewBuilderMock

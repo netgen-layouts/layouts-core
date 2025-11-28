@@ -40,7 +40,7 @@ final class ViewBuilder implements ViewBuilderInterface
         $viewProvider = $this->getViewProvider($value);
 
         $view = $viewProvider->provideView($value, $parameters);
-        $view->setContext($context);
+        $view->context = $context;
         $view->addParameters($parameters);
         $view->addParameter('view_context', $context);
 
@@ -51,7 +51,7 @@ final class ViewBuilder implements ViewBuilderInterface
         $view->addParameters($event->parameters);
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, $view::getIdentifier()));
+        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, $view->identifier));
         $view->addParameters($event->parameters);
 
         return $view;

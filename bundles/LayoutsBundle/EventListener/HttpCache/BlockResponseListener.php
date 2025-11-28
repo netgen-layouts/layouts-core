@@ -34,6 +34,6 @@ final class BlockResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $this->tagger->tagBlock($blockView->getBlock());
+        $this->tagger->tagBlock($blockView->block);
     }
 }

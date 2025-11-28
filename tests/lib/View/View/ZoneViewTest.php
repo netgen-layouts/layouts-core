@@ -47,12 +47,12 @@ final class ZoneViewTest extends TestCase
 
     public function testGetLayout(): void
     {
-        self::assertSame($this->layout, $this->view->getLayout());
+        self::assertSame($this->layout, $this->view->layout);
     }
 
     public function testGetZone(): void
     {
-        self::assertSame($this->zone, $this->view->getZone());
+        self::assertSame($this->zone, $this->view->zone);
     }
 
     public function testGetParameters(): void
@@ -64,12 +64,12 @@ final class ZoneViewTest extends TestCase
                 'layout' => $this->layout,
                 'blocks' => $this->blocks,
             ],
-            $this->view->getParameters(),
+            $this->view->parameters,
         );
     }
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('zone', $this->view::getIdentifier());
+        self::assertSame('zone', $this->view->identifier);
     }
 }

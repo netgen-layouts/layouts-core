@@ -32,14 +32,14 @@ final class ItemViewProviderTest extends TestCase
 
         self::assertInstanceOf(ItemViewInterface::class, $view);
 
-        self::assertSame($item, $view->getItem());
-        self::assertNull($view->getTemplate());
+        self::assertSame($item, $view->item);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'item' => $item,
                 'view_type' => 'view_type',
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

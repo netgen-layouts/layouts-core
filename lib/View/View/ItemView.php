@@ -9,24 +9,22 @@ use Netgen\Layouts\View\View;
 
 final class ItemView extends View implements ItemViewInterface
 {
+    public string $identifier {
+        get => 'item';
+    }
+
+    public CmsItemInterface $item {
+        get => $this->getParameter('item');
+    }
+
+    public string $viewType {
+        get => $this->getParameter('view_type');
+    }
+
     public function __construct(CmsItemInterface $item, string $viewType)
     {
-        $this->parameters['item'] = $item;
-        $this->parameters['view_type'] = $viewType;
-    }
-
-    public function getItem(): CmsItemInterface
-    {
-        return $this->parameters['item'];
-    }
-
-    public function getViewType(): string
-    {
-        return $this->parameters['view_type'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'item';
+        $this
+            ->addInternalParameter('item', $item)
+            ->addInternalParameter('view_type', $viewType);
     }
 }

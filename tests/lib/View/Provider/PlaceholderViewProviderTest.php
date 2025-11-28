@@ -38,15 +38,15 @@ final class PlaceholderViewProviderTest extends TestCase
 
         self::assertInstanceOf(PlaceholderViewInterface::class, $view);
 
-        self::assertSame($placeholder, $view->getPlaceholder());
-        self::assertSame($block, $view->getBlock());
-        self::assertNull($view->getTemplate());
+        self::assertSame($placeholder, $view->placeholder);
+        self::assertSame($block, $view->block);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'placeholder' => $placeholder,
                 'block' => $block,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

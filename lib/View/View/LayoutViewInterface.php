@@ -12,5 +12,5 @@ interface LayoutViewInterface extends ViewInterface
     /**
      * Returns the layout.
      */
-    public function getLayout(): Layout;
+    public Layout $layout { get; }
 }

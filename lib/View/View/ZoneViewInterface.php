@@ -13,10 +13,10 @@ interface ZoneViewInterface extends ViewInterface
     /**
      * Returns the layout that the zone belongs to.
      */
-    public function getLayout(): Layout;
+    public Layout $layout { get; }
 
     /**
      * Returns the zone.
      */
-    public function getZone(): Zone;
+    public Zone $zone { get; }
 }

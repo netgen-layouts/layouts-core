@@ -45,7 +45,7 @@ final class CacheEnabledListenerTest extends TestCase
     public function testOnBuildViewWithLayoutView(): void
     {
         $view = new LayoutView(new Layout());
-        $view->setContext(ViewInterface::CONTEXT_ADMIN);
+        $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
@@ -61,7 +61,7 @@ final class CacheEnabledListenerTest extends TestCase
     public function testOnBuildViewWithRuleView(): void
     {
         $view = new RuleView(new Rule());
-        $view->setContext(ViewInterface::CONTEXT_ADMIN);
+        $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
@@ -79,7 +79,7 @@ final class CacheEnabledListenerTest extends TestCase
         $this->listener = new CacheEnabledListener($this->createMock(ClientInterface::class));
 
         $view = new LayoutView(new Layout());
-        $view->setContext(ViewInterface::CONTEXT_ADMIN);
+        $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
@@ -104,7 +104,7 @@ final class CacheEnabledListenerTest extends TestCase
     public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(new Layout());
-        $view->setContext(ViewInterface::CONTEXT_APP);
+        $view->context = ViewInterface::CONTEXT_APP;
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);

@@ -12,5 +12,5 @@ interface LayoutTypeViewInterface extends ViewInterface
     /**
      * Returns the layout type.
      */
-    public function getLayoutType(): LayoutTypeInterface;
+    public LayoutTypeInterface $layoutType { get; }
 }

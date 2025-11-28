@@ -62,14 +62,14 @@ final class ViewBuilderTest extends TestCase
         $viewParameters = ['some_param' => 'some_value'];
         $builtView = $viewBuilder->buildView($value, 'context', $viewParameters);
 
-        self::assertSame('context', $builtView->getContext());
+        self::assertSame('context', $builtView->context);
         self::assertSame(
             [
                 'some_param' => 'some_value',
-                'view_context' => $builtView->getContext(),
+                'view_context' => $builtView->context,
                 'value' => $value,
             ],
-            $builtView->getParameters(),
+            $builtView->parameters,
         );
     }
 

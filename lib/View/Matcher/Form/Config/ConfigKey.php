@@ -23,11 +23,11 @@ final class ConfigKey implements MatcherInterface
             return false;
         }
 
-        if (!$view->getForm()->getConfig()->hasOption('config_key')) {
+        if (!$view->form->getConfig()->hasOption('config_key')) {
             return false;
         }
 
-        $configKey = $view->getForm()->getConfig()->getOption('config_key');
+        $configKey = $view->form->getConfig()->getOption('config_key');
 
         return in_array($configKey, $config, true);
     }

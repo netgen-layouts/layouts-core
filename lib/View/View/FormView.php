@@ -10,29 +10,26 @@ use Symfony\Component\Form\FormView as SymfonyFormView;
 
 final class FormView extends View implements FormViewInterface
 {
+    public string $identifier {
+        get => 'form';
+    }
+
+    public FormInterface $form {
+        get => $this->getParameter('form_object');
+    }
+
+    public string $formType {
+        get => $this->form->getConfig()->getType()->getInnerType()::class;
+    }
+
+    public SymfonyFormView $formView {
+        get => $this->getParameter('form');
+    }
+
     public function __construct(FormInterface $form)
     {
-        $this->parameters['form_object'] = $form;
-        $this->parameters['form'] = $form->createView();
-    }
-
-    public function getForm(): FormInterface
-    {
-        return $this->parameters['form_object'];
-    }
-
-    public function getFormType(): string
-    {
-        return $this->getForm()->getConfig()->getType()->getInnerType()::class;
-    }
-
-    public function getFormView(): SymfonyFormView
-    {
-        return $this->parameters['form'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'form';
+        $this
+            ->addInternalParameter('form_object', $form)
+            ->addInternalParameter('form', $form->createView());
     }
 }

@@ -32,13 +32,13 @@ final class RuleConditionProviderTest extends TestCase
 
         self::assertInstanceOf(RuleConditionViewInterface::class, $view);
 
-        self::assertSame($condition, $view->getCondition());
-        self::assertNull($view->getTemplate());
+        self::assertSame($condition, $view->condition);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'condition' => $condition,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

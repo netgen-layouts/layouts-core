@@ -48,11 +48,11 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
             return;
         }
 
-        if (!in_array($view->getContext(), $this->enabledContexts, true)) {
+        if (!in_array($view->context, $this->enabledContexts, true)) {
             return;
         }
 
-        $block = $view->getBlock();
+        $block = $view->block;
 
         $collectionIdentifier = $view->getParameter('collection_identifier');
 

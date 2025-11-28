@@ -5,21 +5,23 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\View\Matcher\Form;
 
 use Netgen\Layouts\Tests\API\Stubs\Value;
-use Netgen\Layouts\Tests\View\Matcher\Stubs\FormView;
 use Netgen\Layouts\Tests\View\Stubs\View;
-use Netgen\Layouts\View\Matcher\Form\Type;
+use Netgen\Layouts\View\Matcher\Form\Type as TypeMatcher;
+use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Forms;
 
-#[CoversClass(Type::class)]
+#[CoversClass(TypeMatcher::class)]
 final class TypeTest extends TestCase
 {
-    private Type $matcher;
+    private TypeMatcher $matcher;
 
     protected function setUp(): void
     {
-        $this->matcher = new Type();
+        $this->matcher = new TypeMatcher();
     }
 
     /**
@@ -28,7 +30,10 @@ final class TypeTest extends TestCase
     #[DataProvider('matchDataProvider')]
     public function testMatch(array $config, bool $expected): void
     {
-        $view = new FormView();
+        $formFactory = Forms::createFormFactoryBuilder()
+            ->getFormFactory();
+
+        $view = new FormView($formFactory->create());
 
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -37,10 +42,10 @@ final class TypeTest extends TestCase
     {
         return [
             [[], false],
-            [['other_form_type'], false],
-            [['form_type'], true],
-            [['other_form_type', 'second_form_type'], false],
-            [['form_type', 'other_form_type'], true],
+            [[Type\TextType::class], false],
+            [[Type\FormType::class], true],
+            [[Type\TextType::class, Type\IntegerType::class], false],
+            [[Type\FormType::class, Type\TextType::class], true],
         ];
     }
 

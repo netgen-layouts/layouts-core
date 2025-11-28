@@ -9,13 +9,12 @@ use Netgen\Layouts\View\View as BaseView;
 
 final class View extends BaseView
 {
-    public function __construct(Value $value)
-    {
-        $this->parameters['value'] = $value;
+    public string $identifier {
+        get => 'stub';
     }
 
-    public static function getIdentifier(): string
+    public function __construct(Value $value)
     {
-        return 'stub';
+        $this->addInternalParameter('value', $value);
     }
 }

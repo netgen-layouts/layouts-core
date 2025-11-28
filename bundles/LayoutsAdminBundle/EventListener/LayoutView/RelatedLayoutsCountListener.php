@@ -35,15 +35,13 @@ final class RelatedLayoutsCountListener implements EventSubscriberInterface
             return;
         }
 
-        if ($view->getContext() !== ViewInterface::CONTEXT_ADMIN) {
+        if ($view->context !== ViewInterface::CONTEXT_ADMIN) {
             return;
         }
 
-        $layout = $view->getLayout();
-
         $relatedLayoutsCount = 0;
-        if ($layout->isShared && $layout->isPublished) {
-            $relatedLayoutsCount = $this->layoutService->getRelatedLayoutsCount($layout);
+        if ($view->layout->isShared && $view->layout->isPublished) {
+            $relatedLayoutsCount = $this->layoutService->getRelatedLayoutsCount($view->layout);
         }
 
         $event->addParameter('related_layouts_count', $relatedLayoutsCount);

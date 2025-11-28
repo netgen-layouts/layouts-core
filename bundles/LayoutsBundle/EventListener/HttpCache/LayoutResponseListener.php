@@ -49,7 +49,7 @@ final class LayoutResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $this->tagger->tagLayout($layoutView->getLayout());
+        $this->tagger->tagLayout($layoutView->layout);
     }
 
     /**

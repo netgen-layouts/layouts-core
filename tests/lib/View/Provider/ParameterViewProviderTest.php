@@ -32,14 +32,14 @@ final class ParameterViewProviderTest extends TestCase
 
         self::assertInstanceOf(ParameterViewInterface::class, $view);
 
-        self::assertSame($parameter, $view->getParameterValue());
-        self::assertSame(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
-        self::assertNull($view->getTemplate());
+        self::assertSame($parameter, $view->parameterValue);
+        self::assertSame(ViewInterface::CONTEXT_DEFAULT, $view->fallbackContext);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'parameter' => $parameter,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

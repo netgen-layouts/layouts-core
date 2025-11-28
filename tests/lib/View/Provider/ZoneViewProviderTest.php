@@ -46,16 +46,16 @@ final class ZoneViewProviderTest extends TestCase
 
         self::assertInstanceOf(ZoneViewInterface::class, $view);
 
-        self::assertSame($layout, $view->getLayout());
-        self::assertSame($zone, $view->getZone());
-        self::assertNull($view->getTemplate());
+        self::assertSame($layout, $view->layout);
+        self::assertSame($zone, $view->zone);
+        self::assertNull($view->template);
         self::assertSame(
             [
                 'layout' => $layout,
                 'zone' => $zone,
                 'blocks' => $blocks,
             ],
-            $view->getParameters(),
+            $view->parameters,
         );
     }
 

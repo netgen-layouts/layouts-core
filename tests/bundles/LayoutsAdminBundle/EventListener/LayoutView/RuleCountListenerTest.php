@@ -46,7 +46,7 @@ final class RuleCountListenerTest extends TestCase
     {
         $layout = Layout::fromArray(['status' => Status::Published]);
         $view = new LayoutView($layout);
-        $view->setContext(ViewInterface::CONTEXT_ADMIN);
+        $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
@@ -68,7 +68,7 @@ final class RuleCountListenerTest extends TestCase
     public function testOnBuildViewWithDraftLayout(): void
     {
         $view = new LayoutView(Layout::fromArray(['status' => Status::Draft]));
-        $view->setContext(ViewInterface::CONTEXT_ADMIN);
+        $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
@@ -97,7 +97,7 @@ final class RuleCountListenerTest extends TestCase
     public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(new Layout());
-        $view->setContext(ViewInterface::CONTEXT_APP);
+        $view->context = ViewInterface::CONTEXT_APP;
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);

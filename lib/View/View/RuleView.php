@@ -9,18 +9,16 @@ use Netgen\Layouts\View\View;
 
 final class RuleView extends View implements RuleViewInterface
 {
+    public string $identifier {
+        get => 'rule';
+    }
+
+    public Rule $rule {
+        get => $this->getParameter('rule');
+    }
+
     public function __construct(Rule $rule)
     {
-        $this->parameters['rule'] = $rule;
-    }
-
-    public function getRule(): Rule
-    {
-        return $this->parameters['rule'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'rule';
+        $this->addInternalParameter('rule', $rule);
     }
 }

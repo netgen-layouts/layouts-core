@@ -49,7 +49,7 @@ final class ViewRendererListenerTest extends TestCase
         $response = new Response();
         $response->headers->set('X-Layouts-Test', 'test');
 
-        $view->setResponse($response);
+        $view->response = $response;
 
         $this->viewRendererMock
             ->expects(self::once())
@@ -84,7 +84,7 @@ final class ViewRendererListenerTest extends TestCase
         $response = new Response();
         $response->headers->set('X-Layouts-Test', 'test');
 
-        $view->setResponse($response);
+        $view->response = $response;
 
         $this->viewRendererMock
             ->expects(self::once())

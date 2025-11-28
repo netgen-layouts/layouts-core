@@ -10,7 +10,6 @@ use Netgen\Layouts\Tests\View\Stubs\View as ViewStub;
 use Netgen\Layouts\View\View;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(View::class)]
 final class ViewTest extends TestCase
@@ -26,44 +25,56 @@ final class ViewTest extends TestCase
         $this->view = new ViewStub($this->value);
     }
 
-    public function testSetContext(): void
+    public function testGetContext(): void
     {
-        $this->view->setContext('context');
-
-        self::assertSame('context', $this->view->getContext());
+        self::assertNull($this->view->context);
     }
 
-    public function testSetTemplate(): void
+    public function testSetNullContext(): void
     {
-        $this->view->setTemplate('template.html.twig');
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage('$context property cannot be set to null.');
 
-        self::assertSame('template.html.twig', $this->view->getTemplate());
+        $this->view->context = null;
+    }
+
+    public function testGetTemplate(): void
+    {
+        self::assertNull($this->view->template);
+    }
+
+    public function testSetNullTemplate(): void
+    {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage('$template property cannot be set to null.');
+
+        $this->view->template = null;
     }
 
     public function testGetFallbackContext(): void
     {
-        self::assertNull($this->view->getFallbackContext());
+        self::assertNull($this->view->fallbackContext);
     }
 
-    public function testSetFallbackContext(): void
+    public function testSetNullFallbackContext(): void
     {
-        $this->view->setFallbackContext('fallback');
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage('$fallbackContext property cannot be set to null.');
 
-        self::assertSame('fallback', $this->view->getFallbackContext());
+        $this->view->fallbackContext = null;
     }
 
-    public function testGetDefaultResponse(): void
+    public function testGetResponse(): void
     {
-        self::assertNull($this->view->getResponse());
+        self::assertNull($this->view->response);
     }
 
-    public function testSetResponse(): void
+    public function testSetNullResponse(): void
     {
-        $response = new Response('response');
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage('$response property cannot be set to null.');
 
-        $this->view->setResponse($response);
-
-        self::assertSame($response, $this->view->getResponse());
+        $this->view->response = null;
     }
 
     public function testHasParameter(): void
@@ -127,7 +138,7 @@ final class ViewTest extends TestCase
                 'third_param' => 'third_value',
                 'value' => $this->value,
             ],
-            $this->view->getParameters(),
+            $this->view->parameters,
         );
     }
 }

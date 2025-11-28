@@ -35,13 +35,13 @@ final class RuleCountListener implements EventSubscriberInterface
             return;
         }
 
-        if ($view->getContext() !== ViewInterface::CONTEXT_ADMIN) {
+        if ($view->context !== ViewInterface::CONTEXT_ADMIN) {
             return;
         }
 
         $ruleCount = 0;
-        if ($view->getLayout()->isPublished) {
-            $ruleCount = $this->layoutResolverService->getRuleCountForLayout($view->getLayout());
+        if ($view->layout->isPublished) {
+            $ruleCount = $this->layoutResolverService->getRuleCountForLayout($view->layout);
         }
 
         $event->addParameter('rule_count', $ruleCount);

@@ -87,7 +87,7 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $view->addParameter('collection_identifier', 'default');
 
-        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -145,7 +145,7 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $view->addParameter('collection_identifier', 'default');
 
-        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -203,7 +203,7 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $view->addParameter('collection_identifier', 'default');
 
-        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -260,7 +260,7 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $view->addParameter('collection_identifier', 'default');
 
-        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
@@ -287,7 +287,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testOnRenderViewWithNoCurrentRequest(): void
     {
         $view = new BlockView(new Block());
-        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $view->context = ViewInterface::CONTEXT_AJAX;
         $view->addParameter('collection_identifier', 'default');
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
@@ -300,7 +300,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $this->requestStack->push(Request::create('/'));
 
         $view = new View(new Value());
-        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $view->context = ViewInterface::CONTEXT_AJAX;
         $view->addParameter('collection_identifier', 'default');
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
@@ -313,7 +313,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $this->requestStack->push(Request::create('/'));
 
         $view = new BlockView(new Block());
-        $view->setContext(ViewInterface::CONTEXT_AJAX);
+        $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new CollectViewParametersEvent($view);
         $this->listener->onRenderView($event);
 
@@ -326,7 +326,7 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $view = new BlockView(new Block());
         $view->addParameter('collection_identifier', 'default');
-        $view->setContext(ViewInterface::CONTEXT_ADMIN);
+        $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onRenderView($event);

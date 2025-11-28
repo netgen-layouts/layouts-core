@@ -12,68 +12,70 @@ use function get_debug_type;
 
 abstract class View implements ViewInterface
 {
+    final public ?string $context = null {
+        get => $this->context;
+        set {
+            if ($value === null) {
+                throw new ViewException('$context property cannot be set to null.');
+            }
+
+            $this->context = $value;
+        }
+    }
+
+    final public ?string $fallbackContext = null {
+        get => $this->fallbackContext;
+        set {
+            if ($value === null) {
+                throw new ViewException('$fallbackContext property cannot be set to null.');
+            }
+
+            $this->fallbackContext = $value;
+        }
+    }
+
+    final public ?string $template = null {
+        get => $this->template;
+        set {
+            if ($value === null) {
+                throw new ViewException('$template property cannot be set to null.');
+            }
+
+            $this->template = $value;
+        }
+    }
+
+    final public ?Response $response = null {
+        get => $this->response;
+        set {
+            if ($value === null) {
+                throw new ViewException('$response property cannot be set to null.');
+            }
+
+            $this->response = $value;
+        }
+    }
+
     /**
      * @var array<string, mixed>
      */
-    final protected array $parameters = [];
+    public array $parameters {
+        get => [...$this->customParameters, ...$this->internalParameters];
+    }
 
-    private ?string $context = null;
-
-    private ?string $fallbackContext = null;
-
-    private ?string $template = null;
-
-    private ?Response $response = null;
+    /**
+     * @var array<string, mixed>
+     */
+    private array $internalParameters = [];
 
     /**
      * @var array<string, mixed>
      */
     private array $customParameters = [];
 
-    final public function getContext(): ?string
-    {
-        return $this->context;
-    }
-
-    final public function setContext(string $context): void
-    {
-        $this->context = $context;
-    }
-
-    final public function getFallbackContext(): ?string
-    {
-        return $this->fallbackContext;
-    }
-
-    final public function setFallbackContext(string $fallbackContext): void
-    {
-        $this->fallbackContext = $fallbackContext;
-    }
-
-    final public function getTemplate(): ?string
-    {
-        return $this->template;
-    }
-
-    final public function setTemplate(string $template): void
-    {
-        $this->template = $template;
-    }
-
-    final public function getResponse(): ?Response
-    {
-        return $this->response;
-    }
-
-    final public function setResponse(Response $response): void
-    {
-        $this->response = $response;
-    }
-
     final public function hasParameter(string $identifier): bool
     {
-        return array_key_exists($identifier, $this->parameters)
-            || array_key_exists($identifier, $this->customParameters);
+        return array_key_exists($identifier, $this->parameters);
     }
 
     final public function getParameter(string $identifier): mixed
@@ -82,31 +84,30 @@ abstract class View implements ViewInterface
             throw ViewException::parameterNotFound($identifier, get_debug_type($this));
         }
 
-        if (array_key_exists($identifier, $this->parameters)) {
-            return $this->parameters[$identifier];
-        }
-
-        return $this->customParameters[$identifier];
+        return $this->parameters[$identifier];
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    final public function getParameters(): array
-    {
-        return [...$this->customParameters, ...$this->parameters];
-    }
-
-    final public function addParameter(string $parameterName, mixed $parameterValue): void
+    final public function addParameter(string $parameterName, mixed $parameterValue): static
     {
         $this->customParameters[$parameterName] = $parameterValue;
+
+        return $this;
     }
 
     /**
      * @param array<string, mixed> $parameters
      */
-    final public function addParameters(array $parameters): void
+    final public function addParameters(array $parameters): static
     {
         $this->customParameters = [...$this->customParameters, ...$parameters];
+
+        return $this;
+    }
+
+    final protected function addInternalParameter(string $parameterName, mixed $parameterValue): static
+    {
+        $this->internalParameters[$parameterName] = $parameterValue;
+
+        return $this;
     }
 }

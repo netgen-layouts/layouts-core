@@ -22,6 +22,6 @@ final class Definition implements MatcherInterface
             return false;
         }
 
-        return $this->doMatch($view->getBlock(), $config);
+        return $this->doMatch($view->block, $config);
     }
 }

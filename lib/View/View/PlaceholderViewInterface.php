@@ -13,10 +13,10 @@ interface PlaceholderViewInterface extends ViewInterface
     /**
      * Returns the placeholder.
      */
-    public function getPlaceholder(): Placeholder;
+    public Placeholder $placeholder { get; }
 
     /**
      * Returns the block.
      */
-    public function getBlock(): Block;
+    public Block $block { get; }
 }

@@ -12,25 +12,23 @@ use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 
 final class ZoneView extends View implements ZoneViewInterface
 {
+    public string $identifier {
+        get => 'zone';
+    }
+
+    public Layout $layout {
+        get => $this->getParameter('layout');
+    }
+
+    public Zone $zone {
+        get => $this->getParameter('zone');
+    }
+
     public function __construct(ZoneReference $zoneReference, BlockList $blocks)
     {
-        $this->parameters['layout'] = $zoneReference->layout;
-        $this->parameters['zone'] = $zoneReference->zone;
-        $this->parameters['blocks'] = $blocks;
-    }
-
-    public function getLayout(): Layout
-    {
-        return $this->parameters['layout'];
-    }
-
-    public function getZone(): Zone
-    {
-        return $this->parameters['zone'];
-    }
-
-    public static function getIdentifier(): string
-    {
-        return 'zone';
+        $this
+            ->addInternalParameter('layout', $zoneReference->layout)
+            ->addInternalParameter('zone', $zoneReference->zone)
+            ->addInternalParameter('blocks', $blocks);
     }
 }

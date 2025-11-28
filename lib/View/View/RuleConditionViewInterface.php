@@ -12,5 +12,5 @@ interface RuleConditionViewInterface extends ViewInterface
     /**
      * Returns the condition.
      */
-    public function getCondition(): Condition;
+    public Condition $condition { get; }
 }
