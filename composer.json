@@ -77,7 +77,6 @@
         "coduo/php-matcher": "^6.0",
         "sebastian/diff": "^7.0",
         "matthiasnoback/symfony-dependency-injection-test": "^6.1",
-        "matthiasnoback/symfony-config-test": "^6.1",
         "zenstruck/browser": "^1.9",
         "mtdowling/jmespath.php": "^2.8",
         "behat/behat": "^3.27",
