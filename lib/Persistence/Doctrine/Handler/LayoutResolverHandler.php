@@ -136,11 +136,6 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    public function getRuleTargetCount(Rule $rule): int
-    {
-        return $this->queryHandler->getRuleTargetCount($rule);
-    }
-
     public function loadRuleCondition(int|string|UuidInterface $conditionId, Status $status): RuleCondition
     {
         $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;

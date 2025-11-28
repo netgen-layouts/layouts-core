@@ -291,26 +291,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns the number of targets within the rule.
-     */
-    public function getRuleTargetCount(Rule $rule): int
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
-            ->from('nglayouts_rule_target')
-            ->where(
-                $query->expr()->eq('rule_id', ':rule_id'),
-            )
-            ->setParameter('rule_id', $rule->id, Types::INTEGER);
-
-        $this->applyStatusCondition($query, $rule->status);
-
-        $data = $query->fetchAllAssociative();
-
-        return (int) ($data[0]['count'] ?? 0);
-    }
-
-    /**
      * Returns all data for specified rule condition.
      *
      * @return mixed[]

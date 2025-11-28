@@ -110,11 +110,6 @@ interface LayoutResolverHandlerInterface
     public function loadRuleTargets(Rule $rule): array;
 
     /**
-     * Loads the count of targets within the rule with specified ID.
-     */
-    public function getRuleTargetCount(Rule $rule): int;
-
-    /**
      * Loads a rule condition with specified ID.
      *
      * Condition ID can be an auto-incremented ID or an UUID.

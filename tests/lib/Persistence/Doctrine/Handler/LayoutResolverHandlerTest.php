@@ -237,15 +237,6 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertContainsOnlyInstancesOf(Target::class, $targets);
     }
 
-    public function testGetRuleTargetCount(): void
-    {
-        $targets = $this->handler->getRuleTargetCount(
-            $this->handler->loadRule(1, Status::Published),
-        );
-
-        self::assertSame(2, $targets);
-    }
-
     public function testLoadRuleCondition(): void
     {
         $condition = $this->handler->loadRuleCondition(1, Status::Published);
