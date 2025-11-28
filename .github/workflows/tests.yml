@@ -21,9 +21,31 @@ jobs:
         php: ['8.4']
         symfony: ['~7.4.0', '~8.0.0']
         script: ['test', 'test-api']
-        db: ['sqlite', 'mysql', 'postgres']
+        db: ['sqlite']
         deps: ['normal']
         include:
+          - php: '8.4'
+            symfony: '~7.4.0'
+            script: 'test'
+            dm: 'mysql'
+            deps: 'normal'
+          - php: '8.4'
+            symfony: '~7.4.0'
+            script: 'test-api'
+            dm: 'mysql'
+            deps: 'normal'
+
+          - php: '8.4'
+            symfony: '~7.4.0'
+            script: 'test'
+            dm: 'postgres'
+            deps: 'normal'
+          - php: '8.4'
+            symfony: '~7.4.0'
+            script: 'test-api'
+            dm: 'postgres'
+            deps: 'normal'
+
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test'
