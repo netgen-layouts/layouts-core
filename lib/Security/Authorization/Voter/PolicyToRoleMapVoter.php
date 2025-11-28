@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Security\Authorization\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 use function str_starts_with;
@@ -68,7 +69,7 @@ final class PolicyToRoleMapVoter extends Voter
         return str_starts_with($attribute, 'nglayouts:');
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         if (!isset(self::POLICY_TO_ROLE_MAP[$attribute])) {
             return false;
