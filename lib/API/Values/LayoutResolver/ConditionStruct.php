@@ -9,6 +9,8 @@ abstract class ConditionStruct
     /**
      * The value of the condition. Can be a scalar or a multidimensional array of scalars.
      *
+     * Required.
+     *
      * @var int|string|array<mixed>
      */
     final public int|string|array $value;
