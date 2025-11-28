@@ -13,6 +13,6 @@ use Attribute;
 final class AsCmsValueLoader
 {
     public function __construct(
-        private(set) string $valueType,
+        public private(set) string $valueType,
     ) {}
 }

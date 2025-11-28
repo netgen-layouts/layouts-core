@@ -31,6 +31,6 @@ final class NullCmsItem implements CmsItemInterface
     }
 
     public function __construct(
-        private(set) string $valueType,
+        public private(set) string $valueType,
     ) {}
 }

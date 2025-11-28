@@ -15,13 +15,13 @@ final class PluginCollection
         /**
          * Returns the plugin name for this collection.
          */
-        private(set) string $pluginName,
+        public private(set) string $pluginName,
         /**
          * Returns all the plugins registered in the collection.
          *
          * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[]
          */
-        private(set) array $plugins,
+        public private(set) array $plugins,
     ) {
         $this->plugins = array_filter(
             $this->plugins,

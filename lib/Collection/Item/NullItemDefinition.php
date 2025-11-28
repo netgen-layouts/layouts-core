@@ -11,6 +11,6 @@ final class NullItemDefinition implements ItemDefinitionInterface
     use ConfigDefinitionAwareTrait;
 
     public function __construct(
-        private(set) string $valueType,
+        public private(set) string $valueType,
     ) {}
 }

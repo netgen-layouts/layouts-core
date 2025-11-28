@@ -13,6 +13,6 @@ use Attribute;
 final class AsBlockDefinitionHandler
 {
     public function __construct(
-        private(set) string $identifier,
+        public private(set) string $identifier,
     ) {}
 }

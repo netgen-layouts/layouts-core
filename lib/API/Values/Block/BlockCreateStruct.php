@@ -62,7 +62,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
         /**
          * Returns the block definition that will be used to create a block with this struct.
          */
-        private(set) BlockDefinitionInterface $definition,
+        public private(set) BlockDefinitionInterface $definition,
     ) {
         $this->fillDefault($this->definition);
     }

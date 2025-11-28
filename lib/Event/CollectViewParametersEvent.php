@@ -25,7 +25,7 @@ final class CollectViewParametersEvent extends Event
         /**
          * The view object that is being built.
          */
-        private(set) ViewInterface $view,
+        public private(set) ViewInterface $view,
     ) {}
 
     /**

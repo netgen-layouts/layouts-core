@@ -11,7 +11,7 @@ final class Value
     }
 
     public function __construct(
-        private(set) int $id,
-        private(set) string $remoteId,
+        public private(set) int $id,
+        public private(set) string $remoteId,
     ) {}
 }

@@ -7,6 +7,6 @@ namespace Netgen\Layouts\Tests\Collection\Result\Stubs;
 final class Value
 {
     public function __construct(
-        private(set) ?int $value,
+        public private(set) ?int $value,
     ) {}
 }

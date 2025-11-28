@@ -18,11 +18,11 @@ final class AdminMatchEvent extends Event
         /**
          * The request the kernel is currently processing.
          */
-        private(set) Request $request,
+        public private(set) Request $request,
         /**
          * The request type the kernel is currently processing.  One of
          * HttpKernelInterface::MAIN_REQUEST and HttpKernelInterface::SUB_REQUEST.
          */
-        private(set) int $requestType,
+        public private(set) int $requestType,
     ) {}
 }

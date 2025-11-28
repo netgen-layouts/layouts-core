@@ -14,7 +14,7 @@ final class ZoneReference
     }
 
     public function __construct(
-        private(set) Layout $layout,
+        public private(set) Layout $layout,
         private string $zoneIdentifier,
     ) {}
 }

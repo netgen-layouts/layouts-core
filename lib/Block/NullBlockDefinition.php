@@ -57,7 +57,7 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     }
 
     public function __construct(
-        private(set) string $identifier,
+        public private(set) string $identifier,
     ) {}
 
     public function hasCollection(string $identifier): bool

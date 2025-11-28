@@ -24,7 +24,7 @@ final class NullQueryType implements QueryTypeInterface
     }
 
     public function __construct(
-        private(set) string $type,
+        public private(set) string $type,
     ) {}
 
     public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable

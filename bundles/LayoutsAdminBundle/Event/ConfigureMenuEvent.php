@@ -14,10 +14,10 @@ final class ConfigureMenuEvent extends Event
         /**
          * Returns the factory which is used to build the menu.
          */
-        private(set) FactoryInterface $factory,
+        public private(set) FactoryInterface $factory,
         /**
          * Returns the menu which is being built.
          */
-        private(set) ItemInterface $menu,
+        public private(set) ItemInterface $menu,
     ) {}
 }

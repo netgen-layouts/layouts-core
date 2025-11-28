@@ -12,10 +12,10 @@ abstract class AbstractValue
         /**
          * Returns the serialized value.
          */
-        private(set) mixed $value,
+        public private(set) mixed $value,
         /**
          * Returns the status code of the response that should be used.
          */
-        private(set) int $statusCode = Response::HTTP_OK,
+        public private(set) int $statusCode = Response::HTTP_OK,
     ) {}
 }

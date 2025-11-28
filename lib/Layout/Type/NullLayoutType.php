@@ -30,7 +30,7 @@ final class NullLayoutType implements LayoutTypeInterface
     }
 
     public function __construct(
-        private(set) string $identifier,
+        public private(set) string $identifier,
     ) {}
 
     public function hasZone(string $zoneIdentifier): bool

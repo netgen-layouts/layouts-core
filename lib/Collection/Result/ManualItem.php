@@ -37,6 +37,6 @@ final class ManualItem implements CmsItemInterface
         /**
          * Returns the collection item that was used to generate this manual item.
          */
-        private(set) Item $collectionItem,
+        public private(set) Item $collectionItem,
     ) {}
 }

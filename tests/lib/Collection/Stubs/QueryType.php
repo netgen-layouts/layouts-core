@@ -22,11 +22,11 @@ final class QueryType implements QueryTypeInterface
      * @param mixed[] $values
      */
     public function __construct(
-        private(set) string $type,
+        public private(set) string $type,
         array $values = [],
         ?int $count = null,
         bool $isContextual = false,
-        private(set) bool $isEnabled = true,
+        public private(set) bool $isEnabled = true,
     ) {
         $this->handler = new QueryTypeHandler($values, $count, $isContextual);
         $this->parameterDefinitions = $this->handler->getParameterDefinitions();

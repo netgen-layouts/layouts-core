@@ -13,6 +13,6 @@ use Attribute;
 final class AsQueryTypeHandler
 {
     public function __construct(
-        private(set) string $type,
+        public private(set) string $type,
     ) {}
 }

@@ -26,6 +26,6 @@ final class Item implements ItemInterface, LayoutInterface
     }
 
     public function __construct(
-        private(set) Layout $layout,
+        public private(set) Layout $layout,
     ) {}
 }

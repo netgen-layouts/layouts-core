@@ -12,8 +12,8 @@ final class SkippedResult implements ResultInterface
      * @param array<string, mixed> $data
      */
     public function __construct(
-        private(set) string $entityType,
-        private(set) array $data,
-        private(set) UuidInterface $entityId,
+        public private(set) string $entityType,
+        public private(set) array $data,
+        public private(set) UuidInterface $entityId,
     ) {}
 }
