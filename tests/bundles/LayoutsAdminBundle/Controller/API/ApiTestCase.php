@@ -20,7 +20,7 @@ abstract class ApiTestCase extends KernelTestCase
      * @param array<string, mixed> $options
      * @param array<string, mixed> $server
      */
-    protected function browser(array $options = [], array $server = []): KernelBrowser
+    final protected function browser(array $options = [], array $server = []): KernelBrowser
     {
         return $this->baseBrowser($options, $server)
             ->actingAs(new InMemoryUser('admin', 'admin', ['ROLE_NGLAYOUTS_ADMIN']))
