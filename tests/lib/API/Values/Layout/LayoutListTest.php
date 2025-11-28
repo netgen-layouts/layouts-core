@@ -13,7 +13,6 @@ use stdClass;
 use TypeError;
 
 use function sprintf;
-use function str_replace;
 
 #[CoversClass(LayoutList::class)]
 final class LayoutListTest extends TestCase
@@ -21,13 +20,7 @@ final class LayoutListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessageMatches(
-            sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
-                str_replace('\\', '\\\\', Layout::class),
-                stdClass::class,
-            ),
-        );
+        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', Layout::class, stdClass::class));
 
         new LayoutList([new Layout(), new stdClass(), new Layout()]);
     }

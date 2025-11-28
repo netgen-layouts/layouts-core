@@ -12,7 +12,6 @@ use stdClass;
 use TypeError;
 
 use function sprintf;
-use function str_replace;
 
 #[CoversClass(PlaceholderList::class)]
 final class PlaceholderListTest extends TestCase
@@ -20,13 +19,7 @@ final class PlaceholderListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessageMatches(
-            sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
-                str_replace('\\', '\\\\', Placeholder::class),
-                stdClass::class,
-            ),
-        );
+        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', Placeholder::class, stdClass::class));
 
         new PlaceholderList(['one' => new Placeholder(), 'two' => new stdClass(), 'three' => new Placeholder()]);
     }

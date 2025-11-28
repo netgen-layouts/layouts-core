@@ -13,7 +13,6 @@ use stdClass;
 use TypeError;
 
 use function sprintf;
-use function str_replace;
 
 #[CoversClass(RuleGroupList::class)]
 final class RuleGroupListTest extends TestCase
@@ -21,13 +20,7 @@ final class RuleGroupListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessageMatches(
-            sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
-                str_replace('\\', '\\\\', RuleGroup::class),
-                stdClass::class,
-            ),
-        );
+        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', RuleGroup::class, stdClass::class));
 
         new RuleGroupList([new RuleGroup(), new stdClass(), new RuleGroup()]);
     }

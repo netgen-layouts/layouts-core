@@ -12,7 +12,6 @@ use stdClass;
 use TypeError;
 
 use function sprintf;
-use function str_replace;
 
 #[CoversClass(ConfigList::class)]
 final class ConfigListTest extends TestCase
@@ -20,13 +19,7 @@ final class ConfigListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessageMatches(
-            sprintf(
-                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
-                str_replace('\\', '\\\\', Config::class),
-                stdClass::class,
-            ),
-        );
+        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', Config::class, stdClass::class));
 
         new ConfigList(['key1' => new Config(), 'key2' => new stdClass(), 'key3' => new Config()]);
     }
