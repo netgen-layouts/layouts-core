@@ -8,7 +8,7 @@ use Netgen\Layouts\Event\CollectViewParametersEvent;
 use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 use function get_debug_type;
 use function sprintf;

@@ -7,8 +7,8 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class MainMenuBuilder
 {
