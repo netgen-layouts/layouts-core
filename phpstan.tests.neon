@@ -40,7 +40,3 @@ parameters:
         -
             message: '#Undefined variable: \$this#'
             path: tests/lib/Transfer/Output/Visitor/Integration
-
-        -
-            message: '#Call to an undefined method Netgen\\Layouts\\Persistence(\\Handler)?\\\w+Interface::(method|expects)#'
-            path: tests/lib/Core/Service/TransactionRollback

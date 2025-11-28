@@ -11,6 +11,13 @@ use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
+/**
+ * @property \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\TransactionHandlerInterface $transactionHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface $layoutHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\Handler\BlockHandlerInterface $blockHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface $collectionHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface $layoutResolverHandler
+ */
 abstract class TestCase extends CoreTestCase
 {
     protected function createTransactionHandler(): TransactionHandlerInterface
