@@ -107,9 +107,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         $normalizedData = [
             'id' => $collectionItem?->id->toString(),
             'collection_id' => $collectionItem?->collectionId->toString(),
-            'visible' => $collectionItem !== null ?
-                $this->visibilityResolver->isVisible($collectionItem) :
-                true,
+            'visible' => $collectionItem === null || $this->visibilityResolver->isVisible($collectionItem),
             'is_dynamic' => $isDynamic,
             'value' => $cmsItem->value,
             'value_type' => $cmsItem->valueType,
