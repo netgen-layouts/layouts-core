@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
-use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\DummyExtensionPlugin;
+use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\EmptyExtensionPlugin;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -52,9 +52,9 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
     public function testGetPluginThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(sprintf('Extension plugin "%s" does not exist', DummyExtensionPlugin::class));
+        $this->expectExceptionMessage(sprintf('Extension plugin "%s" does not exist', EmptyExtensionPlugin::class));
 
-        $this->extension->getPlugin(DummyExtensionPlugin::class);
+        $this->extension->getPlugin(EmptyExtensionPlugin::class);
     }
 
     public function testGetPlugins(): void
