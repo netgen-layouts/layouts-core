@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Transfer\Output;
 
 use Netgen\Layouts\Exception\RuntimeException;
 
-use function get_debug_type;
 use function sprintf;
 
 final class OutputVisitor
@@ -44,7 +43,7 @@ final class OutputVisitor
         }
 
         throw new RuntimeException(
-            sprintf("No visitor available for value of type '%s'", get_debug_type($value)),
+            sprintf("No visitor available for value of type '%s'", $value::class),
         );
     }
 }

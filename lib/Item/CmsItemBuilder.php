@@ -6,8 +6,6 @@ namespace Netgen\Layouts\Item;
 
 use Netgen\Layouts\Exception\Item\ValueException;
 
-use function get_debug_type;
-
 final class CmsItemBuilder implements CmsItemBuilderInterface
 {
     /**
@@ -46,6 +44,6 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
             );
         }
 
-        throw ValueException::noValueConverter(get_debug_type($object));
+        throw ValueException::noValueConverter($object::class);
     }
 }

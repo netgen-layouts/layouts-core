@@ -8,7 +8,6 @@ use Netgen\Layouts\Exception\View\ViewException;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_key_exists;
-use function get_debug_type;
 
 abstract class View implements ViewInterface
 {
@@ -81,7 +80,7 @@ abstract class View implements ViewInterface
     final public function getParameter(string $identifier): mixed
     {
         if (!$this->hasParameter($identifier)) {
-            throw ViewException::parameterNotFound($identifier, get_debug_type($this));
+            throw ViewException::parameterNotFound($identifier, $this::class);
         }
 
         return $this->parameters[$identifier];
