@@ -49,7 +49,7 @@ final class PlaceholderTest extends TestCase
             ],
         );
 
-        $placeholder[1] = new Block();
+        $placeholder->offsetSet(1, new Block());
     }
 
     public function testUnset(): void

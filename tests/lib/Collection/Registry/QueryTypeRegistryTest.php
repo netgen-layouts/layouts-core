@@ -81,13 +81,7 @@ final class QueryTypeRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $queryTypes = [];
-        foreach ($this->registry as $identifier => $queryType) {
-            $queryTypes[$identifier] = $queryType;
-        }
-
-        self::assertSame($this->registry->getQueryTypes(), $queryTypes);
+        self::assertSame($this->registry->getQueryTypes(), [...$this->registry]);
     }
 
     public function testCount(): void

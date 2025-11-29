@@ -28,14 +28,17 @@ final class LayoutContext implements Context
     #[Given('/^there is a shared layout called "([^"]+)"$/')]
     public function thereIsASharedLayoutCalled(string $layoutName): void
     {
-        $this->createLayout($layoutName, null, 'en', true);
+        $this->createLayout($layoutName, true);
     }
 
-    private function createLayout(string $layoutName, ?LayoutTypeInterface $layoutType = null, string $mainLocale = 'en', bool $isShared = false): void
+    private function createLayout(string $layoutName, bool $isShared = false): void
     {
-        $layoutType ??= $this->getFirstLayoutType();
+        $createStruct = $this->layoutService->newLayoutCreateStruct(
+            $this->getFirstLayoutType(),
+            $layoutName,
+            'en',
+        );
 
-        $createStruct = $this->layoutService->newLayoutCreateStruct($layoutType, $layoutName, $mainLocale);
         $createStruct->isShared = $isShared;
 
         $layoutDraft = $this->layoutService->createLayout($createStruct);

@@ -263,7 +263,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
      *
      * @param array<string, mixed> $blockData
      */
-    private function createBlockInZone(Zone $zone, array $blockData): Block
+    private function createBlockInZone(Zone $zone, array $blockData): void
     {
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
@@ -271,8 +271,6 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         $this->updateBlockTranslations($block, $blockData['parameters']);
         $this->processPlaceholderBlocks($block, $blockData['placeholders']);
         $this->processCollections($block, $blockData['collections']);
-
-        return $block;
     }
 
     /**
@@ -280,7 +278,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
      *
      * @param array<string, mixed> $blockData
      */
-    private function createBlock(Block $targetBlock, string $placeholder, array $blockData): Block
+    private function createBlock(Block $targetBlock, string $placeholder, array $blockData): void
     {
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, $placeholder);
@@ -288,8 +286,6 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         $this->updateBlockTranslations($block, $blockData['parameters']);
         $this->processPlaceholderBlocks($block, $blockData['placeholders']);
         $this->processCollections($block, $blockData['collections']);
-
-        return $block;
     }
 
     /**

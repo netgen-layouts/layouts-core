@@ -1123,7 +1123,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         self::assertCount(1, $references);
-        self::assertSame($references[0]->collectionId, 9);
+        self::assertSame(9, $references[0]->collectionId);
     }
 
     public function testChangeLayoutType(): void

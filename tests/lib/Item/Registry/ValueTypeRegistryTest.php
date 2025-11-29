@@ -81,13 +81,7 @@ final class ValueTypeRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $valueTypes = [];
-        foreach ($this->registry as $identifier => $valueType) {
-            $valueTypes[$identifier] = $valueType;
-        }
-
-        self::assertSame($this->registry->getValueTypes(), $valueTypes);
+        self::assertSame($this->registry->getValueTypes(), [...$this->registry]);
     }
 
     public function testCount(): void

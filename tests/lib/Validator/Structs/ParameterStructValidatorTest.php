@@ -212,13 +212,13 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     public static function validateWithRuntimeConstraintsDataProvider(): iterable
     {
         return [
-            [['css_id' => 'fo'], true, false],
-            [['css_id' => 'fooo'], true, true],
-            [['css_id' => 'fooooooo'], true, false],
+            [['css_id' => 'to'], true, false],
+            [['css_id' => 'stop'], true, true],
+            [['css_id' => 'stopping'], true, false],
             [['css_id' => ''], true, false],
-            [['css_id' => 'fo'], false, false],
-            [['css_id' => 'fooo'], false, true],
-            [['css_id' => 'fooooooo'], false, false],
+            [['css_id' => 'to'], false, false],
+            [['css_id' => 'stop'], false, true],
+            [['css_id' => 'stopping'], false, false],
             [['css_id' => ''], false, false],
         ];
     }

@@ -89,7 +89,7 @@ final class LayoutTest extends TestCase
             ],
         );
 
-        $layout['left'] = new Zone();
+        $layout->offsetSet('left', new Zone());
     }
 
     public function testUnset(): void

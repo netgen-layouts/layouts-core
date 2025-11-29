@@ -28,18 +28,18 @@ final class RemoteIdConverter
      */
     public function convertToRemoteId(string $link): string
     {
-        $link = parse_url($link);
+        $parsedLink = parse_url($link);
 
-        if (!is_array($link) || !isset($link['host'], $link['scheme'])) {
+        if (!is_array($parsedLink) || !isset($parsedLink['host'], $parsedLink['scheme'])) {
             return self::NULL_LINK;
         }
 
-        $item = $this->cmsItemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
+        $item = $this->cmsItemLoader->load($parsedLink['host'], str_replace('-', '_', $parsedLink['scheme']));
         if ($item instanceof NullCmsItem) {
             return self::NULL_LINK;
         }
 
-        return $link['scheme'] . '://' . $item->remoteId;
+        return $parsedLink['scheme'] . '://' . $item->remoteId;
     }
 
     /**
@@ -51,17 +51,17 @@ final class RemoteIdConverter
      */
     public function convertFromRemoteId(string $link): string
     {
-        $link = parse_url($link);
+        $parsedLink = parse_url($link);
 
-        if (!is_array($link) || !isset($link['host'], $link['scheme'])) {
+        if (!is_array($parsedLink) || !isset($parsedLink['host'], $parsedLink['scheme'])) {
             return self::NULL_LINK;
         }
 
-        $item = $this->cmsItemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
+        $item = $this->cmsItemLoader->loadByRemoteId($parsedLink['host'], str_replace('-', '_', $parsedLink['scheme']));
         if ($item instanceof NullCmsItem) {
             return self::NULL_LINK;
         }
 
-        return $link['scheme'] . '://' . $item->value;
+        return $parsedLink['scheme'] . '://' . $item->value;
     }
 }

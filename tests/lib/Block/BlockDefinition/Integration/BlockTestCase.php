@@ -10,6 +10,7 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
@@ -20,6 +21,7 @@ use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use function array_keys;
+use function array_map;
 use function count;
 use function in_array;
 
@@ -46,10 +48,10 @@ abstract class BlockTestCase extends CoreTestCase
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left');
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
-        $createdParameters = [];
-        foreach ($createdBlock->parameters as $parameterName => $parameter) {
-            $createdParameters[$parameterName] = $parameter->value;
-        }
+        $createdParameters = array_map(
+            static fn (Parameter $parameter): mixed => $parameter->value,
+            $createdBlock->parameters->toArray(),
+        );
 
         self::assertSame(array_keys($expectedParameters), array_keys($createdParameters));
 

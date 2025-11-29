@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Behat\Context\Admin;
 
+use Behat\Behat\Context\Context;
 use Behat\Step\Then;
 use Behat\Step\When;
 use Netgen\Layouts\API\Values\Layout\Layout;
@@ -12,7 +13,7 @@ use Netgen\Layouts\Behat\Page\Admin\SharedLayouts\IndexPage;
 use Netgen\Layouts\Behat\Page\App\IndexPage as AppIndexPage;
 use Zenstruck\Assert;
 
-final class ManagingSharedLayoutsContext extends AdminContext
+final class ManagingSharedLayoutsContext implements Context
 {
     public function __construct(
         private IndexPage $indexPage,
@@ -106,11 +107,13 @@ final class ManagingSharedLayoutsContext extends AdminContext
         Assert::false($this->indexPage->layoutExists($layoutName), 'Layout with provided name exists');
     }
 
+    #[Then('/^there should be no error$/')]
     public function thereShouldBeNoError(): void
     {
         $this->indexPage->verifyModalErrorDoesNotExist();
     }
 
+    #[Then('/^I should get an error saying "([^"]+)"$/')]
     public function iShouldGetAnError(string $errorMessage): void
     {
         Assert::true($this->indexPage->modalErrorExists($errorMessage), 'Modal error does not exist');

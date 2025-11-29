@@ -70,13 +70,7 @@ final class ParameterTypeRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $parameterTypes = [];
-        foreach ($this->registry as $identifier => $parameterType) {
-            $parameterTypes[$identifier] = $parameterType;
-        }
-
-        self::assertSame($this->registry->getParameterTypes(), $parameterTypes);
+        self::assertSame($this->registry->getParameterTypes(), [...$this->registry]);
     }
 
     public function testCount(): void

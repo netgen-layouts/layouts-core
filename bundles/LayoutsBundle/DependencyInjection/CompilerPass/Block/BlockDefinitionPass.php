@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+use function array_any;
 use function is_a;
 use function is_string;
 use function sprintf;
@@ -105,10 +106,8 @@ final class BlockDefinitionPass implements CompilerPassInterface
         $configProviderServices = $container->findTaggedServiceIds('netgen_layouts.block_definition.config_provider');
 
         foreach ($configProviderServices as $configProviderService => $tags) {
-            foreach ($tags as $tag) {
-                if (($tag['identifier'] ?? null) === $identifier) {
-                    return new Reference($configProviderService);
-                }
+            if (array_any($tags, static fn (array $tag): bool => ($tag['identifier'] ?? null) === $identifier)) {
+                return new Reference($configProviderService);
             }
         }
 

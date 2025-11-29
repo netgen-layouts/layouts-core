@@ -59,7 +59,7 @@ final class ResultSetTest extends TestCase
             ],
         );
 
-        $result[0] = Result::fromArray(['position' => 0, 'item' => new CmsItem()]);
+        $result->offsetSet(0, Result::fromArray(['position' => 0, 'item' => new CmsItem()]));
     }
 
     public function testUnset(): void

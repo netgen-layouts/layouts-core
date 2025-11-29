@@ -81,13 +81,7 @@ final class BlockTypeRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $blockTypes = [];
-        foreach ($this->registry as $identifier => $blockType) {
-            $blockTypes[$identifier] = $blockType;
-        }
-
-        self::assertSame($this->registry->getBlockTypes(), $blockTypes);
+        self::assertSame($this->registry->getBlockTypes(), [...$this->registry]);
     }
 
     public function testCount(): void

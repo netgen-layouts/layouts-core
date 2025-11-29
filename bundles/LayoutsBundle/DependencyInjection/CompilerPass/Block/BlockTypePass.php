@@ -94,11 +94,11 @@ final class BlockTypePass implements CompilerPassInterface
                 continue;
             }
 
-            if (!isset($blockTypes[$identifier]['icon'])) {
+            if (!isset($blockType['icon'])) {
                 $blockTypes[$identifier]['icon'] = $blockDefinitions[$definitionIdentifier]['icon'];
             }
 
-            if (!isset($blockTypes[$identifier]['defaults'])) {
+            if (!isset($blockType['defaults'])) {
                 $blockTypes[$identifier]['defaults'] = $blockDefinitions[$definitionIdentifier]['defaults'];
             }
 

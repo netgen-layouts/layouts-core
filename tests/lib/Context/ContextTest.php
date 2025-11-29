@@ -72,13 +72,7 @@ final class ContextTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->context->getIterator());
-
-        $variables = [];
-        foreach ($this->context as $identifier => $value) {
-            $variables[$identifier] = $value;
-        }
-
-        self::assertSame($this->context->all(), $variables);
+        self::assertSame($this->context->all(), [...$this->context]);
     }
 
     public function testCount(): void

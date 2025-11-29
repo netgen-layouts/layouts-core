@@ -81,13 +81,7 @@ final class LayoutTypeRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $layoutTypes = [];
-        foreach ($this->registry as $identifier => $layoutType) {
-            $layoutTypes[$identifier] = $layoutType;
-        }
-
-        self::assertSame($this->registry->getLayoutTypes(), $layoutTypes);
+        self::assertSame($this->registry->getLayoutTypes(), [...$this->registry]);
     }
 
     public function testCount(): void

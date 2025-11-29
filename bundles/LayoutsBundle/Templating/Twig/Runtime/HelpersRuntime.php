@@ -49,9 +49,7 @@ final class HelpersRuntime
     public function getLayoutName(string $layoutId): string
     {
         try {
-            $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
-
-            return $layout->name;
+            return $this->layoutService->loadLayout(Uuid::fromString($layoutId))->name;
         } catch (Throwable) {
             return '';
         }

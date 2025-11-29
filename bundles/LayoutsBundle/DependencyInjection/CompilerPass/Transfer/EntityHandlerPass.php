@@ -34,7 +34,7 @@ final class EntityHandlerPass implements CompilerPassInterface
                     );
                 }
 
-                if (preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $tag['entity_type']) !== 1) {
+                if (preg_match('/^[A-Za-z]\w*$/', $tag['entity_type']) !== 1) {
                     throw new RuntimeException(
                         'Entity type must begin with a letter and be followed by any combination of letters, digits and underscore.',
                     );

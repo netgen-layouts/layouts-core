@@ -44,7 +44,7 @@ final class CmsItemLoaderPass implements CompilerPassInterface
 
     private function validateValueType(string $valueType): void
     {
-        if (preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $valueType) !== 1) {
+        if (preg_match('/^[A-Za-z]\w*$/', $valueType) !== 1) {
             throw new RuntimeException(
                 'Value type must begin with a letter and be followed by any combination of letters, digits and underscore.',
             );

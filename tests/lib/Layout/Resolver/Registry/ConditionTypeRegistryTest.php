@@ -57,13 +57,7 @@ final class ConditionTypeRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $conditionTypes = [];
-        foreach ($this->registry as $identifier => $conditionType) {
-            $conditionTypes[$identifier] = $conditionType;
-        }
-
-        self::assertSame($this->registry->getConditionTypes(), $conditionTypes);
+        self::assertSame($this->registry->getConditionTypes(), [...$this->registry]);
     }
 
     public function testCount(): void

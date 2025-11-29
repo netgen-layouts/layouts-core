@@ -122,10 +122,11 @@ final class ParametersTypeTest extends FormTestCase
             $paramForm = $parentForm->get('parameter_values')->get($key);
 
             self::assertSame('parameterValues[' . $key . ']', (string) $paramForm->getPropertyPath());
-            self::assertInstanceOf(
-                $key === 'compound' ? CompoundBooleanType::class : TextType::class,
-                $paramForm->getConfig()->getType()->getInnerType(),
-            );
+
+            match ($key) {
+                'compound' => self::assertInstanceOf(CompoundBooleanType::class, $paramForm->getConfig()->getType()->getInnerType()),
+                default => self::assertInstanceOf(TextType::class, $paramForm->getConfig()->getType()->getInnerType()),
+            };
 
             self::assertSame(
                 $parameterDefinitions->getParameterDefinition($key)->label ?? 'label.' . $key,

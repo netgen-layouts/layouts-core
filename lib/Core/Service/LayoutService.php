@@ -413,6 +413,7 @@ final class LayoutService implements LayoutServiceInterface
 
         $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
+        /** @var array<string, string[]> $zoneMappings */
         $zoneMappings = [
             ...array_fill_keys($targetLayoutType->zoneIdentifiers, []),
             ...$zoneMappings,

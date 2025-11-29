@@ -177,9 +177,7 @@ final class Version000900 extends AbstractMigration
      */
     private function askDefaultLocale(): string
     {
-        $io = new SymfonyStyle(new ArgvInput(), new ConsoleOutput());
-
-        return $io->ask(
+        return new SymfonyStyle(new ArgvInput(), new ConsoleOutput())->ask(
             'Please input the default locale for existing layouts',
             '',
             static function (string $locale): string {

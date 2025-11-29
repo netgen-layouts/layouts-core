@@ -57,13 +57,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $itemDefinitions = [];
-        foreach ($this->registry as $identifier => $itemDefinition) {
-            $itemDefinitions[$identifier] = $itemDefinition;
-        }
-
-        self::assertSame($this->registry->getItemDefinitions(), $itemDefinitions);
+        self::assertSame($this->registry->getItemDefinitions(), [...$this->registry]);
     }
 
     public function testCount(): void

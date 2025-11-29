@@ -57,13 +57,7 @@ final class TargetTypeRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $targetTypes = [];
-        foreach ($this->registry as $identifier => $targetType) {
-            $targetTypes[$identifier] = $targetType;
-        }
-
-        self::assertSame($this->registry->getTargetTypes(), $targetTypes);
+        self::assertSame($this->registry->getTargetTypes(), [...$this->registry]);
     }
 
     public function testCount(): void

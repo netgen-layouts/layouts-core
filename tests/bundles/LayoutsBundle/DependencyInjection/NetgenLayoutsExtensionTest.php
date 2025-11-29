@@ -59,11 +59,9 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
 
     public function testGetPlugins(): void
     {
-        $plugins = $this->extension->getPlugins();
-
-        self::assertArrayHasKey(ExtensionPlugin::class, $plugins);
-        self::assertCount(1, $plugins);
-        self::assertInstanceOf(ExtensionPlugin::class, $plugins[ExtensionPlugin::class]);
+        self::assertArrayHasKey(ExtensionPlugin::class, $this->extension->plugins);
+        self::assertCount(1, $this->extension->plugins);
+        self::assertInstanceOf(ExtensionPlugin::class, $this->extension->plugins[ExtensionPlugin::class]);
     }
 
     public function testAppendFromPlugin(): void

@@ -72,7 +72,7 @@ final class ViewRendererListenerTest extends TestCase
         self::assertInstanceOf(Response::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        self::assertSame($event->getResponse()->headers->get('X-Layouts-Test'), 'test');
+        self::assertSame('test', $event->getResponse()->headers->get('X-Layouts-Test'));
 
         self::assertSame('rendered content', $event->getResponse()->getContent());
     }
@@ -107,7 +107,7 @@ final class ViewRendererListenerTest extends TestCase
         self::assertInstanceOf(Response::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        self::assertSame($event->getResponse()->headers->get('X-Layouts-Test'), 'test');
+        self::assertSame('test', $event->getResponse()->headers->get('X-Layouts-Test'));
 
         self::assertSame('', $event->getResponse()->getContent());
     }

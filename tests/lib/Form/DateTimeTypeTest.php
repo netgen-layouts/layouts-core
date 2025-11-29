@@ -95,7 +95,7 @@ final class DateTimeTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $resolvedOptions = $optionsResolver->resolve([]);
+        $resolvedOptions = $optionsResolver->resolve();
 
         self::assertTrue($resolvedOptions['use_datetime']);
         self::assertFalse($resolvedOptions['error_bubbling']);

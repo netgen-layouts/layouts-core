@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension;
 
+use InvalidArgumentException;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Service\BlockService;
@@ -172,6 +173,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             }
 
             $test = (string) file_get_contents($file->getRealPath());
+            $testPath = str_replace($fixturesDir . '/', '', $file->getRealPath());
 
             if (preg_match('/--TEST--\s*(.*?)\s*(?:--CONDITION--\s*(.*))?\s*(?:--DEPRECATION--\s*(.*?))?\s*((?:--TEMPLATE(?:\(.*?\))?--(?:.*?))+)\s*(?:--DATA--\s*(.*))?\s*--EXCEPTION--\s*(.*)/sx', $test, $match) > 0) {
                 $message = $match[1];
@@ -186,12 +188,12 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                 $deprecation = $match[3];
                 $templates = self::parseTemplates($match[4]);
                 $exception = false;
-                preg_match_all('/--DATA--(.*?)(?:--CONFIG--(.*?))?--EXPECT--(.*?)(?=\-\-DATA\-\-|$)/s', $test, $outputs, PREG_SET_ORDER);
+                preg_match_all('/--DATA--(.*?)(?:--CONFIG--(.*?))?--EXPECT--(.*?)(?=--DATA--|$)/s', $test, $outputs, PREG_SET_ORDER);
             } else {
-                throw new \InvalidArgumentException(sprintf('Test "%s" is not valid.', str_replace($fixturesDir . '/', '', $file->getRealPath())));
+                throw new InvalidArgumentException(sprintf('Test "%s" is not valid.', $testPath));
             }
 
-            $tests[str_replace($fixturesDir . '/', '', $file->getRealPath())] = [str_replace($fixturesDir . '/', '', $file->getRealPath()), $message, $condition, $templates, $exception, $outputs, $deprecation];
+            $tests[$testPath] = [$testPath, $message, $condition, $templates, $exception, $outputs, $deprecation];
         }
 
         if ($legacyTests && count($tests) === 0) {

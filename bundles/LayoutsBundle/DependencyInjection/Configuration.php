@@ -28,7 +28,7 @@ final class Configuration implements ConfigurationInterface
             $children->append($node->getConfigurationNode());
         }
 
-        foreach ($this->extension->getPlugins() as $plugin) {
+        foreach ($this->extension->plugins as $plugin) {
             if ($rootNode instanceof ArrayNodeDefinition) {
                 $plugin->addConfiguration($rootNode);
             }

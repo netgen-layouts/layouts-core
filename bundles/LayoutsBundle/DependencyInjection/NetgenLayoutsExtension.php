@@ -50,9 +50,11 @@ use function sprintf;
 final class NetgenLayoutsExtension extends Extension implements PrependExtensionInterface
 {
     /**
+     * Returns the all available plugins.
+     *
      * @var array<class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>, \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>
      */
-    private array $plugins = [];
+    public private(set) array $plugins = [];
 
     /**
      * Adds a plugin to the extension.
@@ -88,16 +90,6 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
                     $pluginName,
                 ),
             );
-    }
-
-    /**
-     * Returns the all available plugins.
-     *
-     * @return array<class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>, \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>
-     */
-    public function getPlugins(): array
-    {
-        return $this->plugins;
     }
 
     /**

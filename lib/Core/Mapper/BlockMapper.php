@@ -99,7 +99,11 @@ final class BlockMapper
                 null,
             'parentPlaceholder' => $block->depth > 1 ? $block->placeholder : null,
             'status' => Status::from($block->status->value),
-            'placeholders' => new PlaceholderList([...$this->mapPlaceholders($block, $blockDefinition, $locales)]),
+            'placeholders' => new PlaceholderList(
+                [
+                    ...$this->mapPlaceholders($block, $blockDefinition, $locales),
+                ],
+            ),
             'collections' => CollectionList::fromCallable(
                 fn (): array => array_map(
                     fn (PersistenceCollection $collection): Collection => $this->collectionMapper->mapCollection($collection, $locales),
