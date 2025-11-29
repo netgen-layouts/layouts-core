@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver;
 
-use Generator;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
@@ -46,9 +45,9 @@ final class LayoutResolver implements LayoutResolverInterface
     /**
      * @param string[] $enabledConditions
      *
-     * @return \Generator<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
+     * @return iterable<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
      */
-    private function innerResolveRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): Generator
+    private function innerResolveRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): iterable
     {
         $resolvedGroups = $this->layoutResolverService->loadRuleGroups($ruleGroup)->filter(
             fn (RuleGroup $ruleGroup): bool => $ruleGroup->isEnabled
@@ -77,9 +76,9 @@ final class LayoutResolver implements LayoutResolverInterface
     /**
      * @param string[] $enabledConditions
      *
-     * @return \Generator<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
+     * @return iterable<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
      */
-    private function resolveGroupRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): Generator
+    private function resolveGroupRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): iterable
     {
         foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
             $targetValue = $targetType->provideValue($request);

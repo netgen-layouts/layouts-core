@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
-use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\ResultSet;
@@ -59,9 +58,9 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
      * are those NOT included in the provided result set, as defined by collection
      * offset and limit.
      *
-     * @return \Generator<\Netgen\Layouts\API\Values\Collection\Item>
+     * @return iterable<\Netgen\Layouts\API\Values\Collection\Item>
      */
-    private function getOverflowItems(ResultSet $resultSet): Generator
+    private function getOverflowItems(ResultSet $resultSet): iterable
     {
         $includedPositions = [];
         foreach ($resultSet->results as $result) {
@@ -86,9 +85,9 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
      *
      * @param iterable<object> $values
      *
-     * @return \Generator<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
+     * @return iterable<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
-    private function buildValues(iterable $values): Generator
+    private function buildValues(iterable $values): iterable
     {
         foreach ($values as $key => $value) {
             yield $key => new Value($value);

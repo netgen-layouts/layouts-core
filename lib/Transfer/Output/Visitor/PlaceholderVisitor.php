@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
@@ -34,9 +33,9 @@ final class PlaceholderVisitor implements VisitorInterface
     /**
      * Visit the given $placeholder blocks into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitBlocks(Placeholder $placeholder, OutputVisitor $outputVisitor): Generator
+    private function visitBlocks(Placeholder $placeholder, OutputVisitor $outputVisitor): iterable
     {
         foreach ($placeholder as $block) {
             yield $outputVisitor->visit($block);

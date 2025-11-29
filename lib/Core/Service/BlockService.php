@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Core\Service;
 
-use Generator;
 use Netgen\Layouts\API\Service\BlockService as BlockServiceInterface;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
@@ -565,9 +564,9 @@ final class BlockService implements BlockServiceInterface
      * @param iterable<\Netgen\Layouts\Persistence\Values\Block\Block> $blocks
      * @param string[]|null $locales
      *
-     * @return \Generator<int, \Netgen\Layouts\API\Values\Block\Block>
+     * @return iterable<int, \Netgen\Layouts\API\Values\Block\Block>
      */
-    private function filterUntranslatedBlocks(iterable $blocks, ?array $locales, bool $useMainLocale): Generator
+    private function filterUntranslatedBlocks(iterable $blocks, ?array $locales, bool $useMainLocale): iterable
     {
         foreach ($blocks as $block) {
             try {

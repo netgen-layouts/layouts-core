@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Collection\Form;
 
-use Generator;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
@@ -43,7 +42,7 @@ final class ItemViewTypeEditType extends AbstractType
                 'required' => false,
                 'label' => 'collection_item.view_type',
                 'property_path' => 'viewType',
-                'choices' => (static function () use ($options): Generator {
+                'choices' => (static function () use ($options): iterable {
                     yield '<No override>' => '';
 
                     /** @var \Netgen\Layouts\API\Values\Block\Block $block */

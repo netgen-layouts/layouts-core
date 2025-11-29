@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
@@ -49,9 +48,9 @@ final class LayoutVisitor implements VisitorInterface
     /**
      * Visit the given $layout zones into hash representation.
      *
-     * @return \Generator<string, array<string, mixed>>
+     * @return iterable<string, array<string, mixed>>
      */
-    private function visitZones(Layout $layout, OutputVisitor $outputVisitor): Generator
+    private function visitZones(Layout $layout, OutputVisitor $outputVisitor): iterable
     {
         foreach ($layout->zones as $zone) {
             yield $zone->identifier => $outputVisitor->visit($zone);

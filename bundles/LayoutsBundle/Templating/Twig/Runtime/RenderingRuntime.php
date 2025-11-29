@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
-use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Slot;
@@ -255,9 +254,9 @@ final class RenderingRuntime
      *
      * @param array<string, mixed> $parameters
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    private function getTemplateVariables(array $parameters): Generator
+    private function getTemplateVariables(array $parameters): iterable
     {
         foreach ($parameters as $value) {
             if ($value instanceof ContextualizedTwigTemplate) {

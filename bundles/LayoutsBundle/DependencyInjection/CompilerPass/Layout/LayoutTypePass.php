@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout;
 
-use Generator;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
@@ -43,9 +42,9 @@ final class LayoutTypePass implements CompilerPassInterface
      *
      * @param array<string, mixed[]> $layoutTypes
      *
-     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
+     * @return iterable<string, \Symfony\Component\DependencyInjection\Reference>
      */
-    private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes): Generator
+    private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes): iterable
     {
         foreach ($layoutTypes as $identifier => $layoutType) {
             $serviceIdentifier = sprintf('netgen_layouts.layout.layout_type.%s', $identifier);

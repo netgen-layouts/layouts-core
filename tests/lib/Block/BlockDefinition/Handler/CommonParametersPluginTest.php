@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Block\BlockDefinition\Handler;
 
-use Generator;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
@@ -40,7 +39,7 @@ final class CommonParametersPluginTest extends TestCase
     {
         self::assertSame(
             [BlockDefinitionHandlerInterface::class],
-            [...(function (): Generator { yield from $this->plugin::getExtendedHandlers(); })()],
+            [...(function (): iterable { yield from $this->plugin::getExtendedHandlers(); })()],
         );
     }
 

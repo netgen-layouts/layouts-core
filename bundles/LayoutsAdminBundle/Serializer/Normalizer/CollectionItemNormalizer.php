@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
-use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
@@ -33,7 +32,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
         $collectionItem = $data->value;
         $cmsItem = $collectionItem->cmsItem;
 
-        $configuration = (function () use ($collectionItem): Generator {
+        $configuration = (function () use ($collectionItem): iterable {
             foreach ($collectionItem->configs as $configKey => $config) {
                 yield $configKey => $this->buildValues($config->parameters);
             }
@@ -86,9 +85,9 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
      *
      * @param iterable<object> $values
      *
-     * @return \Generator<\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
+     * @return iterable<\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
-    private function buildValues(iterable $values): Generator
+    private function buildValues(iterable $values): iterable
     {
         foreach ($values as $key => $value) {
             yield $key => new Value($value);

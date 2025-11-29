@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Generator;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Symfony\Component\Console\Command\Command;
@@ -145,9 +144,9 @@ final class MigrateQueryOffsetLimitCommand extends Command
      * Each of those can be `null` to indicate that the query type does not have an offset
      * or a limit parameter.
      *
-     * @return \Generator<string, string>
+     * @return iterable<string, string>
      */
-    private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType): Generator
+    private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType): iterable
     {
         $queryTypeParameters = [...$this->getQueryTypeParameters($queryType), 'NO PARAMETER'];
 
@@ -171,9 +170,9 @@ final class MigrateQueryOffsetLimitCommand extends Command
      *
      * Considers if the parameter is a compound and includes it's sub-parameters too.
      *
-     * @return \Generator<string>
+     * @return iterable<string>
      */
-    private function getQueryTypeParameters(QueryTypeInterface $queryType): Generator
+    private function getQueryTypeParameters(QueryTypeInterface $queryType): iterable
     {
         foreach ($queryType->parameterDefinitions as $parameterDefinition) {
             if ($parameterDefinition->isCompound) {

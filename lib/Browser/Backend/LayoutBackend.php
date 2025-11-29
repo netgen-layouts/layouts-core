@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Browser\Backend;
 
-use Generator;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Backend\SearchQuery;
 use Netgen\ContentBrowser\Backend\SearchResult;
@@ -102,9 +101,9 @@ final class LayoutBackend implements BackendInterface
     /**
      * Builds the items from provided layouts.
      *
-     * @return \Generator<\Netgen\Layouts\Browser\Item\Layout\Item>
+     * @return iterable<\Netgen\Layouts\Browser\Item\Layout\Item>
      */
-    private function buildItems(LayoutList $layouts): Generator
+    private function buildItems(LayoutList $layouts): iterable
     {
         foreach ($layouts as $layout) {
             yield $this->buildItem($layout);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Core\Mapper;
 
-use Generator;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
@@ -17,9 +16,9 @@ final class ParameterMapper
      *
      * @param array<string, mixed> $values
      *
-     * @return \Generator<string, \Netgen\Layouts\Parameters\Parameter>
+     * @return iterable<string, \Netgen\Layouts\Parameters\Parameter>
      */
-    public function mapParameters(ParameterDefinitionCollectionInterface $definitions, array $values): Generator
+    public function mapParameters(ParameterDefinitionCollectionInterface $definitions, array $values): iterable
     {
         foreach ($definitions->parameterDefinitions as $parameterDefinition) {
             $parameterName = $parameterDefinition->name;
@@ -50,9 +49,9 @@ final class ParameterMapper
      * @param array<string, mixed> $values
      * @param array<string, mixed> $fallbackValues
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    public function serializeValues(ParameterDefinitionCollectionInterface $definitions, array $values, array $fallbackValues = []): Generator
+    public function serializeValues(ParameterDefinitionCollectionInterface $definitions, array $values, array $fallbackValues = []): iterable
     {
         yield from $fallbackValues;
 
@@ -76,9 +75,9 @@ final class ParameterMapper
     /**
      * @param array<string, mixed> $values
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $definitions, array $values): Generator
+    public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $definitions, array $values): iterable
     {
         foreach ($definitions->parameterDefinitions as $paramName => $parameterDefinition) {
             if ($parameterDefinition->getOption('translatable') === true) {

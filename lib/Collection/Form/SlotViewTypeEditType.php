@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Collection\Form;
 
-use Generator;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
@@ -43,7 +42,7 @@ final class SlotViewTypeEditType extends AbstractType
                 'required' => false,
                 'label' => 'collection_slot.view_type',
                 'property_path' => 'viewType',
-                'choices' => (static function () use ($options): Generator {
+                'choices' => (static function () use ($options): iterable {
                     yield '<No override>' => '';
 
                     /** @var \Netgen\Layouts\API\Values\Block\Block $block */

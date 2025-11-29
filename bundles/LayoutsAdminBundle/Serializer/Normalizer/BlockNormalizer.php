@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
-use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
@@ -34,7 +33,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         $parameters = $this->buildValues($block->parameters);
         $placeholders = $this->buildValues($block->placeholders->getValues());
 
-        $configuration = (function () use ($block): Generator {
+        $configuration = (function () use ($block): iterable {
             foreach ($block->configs as $configKey => $config) {
                 yield $configKey => $this->buildValues($config->parameters);
             }
@@ -87,9 +86,9 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     }
 
     /**
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function getBlockCollections(Block $block): Generator
+    private function getBlockCollections(Block $block): iterable
     {
         foreach ($block->collections as $identifier => $collection) {
             yield [
@@ -110,9 +109,9 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
      *
      * @param iterable<object> $values
      *
-     * @return \Generator<\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
+     * @return iterable<\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
-    private function buildValues(iterable $values): Generator
+    private function buildValues(iterable $values): iterable
     {
         foreach ($values as $key => $value) {
             yield $key => new Value($value);

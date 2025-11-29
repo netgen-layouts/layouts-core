@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
@@ -76,9 +75,9 @@ final class QueryVisitor implements VisitorInterface
     /**
      * Return parameters for the given $query.
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    private function visitTranslationParameters(Query $query): Generator
+    private function visitTranslationParameters(Query $query): iterable
     {
         foreach ($query->parameters as $parameter) {
             $definition = $parameter->parameterDefinition;

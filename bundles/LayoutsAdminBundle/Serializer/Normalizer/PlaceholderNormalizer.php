@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
-use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Layouts\API\Values\Block\Placeholder;
@@ -56,9 +55,9 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
      *
      * @param iterable<object> $values
      *
-     * @return \Generator<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View>
+     * @return iterable<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View>
      */
-    private function buildViewValues(iterable $values): Generator
+    private function buildViewValues(iterable $values): iterable
     {
         foreach ($values as $key => $value) {
             yield $key => new View($value);

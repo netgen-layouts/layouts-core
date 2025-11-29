@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Stubs;
 
-use Generator;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+use function is_iterable;
 use function is_object;
 
 final class NormalizerStub implements NormalizerInterface
@@ -18,7 +18,7 @@ final class NormalizerStub implements NormalizerInterface
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && !$data instanceof Generator;
+        return is_object($data) && !is_iterable($data);
     }
 
     /**

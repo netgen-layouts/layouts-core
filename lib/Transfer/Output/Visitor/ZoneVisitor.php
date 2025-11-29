@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
@@ -61,9 +60,9 @@ final class ZoneVisitor implements VisitorInterface
      *
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitBlocks(Zone $zone, OutputVisitor $outputVisitor): Generator
+    private function visitBlocks(Zone $zone, OutputVisitor $outputVisitor): iterable
     {
         foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
             yield $outputVisitor->visit($block);

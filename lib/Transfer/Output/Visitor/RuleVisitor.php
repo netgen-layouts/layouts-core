@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
@@ -47,9 +46,9 @@ final class RuleVisitor implements VisitorInterface
     /**
      * Visit the given $rule targets into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitTargets(Rule $rule, OutputVisitor $outputVisitor): Generator
+    private function visitTargets(Rule $rule, OutputVisitor $outputVisitor): iterable
     {
         foreach ($rule->targets as $target) {
             yield $outputVisitor->visit($target);
@@ -59,9 +58,9 @@ final class RuleVisitor implements VisitorInterface
     /**
      * Visit the given $rule conditions into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitConditions(Rule $rule, OutputVisitor $outputVisitor): Generator
+    private function visitConditions(Rule $rule, OutputVisitor $outputVisitor): iterable
     {
         foreach ($rule->conditions as $condition) {
             yield $outputVisitor->visit($condition);

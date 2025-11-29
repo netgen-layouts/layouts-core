@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\View;
 
-use Generator;
 use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Layouts\Exception\View\TemplateResolverException;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
@@ -79,9 +78,9 @@ final class TemplateResolver implements TemplateResolverInterface
      *
      * @param array<string, mixed> $parameters
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    private function evaluateParameters(ViewInterface $view, array $parameters): Generator
+    private function evaluateParameters(ViewInterface $view, array $parameters): iterable
     {
         foreach ($parameters as $key => $value) {
             if (is_string($value) && str_starts_with($value, '@=')) {

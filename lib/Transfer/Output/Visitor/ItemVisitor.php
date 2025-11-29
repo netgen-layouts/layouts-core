@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
@@ -38,9 +37,9 @@ final class ItemVisitor implements VisitorInterface
     /**
      * Visit the given $item configuration into hash representation.
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    private function visitConfiguration(Item $item, OutputVisitor $outputVisitor): Generator
+    private function visitConfiguration(Item $item, OutputVisitor $outputVisitor): iterable
     {
         foreach ($item->configs as $config) {
             yield $config->configKey => $outputVisitor->visit($config);

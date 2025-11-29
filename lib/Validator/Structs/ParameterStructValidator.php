@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Validator\Structs;
 
 use Closure;
-use Generator;
 use Netgen\Layouts\API\Values\ParameterStruct;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
@@ -85,12 +84,12 @@ final class ParameterStructValidator extends ConstraintValidator
      * Builds the "fields" array of the Collection constraint from provided parameters
      * and parameter values.
      *
-     * @return \Generator<string, list<\Symfony\Component\Validator\Constraint>|\Symfony\Component\Validator\Constraint>
+     * @return iterable<string, list<\Symfony\Component\Validator\Constraint>|\Symfony\Component\Validator\Constraint>
      */
     private function buildConstraintFields(
         ParameterStruct $parameterStruct,
         ParameterStructConstraint $constraint,
-    ): Generator {
+    ): iterable {
         foreach ($constraint->parameterDefinitions->parameterDefinitions as $parameterDefinition) {
             $constraints = $this->getParameterConstraints($parameterDefinition, $parameterStruct);
 
@@ -144,13 +143,13 @@ final class ParameterStructValidator extends ConstraintValidator
      *
      * @param array<string, mixed> $allParameterValues
      *
-     * @return \Generator<\Symfony\Component\Validator\Constraint>
+     * @return iterable<\Symfony\Component\Validator\Constraint>
      */
     private function getRuntimeParameterConstraints(
         ParameterDefinition $parameterDefinition,
         mixed $parameterValue,
         array $allParameterValues,
-    ): Generator {
+    ): iterable {
         foreach ($parameterDefinition->constraints as $constraint) {
             if ($constraint instanceof Closure) {
                 $constraint = $constraint($parameterValue, $allParameterValues, $parameterDefinition);
@@ -163,12 +162,12 @@ final class ParameterStructValidator extends ConstraintValidator
     }
 
     /**
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
     private function getAllValues(
         ParameterDefinitionCollectionInterface $definitions,
         ParameterStruct $parameterStruct,
-    ): Generator {
+    ): iterable {
         foreach ($definitions->parameterDefinitions as $parameterDefinition) {
             yield $parameterDefinition->name => null;
 

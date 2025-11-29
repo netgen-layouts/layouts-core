@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
@@ -53,9 +52,9 @@ final class RuleGroupVisitor implements VisitorInterface
     /**
      * Visit the given $ruleGroup subgroups into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitSubGroups(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): Generator
+    private function visitSubGroups(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): iterable
     {
         foreach ($this->layoutResolverService->loadRuleGroups($ruleGroup) as $subGroup) {
             yield $outputVisitor->visit($subGroup);
@@ -65,9 +64,9 @@ final class RuleGroupVisitor implements VisitorInterface
     /**
      * Visit the given $ruleGroup rules into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitRules(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): Generator
+    private function visitRules(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): iterable
     {
         foreach ($ruleGroup->rules as $rule) {
             yield $outputVisitor->visit($rule);
@@ -77,9 +76,9 @@ final class RuleGroupVisitor implements VisitorInterface
     /**
      * Visit the given $ruleGroup conditions into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitConditions(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): Generator
+    private function visitConditions(RuleGroup $ruleGroup, OutputVisitor $outputVisitor): iterable
     {
         foreach ($ruleGroup->conditions as $condition) {
             yield $outputVisitor->visit($condition);

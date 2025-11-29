@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
 use DateTimeInterface;
-use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\LayoutService;
@@ -98,9 +97,9 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     /**
      * Returns the array with layout zones.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function getZones(Layout $layout, LayoutTypeInterface $layoutType): Generator
+    private function getZones(Layout $layout, LayoutTypeInterface $layoutType): iterable
     {
         foreach ($layout as $zoneIdentifier => $zone) {
             $linkedZone = $zone->linkedZone;

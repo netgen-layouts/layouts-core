@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
-use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -60,9 +59,9 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
      *
      * @param iterable<object> $values
      *
-     * @return \Generator<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
+     * @return iterable<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
-    private function buildValues(iterable $values): Generator
+    private function buildValues(iterable $values): iterable
     {
         foreach ($values as $key => $value) {
             yield $key => new Value($value);

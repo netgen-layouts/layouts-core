@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
@@ -52,9 +51,9 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Visit the given $block placeholders into hash representation.
      *
-     * @return \Generator<string, array<string, mixed>>
+     * @return iterable<string, array<string, mixed>>
      */
-    private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): Generator
+    private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): iterable
     {
         foreach ($block->placeholders as $placeholder) {
             yield $placeholder->identifier => $outputVisitor->visit($placeholder);
@@ -94,9 +93,9 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Return parameters for the given $block.
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    private function visitTranslationParameters(Block $block): Generator
+    private function visitTranslationParameters(Block $block): iterable
     {
         foreach ($block->parameters as $parameter) {
             $definition = $parameter->parameterDefinition;
@@ -109,9 +108,9 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Visit the given $block configuration into hash representation.
      *
-     * @return \Generator<string, mixed>
+     * @return iterable<string, mixed>
      */
-    private function visitConfiguration(Block $block, OutputVisitor $outputVisitor): Generator
+    private function visitConfiguration(Block $block, OutputVisitor $outputVisitor): iterable
     {
         foreach ($block->configs as $config) {
             yield $config->configKey => $outputVisitor->visit($config);
@@ -121,9 +120,9 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Visit the given $block collections into hash representation.
      *
-     * @return \Generator<string, array<string, mixed>>
+     * @return iterable<string, array<string, mixed>>
      */
-    private function visitCollections(Block $block, OutputVisitor $outputVisitor): Generator
+    private function visitCollections(Block $block, OutputVisitor $outputVisitor): iterable
     {
         foreach ($block->collections as $identifier => $collection) {
             yield $identifier => $outputVisitor->visit($collection);

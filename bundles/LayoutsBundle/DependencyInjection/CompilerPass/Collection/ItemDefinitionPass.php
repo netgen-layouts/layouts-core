@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection;
 
-use Generator;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -48,9 +47,9 @@ final class ItemDefinitionPass implements CompilerPassInterface
     }
 
     /**
-     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
+     * @return iterable<string, \Symfony\Component\DependencyInjection\Reference>
      */
-    private function getConfigHandlers(ContainerBuilder $container): Generator
+    private function getConfigHandlers(ContainerBuilder $container): iterable
     {
         $configHandlerServices = $container->findTaggedServiceIds('netgen_layouts.item_config_handler');
         foreach ($configHandlerServices as $configHandlerService => $tags) {

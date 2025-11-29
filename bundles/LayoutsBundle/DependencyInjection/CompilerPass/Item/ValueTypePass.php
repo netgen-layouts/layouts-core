@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item;
 
-use Generator;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Item\ValueType\ValueTypeFactory;
@@ -38,9 +37,9 @@ final class ValueTypePass implements CompilerPassInterface
      *
      * @param array<string, mixed[]> $valueTypes
      *
-     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
+     * @return iterable<string, \Symfony\Component\DependencyInjection\Reference>
      */
-    private function buildValueTypes(ContainerBuilder $container, array $valueTypes): Generator
+    private function buildValueTypes(ContainerBuilder $container, array $valueTypes): iterable
     {
         foreach ($valueTypes as $identifier => $valueType) {
             if ($valueType['manual_items'] === true) {

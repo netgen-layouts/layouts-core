@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Core\Mapper;
 
-use Generator;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Block\Placeholder;
@@ -141,9 +140,9 @@ final class BlockMapper
      *
      * @param string[]|null $locales
      *
-     * @return \Generator<string, \Netgen\Layouts\API\Values\Block\Placeholder>
+     * @return iterable<string, \Netgen\Layouts\API\Values\Block\Placeholder>
      */
-    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, ?array $locales = null): Generator
+    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, ?array $locales = null): iterable
     {
         if (!$blockDefinition instanceof ContainerDefinitionInterface) {
             return;

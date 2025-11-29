@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
-use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -55,9 +54,9 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
     /**
      * Returns the array with layout type zones.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function getZones(LayoutTypeInterface $layoutType): Generator
+    private function getZones(LayoutTypeInterface $layoutType): iterable
     {
         foreach ($layoutType->zones as $zone) {
             yield [

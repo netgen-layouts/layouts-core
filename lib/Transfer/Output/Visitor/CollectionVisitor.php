@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Generator;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\SlotList;
@@ -44,9 +43,9 @@ final class CollectionVisitor implements VisitorInterface
     /**
      * Visit the given collection $items into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitItems(ItemList $items, OutputVisitor $outputVisitor): Generator
+    private function visitItems(ItemList $items, OutputVisitor $outputVisitor): iterable
     {
         foreach ($items as $item) {
             yield $outputVisitor->visit($item);
@@ -56,9 +55,9 @@ final class CollectionVisitor implements VisitorInterface
     /**
      * Visit the given collection $slots into hash representation.
      *
-     * @return \Generator<array<string, mixed>>
+     * @return iterable<array<string, mixed>>
      */
-    private function visitSlots(SlotList $slots, OutputVisitor $outputVisitor): Generator
+    private function visitSlots(SlotList $slots, OutputVisitor $outputVisitor): iterable
     {
         foreach ($slots as $slot) {
             yield $outputVisitor->visit($slot);

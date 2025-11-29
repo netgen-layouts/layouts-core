@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block;
 
-use Generator;
 use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Block\BlockType\BlockTypeFactory;
 use Netgen\Layouts\Exception\RuntimeException;
@@ -115,9 +114,9 @@ final class BlockTypePass implements CompilerPassInterface
      *
      * @param array<string, mixed[]> $blockTypes
      *
-     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
+     * @return iterable<string, \Symfony\Component\DependencyInjection\Reference>
      */
-    private function buildBlockTypes(ContainerBuilder $container, array $blockTypes): Generator
+    private function buildBlockTypes(ContainerBuilder $container, array $blockTypes): iterable
     {
         foreach ($blockTypes as $identifier => $blockType) {
             $serviceIdentifier = sprintf('netgen_layouts.block.block_type.%s', $identifier);

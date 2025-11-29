@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Core\Mapper;
 
-use Generator;
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\ParameterStruct;
 use Netgen\Layouts\Parameters\ParameterList;
@@ -21,9 +20,9 @@ final class ConfigMapper
      * @param array<string, array<string, mixed>> $config
      * @param \Netgen\Layouts\Config\ConfigDefinitionInterface[] $configDefinitions
      *
-     * @return \Generator<string, \Netgen\Layouts\API\Values\Config\Config>
+     * @return iterable<string, \Netgen\Layouts\API\Values\Config\Config>
      */
-    public function mapConfig(array $config, array $configDefinitions): Generator
+    public function mapConfig(array $config, array $configDefinitions): iterable
     {
         foreach ($configDefinitions as $configKey => $configDefinition) {
             yield $configKey => Config::fromArray(
@@ -50,9 +49,9 @@ final class ConfigMapper
      * @param \Netgen\Layouts\Config\ConfigDefinitionInterface[] $configDefinitions
      * @param array<string, array<string, mixed>> $fallbackValues
      *
-     * @return \Generator<string, array<string, mixed>>
+     * @return iterable<string, array<string, mixed>>
      */
-    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = []): Generator
+    public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = []): iterable
     {
         foreach ($configDefinitions as $configKey => $configDefinition) {
             $configValues = [];
