@@ -20,12 +20,12 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use function is_a;
 
-final class ExceptionConversionListener implements EventSubscriberInterface
+final class ThrowableConversionListener implements EventSubscriberInterface
 {
     /**
      * @var array<class-string<\Throwable>, class-string<\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface>>
      */
-    private array $exceptionMap = [
+    private array $throwableMap = [
         NotFoundException::class => NotFoundHttpException::class,
         InvalidArgumentException::class => BadRequestHttpException::class,
         ValidationException::class => BadRequestHttpException::class,
@@ -54,28 +54,28 @@ final class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
-        $exception = $event->getThrowable();
-        if ($exception instanceof HttpExceptionInterface) {
+        $throwable = $event->getThrowable();
+        if ($throwable instanceof HttpExceptionInterface) {
             return;
         }
 
-        $exceptionClass = null;
-        foreach ($this->exceptionMap as $sourceException => $targetException) {
-            if (is_a($exception, $sourceException, true)) {
-                $exceptionClass = $targetException;
+        $throwableClass = null;
+        foreach ($this->throwableMap as $sourceException => $targetException) {
+            if (is_a($throwable, $sourceException, true)) {
+                $throwableClass = $targetException;
 
                 break;
             }
         }
 
-        if ($exceptionClass !== null) {
-            $convertedException = new $exceptionClass(
-                $exception->getMessage(),
-                $exception,
-                $exception->getCode(),
+        if ($throwableClass !== null) {
+            $convertedThrowable = new $throwableClass(
+                $throwable->getMessage(),
+                $throwable,
+                $throwable->getCode(),
             );
 
-            $event->setThrowable($convertedException);
+            $event->setThrowable($convertedThrowable);
         }
     }
 }

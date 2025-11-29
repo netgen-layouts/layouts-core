@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Exception;
-use Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\ThrowableSerializerListener;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -19,21 +19,21 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-#[CoversClass(ExceptionSerializerListener::class)]
-final class ExceptionSerializerListenerTest extends TestCase
+#[CoversClass(ThrowableSerializerListener::class)]
+final class ThrowableSerializerListenerTest extends TestCase
 {
     private MockObject&SerializerInterface $serializerMock;
 
     private MockObject&LoggerInterface $loggerMock;
 
-    private ExceptionSerializerListener $listener;
+    private ThrowableSerializerListener $listener;
 
     protected function setUp(): void
     {
         $this->serializerMock = $this->createMock(SerializerInterface::class);
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
-        $this->listener = new ExceptionSerializerListener(
+        $this->listener = new ThrowableSerializerListener(
             $this->serializerMock,
             $this->loggerMock,
         );
@@ -49,13 +49,13 @@ final class ExceptionSerializerListenerTest extends TestCase
 
     public function testOnException(): void
     {
-        $exception = new Exception();
+        $throwable = new Exception();
 
         $this->serializerMock
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                self::identicalTo($exception),
+                self::identicalTo($throwable),
                 self::identicalTo('json'),
             )
             ->willReturn('serialized content');
@@ -71,7 +71,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
-            $exception,
+            $throwable,
         );
 
         $this->listener->onException($event);
@@ -90,13 +90,13 @@ final class ExceptionSerializerListenerTest extends TestCase
     #[DataProvider('onExceptionWithHttpExceptionDataProvider')]
     public function testOnExceptionWithHttpException(int $statusCode, bool $loggerCalled): void
     {
-        $exception = new HttpException($statusCode);
+        $throwable = new HttpException($statusCode);
 
         $this->serializerMock
             ->expects($this->once())
             ->method('serialize')
             ->with(
-                self::identicalTo($exception),
+                self::identicalTo($throwable),
                 self::identicalTo('json'),
             )
             ->willReturn('serialized content');
@@ -113,7 +113,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
-            $exception,
+            $throwable,
         );
 
         $this->listener->onException($event);

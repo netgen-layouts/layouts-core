@@ -1,11 +1,11 @@
 services:
-    netgen_layouts.event_listener.exception_conversion:
-        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener
+    netgen_layouts.event_listener.throwable_conversion:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ThrowableConversionListener
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_layouts.event_listener.exception_serializer:
-        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener
+    netgen_layouts.event_listener.throwable_serializer:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ThrowableSerializerListener
         arguments:
             - "@serializer"
             - "@?logger"

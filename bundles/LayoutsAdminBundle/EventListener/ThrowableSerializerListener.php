@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 use function sprintf;
 
-final class ExceptionSerializerListener implements EventSubscriberInterface
+final class ThrowableSerializerListener implements EventSubscriberInterface
 {
     public function __construct(
         private SerializerInterface $serializer,
@@ -28,7 +28,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     }
 
     /**
-     * Serializes the exception if SetIsApiRequestListener::API_FLAG_NAME
+     * Serializes the throwable if SetIsApiRequestListener::API_FLAG_NAME
      * is set to true.
      */
     public function onException(ExceptionEvent $event): void
@@ -42,22 +42,22 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
             return;
         }
 
-        $exception = $event->getThrowable();
-        if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
+        $throwable = $event->getThrowable();
+        if (!$throwable instanceof HttpExceptionInterface || $throwable->getStatusCode() >= 500) {
             $this->logger->critical(
                 sprintf(
                     'Uncaught PHP Exception %s: "%s" at %s line %s',
-                    $exception::class,
-                    $exception->getMessage(),
-                    $exception->getFile(),
-                    $exception->getLine(),
+                    $throwable::class,
+                    $throwable->getMessage(),
+                    $throwable->getFile(),
+                    $throwable->getLine(),
                 ),
-                ['exception' => $exception],
+                ['error' => $throwable],
             );
         }
 
         $response = new JsonResponse();
-        $response->setContent($this->serializer->serialize($exception, 'json'));
+        $response->setContent($this->serializer->serialize($throwable, 'json'));
 
         $event->setResponse($response);
     }
