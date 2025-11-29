@@ -80,7 +80,7 @@ abstract class View implements ViewInterface
     final public function getParameter(string $identifier): mixed
     {
         if (!$this->hasParameter($identifier)) {
-            throw ViewException::parameterNotFound($identifier, $this::class);
+            throw ViewException::parameterNotFound($identifier, static::class);
         }
 
         return $this->parameters[$identifier];
