@@ -48,7 +48,7 @@ final class BlockValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->blockServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadBlock')
             ->with(self::equalTo($uuid))
             ->willReturn($block);
@@ -71,7 +71,7 @@ final class BlockValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->blockServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadBlockDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($block);

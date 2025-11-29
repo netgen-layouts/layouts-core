@@ -48,7 +48,7 @@ final class SlotValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadSlot')
             ->with(self::equalTo($uuid))
             ->willReturn($slot);
@@ -71,7 +71,7 @@ final class SlotValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadSlotDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($slot);

@@ -27,7 +27,7 @@ final class FormViewProviderTest extends TestCase
     {
         $formView = new SymfonyFormView();
         $form = $this->createMock(FormInterface::class);
-        $form->expects(self::once())
+        $form->expects($this->once())
             ->method('createView')
             ->willReturn($formView);
 

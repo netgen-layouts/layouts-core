@@ -46,7 +46,7 @@ final class RendererTest extends TestCase
         $view->addParameter('some_param', 'some_value');
 
         $this->viewBuilderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('buildView')
             ->with(
                 self::identicalTo($value),
@@ -56,7 +56,7 @@ final class RendererTest extends TestCase
             ->willReturn($view);
 
         $this->viewRendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderView')
             ->with(self::identicalTo($view))
             ->willReturn('rendered template');

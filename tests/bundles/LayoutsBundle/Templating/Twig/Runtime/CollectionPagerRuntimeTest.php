@@ -42,7 +42,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         $block = new Block();
         $pagerfanta = $this->createMock(PagerfantaInterface::class);
 
-        $this->pagerfantaViewMock->expects(self::once())
+        $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
             ->with(
                 self::identicalTo($pagerfanta),
@@ -65,7 +65,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         $block = new Block();
         $pagerfanta = $this->createMock(PagerfantaInterface::class);
 
-        $this->pagerfantaViewMock->expects(self::once())
+        $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
             ->with(
                 self::identicalTo($pagerfanta),

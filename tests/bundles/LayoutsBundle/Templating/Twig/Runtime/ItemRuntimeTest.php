@@ -44,13 +44,13 @@ final class ItemRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('load')
             ->with(self::identicalTo(42), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
         $this->urlGeneratorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
@@ -65,13 +65,13 @@ final class ItemRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
         $this->urlGeneratorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
@@ -86,11 +86,11 @@ final class ItemRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
@@ -105,11 +105,11 @@ final class ItemRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->cmsItemLoaderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Default))
             ->willReturn('/item/path');
@@ -122,11 +122,11 @@ final class ItemRuntimeTest extends TestCase
     public function testGetItemPathWithInvalidValue(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('generate');
 
         self::assertSame('', $this->runtime->getItemPath('value', 'type'));
@@ -140,11 +140,11 @@ final class ItemRuntimeTest extends TestCase
         $this->errorHandler->setThrow(true);
 
         $this->cmsItemLoaderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('load');
 
         $this->urlGeneratorMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('generate');
 
         $this->runtime->getItemPath('value', 'type');

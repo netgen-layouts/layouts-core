@@ -41,7 +41,7 @@ final class LayoutBackendTest extends TestCase
     public function testGetSections(): void
     {
         $this->layoutServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadLayout');
 
         $locations = [...$this->backend->getSections()];
@@ -56,7 +56,7 @@ final class LayoutBackendTest extends TestCase
     public function testLoadLocation(): void
     {
         $this->layoutServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadLayout');
 
         $location = $this->backend->loadLocation(1);
@@ -70,7 +70,7 @@ final class LayoutBackendTest extends TestCase
         $layout = new Layout();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -88,7 +88,7 @@ final class LayoutBackendTest extends TestCase
         $this->expectExceptionMessage(sprintf('Item with value "%s" not found.', $uuid->toString()));
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
@@ -114,7 +114,7 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItems(): void
     {
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayouts')
             ->with(
                 self::identicalTo(false),
@@ -135,7 +135,7 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItemsWithOffsetAndLimit(): void
     {
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayouts')
             ->with(
                 self::identicalTo(false),
@@ -161,7 +161,7 @@ final class LayoutBackendTest extends TestCase
         );
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadAllLayouts')
             ->with(
                 self::identicalTo(false),
@@ -182,7 +182,7 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItemsCount(): void
     {
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getLayoutsCount')
             ->willReturn(2);
 
@@ -199,7 +199,7 @@ final class LayoutBackendTest extends TestCase
         );
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getAllLayoutsCount')
             ->willReturn(2);
 

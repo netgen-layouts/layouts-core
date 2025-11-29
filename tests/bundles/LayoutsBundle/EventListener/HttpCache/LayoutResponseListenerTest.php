@@ -60,7 +60,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('tagLayout')
             ->with(self::identicalTo($layout));
 
@@ -86,7 +86,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('tagLayout')
             ->with(self::identicalTo($layout2));
 
@@ -108,7 +108,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
@@ -129,7 +129,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
@@ -151,7 +151,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('tagLayout')
             ->with(self::identicalTo($layout));
 
@@ -182,7 +182,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('tagLayout');
 
         $this->listener->onKernelException(
@@ -212,7 +212,7 @@ final class LayoutResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('tagLayout');
 
         $this->listener->onKernelException(

@@ -38,13 +38,13 @@ final class CsrfTokenValidatorTest extends TestCase
     public function testValidateCsrfToken(): void
     {
         $this->csrfTokenManagerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isTokenValid')
             ->with(self::equalTo(new CsrfToken('token_id', 'token')))
             ->willReturn(true);
 
         $this->sessionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isStarted')
             ->willReturn(true);
 
@@ -59,13 +59,13 @@ final class CsrfTokenValidatorTest extends TestCase
     public function testValidateCsrfTokenOnInvalidToken(): void
     {
         $this->csrfTokenManagerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isTokenValid')
             ->with(self::equalTo(new CsrfToken('token_id', 'token')))
             ->willReturn(false);
 
         $this->sessionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isStarted')
             ->willReturn(true);
 
@@ -80,11 +80,11 @@ final class CsrfTokenValidatorTest extends TestCase
     public function testValidateCsrfTokenOnMissingTokenHeader(): void
     {
         $this->csrfTokenManagerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('isTokenValid');
 
         $this->sessionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isStarted')
             ->willReturn(true);
 
@@ -98,11 +98,11 @@ final class CsrfTokenValidatorTest extends TestCase
     public function testValidateCsrfTokenWithNotStartedSession(): void
     {
         $this->csrfTokenManagerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('isTokenValid');
 
         $this->sessionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isStarted')
             ->willReturn(false);
 
@@ -115,11 +115,11 @@ final class CsrfTokenValidatorTest extends TestCase
     public function testValidateCsrfTokenWithNoCsrfFlag(): void
     {
         $this->csrfTokenManagerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('isTokenValid');
 
         $this->sessionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isStarted')
             ->willReturn(true);
 
@@ -135,11 +135,11 @@ final class CsrfTokenValidatorTest extends TestCase
     public function testValidateCsrfTokenWithNoSession(): void
     {
         $this->csrfTokenManagerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('isTokenValid');
 
         $this->sessionMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('isStarted');
 
         $request = Request::create('/');
@@ -150,11 +150,11 @@ final class CsrfTokenValidatorTest extends TestCase
     public function testValidateCsrfTokenWithSafeMethod(): void
     {
         $this->csrfTokenManagerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('isTokenValid');
 
         $this->sessionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isStarted')
             ->willReturn(true);
 

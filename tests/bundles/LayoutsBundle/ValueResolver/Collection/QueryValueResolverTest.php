@@ -48,7 +48,7 @@ final class QueryValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadQuery')
             ->with(self::equalTo($uuid))
             ->willReturn($query);
@@ -71,7 +71,7 @@ final class QueryValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadQueryDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($query);

@@ -246,7 +246,7 @@ final class TemplateResolverTest extends TestCase
 
         $matcherMock = $this->createMock(MatcherInterface::class);
         $matcherMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('match')
             ->with(self::identicalTo($this->view), self::identicalTo(['value']))
             ->willReturn(false);

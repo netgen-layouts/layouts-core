@@ -30,7 +30,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Test message'),
@@ -45,7 +45,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Custom message'),
@@ -60,7 +60,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo(''),
@@ -75,7 +75,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Test message'),
@@ -95,7 +95,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Test message'),
@@ -115,7 +115,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Custom message'),
@@ -135,7 +135,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo(''),
@@ -155,7 +155,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Test message'),
@@ -170,7 +170,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Test message'),
@@ -185,7 +185,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Custom message'),
@@ -200,7 +200,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo(''),
@@ -215,7 +215,7 @@ final class DebugErrorHandlerTest extends TestCase
         $exception = new Exception('Test message');
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical')
             ->with(
                 self::identicalTo('Test message'),

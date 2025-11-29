@@ -54,12 +54,12 @@ final class ContextListenerTest extends TestCase
         $request = Request::create('/');
 
         $this->contextBuilderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('buildContext')
             ->with(self::identicalTo($this->context));
 
         $this->uriSignerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('check');
 
         $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
@@ -74,11 +74,11 @@ final class ContextListenerTest extends TestCase
         $request->attributes->set('nglContext', ['var' => 'value']);
 
         $this->contextBuilderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('buildContext');
 
         $this->uriSignerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('check');
 
         $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
@@ -95,7 +95,7 @@ final class ContextListenerTest extends TestCase
         $request->query->set('nglContext', ['var' => 'value']);
 
         $this->contextBuilderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('buildContext');
 
         $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);

@@ -54,7 +54,7 @@ final class BlockResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('tagBlock')
             ->with(self::identicalTo($block));
 
@@ -76,7 +76,7 @@ final class BlockResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('tagBlock');
 
         $this->listener->onKernelResponse($event);
@@ -97,7 +97,7 @@ final class BlockResponseListenerTest extends TestCase
         );
 
         $this->taggerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('tagBlock');
 
         $this->listener->onKernelResponse($event);

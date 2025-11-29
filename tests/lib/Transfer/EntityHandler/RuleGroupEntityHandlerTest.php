@@ -47,7 +47,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $ruleGroup = RuleGroup::fromArray(['id' => $uuid]);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::identicalTo($uuid))
             ->willReturn($ruleGroup);
@@ -63,7 +63,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $this->expectExceptionMessage(sprintf('Could not find rule group with identifier "%s"', $uuid->toString()));
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('rule group', $uuid->toString()));
@@ -76,7 +76,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('ruleGroupExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(true);
@@ -89,7 +89,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('ruleGroupExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(false);
@@ -104,13 +104,13 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $ruleGroup = RuleGroup::fromArray(['id' => $uuid]);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::identicalTo($uuid))
             ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('deleteRuleGroup')
             ->with(self::identicalTo($ruleGroup));
 
@@ -125,13 +125,13 @@ final class RuleGroupEntityHandlerTest extends TestCase
         $this->expectExceptionMessage(sprintf('Could not find rule group with identifier "%s"', $uuid->toString()));
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('rule group', $uuid->toString()));
 
         $this->layoutResolverServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('deleteRuleGroup');
 
         $this->entityHandler->deleteEntity($uuid);

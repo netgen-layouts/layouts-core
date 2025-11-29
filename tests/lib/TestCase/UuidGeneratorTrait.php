@@ -36,7 +36,8 @@ trait UuidGeneratorTrait
                 static fn (string $uuid): UuidInterface => $originalFactory->fromString($uuid),
             );
 
-        $factoryMock->expects(self::exactly(count($uuids)))
+        $factoryMock
+            ->expects($this->exactly(count($uuids)))
             ->method('uuid4')
             ->willReturnOnConsecutiveCalls(...$uuids);
 

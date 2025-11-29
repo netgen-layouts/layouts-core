@@ -75,7 +75,7 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->blockServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadZoneBlocks')
             ->with(
                 self::identicalTo($zone),
@@ -84,7 +84,7 @@ final class RenderingRuntimeTest extends TestCase
             ->willReturn($blocks);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::isInstanceOf(ZoneReference::class),
@@ -115,7 +115,7 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($block),
@@ -146,7 +146,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = new Block();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($block),
@@ -176,7 +176,7 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($block),
@@ -209,7 +209,7 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($block),
@@ -241,7 +241,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['id' => Uuid::uuid4(), 'definition' => new BlockDefinition()]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->willThrowException(new Exception());
 
@@ -266,7 +266,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['id' => Uuid::uuid4(), 'definition' => new BlockDefinition()]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -293,7 +293,7 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($placeholder),
@@ -335,7 +335,7 @@ final class RenderingRuntimeTest extends TestCase
         );
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($placeholder),
@@ -377,7 +377,7 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($placeholder),
@@ -422,7 +422,7 @@ final class RenderingRuntimeTest extends TestCase
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($placeholder),
@@ -459,7 +459,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => new PlaceholderList(['main' => new Placeholder()])]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->willThrowException(new Exception());
 
@@ -485,7 +485,7 @@ final class RenderingRuntimeTest extends TestCase
         $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => new PlaceholderList(['main' => new Placeholder()])]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -505,7 +505,7 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($cmsItem),
@@ -530,7 +530,7 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($cmsItem),
@@ -556,7 +556,7 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = new CmsItem();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($cmsItem),
@@ -583,7 +583,7 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type']);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($cmsItem),
@@ -613,7 +613,7 @@ final class RenderingRuntimeTest extends TestCase
         $cmsItem = CmsItem::fromArray(['value' => 42, 'valueType' => 'value_type']);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($cmsItem),
@@ -636,7 +636,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item, 'subItem' => null, 'slot' => Slot::fromArray(['viewType' => 'overlay'])]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -663,7 +663,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item, 'subItem' => null, 'slot' => Slot::fromArray(['viewType' => 'overlay'])]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -690,7 +690,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item, 'subItem' => null, 'slot' => Slot::fromArray(['viewType' => 'overlay'])]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -717,7 +717,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -744,7 +744,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('renderValue');
 
         self::assertSame(
@@ -770,7 +770,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('renderValue');
 
         $this->runtime->renderResult(
@@ -788,7 +788,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -816,7 +816,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -845,7 +845,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -877,7 +877,7 @@ final class RenderingRuntimeTest extends TestCase
         $result = Result::fromArray(['position' => 0, 'item' => $item]);
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
@@ -900,7 +900,7 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new RuleCondition();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($condition),
@@ -924,7 +924,7 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new RuleCondition();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($condition),
@@ -949,7 +949,7 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new RuleCondition();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($condition),
@@ -975,7 +975,7 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new RuleCondition();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($condition),
@@ -1004,7 +1004,7 @@ final class RenderingRuntimeTest extends TestCase
         $condition = new RuleCondition();
 
         $this->rendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($condition),

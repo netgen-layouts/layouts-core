@@ -74,7 +74,7 @@ final class CollectionQueryNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('normalize')
             ->willReturn($serializedParams);
 

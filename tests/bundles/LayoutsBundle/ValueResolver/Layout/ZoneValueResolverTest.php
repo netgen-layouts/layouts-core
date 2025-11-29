@@ -52,7 +52,7 @@ final class ZoneValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -77,7 +77,7 @@ final class ZoneValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayoutDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -105,7 +105,7 @@ final class ZoneValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);

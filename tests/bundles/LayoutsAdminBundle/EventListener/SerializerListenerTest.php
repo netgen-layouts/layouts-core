@@ -44,7 +44,7 @@ final class SerializerListenerTest extends TestCase
         $value = new Value(new APIValue());
 
         $this->serializerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('serialize')
             ->with(
                 self::identicalTo($value),
@@ -82,7 +82,7 @@ final class SerializerListenerTest extends TestCase
         $value = new Value(new APIValue());
 
         $this->serializerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('serialize')
             ->with(
                 self::identicalTo($value),

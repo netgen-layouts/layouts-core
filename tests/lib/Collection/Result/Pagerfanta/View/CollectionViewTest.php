@@ -37,7 +37,7 @@ final class CollectionViewTest extends TestCase
         $block = new Block();
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 
-        $this->twigMock->expects(self::once())
+        $this->twigMock->expects($this->once())
             ->method('render')
             ->with(
                 self::identicalTo('default_template.html.twig'),
@@ -68,7 +68,7 @@ final class CollectionViewTest extends TestCase
         $block = new Block();
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 
-        $this->twigMock->expects(self::once())
+        $this->twigMock->expects($this->once())
             ->method('render')
             ->with(
                 self::identicalTo('template.html.twig'),
@@ -102,7 +102,7 @@ final class CollectionViewTest extends TestCase
 
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 
-        $this->twigMock->expects(self::never())
+        $this->twigMock->expects($this->never())
             ->method('render');
 
         $this->collectionView->render(
@@ -121,7 +121,7 @@ final class CollectionViewTest extends TestCase
 
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 
-        $this->twigMock->expects(self::never())
+        $this->twigMock->expects($this->never())
             ->method('render');
 
         $this->collectionView->render(
@@ -141,7 +141,7 @@ final class CollectionViewTest extends TestCase
 
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 
-        $this->twigMock->expects(self::never())
+        $this->twigMock->expects($this->never())
             ->method('render');
 
         $this->collectionView->render(
@@ -160,7 +160,7 @@ final class CollectionViewTest extends TestCase
 
         $pagerMock = $this->createMock(PagerfantaInterface::class);
 
-        $this->twigMock->expects(self::never())
+        $this->twigMock->expects($this->never())
             ->method('render');
 
         $this->collectionView->render(

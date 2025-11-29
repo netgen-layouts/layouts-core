@@ -48,7 +48,7 @@ final class ItemValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadItem')
             ->with(self::equalTo($uuid))
             ->willReturn($item);
@@ -71,7 +71,7 @@ final class ItemValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadItemDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($item);

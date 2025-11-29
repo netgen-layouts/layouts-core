@@ -43,7 +43,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
@@ -66,7 +66,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $itemCreateStruct = new ItemCreateStruct();
@@ -93,7 +93,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
@@ -116,7 +116,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->moveItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]), 0);
@@ -136,7 +136,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->deleteItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -156,7 +156,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->deleteItems(Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -184,7 +184,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $struct = new QueryUpdateStruct();
@@ -216,7 +216,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $slotCreateStruct = new SlotCreateStruct();
@@ -243,7 +243,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->updateSlot(
@@ -266,7 +266,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->deleteSlot(Slot::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -286,7 +286,7 @@ final class CollectionServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->collectionService->deleteSlots(Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));

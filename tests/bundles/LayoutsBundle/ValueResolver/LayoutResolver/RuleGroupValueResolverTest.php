@@ -48,7 +48,7 @@ final class RuleGroupValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
@@ -71,7 +71,7 @@ final class RuleGroupValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroupArchive')
             ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
@@ -94,7 +94,7 @@ final class RuleGroupValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroupDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);

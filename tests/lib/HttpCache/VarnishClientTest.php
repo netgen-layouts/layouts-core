@@ -30,7 +30,7 @@ final class VarnishClientTest extends TestCase
     public function testPurge(): void
     {
         $this->fosInvalidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('invalidateTags')
             ->with(self::identicalTo(['tag-1', 'tag-2']));
 
@@ -40,7 +40,7 @@ final class VarnishClientTest extends TestCase
     public function testCommit(): void
     {
         $this->fosInvalidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('flush');
 
         self::assertTrue($this->client->commit());
@@ -49,7 +49,7 @@ final class VarnishClientTest extends TestCase
     public function testCommitReturnsFalse(): void
     {
         $this->fosInvalidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('flush')
             ->willThrowException(new ExceptionCollection());
 

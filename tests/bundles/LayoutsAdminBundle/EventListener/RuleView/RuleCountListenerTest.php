@@ -51,7 +51,7 @@ final class RuleCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getRuleCountForLayout')
             ->with(self::identicalTo($layout))
             ->willReturn(3);
@@ -73,7 +73,7 @@ final class RuleCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutResolverServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getRuleCountForLayout');
 
         $this->listener->onBuildView($event);

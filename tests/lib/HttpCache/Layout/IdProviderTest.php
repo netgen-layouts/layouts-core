@@ -33,7 +33,7 @@ final class IdProviderTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn(
@@ -55,7 +55,7 @@ final class IdProviderTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));

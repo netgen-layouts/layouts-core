@@ -42,7 +42,7 @@ final class RuleEntityHandlerTest extends TestCase
         $rule = Rule::fromArray(['id' => $uuid]);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willReturn($rule);
@@ -58,7 +58,7 @@ final class RuleEntityHandlerTest extends TestCase
         $this->expectExceptionMessage(sprintf('Could not find rule with identifier "%s"', $uuid->toString()));
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('rule', $uuid->toString()));
@@ -71,7 +71,7 @@ final class RuleEntityHandlerTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('ruleExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(true);
@@ -84,7 +84,7 @@ final class RuleEntityHandlerTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('ruleExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(false);
@@ -99,13 +99,13 @@ final class RuleEntityHandlerTest extends TestCase
         $rule = Rule::fromArray(['id' => $uuid]);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willReturn($rule);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('deleteRule')
             ->with(self::identicalTo($rule));
 
@@ -120,13 +120,13 @@ final class RuleEntityHandlerTest extends TestCase
         $this->expectExceptionMessage(sprintf('Could not find rule with identifier "%s"', $uuid->toString()));
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('rule', $uuid->toString()));
 
         $this->layoutResolverServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('deleteRule');
 
         $this->entityHandler->deleteEntity($uuid);

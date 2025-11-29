@@ -42,7 +42,7 @@ final class RequestBodyListenerTest extends TestCase
     public function testOnKernelRequest(): void
     {
         $this->decoderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('decode')
             ->with(self::identicalTo('{"test": "value"}'))
             ->willReturn(['test' => 'value']);
@@ -67,7 +67,7 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestWithNonApiRoute(): void
     {
-        $this->decoderMock->expects(self::never())->method('decode');
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -81,7 +81,7 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestInSubRequest(): void
     {
-        $this->decoderMock->expects(self::never())->method('decode');
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -96,7 +96,7 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestWithInvalidMethod(): void
     {
-        $this->decoderMock->expects(self::never())->method('decode');
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -110,7 +110,7 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestWithInvalidContentType(): void
     {
-        $this->decoderMock->expects(self::never())->method('decode');
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -129,7 +129,7 @@ final class RequestBodyListenerTest extends TestCase
         $this->expectExceptionMessage('Request body has an invalid format');
 
         $this->decoderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('decode')
             ->with(self::identicalTo('{]'))
             ->willThrowException(new UnexpectedValueException());
@@ -149,7 +149,7 @@ final class RequestBodyListenerTest extends TestCase
         $this->expectExceptionMessage('Request body has an invalid format');
 
         $this->decoderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('decode')
             ->with(self::identicalTo('42'))
             ->willReturn(42);

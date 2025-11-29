@@ -39,13 +39,13 @@ final class ViewNormalizerTest extends TestCase
     {
         $value = new APIValue();
         $this->normalizerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('normalize')
             ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
         $this->viewRendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($value),
@@ -64,13 +64,13 @@ final class ViewNormalizerTest extends TestCase
     {
         $value = new APIValue();
         $this->normalizerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('normalize')
             ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
         $this->viewRendererMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('renderValue');
 
         $view = new View($value);
@@ -85,13 +85,13 @@ final class ViewNormalizerTest extends TestCase
         $value = new APIValue();
 
         $this->normalizerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('normalize')
             ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
         $this->viewRendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderValue')
             ->with(
                 self::identicalTo($value),

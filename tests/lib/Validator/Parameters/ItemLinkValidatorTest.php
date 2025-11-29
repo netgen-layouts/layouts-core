@@ -39,7 +39,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
 
         if ($value !== null && $value !== '' && $isValid) {
             $this->cmsItemLoaderMock
-                ->expects(self::once())
+                ->expects($this->once())
                 ->method('load')
                 ->willReturn(new CmsItem());
         }
@@ -50,7 +50,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     public function testValidateWithInvalidItem(): void
     {
         $this->cmsItemLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('load')
             ->willReturn(new NullCmsItem('value'));
 

@@ -84,7 +84,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->willReturn(false);
 
         $templateMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('displayBlock');
 
         $template = new ContextualizedTwigTemplate($templateMock);

@@ -60,7 +60,7 @@ final class InvalidationListenerTest extends TestCase
         );
 
         $this->invalidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('commit');
 
         $this->listener->onKernelTerminate($event);
@@ -79,7 +79,7 @@ final class InvalidationListenerTest extends TestCase
         );
 
         $this->invalidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('commit');
 
         $this->listener->onKernelException($event);
@@ -99,7 +99,7 @@ final class InvalidationListenerTest extends TestCase
         );
 
         $this->invalidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('commit');
 
         $this->listener->onConsoleTerminate($event);
@@ -117,7 +117,7 @@ final class InvalidationListenerTest extends TestCase
         );
 
         $this->invalidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('commit');
 
         $this->listener->onConsoleError($event);

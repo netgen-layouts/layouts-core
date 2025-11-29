@@ -64,7 +64,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ->willReturn(true);
 
         $twigTemplateMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('displayBlock')
             ->with(self::identicalTo('twig_block'))
             ->willReturnCallback(
@@ -110,7 +110,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             );
 
         $twigTemplateMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('displayBlock')
             ->with(self::identicalTo('block2'))
             ->willReturnCallback(
@@ -150,7 +150,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ->willReturn(false);
 
         $twigTemplateMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('displayBlock');
 
         $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));

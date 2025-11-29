@@ -48,7 +48,7 @@ final class TargetValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadTarget')
             ->with(self::equalTo($uuid))
             ->willReturn($target);
@@ -71,7 +71,7 @@ final class TargetValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadTargetDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($target);

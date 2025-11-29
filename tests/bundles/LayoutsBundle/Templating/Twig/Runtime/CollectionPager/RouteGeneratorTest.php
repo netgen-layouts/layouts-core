@@ -65,7 +65,7 @@ final class RouteGeneratorTest extends TestCase
 
         $this->requestStack->push($request);
 
-        $this->urlGeneratorMock->expects(self::once())
+        $this->urlGeneratorMock->expects($this->once())
             ->method('generate')
             ->with(
                 self::identicalTo('nglayouts_ajax_block'),
@@ -82,7 +82,7 @@ final class RouteGeneratorTest extends TestCase
             )
             ->willReturn($generatedUri);
 
-        $this->uriSignerMock->expects(self::once())
+        $this->uriSignerMock->expects($this->once())
             ->method('sign')
             ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');
@@ -105,7 +105,7 @@ final class RouteGeneratorTest extends TestCase
 
         $this->context->set('var', 'value');
 
-        $this->urlGeneratorMock->expects(self::once())
+        $this->urlGeneratorMock->expects($this->once())
             ->method('generate')
             ->with(
                 self::identicalTo('nglayouts_ajax_block'),
@@ -120,7 +120,7 @@ final class RouteGeneratorTest extends TestCase
             )
             ->willReturn($generatedUri);
 
-        $this->uriSignerMock->expects(self::once())
+        $this->uriSignerMock->expects($this->once())
             ->method('sign')
             ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');

@@ -50,7 +50,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getRelatedLayoutsCount')
             ->with(self::identicalTo($layout))
             ->willReturn(3);
@@ -72,7 +72,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getRelatedLayoutsCount');
 
         $this->listener->onBuildView($event);
@@ -92,7 +92,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getRelatedLayoutsCount');
 
         $this->listener->onBuildView($event);

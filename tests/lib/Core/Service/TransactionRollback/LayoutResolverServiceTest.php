@@ -50,7 +50,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->createRule(
@@ -78,7 +78,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRule(
@@ -101,7 +101,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleMetadata(
@@ -128,7 +128,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->copyRule(
@@ -160,7 +160,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->moveRule(
@@ -192,7 +192,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->createRuleDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
@@ -212,7 +212,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->discardRuleDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -232,7 +232,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->publishRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -256,7 +256,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->restoreRuleFromArchive(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]));
@@ -276,7 +276,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->deleteRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -303,7 +303,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->enableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
@@ -329,7 +329,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->disableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
@@ -349,7 +349,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $createStruct = new RuleGroupCreateStruct();
@@ -380,7 +380,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleGroup(
@@ -403,7 +403,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleGroupMetadata(
@@ -426,7 +426,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->copyRuleGroup(
@@ -454,7 +454,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->moveRuleGroup(
@@ -486,7 +486,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->createRuleGroupDraft(
@@ -508,7 +508,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->discardRuleGroupDraft(
@@ -530,7 +530,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->publishRuleGroup(
@@ -556,7 +556,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->restoreRuleGroupFromArchive(
@@ -578,7 +578,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->deleteRuleGroup(
@@ -606,7 +606,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->enableRuleGroup(
@@ -634,7 +634,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->disableRuleGroup(
@@ -660,7 +660,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $targetCreateStruct = new TargetCreateStruct();
@@ -687,7 +687,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $targetUpdateStruct = new TargetUpdateStruct();
@@ -713,7 +713,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->deleteTarget(Target::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -733,7 +733,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $conditionCreateStruct = new ConditionCreateStruct();
@@ -760,7 +760,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $conditionCreateStruct = new ConditionCreateStruct();
@@ -787,7 +787,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $conditionUpdateStruct = new ConditionUpdateStruct();
@@ -813,7 +813,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $conditionUpdateStruct = new ConditionUpdateStruct();
@@ -839,7 +839,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->deleteCondition(RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));

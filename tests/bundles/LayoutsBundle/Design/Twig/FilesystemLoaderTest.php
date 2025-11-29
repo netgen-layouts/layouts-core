@@ -40,7 +40,7 @@ final class FilesystemLoaderTest extends TestCase
         $source = new Source('', '@nglayouts_test/template.html.twig');
 
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getSourceContext')
             ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn($source);
@@ -55,7 +55,7 @@ final class FilesystemLoaderTest extends TestCase
         $source = new Source('', '@other/template.html.twig');
 
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getSourceContext')
             ->with(self::identicalTo('@other/template.html.twig'))
             ->willReturn($source);
@@ -68,7 +68,7 @@ final class FilesystemLoaderTest extends TestCase
     public function testGetCacheKey(): void
     {
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCacheKey')
             ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn('cache_key');
@@ -81,7 +81,7 @@ final class FilesystemLoaderTest extends TestCase
     public function testGetCacheKeyWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getCacheKey')
             ->with(self::identicalTo('@other/template.html.twig'))
             ->willReturn('cache_key');
@@ -94,7 +94,7 @@ final class FilesystemLoaderTest extends TestCase
     public function testIsFresh(): void
     {
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isFresh')
             ->with(self::identicalTo('@nglayouts_test/template.html.twig'), self::identicalTo(42))
             ->willReturn(true);
@@ -105,7 +105,7 @@ final class FilesystemLoaderTest extends TestCase
     public function testIsFreshWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('isFresh')
             ->with(self::identicalTo('@other/template.html.twig'), self::identicalTo(42))
             ->willReturn(true);
@@ -116,7 +116,7 @@ final class FilesystemLoaderTest extends TestCase
     public function testExists(): void
     {
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('exists')
             ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn(true);
@@ -127,7 +127,7 @@ final class FilesystemLoaderTest extends TestCase
     public function testExistsWithNonLayoutsTwigFile(): void
     {
         $this->innerLoaderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('exists')
             ->with(self::identicalTo('@other/template.html.twig'))
             ->willReturn(true);

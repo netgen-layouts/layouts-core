@@ -31,7 +31,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
         $token = $this->createMock(TokenInterface::class);
 
         $this->accessDecisionManagerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('decide')
             ->with(self::equalTo($token), self::equalTo(['ROLE_NGLAYOUTS_ADMIN']))
             ->willReturn(true);
@@ -48,7 +48,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
     public function testVoteWithUnsupportedAttribute(): void
     {
         $this->accessDecisionManagerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('decide');
 
         $this->voter->vote($this->createMock(TokenInterface::class), null, [new stdClass()]);
@@ -57,7 +57,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
     public function testVoteWithNonExistingRole(): void
     {
         $this->accessDecisionManagerMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('decide');
 
         $vote = $this->voter->vote($this->createMock(TokenInterface::class), null, ['nglayouts:unknown:unknown']);

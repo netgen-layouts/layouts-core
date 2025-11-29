@@ -37,19 +37,19 @@ final class ViewBuilderTest extends TestCase
         $view = new View($value);
 
         $this->viewProviderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('supports')
             ->with(self::identicalTo($value))
             ->willReturn(true);
 
         $this->viewProviderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('provideView')
             ->with(self::identicalTo($value))
             ->willReturn($view);
 
         $this->templateResolverMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('resolveTemplate')
             ->with(self::identicalTo($view));
 
@@ -81,7 +81,7 @@ final class ViewBuilderTest extends TestCase
         $value = new Value();
 
         $this->templateResolverMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('resolveTemplate');
 
         $viewBuilder = new ViewBuilder(
@@ -101,13 +101,13 @@ final class ViewBuilderTest extends TestCase
         $value = new Value();
 
         $this->viewProviderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('supports')
             ->with(self::identicalTo($value))
             ->willReturn(false);
 
         $this->viewProviderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('provideView');
 
         $viewBuilder = new ViewBuilder(

@@ -302,7 +302,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('matchRules');
 
         self::assertSame([], $this->layoutResolver->resolveRules(Request::create('/')));
@@ -350,7 +350,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
@@ -392,7 +392,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule]));
@@ -615,7 +615,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('matchRules');
 
         self::assertNull($this->layoutResolver->resolveRule(Request::create('/')));
@@ -652,7 +652,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule]));
@@ -697,7 +697,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn($ruleGroup);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('matchRules')
             ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule]));

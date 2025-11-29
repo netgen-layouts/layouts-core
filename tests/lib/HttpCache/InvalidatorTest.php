@@ -49,7 +49,7 @@ final class InvalidatorTest extends TestCase
             );
 
         $this->clientMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -68,11 +68,11 @@ final class InvalidatorTest extends TestCase
     public function testInvalidateLayoutsWithEmptyLayoutIds(): void
     {
         $this->idProviderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('provideIds');
 
         $this->clientMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('purge');
 
         $this->invalidator->invalidateLayouts([]);
@@ -84,7 +84,7 @@ final class InvalidatorTest extends TestCase
         $uuid2 = Uuid::uuid4();
 
         $this->clientMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -101,7 +101,7 @@ final class InvalidatorTest extends TestCase
     public function testInvalidateBlocksWithEmptyBlockIds(): void
     {
         $this->clientMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('purge');
 
         $this->invalidator->invalidateBlocks([]);
@@ -113,7 +113,7 @@ final class InvalidatorTest extends TestCase
         $uuid2 = Uuid::uuid4();
 
         $this->clientMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -130,7 +130,7 @@ final class InvalidatorTest extends TestCase
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
     {
         $this->clientMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('purge');
 
         $this->invalidator->invalidateLayoutBlocks([]);
@@ -139,7 +139,7 @@ final class InvalidatorTest extends TestCase
     public function testCommit(): void
     {
         $this->clientMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('commit')
             ->willReturn(true);
 

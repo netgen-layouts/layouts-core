@@ -93,7 +93,7 @@ final class BlockNormalizerTest extends TestCase
         );
 
         $this->blockServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('hasPublishedState')
             ->with(self::identicalTo($block))
             ->willReturn(true);

@@ -27,7 +27,7 @@ final class TransactionHandlerTest extends TestCase
     public function testBeginTransaction(): void
     {
         $this->connectionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('beginTransaction');
 
         $this->handler->beginTransaction();
@@ -36,7 +36,7 @@ final class TransactionHandlerTest extends TestCase
     public function testCommitTransaction(): void
     {
         $this->connectionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('commit');
 
         $this->handler->commitTransaction();
@@ -45,7 +45,7 @@ final class TransactionHandlerTest extends TestCase
     public function testRollbackTransaction(): void
     {
         $this->connectionMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollback');
 
         $this->handler->rollbackTransaction();

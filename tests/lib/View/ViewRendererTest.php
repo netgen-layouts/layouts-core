@@ -42,7 +42,7 @@ final class ViewRendererTest extends TestCase
         $view->addParameter('some_param', 'some_value');
 
         $this->twigEnvironmentMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with(
                 self::identicalTo('some_template.html.twig'),
@@ -66,7 +66,7 @@ final class ViewRendererTest extends TestCase
         $view->addParameter('some_param', 'some_value');
 
         $this->twigEnvironmentMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('render');
 
         $renderedTemplate = $this->viewRenderer->renderView($view);

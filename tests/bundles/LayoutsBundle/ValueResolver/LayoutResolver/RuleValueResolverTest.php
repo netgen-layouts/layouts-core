@@ -48,7 +48,7 @@ final class RuleValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::equalTo($uuid))
             ->willReturn($rule);
@@ -71,7 +71,7 @@ final class RuleValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleArchive')
             ->with(self::equalTo($uuid))
             ->willReturn($rule);
@@ -94,7 +94,7 @@ final class RuleValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($rule);

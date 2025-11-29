@@ -35,7 +35,7 @@ final class PluginRenderingRuntimeTest extends TestCase
     public function testRenderPlugins(): void
     {
         $this->pluginRendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),
@@ -60,7 +60,7 @@ final class PluginRenderingRuntimeTest extends TestCase
         $this->errorHandler->setThrow(true);
 
         $this->pluginRendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),
@@ -77,7 +77,7 @@ final class PluginRenderingRuntimeTest extends TestCase
     public function testRenderPluginsReturnsEmptyStringOnException(): void
     {
         $this->pluginRendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),

@@ -48,7 +48,7 @@ final class CollectionValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadCollection')
             ->with(self::equalTo($uuid))
             ->willReturn($collection);
@@ -71,7 +71,7 @@ final class CollectionValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->collectionServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadCollectionDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($collection);

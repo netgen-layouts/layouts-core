@@ -44,7 +44,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $createStruct = $this->blockService->newBlockCreateStruct(
@@ -97,7 +97,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $createStruct = $this->blockService->newBlockCreateStruct(
@@ -139,7 +139,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $struct = new BlockUpdateStruct();
@@ -176,7 +176,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlock(
@@ -222,7 +222,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlockToZone(
@@ -248,7 +248,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlock(
@@ -294,7 +294,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlockToZone(
@@ -322,7 +322,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->restoreBlock(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -349,7 +349,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->enableTranslations(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -369,7 +369,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->disableTranslations(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -389,7 +389,7 @@ final class BlockServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->blockService->deleteBlock(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));

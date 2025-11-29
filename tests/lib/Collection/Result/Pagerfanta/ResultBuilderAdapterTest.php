@@ -25,7 +25,7 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects(self::once())
+        $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -43,7 +43,7 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResultsWithMaxTotalCount(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects(self::once())
+        $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -61,7 +61,7 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResultsWithStartingOffset(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects(self::once())
+        $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -79,7 +79,7 @@ final class ResultBuilderAdapterTest extends TestCase
     public function testGetNbResultsWithStartingOffsetAndMaxTotalCount(): void
     {
         $collection = new Collection();
-        $this->resultBuilderMock->expects(self::once())
+        $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -99,7 +99,7 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $resultSet = ResultSet::fromArray(['results' => [1, 2, 3], 'totalCount' => 3]);
 
-        $this->resultBuilderMock->expects(self::once())
+        $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -119,7 +119,7 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $resultSet = ResultSet::fromArray(['results' => [1, 2, 3], 'totalCount' => 3]);
 
-        $this->resultBuilderMock->expects(self::once())
+        $this->resultBuilderMock->expects($this->once())
             ->method('build')
             ->with(
                 self::identicalTo($collection),

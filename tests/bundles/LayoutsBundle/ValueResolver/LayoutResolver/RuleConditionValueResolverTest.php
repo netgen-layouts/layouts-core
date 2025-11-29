@@ -48,7 +48,7 @@ final class RuleConditionValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleCondition')
             ->with(self::equalTo($uuid))
             ->willReturn($condition);
@@ -71,7 +71,7 @@ final class RuleConditionValueResolverTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleConditionDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($condition);

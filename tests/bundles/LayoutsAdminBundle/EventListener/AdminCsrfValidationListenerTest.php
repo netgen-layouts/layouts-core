@@ -52,7 +52,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $this->csrfTokenValidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('validateCsrfToken')
             ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
             ->willReturn(true);
@@ -72,7 +72,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $this->csrfTokenValidatorMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('validateCsrfToken')
             ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
             ->willReturn(false);
@@ -89,7 +89,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $this->csrfTokenValidatorMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('validateCsrfToken');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -103,7 +103,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
         $request = Request::create('/');
 
         $this->csrfTokenValidatorMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('validateCsrfToken');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);

@@ -277,7 +277,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         );
 
         $this->cmsItemLoaderMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('load');
 
         $item = $this->mapper->mapItem($persistenceItem);

@@ -56,7 +56,7 @@ final class HelpersRuntimeTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn(Layout::fromArray(['name' => 'Test layout']));
@@ -69,7 +69,7 @@ final class HelpersRuntimeTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
@@ -86,13 +86,13 @@ final class HelpersRuntimeTest extends TestCase
         $ruleGroup = RuleGroup::fromArray(['id' => $groupUuid]);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::equalTo($ruleUuid))
             ->willReturn($rule);
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::equalTo($groupUuid))
             ->willReturn($ruleGroup);
@@ -105,7 +105,7 @@ final class HelpersRuntimeTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::equalTo($uuid))
             ->willReturn(RuleGroup::fromArray(['name' => 'Test rule group']));
@@ -118,7 +118,7 @@ final class HelpersRuntimeTest extends TestCase
         $uuid = Uuid::uuid4();
 
         $this->layoutResolverServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadRuleGroup')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('rule group', $uuid->toString()));
