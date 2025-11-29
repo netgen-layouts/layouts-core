@@ -32,6 +32,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Stringable;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
@@ -1023,7 +1024,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderStringTemplate(): void
     {
         $objectWithoutCast = Block::fromArray(['id' => Uuid::uuid4()]);
-        $objectWithCast = new class {
+        $objectWithCast = new class implements Stringable {
             public function __toString(): string
             {
                 return 'foo';

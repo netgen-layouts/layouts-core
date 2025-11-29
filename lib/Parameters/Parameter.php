@@ -6,12 +6,13 @@ namespace Netgen\Layouts\Parameters;
 
 use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Stringable;
 
 use function is_array;
 use function is_object;
 use function method_exists;
 
-final class Parameter
+final class Parameter implements Stringable
 {
     use HydratorTrait;
 
