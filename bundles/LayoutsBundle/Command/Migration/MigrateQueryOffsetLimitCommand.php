@@ -238,7 +238,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 'c',
                 'nglayouts_collection_query',
                 'q',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('c.id', 'q.collection_id'),
                     $query->expr()->eq('c.status', 'q.status'),
                 ),
@@ -247,7 +247,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 'q',
                 'nglayouts_collection_query_translation',
                 'qt',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('q.id', 'qt.query_id'),
                     $query->expr()->eq('q.status', 'qt.status'),
                     $query->expr()->eq('c.main_locale', 'qt.locale'),

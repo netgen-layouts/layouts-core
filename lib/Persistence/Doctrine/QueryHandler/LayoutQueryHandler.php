@@ -52,7 +52,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout',
                 'l2',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
                     $query->expr()->eq('l2.status', ':status'),
                 ),
@@ -107,7 +107,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout',
                 'l2',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
                     $query->expr()->eq('l2.status', ':status'),
                 ),
@@ -158,7 +158,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout',
                 'l2',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
                     $query->expr()->eq('l2.status', ':status'),
                 ),
@@ -200,7 +200,7 @@ final class LayoutQueryHandler extends QueryHandler
             'l',
             'nglayouts_zone',
             'z',
-            $query->expr()->and(
+            (string) $query->expr()->and(
                 $query->expr()->eq('z.layout_id', 'l.id'),
                 $query->expr()->eq('z.status', 'l.status'),
                 $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid'),
@@ -235,7 +235,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'nglayouts_layout',
                 'nglayouts_zone',
                 'z',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('z.layout_id', 'nglayouts_layout.id'),
                     $query->expr()->eq('z.status', 'nglayouts_layout.status'),
                     $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid'),
@@ -596,7 +596,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout_translation',
                 'lt',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('lt.layout_id', 'l.id'),
                     $query->expr()->eq('lt.status', 'l.status'),
                 ),
@@ -617,7 +617,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'z',
                 'nglayouts_layout',
                 'l',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('l.id', 'z.layout_id'),
                     $query->expr()->eq('l.status', 'z.status'),
                 ),

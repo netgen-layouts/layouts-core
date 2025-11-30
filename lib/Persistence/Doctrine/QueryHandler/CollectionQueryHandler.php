@@ -834,7 +834,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_collection_translation',
                 'ct',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
                     $query->expr()->eq('ct.status', 'c.status'),
                 ),
@@ -842,7 +842,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_block_collection',
                 'bc',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('c.id', 'bc.collection_id'),
                     $query->expr()->eq('c.status', 'bc.collection_status'),
                 ),
@@ -863,7 +863,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_collection_translation',
                 'ct',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
                     $query->expr()->eq('ct.status', 'c.status'),
                 ),
@@ -871,7 +871,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_block_collection',
                 'bc',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('c.id', 'bc.collection_id'),
                     $query->expr()->eq('c.status', 'bc.collection_status'),
                 ),
@@ -879,7 +879,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'bc',
                 'nglayouts_block',
                 'b',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('bc.block_id', 'b.id'),
                     $query->expr()->eq('bc.block_status', 'b.status'),
                 ),
@@ -900,7 +900,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'i',
                 'nglayouts_collection',
                 'c',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('c.id', 'i.collection_id'),
                     $query->expr()->eq('c.status', 'i.status'),
                 ),
@@ -921,7 +921,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'q',
                 'nglayouts_collection_query_translation',
                 'qt',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('qt.query_id', 'q.id'),
                     $query->expr()->eq('qt.status', 'q.status'),
                 ),
@@ -929,7 +929,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'q',
                 'nglayouts_collection',
                 'c',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('c.id', 'q.collection_id'),
                     $query->expr()->eq('c.status', 'q.status'),
                 ),
@@ -950,7 +950,7 @@ final class CollectionQueryHandler extends QueryHandler
                 's',
                 'nglayouts_collection',
                 'c',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('c.id', 's.collection_id'),
                     $query->expr()->eq('c.status', 's.status'),
                 ),

@@ -7,10 +7,6 @@ parameters:
     treatPhpDocTypesAsCertain: false
 
     ignoreErrors:
-        # Doctrine DBAL
-
-        - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
-
         # Symfony
 
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'

@@ -505,7 +505,7 @@ final class BlockQueryHandler extends QueryHandler
                 'b',
                 'nglayouts_block_translation',
                 'bt',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('bt.block_id', 'b.id'),
                     $query->expr()->eq('bt.status', 'b.status'),
                 ),
@@ -526,7 +526,7 @@ final class BlockQueryHandler extends QueryHandler
                 'b',
                 'nglayouts_block_translation',
                 'bt',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('bt.block_id', 'b.id'),
                     $query->expr()->eq('bt.status', 'b.status'),
                 ),
@@ -534,7 +534,7 @@ final class BlockQueryHandler extends QueryHandler
                 'b',
                 'nglayouts_layout',
                 'l',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('l.id', 'b.layout_id'),
                     $query->expr()->eq('l.status', 'b.status'),
                 ),

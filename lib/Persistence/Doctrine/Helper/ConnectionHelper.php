@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\Helper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\PostgreSQL;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\SQLite;
 
@@ -25,8 +25,7 @@ final class ConnectionHelper implements ConnectionHelperInterface
         private Connection $connection,
     ) {
         $this->databaseSpecificHelpers = [
-            // @todo SqlitePlatform was renamed to SQLitePlatform in DBAL 4.0
-            SqlitePlatform::class => new SQLite($this->connection),
+            SQLitePlatform::class => new SQLite($this->connection),
             PostgreSQLPlatform::class => new PostgreSQL($this->connection),
         ];
     }

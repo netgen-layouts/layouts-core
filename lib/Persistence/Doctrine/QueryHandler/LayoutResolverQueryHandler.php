@@ -155,7 +155,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'r',
                 'nglayouts_rule_target',
                 'rt',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('r.id', 'rt.rule_id'),
                     $query->expr()->eq('r.status', 'rt.status'),
                 ),
@@ -1356,7 +1356,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'r',
                 'nglayouts_layout',
                 'l',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('r.layout_uuid', 'l.uuid'),
                     $query->expr()->eq('l.status', ':layout_status'),
                 ),
@@ -1395,7 +1395,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 't',
                 'nglayouts_rule',
                 'r',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('r.id', 't.rule_id'),
                     $query->expr()->eq('r.status', 't.status'),
                 ),
@@ -1416,7 +1416,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_rule_condition_rule',
                 'cr',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('cr.condition_id', 'c.id'),
                     $query->expr()->eq('cr.condition_status', 'c.status'),
                 ),
@@ -1425,7 +1425,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'cr',
                 'nglayouts_rule',
                 'r',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('r.id', 'cr.rule_id'),
                     $query->expr()->eq('r.status', 'cr.rule_status'),
                 ),
@@ -1446,7 +1446,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_rule_condition_rule_group',
                 'crg',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('crg.condition_id', 'c.id'),
                     $query->expr()->eq('crg.condition_status', 'c.status'),
                 ),
@@ -1455,7 +1455,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'crg',
                 'nglayouts_rule_group',
                 'rg',
-                $query->expr()->and(
+                (string) $query->expr()->and(
                     $query->expr()->eq('rg.id', 'crg.rule_group_id'),
                     $query->expr()->eq('rg.status', 'crg.rule_group_status'),
                 ),
