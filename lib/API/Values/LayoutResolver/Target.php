@@ -34,6 +34,9 @@ final class Target implements Value
      */
     public private(set) int|string $value;
 
+    /**
+     * Returns the value object if the target type supports it.
+     */
     public private(set) ?object $valueObject {
         get {
             if (!$this->targetType instanceof ValueObjectProviderInterface) {
