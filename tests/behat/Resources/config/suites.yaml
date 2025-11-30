@@ -1,3 +1,0 @@
-imports:
-    - suites/admin/managing_layouts.yaml
-    - suites/admin/managing_shared_layouts.yaml
