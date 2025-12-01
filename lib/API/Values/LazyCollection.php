@@ -25,7 +25,10 @@ abstract class LazyCollection extends AbstractLazyCollection
 
     final public static function fromCallable(callable $callable): static
     {
-        return new static($callable);
+        /** @var static<TKey, TValue> $return */
+        $return = new static($callable);
+
+        return $return;
     }
 
     /**
@@ -33,7 +36,10 @@ abstract class LazyCollection extends AbstractLazyCollection
      */
     final public static function fromArray(array $array): static
     {
-        return new static(static fn (): array => $array);
+        /** @var static<TKey, TValue> $return */
+        $return = new static(static fn (): array => $array);
+
+        return $return;
     }
 
     final protected function doInitialize(): void
