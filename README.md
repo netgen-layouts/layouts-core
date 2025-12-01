@@ -16,7 +16,7 @@ Running tests requires that you have complete vendors installed, so run
 
 Run the unit tests by calling `composer test` from the repo root:
 
-```
+```bash
 $ composer test
 ```
 
@@ -25,7 +25,7 @@ This will use an in memory SQLite database.
 You can also run unit tests on a real database. Create an empty MySQL database
 and run the tests with:
 
-```
+```bash
 $ DATABASE=mysql://root@localhost/nglayouts composer test
 ```
 
@@ -33,7 +33,7 @@ where `mysql://root@localhost/nglayouts` is a DSN to your MySQL database.
 
 You can also use PostgreSQL:
 
-```
+```bash
 $ DATABASE=pgsql://user:pass@localhost/nglayouts composer test
 ```
 
@@ -42,7 +42,7 @@ $ DATABASE=pgsql://user:pass@localhost/nglayouts composer test
 Run the REST API tests for layout editing app by calling `composer test-api`
 from the repo root:
 
-```
+```bash
 $ composer test-api
 ```
 
@@ -51,7 +51,7 @@ Just as with unit tests, this will use a temporary SQLite database.
 You can also use the `DATABASE` environment variable to run the tests
 with a MySQL or PostgreSQL database:
 
-```
+```bash
 $ DATABASE=mysql://root@localhost/nglayouts composer test-api
 ```
 
@@ -65,7 +65,7 @@ the latest Chrome WebDriver and Symfony CLI and start the test web server.
 
 To run the tests, just execute the following:
 
-```
+```bash
 $ composer behat
 ```
 
@@ -73,8 +73,8 @@ This will run the tests with the Chrome UI visible.
 
 To run the tests without the Chrome UI and save some seconds, you can use:
 
-```
-$ chrome behat-headless
+```bash
+$ composer behat-headless
 ```
 
 ### Static analysis
@@ -83,11 +83,11 @@ All code is statically analysed with PHPStan. Make sure that it gives the OK for
 the entire codebase after your changes. Run the following commands to run PHPStan
 for the library/bundle code and for tests code, respectively:
 
-```
+```bash
 $ composer phpstan
 ```
 
-```
+```bash
 $ composer phpstan-tests
 ```
 
@@ -96,6 +96,6 @@ $ composer phpstan-tests
 This repo uses PHP CS Fixer and rules defined in `.php-cs-fixer.php` file to enforce coding
 standards. Please check the code for any CS violations before submitting patches:
 
-```
+```bash
 $ php-cs-fixer fix
 ```
