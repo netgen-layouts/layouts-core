@@ -2,7 +2,7 @@
 
 {% macro format_datetime(datetime) %}
     {% if datetime is not same as(null) %}
-        {{ datetime.datetime|nglayouts_format_datetime('medium', 'short') ~ ' (' ~ datetime.timezone ~ ')' }}
+        {{ datetime.datetime|format_datetime('medium', 'short') ~ ' (' ~ datetime.timezone ~ ')' }}
     {% endif %}
 {% endmacro %}
 

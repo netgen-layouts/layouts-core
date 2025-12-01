@@ -44,13 +44,6 @@ final class HelpersRuntimeTest extends TestCase
         );
     }
 
-    public function testGetLocaleName(): void
-    {
-        $localeName = $this->runtime->getLocaleName('hr_HR', 'hr_HR');
-
-        self::assertSame('hrvatski (Hrvatska)', $localeName);
-    }
-
     public function testGetLayoutName(): void
     {
         $uuid = Uuid::uuid4();

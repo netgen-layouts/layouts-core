@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
-use DateTimeInterface;
-use IntlDateFormatter;
-use IntlTimeZone;
-use Locale;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
@@ -17,13 +13,9 @@ use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Utils\FlagGenerator;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Intl\Locales;
 use Throwable;
-use Twig\Environment;
-use Twig\Extension\CoreExtension;
 
 use function array_unshift;
-use function is_string;
 
 final class HelpersRuntime
 {
@@ -32,16 +24,6 @@ final class HelpersRuntime
         private LayoutResolverService $layoutResolverService,
         private ValueTypeRegistry $valueTypeRegistry,
     ) {}
-
-    /**
-     * Returns the locale name in specified locale.
-     *
-     * If $displayLocale is specified, name translated in that locale will be returned.
-     */
-    public function getLocaleName(string $locale, ?string $displayLocale = null): string
-    {
-        return Locales::getName($locale, $displayLocale);
-    }
 
     /**
      * Returns the layout name for specified layout ID.
@@ -103,32 +85,6 @@ final class HelpersRuntime
         } catch (Throwable) {
             return $countryCode;
         }
-    }
-
-    public function formatDateTime(Environment $twig, DateTimeInterface|string $dateTime, string $dateFormat = 'medium', string $timeFormat = 'medium'): string
-    {
-        $coreExtension = $twig->getExtension(CoreExtension::class);
-
-        $dateTime = $coreExtension->convertDate($dateTime);
-
-        $formatValues = [
-            'none' => IntlDateFormatter::NONE,
-            'short' => IntlDateFormatter::SHORT,
-            'medium' => IntlDateFormatter::MEDIUM,
-            'long' => IntlDateFormatter::LONG,
-            'full' => IntlDateFormatter::FULL,
-        ];
-
-        $formatter = IntlDateFormatter::create(
-            Locale::getDefault(),
-            $formatValues[$dateFormat],
-            $formatValues[$timeFormat],
-            IntlTimeZone::createTimeZone($dateTime->getTimezone()->getName()),
-        );
-
-        $formattedValue = $formatter->format($dateTime->getTimestamp());
-
-        return is_string($formattedValue) ? $formattedValue : '';
     }
 
     /**
