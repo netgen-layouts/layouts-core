@@ -2,41 +2,36 @@
     "$schema": "https://json-schema.org/draft-07/schema#",
     "type": "object",
     "description": "Import specification",
-    "required": ["__version", "entities"],
+    "required": ["__version"],
     "additionalProperties": false,
     "properties": {
         "__version": {
             "description": "Version of the import specification",
-            "const": 1
+            "const": 2
         },
-        "entities": {
+        "layouts": {
             "type": "array",
-            "description": "The list of entities to import",
+            "description": "The list of layouts to import",
             "minItems": 1,
-            "items": {
-                "oneOf": [
-                    {
-                        "if": { "type": "object", "properties": { "__type": { "const": "layout" } } },
-                        "then": { "$ref": "#/definitions/complex/layout" },
-                        "else": false
-                    },
-                    {
-                        "if": { "type": "object", "properties": { "__type": { "const": "rule" } } },
-                        "then": { "$ref": "#/definitions/complex/rule" },
-                        "else": false
-                    },
-                    {
-                        "if": { "type": "object", "properties": { "__type": { "const": "rule_group" } } },
-                        "then": { "$ref": "#/definitions/complex/rule_group" },
-                        "else": false
-                    },
-                    {
-                        "if": { "type": "object", "properties": { "__type": { "const": "role" } } },
-                        "then": { "$ref": "#/definitions/complex/role" },
-                        "else": false
-                    }
-                ]
-            }
+            "items": { "$ref": "#/definitions/complex/layout" }
+        },
+        "rule_groups": {
+            "type": "array",
+            "description": "The list of rule groups to import",
+            "minItems": 1,
+            "items": { "$ref": "#/definitions/complex/rule_group" }
+        },
+        "rules": {
+            "type": "array",
+            "description": "The list of rules to import",
+            "minItems": 1,
+            "items": { "$ref": "#/definitions/complex/rule" }
+        },
+        "roles": {
+            "type": "array",
+            "description": "The list of roles to import",
+            "minItems": 1,
+            "items": { "$ref": "#/definitions/complex/role" }
         }
     },
     "definitions": {

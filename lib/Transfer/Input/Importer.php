@@ -46,7 +46,14 @@ final class Importer implements ImporterInterface
             throw ImportException::importError($t);
         }
 
-        foreach ($data['entities'] as $entityData) {
+        $entities = [
+            ...$data['layouts'] ?? [],
+            ...$data['rule_groups'] ?? [],
+            ...$data['rules'] ?? [],
+            ...$data['roles'] ?? [],
+        ];
+
+        foreach ($entities as $entityData) {
             $uuid = Uuid::fromString($entityData['id']);
 
             try {

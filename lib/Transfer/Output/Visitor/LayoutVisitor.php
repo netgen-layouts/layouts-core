@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Transfer\EntityType;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
@@ -20,8 +21,6 @@ final class LayoutVisitor implements VisitorInterface
 {
     use StatusStringTrait;
 
-    private const string ENTITY_TYPE = 'layout';
-
     public function accept(object $value): bool
     {
         return $value instanceof Layout;
@@ -30,7 +29,7 @@ final class LayoutVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            '__type' => self::ENTITY_TYPE,
+            '__type' => EntityType::Layout->value,
             'id' => $value->id->toString(),
             'type_identifier' => $value->layoutType->identifier,
             'name' => $value->name,

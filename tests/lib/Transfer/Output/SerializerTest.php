@@ -25,7 +25,7 @@ final class SerializerTest extends TestCase
     {
         $this->serializer = new Serializer(
             new OutputVisitor([new VisitorStub()]),
-            new Container(['entity' => new EntityHandlerStub()]),
+            new Container(['layout' => new EntityHandlerStub()]),
         );
     }
 
@@ -37,19 +37,19 @@ final class SerializerTest extends TestCase
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
-                'entities' => [
+                'layouts' => [
                     ['visited_key' => 'visited_value'],
                     ['visited_key' => 'visited_value'],
                 ],
             ],
-            $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity']),
+            $this->serializer->serialize([$uuid1->toString() => 'layout', $uuid2->toString() => 'layout']),
         );
     }
 
     public function testSerializeWithNoHandler(): void
     {
         $this->expectException(TransferException::class);
-        $this->expectExceptionMessage('Entity handler for "entity" entity type does not exist.');
+        $this->expectExceptionMessage('Entity handler for "layout" entity type does not exist.');
 
         $this->serializer = new Serializer(
             new OutputVisitor([new VisitorStub()]),
@@ -59,13 +59,13 @@ final class SerializerTest extends TestCase
         $uuid1 = Uuid::uuid4();
         $uuid2 = Uuid::uuid4();
 
-        $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity']);
+        $this->serializer->serialize([$uuid1->toString() => 'layout', $uuid2->toString() => 'layout']);
     }
 
     public function testSerializeWithInvalidHandler(): void
     {
         $this->expectException(TransferException::class);
-        $this->expectExceptionMessage('Entity handler for "entity" entity type does not exist.');
+        $this->expectExceptionMessage('Entity handler for "layout" entity type does not exist.');
 
         $this->serializer = new Serializer(
             new OutputVisitor([new VisitorStub()]),
@@ -75,6 +75,6 @@ final class SerializerTest extends TestCase
         $uuid1 = Uuid::uuid4();
         $uuid2 = Uuid::uuid4();
 
-        $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity']);
+        $this->serializer->serialize([$uuid1->toString() => 'layout', $uuid2->toString() => 'layout']);
     }
 }

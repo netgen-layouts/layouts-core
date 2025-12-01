@@ -1,6 +1,6 @@
 {
-    "__version": 1,
-    "entities": [
+    "__version": 2,
+    "layouts": [
         {
             "__type": "layout",
             "id": "fb232345-36dc-4afb-83c2-2ea7658e7751",

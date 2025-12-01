@@ -1,6 +1,6 @@
 {
-    "__version": 1,
-    "entities": [
+    "__version": 2,
+    "rule_groups": [
         {
             "__type": "rule_group",
             "id": "dbf2b267-9410-4a91-95ed-ed3e8efafc57",

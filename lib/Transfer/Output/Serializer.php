@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Transfer\Output;
 use Netgen\Layouts\Exception\Transfer\TransferException;
 use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
+use Netgen\Layouts\Transfer\EntityType;
 use Psr\Container\ContainerInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -29,7 +30,16 @@ final class Serializer implements SerializerInterface
         $data = $this->createBasicData();
 
         foreach ($entityIds as $entityId => $type) {
-            $data['entities'][] = $this->visitor->visit(
+            $entityType = EntityType::from($type);
+
+            $location = match ($entityType) {
+                EntityType::Layout => 'layouts',
+                EntityType::RuleGroup => 'rule_groups',
+                EntityType::Rule => 'rules',
+                EntityType::Role => 'roles',
+            };
+
+            $data[$location][] = $this->visitor->visit(
                 $this->getEntityHandler($type)->loadEntity(Uuid::fromString($entityId)),
             );
         }
@@ -46,7 +56,6 @@ final class Serializer implements SerializerInterface
     {
         return [
             '__version' => Descriptor::FORMAT_VERSION,
-            'entities' => [],
         ];
     }
 

@@ -1,6 +1,6 @@
 {
-    "__version": 1,
-    "entities": [
+    "__version": 2,
+    "rules": [
         {
             "__type": "rule",
             "id": "6106c759-d6c0-571b-a052-1ed8e4b56fa8",

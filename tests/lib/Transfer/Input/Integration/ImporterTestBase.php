@@ -159,10 +159,10 @@ abstract class ImporterTestBase extends CoreTestCase
             self::assertInstanceOf(Rule::class, $result->entity);
             self::assertSame($result->entity->id->toString(), $result->entityId->toString());
 
-            $ruleData = $decodedData['entities'][$index];
+            $ruleData = $decodedData['rules'][$index];
             $exportedRuleData = $this->serializer->serialize([$result->entityId->toString() => $ruleData['__type']]);
 
-            $exportedRuleData = $exportedRuleData['entities'][0];
+            $exportedRuleData = $exportedRuleData['rules'][0];
 
             $matcher = new PHPMatcher();
             $matchResult = $matcher->match($exportedRuleData, $ruleData);
@@ -203,19 +203,19 @@ abstract class ImporterTestBase extends CoreTestCase
             self::assertInstanceOf(RuleGroup::class, $result->entity);
             self::assertSame($result->entity->id->toString(), $result->entityId->toString());
 
-            $ruleData = $decodedData['entities'][$index];
-            $exportedRuleData = $this->serializer->serialize([$result->entityId->toString() => $ruleData['__type']]);
+            $ruleGroupData = $decodedData['rule_groups'][$index];
+            $exportedRuleGroupData = $this->serializer->serialize([$result->entityId->toString() => $ruleGroupData['__type']]);
 
-            $exportedRuleData = $exportedRuleData['entities'][0];
+            $exportedRuleGroupData = $exportedRuleGroupData['rule_groups'][0];
 
             $matcher = new PHPMatcher();
-            $matchResult = $matcher->match($exportedRuleData, $ruleData);
+            $matchResult = $matcher->match($exportedRuleGroupData, $ruleGroupData);
 
             if (!$matchResult) {
                 $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
                 $diff = $differ->diff(
-                    json_encode($ruleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
-                    json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
+                    json_encode($ruleGroupData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
+                    json_encode($exportedRuleGroupData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                 );
 
                 self::fail($matcher->error() . PHP_EOL . $diff);
@@ -236,10 +236,10 @@ abstract class ImporterTestBase extends CoreTestCase
             self::assertInstanceOf(Layout::class, $result->entity);
             self::assertSame($result->entity->id->toString(), $result->entityId->toString());
 
-            $layoutData = $decodedData['entities'][$index];
+            $layoutData = $decodedData['layouts'][$index];
             $exportedLayoutData = $this->serializer->serialize([$result->entityId->toString() => $layoutData['__type']]);
 
-            $exportedLayoutData = $exportedLayoutData['entities'][0];
+            $exportedLayoutData = $exportedLayoutData['layouts'][0];
 
             // After we check that layout names are different, we remove them
             // from the data, so they don't kill the test
