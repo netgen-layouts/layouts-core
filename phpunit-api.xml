@@ -9,6 +9,7 @@
     displayDetailsOnTestsThatTriggerDeprecations="true"
     failOnRisky="true"
     failOnWarning="true"
+    colors="true"
 >
     <php>
         <server name="KERNEL_CLASS" value="Netgen\Layouts\Tests\App\Kernel" />
@@ -24,7 +25,7 @@
 
     <source ignoreSuppressionOfDeprecations="true" ignoreIndirectDeprecations="true">
         <include>
-            <directory suffix=".php">bundles/LayoutsAdminBundle/Controller/API</directory>
+            <directory>bundles/LayoutsAdminBundle/Controller/API</directory>
         </include>
     </source>
 </phpunit>

@@ -9,6 +9,7 @@
     displayDetailsOnTestsThatTriggerDeprecations="true"
     failOnRisky="true"
     failOnWarning="true"
+    colors="true"
 >
     <testsuites>
         <testsuite name="Netgen\Layouts">
@@ -25,9 +26,9 @@
 
     <source ignoreSuppressionOfDeprecations="true" ignoreIndirectDeprecations="true">
         <include>
-            <directory suffix=".php">lib</directory>
-            <directory suffix=".php">bundles/LayoutsBundle</directory>
-            <directory suffix=".php">bundles/LayoutsAdminBundle</directory>
+            <directory>lib</directory>
+            <directory>bundles/LayoutsBundle</directory>
+            <directory>bundles/LayoutsAdminBundle</directory>
         </include>
         <exclude>
             <directory>bundles/*Bundle/Command</directory>
