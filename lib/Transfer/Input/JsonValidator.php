@@ -5,16 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Input;
 
 use JsonException;
+use JsonSchema\Validator;
 use Netgen\Layouts\Exception\Transfer\JsonValidationException;
 use stdClass;
-use Swaggest\JsonSchema\Exception\LogicException;
-use Swaggest\JsonSchema\Schema;
-use Throwable;
 
-use function array_last;
-use function count;
 use function get_debug_type;
-use function is_array;
 use function json_decode;
 use function sprintf;
 
@@ -27,18 +22,14 @@ final class JsonValidator implements JsonValidatorInterface
         $parsedSchema = $this->parseJson($schema);
         $parsedData = $this->parseJson($data);
 
-        try {
-            Schema::import($parsedSchema)->in($parsedData);
-        } catch (LogicException $e) {
-            $message = $e->getMessage();
+        $validator = new Validator();
+        $validator->validate($parsedData, $parsedSchema);
 
-            if (is_array($e->subErrors) && count($e->subErrors) > 0) {
-                $message = array_last($e->subErrors)->error;
-            }
-
-            throw JsonValidationException::validationFailed($message, $e);
-        } catch (Throwable $t) {
-            throw JsonValidationException::validationFailed($t->getMessage(), $t);
+        if (!$validator->isValid()) {
+            throw JsonValidationException::validationFailed(
+                $validator->getErrors()[0]['message'],
+                $validator->getErrors()[0]['property'],
+            );
         }
     }
 

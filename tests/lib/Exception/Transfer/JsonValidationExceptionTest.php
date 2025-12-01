@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Exception\Transfer;
 
-use Exception;
 use Netgen\Layouts\Exception\Transfer\JsonValidationException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -34,14 +33,11 @@ final class JsonValidationExceptionTest extends TestCase
 
     public function testValidationFailed(): void
     {
-        $previousException = new Exception();
-        $exception = JsonValidationException::validationFailed('Error message', $previousException);
+        $exception = JsonValidationException::validationFailed('Error message', 'some.path');
 
         self::assertSame(
-            'JSON data failed to validate the schema: Error message',
+            'JSON data failed to validate the schema at path "some.path": Error message',
             $exception->getMessage(),
         );
-
-        self::assertSame($previousException, $exception->getPrevious());
     }
 }

@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Exception\Transfer;
 
 use InvalidArgumentException;
 use Netgen\Layouts\Exception\Exception;
-use Throwable;
 
 use function sprintf;
 
@@ -33,15 +32,14 @@ final class JsonValidationException extends InvalidArgumentException implements 
         );
     }
 
-    public static function validationFailed(string $errorMessage, ?Throwable $previous = null): self
+    public static function validationFailed(string $errorMessage, string $path): self
     {
         return new self(
             sprintf(
-                'JSON data failed to validate the schema: %s',
+                'JSON data failed to validate the schema at path "%s": %s',
+                $path,
                 $errorMessage,
             ),
-            0,
-            $previous,
         );
     }
 }
