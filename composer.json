@@ -59,7 +59,7 @@
         "ramsey/uuid": "^4.9",
         "egulias/email-validator": "^4.0",
         "knplabs/knp-menu-bundle": "^3.7",
-        "justinrainbow/json-schema": "^6.6",
+        "justinrainbow/json-schema": "^6.6.3",
         "friendsofsymfony/http-cache-bundle": "^3.2",
         "pagerfanta/pagerfanta": "^3.8 || ^4.7",
         "jean85/pretty-package-versions": "^2.1",
