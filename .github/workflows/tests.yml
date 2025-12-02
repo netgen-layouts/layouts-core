@@ -12,7 +12,7 @@ env:
 
 jobs:
   tests:
-    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.script }} / ${{ matrix.db }}
+    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.script }} / ${{ matrix.db }}${{ matrix.deps == 'lowest' && ' / lowest' || '' }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,40 +22,40 @@ jobs:
         symfony: ['~7.4.0', '~8.0.0']
         script: ['test', 'test-api']
         db: ['sqlite']
-        deps: ['normal']
+        deps: ['latest']
         include:
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test'
             db: 'mysql'
-            deps: 'normal'
+            deps: 'latest'
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test-api'
             db: 'mysql'
-            deps: 'normal'
+            deps: 'latest'
 
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test'
             db: 'postgres'
-            deps: 'normal'
+            deps: 'latest'
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test-api'
             db: 'postgres'
-            deps: 'normal'
+            deps: 'latest'
 
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test'
             db: 'sqlite'
-            deps: 'low'
+            deps: 'lowest'
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test-api'
             db: 'sqlite'
-            deps: 'low'
+            deps: 'lowest'
 
     services:
       mysql:
@@ -106,10 +106,10 @@ jobs:
 
       -
         run: composer update --prefer-dist
-        if: ${{ matrix.deps != 'low' }}
+        if: ${{ matrix.deps == 'latest' }}
 
       -
         run: composer update --prefer-dist --prefer-lowest --prefer-stable
-        if: ${{ matrix.deps == 'low' }}
+        if: ${{ matrix.deps == 'lowest' }}
 
       - run: composer ${{ matrix.script }}
