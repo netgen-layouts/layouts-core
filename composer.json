@@ -91,7 +91,6 @@
         "friends-of-behat/page-object-extension": "^0.3"
     },
     "config": {
-        "process-timeout": 3600,
         "allow-plugins": {
             "symfony/runtime": true,
             "*": false
