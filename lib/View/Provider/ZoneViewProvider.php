@@ -10,6 +10,9 @@ use Netgen\Layouts\View\View\ZoneView;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use Netgen\Layouts\View\ViewInterface;
 
+/**
+ * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\View\View\ZoneView\ZoneReference>
+ */
 final class ZoneViewProvider implements ViewProviderInterface
 {
     public function provideView(mixed $value, array $parameters = []): ViewInterface

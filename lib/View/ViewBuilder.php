@@ -16,12 +16,12 @@ use function sprintf;
 final class ViewBuilder implements ViewBuilderInterface
 {
     /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface[]
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface<object>[]
      */
     private array $viewProviders = [];
 
     /**
-     * @param iterable<\Netgen\Layouts\View\Provider\ViewProviderInterface> $viewProviders
+     * @param iterable<\Netgen\Layouts\View\Provider\ViewProviderInterface<object>> $viewProviders
      */
     public function __construct(
         private TemplateResolverInterface $templateResolver,
@@ -59,6 +59,8 @@ final class ViewBuilder implements ViewBuilderInterface
 
     /**
      * Returns the view provider that supports the given value.
+     *
+     * @return \Netgen\Layouts\View\Provider\ViewProviderInterface<object>
      */
     private function getViewProvider(mixed $value): ViewProviderInterface
     {

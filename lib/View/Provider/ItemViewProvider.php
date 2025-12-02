@@ -11,6 +11,9 @@ use Netgen\Layouts\View\ViewInterface;
 
 use function is_string;
 
+/**
+ * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\Item\CmsItemInterface>
+ */
 final class ItemViewProvider implements ViewProviderInterface
 {
     public function provideView(mixed $value, array $parameters = []): ViewInterface

@@ -8,6 +8,9 @@ use Netgen\Layouts\View\View\FormView;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\Form\FormInterface;
 
+/**
+ * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Symfony\Component\Form\FormInterface>
+ */
 final class FormViewProvider implements ViewProviderInterface
 {
     public function provideView(mixed $value, array $parameters = []): ViewInterface

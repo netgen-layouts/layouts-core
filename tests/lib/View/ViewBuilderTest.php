@@ -18,6 +18,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 #[CoversClass(ViewBuilder::class)]
 final class ViewBuilderTest extends TestCase
 {
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\Provider\ViewProviderInterface<object>
+     */
     private MockObject&ViewProviderInterface $viewProviderMock;
 
     private MockObject&TemplateResolverInterface $templateResolverMock;

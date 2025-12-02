@@ -7,6 +7,8 @@ namespace Netgen\Layouts\View\Provider;
 use Netgen\Layouts\View\ViewInterface;
 
 /**
+ * @template T of object
+ *
  * For every view, an instance of this interface needs to be implemented with
  * creates the view based on provided value and parameters.
  *
@@ -17,6 +19,7 @@ interface ViewProviderInterface
     /**
      * Provides the view.
      *
+     * @param T $value
      * @param array<string, mixed> $parameters
      */
     public function provideView(mixed $value, array $parameters = []): ViewInterface;

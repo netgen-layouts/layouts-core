@@ -8,6 +8,9 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\View\RuleTargetView;
 use Netgen\Layouts\View\ViewInterface;
 
+/**
+ * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\API\Values\LayoutResolver\Target>
+ */
 final class RuleTargetViewProvider implements ViewProviderInterface
 {
     public function provideView(mixed $value, array $parameters = []): ViewInterface

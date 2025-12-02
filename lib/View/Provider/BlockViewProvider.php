@@ -8,6 +8,9 @@ use Netgen\Layouts\API\Values\Block\Block as APIBlock;
 use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 
+/**
+ * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\API\Values\Block\Block>
+ */
 final class BlockViewProvider implements ViewProviderInterface
 {
     public function provideView(mixed $value, array $parameters = []): ViewInterface
