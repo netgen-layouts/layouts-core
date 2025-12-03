@@ -26,20 +26,20 @@ final class FormViewProviderTest extends TestCase
     public function testProvideView(): void
     {
         $formView = new SymfonyFormView();
-        $form = $this->createMock(FormInterface::class);
-        $form->expects($this->once())
+        $formMock = $this->createMock(FormInterface::class);
+        $formMock->expects($this->once())
             ->method('createView')
             ->willReturn($formView);
 
-        $view = $this->formViewProvider->provideView($form);
+        $view = $this->formViewProvider->provideView($formMock);
 
         self::assertInstanceOf(FormViewInterface::class, $view);
 
-        self::assertSame($form, $view->form);
+        self::assertSame($formMock, $view->form);
         self::assertNull($view->template);
         self::assertSame(
             [
-                'form_object' => $form,
+                'form_object' => $formMock,
                 'form' => $formView,
             ],
             $view->parameters,

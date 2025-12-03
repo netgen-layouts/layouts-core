@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 #[CoversClass(PolicyToRoleMapVoter::class)]
 final class PolicyToRoleMapVoterTest extends TestCase
@@ -28,21 +29,21 @@ final class PolicyToRoleMapVoterTest extends TestCase
 
     public function testVote(): void
     {
-        $token = $this->createMock(TokenInterface::class);
+        $tokenMock = $this->createMock(TokenInterface::class);
 
         $this->accessDecisionManagerMock
             ->expects($this->once())
             ->method('decide')
-            ->with(self::equalTo($token), self::equalTo(['ROLE_NGLAYOUTS_ADMIN']))
+            ->with(self::equalTo($tokenMock), self::equalTo(['ROLE_NGLAYOUTS_ADMIN']))
             ->willReturn(true);
 
         $vote = $this->voter->vote(
-            $token,
+            $tokenMock,
             null,
             ['nglayouts:layout:add'],
         );
 
-        self::assertSame($vote, $this->voter::ACCESS_GRANTED);
+        self::assertSame(VoterInterface::ACCESS_GRANTED, $vote);
     }
 
     public function testVoteWithUnsupportedAttribute(): void
@@ -61,6 +62,6 @@ final class PolicyToRoleMapVoterTest extends TestCase
             ->method('decide');
 
         $vote = $this->voter->vote($this->createMock(TokenInterface::class), null, ['nglayouts:unknown:unknown']);
-        self::assertSame($vote, $this->voter::ACCESS_DENIED);
+        self::assertSame(VoterInterface::ACCESS_DENIED, $vote);
     }
 }

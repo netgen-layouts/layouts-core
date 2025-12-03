@@ -91,9 +91,9 @@ final class ItemLinkMapperTest extends TestCase
             ],
         );
 
-        $dispatcher = $this->createMock(EventDispatcherInterface::class);
-        $factory = $this->createMock(FormFactoryInterface::class);
-        $formBuilder = new FormBuilder('name', null, $dispatcher, $factory);
+        $dispatcherMock = $this->createMock(EventDispatcherInterface::class);
+        $factoryMock = $this->createMock(FormFactoryInterface::class);
+        $formBuilder = new FormBuilder('name', null, $dispatcherMock, $factoryMock);
 
         $this->mapper->handleForm($formBuilder, $parameterDefinition);
 

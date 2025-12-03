@@ -144,13 +144,13 @@ abstract class CoreTestCase extends TestCase
 
     protected function createValidator(): ValidatorInterface
     {
-        $validator = $this->createMock(ValidatorInterface::class);
+        $validatorMock = $this->createMock(ValidatorInterface::class);
 
-        $validator
+        $validatorMock
             ->method('validate')
             ->willReturn(new ConstraintViolationList());
 
-        return $validator;
+        return $validatorMock;
     }
 
     /**

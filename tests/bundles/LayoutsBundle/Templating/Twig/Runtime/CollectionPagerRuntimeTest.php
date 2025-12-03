@@ -40,19 +40,19 @@ final class CollectionPagerRuntimeTest extends TestCase
     public function testRenderCollectionPager(): void
     {
         $block = new Block();
-        $pagerfanta = $this->createMock(PagerfantaInterface::class);
+        $pagerfantaMock = $this->createMock(PagerfantaInterface::class);
 
         $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
             ->with(
-                self::identicalTo($pagerfanta),
+                self::identicalTo($pagerfantaMock),
                 self::identicalTo($this->routeGenerator),
                 self::identicalTo(['block' => $block, 'collection_identifier' => 'default']),
             )
             ->willReturn('rendered view');
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
-            $pagerfanta,
+            $pagerfantaMock,
             $block,
             'default',
         );
@@ -63,12 +63,12 @@ final class CollectionPagerRuntimeTest extends TestCase
     public function testRenderCollectionPagerWithOptions(): void
     {
         $block = new Block();
-        $pagerfanta = $this->createMock(PagerfantaInterface::class);
+        $pagerfantaMock = $this->createMock(PagerfantaInterface::class);
 
         $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
             ->with(
-                self::identicalTo($pagerfanta),
+                self::identicalTo($pagerfantaMock),
                 self::identicalTo($this->routeGenerator),
                 self::identicalTo(
                     [
@@ -81,7 +81,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             ->willReturn('rendered view');
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
-            $pagerfanta,
+            $pagerfantaMock,
             $block,
             'default',
             [
@@ -94,13 +94,13 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     public function testGetCollectionPageUrl(): void
     {
-        $pagerfanta = $this->createMock(Pagerfanta::class);
-        $pagerfanta
+        $pagerfantaMock = $this->createMock(Pagerfanta::class);
+        $pagerfantaMock
             ->method('getNbPages')
             ->willReturn(5);
 
         $uri = $this->runtime->getCollectionPageUrl(
-            $pagerfanta,
+            $pagerfantaMock,
             new Block(),
             'default',
             5,
@@ -115,13 +115,13 @@ final class CollectionPagerRuntimeTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('/^Argument "page" has an invalid value\. Page -?\d+ is out of bounds$/');
 
-        $pagerfanta = $this->createMock(Pagerfanta::class);
-        $pagerfanta
+        $pagerfantaMock = $this->createMock(Pagerfanta::class);
+        $pagerfantaMock
             ->method('getNbPages')
             ->willReturn(5);
 
         $this->runtime->getCollectionPageUrl(
-            $pagerfanta,
+            $pagerfantaMock,
             new Block(),
             'default',
             $page,
