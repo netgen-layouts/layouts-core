@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
@@ -18,8 +20,15 @@ use Netgen\Layouts\Persistence\Values\Status;
 use function array_column;
 use function array_map;
 
-final class CollectionQueryHandler extends QueryHandler
+final class CollectionQueryHandler
 {
+    use QueryHandlerTrait;
+
+    public function __construct(
+        private Connection $connection,
+        private ConnectionHelperInterface $connectionHelper,
+    ) {}
+
     /**
      * Loads all collection data for collection with specified ID.
      *

@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Status;
@@ -17,8 +19,15 @@ use function is_string;
 use function max;
 use function mb_trim;
 
-final class LayoutQueryHandler extends QueryHandler
+final class LayoutQueryHandler
 {
+    use QueryHandlerTrait;
+
+    public function __construct(
+        private Connection $connection,
+        private ConnectionHelperInterface $connectionHelper,
+    ) {}
+
     /**
      * Loads all data for layout with specified ID.
      *

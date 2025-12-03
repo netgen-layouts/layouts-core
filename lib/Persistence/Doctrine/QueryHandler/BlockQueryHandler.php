@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Status;
@@ -15,8 +17,15 @@ use function array_column;
 use function array_map;
 use function count;
 
-final class BlockQueryHandler extends QueryHandler
+final class BlockQueryHandler
 {
+    use QueryHandlerTrait;
+
+    public function __construct(
+        private Connection $connection,
+        private ConnectionHelperInterface $connectionHelper,
+    ) {}
+
     /**
      * Loads all block data.
      *

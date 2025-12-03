@@ -29,15 +29,15 @@ use function min;
 
 use const JSON_THROW_ON_ERROR;
 
-final class LayoutResolverQueryHandler extends QueryHandler
+final class LayoutResolverQueryHandler
 {
+    use QueryHandlerTrait;
+
     public function __construct(
-        Connection $connection,
-        ConnectionHelperInterface $connectionHelper,
+        private Connection $connection,
+        private ConnectionHelperInterface $connectionHelper,
         private ContainerInterface $targetHandlers,
-    ) {
-        parent::__construct($connection, $connectionHelper);
-    }
+    ) {}
 
     /**
      * Returns all data for specified rule.
