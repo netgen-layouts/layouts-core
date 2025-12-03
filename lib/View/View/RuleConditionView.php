@@ -13,12 +13,9 @@ final class RuleConditionView extends View implements RuleConditionViewInterface
         get => 'rule_condition';
     }
 
-    public Condition $condition {
-        get => $this->getParameter('condition');
-    }
-
-    public function __construct(Condition $condition)
-    {
-        $this->addInternalParameter('condition', $condition);
+    public function __construct(
+        public private(set) Condition $condition,
+    ) {
+        $this->addInternalParameter('condition', $this->condition);
     }
 }

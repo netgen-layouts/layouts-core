@@ -13,12 +13,9 @@ final class RuleView extends View implements RuleViewInterface
         get => 'rule';
     }
 
-    public Rule $rule {
-        get => $this->getParameter('rule');
-    }
-
-    public function __construct(Rule $rule)
-    {
-        $this->addInternalParameter('rule', $rule);
+    public function __construct(
+        public private(set) Rule $rule,
+    ) {
+        $this->addInternalParameter('rule', $this->rule);
     }
 }

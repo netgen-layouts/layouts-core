@@ -17,18 +17,20 @@ final class ZoneView extends View implements ZoneViewInterface
     }
 
     public Layout $layout {
-        get => $this->getParameter('layout');
+        get => $this->zoneReference->layout;
     }
 
     public Zone $zone {
-        get => $this->getParameter('zone');
+        get => $this->zoneReference->zone;
     }
 
-    public function __construct(ZoneReference $zoneReference, BlockList $blocks)
-    {
+    public function __construct(
+        private ZoneReference $zoneReference,
+        public private(set) BlockList $blocks,
+    ) {
         $this
-            ->addInternalParameter('layout', $zoneReference->layout)
-            ->addInternalParameter('zone', $zoneReference->zone)
-            ->addInternalParameter('blocks', $blocks);
+            ->addInternalParameter('layout', $this->zoneReference->layout)
+            ->addInternalParameter('zone', $this->zoneReference->zone)
+            ->addInternalParameter('blocks', $this->blocks);
     }
 }

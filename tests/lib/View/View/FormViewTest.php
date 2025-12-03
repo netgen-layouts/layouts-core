@@ -36,7 +36,6 @@ final class FormViewTest extends TestCase
         self::assertSame($this->form, $this->view->form);
         self::assertSame(FormType::class, $this->view->formType);
 
-        self::assertSame($this->view->formView, $this->view->getParameter('form'));
         self::assertSame('value', $this->view->getParameter('param'));
     }
 

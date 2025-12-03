@@ -13,12 +13,9 @@ final class BlockView extends View implements BlockViewInterface
         get => 'block';
     }
 
-    public Block $block {
-        get => $this->getParameter('block');
-    }
-
-    public function __construct(Block $block)
-    {
-        $this->addInternalParameter('block', $block);
+    public function __construct(
+        public private(set) Block $block,
+    ) {
+        $this->addInternalParameter('block', $this->block);
     }
 }

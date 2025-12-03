@@ -13,18 +13,12 @@ final class ItemView extends View implements ItemViewInterface
         get => 'item';
     }
 
-    public CmsItemInterface $item {
-        get => $this->getParameter('item');
-    }
-
-    public string $viewType {
-        get => $this->getParameter('view_type');
-    }
-
-    public function __construct(CmsItemInterface $item, string $viewType)
-    {
+    public function __construct(
+        public private(set) CmsItemInterface $item,
+        public private(set) string $viewType,
+    ) {
         $this
-            ->addInternalParameter('item', $item)
-            ->addInternalParameter('view_type', $viewType);
+            ->addInternalParameter('item', $this->item)
+            ->addInternalParameter('view_type', $this->viewType);
     }
 }

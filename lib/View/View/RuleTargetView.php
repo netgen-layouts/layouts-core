@@ -13,12 +13,9 @@ final class RuleTargetView extends View implements RuleTargetViewInterface
         get => 'rule_target';
     }
 
-    public Target $target {
-        get => $this->getParameter('target');
-    }
-
-    public function __construct(Target $target)
-    {
-        $this->addInternalParameter('target', $target);
+    public function __construct(
+        public private(set) Target $target,
+    ) {
+        $this->addInternalParameter('target', $this->target);
     }
 }

@@ -13,12 +13,9 @@ final class LayoutTypeView extends View implements LayoutTypeViewInterface
         get => 'layout';
     }
 
-    public LayoutTypeInterface $layoutType {
-        get => $this->getParameter('layout_type');
-    }
-
-    public function __construct(LayoutTypeInterface $layoutType)
-    {
-        $this->addInternalParameter('layout_type', $layoutType);
+    public function __construct(
+        public private(set) LayoutTypeInterface $layoutType,
+    ) {
+        $this->addInternalParameter('layout_type', $this->layoutType);
     }
 }

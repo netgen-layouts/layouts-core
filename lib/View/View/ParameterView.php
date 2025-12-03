@@ -13,12 +13,9 @@ final class ParameterView extends View implements ParameterViewInterface
         get => 'parameter';
     }
 
-    public Parameter $parameterValue {
-        get => $this->getParameter('parameter');
-    }
-
-    public function __construct(Parameter $parameter)
-    {
-        $this->addInternalParameter('parameter', $parameter);
+    public function __construct(
+        public private(set) Parameter $parameterValue,
+    ) {
+        $this->addInternalParameter('parameter', $this->parameterValue);
     }
 }

@@ -14,18 +14,12 @@ final class PlaceholderView extends View implements PlaceholderViewInterface
         get => 'placeholder';
     }
 
-    public Placeholder $placeholder {
-        get => $this->getParameter('placeholder');
-    }
-
-    public Block $block {
-        get => $this->getParameter('block');
-    }
-
-    public function __construct(Placeholder $placeholder, Block $block)
-    {
+    public function __construct(
+        public private(set) Placeholder $placeholder,
+        public private(set) Block $block,
+    ) {
         $this
-            ->addInternalParameter('placeholder', $placeholder)
-            ->addInternalParameter('block', $block);
+            ->addInternalParameter('placeholder', $this->placeholder)
+            ->addInternalParameter('block', $this->block);
     }
 }
