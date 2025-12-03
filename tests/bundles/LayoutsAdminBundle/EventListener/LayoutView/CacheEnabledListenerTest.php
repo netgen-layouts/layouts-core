@@ -7,8 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener\LayoutView;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\BuildViewEvent;
 use Netgen\Layouts\HttpCache\ClientInterface;
 use Netgen\Layouts\HttpCache\NullClient;
 use Netgen\Layouts\Tests\API\Stubs\Value;
@@ -18,8 +17,6 @@ use Netgen\Layouts\View\View\RuleView;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-
-use function sprintf;
 
 #[CoversClass(CacheEnabledListener::class)]
 final class CacheEnabledListenerTest extends TestCase
@@ -35,8 +32,8 @@ final class CacheEnabledListenerTest extends TestCase
     {
         self::assertSame(
             [
-                sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'layout') => 'onBuildView',
-                sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'rule') => 'onBuildView',
+                BuildViewEvent::getEventName('layout') => 'onBuildView',
+                BuildViewEvent::getEventName('rule') => 'onBuildView',
             ],
             $this->listener::getSubscribedEvents(),
         );
@@ -46,32 +43,24 @@ final class CacheEnabledListenerTest extends TestCase
     {
         $view = new LayoutView(new Layout());
         $view->context = ViewInterface::CONTEXT_ADMIN;
-        $event = new CollectViewParametersEvent($view);
+        $event = new BuildViewEvent($view);
 
         $this->listener->onBuildView($event);
 
-        self::assertSame(
-            [
-                'http_cache_enabled' => false,
-            ],
-            $event->parameters,
-        );
+        self::assertTrue($event->view->hasParameter('http_cache_enabled'));
+        self::assertFalse($event->view->getParameter('http_cache_enabled'));
     }
 
     public function testOnBuildViewWithRuleView(): void
     {
         $view = new RuleView(new Rule());
         $view->context = ViewInterface::CONTEXT_ADMIN;
-        $event = new CollectViewParametersEvent($view);
+        $event = new BuildViewEvent($view);
 
         $this->listener->onBuildView($event);
 
-        self::assertSame(
-            [
-                'http_cache_enabled' => false,
-            ],
-            $event->parameters,
-        );
+        self::assertTrue($event->view->hasParameter('http_cache_enabled'));
+        self::assertFalse($event->view->getParameter('http_cache_enabled'));
     }
 
     public function testOnBuildViewWithNoNullClient(): void
@@ -80,35 +69,31 @@ final class CacheEnabledListenerTest extends TestCase
 
         $view = new LayoutView(new Layout());
         $view->context = ViewInterface::CONTEXT_ADMIN;
-        $event = new CollectViewParametersEvent($view);
+        $event = new BuildViewEvent($view);
 
         $this->listener->onBuildView($event);
 
-        self::assertSame(
-            [
-                'http_cache_enabled' => true,
-            ],
-            $event->parameters,
-        );
+        self::assertTrue($event->view->hasParameter('http_cache_enabled'));
+        self::assertTrue($event->view->getParameter('http_cache_enabled'));
     }
 
     public function testOnBuildViewWithUnsupportedView(): void
     {
         $view = new View(new Value());
-        $event = new CollectViewParametersEvent($view);
+        $event = new BuildViewEvent($view);
         $this->listener->onBuildView($event);
 
-        self::assertSame([], $event->parameters);
+        self::assertFalse($event->view->hasParameter('http_cache_enabled'));
     }
 
     public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(new Layout());
         $view->context = ViewInterface::CONTEXT_APP;
-        $event = new CollectViewParametersEvent($view);
+        $event = new BuildViewEvent($view);
 
         $this->listener->onBuildView($event);
 
-        self::assertSame([], $event->parameters);
+        self::assertFalse($event->view->hasParameter('http_cache_enabled'));
     }
 }

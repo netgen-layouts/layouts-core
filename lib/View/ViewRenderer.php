@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\View;
 
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\RenderViewEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
-
-use function sprintf;
 
 final class ViewRenderer implements ViewRendererInterface
 {
@@ -20,19 +17,16 @@ final class ViewRenderer implements ViewRendererInterface
 
     public function renderView(ViewInterface $view): string
     {
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
         $this->eventDispatcher->dispatch($event);
-        $view->addParameters($event->parameters);
 
-        $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, $view->identifier));
-        $view->addParameters($event->parameters);
+        $event = new RenderViewEvent($view);
+        $this->eventDispatcher->dispatch($event, RenderViewEvent::getEventName($view->identifier));
 
-        $viewTemplate = $view->template;
-        if ($viewTemplate === null) {
+        if ($view->template === null) {
             return '';
         }
 
-        return $this->twig->render($viewTemplate, $view->parameters);
+        return $this->twig->render($view->template, $view->parameters);
     }
 }

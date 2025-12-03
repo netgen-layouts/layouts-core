@@ -6,25 +6,22 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener\BlockView;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\TwigBlockDefinitionInterface;
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\RenderViewEvent;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
-use function sprintf;
 
 final class GetTwigBlockContentListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'];
+        return [RenderViewEvent::getEventName('block') => 'onRenderView'];
     }
 
     /**
      * Adds a parameter to the view with the Twig block content.
      */
-    public function onRenderView(CollectViewParametersEvent $event): void
+    public function onRenderView(RenderViewEvent $event): void
     {
         if (!$event->view instanceof BlockViewInterface) {
             return;
@@ -40,7 +37,7 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
             $event->view->parameters,
         );
 
-        $event->addParameter('twig_content', $twigContent);
+        $event->view->addParameter('twig_content', $twigContent);
     }
 
     /**

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\View;
 
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\BuildViewEvent;
 use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 use function get_debug_type;
-use function sprintf;
 
 final class ViewBuilder implements ViewBuilderInterface
 {
@@ -46,13 +44,11 @@ final class ViewBuilder implements ViewBuilderInterface
 
         $this->templateResolver->resolveTemplate($view);
 
-        $event = new CollectViewParametersEvent($view);
+        $event = new BuildViewEvent($view);
         $this->eventDispatcher->dispatch($event);
-        $view->addParameters($event->parameters);
 
-        $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, $view->identifier));
-        $view->addParameters($event->parameters);
+        $event = new BuildViewEvent($view);
+        $this->eventDispatcher->dispatch($event, BuildViewEvent::getEventName($view->identifier));
 
         return $view;
     }

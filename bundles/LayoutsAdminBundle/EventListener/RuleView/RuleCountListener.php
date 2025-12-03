@@ -6,12 +6,9 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView;
 
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\BuildViewEvent;
 use Netgen\Layouts\View\View\RuleViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
-use function sprintf;
 
 final class RuleCountListener implements EventSubscriberInterface
 {
@@ -21,14 +18,14 @@ final class RuleCountListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'rule') => 'onBuildView'];
+        return [BuildViewEvent::getEventName('rule') => 'onBuildView'];
     }
 
     /**
      * Injects the number of rules mapped to the layout in the rule
      * provided by the event.
      */
-    public function onBuildView(CollectViewParametersEvent $event): void
+    public function onBuildView(BuildViewEvent $event): void
     {
         $view = $event->view;
         if (!$view instanceof RuleViewInterface) {
@@ -40,6 +37,6 @@ final class RuleCountListener implements EventSubscriberInterface
             $ruleCount = $this->layoutResolverService->getRuleCountForLayout($view->rule->layout);
         }
 
-        $event->addParameter('rule_count', $ruleCount);
+        $event->view->addParameter('rule_count', $ruleCount);
     }
 }

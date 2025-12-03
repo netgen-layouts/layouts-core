@@ -8,14 +8,12 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultSet;
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\RenderViewEvent;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use function in_array;
-use function sprintf;
 
 final class GetCollectionResultsListener implements EventSubscriberInterface
 {
@@ -29,13 +27,13 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'];
+        return [RenderViewEvent::getEventName('block') => 'onRenderView'];
     }
 
     /**
      * Adds a parameter to the view with results built from all block collections.
      */
-    public function onRenderView(CollectViewParametersEvent $event): void
+    public function onRenderView(RenderViewEvent $event): void
     {
         $view = $event->view;
         if (!$view instanceof BlockViewInterface) {
@@ -68,8 +66,8 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
             $pagers[$identifier] = $pager;
         }
 
-        $event->addParameter('collections', $collections);
-        $event->addParameter('pagers', $pagers);
+        $event->view->addParameter('collections', $collections);
+        $event->view->addParameter('pagers', $pagers);
     }
 
     /**

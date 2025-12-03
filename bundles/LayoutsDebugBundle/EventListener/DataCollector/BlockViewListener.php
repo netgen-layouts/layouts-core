@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsDebugBundle\EventListener\DataCollector;
 
 use Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutsDataCollector;
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\BuildViewEvent;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use function in_array;
-use function sprintf;
 
 final class BlockViewListener implements EventSubscriberInterface
 {
@@ -25,13 +23,13 @@ final class BlockViewListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'block') => ['onBuildView', -65535]];
+        return [BuildViewEvent::getEventName('block') => ['onBuildView', -65535]];
     }
 
     /**
      * Includes results built from all block collections, if specified so.
      */
-    public function onBuildView(CollectViewParametersEvent $event): void
+    public function onBuildView(BuildViewEvent $event): void
     {
         $view = $event->view;
 

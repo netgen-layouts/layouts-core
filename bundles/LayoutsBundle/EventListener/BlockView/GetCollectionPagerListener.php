@@ -7,15 +7,13 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener\BlockView;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\RenderViewEvent;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 use function in_array;
-use function sprintf;
 
 final class GetCollectionPagerListener implements EventSubscriberInterface
 {
@@ -30,13 +28,13 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'];
+        return [RenderViewEvent::getEventName('block') => 'onRenderView'];
     }
 
     /**
      * Adds a parameter to the view with results built from all block collections.
      */
-    public function onRenderView(CollectViewParametersEvent $event): void
+    public function onRenderView(RenderViewEvent $event): void
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         if (!$currentRequest instanceof Request) {
@@ -62,8 +60,8 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
             $this->getMaxPages($block),
         );
 
-        $event->addParameter('collection', $resultPager->getCurrentPageResults());
-        $event->addParameter('pager', $resultPager);
+        $event->view->addParameter('collection', $resultPager->getCurrentPageResults());
+        $event->view->addParameter('pager', $resultPager);
     }
 
     /**

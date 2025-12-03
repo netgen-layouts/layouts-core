@@ -14,8 +14,7 @@ use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
-use Netgen\Layouts\Event\CollectViewParametersEvent;
-use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Event\RenderViewEvent;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\API\Stubs\Value;
@@ -28,8 +27,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-
-use function sprintf;
 
 #[CoversClass(GetCollectionPagerListener::class)]
 final class GetCollectionPagerListenerTest extends TestCase
@@ -58,7 +55,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'],
+            [RenderViewEvent::getEventName('block') => 'onRenderView'],
             $this->listener::getSubscribedEvents(),
         );
     }
@@ -88,7 +85,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->addParameter('collection_identifier', 'default');
 
         $view->context = ViewInterface::CONTEXT_AJAX;
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
 
         $this->resultBuilderMock
             ->method('build')
@@ -101,14 +98,17 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->parameters['collection'];
+        self::assertTrue($event->view->hasParameter('collection'));
+
+        $result = $event->view->getParameter('collection');
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
-        self::assertSame(3, $event->parameters['pager']->getCurrentPage());
+        self::assertTrue($event->view->hasParameter('pager'));
+        self::assertInstanceOf(PagerfantaInterface::class, $event->view->getParameter('pager'));
+        self::assertSame(3, $event->view->getParameter('pager')->getCurrentPage());
     }
 
     public function testOnRenderViewWithPagedCollection(): void
@@ -146,7 +146,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->addParameter('collection_identifier', 'default');
 
         $view->context = ViewInterface::CONTEXT_AJAX;
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
 
         $this->resultBuilderMock
             ->method('build')
@@ -159,14 +159,17 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->parameters['collection'];
+        self::assertTrue($event->view->hasParameter('collection'));
+
+        $result = $event->view->getParameter('collection');
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
-        self::assertSame(2, $event->parameters['pager']->getCurrentPage());
+        self::assertTrue($event->view->hasParameter('pager'));
+        self::assertInstanceOf(PagerfantaInterface::class, $event->view->getParameter('pager'));
+        self::assertSame(2, $event->view->getParameter('pager')->getCurrentPage());
     }
 
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
@@ -204,7 +207,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->addParameter('collection_identifier', 'default');
 
         $view->context = ViewInterface::CONTEXT_AJAX;
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
 
         $this->resultBuilderMock
             ->method('build')
@@ -217,14 +220,17 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->parameters['collection'];
+        self::assertTrue($event->view->hasParameter('collection'));
+
+        $result = $event->view->getParameter('collection');
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
-        self::assertSame(3, $event->parameters['pager']->getCurrentPage());
+        self::assertTrue($event->view->hasParameter('pager'));
+        self::assertInstanceOf(PagerfantaInterface::class, $event->view->getParameter('pager'));
+        self::assertSame(3, $event->view->getParameter('pager')->getCurrentPage());
     }
 
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
@@ -261,7 +267,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->addParameter('collection_identifier', 'default');
 
         $view->context = ViewInterface::CONTEXT_AJAX;
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
 
         $this->resultBuilderMock
             ->method('build')
@@ -274,14 +280,17 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $this->listener->onRenderView($event);
 
-        $result = $event->parameters['collection'];
+        self::assertTrue($event->view->hasParameter('collection'));
+
+        $result = $event->view->getParameter('collection');
 
         self::assertInstanceOf(ResultSet::class, $result);
         self::assertSame($collection, $result->collection);
         self::assertSame(1000, $result->totalCount);
 
-        self::assertInstanceOf(PagerfantaInterface::class, $event->parameters['pager']);
-        self::assertSame(3, $event->parameters['pager']->getCurrentPage());
+        self::assertTrue($event->view->hasParameter('pager'));
+        self::assertInstanceOf(PagerfantaInterface::class, $event->view->getParameter('pager'));
+        self::assertSame(3, $event->view->getParameter('pager')->getCurrentPage());
     }
 
     public function testOnRenderViewWithNoCurrentRequest(): void
@@ -289,10 +298,11 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view = new BlockView(new Block());
         $view->context = ViewInterface::CONTEXT_AJAX;
         $view->addParameter('collection_identifier', 'default');
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->parameters);
+        self::assertFalse($event->view->hasParameter('collection'));
+        self::assertFalse($event->view->hasParameter('pager'));
     }
 
     public function testOnRenderViewWithNoBlockView(): void
@@ -302,10 +312,11 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view = new View(new Value());
         $view->context = ViewInterface::CONTEXT_AJAX;
         $view->addParameter('collection_identifier', 'default');
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->parameters);
+        self::assertFalse($event->view->hasParameter('collection'));
+        self::assertFalse($event->view->hasParameter('pager'));
     }
 
     public function testOnRenderViewWithNoCollectionIdentifier(): void
@@ -314,10 +325,11 @@ final class GetCollectionPagerListenerTest extends TestCase
 
         $view = new BlockView(new Block());
         $view->context = ViewInterface::CONTEXT_AJAX;
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->parameters);
+        self::assertFalse($event->view->hasParameter('collection'));
+        self::assertFalse($event->view->hasParameter('pager'));
     }
 
     public function testOnRenderViewWithWrongContext(): void
@@ -327,10 +339,11 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view = new BlockView(new Block());
         $view->addParameter('collection_identifier', 'default');
         $view->context = ViewInterface::CONTEXT_ADMIN;
-        $event = new CollectViewParametersEvent($view);
+        $event = new RenderViewEvent($view);
 
         $this->listener->onRenderView($event);
 
-        self::assertSame([], $event->parameters);
+        self::assertFalse($event->view->hasParameter('collection'));
+        self::assertFalse($event->view->hasParameter('pager'));
     }
 }
