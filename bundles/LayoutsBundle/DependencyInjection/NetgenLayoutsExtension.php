@@ -136,12 +136,12 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         );
 
         $prependConfigs = [
-            'framework/assets.yaml' => 'framework',
-            'framework/framework.yaml' => 'framework',
-            'framework/twig.yaml' => 'twig',
-            'framework/security.yaml' => 'security',
+            'twig.yaml' => 'twig',
             'design.yaml' => 'netgen_layouts',
             'block_type_groups.yaml' => 'netgen_layouts',
+            'framework/assets.yaml' => 'framework',
+            'framework/framework.yaml' => 'framework',
+            'framework/security.yaml' => 'security',
             'view/block_view.yaml' => 'netgen_layouts',
             'view/layout_view.yaml' => 'netgen_layouts',
             'view/item_view.yaml' => 'netgen_layouts',

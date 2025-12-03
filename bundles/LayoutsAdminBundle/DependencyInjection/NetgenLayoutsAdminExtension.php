@@ -42,8 +42,8 @@ final class NetgenLayoutsAdminExtension extends Extension implements PrependExte
     public function prepend(ContainerBuilder $container): void
     {
         $prependConfigs = [
+            'twig.yaml' => 'twig',
             'framework/assets.yaml' => 'framework',
-            'framework/twig.yaml' => 'twig',
             'view/form_view.yaml' => 'netgen_layouts',
             'view/item_view.yaml' => 'netgen_layouts',
             'view/block_view.yaml' => 'netgen_layouts',
