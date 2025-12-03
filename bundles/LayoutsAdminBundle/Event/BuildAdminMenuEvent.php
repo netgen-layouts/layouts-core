@@ -8,7 +8,10 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
-final class ConfigureMenuEvent extends Event
+/**
+ * This event will be dispatched when the admin menu is being built.
+ */
+final class BuildAdminMenuEvent extends Event
 {
     public function __construct(
         /**

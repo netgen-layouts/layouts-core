@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent;
+use Netgen\Bundle\LayoutsAdminBundle\Event\BuildAdminMenuEvent;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -47,7 +47,7 @@ final class MainMenuBuilder
                 ->setExtra('translation_domain', 'nglayouts_admin');
         }
 
-        $this->eventDispatcher->dispatch(new ConfigureMenuEvent($this->factory, $menu));
+        $this->eventDispatcher->dispatch(new BuildAdminMenuEvent($this->factory, $menu));
 
         return $menu;
     }

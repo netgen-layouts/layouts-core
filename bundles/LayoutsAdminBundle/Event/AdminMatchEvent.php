@@ -7,6 +7,9 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\Event;
 
+/**
+ * This event will be dispatched when the request is matched as being an admin interface request.
+ */
 final class AdminMatchEvent extends Event
 {
     /**
