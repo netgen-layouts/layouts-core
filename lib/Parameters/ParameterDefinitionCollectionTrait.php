@@ -17,7 +17,7 @@ trait ParameterDefinitionCollectionTrait
      *
      * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If the requested parameter definition does not exist
      */
-    public function getParameterDefinition(string $parameterName): ParameterDefinition
+    final public function getParameterDefinition(string $parameterName): ParameterDefinition
     {
         if (!$this->hasParameterDefinition($parameterName)) {
             throw ParameterException::noParameterDefinition($parameterName);
@@ -29,7 +29,7 @@ trait ParameterDefinitionCollectionTrait
     /**
      * Returns if the parameter definition with provided name exists in the collection.
      */
-    public function hasParameterDefinition(string $parameterName): bool
+    final public function hasParameterDefinition(string $parameterName): bool
     {
         return array_key_exists($parameterName, $this->parameterDefinitions);
     }

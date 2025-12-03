@@ -15,7 +15,7 @@ use function str_contains;
 
 abstract class SymfonyPage extends BaseSymfonyPage
 {
-    public function verifyUrlFragment(string $fragment): void
+    final public function verifyUrlFragment(string $fragment): void
     {
         $parsedUrl = parse_url($this->getDriver()->getCurrentUrl());
 
@@ -33,7 +33,7 @@ abstract class SymfonyPage extends BaseSymfonyPage
     /**
      * @param array<string, mixed> $parameters
      */
-    protected function waitForElement(int $timeout, string $elementName, array $parameters = [], bool $waitForRemoval = false): void
+    final protected function waitForElement(int $timeout, string $elementName, array $parameters = [], bool $waitForRemoval = false): void
     {
         $this->getDocument()->waitFor(
             $timeout,

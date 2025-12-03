@@ -58,7 +58,7 @@ abstract class View implements ViewInterface
     /**
      * @var array<string, mixed>
      */
-    public array $parameters {
+    final public array $parameters {
         get => [...$this->customParameters, ...$this->internalParameters];
     }
 

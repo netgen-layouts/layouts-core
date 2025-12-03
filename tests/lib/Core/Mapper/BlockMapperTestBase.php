@@ -16,14 +16,14 @@ abstract class BlockMapperTestBase extends CoreTestCase
 {
     private BlockMapper $mapper;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
         $this->mapper = $this->createBlockMapper();
     }
 
-    public function testMapBlock(): void
+    final public function testMapBlock(): void
     {
         $persistenceBlock = Block::fromArray(
             [
@@ -96,7 +96,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertNull($block->getParameter('css_id')->value);
     }
 
-    public function testMapBlockWithNoParent(): void
+    final public function testMapBlockWithNoParent(): void
     {
         $persistenceBlock = Block::fromArray(
             [
@@ -129,7 +129,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertNull($block->parentPlaceholder);
     }
 
-    public function testMapBlockWithLocale(): void
+    final public function testMapBlockWithLocale(): void
     {
         $persistenceBlock = Block::fromArray(
             [
@@ -161,7 +161,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('hr', $block->locale);
     }
 
-    public function testMapBlockWithLocales(): void
+    final public function testMapBlockWithLocales(): void
     {
         $persistenceBlock = Block::fromArray(
             [
@@ -193,7 +193,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('hr', $block->locale);
     }
 
-    public function testMapBlockWithLocalesAndAlwaysAvailable(): void
+    final public function testMapBlockWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceBlock = Block::fromArray(
             [
@@ -225,7 +225,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('en', $block->locale);
     }
 
-    public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
+    final public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "28df256a-2467-5527-b398-9269ccc652de"');
@@ -257,7 +257,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         $this->mapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
     }
 
-    public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
+    final public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "28df256a-2467-5527-b398-9269ccc652de"');
@@ -279,7 +279,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
     }
 
-    public function testMapBlockWithInvalidDefinition(): void
+    final public function testMapBlockWithInvalidDefinition(): void
     {
         $persistenceBlock = Block::fromArray(
             [
@@ -342,7 +342,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('en', $block->locale);
     }
 
-    public function testMapContainerBlock(): void
+    final public function testMapContainerBlock(): void
     {
         $persistenceBlock = Block::fromArray(
             [
@@ -392,7 +392,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertCount(0, $placeholder->blocks);
     }
 
-    public function testMapBlockWithCollections(): void
+    final public function testMapBlockWithCollections(): void
     {
         $persistenceBlock = Block::fromArray(
             [

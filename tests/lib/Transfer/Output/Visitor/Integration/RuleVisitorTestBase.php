@@ -16,12 +16,12 @@ use Ramsey\Uuid\Uuid;
  */
 abstract class RuleVisitorTestBase extends VisitorTestBase
 {
-    public function getVisitor(): VisitorInterface
+    final public function getVisitor(): VisitorInterface
     {
         return new RuleVisitor();
     }
 
-    public static function acceptDataProvider(): iterable
+    final public static function acceptDataProvider(): iterable
     {
         return [
             [new Rule(), true],
@@ -30,7 +30,7 @@ abstract class RuleVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): iterable
+    final public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Rule => $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')), 'rule/rule_2.json'],

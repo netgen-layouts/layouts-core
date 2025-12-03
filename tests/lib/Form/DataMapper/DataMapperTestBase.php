@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormInterface;
 
 abstract class DataMapperTestBase extends TestCase
 {
-    protected function getForm(string $formName, mixed $formData = null): FormInterface
+    final protected function getForm(string $formName, mixed $formData = null): FormInterface
     {
         $config = new FormConfigBuilder($formName, null, $this->createMock(EventDispatcherInterface::class));
 

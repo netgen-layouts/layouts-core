@@ -26,7 +26,7 @@ use function sprintf;
 
 trait DatabaseTrait
 {
-    protected Connection $databaseConnection;
+    final protected Connection $databaseConnection;
 
     private string $inMemoryDsn = 'sqlite:///:memory:';
 

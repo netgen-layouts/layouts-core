@@ -20,7 +20,7 @@ abstract class TargetHandlerTestBase extends TestCase
 
     final protected LayoutResolverHandler $handler;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         $this->createDatabase();
 
@@ -42,7 +42,7 @@ abstract class TargetHandlerTestBase extends TestCase
     /**
      * Tears down the tests.
      */
-    protected function tearDown(): void
+    final protected function tearDown(): void
     {
         $this->closeDatabase();
     }

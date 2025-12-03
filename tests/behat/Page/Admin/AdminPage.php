@@ -9,7 +9,7 @@ use Netgen\Layouts\Behat\Page\SymfonyPage;
 
 abstract class AdminPage extends SymfonyPage
 {
-    public function openModal(callable $opener): void
+    final public function openModal(callable $opener): void
     {
         $opener();
 
@@ -17,17 +17,17 @@ abstract class AdminPage extends SymfonyPage
         $this->verifyModalOpen();
     }
 
-    public function submitModal(): void
+    final public function submitModal(): void
     {
         $this->getElement('modal_confirm_button')->press();
     }
 
-    public function cancelModal(): void
+    final public function cancelModal(): void
     {
         $this->getElement('modal_cancel_button')->press();
     }
 
-    public function verifyModalOpen(): void
+    final public function verifyModalOpen(): void
     {
         if ($this->hasElement('modal_dialog')) {
             return;
@@ -36,7 +36,7 @@ abstract class AdminPage extends SymfonyPage
         throw new PageException('Modal dialog was expected to be open');
     }
 
-    public function verifyModalClosed(): void
+    final public function verifyModalClosed(): void
     {
         if (!$this->hasElement('modal_dialog')) {
             return;
@@ -45,13 +45,13 @@ abstract class AdminPage extends SymfonyPage
         throw new PageException('Modal dialog was expected to be closed');
     }
 
-    public function verifyModalErrorDoesNotExist(): void
+    final public function verifyModalErrorDoesNotExist(): void
     {
         $this->waitForElement(10, 'modal_dialog', [], true);
         $this->verifyModalClosed();
     }
 
-    public function modalErrorExists(string $errorMessage): bool
+    final public function modalErrorExists(string $errorMessage): bool
     {
         $this->waitForElement(10, 'modal_errors');
         $this->verifyModalOpen();

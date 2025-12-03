@@ -12,7 +12,7 @@ trait TransactionTrait
 {
     private TransactionHandlerInterface $transactionHandler;
 
-    public function transaction(callable $callable): mixed
+    final public function transaction(callable $callable): mixed
     {
         $this->beginTransaction();
 
@@ -29,12 +29,12 @@ trait TransactionTrait
         return $return;
     }
 
-    public function beginTransaction(): void
+    final public function beginTransaction(): void
     {
         $this->transactionHandler->beginTransaction();
     }
 
-    public function commitTransaction(): void
+    final public function commitTransaction(): void
     {
         try {
             $this->transactionHandler->commitTransaction();
@@ -43,7 +43,7 @@ trait TransactionTrait
         }
     }
 
-    public function rollbackTransaction(): void
+    final public function rollbackTransaction(): void
     {
         try {
             $this->transactionHandler->rollbackTransaction();

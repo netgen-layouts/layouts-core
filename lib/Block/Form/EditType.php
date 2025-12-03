@@ -50,7 +50,7 @@ abstract class EditType extends AbstractType
      */
     private array $viewTypesByParameters = [];
 
-    public function configureOptions(OptionsResolver $resolver): void
+    final public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
@@ -73,7 +73,7 @@ abstract class EditType extends AbstractType
             ->allowedTypes(Block::class);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
+    final public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['block'] = $options['block'];
         $view->vars['parameter_view_types'] = $this->viewTypesByParameters;

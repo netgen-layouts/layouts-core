@@ -22,14 +22,14 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 {
     private CollectionMapper $mapper;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
         $this->mapper = $this->createCollectionMapper();
     }
 
-    public function testMapCollection(): void
+    final public function testMapCollection(): void
     {
         $persistenceCollection = Collection::fromArray(
             [
@@ -64,7 +64,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertInstanceOf(APIQuery::class, $collection->query);
     }
 
-    public function testMapCollectionWithLocale(): void
+    final public function testMapCollectionWithLocale(): void
     {
         $persistenceCollection = Collection::fromArray(
             [
@@ -88,7 +88,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $collection->locale);
     }
 
-    public function testMapCollectionWithLocales(): void
+    final public function testMapCollectionWithLocales(): void
     {
         $persistenceCollection = Collection::fromArray(
             [
@@ -112,7 +112,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $collection->locale);
     }
 
-    public function testMapCollectionWithLocalesAndAlwaysAvailable(): void
+    final public function testMapCollectionWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceCollection = Collection::fromArray(
             [
@@ -136,7 +136,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('en', $collection->locale);
     }
 
-    public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
+    final public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find collection with identifier "f06f245a-f951-52c8-bfa3-84c80154eadc"');
@@ -154,7 +154,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
     }
 
-    public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
+    final public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find collection with identifier "f06f245a-f951-52c8-bfa3-84c80154eadc"');
@@ -172,7 +172,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
     }
 
-    public function testMapCollectionWithNoQuery(): void
+    final public function testMapCollectionWithNoQuery(): void
     {
         $persistenceCollection = Collection::fromArray(
             [
@@ -206,7 +206,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertNull($collection->query);
     }
 
-    public function testMapItem(): void
+    final public function testMapItem(): void
     {
         $persistenceItem = Item::fromArray(
             [
@@ -254,7 +254,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(42, $itemConfig->getParameter('param2')->value);
     }
 
-    public function testMapItemWithNullItemValue(): void
+    final public function testMapItemWithNullItemValue(): void
     {
         $persistenceItem = Item::fromArray(
             [
@@ -300,7 +300,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame(42, $itemConfig->getParameter('param2')->value);
     }
 
-    public function testMapItemWithInvalidItemDefinition(): void
+    final public function testMapItemWithInvalidItemDefinition(): void
     {
         $persistenceItem = Item::fromArray(
             [
@@ -343,7 +343,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertFalse($item->hasConfig('key'));
     }
 
-    public function testMapQuery(): void
+    final public function testMapQuery(): void
     {
         $persistenceQuery = Query::fromArray(
             [
@@ -389,7 +389,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertNull($query->getParameter('param2')->value);
     }
 
-    public function testMapQueryWithLocale(): void
+    final public function testMapQueryWithLocale(): void
     {
         $persistenceQuery = Query::fromArray(
             [
@@ -411,7 +411,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $query->locale);
     }
 
-    public function testMapQueryWithLocales(): void
+    final public function testMapQueryWithLocales(): void
     {
         $persistenceQuery = Query::fromArray(
             [
@@ -433,7 +433,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('hr', $query->locale);
     }
 
-    public function testMapQueryWithLocalesAndAlwaysAvailable(): void
+    final public function testMapQueryWithLocalesAndAlwaysAvailable(): void
     {
         $persistenceQuery = Query::fromArray(
             [
@@ -455,7 +455,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('en', $query->locale);
     }
 
-    public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
+    final public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find query with identifier "4adf0f00-f6c2-5297-9f96-039bfabe8d3b"');
@@ -475,7 +475,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
     }
 
-    public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
+    final public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find query with identifier "4adf0f00-f6c2-5297-9f96-039bfabe8d3b"');
@@ -495,7 +495,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
     }
 
-    public function testMapQueryWithInvalidType(): void
+    final public function testMapQueryWithInvalidType(): void
     {
         $persistenceQuery = Query::fromArray(
             [
@@ -535,7 +535,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         self::assertSame('en', $query->locale);
     }
 
-    public function testMapSlot(): void
+    final public function testMapSlot(): void
     {
         $persistenceSlot = Slot::fromArray(
             [

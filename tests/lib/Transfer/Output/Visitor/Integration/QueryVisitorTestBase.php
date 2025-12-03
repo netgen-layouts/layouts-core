@@ -16,12 +16,12 @@ use Ramsey\Uuid\Uuid;
  */
 abstract class QueryVisitorTestBase extends VisitorTestBase
 {
-    public function getVisitor(): VisitorInterface
+    final public function getVisitor(): VisitorInterface
     {
         return new QueryVisitor($this->collectionService);
     }
 
-    public static function acceptDataProvider(): iterable
+    final public static function acceptDataProvider(): iterable
     {
         return [
             [new Query(), true],
@@ -30,7 +30,7 @@ abstract class QueryVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): iterable
+    final public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Query => $this->collectionService->loadQuery(Uuid::fromString('86c5af5d-bcb3-5a93-aeed-754466d76878')), 'query/query_1.json'],

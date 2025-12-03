@@ -17,7 +17,7 @@ use Ramsey\Uuid\Uuid;
  */
 abstract class ItemVisitorTestBase extends VisitorTestBase
 {
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
@@ -26,12 +26,12 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
             ->willReturn(CmsItem::fromArray(['remoteId' => 'abc']));
     }
 
-    public function getVisitor(): VisitorInterface
+    final public function getVisitor(): VisitorInterface
     {
         return new ItemVisitor();
     }
 
-    public static function acceptDataProvider(): iterable
+    final public static function acceptDataProvider(): iterable
     {
         return [
             [new Item(), true],
@@ -40,7 +40,7 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): iterable
+    final public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Item => $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')), 'item/item_4.json'],

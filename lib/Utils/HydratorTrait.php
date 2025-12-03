@@ -22,7 +22,7 @@ trait HydratorTrait
      * @param array<string, mixed> $data
      * @param array<string, callable> $lazyInitializers
      */
-    public static function fromArray(array $data, array $lazyInitializers = []): static
+    final public static function fromArray(array $data, array $lazyInitializers = []): static
     {
         self::initHydrator();
 
@@ -56,7 +56,7 @@ trait HydratorTrait
      *
      * @param array<string, mixed> $data
      */
-    public function hydrate(array $data): static
+    final public function hydrate(array $data): static
     {
         self::initHydrator();
 

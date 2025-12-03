@@ -22,12 +22,12 @@ abstract class NodeTestBase extends TestCase
     abstract public static function getTests(): iterable;
 
     #[DataProvider('getTests')]
-    public function testCompile(Node $node, string $source, ?Environment $environment = null, bool $isPattern = false): void
+    final public function testCompile(Node $node, string $source, ?Environment $environment = null, bool $isPattern = false): void
     {
         self::assertNodeCompilation($source, $node, $environment, $isPattern);
     }
 
-    public static function assertNodeCompilation(string $source, Node $node, ?Environment $environment = null, bool $isPattern = false): void
+    final public static function assertNodeCompilation(string $source, Node $node, ?Environment $environment = null, bool $isPattern = false): void
     {
         $compiler = self::getCompiler($environment);
         $compiler->compile($node);
@@ -39,17 +39,17 @@ abstract class NodeTestBase extends TestCase
         }
     }
 
-    protected static function getCompiler(?Environment $environment = null): Compiler
+    final protected static function getCompiler(?Environment $environment = null): Compiler
     {
         return new Compiler($environment ?? self::getEnvironment());
     }
 
-    protected static function getEnvironment(): Environment
+    final protected static function getEnvironment(): Environment
     {
         return new Environment(new ArrayLoader([]));
     }
 
-    protected static function getNodeGetter(string $name, int $lineNo = 0): string
+    final protected static function getNodeGetter(string $name, int $lineNo = 0): string
     {
         $line = $lineNo > 0 ? sprintf("// line %d\n", $lineNo) : '';
 

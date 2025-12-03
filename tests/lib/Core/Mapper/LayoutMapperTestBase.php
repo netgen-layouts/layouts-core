@@ -16,14 +16,14 @@ abstract class LayoutMapperTestBase extends CoreTestCase
 {
     private LayoutMapper $mapper;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
         $this->mapper = $this->createLayoutMapper();
     }
 
-    public function testMapZone(): void
+    final public function testMapZone(): void
     {
         $persistenceZone = Zone::fromArray(
             [
@@ -48,7 +48,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertSame('right', $zone->linkedZone->identifier);
     }
 
-    public function testMapZoneWithNoLinkedZone(): void
+    final public function testMapZoneWithNoLinkedZone(): void
     {
         $persistenceZone = Zone::fromArray(
             [
@@ -70,7 +70,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertNull($zone->linkedZone);
     }
 
-    public function testMapZoneWithNonExistingLinkedZone(): void
+    final public function testMapZoneWithNonExistingLinkedZone(): void
     {
         $persistenceZone = Zone::fromArray(
             [
@@ -92,7 +92,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertNull($zone->linkedZone);
     }
 
-    public function testMapLayout(): void
+    final public function testMapLayout(): void
     {
         $persistenceLayout = Layout::fromArray(
             [
@@ -127,7 +127,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         self::assertCount(4, $layout->zones);
     }
 
-    public function testMapLayoutWithInvalidLayoutType(): void
+    final public function testMapLayoutWithInvalidLayoutType(): void
     {
         $persistenceLayout = Layout::fromArray(
             [

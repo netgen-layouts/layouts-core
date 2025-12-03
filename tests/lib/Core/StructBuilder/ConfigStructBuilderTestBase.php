@@ -18,14 +18,14 @@ abstract class ConfigStructBuilderTestBase extends CoreTestCase
 {
     private ConfigStructBuilder $structBuilder;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
         $this->structBuilder = new ConfigStructBuilder();
     }
 
-    public function testBuildConfigUpdateStructs(): void
+    final public function testBuildConfigUpdateStructs(): void
     {
         $handler = new ConfigDefinitionHandler();
 

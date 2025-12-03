@@ -16,14 +16,14 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
 
     private BlockStructBuilder $structBuilder;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
         $this->structBuilder = new BlockStructBuilder(new ConfigStructBuilder());
     }
 
-    public function testNewBlockCreateStruct(): void
+    final public function testNewBlockCreateStruct(): void
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
 
@@ -48,7 +48,7 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewBlockUpdateStruct(): void
+    final public function testNewBlockUpdateStruct(): void
     {
         $struct = $this->structBuilder->newBlockUpdateStruct('en');
 
@@ -66,7 +66,7 @@ abstract class BlockStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewBlockUpdateStructFromBlock(): void
+    final public function testNewBlockUpdateStructFromBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
         $struct = $this->structBuilder->newBlockUpdateStruct('en', $block);

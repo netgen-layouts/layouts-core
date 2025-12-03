@@ -34,7 +34,7 @@ abstract class ValidatorTestCase extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    protected function assertValid(bool $isValid, mixed $value): void
+    final protected function assertValid(bool $isValid, mixed $value): void
     {
         $this->executionContext->setConstraint($this->constraint);
         $this->validator->validate($value, $this->constraint);

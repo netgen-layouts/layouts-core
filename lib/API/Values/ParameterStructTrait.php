@@ -16,14 +16,14 @@ trait ParameterStructTrait
     /**
      * @var array<string, mixed>
      */
-    public array $parameterValues = [];
+    final public array $parameterValues = [];
 
     /**
      * Sets the parameter value to the struct.
      *
      * The value needs to be in the domain format of the value for the parameter.
      */
-    public function setParameterValue(string $parameterName, mixed $parameterValue): void
+    final public function setParameterValue(string $parameterName, mixed $parameterValue): void
     {
         $this->parameterValues[$parameterName] = $parameterValue;
     }
@@ -31,7 +31,7 @@ trait ParameterStructTrait
     /**
      * Returns the parameter value with provided name or null if parameter does not exist.
      */
-    public function getParameterValue(string $parameterName): mixed
+    final public function getParameterValue(string $parameterName): mixed
     {
         if (!$this->hasParameterValue($parameterName)) {
             return null;
@@ -43,7 +43,7 @@ trait ParameterStructTrait
     /**
      * Returns if the struct has a parameter value with provided name.
      */
-    public function hasParameterValue(string $parameterName): bool
+    final public function hasParameterValue(string $parameterName): bool
     {
         return array_key_exists($parameterName, $this->parameterValues);
     }

@@ -23,14 +23,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
     use ExportObjectTrait;
     use UuidGeneratorTrait;
 
-    public function testLoadBlock(): void
+    final public function testLoadBlock(): void
     {
         $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         self::assertTrue($block->isPublished);
     }
 
-    public function testLoadBlockThrowsNotFoundException(): void
+    final public function testLoadBlockThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -38,7 +38,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlock(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock(): void
+    final public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "01f0c14e-2e15-54a1-8b41-58a3a8a9a917"');
@@ -46,14 +46,14 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlock(Uuid::fromString('01f0c14e-2e15-54a1-8b41-58a3a8a9a917'));
     }
 
-    public function testLoadBlockDraft(): void
+    final public function testLoadBlockDraft(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         self::assertTrue($block->isDraft);
     }
 
-    public function testLoadBlockDraftThrowsNotFoundException(): void
+    final public function testLoadBlockDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -61,7 +61,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlockDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock(): void
+    final public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "01f0c14e-2e15-54a1-8b41-58a3a8a9a917"');
@@ -69,7 +69,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlockDraft(Uuid::fromString('01f0c14e-2e15-54a1-8b41-58a3a8a9a917'));
     }
 
-    public function testLoadZoneBlocks(): void
+    final public function testLoadZoneBlocks(): void
     {
         $blocks = $this->blockService->loadZoneBlocks(
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
@@ -78,7 +78,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(2, $blocks);
     }
 
-    public function testLoadPlaceholderBlocks(): void
+    final public function testLoadPlaceholderBlocks(): void
     {
         $blocks = $this->blockService->loadPlaceholderBlocks(
             $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
@@ -88,7 +88,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(1, $blocks);
     }
 
-    public function testLoadLayoutBlocks(): void
+    final public function testLoadLayoutBlocks(): void
     {
         $blocks = $this->blockService->loadLayoutBlocks(
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
@@ -97,21 +97,21 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(3, $blocks);
     }
 
-    public function testHasPublishedState(): void
+    final public function testHasPublishedState(): void
     {
         $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         self::assertTrue($this->blockService->hasPublishedState($block));
     }
 
-    public function testHasPublishedStateReturnsFalse(): void
+    final public function testHasPublishedStateReturnsFalse(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
 
         self::assertFalse($this->blockService->hasPublishedState($block));
     }
 
-    public function testCreateBlock(): void
+    final public function testCreateBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
@@ -144,7 +144,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->locale);
     }
 
-    public function testCreateBlockWithCollection(): void
+    final public function testCreateBlockWithCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
@@ -173,7 +173,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->mainLocale, $defaultCollection->mainLocale);
     }
 
-    public function testCreateBlockWithDynamicCollection(): void
+    final public function testCreateBlockWithDynamicCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
@@ -213,7 +213,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->mainLocale, $defaultCollection->mainLocale);
     }
 
-    public function testCreateTranslatableBlock(): void
+    final public function testCreateTranslatableBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
@@ -234,7 +234,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->locale);
     }
 
-    public function testCreateTranslatableBlockWithNonTranslatableTargetBlock(): void
+    final public function testCreateTranslatableBlockWithNonTranslatableTargetBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
@@ -260,7 +260,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->locale);
     }
 
-    public function testCreateBlockWithConfig(): void
+    final public function testCreateBlockWithConfig(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
@@ -290,7 +290,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('en', $block->locale);
     }
 
-    public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
+    final public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Blocks can only be created in blocks in draft status.');
@@ -307,7 +307,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
+    final public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
@@ -323,7 +323,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder(): void
+    final public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
@@ -339,7 +339,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateBlockWithNoPosition(): void
+    final public function testCreateBlockWithNoPosition(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
@@ -363,7 +363,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->id->toString(), $secondBlock->id->toString());
     }
 
-    public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
+    final public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
@@ -380,7 +380,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
+    final public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.');
@@ -396,7 +396,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateBlockInZone(): void
+    final public function testCreateBlockInZone(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
@@ -424,7 +424,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->id->toString());
     }
 
-    public function testCreateBlockInZoneWithContainerBlock(): void
+    final public function testCreateBlockInZoneWithContainerBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('column'),
@@ -442,7 +442,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->hasPlaceholder('other'));
     }
 
-    public function testCreateBlockInZoneWithoutCollection(): void
+    final public function testCreateBlockInZoneWithoutCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
@@ -472,7 +472,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertCount(0, $collections);
     }
 
-    public function testCreateBlockInZoneWhichDoesNotExistInLayoutType(): void
+    final public function testCreateBlockInZoneWhichDoesNotExistInLayoutType(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
@@ -487,7 +487,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->isDraft);
     }
 
-    public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone(): void
+    final public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Blocks can only be created in zones in draft status.');
@@ -503,7 +503,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateBlockInZoneWithNonExistentLayoutType(): void
+    final public function testCreateBlockInZoneWithNonExistentLayoutType(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
@@ -517,7 +517,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($block->isDraft);
     }
 
-    public function testCreateBlockInZoneWithNoPosition(): void
+    final public function testCreateBlockInZoneWithNoPosition(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
@@ -541,7 +541,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($block->id->toString(), $blocks[2]->id->toString());
     }
 
-    public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
+    final public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
@@ -557,7 +557,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateBlockInZoneThrowsBadStateExceptionWithWithDisallowedIdentifier(): void
+    final public function testCreateBlockInZoneThrowsBadStateExceptionWithWithDisallowedIdentifier(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
@@ -572,7 +572,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testUpdateBlock(): void
+    final public function testUpdateBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
 
@@ -599,7 +599,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('css-id', $croBlock->getParameter('css_id')->value);
     }
 
-    public function testUpdateBlockInMainLocale(): void
+    final public function testUpdateBlockInMainLocale(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
 
@@ -626,7 +626,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->value);
     }
 
-    public function testUpdateBlockWithUntranslatableParameters(): void
+    final public function testUpdateBlockWithUntranslatableParameters(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
 
@@ -651,7 +651,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $croBlock->getParameter('css_id')->value);
     }
 
-    public function testUpdateBlockWithConfig(): void
+    final public function testUpdateBlockWithConfig(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7'));
 
@@ -673,7 +673,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(400, $blockConfig->getParameter('param2')->value);
     }
 
-    public function testUpdateBlockWithBlankName(): void
+    final public function testUpdateBlockWithBlankName(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
@@ -692,7 +692,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
     }
 
-    public function testUpdateBlockWithBlankViewType(): void
+    final public function testUpdateBlockWithBlankViewType(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
@@ -711,7 +711,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
     }
 
-    public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be updated.');
@@ -727,7 +727,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->updateBlock($block, $blockUpdateStruct);
     }
 
-    public function testUpdateBlockThrowsBadStateExceptionWithNonExistingLocale(): void
+    final public function testUpdateBlockThrowsBadStateExceptionWithNonExistingLocale(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Block does not have the specified translation.');
@@ -743,7 +743,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->updateBlock($block, $blockUpdateStruct);
     }
 
-    public function testCopyBlock(): void
+    final public function testCopyBlock(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -763,7 +763,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $copiedBlock->position);
     }
 
-    public function testCopyBlockWithPosition(): void
+    final public function testCopyBlockWithPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -784,7 +784,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $copiedBlock->position);
     }
 
-    public function testCopyBlockWithSamePosition(): void
+    final public function testCopyBlockWithSamePosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -805,7 +805,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(0, $copiedBlock->position);
     }
 
-    public function testCopyBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
+    final public function testCopyBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
@@ -818,7 +818,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be copied.');
@@ -830,7 +830,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
+    final public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only copy blocks to draft blocks.');
@@ -842,7 +842,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
+    final public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
@@ -854,7 +854,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder(): void
+    final public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
@@ -866,7 +866,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
+    final public function testCopyBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Containers cannot be placed inside containers.');
@@ -878,7 +878,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
+    final public function testCopyBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only copy block to blocks in the same layout.');
@@ -890,7 +890,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockToZone(): void
+    final public function testCopyBlockToZone(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -930,7 +930,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($copiedBlock->getCollection('featured')->isDraft);
     }
 
-    public function testCopyBlockToZoneWithPosition(): void
+    final public function testCopyBlockToZoneWithPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -968,7 +968,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $copiedBlock->position);
     }
 
-    public function testCopyBlockToZoneWithSamePosition(): void
+    final public function testCopyBlockToZoneWithSamePosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -1006,7 +1006,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(0, $copiedBlock->position);
     }
 
-    public function testCopyBlockToZoneWithLastPosition(): void
+    final public function testCopyBlockToZoneWithLastPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -1044,7 +1044,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(2, $copiedBlock->position);
     }
 
-    public function testCopyBlockToZoneWithLowerPosition(): void
+    final public function testCopyBlockToZoneWithLowerPosition(): void
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
@@ -1074,7 +1074,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(0, $copiedBlock->position);
     }
 
-    public function testCopyBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
+    final public function testCopyBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
@@ -1086,7 +1086,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be copied.');
@@ -1097,7 +1097,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
+    final public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only copy blocks in draft zones.');
@@ -1108,7 +1108,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
+    final public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
@@ -1119,7 +1119,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCopyBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
+    final public function testCopyBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only copy block to zone in the same layout.');
@@ -1130,7 +1130,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlock(): void
+    final public function testMoveBlock(): void
     {
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
@@ -1151,7 +1151,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->id->toString(), $firstBlock->id->toString());
     }
 
-    public function testMoveBlockToDifferentPlaceholder(): void
+    final public function testMoveBlockToDifferentPlaceholder(): void
     {
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
@@ -1174,7 +1174,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->id->toString(), $firstBlock->id->toString());
     }
 
-    public function testMoveBlockToDifferentBlock(): void
+    final public function testMoveBlockToDifferentBlock(): void
     {
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
@@ -1198,7 +1198,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->id->toString(), $firstBlock->id->toString());
     }
 
-    public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be moved.');
@@ -1211,7 +1211,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
+    final public function testMoveBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only move blocks to draft blocks.');
@@ -1224,7 +1224,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsNotContainer(): void
+    final public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsNotContainer(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
@@ -1237,7 +1237,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder(): void
+    final public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
@@ -1250,7 +1250,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
+    final public function testMoveBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Containers cannot be placed inside containers.');
@@ -1263,7 +1263,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
+    final public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
@@ -1276,7 +1276,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
+    final public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only move block to blocks in the same layout.');
@@ -1289,7 +1289,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockToZone(): void
+    final public function testMoveBlockToZone(): void
     {
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
@@ -1308,7 +1308,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->id->toString(), $blocks[0]->id->toString());
     }
 
-    public function testMoveBlockToDifferentZone(): void
+    final public function testMoveBlockToDifferentZone(): void
     {
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
@@ -1327,7 +1327,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedBlock->id->toString(), $blocks[0]->id->toString());
     }
 
-    public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be moved.');
@@ -1339,7 +1339,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
+    final public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only move blocks in draft zones.');
@@ -1351,7 +1351,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
+    final public function testMoveBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
@@ -1363,7 +1363,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
+    final public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only move block to zone in the same layout.');
@@ -1375,7 +1375,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
+    final public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
@@ -1387,7 +1387,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testRestoreBlock(): void
+    final public function testRestoreBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
@@ -1430,7 +1430,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame($movedPersistenceBlock->path, $restoredPersistenceBlock->path);
     }
 
-    public function testRestoreBlockRestoresMissingTranslations(): void
+    final public function testRestoreBlockRestoresMissingTranslations(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
@@ -1447,7 +1447,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertContains('de', $restoredBlock->availableLocales);
     }
 
-    public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be restored.');
@@ -1457,7 +1457,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->restoreBlock($block);
     }
 
-    public function testEnableTranslations(): void
+    final public function testEnableTranslations(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
 
@@ -1471,7 +1471,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertTrue($updatedBlock->isTranslatable);
     }
 
-    public function testEnableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testEnableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. You can only enable translations for draft blocks.');
@@ -1481,7 +1481,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->enableTranslations($block);
     }
 
-    public function testEnableTranslationsThrowsBadStateExceptionWithEnabledTranslations(): void
+    final public function testEnableTranslationsThrowsBadStateExceptionWithEnabledTranslations(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Block is already translatable.');
@@ -1491,7 +1491,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->enableTranslations($block);
     }
 
-    public function testEnableTranslationsThrowsBadStateExceptionWithNonTranslatableParentBlock(): void
+    final public function testEnableTranslationsThrowsBadStateExceptionWithNonTranslatableParentBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('You can only enable translations if parent block is also translatable.');
@@ -1504,7 +1504,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->enableTranslations($block);
     }
 
-    public function testDisableTranslations(): void
+    final public function testDisableTranslations(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
@@ -1516,7 +1516,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertContains('en', $updatedBlock->availableLocales);
     }
 
-    public function testDisableTranslationsOnContainer(): void
+    final public function testDisableTranslationsOnContainer(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $childBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
@@ -1537,7 +1537,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertContains('en', $childBlock->availableLocales);
     }
 
-    public function testDisableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
+    final public function testDisableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. You can only disable translations for draft blocks.');
@@ -1547,7 +1547,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->disableTranslations($block);
     }
 
-    public function testDisableTranslationsThrowsBadStateExceptionWithDisabledTranslations(): void
+    final public function testDisableTranslationsThrowsBadStateExceptionWithDisabledTranslations(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Block is not translatable.');
@@ -1557,7 +1557,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->disableTranslations($block);
     }
 
-    public function testDeleteBlock(): void
+    final public function testDeleteBlock(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find block with identifier "28df256a-2467-5527-b398-9269ccc652de"');
@@ -1568,7 +1568,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->loadBlockDraft($block->id);
     }
 
-    public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock(): void
+    final public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be deleted.');
@@ -1577,7 +1577,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->blockService->deleteBlock($block);
     }
 
-    public function testNewBlockCreateStruct(): void
+    final public function testNewBlockCreateStruct(): void
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
 
@@ -1602,7 +1602,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewBlockUpdateStruct(): void
+    final public function testNewBlockUpdateStruct(): void
     {
         $struct = $this->blockService->newBlockUpdateStruct('en');
 
@@ -1620,7 +1620,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewBlockUpdateStructFromBlock(): void
+    final public function testNewBlockUpdateStructFromBlock(): void
     {
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
         $struct = $this->blockService->newBlockUpdateStruct('en', $block);

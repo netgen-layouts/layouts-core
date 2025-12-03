@@ -16,12 +16,12 @@ use Ramsey\Uuid\Uuid;
  */
 abstract class BlockVisitorTestBase extends VisitorTestBase
 {
-    public function getVisitor(): VisitorInterface
+    final public function getVisitor(): VisitorInterface
     {
         return new BlockVisitor($this->blockService);
     }
 
-    public static function acceptDataProvider(): iterable
+    final public static function acceptDataProvider(): iterable
     {
         return [
             [new Block(), true],
@@ -30,7 +30,7 @@ abstract class BlockVisitorTestBase extends VisitorTestBase
         ];
     }
 
-    public static function visitDataProvider(): iterable
+    final public static function visitDataProvider(): iterable
     {
         return [
             [fn (): Block => $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')), 'block/block_31.json'],

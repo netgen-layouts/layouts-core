@@ -17,7 +17,7 @@ trait ParameterCollectionTrait
      *
      * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If the requested parameter does not exist
      */
-    public function getParameter(string $parameterName): Parameter
+    final public function getParameter(string $parameterName): Parameter
     {
         return $this->parameters->get($parameterName) ??
             throw ParameterException::noParameter($parameterName);
@@ -26,7 +26,7 @@ trait ParameterCollectionTrait
     /**
      * Returns if the parameter with provided name exists in the collection.
      */
-    public function hasParameter(string $parameterName): bool
+    final public function hasParameter(string $parameterName): bool
     {
         return $this->parameters->containsKey($parameterName);
     }

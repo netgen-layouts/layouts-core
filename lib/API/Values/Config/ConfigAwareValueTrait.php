@@ -17,7 +17,7 @@ trait ConfigAwareValueTrait
      *
      * @throws \Netgen\Layouts\Exception\API\ConfigException If the config does not exist
      */
-    public function getConfig(string $configKey): Config
+    final public function getConfig(string $configKey): Config
     {
         return $this->configs->get($configKey) ??
             throw ConfigException::noConfig($configKey);
@@ -26,7 +26,7 @@ trait ConfigAwareValueTrait
     /**
      * Returns if the config with specified config key exists.
      */
-    public function hasConfig(string $configKey): bool
+    final public function hasConfig(string $configKey): bool
     {
         return $this->configs->containsKey($configKey);
     }

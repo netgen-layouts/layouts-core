@@ -19,14 +19,14 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
 
     private CollectionStructBuilder $structBuilder;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
         $this->structBuilder = new CollectionStructBuilder(new ConfigStructBuilder());
     }
 
-    public function testNewCollectionCreateStruct(): void
+    final public function testNewCollectionCreateStruct(): void
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
         $struct = $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
@@ -41,7 +41,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewCollectionUpdateStruct(): void
+    final public function testNewCollectionUpdateStruct(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct();
 
@@ -54,7 +54,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewCollectionUpdateStructWithCollection(): void
+    final public function testNewCollectionUpdateStructWithCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
             $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89')),
@@ -69,7 +69,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
+    final public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
             $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e')),
@@ -84,7 +84,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewItemCreateStruct(): void
+    final public function testNewItemCreateStruct(): void
     {
         $itemDefinition = new ItemDefinition();
         $struct = $this->structBuilder->newItemCreateStruct($itemDefinition, '42');
@@ -100,7 +100,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewItemUpdateStruct(): void
+    final public function testNewItemUpdateStruct(): void
     {
         $struct = $this->structBuilder->newItemUpdateStruct();
 
@@ -113,7 +113,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewItemUpdateStructFromItem(): void
+    final public function testNewItemUpdateStructFromItem(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
         $struct = $this->structBuilder->newItemUpdateStruct($item);
@@ -136,7 +136,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewItemUpdateStructFromItemWithNoViewType(): void
+    final public function testNewItemUpdateStructFromItemWithNoViewType(): void
     {
         $item = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
         $struct = $this->structBuilder->newItemUpdateStruct($item);
@@ -159,7 +159,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewQueryCreateStruct(): void
+    final public function testNewQueryCreateStruct(): void
     {
         $queryType = new QueryType('my_query_type');
 
@@ -177,7 +177,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewQueryUpdateStruct(): void
+    final public function testNewQueryUpdateStruct(): void
     {
         $struct = $this->structBuilder->newQueryUpdateStruct('en');
 
@@ -190,7 +190,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewQueryUpdateStructFromQuery(): void
+    final public function testNewQueryUpdateStructFromQuery(): void
     {
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('6d60fcbc-ae38-57c2-af72-e462a3e5c9f2'));
         $struct = $this->structBuilder->newQueryUpdateStruct('en', $query);
@@ -207,7 +207,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewSlotCreateStruct(): void
+    final public function testNewSlotCreateStruct(): void
     {
         $struct = $this->structBuilder->newSlotCreateStruct();
 
@@ -219,7 +219,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewSlotUpdateStruct(): void
+    final public function testNewSlotUpdateStruct(): void
     {
         $struct = $this->structBuilder->newSlotUpdateStruct();
 
@@ -231,7 +231,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewSlotUpdateStructFromSlot(): void
+    final public function testNewSlotUpdateStructFromSlot(): void
     {
         $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
         $struct = $this->structBuilder->newSlotUpdateStruct($slot);

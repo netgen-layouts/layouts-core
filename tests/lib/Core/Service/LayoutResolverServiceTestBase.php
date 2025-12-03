@@ -22,14 +22,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
     use ExportObjectTrait;
     use UuidGeneratorTrait;
 
-    public function testLoadRule(): void
+    final public function testLoadRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
 
         self::assertTrue($rule->isPublished);
     }
 
-    public function testLoadRuleThrowsNotFoundException(): void
+    final public function testLoadRuleThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -37,14 +37,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRule(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleDraft(): void
+    final public function testLoadRuleDraft(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
         self::assertTrue($rule->isDraft);
     }
 
-    public function testLoadRuleDraftThrowsNotFoundException(): void
+    final public function testLoadRuleDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -52,7 +52,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleArchive(): void
+    final public function testLoadRuleArchive(): void
     {
         $ruleDraft = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
         $this->layoutResolverService->publishRule($ruleDraft);
@@ -62,7 +62,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($ruleArchive->isArchived);
     }
 
-    public function testLoadRuleArchiveThrowsNotFoundException(): void
+    final public function testLoadRuleArchiveThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -70,14 +70,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleArchive(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleGroup(): void
+    final public function testLoadRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
         self::assertTrue($ruleGroup->isPublished);
     }
 
-    public function testLoadRuleGroupThrowsNotFoundException(): void
+    final public function testLoadRuleGroupThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule group with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -85,14 +85,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroup(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleGroupDraft(): void
+    final public function testLoadRuleGroupDraft(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
         self::assertTrue($ruleGroup->isDraft);
     }
 
-    public function testLoadRuleGroupDraftThrowsNotFoundException(): void
+    final public function testLoadRuleGroupDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule group with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -100,7 +100,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleGroupArchive(): void
+    final public function testLoadRuleGroupArchive(): void
     {
         $ruleGroupDraft = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
         $this->layoutResolverService->publishRuleGroup($ruleGroupDraft);
@@ -110,7 +110,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($ruleGroupArchive->isArchived);
     }
 
-    public function testLoadRuleGroupArchiveThrowsNotFoundException(): void
+    final public function testLoadRuleGroupArchiveThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule group with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -118,7 +118,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRulesForLayout(): void
+    final public function testLoadRulesForLayout(): void
     {
         $rules = $this->layoutResolverService->loadRulesForLayout(
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
@@ -131,7 +131,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    public function testLoadRulesForLayoutThrowsBadStateExceptionWithNonPublishedLayout(): void
+    final public function testLoadRulesForLayoutThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
@@ -141,7 +141,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testGetRuleCountForLayout(): void
+    final public function testGetRuleCountForLayout(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCountForLayout(
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
@@ -150,7 +150,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(2, $ruleCount);
     }
 
-    public function testGetRuleCountForLayoutThrowsBadStateExceptionWithNonPublishedLayout(): void
+    final public function testGetRuleCountForLayoutThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
@@ -160,7 +160,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testLoadRulesFromGroup(): void
+    final public function testLoadRulesFromGroup(): void
     {
         $rules = $this->layoutResolverService->loadRulesFromGroup(
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
@@ -173,7 +173,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    public function testLoadRulesFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testLoadRulesFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rules can be loaded only from published rule groups.');
@@ -183,7 +183,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testGetRuleCountFromGroup(): void
+    final public function testGetRuleCountFromGroup(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCountFromGroup(
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
@@ -192,7 +192,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(2, $ruleCount);
     }
 
-    public function testGetRuleCountFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testGetRuleCountFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rule count can be fetched only for published rule groups.');
@@ -202,7 +202,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testLoadRuleGroups(): void
+    final public function testLoadRuleGroups(): void
     {
         $ruleGroups = $this->layoutResolverService->loadRuleGroups(
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
@@ -215,7 +215,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    public function testLoadRuleGroupsThrowsBadStateExceptionWithNonPublishedParentGroup(): void
+    final public function testLoadRuleGroupsThrowsBadStateExceptionWithNonPublishedParentGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule groups can be loaded only from published parent groups.');
@@ -225,7 +225,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testGetRuleGroupCount(): void
+    final public function testGetRuleGroupCount(): void
     {
         $ruleGroupCount = $this->layoutResolverService->getRuleGroupCount(
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
@@ -234,7 +234,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame(1, $ruleGroupCount);
     }
 
-    public function testGetRuleGroupCountThrowsBadStateExceptionWithNonPublishedParentGroup(): void
+    final public function testGetRuleGroupCountThrowsBadStateExceptionWithNonPublishedParentGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule group count can be fetched only for published parent groups.');
@@ -244,7 +244,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testMatchRules(): void
+    final public function testMatchRules(): void
     {
         $rules = $this->layoutResolverService->matchRules(
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
@@ -259,14 +259,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    public function testLoadTarget(): void
+    final public function testLoadTarget(): void
     {
         $target = $this->layoutResolverService->loadTarget(Uuid::fromString('5f086fc4-4e1c-55eb-ae54-79fc296cda37'));
 
         self::assertTrue($target->isPublished);
     }
 
-    public function testLoadTargetThrowsNotFoundException(): void
+    final public function testLoadTargetThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find target with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -274,14 +274,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadTarget(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadTargetDraft(): void
+    final public function testLoadTargetDraft(): void
     {
         $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
         self::assertTrue($target->isDraft);
     }
 
-    public function testLoadTargetDraftThrowsNotFoundException(): void
+    final public function testLoadTargetDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find target with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -289,14 +289,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadTargetDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleCondition(): void
+    final public function testLoadRuleCondition(): void
     {
         $condition = $this->layoutResolverService->loadRuleCondition(Uuid::fromString('35f4594c-6674-5815-add6-07f288b79686'));
 
         self::assertTrue($condition->isPublished);
     }
 
-    public function testLoadRuleConditionThrowsNotFoundException(): void
+    final public function testLoadRuleConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -304,14 +304,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleCondition(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleConditionDraft(): void
+    final public function testLoadRuleConditionDraft(): void
     {
         $condition = $this->layoutResolverService->loadRuleConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
 
         self::assertTrue($condition->isDraft);
     }
 
-    public function testLoadRuleConditionDraftThrowsNotFoundException(): void
+    final public function testLoadRuleConditionDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -319,14 +319,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleConditionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleGroupCondition(): void
+    final public function testLoadRuleGroupCondition(): void
     {
         $condition = $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
 
         self::assertTrue($condition->isPublished);
     }
 
-    public function testLoadRuleGroupConditionThrowsNotFoundException(): void
+    final public function testLoadRuleGroupConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -334,14 +334,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testLoadRuleGroupConditionDraft(): void
+    final public function testLoadRuleGroupConditionDraft(): void
     {
         $condition = $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
 
         self::assertTrue($condition->isDraft);
     }
 
-    public function testLoadRuleGroupConditionDraftThrowsNotFoundException(): void
+    final public function testLoadRuleGroupConditionDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
@@ -349,17 +349,17 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
-    public function testRuleExists(): void
+    final public function testRuleExists(): void
     {
         self::assertTrue($this->layoutResolverService->ruleExists(Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634')));
     }
 
-    public function testRuleExistsReturnsFalse(): void
+    final public function testRuleExistsReturnsFalse(): void
     {
         self::assertFalse($this->layoutResolverService->ruleExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
     }
 
-    public function testCreateRule(): void
+    final public function testCreateRule(): void
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
 
@@ -372,7 +372,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdRule->isDraft);
     }
 
-    public function testCreateRuleWithCustomUuid(): void
+    final public function testCreateRuleWithCustomUuid(): void
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
         $ruleCreateStruct->uuid = Uuid::fromString('0f714915-eef0-4dc1-b22b-1107cb1ab92b');
@@ -387,7 +387,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->ruleGroupId->toString());
     }
 
-    public function testCreateRuleWithAssignedLayout(): void
+    final public function testCreateRuleWithAssignedLayout(): void
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
         $ruleCreateStruct->layoutId = Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136');
@@ -403,7 +403,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->ruleGroupId->toString());
     }
 
-    public function testCreateRuleThrowsBadStateExceptionWithExistingUuid(): void
+    final public function testCreateRuleThrowsBadStateExceptionWithExistingUuid(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule with provided UUID already exists.');
@@ -417,7 +417,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateRuleThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testCreateRuleThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rules can be created only in published groups.');
@@ -431,7 +431,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testUpdateRule(): void
+    final public function testUpdateRule(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
@@ -448,7 +448,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRule->description);
     }
 
-    public function testUpdateRuleWithNoLayout(): void
+    final public function testUpdateRuleWithNoLayout(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
@@ -464,7 +464,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRule->description);
     }
 
-    public function testUpdateRuleWithRemovalOfLinkedLayout(): void
+    final public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
@@ -479,7 +479,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRule->description);
     }
 
-    public function testUpdateRuleThrowsBadStateExceptionWithNonDraftRule(): void
+    final public function testUpdateRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be updated.');
@@ -493,7 +493,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
     }
 
-    public function testUpdateRuleMetadata(): void
+    final public function testUpdateRuleMetadata(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
 
@@ -509,7 +509,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($updatedRule->isPublished);
     }
 
-    public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule(): void
+    final public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Metadata can be updated only for published rules.');
@@ -522,7 +522,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleMetadata($rule, $struct);
     }
 
-    public function testCopyRule(): void
+    final public function testCopyRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('4f63660c-bd58-5efa-81a8-6c81b4484a61'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
@@ -534,7 +534,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($rule->id->toString(), $copiedRule->id->toString());
     }
 
-    public function testCopyRuleToDifferentRuleGroup(): void
+    final public function testCopyRuleToDifferentRuleGroup(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -546,7 +546,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($rule->id->toString(), $copiedRule->id->toString());
     }
 
-    public function testCopyRuleThrowsBadStateExceptionWithNonPublishedRule(): void
+    final public function testCopyRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be copied.');
@@ -557,7 +557,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRule($rule, $targetGroup);
     }
 
-    public function testCopyRuleThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
+    final public function testCopyRuleThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rules can be copied only to published groups.');
@@ -568,7 +568,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRule($rule, $targetGroup);
     }
 
-    public function testMoveRule(): void
+    final public function testMoveRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -581,7 +581,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->id->toString(), $movedRule->ruleGroupId->toString());
     }
 
-    public function testMoveRuleWithNewPriority(): void
+    final public function testMoveRuleWithNewPriority(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -594,7 +594,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->id->toString(), $movedRule->ruleGroupId->toString());
     }
 
-    public function testMoveRuleThrowsBadStateExceptionWithNonPublishedRule(): void
+    final public function testMoveRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be moved.');
@@ -605,7 +605,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRule($rule, $targetGroup);
     }
 
-    public function testMoveRuleThrowsBadStateExceptionWithNonPublishedTargetRule(): void
+    final public function testMoveRuleThrowsBadStateExceptionWithNonPublishedTargetRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rules can be moved only to published groups.');
@@ -616,7 +616,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRule($rule, $targetGroup);
     }
 
-    public function testCreateRuleDraft(): void
+    final public function testCreateRuleDraft(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
 
@@ -625,7 +625,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRule->isDraft);
     }
 
-    public function testCreateRuleDraftWithDiscardingExistingDraft(): void
+    final public function testCreateRuleDraftWithDiscardingExistingDraft(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
         $this->layoutResolverService->createRuleDraft($rule);
@@ -635,7 +635,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRule->isDraft);
     }
 
-    public function testCreateRuleDraftThrowsBadStateExceptionWithNonPublishedRule(): void
+    final public function testCreateRuleDraftThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Drafts can only be created from published rules.');
@@ -645,7 +645,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createRuleDraft($rule);
     }
 
-    public function testCreateRuleDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
+    final public function testCreateRuleDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. The provided rule already has a draft.');
@@ -656,7 +656,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createRuleDraft($rule);
     }
 
-    public function testDiscardRuleDraft(): void
+    final public function testDiscardRuleDraft(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule with identifier "de086bdf-0014-5f4f-89e4-fc0aff21da90"');
@@ -667,7 +667,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleDraft($rule->id);
     }
 
-    public function testDiscardRuleDraftThrowsBadStateExceptionWithNonDraftRule(): void
+    final public function testDiscardRuleDraftThrowsBadStateExceptionWithNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be discarded.');
@@ -676,7 +676,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->discardRuleDraft($rule);
     }
 
-    public function testPublishRule(): void
+    final public function testPublishRule(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $publishedRule = $this->layoutResolverService->publishRule($rule);
@@ -692,7 +692,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    public function testPublishRuleThrowsBadStateExceptionWithNonDraftRule(): void
+    final public function testPublishRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be published.');
@@ -701,7 +701,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->publishRule($rule);
     }
 
-    public function testRestoreRuleFromArchive(): void
+    final public function testRestoreRuleFromArchive(): void
     {
         $restoredRule = $this->layoutResolverService->restoreRuleFromArchive(
             $this->layoutResolverService->loadRuleArchive(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')),
@@ -710,7 +710,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($restoredRule->isDraft);
     }
 
-    public function testRestoreRuleFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
+    final public function testRestoreRuleFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Only archived rules can be restored.');
@@ -720,7 +720,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testDeleteRule(): void
+    final public function testDeleteRule(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule with identifier "de086bdf-0014-5f4f-89e4-fc0aff21da90"');
@@ -732,17 +732,17 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRule($rule->id);
     }
 
-    public function testRuleGroupExists(): void
+    final public function testRuleGroupExists(): void
     {
         self::assertTrue($this->layoutResolverService->ruleGroupExists(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')));
     }
 
-    public function testRuleGroupExistsReturnsFalse(): void
+    final public function testRuleGroupExistsReturnsFalse(): void
     {
         self::assertFalse($this->layoutResolverService->ruleGroupExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
     }
 
-    public function testCreateRuleGroup(): void
+    final public function testCreateRuleGroup(): void
     {
         $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
 
@@ -756,7 +756,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->parentId->toString());
     }
 
-    public function testCreateRuleGroupWithCustomUuid(): void
+    final public function testCreateRuleGroupWithCustomUuid(): void
     {
         $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
         $ruleGroupCreateStruct->uuid = Uuid::fromString('0f714915-eef0-4dc1-b22b-1107cb1ab92b');
@@ -772,7 +772,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->parentId->toString());
     }
 
-    public function testCreateRuleGroupThrowsBadStateExceptionWithExistingUuid(): void
+    final public function testCreateRuleGroupThrowsBadStateExceptionWithExistingUuid(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule group with provided UUID already exists.');
@@ -786,7 +786,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testCreateRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testCreateRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule groups can be created only in published groups.');
@@ -800,7 +800,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testUpdateRuleGroup(): void
+    final public function testUpdateRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
@@ -814,7 +814,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('Updated description', $updatedRuleGroup->description);
     }
 
-    public function testUpdateRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
+    final public function testUpdateRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only draft rule groups can be updated.');
@@ -828,7 +828,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
     }
 
-    public function testUpdateRuleGroupMetadata(): void
+    final public function testUpdateRuleGroupMetadata(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
@@ -844,7 +844,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($updatedRuleGroup->isPublished);
     }
 
-    public function testUpdateRuleGroupMetadataThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testUpdateRuleGroupMetadataThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Metadata can be updated only for published rule groups.');
@@ -857,7 +857,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleGroupMetadata($ruleGroup, $struct);
     }
 
-    public function testCopyRuleGroup(): void
+    final public function testCopyRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -870,7 +870,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($ruleGroup->id->toString(), $copiedRuleGroup->id->toString());
     }
 
-    public function testCopyRuleGroupToDifferentRuleGroup(): void
+    final public function testCopyRuleGroupToDifferentRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -883,7 +883,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertNotSame($ruleGroup->id->toString(), $copiedRuleGroup->id->toString());
     }
 
-    public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be copied.');
@@ -894,7 +894,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
     }
 
-    public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
+    final public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rule groups can be copied only to published groups.');
@@ -905,7 +905,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
     }
 
-    public function testMoveRuleGroup(): void
+    final public function testMoveRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -919,7 +919,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->id->toString(), $movedRuleGroup->parentId->toString());
     }
 
-    public function testMoveRuleGroupWithNewPriority(): void
+    final public function testMoveRuleGroupWithNewPriority(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
         $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
@@ -933,7 +933,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame($targetGroup->id->toString(), $movedRuleGroup->parentId->toString());
     }
 
-    public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be moved.');
@@ -944,7 +944,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
     }
 
-    public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedTargetRuleGroup(): void
+    final public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedTargetRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rule groups can be moved only to published groups.');
@@ -955,7 +955,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
     }
 
-    public function testCreateRuleGroupDraft(): void
+    final public function testCreateRuleGroupDraft(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
 
@@ -964,7 +964,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRuleGroup->isDraft);
     }
 
-    public function testCreateRuleGroupDraftWithDiscardingExistingDraft(): void
+    final public function testCreateRuleGroupDraftWithDiscardingExistingDraft(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
@@ -973,7 +973,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($draftRuleGroup->isDraft);
     }
 
-    public function testCreateRuleGroupDraftThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testCreateRuleGroupDraftThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Drafts can only be created from published rule groups.');
@@ -983,7 +983,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
     }
 
-    public function testCreateRuleGroupDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
+    final public function testCreateRuleGroupDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. The provided rule group already has a draft.');
@@ -994,7 +994,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
     }
 
-    public function testDiscardRuleGroupDraft(): void
+    final public function testDiscardRuleGroupDraft(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule group with identifier "b4f85f38-de3f-4af7-9a5f-21df63a49da9"');
@@ -1005,7 +1005,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroupDraft($ruleGroup->id);
     }
 
-    public function testDiscardRuleGroupDraftThrowsBadStateExceptionWithNonDraftRuleGroup(): void
+    final public function testDiscardRuleGroupDraftThrowsBadStateExceptionWithNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only draft rule groups can be discarded.');
@@ -1014,7 +1014,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->discardRuleGroupDraft($ruleGroup);
     }
 
-    public function testPublishRuleGroup(): void
+    final public function testPublishRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
         $publishedRuleGroup = $this->layoutResolverService->publishRuleGroup($ruleGroup);
@@ -1030,7 +1030,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         }
     }
 
-    public function testPublishRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
+    final public function testPublishRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only draft rule groups can be published.');
@@ -1039,7 +1039,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->publishRuleGroup($ruleGroup);
     }
 
-    public function testRestoreRuleGroupFromArchive(): void
+    final public function testRestoreRuleGroupFromArchive(): void
     {
         $restoredRuleGroup = $this->layoutResolverService->restoreRuleGroupFromArchive(
             $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399')),
@@ -1048,7 +1048,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($restoredRuleGroup->isDraft);
     }
 
-    public function testRestoreRuleGroupFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
+    final public function testRestoreRuleGroupFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Only archived rule groups can be restored.');
@@ -1058,7 +1058,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testDeleteRuleGroup(): void
+    final public function testDeleteRuleGroup(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find rule group with identifier "b4f85f38-de3f-4af7-9a5f-21df63a49da9"');
@@ -1070,7 +1070,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleGroup($ruleGroup->id);
     }
 
-    public function testEnableRule(): void
+    final public function testEnableRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
 
@@ -1080,7 +1080,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($enabledRule->isPublished);
     }
 
-    public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
+    final public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be enabled.');
@@ -1090,7 +1090,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRule($rule);
     }
 
-    public function testEnableRuleThrowsBadStateExceptionIfRuleIsAlreadyEnabled(): void
+    final public function testEnableRuleThrowsBadStateExceptionIfRuleIsAlreadyEnabled(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is already enabled.');
@@ -1100,7 +1100,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRule($rule);
     }
 
-    public function testDisableRule(): void
+    final public function testDisableRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634'));
 
@@ -1110,7 +1110,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($disabledRule->isPublished);
     }
 
-    public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
+    final public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be disabled.');
@@ -1120,7 +1120,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRule($rule);
     }
 
-    public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled(): void
+    final public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is already disabled.');
@@ -1130,7 +1130,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRule($rule);
     }
 
-    public function testEnableRuleGroup(): void
+    final public function testEnableRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
 
@@ -1140,7 +1140,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($enabledRuleGroup->isPublished);
     }
 
-    public function testEnableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testEnableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be enabled.');
@@ -1150,7 +1150,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRuleGroup($ruleGroup);
     }
 
-    public function testEnableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyEnabled(): void
+    final public function testEnableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyEnabled(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rule group is already enabled.');
@@ -1160,7 +1160,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->enableRuleGroup($ruleGroup);
     }
 
-    public function testDisableRuleGroup(): void
+    final public function testDisableRuleGroup(): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
@@ -1170,7 +1170,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($disabledRuleGroup->isPublished);
     }
 
-    public function testDisableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    final public function testDisableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be disabled.');
@@ -1180,7 +1180,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRuleGroup($ruleGroup);
     }
 
-    public function testDisableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyDisabled(): void
+    final public function testDisableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyDisabled(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rule group is already disabled.');
@@ -1190,7 +1190,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->disableRuleGroup($ruleGroup);
     }
 
-    public function testAddTarget(): void
+    final public function testAddTarget(): void
     {
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
             'route_prefix',
@@ -1208,7 +1208,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdTarget->isDraft);
     }
 
-    public function testAddTargetThrowsBadStateExceptionOnNonDraftRule(): void
+    final public function testAddTargetThrowsBadStateExceptionOnNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Targets can be added only to draft rules.');
@@ -1227,7 +1227,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testAddTargetOfDifferentKindThrowsBadStateException(): void
+    final public function testAddTargetOfDifferentKindThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule with UUID "de086bdf-0014-5f4f-89e4-fc0aff21da90" only accepts targets with "route_prefix" target type.');
@@ -1246,7 +1246,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testUpdateTarget(): void
+    final public function testUpdateTarget(): void
     {
         $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
@@ -1259,7 +1259,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('new_value', $updatedTarget->value);
     }
 
-    public function testUpdateTargetThrowsBadStateExceptionOnNonDraftTarget(): void
+    final public function testUpdateTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "target" has an invalid state. Only draft targets can be updated.');
@@ -1272,7 +1272,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateTarget($target, $targetUpdateStruct);
     }
 
-    public function testDeleteTarget(): void
+    final public function testDeleteTarget(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find target with identifier "5104e4e7-1a20-5db8-8857-5ab99f1290b9"');
@@ -1284,7 +1284,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadTargetDraft($target->id);
     }
 
-    public function testDeleteTargetThrowsBadStateExceptionOnNonDraftTarget(): void
+    final public function testDeleteTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "target" has an invalid state. Only draft targets can be deleted.');
@@ -1294,7 +1294,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->deleteTarget($target);
     }
 
-    public function testAddRuleCondition(): void
+    final public function testAddRuleCondition(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
             'condition1',
@@ -1312,7 +1312,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdCondition->isDraft);
     }
 
-    public function testAddRuleConditionThrowsBadStateExceptionOnNonDraftRule(): void
+    final public function testAddRuleConditionThrowsBadStateExceptionOnNonDraftRule(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Conditions can be added only to draft rules.');
@@ -1331,7 +1331,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testAddRuleGroupCondition(): void
+    final public function testAddRuleGroupCondition(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
             'condition1',
@@ -1349,7 +1349,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertTrue($createdCondition->isDraft);
     }
 
-    public function testAddRuleGroupConditionThrowsBadStateExceptionOnNonDraftRuleGroup(): void
+    final public function testAddRuleGroupConditionThrowsBadStateExceptionOnNonDraftRuleGroup(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Conditions can be added only to draft rule groups.');
@@ -1368,7 +1368,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testUpdateRuleCondition(): void
+    final public function testUpdateRuleCondition(): void
     {
         $condition = $this->layoutResolverService->loadRuleConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
 
@@ -1381,7 +1381,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('new_value', $updatedCondition->value);
     }
 
-    public function testUpdateRuleConditionThrowsBadStateExceptionOnNonDraftCondition(): void
+    final public function testUpdateRuleConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be updated.');
@@ -1394,7 +1394,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleCondition($condition, $conditionUpdateStruct);
     }
 
-    public function testUpdateRuleGroupCondition(): void
+    final public function testUpdateRuleGroupCondition(): void
     {
         $condition = $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
 
@@ -1407,7 +1407,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         self::assertSame('new_value', $updatedCondition->value);
     }
 
-    public function testUpdateRuleGroupConditionThrowsBadStateExceptionOnNonDraftCondition(): void
+    final public function testUpdateRuleGroupConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be updated.');
@@ -1420,7 +1420,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->updateRuleGroupCondition($condition, $conditionUpdateStruct);
     }
 
-    public function testDeleteCondition(): void
+    final public function testDeleteCondition(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "7db46c94-3139-5a3d-9b2a-b2d28e7573ca"');
@@ -1431,7 +1431,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->loadRuleConditionDraft($condition->id);
     }
 
-    public function testDeleteConditionThrowsBadStateExceptionOnNonDraftCondition(): void
+    final public function testDeleteConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be deleted.');
@@ -1440,7 +1440,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         $this->layoutResolverService->deleteCondition($condition);
     }
 
-    public function testNewRuleCreateStruct(): void
+    final public function testNewRuleCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleCreateStruct();
 
@@ -1456,7 +1456,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewRuleUpdateStruct(): void
+    final public function testNewRuleUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleUpdateStruct();
 
@@ -1469,7 +1469,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewRuleMetadataUpdateStruct(): void
+    final public function testNewRuleMetadataUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
 
@@ -1481,7 +1481,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewRuleGroupCreateStruct(): void
+    final public function testNewRuleGroupCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
 
@@ -1497,7 +1497,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewRuleGroupUpdateStruct(): void
+    final public function testNewRuleGroupUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleGroupUpdateStruct();
 
@@ -1510,7 +1510,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewRuleGroupMetadataUpdateStruct(): void
+    final public function testNewRuleGroupMetadataUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleGroupMetadataUpdateStruct();
 
@@ -1522,7 +1522,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewTargetCreateStruct(): void
+    final public function testNewTargetCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newTargetCreateStruct('target');
 
@@ -1534,14 +1534,14 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewTargetUpdateStruct(): void
+    final public function testNewTargetUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newTargetUpdateStruct();
 
         self::assertSame([], $this->exportObject($struct));
     }
 
-    public function testNewConditionCreateStruct(): void
+    final public function testNewConditionCreateStruct(): void
     {
         $struct = $this->layoutResolverService->newConditionCreateStruct('condition');
 
@@ -1553,7 +1553,7 @@ abstract class LayoutResolverServiceTestBase extends CoreTestCase
         );
     }
 
-    public function testNewConditionUpdateStruct(): void
+    final public function testNewConditionUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newConditionUpdateStruct();
 

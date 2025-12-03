@@ -16,14 +16,14 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
 
     private LayoutStructBuilder $structBuilder;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
         $this->structBuilder = new LayoutStructBuilder();
     }
 
-    public function testNewLayoutCreateStruct(): void
+    final public function testNewLayoutCreateStruct(): void
     {
         $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
 
@@ -46,7 +46,7 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewLayoutUpdateStruct(): void
+    final public function testNewLayoutUpdateStruct(): void
     {
         $struct = $this->structBuilder->newLayoutUpdateStruct(
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
@@ -61,7 +61,7 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewLayoutUpdateStructWithNoLayout(): void
+    final public function testNewLayoutUpdateStructWithNoLayout(): void
     {
         $struct = $this->structBuilder->newLayoutUpdateStruct();
 
@@ -74,7 +74,7 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewLayoutCopyStruct(): void
+    final public function testNewLayoutCopyStruct(): void
     {
         $struct = $this->structBuilder->newLayoutCopyStruct(
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
@@ -89,7 +89,7 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
         );
     }
 
-    public function testNewLayoutCopyStructWithNoLayout(): void
+    final public function testNewLayoutCopyStructWithNoLayout(): void
     {
         $struct = $this->structBuilder->newLayoutCopyStruct();
 

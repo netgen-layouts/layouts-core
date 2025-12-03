@@ -22,7 +22,7 @@ trait ConfigDefinitionAwareTrait
      *
      * @throws \Netgen\Layouts\Exception\Config\ConfigDefinitionException if config definition does not exist
      */
-    public function getConfigDefinition(string $configKey): ConfigDefinitionInterface
+    final public function getConfigDefinition(string $configKey): ConfigDefinitionInterface
     {
         if (!$this->hasConfigDefinition($configKey)) {
             throw ConfigDefinitionException::noConfigDefinition($configKey);
@@ -34,7 +34,7 @@ trait ConfigDefinitionAwareTrait
     /**
      * Returns if the config definition with provided config key exists.
      */
-    public function hasConfigDefinition(string $configKey): bool
+    final public function hasConfigDefinition(string $configKey): bool
     {
         return array_key_exists($configKey, $this->configDefinitions);
     }

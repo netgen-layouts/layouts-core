@@ -20,27 +20,27 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
  */
 abstract class TestCase extends CoreTestCase
 {
-    protected function createTransactionHandler(): TransactionHandlerInterface
+    final protected function createTransactionHandler(): TransactionHandlerInterface
     {
         return $this->createMock(TransactionHandlerInterface::class);
     }
 
-    protected function createLayoutHandler(): LayoutHandlerInterface
+    final protected function createLayoutHandler(): LayoutHandlerInterface
     {
         return $this->createMock(LayoutHandlerInterface::class);
     }
 
-    protected function createBlockHandler(): BlockHandlerInterface
+    final protected function createBlockHandler(): BlockHandlerInterface
     {
         return $this->createMock(BlockHandlerInterface::class);
     }
 
-    protected function createCollectionHandler(): CollectionHandlerInterface
+    final protected function createCollectionHandler(): CollectionHandlerInterface
     {
         return $this->createMock(CollectionHandlerInterface::class);
     }
 
-    protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
+    final protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
     {
         return $this->createMock(LayoutResolverHandlerInterface::class);
     }

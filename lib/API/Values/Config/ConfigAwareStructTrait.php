@@ -15,7 +15,7 @@ trait ConfigAwareStructTrait
     /**
      * Sets the config struct to this struct.
      */
-    public function setConfigStruct(string $configKey, ConfigStruct $configStruct): void
+    final public function setConfigStruct(string $configKey, ConfigStruct $configStruct): void
     {
         $this->configStructs[$configKey] = $configStruct;
     }
@@ -23,7 +23,7 @@ trait ConfigAwareStructTrait
     /**
      * Returns if the struct has a config struct with provided config key.
      */
-    public function hasConfigStruct(string $configKey): bool
+    final public function hasConfigStruct(string $configKey): bool
     {
         return array_key_exists($configKey, $this->configStructs);
     }
@@ -33,7 +33,7 @@ trait ConfigAwareStructTrait
      *
      * @throws \Netgen\Layouts\Exception\API\ConfigException If config struct does not exist
      */
-    public function getConfigStruct(string $configKey): ConfigStruct
+    final public function getConfigStruct(string $configKey): ConfigStruct
     {
         if (!$this->hasConfigStruct($configKey)) {
             throw ConfigException::noConfigStruct($configKey);

@@ -32,7 +32,7 @@ abstract class BlockTestCase extends CoreTestCase
      * @param array<string, mixed> $expectedParameters
      */
     #[DataProvider('parametersDataProvider')]
-    public function testCreateBlock(array $parameters, array $expectedParameters): void
+    final public function testCreateBlock(array $parameters, array $expectedParameters): void
     {
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
 
@@ -65,7 +65,7 @@ abstract class BlockTestCase extends CoreTestCase
      * @param string[] $testedParams
      */
     #[DataProvider('invalidParametersDataProvider')]
-    public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = []): void
+    final public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = []): void
     {
         $this->expectException(ValidationException::class);
 
@@ -90,14 +90,14 @@ abstract class BlockTestCase extends CoreTestCase
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 
-    public function hasCollection(): bool
-    {
-        return false;
-    }
-
     abstract public static function parametersDataProvider(): iterable;
 
     abstract public static function invalidParametersDataProvider(): iterable;
+
+    protected function hasCollection(): bool
+    {
+        return false;
+    }
 
     abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
 

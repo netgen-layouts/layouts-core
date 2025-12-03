@@ -16,7 +16,7 @@ trait ValidatorTrait
 {
     private ValidatorInterface $validator;
 
-    public function setValidator(ValidatorInterface $validator): void
+    final public function setValidator(ValidatorInterface $validator): void
     {
         $this->validator = $validator;
     }
@@ -28,7 +28,7 @@ trait ValidatorTrait
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateIdentifier(string $identifier, ?string $propertyPath = null): void
+    final public function validateIdentifier(string $identifier, ?string $propertyPath = null): void
     {
         $constraints = [
             new Constraints\NotBlank(),
@@ -49,7 +49,7 @@ trait ValidatorTrait
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
-    public function validatePosition(?int $position, ?string $propertyPath = null, bool $isRequired = false): void
+    final public function validatePosition(?int $position, ?string $propertyPath = null, bool $isRequired = false): void
     {
         if (!$isRequired && $position === null) {
             return;
@@ -68,7 +68,7 @@ trait ValidatorTrait
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateLocale(string $locale, ?string $propertyPath = null): void
+    final public function validateLocale(string $locale, ?string $propertyPath = null): void
     {
         $this->validate(
             $locale,

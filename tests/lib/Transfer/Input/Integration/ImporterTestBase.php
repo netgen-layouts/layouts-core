@@ -56,7 +56,7 @@ abstract class ImporterTestBase extends CoreTestCase
 
     private Serializer $serializer;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
@@ -138,7 +138,7 @@ abstract class ImporterTestBase extends CoreTestCase
         );
     }
 
-    public function testImportRules(): void
+    final public function testImportRules(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rules.json');
 
@@ -182,7 +182,7 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->addToAssertionCount(1);
     }
 
-    public function testImportRuleGroups(): void
+    final public function testImportRuleGroups(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rule_groups.json');
 
@@ -226,7 +226,7 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->addToAssertionCount(1);
     }
 
-    public function testImportLayouts(): void
+    final public function testImportLayouts(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
         $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true, 512, JSON_THROW_ON_ERROR);
@@ -271,7 +271,7 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->addToAssertionCount(1);
     }
 
-    public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void
+    final public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json',
@@ -284,7 +284,7 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Could not find locale "hr" in the given query data', $result[0]->error->getMessage());
     }
 
-    public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
+    final public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json',
@@ -297,7 +297,7 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Missing data for query main locale "en"', $result[0]->error->getMessage());
     }
 
-    public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
+    final public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json',
@@ -310,7 +310,7 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Could not find locale "hr" in the given block data', $result[0]->error->getMessage());
     }
 
-    public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
+    final public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json',
@@ -323,7 +323,7 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Missing data for block main locale "en"', $result[0]->error->getMessage());
     }
 
-    public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void
+    final public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json',
@@ -336,7 +336,7 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertSame('Missing data for zone "right"', $result[0]->error->getMessage());
     }
 
-    protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry
+    final protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry
     {
         $data = ['translatable' => true];
         $configHandlers = ['key' => new ConfigHandler()];
