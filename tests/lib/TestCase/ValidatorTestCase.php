@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\TestCase;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Validation;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class ValidatorTestCase extends TestCase
 {
@@ -24,7 +24,11 @@ abstract class ValidatorTestCase extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->executionContext = new ExecutionContext($validator, 'root', new Translator('en'));
+        $this->executionContext = new ExecutionContext(
+            $validator,
+            'root',
+            $this->createMock(TranslatorInterface::class),
+        );
 
         $this->validator = $this->getValidator();
         $this->validator->initialize($this->executionContext);

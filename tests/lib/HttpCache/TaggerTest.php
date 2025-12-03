@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\HttpCache;
 
-use FOS\HttpCacheBundle\Http\SymfonyResponseTagger;
+use FOS\HttpCache\ResponseTagger;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\Tagger;
@@ -15,13 +15,13 @@ use Ramsey\Uuid\Uuid;
 #[CoversClass(Tagger::class)]
 final class TaggerTest extends TestCase
 {
-    private SymfonyResponseTagger $responseTagger;
+    private ResponseTagger $responseTagger;
 
     private Tagger $tagger;
 
     protected function setUp(): void
     {
-        $this->responseTagger = new SymfonyResponseTagger();
+        $this->responseTagger = new ResponseTagger();
         $this->tagger = new Tagger($this->responseTagger);
     }
 
