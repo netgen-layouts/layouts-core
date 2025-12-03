@@ -1969,7 +1969,6 @@ final class BlockHandlerTest extends TestCase
 
         // First we need to delete all zones to correctly delete the blocks
         $query = $this->databaseConnection->createQueryBuilder();
-
         $query->delete('nglayouts_zone')
             ->where(
                 $query->expr()->and(

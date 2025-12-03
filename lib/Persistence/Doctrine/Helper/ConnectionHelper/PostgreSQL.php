@@ -22,8 +22,8 @@ final class PostgreSQL implements ConnectionHelperInterface
 
     public function lastId(string $table, string $column = 'id'): int
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select(sprintf("currval('%s_%s_seq') as currval", $table, $column));
+        $query = $this->connection->createQueryBuilder()
+            ->select(sprintf("currval('%s_%s_seq') as currval", $table, $column));
 
         $data = $query->fetchAllAssociative();
 

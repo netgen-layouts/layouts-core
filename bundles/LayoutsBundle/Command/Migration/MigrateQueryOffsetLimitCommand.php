@@ -231,7 +231,6 @@ final class MigrateQueryOffsetLimitCommand extends Command
     private function getQueryData(): array
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->select('c.id AS id, c.status AS status, q.type AS type, qt.parameters AS parameters')
             ->from('nglayouts_collection', 'c')
             ->innerJoin(
@@ -263,8 +262,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
     private function updateCollection(int $id, int $status, int $offset, ?int $limit = null): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('nglayouts_collection')
+        $query->update('nglayouts_collection')
             ->set('start', ':start')
             ->set('length', ':length')
             ->where(

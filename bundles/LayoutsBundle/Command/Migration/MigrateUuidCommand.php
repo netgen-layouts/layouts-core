@@ -94,8 +94,8 @@ final class MigrateUuidCommand extends Command
 
     private function updateLayouts(): void
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id, status, name')
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, status, name')
             ->from('nglayouts_layout');
 
         $data = $query->fetchAllAssociative();
@@ -117,8 +117,7 @@ final class MigrateUuidCommand extends Command
             );
 
             $query = $this->connection->createQueryBuilder();
-            $query
-                ->update('nglayouts_layout')
+            $query->update('nglayouts_layout')
                 ->set('uuid', ':uuid')
                 ->where(
                     $query->expr()->and(
@@ -140,8 +139,8 @@ final class MigrateUuidCommand extends Command
 
     private function updateTable(string $tableName, string $uuidNamespace, string $entityName): void
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('id, status')
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, status')
             ->from($tableName);
 
         $data = $query->fetchAllAssociative();
@@ -153,8 +152,7 @@ final class MigrateUuidCommand extends Command
             $uuid = Uuid::uuid5($uuidNamespace, $dataItem['id']);
 
             $query = $this->connection->createQueryBuilder();
-            $query
-                ->update($tableName)
+            $query->update($tableName)
                 ->set('uuid', ':uuid')
                 ->where(
                     $query->expr()->and(

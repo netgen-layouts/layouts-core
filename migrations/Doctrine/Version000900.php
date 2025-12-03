@@ -163,11 +163,11 @@ final class Version000900 extends AbstractMigration
      */
     private function hasLayouts(): bool
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('COUNT(id) as count')
+        $query = $this->connection->createQueryBuilder()
+            ->select('COUNT(id) as count')
             ->from('ngbm_layout');
 
-        $result = $queryBuilder->fetchAllAssociative();
+        $result = $query->fetchAllAssociative();
 
         return (int) $result[0]['count'] > 0;
     }

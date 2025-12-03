@@ -43,7 +43,6 @@ final class LayoutQueryHandler extends QueryHandler
     public function loadLayoutIds(bool $includeDrafts, ?bool $shared = null, int $offset = 0, ?int $limit = null): array
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->select('DISTINCT l.id, l.name')
             ->from('nglayouts_layout', 'l');
 
@@ -98,7 +97,6 @@ final class LayoutQueryHandler extends QueryHandler
     public function getLayoutsCount(bool $includeDrafts, ?bool $shared = null): int
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->select('count(DISTINCT l.id) AS count')
             ->from('nglayouts_layout', 'l');
 
@@ -299,8 +297,8 @@ final class LayoutQueryHandler extends QueryHandler
      */
     public function layoutExists(int|string $layoutId, ?Status $status = null): bool
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
+        $query = $this->connection->createQueryBuilder()
+            ->select('count(*) AS count')
             ->from('nglayouts_layout');
 
         $this->applyIdCondition($query, $layoutId);
@@ -441,8 +439,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function updateLayout(Layout $layout): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('nglayouts_layout')
+        $query->update('nglayouts_layout')
             ->set('uuid', ':uuid')
             ->set('type', ':type')
             ->set('name', ':name')
@@ -475,8 +472,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function updateZone(Zone $zone): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('nglayouts_zone')
+        $query->update('nglayouts_zone')
             ->set('root_block_id', ':root_block_id')
             ->set('linked_layout_uuid', ':linked_layout_uuid')
             ->set('linked_zone_identifier', ':linked_zone_identifier')
@@ -564,7 +560,6 @@ final class LayoutQueryHandler extends QueryHandler
     public function deleteLayoutTranslations(int $layoutId, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_layout_translation')
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id'),
@@ -576,8 +571,7 @@ final class LayoutQueryHandler extends QueryHandler
         }
 
         if ($locale !== null) {
-            $query
-                ->andWhere($query->expr()->eq('locale', ':locale'))
+            $query->andWhere($query->expr()->eq('locale', ':locale'))
                 ->setParameter('locale', $locale, Types::STRING);
         }
 

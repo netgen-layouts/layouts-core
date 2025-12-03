@@ -113,8 +113,8 @@ final class PositionHelper
     {
         $columnName = $conditions['column'];
 
-        $query = $this->connection->createQueryBuilder();
-        $query->select('MAX(' . $columnName . ') AS ' . $columnName)
+        $query = $this->connection->createQueryBuilder()
+            ->select('MAX(' . $columnName . ') AS ' . $columnName)
             ->from($conditions['table']);
 
         $this->applyConditions($query, $conditions['conditions']);
@@ -133,9 +133,7 @@ final class PositionHelper
     {
         $columnName = $conditions['column'];
 
-        $query = $this->connection->createQueryBuilder();
-
-        $query
+        $query = $this->connection->createQueryBuilder()
             ->update($conditions['table'])
             ->set($columnName, $columnName . ' + 1');
 
@@ -163,9 +161,7 @@ final class PositionHelper
     {
         $columnName = $conditions['column'];
 
-        $query = $this->connection->createQueryBuilder();
-
-        $query
+        $query = $this->connection->createQueryBuilder()
             ->update($conditions['table'])
             ->set($columnName, $columnName . ' - 1');
 

@@ -232,8 +232,8 @@ final class CollectionQueryHandler extends QueryHandler
      */
     public function collectionExists(int|string $collectionId, Status $status): bool
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
+        $query = $this->connection->createQueryBuilder()
+            ->select('count(*) AS count')
             ->from('nglayouts_collection');
 
         $this->applyIdCondition($query, $collectionId);
@@ -305,9 +305,8 @@ final class CollectionQueryHandler extends QueryHandler
      */
     public function createCollectionReference(CollectionReference $collectionReference): void
     {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->insert('nglayouts_block_collection')
+        $query = $this->connection->createQueryBuilder()
+            ->insert('nglayouts_block_collection')
             ->values(
                 [
                     'block_id' => ':block_id',
@@ -332,8 +331,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function updateCollection(Collection $collection): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('nglayouts_collection')
+        $query->update('nglayouts_collection')
             ->set('uuid', ':uuid')
             ->set('start', ':start')
             ->set('length', ':length')
@@ -364,8 +362,7 @@ final class CollectionQueryHandler extends QueryHandler
         // Delete all connections between blocks and collections
 
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->delete('nglayouts_block_collection')
+        $query->delete('nglayouts_block_collection')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id'),
             )
@@ -399,7 +396,6 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteCollectionTranslations(int $collectionId, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_collection_translation')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id'),
@@ -411,8 +407,7 @@ final class CollectionQueryHandler extends QueryHandler
         }
 
         if ($locale !== null) {
-            $query
-                ->andWhere($query->expr()->eq('locale', ':locale'))
+            $query->andWhere($query->expr()->eq('locale', ':locale'))
                 ->setParameter('locale', $locale, Types::STRING);
         }
 
@@ -427,7 +422,6 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteCollectionReferences(array $blockIds, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_block_collection')
             ->where(
                 $query->expr()->in('block_id', [':block_id']),
@@ -539,9 +533,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function updateItem(Item $item): void
     {
         $query = $this->connection->createQueryBuilder();
-
-        $query
-            ->update('nglayouts_collection_item')
+        $query->update('nglayouts_collection_item')
             ->set('uuid', ':uuid')
             ->set('collection_id', ':collection_id')
             ->set('position', ':position')
@@ -572,9 +564,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function updateSlot(Slot $slot): void
     {
         $query = $this->connection->createQueryBuilder();
-
-        $query
-            ->update('nglayouts_collection_slot')
+        $query->update('nglayouts_collection_slot')
             ->set('uuid', ':uuid')
             ->set('collection_id', ':collection_id')
             ->set('position', ':position')
@@ -599,7 +589,6 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteItem(int $itemId, Status $status): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_collection_item')
             ->where(
                 $query->expr()->eq('id', ':id'),
@@ -617,8 +606,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteCollectionItems(int $collectionId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->delete('nglayouts_collection_item')
+        $query->delete('nglayouts_collection_item')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id'),
             )
@@ -637,7 +625,6 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteSlot(int $slotId, Status $status): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_collection_slot')
             ->where(
                 $query->expr()->eq('id', ':id'),
@@ -655,8 +642,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteCollectionSlots(int $collectionId, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->delete('nglayouts_collection_slot')
+        $query->delete('nglayouts_collection_slot')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id'),
             )
@@ -727,7 +713,6 @@ final class CollectionQueryHandler extends QueryHandler
     public function updateQueryTranslation(Query $query, string $locale): void
     {
         $dbQuery = $this->connection->createQueryBuilder();
-
         $dbQuery
             ->update('nglayouts_collection_query_translation')
             ->set('parameters', ':parameters')
@@ -754,7 +739,6 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteQuery(array $queryIds, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_collection_query')
             ->where(
                 $query->expr()->in('id', [':query_id']),
@@ -776,7 +760,6 @@ final class CollectionQueryHandler extends QueryHandler
     public function deleteQueryTranslations(array $queryIds, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_collection_query_translation')
             ->where(
                 $query->expr()->in('query_id', [':query_id']),
@@ -788,8 +771,7 @@ final class CollectionQueryHandler extends QueryHandler
         }
 
         if ($locale !== null) {
-            $query
-                ->andWhere($query->expr()->eq('locale', ':locale'))
+            $query->andWhere($query->expr()->eq('locale', ':locale'))
                 ->setParameter('locale', $locale, Types::STRING);
         }
 

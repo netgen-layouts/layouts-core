@@ -124,7 +124,6 @@ final class PositionHelperTest extends TestCase
     public function testRemovePosition(): void
     {
         $query = $this->databaseConnection->createQueryBuilder();
-
         $query->delete('nglayouts_collection_item')
             ->where(
                 $query->expr()->and(

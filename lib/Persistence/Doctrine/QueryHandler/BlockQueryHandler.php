@@ -137,8 +137,8 @@ final class BlockQueryHandler extends QueryHandler
      */
     public function blockExists(int|string $blockId, Status $status): bool
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
+        $query = $this->connection->createQueryBuilder()
+            ->select('count(*) AS count')
             ->from('nglayouts_block');
 
         $this->applyIdCondition($query, $blockId);
@@ -209,8 +209,7 @@ final class BlockQueryHandler extends QueryHandler
         $block->path .= $block->id . '/';
 
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('nglayouts_block')
+        $query->update('nglayouts_block')
             ->set('path', ':path')
             ->where(
                 $query->expr()->eq('id', ':id'),
@@ -254,8 +253,7 @@ final class BlockQueryHandler extends QueryHandler
     public function updateBlock(Block $block): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('nglayouts_block')
+        $query->update('nglayouts_block')
             ->set('uuid', ':uuid')
             ->set('layout_id', ':layout_id')
             ->set('depth', ':depth')
@@ -302,8 +300,7 @@ final class BlockQueryHandler extends QueryHandler
     public function updateBlockTranslation(Block $block, string $locale): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('nglayouts_block_translation')
+        $query->update('nglayouts_block_translation')
             ->set('parameters', ':parameters')
             ->where(
                 $query->expr()->and(
@@ -327,9 +324,7 @@ final class BlockQueryHandler extends QueryHandler
     public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): void
     {
         $query = $this->connection->createQueryBuilder();
-
-        $query
-            ->update('nglayouts_block')
+        $query->update('nglayouts_block')
             ->set('position', ':position')
             ->set('parent_id', ':parent_id')
             ->set('placeholder', ':placeholder')
@@ -348,9 +343,7 @@ final class BlockQueryHandler extends QueryHandler
         $depthDifference = $block->depth - ($targetBlock->depth + 1);
 
         $query = $this->connection->createQueryBuilder();
-
-        $query
-            ->update('nglayouts_block')
+        $query->update('nglayouts_block')
             ->set('layout_id', ':layout_id')
             ->set('depth', 'depth - :depth_difference')
             ->set('path', 'replace(path, :old_path, :new_path)')
@@ -376,7 +369,6 @@ final class BlockQueryHandler extends QueryHandler
     public function deleteBlocks(array $blockIds, ?Status $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_block')
             ->where(
                 $query->expr()->in('id', [':id']),
@@ -398,7 +390,6 @@ final class BlockQueryHandler extends QueryHandler
     public function deleteBlockTranslations(array $blockIds, ?Status $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->delete('nglayouts_block_translation')
             ->where(
                 $query->expr()->in('block_id', [':block_id']),
@@ -410,8 +401,7 @@ final class BlockQueryHandler extends QueryHandler
         }
 
         if ($locale !== null) {
-            $query
-                ->andWhere($query->expr()->eq('locale', ':locale'))
+            $query->andWhere($query->expr()->eq('locale', ':locale'))
                 ->setParameter('locale', $locale, Types::STRING);
         }
 
@@ -474,7 +464,6 @@ final class BlockQueryHandler extends QueryHandler
     private function getBlockUuid(int $blockId): ?string
     {
         $query = $this->connection->createQueryBuilder();
-
         $query->select('b.uuid')
             ->from('nglayouts_block', 'b')
             ->where(
