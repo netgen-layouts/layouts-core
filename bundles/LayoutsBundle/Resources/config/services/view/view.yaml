@@ -21,5 +21,5 @@ services:
     netgen_layouts.view.template_resolver:
         class: Netgen\Layouts\View\TemplateResolver
         arguments:
-            - "@netgen_layouts.configuration"
+            - "@=service('netgen_layouts.configuration').getParameter('view')"
             - !abstract "Set in TemplateResolverPass"

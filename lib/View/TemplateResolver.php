@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\View;
 
-use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Layouts\Exception\View\TemplateResolverException;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Psr\Container\ContainerInterface;
@@ -18,15 +17,17 @@ use function str_starts_with;
 
 final class TemplateResolver implements TemplateResolverInterface
 {
+    /**
+     * @param array<string, array<string, array<string, mixed>>> $viewConfig
+     * @param \Psr\Container\ContainerInterface $matchers
+     */
     public function __construct(
-        private ConfigurationInterface $configuration,
+        private array $viewConfig,
         private ContainerInterface $matchers,
     ) {}
 
     public function resolveTemplate(ViewInterface $view): void
     {
-        $viewConfig = $this->configuration->getParameter('view');
-
         $contextList = [$view->context];
         if ($view->fallbackContext !== null) {
             $contextList[] = $view->fallbackContext;
@@ -34,11 +35,11 @@ final class TemplateResolver implements TemplateResolverInterface
 
         $viewIdentifier = sprintf('%s_view', $view->identifier);
         foreach ($contextList as $context) {
-            if (!is_string($context) || !isset($viewConfig[$viewIdentifier][$context])) {
+            if (!is_string($context) || !isset($this->viewConfig[$viewIdentifier][$context])) {
                 continue;
             }
 
-            foreach ($viewConfig[$viewIdentifier][$context] as $config) {
+            foreach ($this->viewConfig[$viewIdentifier][$context] as $config) {
                 if (!$this->matches($view, $config['match'])) {
                     continue;
                 }

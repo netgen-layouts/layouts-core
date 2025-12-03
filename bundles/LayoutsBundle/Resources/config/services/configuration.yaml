@@ -1,6 +1,6 @@
 services:
-    netgen_layouts.configuration.container:
-        class: Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration
+    netgen_layouts.configuration:
+        class: Netgen\Bundle\LayoutsBundle\Configuration\Configuration
         arguments:
             - "@service_container"
             -
@@ -13,6 +13,4 @@ services:
                 target_types: "@=service('netgen_layouts.layout.resolver.registry.target_type').getTargetTypes()"
                 condition_types: "@=service('netgen_layouts.layout.resolver.registry.condition_type').getConditionTypes()"
                 parameter_types: "@=service('netgen_layouts.parameters.registry.parameter_type').getParameterTypes()"
-
-    netgen_layouts.configuration:
-        alias: netgen_layouts.configuration.container
+        public: true

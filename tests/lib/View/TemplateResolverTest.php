@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View;
 
-use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Layouts\Exception\View\TemplateResolverException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Stubs\Container;
@@ -12,23 +11,18 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\TemplateResolver;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 #[CoversClass(TemplateResolver::class)]
 final class TemplateResolverTest extends TestCase
 {
-    private MockObject&ConfigurationInterface $configMock;
-
     private View $view;
 
     private Value $value;
 
     protected function setUp(): void
     {
-        $this->configMock = $this->createMock(ConfigurationInterface::class);
-
         $this->value = new Value();
 
         $this->view = new View($this->value);
@@ -75,13 +69,8 @@ final class TemplateResolverTest extends TestCase
             ],
         ];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(
                 [
                     'matcher' => $matcherMock,
@@ -116,13 +105,8 @@ final class TemplateResolverTest extends TestCase
             ],
         ];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(),
         );
 
@@ -152,13 +136,8 @@ final class TemplateResolverTest extends TestCase
             ],
         ];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(),
         );
 
@@ -184,13 +163,8 @@ final class TemplateResolverTest extends TestCase
             ],
         ];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(),
         );
 
@@ -206,13 +180,8 @@ final class TemplateResolverTest extends TestCase
 
         $viewConfiguration = ['stub_view' => []];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(),
         );
 
@@ -226,13 +195,8 @@ final class TemplateResolverTest extends TestCase
 
         $viewConfiguration = ['stub_view' => ['context' => []]];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(),
         );
 
@@ -264,13 +228,8 @@ final class TemplateResolverTest extends TestCase
             ],
         ];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(
                 [
                     'matcher' => $matcherMock,
@@ -299,13 +258,8 @@ final class TemplateResolverTest extends TestCase
             ],
         ];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(),
         );
 
@@ -330,13 +284,8 @@ final class TemplateResolverTest extends TestCase
             ],
         ];
 
-        $this->configMock
-            ->method('getParameter')
-            ->with(self::identicalTo('view'))
-            ->willReturn($viewConfiguration);
-
         $templateResolver = new TemplateResolver(
-            $this->configMock,
+            $viewConfiguration,
             new Container(
                 [
                     'matcher' => new stdClass(),

@@ -14,7 +14,7 @@ use function array_key_exists;
  * allowing some parameters to be injected into constructor and
  * returned first if they exist, before checking the container.
  */
-final class ContainerConfiguration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
     /**
      * @param array<string, mixed> $parameters

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Configuration;
 
-use Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration;
+use Netgen\Bundle\LayoutsBundle\Configuration\Configuration;
 use Netgen\Bundle\LayoutsBundle\Exception\ConfigurationException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-#[CoversClass(ContainerConfiguration::class)]
-final class ContainerConfigurationTest extends TestCase
+#[CoversClass(Configuration::class)]
+final class ConfigurationTest extends TestCase
 {
     private MockObject&ContainerInterface $containerMock;
 
-    private ContainerConfiguration $configuration;
+    private Configuration $configuration;
 
     protected function setUp(): void
     {
@@ -108,6 +108,6 @@ final class ContainerConfigurationTest extends TestCase
     private function createConfiguration(array $injectedParameters = []): void
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);
-        $this->configuration = new ContainerConfiguration($this->containerMock, $injectedParameters);
+        $this->configuration = new Configuration($this->containerMock, $injectedParameters);
     }
 }
