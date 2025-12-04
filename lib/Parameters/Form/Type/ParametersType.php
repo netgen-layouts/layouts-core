@@ -44,14 +44,6 @@ final class ParametersType extends AbstractType
             ->define('label_prefix')
             ->required()
             ->allowedTypes('string');
-
-        $resolver->setRequired(
-            [
-                'groups',
-                'parameter_definitions',
-                'label_prefix',
-            ],
-        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
