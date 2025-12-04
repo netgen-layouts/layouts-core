@@ -1,5 +1,7 @@
 {% set google_maps_api_key = nglayouts.config.parameter('api_keys').google_maps %}
 
 {% if google_maps_api_key is not empty %}
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}" async defer></script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&loading=async&callback=initMap">
+    </script>
 {% endif %}
