@@ -31,11 +31,11 @@ final class SetIsApiRequestListenerTest extends TestCase
 
     public function testOnKernelRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'nglayouts_app_api_load_block');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertTrue($event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME));
@@ -43,11 +43,11 @@ final class SetIsApiRequestListenerTest extends TestCase
 
     public function testOnKernelRequestWithInvalidRoute(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'some_route');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
@@ -55,10 +55,10 @@ final class SetIsApiRequestListenerTest extends TestCase
 
     public function testOnKernelRequestInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));

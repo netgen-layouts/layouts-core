@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResol
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(RuleGroupValueResolver::class)]
 final class RuleGroupValueResolverTest extends TestCase
 {
-    private MockObject&LayoutResolverService $layoutResolverServiceMock;
+    private Stub&LayoutResolverService $layoutResolverServiceStub;
 
     private RuleGroupValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
+        $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
 
-        $this->valueResolver = new RuleGroupValueResolver($this->layoutResolverServiceMock);
+        $this->valueResolver = new RuleGroupValueResolver($this->layoutResolverServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class RuleGroupValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
             ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
@@ -70,8 +69,7 @@ final class RuleGroupValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleGroupArchive')
             ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
@@ -93,8 +91,7 @@ final class RuleGroupValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleGroupDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);

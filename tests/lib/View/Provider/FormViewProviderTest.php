@@ -26,20 +26,20 @@ final class FormViewProviderTest extends TestCase
     public function testProvideView(): void
     {
         $formView = new SymfonyFormView();
-        $formMock = $this->createMock(FormInterface::class);
-        $formMock->expects($this->once())
+        $formStub = self::createStub(FormInterface::class);
+        $formStub
             ->method('createView')
             ->willReturn($formView);
 
-        $view = $this->formViewProvider->provideView($formMock);
+        $view = $this->formViewProvider->provideView($formStub);
 
         self::assertInstanceOf(FormViewInterface::class, $view);
 
-        self::assertSame($formMock, $view->form);
+        self::assertSame($formStub, $view->form);
         self::assertNull($view->template);
         self::assertSame(
             [
-                'form_object' => $formMock,
+                'form_object' => $formStub,
                 'form' => $formView,
             ],
             $view->parameters,
@@ -52,7 +52,7 @@ final class FormViewProviderTest extends TestCase
     #[DataProvider('supportsDataProvider')]
     public function testSupports(string $value, bool $supports): void
     {
-        self::assertSame($supports, $this->formViewProvider->supports($this->createMock($value)));
+        self::assertSame($supports, $this->formViewProvider->supports(self::createStub($value)));
     }
 
     public static function supportsDataProvider(): iterable

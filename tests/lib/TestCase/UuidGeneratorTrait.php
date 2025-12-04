@@ -9,7 +9,6 @@ use Ramsey\Uuid\UuidFactoryInterface;
 use Ramsey\Uuid\UuidInterface;
 
 use function array_map;
-use function count;
 
 trait UuidGeneratorTrait
 {
@@ -24,24 +23,23 @@ trait UuidGeneratorTrait
         );
 
         $originalFactory = Uuid::getFactory();
-        $factoryMock = $this->createMock(UuidFactoryInterface::class);
+        $factoryStub = self::createStub(UuidFactoryInterface::class);
 
-        $factoryMock
+        $factoryStub
             ->method('getValidator')
             ->willReturn($originalFactory->getValidator());
 
-        $factoryMock
+        $factoryStub
             ->method('fromString')
             ->willReturnCallback(
                 static fn (string $uuid): UuidInterface => $originalFactory->fromString($uuid),
             );
 
-        $factoryMock
-            ->expects($this->exactly(count($uuids)))
+        $factoryStub
             ->method('uuid4')
             ->willReturnOnConsecutiveCalls(...$uuids);
 
-        Uuid::setFactory($factoryMock);
+        Uuid::setFactory($factoryStub);
 
         try {
             return $callable();

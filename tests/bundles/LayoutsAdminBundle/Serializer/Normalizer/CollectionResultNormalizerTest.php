@@ -17,7 +17,7 @@ use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -25,19 +25,19 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[CoversClass(CollectionResultNormalizer::class)]
 final class CollectionResultNormalizerTest extends TestCase
 {
-    private MockObject&NormalizerInterface $normalizerMock;
+    private Stub&NormalizerInterface $normalizerStub;
 
-    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
+    private Stub&UrlGeneratorInterface $urlGeneratorStub;
 
     private CollectionResultNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
-        $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
+        $this->normalizerStub = self::createStub(NormalizerInterface::class);
+        $this->urlGeneratorStub = self::createStub(UrlGeneratorInterface::class);
 
-        $this->normalizer = new CollectionResultNormalizer($this->urlGeneratorMock, new VisibilityResolver([]));
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer = new CollectionResultNormalizer($this->urlGeneratorStub, new VisibilityResolver([]));
+        $this->normalizer->setNormalizer($this->normalizerStub);
     }
 
     public function testNormalize(): void
@@ -65,7 +65,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ],
         ];
 
-        $this->normalizerMock
+        $this->normalizerStub
             ->method('normalize')
             ->willReturn($serializedConfig);
 
@@ -79,7 +79,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ],
         );
 
-        $this->urlGeneratorMock
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
@@ -130,12 +130,12 @@ final class CollectionResultNormalizerTest extends TestCase
             ],
         ];
 
-        $this->normalizerMock
+        $this->normalizerStub
             ->method('normalize')
             ->willReturn($serializedConfig);
 
         $result = Result::fromArray(['position' => 3, 'item' => new ManualItem($collectionItem)]);
-        $this->urlGeneratorMock
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
@@ -174,11 +174,11 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $result = Result::fromArray(['position' => 3, 'item' => $item]);
 
-        $this->normalizerMock
+        $this->normalizerStub
             ->method('normalize')
             ->willReturn([]);
 
-        $this->urlGeneratorMock
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($item), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
@@ -231,7 +231,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ],
         ];
 
-        $this->normalizerMock
+        $this->normalizerStub
             ->method('normalize')
             ->willReturnOnConsecutiveCalls(
                 [],
@@ -239,7 +239,7 @@ final class CollectionResultNormalizerTest extends TestCase
             );
 
         $result = Result::fromArray(['position' => 3, 'item' => new ManualItem($collectionItem), 'subItem' => $item]);
-        $this->urlGeneratorMock
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');

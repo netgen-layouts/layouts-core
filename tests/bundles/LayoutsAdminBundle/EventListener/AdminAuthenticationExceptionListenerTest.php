@@ -35,13 +35,13 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
     public function testOnException(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new AuthenticationException(),
@@ -57,13 +57,13 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
     public function testOnExceptionWithWrongException(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
@@ -79,12 +79,12 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
     public function testOnExceptionInNonAdminRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
@@ -100,12 +100,12 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
     public function testOnExceptionInNonXmlHttpRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Exception(),

@@ -12,15 +12,15 @@ use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ItemRuntime::class)]
 final class ItemRuntimeTest extends TestCase
 {
-    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
+    private Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
 
-    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
+    private Stub&UrlGeneratorInterface $urlGeneratorStub;
 
     private ErrorHandler $errorHandler;
 
@@ -28,13 +28,13 @@ final class ItemRuntimeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
-        $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
+        $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
+        $this->urlGeneratorStub = self::createStub(UrlGeneratorInterface::class);
         $this->errorHandler = new ErrorHandler();
 
         $this->runtime = new ItemRuntime(
-            $this->cmsItemLoaderMock,
-            $this->urlGeneratorMock,
+            $this->cmsItemLoaderStub,
+            $this->urlGeneratorStub,
             $this->errorHandler,
         );
     }
@@ -43,14 +43,12 @@ final class ItemRuntimeTest extends TestCase
     {
         $cmsItem = new CmsItem();
 
-        $this->cmsItemLoaderMock
-            ->expects($this->once())
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo(42), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
-        $this->urlGeneratorMock
-            ->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
@@ -64,14 +62,12 @@ final class ItemRuntimeTest extends TestCase
     {
         $cmsItem = new CmsItem();
 
-        $this->cmsItemLoaderMock
-            ->expects($this->once())
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
-        $this->urlGeneratorMock
-            ->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
@@ -85,12 +81,7 @@ final class ItemRuntimeTest extends TestCase
     {
         $cmsItem = new CmsItem();
 
-        $this->cmsItemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
@@ -104,12 +95,7 @@ final class ItemRuntimeTest extends TestCase
     {
         $cmsItem = new CmsItem();
 
-        $this->cmsItemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Default))
             ->willReturn('/item/path');
@@ -121,14 +107,6 @@ final class ItemRuntimeTest extends TestCase
 
     public function testGetItemPathWithInvalidValue(): void
     {
-        $this->cmsItemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects($this->never())
-            ->method('generate');
-
         self::assertSame('', $this->runtime->getItemPath('value', 'type'));
     }
 
@@ -138,14 +116,6 @@ final class ItemRuntimeTest extends TestCase
         $this->expectExceptionMessage('Item "value" is not valid.');
 
         $this->errorHandler->setThrow(true);
-
-        $this->cmsItemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
-        $this->urlGeneratorMock
-            ->expects($this->never())
-            ->method('generate');
 
         $this->runtime->getItemPath('value', 'type');
     }

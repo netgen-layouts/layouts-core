@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\TestCase;
 
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -21,13 +22,15 @@ abstract class ValidatorTestCase extends TestCase
     protected function setUp(): void
     {
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $this->executionContext = new ExecutionContext(
             $validator,
             'root',
-            $this->createMock(TranslatorInterface::class),
+            self::createStub(TranslatorInterface::class),
         );
 
         $this->validator = $this->getValidator();

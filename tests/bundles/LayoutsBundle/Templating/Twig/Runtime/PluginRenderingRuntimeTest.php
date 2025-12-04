@@ -9,13 +9,13 @@ use Netgen\Bundle\LayoutsBundle\Templating\Plugin\RendererInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(PluginRenderingRuntime::class)]
 final class PluginRenderingRuntimeTest extends TestCase
 {
-    private MockObject&RendererInterface $pluginRendererMock;
+    private Stub&RendererInterface $pluginRendererStub;
 
     private ErrorHandler $errorHandler;
 
@@ -23,19 +23,18 @@ final class PluginRenderingRuntimeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->pluginRendererMock = $this->createMock(RendererInterface::class);
+        $this->pluginRendererStub = self::createStub(RendererInterface::class);
         $this->errorHandler = new ErrorHandler();
 
         $this->runtime = new PluginRenderingRuntime(
-            $this->pluginRendererMock,
+            $this->pluginRendererStub,
             $this->errorHandler,
         );
     }
 
     public function testRenderPlugins(): void
     {
-        $this->pluginRendererMock
-            ->expects($this->once())
+        $this->pluginRendererStub
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),
@@ -59,8 +58,7 @@ final class PluginRenderingRuntimeTest extends TestCase
 
         $this->errorHandler->setThrow(true);
 
-        $this->pluginRendererMock
-            ->expects($this->once())
+        $this->pluginRendererStub
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),
@@ -76,8 +74,7 @@ final class PluginRenderingRuntimeTest extends TestCase
 
     public function testRenderPluginsReturnsEmptyStringOnException(): void
     {
-        $this->pluginRendererMock
-            ->expects($this->once())
+        $this->pluginRendererStub
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),

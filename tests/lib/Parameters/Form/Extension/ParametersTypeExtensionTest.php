@@ -37,7 +37,7 @@ final class ParametersTypeExtensionTest extends TestCase
 
         $this->formTypeExtension->buildView(
             $view,
-            $this->createMock(FormInterface::class),
+            self::createStub(FormInterface::class),
             ['ngl_parameter_definition' => $parameterDefinition],
         );
 
@@ -51,7 +51,7 @@ final class ParametersTypeExtensionTest extends TestCase
 
         $this->formTypeExtension->buildView(
             $view,
-            $this->createMock(FormInterface::class),
+            self::createStub(FormInterface::class),
             [],
         );
 

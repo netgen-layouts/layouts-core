@@ -10,30 +10,29 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\HttpCache\Layout\IdProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(IdProvider::class)]
 final class IdProviderTest extends TestCase
 {
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
     private IdProvider $idProvider;
 
     protected function setUp(): void
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
 
-        $this->idProvider = new IdProvider($this->layoutServiceMock);
+        $this->idProvider = new IdProvider($this->layoutServiceStub);
     }
 
     public function testProvideIds(): void
     {
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn(
@@ -54,8 +53,7 @@ final class IdProviderTest extends TestCase
     {
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
@@ -78,12 +76,12 @@ final class IdProviderTest extends TestCase
             ],
         );
 
-        $this->layoutServiceMock
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid1))
             ->willReturn($sharedLayout);
 
-        $this->layoutServiceMock
+        $this->layoutServiceStub
             ->method('loadRelatedLayouts')
             ->with(self::identicalTo($sharedLayout))
             ->willReturn(

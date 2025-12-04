@@ -27,7 +27,7 @@ final class RenderZoneTest extends TestCase
     protected function setUp(): void
     {
         $this->environment = new Environment(
-            $this->createMock(LoaderInterface::class),
+            self::createStub(LoaderInterface::class),
             [
                 'cache' => false,
                 'autoescape' => false,

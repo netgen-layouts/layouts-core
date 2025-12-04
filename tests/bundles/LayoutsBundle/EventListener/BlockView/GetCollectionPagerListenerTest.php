@@ -23,7 +23,7 @@ use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\PagerfantaInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 #[CoversClass(GetCollectionPagerListener::class)]
 final class GetCollectionPagerListenerTest extends TestCase
 {
-    private MockObject&ResultBuilderInterface $resultBuilderMock;
+    private Stub&ResultBuilderInterface $resultBuilderStub;
 
     private RequestStack $requestStack;
 
@@ -39,12 +39,12 @@ final class GetCollectionPagerListenerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
+        $this->resultBuilderStub = self::createStub(ResultBuilderInterface::class);
         $this->requestStack = new RequestStack();
 
         $this->listener = new GetCollectionPagerListener(
             new PagerFactory(
-                $this->resultBuilderMock,
+                $this->resultBuilderStub,
                 200,
             ),
             $this->requestStack,
@@ -87,7 +87,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->willReturnMap(
                 [
@@ -148,7 +148,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->willReturnMap(
                 [
@@ -209,7 +209,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->willReturnMap(
                 [
@@ -269,7 +269,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_AJAX;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->willReturnMap(
                 [

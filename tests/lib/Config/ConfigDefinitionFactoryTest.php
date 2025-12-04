@@ -23,11 +23,11 @@ final class ConfigDefinitionFactoryTest extends TestCase
 
     public function testBuildConfigDefinition(): void
     {
-        $handlerMock = $this->createMock(ConfigDefinitionHandlerInterface::class);
+        $handlerStub = self::createStub(ConfigDefinitionHandlerInterface::class);
 
         $configDefinition = $this->factory->buildConfigDefinition(
             'definition',
-            $handlerMock,
+            $handlerStub,
         );
 
         self::assertSame('definition', $configDefinition->configKey);

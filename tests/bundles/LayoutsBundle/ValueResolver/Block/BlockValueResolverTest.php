@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\Block\BlockValueResolver;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(BlockValueResolver::class)]
 final class BlockValueResolverTest extends TestCase
 {
-    private MockObject&BlockService $blockServiceMock;
+    private Stub&BlockService $blockServiceStub;
 
     private BlockValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->blockServiceMock = $this->createMock(BlockService::class);
+        $this->blockServiceStub = self::createStub(BlockService::class);
 
-        $this->valueResolver = new BlockValueResolver($this->blockServiceMock);
+        $this->valueResolver = new BlockValueResolver($this->blockServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class BlockValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->blockServiceMock
-            ->expects($this->once())
+        $this->blockServiceStub
             ->method('loadBlock')
             ->with(self::equalTo($uuid))
             ->willReturn($block);
@@ -70,8 +69,7 @@ final class BlockValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->blockServiceMock
-            ->expects($this->once())
+        $this->blockServiceStub
             ->method('loadBlockDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($block);

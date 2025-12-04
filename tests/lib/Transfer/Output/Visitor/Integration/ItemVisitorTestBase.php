@@ -21,7 +21,7 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
     {
         parent::setUp();
 
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->willReturn(CmsItem::fromArray(['remoteId' => 'abc']));
     }

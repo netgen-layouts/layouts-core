@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleValueResolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(RuleValueResolver::class)]
 final class RuleValueResolverTest extends TestCase
 {
-    private MockObject&LayoutResolverService $layoutResolverServiceMock;
+    private Stub&LayoutResolverService $layoutResolverServiceStub;
 
     private RuleValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
+        $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
 
-        $this->valueResolver = new RuleValueResolver($this->layoutResolverServiceMock);
+        $this->valueResolver = new RuleValueResolver($this->layoutResolverServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class RuleValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRule')
             ->with(self::equalTo($uuid))
             ->willReturn($rule);
@@ -70,8 +69,7 @@ final class RuleValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleArchive')
             ->with(self::equalTo($uuid))
             ->willReturn($rule);
@@ -93,8 +91,7 @@ final class RuleValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($rule);

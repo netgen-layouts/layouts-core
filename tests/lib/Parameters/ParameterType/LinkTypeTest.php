@@ -17,7 +17,7 @@ use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -29,7 +29,7 @@ final class LinkTypeTest extends TestCase
     use ExportObjectTrait;
     use ParameterTypeTestTrait;
 
-    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
+    private Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
 
     protected function setUp(): void
     {
@@ -41,9 +41,9 @@ final class LinkTypeTest extends TestCase
             ],
         );
 
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 
-        $this->type = new LinkType($valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));
+        $this->type = new LinkType($valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderStub));
     }
 
     public function testGetIdentifier(): void
@@ -138,7 +138,9 @@ final class LinkTypeTest extends TestCase
     {
         $parameter = $this->getParameterDefinition(['required' => $isRequired, 'value_types' => $valueTypes]);
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -293,7 +295,7 @@ final class LinkTypeTest extends TestCase
     #[DataProvider('exportDataProvider')]
     public function testExport(mixed $value, mixed $convertedValue): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -310,7 +312,7 @@ final class LinkTypeTest extends TestCase
 
     public function testExportWithNullCmsItem(): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('24'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));
@@ -400,7 +402,7 @@ final class LinkTypeTest extends TestCase
     #[DataProvider('importDataProvider')]
     public function testImport(mixed $value, array $expectedValue): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -420,7 +422,7 @@ final class LinkTypeTest extends TestCase
 
     public function testImportWithNullCmsItem(): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
             ->with(self::identicalTo('def'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));

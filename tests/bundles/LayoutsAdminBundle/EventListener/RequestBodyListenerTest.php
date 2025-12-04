@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +20,15 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 #[CoversClass(RequestBodyListener::class)]
 final class RequestBodyListenerTest extends TestCase
 {
-    private MockObject&DecoderInterface $decoderMock;
+    private Stub&DecoderInterface $decoderStub;
 
     private RequestBodyListener $listener;
 
     protected function setUp(): void
     {
-        $this->decoderMock = $this->createMock(DecoderInterface::class);
+        $this->decoderStub = self::createStub(DecoderInterface::class);
 
-        $this->listener = new RequestBodyListener($this->decoderMock);
+        $this->listener = new RequestBodyListener($this->decoderStub);
     }
 
     public function testGetSubscribedEvents(): void
@@ -41,18 +41,17 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequest(): void
     {
-        $this->decoderMock
-            ->expects($this->once())
+        $this->decoderStub
             ->method('decode')
             ->with(self::identicalTo('{"test": "value"}'))
             ->willReturn(['test' => 'value']);
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         $request = $event->getRequest();
@@ -67,13 +66,11 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestWithNonApiRoute(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -81,14 +78,12 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestInSubRequest(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->headers->set('Content-Type', 'application/json');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -96,13 +91,11 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestWithInvalidMethod(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -110,14 +103,12 @@ final class RequestBodyListenerTest extends TestCase
 
     public function testOnKernelRequestWithInvalidContentType(): void
     {
-        $this->decoderMock->expects($this->never())->method('decode');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'some/type');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('data'));
@@ -128,18 +119,17 @@ final class RequestBodyListenerTest extends TestCase
         $this->expectException(BadRequestHttpException::class);
         $this->expectExceptionMessage('Request body has an invalid format');
 
-        $this->decoderMock
-            ->expects($this->once())
+        $this->decoderStub
             ->method('decode')
             ->with(self::identicalTo('{]'))
             ->willThrowException(new UnexpectedValueException());
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{]');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -148,18 +138,17 @@ final class RequestBodyListenerTest extends TestCase
         $this->expectException(BadRequestHttpException::class);
         $this->expectExceptionMessage('Request body has an invalid format');
 
-        $this->decoderMock
-            ->expects($this->once())
+        $this->decoderStub
             ->method('decode')
             ->with(self::identicalTo('42'))
             ->willReturn(42);
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '42');
         $request->headers->set('Content-Type', 'application/json');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 }

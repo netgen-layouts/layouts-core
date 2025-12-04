@@ -7,27 +7,26 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 use Doctrine\DBAL\Connection;
 use Netgen\Layouts\Persistence\Doctrine\TransactionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(TransactionHandler::class)]
 final class TransactionHandlerTest extends TestCase
 {
-    private MockObject&Connection $connectionMock;
+    private Stub&Connection $connectionStub;
 
     private TransactionHandler $handler;
 
     protected function setUp(): void
     {
-        $this->connectionMock = $this->createMock(Connection::class);
+        $this->connectionStub = self::createStub(Connection::class);
 
-        $this->handler = new TransactionHandler($this->connectionMock);
+        $this->handler = new TransactionHandler($this->connectionStub);
     }
 
     public function testBeginTransaction(): void
     {
-        $this->connectionMock
-            ->expects($this->once())
+        $this->connectionStub
             ->method('beginTransaction');
 
         $this->handler->beginTransaction();
@@ -35,8 +34,7 @@ final class TransactionHandlerTest extends TestCase
 
     public function testCommitTransaction(): void
     {
-        $this->connectionMock
-            ->expects($this->once())
+        $this->connectionStub
             ->method('commit');
 
         $this->handler->commitTransaction();
@@ -44,8 +42,7 @@ final class TransactionHandlerTest extends TestCase
 
     public function testRollbackTransaction(): void
     {
-        $this->connectionMock
-            ->expects($this->once())
+        $this->connectionStub
             ->method('rollback');
 
         $this->handler->rollbackTransaction();

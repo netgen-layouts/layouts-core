@@ -25,7 +25,7 @@ abstract class TargetHandlerTestBase extends TestCase
         $this->createDatabase();
 
         $this->handler = new LayoutResolverHandler(
-            $this->createMock(LayoutHandlerInterface::class),
+            self::createStub(LayoutHandlerInterface::class),
             new LayoutResolverQueryHandler(
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),

@@ -20,7 +20,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     protected function setUp(): void
     {
         $this->listener = new SetIsAdminRequestListener(
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
     }
 
@@ -34,11 +34,11 @@ final class SetIsAdminRequestListenerTest extends TestCase
 
     public function testOnKernelRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'nglayouts_admin_layout_resolver_index');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertTrue(
@@ -48,11 +48,11 @@ final class SetIsAdminRequestListenerTest extends TestCase
 
     public function testOnKernelRequestWithInvalidRoute(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'some_route');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has(SetIsAdminRequestListener::ADMIN_FLAG_NAME));
@@ -60,10 +60,10 @@ final class SetIsAdminRequestListenerTest extends TestCase
 
     public function testOnKernelRequestInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has(SetIsAdminRequestListener::ADMIN_FLAG_NAME));

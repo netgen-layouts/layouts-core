@@ -11,22 +11,22 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(ZoneValueResolver::class)]
 final class ZoneValueResolverTest extends TestCase
 {
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
     private ZoneValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
 
-        $this->valueResolver = new ZoneValueResolver($this->layoutServiceMock);
+        $this->valueResolver = new ZoneValueResolver($this->layoutServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -51,8 +51,7 @@ final class ZoneValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -76,8 +75,7 @@ final class ZoneValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayoutDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -104,8 +102,7 @@ final class ZoneValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);

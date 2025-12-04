@@ -15,7 +15,7 @@ use Netgen\Layouts\Browser\Backend\LayoutBackend;
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -24,26 +24,22 @@ use function sprintf;
 #[CoversClass(LayoutBackend::class)]
 final class LayoutBackendTest extends TestCase
 {
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
     private LayoutBackend $backend;
 
     protected function setUp(): void
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
 
         $this->backend = new LayoutBackend(
-            $this->layoutServiceMock,
+            $this->layoutServiceStub,
             new Configuration('layout', 'Layout', []),
         );
     }
 
     public function testGetSections(): void
     {
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('loadLayout');
-
         $locations = [...$this->backend->getSections()];
 
         self::assertCount(1, $locations);
@@ -55,10 +51,6 @@ final class LayoutBackendTest extends TestCase
 
     public function testLoadLocation(): void
     {
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('loadLayout');
-
         $location = $this->backend->loadLocation(1);
 
         self::assertSame(new RootLocation()->locationId, $location->locationId);
@@ -69,8 +61,7 @@ final class LayoutBackendTest extends TestCase
         $uuid = Uuid::uuid4();
         $layout = new Layout();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -87,8 +78,7 @@ final class LayoutBackendTest extends TestCase
         $this->expectException(ContentBrowserNotFoundException::class);
         $this->expectExceptionMessage(sprintf('Item with value "%s" not found.', $uuid->toString()));
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
@@ -113,8 +103,7 @@ final class LayoutBackendTest extends TestCase
 
     public function testGetSubItems(): void
     {
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayouts')
             ->with(
                 self::identicalTo(false),
@@ -134,8 +123,7 @@ final class LayoutBackendTest extends TestCase
 
     public function testGetSubItemsWithOffsetAndLimit(): void
     {
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayouts')
             ->with(
                 self::identicalTo(false),
@@ -156,12 +144,11 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItemsWithSharedLayouts(): void
     {
         $this->backend = new LayoutBackend(
-            $this->layoutServiceMock,
+            $this->layoutServiceStub,
             new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true']),
         );
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadAllLayouts')
             ->with(
                 self::identicalTo(false),
@@ -181,8 +168,7 @@ final class LayoutBackendTest extends TestCase
 
     public function testGetSubItemsCount(): void
     {
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('getLayoutsCount')
             ->willReturn(2);
 
@@ -194,12 +180,11 @@ final class LayoutBackendTest extends TestCase
     public function testGetSubItemsCountWithSharedLayouts(): void
     {
         $this->backend = new LayoutBackend(
-            $this->layoutServiceMock,
+            $this->layoutServiceStub,
             new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true']),
         );
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('getAllLayoutsCount')
             ->willReturn(2);
 

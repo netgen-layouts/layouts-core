@@ -60,7 +60,7 @@ abstract class ImporterTestBase extends CoreTestCase
     {
         parent::setUp();
 
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
             ->willReturnCallback(
                 static fn ($remoteId): CmsItemInterface => CmsItem::fromArray(
@@ -71,7 +71,7 @@ abstract class ImporterTestBase extends CoreTestCase
                 ),
             );
 
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->willReturnCallback(
                 static fn ($value): CmsItemInterface => CmsItem::fromArray(
@@ -91,7 +91,7 @@ abstract class ImporterTestBase extends CoreTestCase
                 $this->layoutTypeRegistry,
                 $this->itemDefinitionRegistry,
                 $this->queryTypeRegistry,
-                $this->cmsItemLoaderMock,
+                $this->cmsItemLoaderStub,
             ),
             'rule' => new RuleEntityHandler(
                 $this->layoutResolverService,

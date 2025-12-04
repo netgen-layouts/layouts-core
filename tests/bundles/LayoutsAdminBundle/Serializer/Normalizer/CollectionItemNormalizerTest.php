@@ -15,7 +15,7 @@ use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -23,19 +23,19 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[CoversClass(CollectionItemNormalizer::class)]
 final class CollectionItemNormalizerTest extends TestCase
 {
-    private MockObject&NormalizerInterface $normalizerMock;
+    private Stub&NormalizerInterface $normalizerStub;
 
-    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
+    private Stub&UrlGeneratorInterface $urlGeneratorStub;
 
     private CollectionItemNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
-        $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
+        $this->normalizerStub = self::createStub(NormalizerInterface::class);
+        $this->urlGeneratorStub = self::createStub(UrlGeneratorInterface::class);
 
-        $this->normalizer = new CollectionItemNormalizer($this->urlGeneratorMock, new VisibilityResolver([]));
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer = new CollectionItemNormalizer($this->urlGeneratorStub, new VisibilityResolver([]));
+        $this->normalizer->setNormalizer($this->normalizerStub);
     }
 
     public function testNormalize(): void
@@ -66,11 +66,11 @@ final class CollectionItemNormalizerTest extends TestCase
             ],
         ];
 
-        $this->normalizerMock
+        $this->normalizerStub
             ->method('normalize')
             ->willReturn($serializedConfig);
 
-        $this->urlGeneratorMock
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(self::identicalTo($item->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');

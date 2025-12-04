@@ -7,14 +7,14 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Configuration;
 use Netgen\Bundle\LayoutsBundle\Configuration\Configuration;
 use Netgen\Bundle\LayoutsBundle\Exception\ConfigurationException;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 #[CoversClass(Configuration::class)]
 final class ConfigurationTest extends TestCase
 {
-    private MockObject&ContainerInterface $containerMock;
+    private Stub&ContainerInterface $containerStub;
 
     private Configuration $configuration;
 
@@ -25,8 +25,7 @@ final class ConfigurationTest extends TestCase
 
     public function testHasParameter(): void
     {
-        $this->containerMock
-            ->expects($this->once())
+        $this->containerStub
             ->method('hasParameter')
             ->with(self::identicalTo('netgen_layouts.some_param'))
             ->willReturn(true);
@@ -38,17 +37,12 @@ final class ConfigurationTest extends TestCase
     {
         $this->createConfiguration(['some_param' => 'some_value']);
 
-        $this->containerMock
-            ->expects($this->never())
-            ->method('hasParameter');
-
         self::assertTrue($this->configuration->hasParameter('some_param'));
     }
 
     public function testHasParameterWithNoParameter(): void
     {
-        $this->containerMock
-            ->expects($this->once())
+        $this->containerStub
             ->method('hasParameter')
             ->with(self::identicalTo('netgen_layouts.some_param'))
             ->willReturn(false);
@@ -58,14 +52,12 @@ final class ConfigurationTest extends TestCase
 
     public function testGetParameter(): void
     {
-        $this->containerMock
-            ->expects($this->once())
+        $this->containerStub
             ->method('hasParameter')
             ->with(self::identicalTo('netgen_layouts.some_param'))
             ->willReturn(true);
 
-        $this->containerMock
-            ->expects($this->once())
+        $this->containerStub
             ->method('getParameter')
             ->with(self::identicalTo('netgen_layouts.some_param'))
             ->willReturn('some_param_value');
@@ -77,14 +69,6 @@ final class ConfigurationTest extends TestCase
     {
         $this->createConfiguration(['some_param' => 'injected']);
 
-        $this->containerMock
-            ->expects($this->never())
-            ->method('hasParameter');
-
-        $this->containerMock
-            ->expects($this->never())
-            ->method('getParameter');
-
         self::assertSame('injected', $this->configuration->getParameter('some_param'));
     }
 
@@ -93,8 +77,7 @@ final class ConfigurationTest extends TestCase
         $this->expectException(ConfigurationException::class);
         $this->expectExceptionMessage('Parameter "some_param" does not exist in configuration.');
 
-        $this->containerMock
-            ->expects($this->once())
+        $this->containerStub
             ->method('hasParameter')
             ->with(self::identicalTo('netgen_layouts.some_param'))
             ->willReturn(false);
@@ -107,7 +90,7 @@ final class ConfigurationTest extends TestCase
      */
     private function createConfiguration(array $injectedParameters = []): void
     {
-        $this->containerMock = $this->createMock(ContainerInterface::class);
-        $this->configuration = new Configuration($this->containerMock, $injectedParameters);
+        $this->containerStub = self::createStub(ContainerInterface::class);
+        $this->configuration = new Configuration($this->containerStub, $injectedParameters);
     }
 }

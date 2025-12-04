@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Resolver\ConditionType\Time;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -36,7 +37,9 @@ final class TimeTest extends TestCase
     public function testValidation(mixed $value, bool $isValid): void
     {
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $errors = $validator->validate($value, $this->conditionType->getConstraints());

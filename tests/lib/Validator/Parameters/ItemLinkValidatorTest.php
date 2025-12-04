@@ -12,7 +12,7 @@ use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
 use Netgen\Layouts\Validator\Parameters\ItemLinkValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 #[CoversClass(ItemLinkValidator::class)]
 final class ItemLinkValidatorTest extends ValidatorTestCase
 {
-    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
+    private Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
 
     protected function setUp(): void
     {
@@ -38,8 +38,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->constraint->valueTypes = $valueTypes;
 
         if ($value !== null && $value !== '' && $isValid) {
-            $this->cmsItemLoaderMock
-                ->expects($this->once())
+            $this->cmsItemLoaderStub
                 ->method('load')
                 ->willReturn(new CmsItem());
         }
@@ -49,8 +48,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
 
     public function testValidateWithInvalidItem(): void
     {
-        $this->cmsItemLoaderMock
-            ->expects($this->once())
+        $this->cmsItemLoaderStub
             ->method('load')
             ->willReturn(new NullCmsItem('value'));
 
@@ -109,8 +107,8 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
 
     protected function getValidator(): ConstraintValidatorInterface
     {
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 
-        return new ItemLinkValidator($this->cmsItemLoaderMock);
+        return new ItemLinkValidator($this->cmsItemLoaderStub);
     }
 }

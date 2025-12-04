@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\TargetValueResolver
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(TargetValueResolver::class)]
 final class TargetValueResolverTest extends TestCase
 {
-    private MockObject&LayoutResolverService $layoutResolverServiceMock;
+    private Stub&LayoutResolverService $layoutResolverServiceStub;
 
     private TargetValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
+        $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
 
-        $this->valueResolver = new TargetValueResolver($this->layoutResolverServiceMock);
+        $this->valueResolver = new TargetValueResolver($this->layoutResolverServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class TargetValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadTarget')
             ->with(self::equalTo($uuid))
             ->willReturn($target);
@@ -70,8 +69,7 @@ final class TargetValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadTargetDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($target);

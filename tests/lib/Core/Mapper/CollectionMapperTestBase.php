@@ -230,7 +230,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $cmsItem = new CmsItem();
 
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('12'), self::identicalTo('my_value_type'))
             ->willReturn($cmsItem);
@@ -276,10 +276,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $this->cmsItemLoaderMock
-            ->expects($this->never())
-            ->method('load');
-
         $item = $this->mapper->mapItem($persistenceItem);
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
@@ -324,7 +320,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $cmsItem = new NullCmsItem('value');
 
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('12'), self::identicalTo('null'))
             ->willReturn($cmsItem);

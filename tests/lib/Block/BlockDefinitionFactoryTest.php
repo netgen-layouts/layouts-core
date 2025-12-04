@@ -20,7 +20,7 @@ use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(BlockDefinitionFactory::class)]
@@ -28,7 +28,7 @@ final class BlockDefinitionFactoryTest extends TestCase
 {
     use ExportObjectTrait;
 
-    private MockObject&BlockDefinitionHandlerInterface $handlerMock;
+    private Stub&BlockDefinitionHandlerInterface $handlerStub;
 
     private BlockDefinitionFactory $factory;
 
@@ -58,11 +58,11 @@ final class BlockDefinitionFactoryTest extends TestCase
 
     public function testBuildBlockDefinition(): void
     {
-        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
+        $this->handlerStub = self::createStub(BlockDefinitionHandlerInterface::class);
 
         $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
-            $this->handlerMock,
+            $this->handlerStub,
             new StaticConfigProvider(
                 'definition',
                 [
@@ -190,11 +190,11 @@ final class BlockDefinitionFactoryTest extends TestCase
 
     public function testBuildTwigBlockDefinition(): void
     {
-        $this->handlerMock = $this->createMock(TwigBlockDefinitionHandlerInterface::class);
+        $this->handlerStub = self::createStub(TwigBlockDefinitionHandlerInterface::class);
 
         $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
-            $this->handlerMock,
+            $this->handlerStub,
             new StaticConfigProvider(
                 'definition',
                 [
@@ -230,15 +230,15 @@ final class BlockDefinitionFactoryTest extends TestCase
 
     public function testBuildContainerDefinition(): void
     {
-        $this->handlerMock = $this->createMock(ContainerDefinitionHandlerInterface::class);
+        $this->handlerStub = self::createStub(ContainerDefinitionHandlerInterface::class);
 
-        $this->handlerMock
+        $this->handlerStub
             ->method('getPlaceholderIdentifiers')
             ->willReturn(['left', 'right']);
 
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
-            $this->handlerMock,
+            $this->handlerStub,
             new StaticConfigProvider(
                 'definition',
                 [

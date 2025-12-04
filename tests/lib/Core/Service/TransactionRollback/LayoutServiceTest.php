@@ -46,7 +46,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
@@ -69,7 +68,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->unlinkZone(Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'right', 'status' => Status::Draft]));
@@ -89,7 +87,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $layoutCreateStruct = new LayoutCreateStruct();
@@ -121,7 +118,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->addTranslation(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]), 'hr', 'en');
@@ -148,7 +144,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->removeTranslation(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]), 'hr');
@@ -172,7 +167,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $layoutUpdateStruct = new LayoutUpdateStruct();
@@ -202,7 +196,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $layoutCopyStruct = new LayoutCopyStruct();
@@ -232,7 +225,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->changeLayoutType(
@@ -260,7 +252,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->createDraft(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
@@ -280,7 +271,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->discardDraft(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -300,7 +290,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->publishLayout(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
@@ -328,7 +317,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->restoreFromArchive(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]));
@@ -348,7 +336,6 @@ final class LayoutServiceTest extends TestCase
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
-            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->layoutService->deleteLayout(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));

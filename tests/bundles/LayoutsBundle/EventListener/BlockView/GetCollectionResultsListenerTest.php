@@ -23,23 +23,23 @@ use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\PagerfantaInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(GetCollectionResultsListener::class)]
 final class GetCollectionResultsListenerTest extends TestCase
 {
-    private MockObject&ResultBuilderInterface $resultBuilderMock;
+    private Stub&ResultBuilderInterface $resultBuilderStub;
 
     private GetCollectionResultsListener $listener;
 
     protected function setUp(): void
     {
-        $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
+        $this->resultBuilderStub = self::createStub(ResultBuilderInterface::class);
 
         $this->listener = new GetCollectionResultsListener(
             new PagerFactory(
-                $this->resultBuilderMock,
+                $this->resultBuilderStub,
                 200,
             ),
             [ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_APP],
@@ -76,7 +76,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->willReturnMap(
                 [
@@ -142,7 +142,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -202,7 +202,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -261,7 +261,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_DEFAULT;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->with(
                 self::identicalTo($collection),
@@ -311,7 +311,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_APP;
         $event = new RenderViewEvent($view);
 
-        $this->resultBuilderMock
+        $this->resultBuilderStub
             ->method('build')
             ->with(
                 self::identicalTo($collection1),

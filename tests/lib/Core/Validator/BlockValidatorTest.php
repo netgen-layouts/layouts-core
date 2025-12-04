@@ -15,6 +15,7 @@ use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Core\Validator\BlockValidator;
 use Netgen\Layouts\Core\Validator\CollectionValidator;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
@@ -34,7 +35,9 @@ final class BlockValidatorTest extends TestCase
     protected function setUp(): void
     {
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $collectionValidator = new CollectionValidator();

@@ -30,11 +30,11 @@ final class LinkMapperTest extends TestCase
     {
         $valueTypeRegistry = new ValueTypeRegistry(['default' => ValueType::fromArray(['isEnabled' => true])]);
 
-        $cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 
         $this->type = new LinkParameterType(
             $valueTypeRegistry,
-            new RemoteIdConverter($cmsItemLoaderMock),
+            new RemoteIdConverter($cmsItemLoaderStub),
         );
 
         $this->mapper = new LinkMapper();
@@ -93,9 +93,9 @@ final class LinkMapperTest extends TestCase
             ],
         );
 
-        $dispatcherMock = $this->createMock(EventDispatcherInterface::class);
-        $factoryMock = $this->createMock(FormFactoryInterface::class);
-        $formBuilder = new FormBuilder('name', null, $dispatcherMock, $factoryMock);
+        $dispatcherStub = self::createStub(EventDispatcherInterface::class);
+        $factoryStub = self::createStub(FormFactoryInterface::class);
+        $formBuilder = new FormBuilder('name', null, $dispatcherStub, $factoryStub);
 
         $this->mapper->handleForm($formBuilder, $parameterDefinition);
 

@@ -10,6 +10,7 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
@@ -104,7 +105,9 @@ abstract class BlockTestCase extends CoreTestCase
     protected function createValidator(): ValidatorInterface
     {
         return Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
     }
 

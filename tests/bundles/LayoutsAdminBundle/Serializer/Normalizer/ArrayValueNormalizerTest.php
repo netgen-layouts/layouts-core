@@ -11,29 +11,29 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Tests\API\Stubs\Value as StubValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[CoversClass(ArrayValueNormalizer::class)]
 final class ArrayValueNormalizerTest extends TestCase
 {
-    private MockObject&NormalizerInterface $normalizerMock;
+    private Stub&NormalizerInterface $normalizerStub;
 
     private ArrayValueNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
+        $this->normalizerStub = self::createStub(NormalizerInterface::class);
 
         $this->normalizer = new ArrayValueNormalizer();
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer->setNormalizer($this->normalizerStub);
     }
 
     public function testNormalize(): void
     {
         $value = new StubValue();
-        $this->normalizerMock
+        $this->normalizerStub
             ->method('normalize')
             ->with(
                 self::identicalTo($value),

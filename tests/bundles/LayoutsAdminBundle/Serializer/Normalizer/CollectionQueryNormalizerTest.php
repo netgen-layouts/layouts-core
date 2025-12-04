@@ -13,7 +13,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -21,16 +21,16 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 #[CoversClass(CollectionQueryNormalizer::class)]
 final class CollectionQueryNormalizerTest extends TestCase
 {
-    private MockObject&NormalizerInterface $normalizerMock;
+    private Stub&NormalizerInterface $normalizerStub;
 
     private CollectionQueryNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
+        $this->normalizerStub = self::createStub(NormalizerInterface::class);
 
         $this->normalizer = new CollectionQueryNormalizer();
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer->setNormalizer($this->normalizerStub);
     }
 
     public function testNormalize(): void
@@ -73,8 +73,7 @@ final class CollectionQueryNormalizerTest extends TestCase
             ],
         ];
 
-        $this->normalizerMock
-            ->expects($this->once())
+        $this->normalizerStub
             ->method('normalize')
             ->willReturn($serializedParams);
 

@@ -21,7 +21,7 @@ use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 use function array_map;
@@ -30,13 +30,13 @@ use function count;
 #[CoversClass(DynamicCollectionRunner::class)]
 final class DynamicCollectionRunnerTest extends TestCase
 {
-    private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
+    private Stub&CmsItemBuilderInterface $cmsItemBuilderStub;
 
     protected function setUp(): void
     {
-        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
+        $this->cmsItemBuilderStub = self::createStub(CmsItemBuilderInterface::class);
 
-        $this->cmsItemBuilderMock
+        $this->cmsItemBuilderStub
             ->method('build')
             ->willReturnCallback(
                 static fn (Value $value): CmsItemInterface => CmsItem::fromArray(['value' => $value->value, 'isVisible' => true]),
@@ -76,7 +76,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $query = Query::fromArray(['queryType' => new QueryType('my_query_type', $queryItems, $queryCount)]);
         $collection = Collection::fromArray(['items' => ItemList::fromArray($items), 'slots' => SlotList::fromArray([]), 'query' => $query]);
 
-        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderStub, new VisibilityResolver([]));
         $collectionRunner = $factory->getCollectionRunner($collection);
 
         self::assertSame($totalCount, $collectionRunner->count($collection));

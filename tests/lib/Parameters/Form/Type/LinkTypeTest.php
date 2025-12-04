@@ -39,7 +39,7 @@ final class LinkTypeTest extends FormTestCase
     {
         $this->parameterType = new LinkParameterType(
             new ValueTypeRegistry([]),
-            new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class)),
+            new RemoteIdConverter(self::createStub(CmsItemLoaderInterface::class)),
         );
 
         parent::setUp();
@@ -276,7 +276,7 @@ final class LinkTypeTest extends FormTestCase
 
     protected function getTypes(): array
     {
-        $backendRegistry = new BackendRegistry(['value' => $this->createMock(BackendInterface::class)]);
+        $backendRegistry = new BackendRegistry(['value' => self::createStub(BackendInterface::class)]);
         $configRegistry = new ConfigRegistry(['value' => new Configuration('value', 'Value', [])]);
 
         return [

@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminCsrfValidationListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 #[CoversClass(AdminCsrfValidationListener::class)]
 final class AdminCsrfValidationListenerTest extends TestCase
 {
-    private MockObject&CsrfTokenValidatorInterface $csrfTokenValidatorMock;
+    private Stub&CsrfTokenValidatorInterface $csrfTokenValidatorStub;
 
     private string $csrfTokenId;
 
@@ -26,14 +26,12 @@ final class AdminCsrfValidationListenerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->csrfTokenValidatorMock = $this->createMock(
-            CsrfTokenValidatorInterface::class,
-        );
+        $this->csrfTokenValidatorStub = self::createStub(CsrfTokenValidatorInterface::class);
 
         $this->csrfTokenId = 'token_id';
 
         $this->listener = new AdminCsrfValidationListener(
-            $this->csrfTokenValidatorMock,
+            $this->csrfTokenValidatorStub,
             $this->csrfTokenId,
         );
     }
@@ -51,15 +49,14 @@ final class AdminCsrfValidationListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $this->csrfTokenValidatorMock
-            ->expects($this->once())
+        $this->csrfTokenValidatorStub
             ->method('validateCsrfToken')
             ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
             ->willReturn(true);
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -71,15 +68,14 @@ final class AdminCsrfValidationListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $this->csrfTokenValidatorMock
-            ->expects($this->once())
+        $this->csrfTokenValidatorStub
             ->method('validateCsrfToken')
             ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
             ->willReturn(false);
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -88,13 +84,20 @@ final class AdminCsrfValidationListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $this->csrfTokenValidatorMock
+        $kernelStub = self::createStub(HttpKernelInterface::class);
+
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
+
+        $csrfTokenValidatorMock = $this->createMock(CsrfTokenValidatorInterface::class);
+        $csrfTokenValidatorMock
             ->expects($this->never())
             ->method('validateCsrfToken');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $this->listener = new AdminCsrfValidationListener(
+            $csrfTokenValidatorMock,
+            $this->csrfTokenId,
+        );
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -102,13 +105,20 @@ final class AdminCsrfValidationListenerTest extends TestCase
     {
         $request = Request::create('/');
 
-        $this->csrfTokenValidatorMock
+        $kernelStub = self::createStub(HttpKernelInterface::class);
+
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
+
+        $csrfTokenValidatorMock = $this->createMock(CsrfTokenValidatorInterface::class);
+        $csrfTokenValidatorMock
             ->expects($this->never())
             ->method('validateCsrfToken');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $this->listener = new AdminCsrfValidationListener(
+            $csrfTokenValidatorMock,
+            $this->csrfTokenId,
+        );
 
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 }

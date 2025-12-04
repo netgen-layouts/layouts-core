@@ -22,7 +22,7 @@ use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
@@ -30,9 +30,9 @@ use Symfony\Component\Serializer\Serializer;
 #[CoversClass(LayoutNormalizer::class)]
 final class LayoutNormalizerTest extends TestCase
 {
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
-    private MockObject&BlockService $blockServiceMock;
+    private Stub&BlockService $blockServiceStub;
 
     private LayoutTypeInterface $layoutType;
 
@@ -40,8 +40,8 @@ final class LayoutNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
-        $this->blockServiceMock = $this->createMock(BlockService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
+        $this->blockServiceStub = self::createStub(BlockService::class);
 
         $this->layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
@@ -62,7 +62,7 @@ final class LayoutNormalizerTest extends TestCase
             ],
         );
 
-        $this->normalizer = new LayoutNormalizer($this->layoutServiceMock, $this->blockServiceMock);
+        $this->normalizer = new LayoutNormalizer($this->layoutServiceStub, $this->blockServiceStub);
         $this->normalizer->setNormalizer(new Serializer());
     }
 
@@ -124,7 +124,7 @@ final class LayoutNormalizerTest extends TestCase
             ],
         );
 
-        $this->blockServiceMock
+        $this->blockServiceStub
             ->method('loadZoneBlocks')
             ->willReturnOnConsecutiveCalls(
                 BlockList::fromArray([$block]),
@@ -132,12 +132,12 @@ final class LayoutNormalizerTest extends TestCase
                 BlockList::fromArray([]),
             );
 
-        $this->layoutServiceMock
+        $this->layoutServiceStub
             ->method('layoutExists')
             ->with(self::identicalTo($layout->id), self::identicalTo(Status::Published))
             ->willReturn(true);
 
-        $this->layoutServiceMock
+        $this->layoutServiceStub
             ->method('loadLayoutArchive')
             ->with(self::identicalTo($layout->id))
             ->willThrowException(new NotFoundException('layout'));
@@ -234,12 +234,12 @@ final class LayoutNormalizerTest extends TestCase
             ],
         );
 
-        $this->layoutServiceMock
+        $this->layoutServiceStub
             ->method('layoutExists')
             ->with(self::identicalTo($layout->id), self::identicalTo(Status::Published))
             ->willReturn(true);
 
-        $this->layoutServiceMock
+        $this->layoutServiceStub
             ->method('loadLayoutArchive')
             ->with(self::identicalTo($layout->id))
             ->willReturn($archivedLayout);

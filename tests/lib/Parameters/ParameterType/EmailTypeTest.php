@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Parameters\ParameterType\EmailType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -76,7 +77,9 @@ final class EmailTypeTest extends TestCase
         $parameter = $this->getParameterDefinition();
 
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));

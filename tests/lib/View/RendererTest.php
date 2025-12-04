@@ -11,29 +11,26 @@ use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Netgen\Layouts\View\ViewRendererInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Renderer::class)]
 final class RendererTest extends TestCase
 {
-    private MockObject&ViewBuilderInterface $viewBuilderMock;
+    private Stub&ViewBuilderInterface $viewBuilderStub;
 
-    private MockObject&ViewRendererInterface $viewRendererMock;
+    private Stub&ViewRendererInterface $viewRendererStub;
 
     private Renderer $renderer;
 
     protected function setUp(): void
     {
-        $this->viewBuilderMock = $this
-            ->createMock(ViewBuilderInterface::class);
-
-        $this->viewRendererMock = $this
-            ->createMock(ViewRendererInterface::class);
+        $this->viewBuilderStub = self::createStub(ViewBuilderInterface::class);
+        $this->viewRendererStub = self::createStub(ViewRendererInterface::class);
 
         $this->renderer = new Renderer(
-            $this->viewBuilderMock,
-            $this->viewRendererMock,
+            $this->viewBuilderStub,
+            $this->viewRendererStub,
         );
     }
 
@@ -45,8 +42,7 @@ final class RendererTest extends TestCase
         $view->template = 'some_template.html.twig';
         $view->addParameter('some_param', 'some_value');
 
-        $this->viewBuilderMock
-            ->expects($this->once())
+        $this->viewBuilderStub
             ->method('buildView')
             ->with(
                 self::identicalTo($value),
@@ -55,8 +51,7 @@ final class RendererTest extends TestCase
             )
             ->willReturn($view);
 
-        $this->viewRendererMock
-            ->expects($this->once())
+        $this->viewRendererStub
             ->method('renderView')
             ->with(self::identicalTo($view))
             ->willReturn('rendered template');

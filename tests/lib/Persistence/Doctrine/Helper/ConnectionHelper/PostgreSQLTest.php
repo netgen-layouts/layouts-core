@@ -37,10 +37,10 @@ final class PostgreSQLTest extends TestCase
     public function testNextId(): void
     {
         $platform = new PostgreSQLPlatform();
-        $connectionMock = $this->createMock(Connection::class);
-        $helper = new ConnectionHelper($connectionMock);
+        $connectionStub = self::createStub(Connection::class);
+        $helper = new ConnectionHelper($connectionStub);
 
-        $connectionMock
+        $connectionStub
             ->method('getDatabasePlatform')
             ->willReturn($platform);
 

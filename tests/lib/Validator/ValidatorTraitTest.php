@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Validator;
 
 use Exception;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Tests\Validator\Stubs\ValueValidator;
 use Netgen\Layouts\Validator\ValidatorTrait;
@@ -23,7 +24,9 @@ final class ValidatorTraitTest extends TestCase
     protected function setUp(): void
     {
         $baseValidator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $this->validator = new ValueValidator();
@@ -47,12 +50,12 @@ final class ValidatorTraitTest extends TestCase
     {
         $this->expectException(ValidationException::class);
 
-        $validatorMock = $this->createMock(ValidatorInterface::class);
-        $validatorMock
+        $validatorStub = self::createStub(ValidatorInterface::class);
+        $validatorStub
             ->method('validate')
             ->willThrowException(new Exception());
 
-        $this->validator->setValidator($validatorMock);
+        $this->validator->setValidator($validatorStub);
         $this->validator->validateIdentifier('identifier');
     }
 

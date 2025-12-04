@@ -19,13 +19,13 @@ final class PagerFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
+        $resultBuilderStub = self::createStub(ResultBuilderInterface::class);
 
-        $resultBuilderMock
+        $resultBuilderStub
             ->method('build')
             ->willReturn(ResultSet::fromArray(['totalCount' => 1000]));
 
-        $this->pagerFactory = new PagerFactory($resultBuilderMock, 200);
+        $this->pagerFactory = new PagerFactory($resultBuilderStub, 200);
     }
 
     #[DataProvider('getPagerDataProvider')]

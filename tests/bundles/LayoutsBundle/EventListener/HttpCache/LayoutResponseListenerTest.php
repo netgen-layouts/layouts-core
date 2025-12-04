@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\View\View\LayoutView;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,15 +21,15 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 #[CoversClass(LayoutResponseListener::class)]
 final class LayoutResponseListenerTest extends TestCase
 {
-    private MockObject&TaggerInterface $taggerMock;
+    private Stub&TaggerInterface $taggerStub;
 
     private LayoutResponseListener $listener;
 
     protected function setUp(): void
     {
-        $this->taggerMock = $this->createMock(TaggerInterface::class);
+        $this->taggerStub = self::createStub(TaggerInterface::class);
 
-        $this->listener = new LayoutResponseListener($this->taggerMock);
+        $this->listener = new LayoutResponseListener($this->taggerStub);
     }
 
     public function testGetSubscribedEvents(): void
@@ -45,7 +45,7 @@ final class LayoutResponseListenerTest extends TestCase
 
     public function testOnKernelResponse(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $layout = new Layout();
@@ -53,14 +53,13 @@ final class LayoutResponseListenerTest extends TestCase
         $request->attributes->set('nglLayoutView', new LayoutView($layout));
 
         $event = new ResponseEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Response(),
         );
 
-        $this->taggerMock
-            ->expects($this->once())
+        $this->taggerStub
             ->method('tagLayout')
             ->with(self::identicalTo($layout));
 
@@ -69,7 +68,7 @@ final class LayoutResponseListenerTest extends TestCase
 
     public function testOnKernelResponseWithOverriddenLayout(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $layout = new Layout();
@@ -79,14 +78,13 @@ final class LayoutResponseListenerTest extends TestCase
         $request->attributes->set('nglOverrideLayoutView', new LayoutView($layout2));
 
         $event = new ResponseEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Response(),
         );
 
-        $this->taggerMock
-            ->expects($this->once())
+        $this->taggerStub
             ->method('tagLayout')
             ->with(self::identicalTo($layout2));
 
@@ -95,69 +93,60 @@ final class LayoutResponseListenerTest extends TestCase
 
     public function testOnKernelResponseWithSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $request->attributes->set('nglLayoutView', new LayoutView(new Layout()));
 
         $event = new ResponseEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
             new Response(),
         );
-
-        $this->taggerMock
-            ->expects($this->never())
-            ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
     }
 
     public function testOnKernelResponseWithoutSupportedValue(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $request->attributes->set('nglLayoutView', 42);
 
         $event = new ResponseEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Response(),
         );
-
-        $this->taggerMock
-            ->expects($this->never())
-            ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
     }
 
     public function testOnKernelResponseWithException(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $layout = new Layout();
         $request->attributes->set('nglExceptionLayoutView', new LayoutView($layout));
 
         $event = new ResponseEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Response(),
         );
 
-        $this->taggerMock
-            ->expects($this->once())
+        $this->taggerStub
             ->method('tagLayout')
             ->with(self::identicalTo($layout));
 
         $this->listener->onKernelException(
             new ExceptionEvent(
-                $kernelMock,
+                $kernelStub,
                 $request,
                 HttpKernelInterface::MAIN_REQUEST,
                 new Exception(),
@@ -169,25 +158,21 @@ final class LayoutResponseListenerTest extends TestCase
 
     public function testOnKernelResponseWithExceptionAndSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $request->attributes->set('nglExceptionLayoutView', new LayoutView(new Layout()));
 
         $event = new ResponseEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
             new Response(),
         );
 
-        $this->taggerMock
-            ->expects($this->never())
-            ->method('tagLayout');
-
         $this->listener->onKernelException(
             new ExceptionEvent(
-                $kernelMock,
+                $kernelStub,
                 $request,
                 HttpKernelInterface::SUB_REQUEST,
                 new Exception(),
@@ -199,25 +184,21 @@ final class LayoutResponseListenerTest extends TestCase
 
     public function testOnKernelResponseWithExceptionAndWithoutSupportedValue(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $request->attributes->set('nglExceptionLayoutView', 42);
 
         $event = new ResponseEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Response(),
         );
 
-        $this->taggerMock
-            ->expects($this->never())
-            ->method('tagLayout');
-
         $this->listener->onKernelException(
             new ExceptionEvent(
-                $kernelMock,
+                $kernelStub,
                 $request,
                 HttpKernelInterface::MAIN_REQUEST,
                 new Exception(),

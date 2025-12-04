@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\LayoutValueResolver;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(LayoutValueResolver::class)]
 final class LayoutValueResolverTest extends TestCase
 {
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
     private LayoutValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
 
-        $this->valueResolver = new LayoutValueResolver($this->layoutServiceMock);
+        $this->valueResolver = new LayoutValueResolver($this->layoutServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class LayoutValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -70,8 +69,7 @@ final class LayoutValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayoutArchive')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
@@ -93,8 +91,7 @@ final class LayoutValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayoutDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);

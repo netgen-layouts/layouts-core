@@ -24,9 +24,9 @@ final class CollectionRunnerFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
+        $cmsItemBuilderStub = self::createStub(CmsItemBuilderInterface::class);
 
-        $this->factory = new CollectionRunnerFactory($cmsItemBuilderMock, new VisibilityResolver([]));
+        $this->factory = new CollectionRunnerFactory($cmsItemBuilderStub, new VisibilityResolver([]));
     }
 
     public function testGetCollectionRunnerWithManualCollection(): void

@@ -10,7 +10,7 @@ use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Netgen\Layouts\Validator\LayoutNameValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 #[CoversClass(LayoutNameValidator::class)]
 final class LayoutNameValidatorTest extends ValidatorTestCase
 {
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
     protected function setUp(): void
     {
@@ -31,8 +31,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     public function testValidate(?string $value, bool $isValid): void
     {
         if ($value !== null && $value !== '') {
-            $this->layoutServiceMock
-                ->expects($this->once())
+            $this->layoutServiceStub
                 ->method('layoutNameExists')
                 ->with(self::identicalTo($value))
                 ->willReturn(!$isValid);
@@ -70,8 +69,8 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
 
     protected function getValidator(): ConstraintValidatorInterface
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
 
-        return new LayoutNameValidator($this->layoutServiceMock);
+        return new LayoutNameValidator($this->layoutServiceStub);
     }
 }

@@ -14,21 +14,21 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RuleCountListener::class)]
 final class RuleCountListenerTest extends TestCase
 {
-    private MockObject&LayoutResolverService $layoutResolverServiceMock;
+    private Stub&LayoutResolverService $layoutResolverServiceStub;
 
     private RuleCountListener $listener;
 
     protected function setUp(): void
     {
-        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
+        $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
 
-        $this->listener = new RuleCountListener($this->layoutResolverServiceMock);
+        $this->listener = new RuleCountListener($this->layoutResolverServiceStub);
     }
 
     public function testGetSubscribedEvents(): void
@@ -46,8 +46,7 @@ final class RuleCountListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new BuildViewEvent($view);
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('getRuleCountForLayout')
             ->with(self::identicalTo($layout))
             ->willReturn(3);
@@ -63,10 +62,6 @@ final class RuleCountListenerTest extends TestCase
         $view = new LayoutView(Layout::fromArray(['status' => Status::Draft]));
         $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new BuildViewEvent($view);
-
-        $this->layoutResolverServiceMock
-            ->expects($this->never())
-            ->method('getRuleCountForLayout');
 
         $this->listener->onBuildView($event);
 

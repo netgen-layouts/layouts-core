@@ -8,7 +8,7 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
 use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleErrorEvent;
@@ -24,15 +24,15 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 #[CoversClass(InvalidationListener::class)]
 final class InvalidationListenerTest extends TestCase
 {
-    private MockObject&InvalidatorInterface $invalidatorMock;
+    private Stub&InvalidatorInterface $invalidatorStub;
 
     private InvalidationListener $listener;
 
     protected function setUp(): void
     {
-        $this->invalidatorMock = $this->createMock(InvalidatorInterface::class);
+        $this->invalidatorStub = self::createStub(InvalidatorInterface::class);
 
-        $this->listener = new InvalidationListener($this->invalidatorMock);
+        $this->listener = new InvalidationListener($this->invalidatorStub);
     }
 
     public function testGetSubscribedEvents(): void
@@ -50,17 +50,16 @@ final class InvalidationListenerTest extends TestCase
 
     public function testOnKernelTerminate(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new TerminateEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             new Response(),
         );
 
-        $this->invalidatorMock
-            ->expects($this->once())
+        $this->invalidatorStub
             ->method('commit');
 
         $this->listener->onKernelTerminate($event);
@@ -68,18 +67,17 @@ final class InvalidationListenerTest extends TestCase
 
     public function testOnKernelException(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
         );
 
-        $this->invalidatorMock
-            ->expects($this->once())
+        $this->invalidatorStub
             ->method('commit');
 
         $this->listener->onKernelException($event);
@@ -87,19 +85,18 @@ final class InvalidationListenerTest extends TestCase
 
     public function testOnConsoleTerminate(): void
     {
-        $commandMock = $this->createMock(Command::class);
-        $inputMock = $this->createMock(InputInterface::class);
-        $outputMock = $this->createMock(OutputInterface::class);
+        $commandStub = self::createStub(Command::class);
+        $inputStub = self::createStub(InputInterface::class);
+        $outputStub = self::createStub(OutputInterface::class);
 
         $event = new ConsoleTerminateEvent(
-            $commandMock,
-            $inputMock,
-            $outputMock,
+            $commandStub,
+            $inputStub,
+            $outputStub,
             Command::SUCCESS,
         );
 
-        $this->invalidatorMock
-            ->expects($this->once())
+        $this->invalidatorStub
             ->method('commit');
 
         $this->listener->onConsoleTerminate($event);
@@ -107,17 +104,16 @@ final class InvalidationListenerTest extends TestCase
 
     public function testOnConsoleError(): void
     {
-        $inputMock = $this->createMock(InputInterface::class);
-        $outputMock = $this->createMock(OutputInterface::class);
+        $inputStub = self::createStub(InputInterface::class);
+        $outputStub = self::createStub(OutputInterface::class);
 
         $event = new ConsoleErrorEvent(
-            $inputMock,
-            $outputMock,
+            $inputStub,
+            $outputStub,
             new Exception(),
         );
 
-        $this->invalidatorMock
-            ->expects($this->once())
+        $this->invalidatorStub
             ->method('commit');
 
         $this->listener->onConsoleError($event);

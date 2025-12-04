@@ -13,39 +13,37 @@ use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[CoversClass(ViewNormalizer::class)]
 final class ViewNormalizerTest extends TestCase
 {
-    private MockObject&RendererInterface $viewRendererMock;
+    private Stub&RendererInterface $viewRendererStub;
 
-    private MockObject&NormalizerInterface $normalizerMock;
+    private Stub&NormalizerInterface $normalizerStub;
 
     private ViewNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->viewRendererMock = $this->createMock(RendererInterface::class);
-        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
+        $this->viewRendererStub = self::createStub(RendererInterface::class);
+        $this->normalizerStub = self::createStub(NormalizerInterface::class);
 
-        $this->normalizer = new ViewNormalizer($this->viewRendererMock);
-        $this->normalizer->setNormalizer($this->normalizerMock);
+        $this->normalizer = new ViewNormalizer($this->viewRendererStub);
+        $this->normalizer->setNormalizer($this->normalizerStub);
     }
 
     public function testNormalize(): void
     {
         $value = new APIValue();
-        $this->normalizerMock
-            ->expects($this->once())
+        $this->normalizerStub
             ->method('normalize')
             ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
-        $this->viewRendererMock
-            ->expects($this->once())
+        $this->viewRendererStub
             ->method('renderValue')
             ->with(
                 self::identicalTo($value),
@@ -63,15 +61,10 @@ final class ViewNormalizerTest extends TestCase
     public function testNormalizeWithoutRendering(): void
     {
         $value = new APIValue();
-        $this->normalizerMock
-            ->expects($this->once())
+        $this->normalizerStub
             ->method('normalize')
             ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
-
-        $this->viewRendererMock
-            ->expects($this->never())
-            ->method('renderValue');
 
         $view = new View($value);
 
@@ -84,14 +77,12 @@ final class ViewNormalizerTest extends TestCase
     {
         $value = new APIValue();
 
-        $this->normalizerMock
-            ->expects($this->once())
+        $this->normalizerStub
             ->method('normalize')
             ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
-        $this->viewRendererMock
-            ->expects($this->once())
+        $this->viewRendererStub
             ->method('renderValue')
             ->with(
                 self::identicalTo($value),

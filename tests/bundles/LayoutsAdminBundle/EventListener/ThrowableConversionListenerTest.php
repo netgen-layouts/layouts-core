@@ -51,12 +51,12 @@ final class ThrowableConversionListenerTest extends TestCase
     #[DataProvider('onExceptionDataProvider')]
     public function testOnException(Throwable $throwable, string $convertedClass, int $statusCode, bool $converted): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,
@@ -78,13 +78,13 @@ final class ThrowableConversionListenerTest extends TestCase
 
     public function testOnExceptionNotConvertsOtherExceptions(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $throwable = new RuntimeException('Some error');
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,
@@ -99,13 +99,13 @@ final class ThrowableConversionListenerTest extends TestCase
 
     public function testOnExceptionInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $throwable = new NotFoundException('param', 'Some error');
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
             $throwable,
@@ -120,12 +120,12 @@ final class ThrowableConversionListenerTest extends TestCase
 
     public function testOnExceptionWithNonAPIRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $throwable = new NotFoundException('param', 'Some error');
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,

@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\EventListener\ContextListener;
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\UriSigner;
@@ -20,9 +20,9 @@ final class ContextListenerTest extends TestCase
 {
     private Context $context;
 
-    private MockObject&ContextBuilderInterface $contextBuilderMock;
+    private Stub&ContextBuilderInterface $contextBuilderStub;
 
-    private MockObject&UriSigner $uriSignerMock;
+    private Stub&UriSigner $uriSignerStub;
 
     private ContextListener $listener;
 
@@ -30,13 +30,13 @@ final class ContextListenerTest extends TestCase
     {
         $this->context = new Context();
 
-        $this->contextBuilderMock = $this->createMock(ContextBuilderInterface::class);
-        $this->uriSignerMock = $this->createMock(UriSigner::class);
+        $this->contextBuilderStub = self::createStub(ContextBuilderInterface::class);
+        $this->uriSignerStub = self::createStub(UriSigner::class);
 
         $this->listener = new ContextListener(
             $this->context,
-            $this->contextBuilderMock,
-            $this->uriSignerMock,
+            $this->contextBuilderStub,
+            $this->uriSignerStub,
         );
     }
 
@@ -50,38 +50,25 @@ final class ContextListenerTest extends TestCase
 
     public function testOnKernelRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $this->contextBuilderMock
-            ->expects($this->once())
+        $this->contextBuilderStub
             ->method('buildContext')
             ->with(self::identicalTo($this->context));
 
-        $this->uriSignerMock
-            ->expects($this->never())
-            ->method('check');
-
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
     public function testOnKernelRequestWithContextFromAttributes(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $request->attributes->set('nglContext', ['var' => 'value']);
 
-        $this->contextBuilderMock
-            ->expects($this->never())
-            ->method('buildContext');
-
-        $this->uriSignerMock
-            ->expects($this->never())
-            ->method('check');
-
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::MAIN_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame(['var' => 'value'], $this->context->all());
@@ -89,16 +76,12 @@ final class ContextListenerTest extends TestCase
 
     public function testOnKernelRequestInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $request->query->set('nglContext', ['var' => 'value']);
 
-        $this->contextBuilderMock
-            ->expects($this->never())
-            ->method('buildContext');
-
-        $event = new RequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame([], $this->context->all());

@@ -65,7 +65,7 @@ final class CacheEnabledListenerTest extends TestCase
 
     public function testOnBuildViewWithNoNullClient(): void
     {
-        $this->listener = new CacheEnabledListener($this->createMock(ClientInterface::class));
+        $this->listener = new CacheEnabledListener(self::createStub(ClientInterface::class));
 
         $view = new LayoutView(new Layout());
         $view->context = ViewInterface::CONTEXT_ADMIN;

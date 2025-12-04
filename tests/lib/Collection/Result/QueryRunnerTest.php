@@ -12,19 +12,19 @@ use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(QueryRunner::class)]
 final class QueryRunnerTest extends TestCase
 {
-    private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
+    private Stub&CmsItemBuilderInterface $cmsItemBuilderStub;
 
     protected function setUp(): void
     {
-        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
+        $this->cmsItemBuilderStub = self::createStub(CmsItemBuilderInterface::class);
 
-        $this->cmsItemBuilderMock
+        $this->cmsItemBuilderStub
             ->method('build')
             ->willReturnCallback(
                 static fn (Value $value): CmsItemInterface => CmsItem::fromArray(['value' => $value->value, 'isVisible' => true]),
@@ -36,7 +36,7 @@ final class QueryRunnerTest extends TestCase
         $queryType = new QueryType('query', [new Value(40), new Value(41), new Value(42)]);
         $query = Query::fromArray(['queryType' => $queryType]);
 
-        $queryRunner = new QueryRunner($this->cmsItemBuilderMock);
+        $queryRunner = new QueryRunner($this->cmsItemBuilderStub);
 
         /** @var \Netgen\Layouts\Item\CmsItemInterface[] $items */
         $items = [...$queryRunner->runQuery($query)];

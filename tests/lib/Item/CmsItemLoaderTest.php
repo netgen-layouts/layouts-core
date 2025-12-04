@@ -13,20 +13,20 @@ use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueLoader;
 use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 #[CoversClass(CmsItemLoader::class)]
 final class CmsItemLoaderTest extends TestCase
 {
-    private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
+    private Stub&CmsItemBuilderInterface $cmsItemBuilderStub;
 
     private CmsItemLoader $cmsItemLoader;
 
     protected function setUp(): void
     {
-        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
+        $this->cmsItemBuilderStub = self::createStub(CmsItemBuilderInterface::class);
     }
 
     public function testLoad(): void
@@ -43,11 +43,11 @@ final class CmsItemLoaderTest extends TestCase
         );
 
         $this->cmsItemLoader = new CmsItemLoader(
-            $this->cmsItemBuilderMock,
+            $this->cmsItemBuilderStub,
             new Container(['value' => new ValueLoader(true)]),
         );
 
-        $this->cmsItemBuilderMock
+        $this->cmsItemBuilderStub
             ->method('build')
             ->willReturn($item);
 
@@ -57,7 +57,7 @@ final class CmsItemLoaderTest extends TestCase
     public function testLoadItemWithNoItem(): void
     {
         $this->cmsItemLoader = new CmsItemLoader(
-            $this->cmsItemBuilderMock,
+            $this->cmsItemBuilderStub,
             new Container(['value' => new ValueLoader(false)]),
         );
 
@@ -72,7 +72,7 @@ final class CmsItemLoaderTest extends TestCase
         $this->expectException(ItemException::class);
         $this->expectExceptionMessage('Value loader for "value" value type does not exist.');
 
-        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container());
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderStub, new Container());
 
         $this->cmsItemLoader->load(42, 'value');
     }
@@ -91,11 +91,11 @@ final class CmsItemLoaderTest extends TestCase
         );
 
         $this->cmsItemLoader = new CmsItemLoader(
-            $this->cmsItemBuilderMock,
+            $this->cmsItemBuilderStub,
             new Container(['value' => new ValueLoader(true)]),
         );
 
-        $this->cmsItemBuilderMock
+        $this->cmsItemBuilderStub
             ->method('build')
             ->willReturn($item);
 
@@ -105,7 +105,7 @@ final class CmsItemLoaderTest extends TestCase
     public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem(): void
     {
         $this->cmsItemLoader = new CmsItemLoader(
-            $this->cmsItemBuilderMock,
+            $this->cmsItemBuilderStub,
             new Container(['value' => new ValueLoader(false)]),
         );
 
@@ -120,7 +120,7 @@ final class CmsItemLoaderTest extends TestCase
         $this->expectException(ItemException::class);
         $this->expectExceptionMessage('Value loader for "value" value type does not exist.');
 
-        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container());
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderStub, new Container());
 
         $this->cmsItemLoader->loadByRemoteId(42, 'value');
     }
@@ -130,7 +130,7 @@ final class CmsItemLoaderTest extends TestCase
         $this->expectException(ItemException::class);
         $this->expectExceptionMessage('Value loader for "value" value type does not exist.');
 
-        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container(['value' => new stdClass()]));
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderStub, new Container(['value' => new stdClass()]));
 
         $this->cmsItemLoader->loadByRemoteId(42, 'value');
     }

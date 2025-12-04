@@ -18,6 +18,7 @@ use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Core\Validator\CollectionValidator;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
@@ -34,7 +35,9 @@ final class CollectionValidatorTest extends TestCase
     protected function setUp(): void
     {
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $this->collectionValidator = new CollectionValidator();

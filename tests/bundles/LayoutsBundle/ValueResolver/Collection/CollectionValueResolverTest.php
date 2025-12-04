@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(CollectionValueResolver::class)]
 final class CollectionValueResolverTest extends TestCase
 {
-    private MockObject&CollectionService $collectionServiceMock;
+    private Stub&CollectionService $collectionServiceStub;
 
     private CollectionValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->collectionServiceMock = $this->createMock(CollectionService::class);
+        $this->collectionServiceStub = self::createStub(CollectionService::class);
 
-        $this->valueResolver = new CollectionValueResolver($this->collectionServiceMock);
+        $this->valueResolver = new CollectionValueResolver($this->collectionServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class CollectionValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->collectionServiceMock
-            ->expects($this->once())
+        $this->collectionServiceStub
             ->method('loadCollection')
             ->with(self::equalTo($uuid))
             ->willReturn($collection);
@@ -70,8 +69,7 @@ final class CollectionValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->collectionServiceMock
-            ->expects($this->once())
+        $this->collectionServiceStub
             ->method('loadCollectionDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($collection);

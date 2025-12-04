@@ -11,7 +11,7 @@ use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRendererInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,15 +21,15 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 #[CoversClass(ViewRendererListener::class)]
 final class ViewRendererListenerTest extends TestCase
 {
-    private MockObject&ViewRendererInterface $viewRendererMock;
+    private Stub&ViewRendererInterface $viewRendererStub;
 
     private ViewRendererListener $listener;
 
     protected function setUp(): void
     {
-        $this->viewRendererMock = $this->createMock(ViewRendererInterface::class);
+        $this->viewRendererStub = self::createStub(ViewRendererInterface::class);
         $this->listener = new ViewRendererListener(
-            $this->viewRendererMock,
+            $this->viewRendererStub,
             new ErrorHandler(),
         );
     }
@@ -51,17 +51,16 @@ final class ViewRendererListenerTest extends TestCase
 
         $view->response = $response;
 
-        $this->viewRendererMock
-            ->expects($this->once())
+        $this->viewRendererStub
             ->method('renderView')
             ->with(self::identicalTo($view))
             ->willReturn('rendered content');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $view,
@@ -86,17 +85,16 @@ final class ViewRendererListenerTest extends TestCase
 
         $view->response = $response;
 
-        $this->viewRendererMock
-            ->expects($this->once())
+        $this->viewRendererStub
             ->method('renderView')
             ->with(self::identicalTo($view))
             ->willThrowException(new Exception());
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $view,
@@ -116,15 +114,11 @@ final class ViewRendererListenerTest extends TestCase
     {
         $view = new View(new Value());
 
-        $this->viewRendererMock
-            ->expects($this->never())
-            ->method('renderView');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $view,
@@ -137,11 +131,11 @@ final class ViewRendererListenerTest extends TestCase
 
     public function testOnViewWithoutSupportedValue(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             42,

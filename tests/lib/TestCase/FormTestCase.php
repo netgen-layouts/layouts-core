@@ -24,15 +24,15 @@ abstract class FormTestCase extends TestCase
 
         $this->formType = $this->getMainType();
 
-        $validatorMock = $this->createMock(ValidatorInterface::class);
-        $validatorMock
+        $validatorStub = self::createStub(ValidatorInterface::class);
+        $validatorStub
             ->method('validate')
             ->willReturn(new ConstraintViolationList());
 
         $factoryBuilder = Forms::createFormFactoryBuilder()
             ->addType($this->formType)
             ->addTypes($this->getTypes())
-            ->addTypeExtension(new FormTypeValidatorExtension($validatorMock));
+            ->addTypeExtension(new FormTypeValidatorExtension($validatorStub));
 
         foreach ($this->getTypeExtensions() as $typeExtension) {
             $factoryBuilder->addTypeExtension($typeExtension);

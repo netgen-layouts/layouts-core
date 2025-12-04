@@ -15,7 +15,7 @@ use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -24,18 +24,18 @@ final class HelpersRuntimeTest extends TestCase
 {
     private HelpersRuntime $runtime;
 
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
-    private MockObject&LayoutResolverService $layoutResolverServiceMock;
+    private Stub&LayoutResolverService $layoutResolverServiceStub;
 
     protected function setUp(): void
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
-        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
+        $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
 
         $this->runtime = new HelpersRuntime(
-            $this->layoutServiceMock,
-            $this->layoutResolverServiceMock,
+            $this->layoutServiceStub,
+            $this->layoutResolverServiceStub,
             new ValueTypeRegistry(
                 [
                     'value' => ValueType::fromArray(['identifier' => 'value', 'name' => 'Value']),
@@ -48,8 +48,7 @@ final class HelpersRuntimeTest extends TestCase
     {
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn(Layout::fromArray(['name' => 'Test layout']));
@@ -61,8 +60,7 @@ final class HelpersRuntimeTest extends TestCase
     {
         $uuid = Uuid::uuid4();
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
@@ -78,14 +76,12 @@ final class HelpersRuntimeTest extends TestCase
         $rule = Rule::fromArray(['id' => $ruleUuid, 'ruleGroupId' => $groupUuid]);
         $ruleGroup = RuleGroup::fromArray(['id' => $groupUuid]);
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRule')
             ->with(self::equalTo($ruleUuid))
             ->willReturn($rule);
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
             ->with(self::equalTo($groupUuid))
             ->willReturn($ruleGroup);
@@ -97,8 +93,7 @@ final class HelpersRuntimeTest extends TestCase
     {
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
             ->with(self::equalTo($uuid))
             ->willReturn(RuleGroup::fromArray(['name' => 'Test rule group']));
@@ -110,8 +105,7 @@ final class HelpersRuntimeTest extends TestCase
     {
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
             ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('rule group', $uuid->toString()));

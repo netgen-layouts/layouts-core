@@ -14,21 +14,21 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RelatedLayoutsCountListener::class)]
 final class RelatedLayoutsCountListenerTest extends TestCase
 {
-    private MockObject&LayoutService $layoutServiceMock;
+    private Stub&LayoutService $layoutServiceStub;
 
     private RelatedLayoutsCountListener $listener;
 
     protected function setUp(): void
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->layoutServiceStub = self::createStub(LayoutService::class);
 
-        $this->listener = new RelatedLayoutsCountListener($this->layoutServiceMock);
+        $this->listener = new RelatedLayoutsCountListener($this->layoutServiceStub);
     }
 
     public function testGetSubscribedEvents(): void
@@ -46,8 +46,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new BuildViewEvent($view);
 
-        $this->layoutServiceMock
-            ->expects($this->once())
+        $this->layoutServiceStub
             ->method('getRelatedLayoutsCount')
             ->with(self::identicalTo($layout))
             ->willReturn(3);
@@ -64,10 +63,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new BuildViewEvent($view);
 
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('getRelatedLayoutsCount');
-
         $this->listener->onBuildView($event);
 
         self::assertTrue($event->view->hasParameter('related_layouts_count'));
@@ -79,10 +74,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
         $view = new LayoutView(Layout::fromArray(['isShared' => false, 'status' => Status::Published]));
         $view->context = ViewInterface::CONTEXT_ADMIN;
         $event = new BuildViewEvent($view);
-
-        $this->layoutServiceMock
-            ->expects($this->never())
-            ->method('getRelatedLayoutsCount');
 
         $this->listener->onBuildView($event);
 

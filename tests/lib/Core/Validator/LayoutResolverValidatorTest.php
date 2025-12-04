@@ -15,6 +15,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Core\Validator\LayoutResolverValidator;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
@@ -35,7 +36,9 @@ final class LayoutResolverValidatorTest extends TestCase
     protected function setUp(): void
     {
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);

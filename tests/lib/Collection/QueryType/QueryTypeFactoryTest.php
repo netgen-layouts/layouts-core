@@ -25,7 +25,7 @@ final class QueryTypeFactoryTest extends TestCase
     {
         $queryType = $this->factory->buildQueryType(
             'type',
-            $this->createMock(QueryTypeHandlerInterface::class),
+            self::createStub(QueryTypeHandlerInterface::class),
             [
                 'enabled' => false,
                 'name' => 'Query type',
@@ -42,7 +42,7 @@ final class QueryTypeFactoryTest extends TestCase
     {
         $queryType = $this->factory->buildQueryType(
             'type',
-            $this->createMock(QueryTypeHandlerInterface::class),
+            self::createStub(QueryTypeHandlerInterface::class),
             [
                 'enabled' => true,
             ],

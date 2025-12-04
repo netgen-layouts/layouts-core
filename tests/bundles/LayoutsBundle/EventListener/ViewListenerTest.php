@@ -33,13 +33,13 @@ final class ViewListenerTest extends TestCase
 
     public function testOnView(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $blockView,
@@ -53,13 +53,13 @@ final class ViewListenerTest extends TestCase
 
     public function testOnViewWithSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $blockView = new BlockView(new Block());
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
             $blockView,
@@ -72,11 +72,11 @@ final class ViewListenerTest extends TestCase
 
     public function testOnViewWithoutSupportedValue(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             42,

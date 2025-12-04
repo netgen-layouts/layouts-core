@@ -48,35 +48,35 @@ final class LocaleProviderTest extends TestCase
     {
         $localeProvider = new LocaleProvider();
 
-        $requestMock = $this->createMock(Request::class);
-        $requestMock
+        $requestStub = self::createStub(Request::class);
+        $requestStub
             ->method('getLocale')
             ->willReturn('en');
 
-        self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
+        self::assertSame(['en'], $localeProvider->getRequestLocales($requestStub));
     }
 
     public function testGetRequestLocalesWithEnabledLocales(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
-        $requestMock = $this->createMock(Request::class);
-        $requestMock
+        $requestStub = self::createStub(Request::class);
+        $requestStub
             ->method('getLocale')
             ->willReturn('en');
 
-        self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
+        self::assertSame(['en'], $localeProvider->getRequestLocales($requestStub));
     }
 
     public function testGetRequestLocalesWithNonEnabledLocale(): void
     {
         $localeProvider = new LocaleProvider(['en', 'hr']);
 
-        $requestMock = $this->createMock(Request::class);
-        $requestMock
+        $requestStub = self::createStub(Request::class);
+        $requestStub
             ->method('getLocale')
             ->willReturn('de');
 
-        self::assertSame([], $localeProvider->getRequestLocales($requestMock));
+        self::assertSame([], $localeProvider->getRequestLocales($requestStub));
     }
 }

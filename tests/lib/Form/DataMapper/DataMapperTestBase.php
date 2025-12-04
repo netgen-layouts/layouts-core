@@ -14,7 +14,7 @@ abstract class DataMapperTestBase extends TestCase
 {
     final protected function getForm(string $formName, mixed $formData = null): FormInterface
     {
-        $config = new FormConfigBuilder($formName, null, $this->createMock(EventDispatcherInterface::class));
+        $config = new FormConfigBuilder($formName, null, self::createStub(EventDispatcherInterface::class));
 
         $form = new Form($config);
         $form->setData($formData);

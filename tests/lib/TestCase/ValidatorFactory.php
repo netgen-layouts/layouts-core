@@ -8,8 +8,6 @@ use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Validator;
-use PHPUnit\Framework\MockObject\MockBuilder;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
@@ -20,7 +18,7 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
     private ConstraintValidatorFactory $baseValidatorFactory;
 
     public function __construct(
-        private TestCase $testCase,
+        private CmsItemLoaderInterface $cmsItemLoader,
     ) {
         $this->baseValidatorFactory = new ConstraintValidatorFactory();
     }
@@ -57,12 +55,7 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
         }
 
         if ($name === 'nglayouts_item_link') {
-            /** @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemLoaderInterface $cmsItemLoader */
-            $cmsItemLoader = new MockBuilder($this->testCase, CmsItemLoaderInterface::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-
-            return new Validator\Parameters\ItemLinkValidator($cmsItemLoader);
+            return new Validator\Parameters\ItemLinkValidator($this->cmsItemLoader);
         }
 
         if ($name === 'nglayouts_condition_type_time') {

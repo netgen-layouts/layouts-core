@@ -18,7 +18,7 @@ use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 use function array_map;
@@ -26,11 +26,11 @@ use function array_map;
 #[CoversClass(ManualCollectionRunner::class)]
 final class ManualCollectionRunnerTest extends TestCase
 {
-    private MockObject&CmsItemBuilderInterface $cmsItemBuilderMock;
+    private Stub&CmsItemBuilderInterface $cmsItemBuilderStub;
 
     protected function setUp(): void
     {
-        $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
+        $this->cmsItemBuilderStub = self::createStub(CmsItemBuilderInterface::class);
     }
 
     /**
@@ -54,7 +54,7 @@ final class ManualCollectionRunnerTest extends TestCase
         }
 
         $collection = Collection::fromArray(['items' => ItemList::fromArray($items), 'slots' => SlotList::fromArray([]), 'query' => null]);
-        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderStub, new VisibilityResolver([]));
         $collectionRunner = $factory->getCollectionRunner($collection);
 
         self::assertSame($totalCount, $collectionRunner->count($collection));

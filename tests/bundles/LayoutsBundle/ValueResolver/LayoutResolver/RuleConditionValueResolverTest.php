@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleConditionValueR
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(RuleConditionValueResolver::class)]
 final class RuleConditionValueResolverTest extends TestCase
 {
-    private MockObject&LayoutResolverService $layoutResolverServiceMock;
+    private Stub&LayoutResolverService $layoutResolverServiceStub;
 
     private RuleConditionValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
+        $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
 
-        $this->valueResolver = new RuleConditionValueResolver($this->layoutResolverServiceMock);
+        $this->valueResolver = new RuleConditionValueResolver($this->layoutResolverServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class RuleConditionValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleCondition')
             ->with(self::equalTo($uuid))
             ->willReturn($condition);
@@ -70,8 +69,7 @@ final class RuleConditionValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->layoutResolverServiceMock
-            ->expects($this->once())
+        $this->layoutResolverServiceStub
             ->method('loadRuleConditionDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($condition);

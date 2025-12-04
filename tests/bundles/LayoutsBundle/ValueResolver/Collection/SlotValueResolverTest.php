@@ -8,22 +8,22 @@ use Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\SlotValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(SlotValueResolver::class)]
 final class SlotValueResolverTest extends TestCase
 {
-    private MockObject&CollectionService $collectionServiceMock;
+    private Stub&CollectionService $collectionServiceStub;
 
     private SlotValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->collectionServiceMock = $this->createMock(CollectionService::class);
+        $this->collectionServiceStub = self::createStub(CollectionService::class);
 
-        $this->valueResolver = new SlotValueResolver($this->collectionServiceMock);
+        $this->valueResolver = new SlotValueResolver($this->collectionServiceStub);
     }
 
     public function testGetSourceAttributeName(): void
@@ -47,8 +47,7 @@ final class SlotValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->collectionServiceMock
-            ->expects($this->once())
+        $this->collectionServiceStub
             ->method('loadSlot')
             ->with(self::equalTo($uuid))
             ->willReturn($slot);
@@ -70,8 +69,7 @@ final class SlotValueResolverTest extends TestCase
 
         $uuid = Uuid::uuid4();
 
-        $this->collectionServiceMock
-            ->expects($this->once())
+        $this->collectionServiceStub
             ->method('loadSlotDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($slot);

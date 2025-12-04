@@ -64,14 +64,14 @@ use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Utils\HtmlPurifier;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class CoreTestCase extends TestCase
 {
-    final protected MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
+    final protected Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
 
     final protected LayoutTypeRegistry $layoutTypeRegistry;
 
@@ -115,7 +115,7 @@ abstract class CoreTestCase extends TestCase
         $this->collectionHandler = $this->createCollectionHandler();
         $this->layoutResolverHandler = $this->createLayoutResolverHandler();
 
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 
         $this->parameterTypeRegistry ??= $this->createParameterTypeRegistry();
         $this->layoutTypeRegistry ??= $this->createLayoutTypeRegistry();
@@ -144,13 +144,13 @@ abstract class CoreTestCase extends TestCase
 
     protected function createValidator(): ValidatorInterface
     {
-        $validatorMock = $this->createMock(ValidatorInterface::class);
+        $validatorStub = self::createStub(ValidatorInterface::class);
 
-        $validatorMock
+        $validatorStub
             ->method('validate')
             ->willReturn(new ConstraintViolationList());
 
-        return $validatorMock;
+        return $validatorStub;
     }
 
     /**
@@ -289,7 +289,7 @@ abstract class CoreTestCase extends TestCase
             $this->createConfigMapper(),
             $this->itemDefinitionRegistry,
             $this->queryTypeRegistry,
-            $this->cmsItemLoaderMock,
+            $this->cmsItemLoaderStub,
         );
     }
 
@@ -495,7 +495,7 @@ abstract class CoreTestCase extends TestCase
 
     protected function createParameterTypeRegistry(): ParameterTypeRegistry
     {
-        $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderMock);
+        $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderStub);
 
         return new ParameterTypeRegistry(
             [

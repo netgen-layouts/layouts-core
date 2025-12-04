@@ -9,26 +9,26 @@ use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RemoteIdConverter::class)]
 final class RemoteIdConverterTest extends TestCase
 {
-    private MockObject&CmsItemLoaderInterface $cmsItemLoaderMock;
+    private Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
 
     private RemoteIdConverter $remoteIdConverter;
 
     protected function setUp(): void
     {
-        $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
+        $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 
-        $this->remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderMock);
+        $this->remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderStub);
     }
 
     public function testCovertToRemoteId(): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -50,7 +50,7 @@ final class RemoteIdConverterTest extends TestCase
 
     public function testConvertToRemoteIdWithNullCmsItem(): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));
@@ -60,7 +60,7 @@ final class RemoteIdConverterTest extends TestCase
 
     public function testConvertFromRemoteId(): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -82,7 +82,7 @@ final class RemoteIdConverterTest extends TestCase
 
     public function testConvertFromRemoteIdWithNullCmsItem(): void
     {
-        $this->cmsItemLoaderMock
+        $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(new NullCmsItem('my_value_type'));

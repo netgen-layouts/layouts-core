@@ -31,9 +31,9 @@ final class TemplateResolverTest extends TestCase
 
     public function testResolveTemplate(): void
     {
-        $matcherMock = $this->createMock(MatcherInterface::class);
+        $matcherStub = self::createStub(MatcherInterface::class);
 
-        $matcherMock
+        $matcherStub
             ->method('match')
             ->willReturnMap(
                 [
@@ -73,7 +73,7 @@ final class TemplateResolverTest extends TestCase
             $viewConfiguration,
             new Container(
                 [
-                    'matcher' => $matcherMock,
+                    'matcher' => $matcherStub,
                 ],
             ),
         );
@@ -208,9 +208,8 @@ final class TemplateResolverTest extends TestCase
         $this->expectException(TemplateResolverException::class);
         $this->expectExceptionMessage('No template match could be found for "stub_view" view and context "context".');
 
-        $matcherMock = $this->createMock(MatcherInterface::class);
-        $matcherMock
-            ->expects($this->once())
+        $matcherStub = self::createStub(MatcherInterface::class);
+        $matcherStub
             ->method('match')
             ->with(self::identicalTo($this->view), self::identicalTo(['value']))
             ->willReturn(false);
@@ -232,7 +231,7 @@ final class TemplateResolverTest extends TestCase
             $viewConfiguration,
             new Container(
                 [
-                    'matcher' => $matcherMock,
+                    'matcher' => $matcherStub,
                 ],
             ),
         );

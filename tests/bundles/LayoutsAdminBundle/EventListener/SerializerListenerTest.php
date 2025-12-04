@@ -9,7 +9,7 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +20,15 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[CoversClass(SerializerListener::class)]
 final class SerializerListenerTest extends TestCase
 {
-    private MockObject&SerializerInterface $serializerMock;
+    private Stub&SerializerInterface $serializerStub;
 
     private SerializerListener $listener;
 
     protected function setUp(): void
     {
-        $this->serializerMock = $this->createMock(SerializerInterface::class);
+        $this->serializerStub = self::createStub(SerializerInterface::class);
 
-        $this->listener = new SerializerListener($this->serializerMock);
+        $this->listener = new SerializerListener($this->serializerStub);
     }
 
     public function testGetSubscribedEvents(): void
@@ -43,8 +43,7 @@ final class SerializerListenerTest extends TestCase
     {
         $value = new Value(new APIValue());
 
-        $this->serializerMock
-            ->expects($this->once())
+        $this->serializerStub
             ->method('serialize')
             ->with(
                 self::identicalTo($value),
@@ -53,12 +52,12 @@ final class SerializerListenerTest extends TestCase
             )
             ->willReturn('serialized content');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $value,
@@ -81,8 +80,7 @@ final class SerializerListenerTest extends TestCase
     {
         $value = new Value(new APIValue());
 
-        $this->serializerMock
-            ->expects($this->once())
+        $this->serializerStub
             ->method('serialize')
             ->with(
                 self::identicalTo($value),
@@ -91,13 +89,13 @@ final class SerializerListenerTest extends TestCase
             )
             ->willReturn('serialized content');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->query->set('html', 'false');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $value,
@@ -118,11 +116,11 @@ final class SerializerListenerTest extends TestCase
 
     public function testOnViewInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
             new Value(new APIValue()),
@@ -135,12 +133,12 @@ final class SerializerListenerTest extends TestCase
 
     public function testOnViewWithoutSupportedValue(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ViewEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             42,

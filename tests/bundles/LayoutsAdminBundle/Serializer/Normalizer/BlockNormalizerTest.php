@@ -24,7 +24,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
@@ -32,15 +32,15 @@ use Symfony\Component\Serializer\Serializer;
 #[CoversClass(BlockNormalizer::class)]
 final class BlockNormalizerTest extends TestCase
 {
-    private MockObject&BlockService $blockServiceMock;
+    private Stub&BlockService $blockServiceStub;
 
     private BlockNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->blockServiceMock = $this->createMock(BlockService::class);
+        $this->blockServiceStub = self::createStub(BlockService::class);
 
-        $this->normalizer = new BlockNormalizer($this->blockServiceMock);
+        $this->normalizer = new BlockNormalizer($this->blockServiceStub);
         $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));
     }
 
@@ -92,8 +92,7 @@ final class BlockNormalizerTest extends TestCase
             ],
         );
 
-        $this->blockServiceMock
-            ->expects($this->once())
+        $this->blockServiceStub
             ->method('hasPublishedState')
             ->with(self::identicalTo($block))
             ->willReturn(true);

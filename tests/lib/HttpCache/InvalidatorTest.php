@@ -8,27 +8,27 @@ use Netgen\Layouts\HttpCache\ClientInterface;
 use Netgen\Layouts\HttpCache\Invalidator;
 use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 #[CoversClass(Invalidator::class)]
 final class InvalidatorTest extends TestCase
 {
-    private MockObject&ClientInterface $clientMock;
+    private Stub&ClientInterface $clientStub;
 
-    private MockObject&IdProviderInterface $idProviderMock;
+    private Stub&IdProviderInterface $idProviderStub;
 
     private Invalidator $invalidator;
 
     protected function setUp(): void
     {
-        $this->clientMock = $this->createMock(ClientInterface::class);
-        $this->idProviderMock = $this->createMock(IdProviderInterface::class);
+        $this->clientStub = self::createStub(ClientInterface::class);
+        $this->idProviderStub = self::createStub(IdProviderInterface::class);
 
         $this->invalidator = new Invalidator(
-            $this->clientMock,
-            $this->idProviderMock,
+            $this->clientStub,
+            $this->idProviderStub,
         );
     }
 
@@ -39,7 +39,7 @@ final class InvalidatorTest extends TestCase
         $uuid3 = Uuid::uuid4();
         $uuid4 = Uuid::uuid4();
 
-        $this->idProviderMock
+        $this->idProviderStub
             ->method('provideIds')
             ->willReturnMap(
                 [
@@ -48,8 +48,7 @@ final class InvalidatorTest extends TestCase
                 ],
             );
 
-        $this->clientMock
-            ->expects($this->once())
+        $this->clientStub
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -67,14 +66,6 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayoutsWithEmptyLayoutIds(): void
     {
-        $this->idProviderMock
-            ->expects($this->never())
-            ->method('provideIds');
-
-        $this->clientMock
-            ->expects($this->never())
-            ->method('purge');
-
         $this->invalidator->invalidateLayouts([]);
     }
 
@@ -83,8 +74,7 @@ final class InvalidatorTest extends TestCase
         $uuid1 = Uuid::uuid4();
         $uuid2 = Uuid::uuid4();
 
-        $this->clientMock
-            ->expects($this->once())
+        $this->clientStub
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -100,10 +90,6 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateBlocksWithEmptyBlockIds(): void
     {
-        $this->clientMock
-            ->expects($this->never())
-            ->method('purge');
-
         $this->invalidator->invalidateBlocks([]);
     }
 
@@ -112,8 +98,7 @@ final class InvalidatorTest extends TestCase
         $uuid1 = Uuid::uuid4();
         $uuid2 = Uuid::uuid4();
 
-        $this->clientMock
-            ->expects($this->once())
+        $this->clientStub
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -129,17 +114,12 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
     {
-        $this->clientMock
-            ->expects($this->never())
-            ->method('purge');
-
         $this->invalidator->invalidateLayoutBlocks([]);
     }
 
     public function testCommit(): void
     {
-        $this->clientMock
-            ->expects($this->once())
+        $this->clientStub
             ->method('commit')
             ->willReturn(true);
 

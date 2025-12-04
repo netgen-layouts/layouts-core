@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Tests\Security\Authorization\Voter;
 
 use Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -18,27 +18,26 @@ final class PolicyToRoleMapVoterTest extends TestCase
 {
     private PolicyToRoleMapVoter $voter;
 
-    private MockObject&AccessDecisionManagerInterface $accessDecisionManagerMock;
+    private Stub&AccessDecisionManagerInterface $accessDecisionManagerStub;
 
     protected function setUp(): void
     {
-        $this->accessDecisionManagerMock = $this->createMock(AccessDecisionManagerInterface::class);
+        $this->accessDecisionManagerStub = self::createStub(AccessDecisionManagerInterface::class);
 
-        $this->voter = new PolicyToRoleMapVoter($this->accessDecisionManagerMock);
+        $this->voter = new PolicyToRoleMapVoter($this->accessDecisionManagerStub);
     }
 
     public function testVote(): void
     {
-        $tokenMock = $this->createMock(TokenInterface::class);
+        $tokenStub = self::createStub(TokenInterface::class);
 
-        $this->accessDecisionManagerMock
-            ->expects($this->once())
+        $this->accessDecisionManagerStub
             ->method('decide')
-            ->with(self::equalTo($tokenMock), self::equalTo(['ROLE_NGLAYOUTS_ADMIN']))
+            ->with(self::equalTo($tokenStub), self::equalTo(['ROLE_NGLAYOUTS_ADMIN']))
             ->willReturn(true);
 
         $vote = $this->voter->vote(
-            $tokenMock,
+            $tokenStub,
             null,
             ['nglayouts:layout:add'],
         );
@@ -48,20 +47,13 @@ final class PolicyToRoleMapVoterTest extends TestCase
 
     public function testVoteWithUnsupportedAttribute(): void
     {
-        $this->accessDecisionManagerMock
-            ->expects($this->never())
-            ->method('decide');
-
-        $this->voter->vote($this->createMock(TokenInterface::class), null, [new stdClass()]);
+        $vote = $this->voter->vote(self::createStub(TokenInterface::class), null, [new stdClass()]);
+        self::assertSame(VoterInterface::ACCESS_ABSTAIN, $vote);
     }
 
     public function testVoteWithNonExistingRole(): void
     {
-        $this->accessDecisionManagerMock
-            ->expects($this->never())
-            ->method('decide');
-
-        $vote = $this->voter->vote($this->createMock(TokenInterface::class), null, ['nglayouts:unknown:unknown']);
+        $vote = $this->voter->vote(self::createStub(TokenInterface::class), null, ['nglayouts:unknown:unknown']);
         self::assertSame(VoterInterface::ACCESS_DENIED, $vote);
     }
 }

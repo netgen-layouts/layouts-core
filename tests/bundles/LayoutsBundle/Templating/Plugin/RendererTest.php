@@ -54,14 +54,14 @@ final class RendererTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception message');
 
-        $twigMock = $this->createMock(Environment::class);
+        $twigStub = self::createStub(Environment::class);
 
-        $twigMock
+        $twigStub
             ->method('display')
             ->willThrowException(new Exception('Test exception message'));
 
         $renderer = new Renderer(
-            $twigMock,
+            $twigStub,
             [
                 'plugin' => [
                     new SimplePlugin('template.html.twig'),

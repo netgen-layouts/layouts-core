@@ -31,7 +31,7 @@ final class LinkDataMapperTest extends DataMapperTestBase
             [
                 'type' => new LinkType(
                     new ValueTypeRegistry([]),
-                    new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class)),
+                    new RemoteIdConverter(self::createStub(CmsItemLoaderInterface::class)),
                 ),
             ],
         );

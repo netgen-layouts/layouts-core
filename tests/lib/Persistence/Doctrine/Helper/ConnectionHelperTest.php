@@ -16,10 +16,10 @@ final class ConnectionHelperTest extends TestCase
     public function testNextId(): void
     {
         $platform = new MySQLPlatform();
-        $connectionMock = $this->createMock(Connection::class);
-        $helper = new ConnectionHelper($connectionMock);
+        $connectionStub = self::createStub(Connection::class);
+        $helper = new ConnectionHelper($connectionStub);
 
-        $connectionMock
+        $connectionStub
             ->method('getDatabasePlatform')
             ->willReturn($platform);
 
@@ -29,14 +29,14 @@ final class ConnectionHelperTest extends TestCase
     public function testLastId(): void
     {
         $platform = new MySQLPlatform();
-        $connectionMock = $this->createMock(Connection::class);
-        $helper = new ConnectionHelper($connectionMock);
+        $connectionStub = self::createStub(Connection::class);
+        $helper = new ConnectionHelper($connectionStub);
 
-        $connectionMock
+        $connectionStub
             ->method('getDatabasePlatform')
             ->willReturn($platform);
 
-        $connectionMock
+        $connectionStub
             ->method('lastInsertId')
             ->willReturn(42);
 

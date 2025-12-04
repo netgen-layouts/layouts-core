@@ -32,8 +32,8 @@ final class ItemLinkTypeTest extends TestCase
             ],
         );
 
-        $cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
-        $cmsItemLoaderMock
+        $cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
+        $cmsItemLoaderStub
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -45,7 +45,7 @@ final class ItemLinkTypeTest extends TestCase
                 ),
             );
 
-        $cmsItemLoaderMock
+        $cmsItemLoaderStub
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
             ->willReturn(
@@ -57,7 +57,7 @@ final class ItemLinkTypeTest extends TestCase
                 ),
             );
 
-        $this->type = new ItemLinkType($valueTypeRegistry, new RemoteIdConverter($cmsItemLoaderMock));
+        $this->type = new ItemLinkType($valueTypeRegistry, new RemoteIdConverter($cmsItemLoaderStub));
     }
 
     public function testGetIdentifier(): void
@@ -149,7 +149,9 @@ final class ItemLinkTypeTest extends TestCase
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));

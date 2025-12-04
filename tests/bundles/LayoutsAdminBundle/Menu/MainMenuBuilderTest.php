@@ -9,7 +9,7 @@ use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
 use Netgen\Bundle\LayoutsAdminBundle\Menu\MainMenuBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -18,34 +18,34 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 #[CoversClass(MainMenuBuilder::class)]
 final class MainMenuBuilderTest extends TestCase
 {
-    private MockObject&AuthorizationCheckerInterface $authorizationCheckerMock;
+    private Stub&AuthorizationCheckerInterface $authorizationCheckerStub;
 
     private MainMenuBuilder $builder;
 
     protected function setUp(): void
     {
-        $urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
-        $urlGeneratorMock
+        $urlGeneratorStub = self::createStub(UrlGeneratorInterface::class);
+        $urlGeneratorStub
             ->method('generate')
             ->willReturnCallback(
                 static fn (string $route): string => $route,
             );
 
         $menuFactory = new MenuFactory();
-        $menuFactory->addExtension(new RoutingExtension($urlGeneratorMock));
+        $menuFactory->addExtension(new RoutingExtension($urlGeneratorStub));
 
-        $this->authorizationCheckerMock = $this->createMock(AuthorizationCheckerInterface::class);
+        $this->authorizationCheckerStub = self::createStub(AuthorizationCheckerInterface::class);
 
         $this->builder = new MainMenuBuilder(
             $menuFactory,
-            $this->authorizationCheckerMock,
-            $this->createMock(EventDispatcherInterface::class),
+            $this->authorizationCheckerStub,
+            self::createStub(EventDispatcherInterface::class),
         );
     }
 
     public function testCreateMenu(): void
     {
-        $this->authorizationCheckerMock
+        $this->authorizationCheckerStub
             ->method('isGranted')
             ->with(self::identicalTo('nglayouts:ui:access'))
             ->willReturn(true);
@@ -81,7 +81,7 @@ final class MainMenuBuilderTest extends TestCase
 
     public function testCreateMenuWithNoAccess(): void
     {
-        $this->authorizationCheckerMock
+        $this->authorizationCheckerStub
             ->method('isGranted')
             ->with(self::identicalTo('nglayouts:ui:access'))
             ->willReturn(false);

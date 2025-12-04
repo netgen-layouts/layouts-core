@@ -11,7 +11,7 @@ use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Netgen\Layouts\View\TemplateResolverInterface;
 use Netgen\Layouts\View\ViewBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -19,19 +19,19 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 final class ViewBuilderTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\Provider\ViewProviderInterface<object>
+     * @var \PHPUnit\Framework\MockObject\Stub&\Netgen\Layouts\View\Provider\ViewProviderInterface<object>
      */
-    private MockObject&ViewProviderInterface $viewProviderMock;
+    private Stub&ViewProviderInterface $viewProviderStub;
 
-    private MockObject&TemplateResolverInterface $templateResolverMock;
+    private Stub&TemplateResolverInterface $templateResolverStub;
 
-    private MockObject&EventDispatcherInterface $eventDispatcherMock;
+    private Stub&EventDispatcherInterface $eventDispatcherStub;
 
     protected function setUp(): void
     {
-        $this->viewProviderMock = $this->createMock(ViewProviderInterface::class);
-        $this->templateResolverMock = $this->createMock(TemplateResolverInterface::class);
-        $this->eventDispatcherMock = $this->createMock(EventDispatcherInterface::class);
+        $this->viewProviderStub = self::createStub(ViewProviderInterface::class);
+        $this->templateResolverStub = self::createStub(TemplateResolverInterface::class);
+        $this->eventDispatcherStub = self::createStub(EventDispatcherInterface::class);
     }
 
     public function testBuildView(): void
@@ -39,27 +39,24 @@ final class ViewBuilderTest extends TestCase
         $value = new Value();
         $view = new View($value);
 
-        $this->viewProviderMock
-            ->expects($this->once())
+        $this->viewProviderStub
             ->method('supports')
             ->with(self::identicalTo($value))
             ->willReturn(true);
 
-        $this->viewProviderMock
-            ->expects($this->once())
+        $this->viewProviderStub
             ->method('provideView')
             ->with(self::identicalTo($value))
             ->willReturn($view);
 
-        $this->templateResolverMock
-            ->expects($this->once())
+        $this->templateResolverStub
             ->method('resolveTemplate')
             ->with(self::identicalTo($view));
 
         $viewBuilder = new ViewBuilder(
-            $this->templateResolverMock,
-            $this->eventDispatcherMock,
-            [$this->viewProviderMock],
+            $this->templateResolverStub,
+            $this->eventDispatcherStub,
+            [$this->viewProviderStub],
         );
 
         $viewParameters = ['some_param' => 'some_value'];
@@ -83,13 +80,9 @@ final class ViewBuilderTest extends TestCase
 
         $value = new Value();
 
-        $this->templateResolverMock
-            ->expects($this->never())
-            ->method('resolveTemplate');
-
         $viewBuilder = new ViewBuilder(
-            $this->templateResolverMock,
-            $this->eventDispatcherMock,
+            $this->templateResolverStub,
+            $this->eventDispatcherStub,
             [],
         );
 
@@ -103,20 +96,15 @@ final class ViewBuilderTest extends TestCase
 
         $value = new Value();
 
-        $this->viewProviderMock
-            ->expects($this->once())
+        $this->viewProviderStub
             ->method('supports')
             ->with(self::identicalTo($value))
             ->willReturn(false);
 
-        $this->viewProviderMock
-            ->expects($this->never())
-            ->method('provideView');
-
         $viewBuilder = new ViewBuilder(
-            $this->templateResolverMock,
-            $this->eventDispatcherMock,
-            [$this->viewProviderMock],
+            $this->templateResolverStub,
+            $this->eventDispatcherStub,
+            [$this->viewProviderStub],
         );
 
         $viewBuilder->buildView($value);

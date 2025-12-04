@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Parameters\ParameterType\DateTimeType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -107,7 +108,9 @@ final class DateTimeTypeTest extends TestCase
     {
         $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));

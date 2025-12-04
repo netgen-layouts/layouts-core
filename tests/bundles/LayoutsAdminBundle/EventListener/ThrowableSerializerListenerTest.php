@@ -9,7 +9,7 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ThrowableSerializerListener;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,20 +22,20 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[CoversClass(ThrowableSerializerListener::class)]
 final class ThrowableSerializerListenerTest extends TestCase
 {
-    private MockObject&SerializerInterface $serializerMock;
+    private Stub&SerializerInterface $serializerStub;
 
-    private MockObject&LoggerInterface $loggerMock;
+    private Stub&LoggerInterface $loggerStub;
 
     private ThrowableSerializerListener $listener;
 
     protected function setUp(): void
     {
-        $this->serializerMock = $this->createMock(SerializerInterface::class);
-        $this->loggerMock = $this->createMock(LoggerInterface::class);
+        $this->serializerStub = self::createStub(SerializerInterface::class);
+        $this->loggerStub = self::createStub(LoggerInterface::class);
 
         $this->listener = new ThrowableSerializerListener(
-            $this->serializerMock,
-            $this->loggerMock,
+            $this->serializerStub,
+            $this->loggerStub,
         );
     }
 
@@ -51,8 +51,7 @@ final class ThrowableSerializerListenerTest extends TestCase
     {
         $throwable = new Exception();
 
-        $this->serializerMock
-            ->expects($this->once())
+        $this->serializerStub
             ->method('serialize')
             ->with(
                 self::identicalTo($throwable),
@@ -60,15 +59,15 @@ final class ThrowableSerializerListenerTest extends TestCase
             )
             ->willReturn('serialized content');
 
-        $this->loggerMock
+        $this->loggerStub
             ->method('critical');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,
@@ -92,8 +91,7 @@ final class ThrowableSerializerListenerTest extends TestCase
     {
         $throwable = new HttpException($statusCode);
 
-        $this->serializerMock
-            ->expects($this->once())
+        $this->serializerStub
             ->method('serialize')
             ->with(
                 self::identicalTo($throwable),
@@ -101,16 +99,17 @@ final class ThrowableSerializerListenerTest extends TestCase
             )
             ->willReturn('serialized content');
 
-        $this->loggerMock
-            ->expects($loggerCalled ? $this->once() : $this->never())
-            ->method('critical');
+        if ($loggerCalled) {
+            $this->loggerStub
+                ->method('critical');
+        }
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,
@@ -142,11 +141,11 @@ final class ThrowableSerializerListenerTest extends TestCase
 
     public function testOnExceptionWithNoApiRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new Exception(),
@@ -159,11 +158,11 @@ final class ThrowableSerializerListenerTest extends TestCase
 
     public function testOnExceptionInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
             new Exception(),

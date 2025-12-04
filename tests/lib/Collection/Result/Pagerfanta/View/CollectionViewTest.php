@@ -9,22 +9,22 @@ use Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\PagerfantaInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
 #[CoversClass(CollectionView::class)]
 final class CollectionViewTest extends TestCase
 {
-    private MockObject&Environment $twigMock;
+    private Stub&Environment $twigStub;
 
     private CollectionView $collectionView;
 
     protected function setUp(): void
     {
-        $this->twigMock = $this->createMock(Environment::class);
+        $this->twigStub = self::createStub(Environment::class);
 
-        $this->collectionView = new CollectionView($this->twigMock, 'default_template.html.twig');
+        $this->collectionView = new CollectionView($this->twigStub, 'default_template.html.twig');
     }
 
     public function testGetName(): void
@@ -35,9 +35,9 @@ final class CollectionViewTest extends TestCase
     public function testRender(): void
     {
         $block = new Block();
-        $pagerMock = $this->createMock(PagerfantaInterface::class);
+        $pagerStub = self::createStub(PagerfantaInterface::class);
 
-        $this->twigMock->expects($this->once())
+        $this->twigStub
             ->method('render')
             ->with(
                 self::identicalTo('default_template.html.twig'),
@@ -45,14 +45,14 @@ final class CollectionViewTest extends TestCase
                     [
                         'block' => $block,
                         'collection_identifier' => 'default',
-                        'pager' => $pagerMock,
+                        'pager' => $pagerStub,
                     ],
                 ),
             )
             ->willReturn('rendered template');
 
         $renderedTemplate = $this->collectionView->render(
-            $pagerMock,
+            $pagerStub,
             $this->getRouteGenerator(),
             [
                 'block' => $block,
@@ -66,9 +66,9 @@ final class CollectionViewTest extends TestCase
     public function testRenderWithOverriddenTemplate(): void
     {
         $block = new Block();
-        $pagerMock = $this->createMock(PagerfantaInterface::class);
+        $pagerStub = self::createStub(PagerfantaInterface::class);
 
-        $this->twigMock->expects($this->once())
+        $this->twigStub
             ->method('render')
             ->with(
                 self::identicalTo('template.html.twig'),
@@ -76,14 +76,14 @@ final class CollectionViewTest extends TestCase
                     [
                         'block' => $block,
                         'collection_identifier' => 'default',
-                        'pager' => $pagerMock,
+                        'pager' => $pagerStub,
                     ],
                 ),
             )
             ->willReturn('rendered template');
 
         $renderedTemplate = $this->collectionView->render(
-            $pagerMock,
+            $pagerStub,
             $this->getRouteGenerator(),
             [
                 'block' => $block,
@@ -100,13 +100,10 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\Layouts\API\Values\Block\Block');
 
-        $pagerMock = $this->createMock(PagerfantaInterface::class);
-
-        $this->twigMock->expects($this->never())
-            ->method('render');
+        $pagerStub = self::createStub(PagerfantaInterface::class);
 
         $this->collectionView->render(
-            $pagerMock,
+            $pagerStub,
             $this->getRouteGenerator(),
             [
                 'collection_identifier' => 'default',
@@ -119,13 +116,10 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\Layouts\API\Values\Block\Block');
 
-        $pagerMock = $this->createMock(PagerfantaInterface::class);
-
-        $this->twigMock->expects($this->never())
-            ->method('render');
+        $pagerStub = self::createStub(PagerfantaInterface::class);
 
         $this->collectionView->render(
-            $pagerMock,
+            $pagerStub,
             $this->getRouteGenerator(),
             [
                 'block' => 'block',
@@ -139,13 +133,10 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "collection_identifier" option must be a string');
 
-        $pagerMock = $this->createMock(PagerfantaInterface::class);
-
-        $this->twigMock->expects($this->never())
-            ->method('render');
+        $pagerStub = self::createStub(PagerfantaInterface::class);
 
         $this->collectionView->render(
-            $pagerMock,
+            $pagerStub,
             $this->getRouteGenerator(),
             [
                 'block' => new Block(),
@@ -158,13 +149,10 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "collection_identifier" option must be a string');
 
-        $pagerMock = $this->createMock(PagerfantaInterface::class);
-
-        $this->twigMock->expects($this->never())
-            ->method('render');
+        $pagerStub = self::createStub(PagerfantaInterface::class);
 
         $this->collectionView->render(
-            $pagerMock,
+            $pagerStub,
             $this->getRouteGenerator(),
             [
                 'block' => new Block(),

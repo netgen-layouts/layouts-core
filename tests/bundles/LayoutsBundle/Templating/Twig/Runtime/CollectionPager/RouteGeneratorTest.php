@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Context\Context;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,9 +23,9 @@ final class RouteGeneratorTest extends TestCase
 {
     private Context $context;
 
-    private MockObject&UriSigner $uriSignerMock;
+    private Stub&UriSigner $uriSignerStub;
 
-    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
+    private Stub&UrlGeneratorInterface $urlGeneratorStub;
 
     private RouteGenerator $routeGenerator;
 
@@ -34,14 +34,14 @@ final class RouteGeneratorTest extends TestCase
     protected function setUp(): void
     {
         $this->context = new Context();
-        $this->uriSignerMock = $this->createMock(UriSigner::class);
-        $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
+        $this->uriSignerStub = self::createStub(UriSigner::class);
+        $this->urlGeneratorStub = self::createStub(UrlGeneratorInterface::class);
         $this->requestStack = new RequestStack();
 
         $this->routeGenerator = new RouteGenerator(
             $this->context,
-            $this->uriSignerMock,
-            $this->urlGeneratorMock,
+            $this->uriSignerStub,
+            $this->urlGeneratorStub,
             $this->requestStack,
         );
     }
@@ -65,7 +65,7 @@ final class RouteGeneratorTest extends TestCase
 
         $this->requestStack->push($request);
 
-        $this->urlGeneratorMock->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(
                 self::identicalTo('nglayouts_ajax_block'),
@@ -82,7 +82,7 @@ final class RouteGeneratorTest extends TestCase
             )
             ->willReturn($generatedUri);
 
-        $this->uriSignerMock->expects($this->once())
+        $this->uriSignerStub
             ->method('sign')
             ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');
@@ -105,7 +105,7 @@ final class RouteGeneratorTest extends TestCase
 
         $this->context->set('var', 'value');
 
-        $this->urlGeneratorMock->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(
                 self::identicalTo('nglayouts_ajax_block'),
@@ -120,7 +120,7 @@ final class RouteGeneratorTest extends TestCase
             )
             ->willReturn($generatedUri);
 
-        $this->uriSignerMock->expects($this->once())
+        $this->uriSignerStub
             ->method('sign')
             ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');

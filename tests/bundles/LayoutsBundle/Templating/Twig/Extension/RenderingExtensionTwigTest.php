@@ -16,7 +16,7 @@ use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,11 +40,11 @@ use const PREG_SET_ORDER;
 #[CoversClass(RenderingRuntime::class)]
 final class RenderingExtensionTwigTest extends IntegrationTestCase
 {
-    private MockObject&BlockService $blockServiceMock;
+    private Stub&BlockService $blockServiceStub;
 
-    private MockObject&RendererInterface $rendererMock;
+    private Stub&RendererInterface $rendererStub;
 
-    private MockObject&LocaleProviderInterface $localeProviderMock;
+    private Stub&LocaleProviderInterface $localeProviderStub;
 
     private RequestStack $requestStack;
 
@@ -54,16 +54,16 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
 
     protected function setUp(): void
     {
-        $this->blockServiceMock = $this->createMock(BlockService::class);
-        $this->rendererMock = $this->createMock(RendererInterface::class);
-        $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
+        $this->blockServiceStub = self::createStub(BlockService::class);
+        $this->rendererStub = self::createStub(RendererInterface::class);
+        $this->localeProviderStub = self::createStub(LocaleProviderInterface::class);
         $this->requestStack = new RequestStack();
 
         $this->extension = new RenderingExtension();
         $this->runtime = new RenderingRuntime(
-            $this->blockServiceMock,
-            $this->rendererMock,
-            $this->localeProviderMock,
+            $this->blockServiceStub,
+            $this->rendererStub,
+            $this->localeProviderStub,
             $this->requestStack,
             new ErrorHandler(),
             new Environment(new ArrayLoader()),
@@ -73,7 +73,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
     #[DataProvider('integrationDataProvider')]
     public function testIntegration(mixed $file, mixed $message, mixed $condition, mixed $templates, mixed $exception, mixed $outputs, mixed $deprecation = ''): void
     {
-        $this->configureMocks();
+        $this->configureStubs();
 
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
@@ -84,7 +84,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         $request = Request::create('');
         $this->requestStack->push($request);
 
-        $this->configureMocks();
+        $this->configureStubs();
 
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
@@ -126,20 +126,18 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         return __DIR__ . '/_fixtures/';
     }
 
-    private function configureMocks(): void
+    private function configureStubs(): void
     {
         $request = $this->requestStack->getCurrentRequest();
 
-        $request instanceof Request ?
-            $this->localeProviderMock
+        if ($request instanceof Request) {
+            $this->localeProviderStub
                 ->method('getRequestLocales')
                 ->with(self::identicalTo($request))
-                ->willReturn(['en']) :
-            $this->localeProviderMock
-                ->expects($this->never())
-                ->method('getRequestLocales');
+                ->willReturn(['en']);
+        }
 
-        $this->blockServiceMock
+        $this->blockServiceStub
             ->method('loadZoneBlocks')
             ->with(
                 self::isInstanceOf(Zone::class),
@@ -147,7 +145,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             )
             ->willReturn(BlockList::fromArray([]));
 
-        $this->rendererMock
+        $this->rendererStub
             ->method('renderValue')
             ->willReturnCallback(
                 static fn (ZoneReference $zoneReference, string $context): string => $context === 'json' ?

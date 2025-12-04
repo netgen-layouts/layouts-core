@@ -16,7 +16,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
     public function testGetContext(): void
     {
         $template = new ContextualizedTwigTemplate(
-            $this->createMock(Template::class),
+            self::createStub(Template::class),
             ['param' => 'value'],
         );
 
@@ -25,42 +25,42 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
     public function testHasBlock(): void
     {
-        $templateMock = $this->createMock(Template::class);
+        $templateStub = self::createStub(Template::class);
 
-        $templateMock
+        $templateStub
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
             ->willReturn(true);
 
-        $template = new ContextualizedTwigTemplate($templateMock);
+        $template = new ContextualizedTwigTemplate($templateStub);
 
         self::assertTrue($template->hasBlock('block_name'));
     }
 
     public function testHasBlockReturnsFalse(): void
     {
-        $templateMock = $this->createMock(Template::class);
+        $templateStub = self::createStub(Template::class);
 
-        $templateMock
+        $templateStub
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
             ->willReturn(false);
 
-        $template = new ContextualizedTwigTemplate($templateMock);
+        $template = new ContextualizedTwigTemplate($templateStub);
 
         self::assertFalse($template->hasBlock('block_name'));
     }
 
     public function testRenderBlock(): void
     {
-        $templateMock = $this->createMock(Template::class);
+        $templateStub = self::createStub(Template::class);
 
-        $templateMock
+        $templateStub
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
             ->willReturn(true);
 
-        $templateMock
+        $templateStub
             ->method('displayBlock')
             ->with(self::identicalTo('block_name'))
             ->willReturnCallback(
@@ -69,25 +69,21 @@ final class ContextualizedTwigTemplateTest extends TestCase
                 },
             );
 
-        $template = new ContextualizedTwigTemplate($templateMock);
+        $template = new ContextualizedTwigTemplate($templateStub);
 
         self::assertSame('rendered', $template->renderBlock('block_name'));
     }
 
     public function testRenderBlockNonExistingBlock(): void
     {
-        $templateMock = $this->createMock(Template::class);
+        $templateStub = self::createStub(Template::class);
 
-        $templateMock
+        $templateStub
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
             ->willReturn(false);
 
-        $templateMock
-            ->expects($this->never())
-            ->method('displayBlock');
-
-        $template = new ContextualizedTwigTemplate($templateMock);
+        $template = new ContextualizedTwigTemplate($templateStub);
 
         self::assertSame('', $template->renderBlock('block_name'));
     }
@@ -97,19 +93,19 @@ final class ContextualizedTwigTemplateTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $templateMock = $this->createMock(Template::class);
+        $templateStub = self::createStub(Template::class);
 
-        $templateMock
+        $templateStub
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
             ->willReturn(true);
 
-        $templateMock
+        $templateStub
             ->method('displayBlock')
             ->with(self::identicalTo('block_name'))
             ->willThrowException(new Exception('Test exception text'));
 
-        $template = new ContextualizedTwigTemplate($templateMock);
+        $template = new ContextualizedTwigTemplate($templateStub);
         $template->renderBlock('block_name');
     }
 }

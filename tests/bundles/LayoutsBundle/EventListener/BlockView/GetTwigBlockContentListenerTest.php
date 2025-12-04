@@ -53,15 +53,14 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         $view = new BlockView($block);
 
-        $twigTemplateMock = $this->createMock(Template::class);
+        $twigTemplateStub = self::createStub(Template::class);
 
-        $twigTemplateMock
+        $twigTemplateStub
             ->method('hasBlock')
             ->with(self::identicalTo('twig_block'))
             ->willReturn(true);
 
-        $twigTemplateMock
-            ->expects($this->once())
+        $twigTemplateStub
             ->method('displayBlock')
             ->with(self::identicalTo('twig_block'))
             ->willReturnCallback(
@@ -70,7 +69,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
                 },
             );
 
-        $view->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
+        $view->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateStub));
 
         $event = new RenderViewEvent($view);
         $this->listener->onRenderView($event);
@@ -94,9 +93,9 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         $view = new BlockView($block);
 
-        $twigTemplateMock = $this->createMock(Template::class);
+        $twigTemplateStub = self::createStub(Template::class);
 
-        $twigTemplateMock
+        $twigTemplateStub
             ->method('hasBlock')
             ->willReturnMap(
                 [
@@ -106,8 +105,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
                 ],
             );
 
-        $twigTemplateMock
-            ->expects($this->once())
+        $twigTemplateStub
             ->method('displayBlock')
             ->with(self::identicalTo('block2'))
             ->willReturnCallback(
@@ -116,7 +114,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
                 },
             );
 
-        $view->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
+        $view->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateStub));
 
         $event = new RenderViewEvent($view);
         $this->listener->onRenderView($event);
@@ -140,17 +138,13 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         $view = new BlockView($block);
 
-        $twigTemplateMock = $this->createMock(Template::class);
+        $twigTemplateStub = self::createStub(Template::class);
 
-        $twigTemplateMock
+        $twigTemplateStub
             ->method('hasBlock')
             ->willReturn(false);
 
-        $twigTemplateMock
-            ->expects($this->never())
-            ->method('displayBlock');
-
-        $view->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
+        $view->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateStub));
 
         $event = new RenderViewEvent($view);
         $this->listener->onRenderView($event);

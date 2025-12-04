@@ -13,6 +13,7 @@ use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\Core\Validator\LayoutValidator;
 use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
@@ -31,7 +32,9 @@ final class LayoutValidatorTest extends TestCase
     protected function setUp(): void
     {
         $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+            )
             ->getValidator();
 
         $this->layoutValidator = new LayoutValidator();
