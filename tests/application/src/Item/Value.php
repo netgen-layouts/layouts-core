@@ -7,6 +7,6 @@ namespace Netgen\Layouts\Tests\App\Item;
 final class Value
 {
     public function __construct(
-        public int $id,
+        public private(set) int $id,
     ) {}
 }
