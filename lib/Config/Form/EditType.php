@@ -79,6 +79,7 @@ final class EditType extends AbstractType
                 $configKey,
                 ParametersType::class,
                 [
+                    'mapped' => false,
                     'data' => $data->getConfigStruct($configKey),
                     'property_path' => 'configStructs[' . $configKey . ']',
                     'parameter_definitions' => $value->getConfig($configKey)->definition,

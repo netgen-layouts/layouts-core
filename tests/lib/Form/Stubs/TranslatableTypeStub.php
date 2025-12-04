@@ -41,7 +41,8 @@ final class TranslatableTypeStub extends AbstractType
             'parameters',
             ParametersType::class,
             [
-                'inherit_data' => true,
+                'mapped' => false,
+                'data' => $options['data'],
                 'label_prefix' => 'label_prefix',
                 'property_path' => 'parameterValues',
                 'parameter_definitions' => $options['block']->definition,
