@@ -66,7 +66,17 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayoutsWithEmptyLayoutIds(): void
     {
-        $this->invalidator->invalidateLayouts([]);
+        $clientMock = $this->createMock(ClientInterface::class);
+        $clientMock
+            ->expects($this->never())
+            ->method('purge');
+
+        $invalidator = new Invalidator(
+            $clientMock,
+            $this->idProviderStub,
+        );
+
+        $invalidator->invalidateLayouts([]);
     }
 
     public function testInvalidateBlocks(): void
@@ -90,7 +100,17 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateBlocksWithEmptyBlockIds(): void
     {
-        $this->invalidator->invalidateBlocks([]);
+        $clientMock = $this->createMock(ClientInterface::class);
+        $clientMock
+            ->expects($this->never())
+            ->method('purge');
+
+        $invalidator = new Invalidator(
+            $clientMock,
+            $this->idProviderStub,
+        );
+
+        $invalidator->invalidateBlocks([]);
     }
 
     public function testInvalidateLayoutBlocks(): void
@@ -114,7 +134,17 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
     {
-        $this->invalidator->invalidateLayoutBlocks([]);
+        $clientMock = $this->createMock(ClientInterface::class);
+        $clientMock
+            ->expects($this->never())
+            ->method('purge');
+
+        $invalidator = new Invalidator(
+            $clientMock,
+            $this->idProviderStub,
+        );
+
+        $invalidator->invalidateLayoutBlocks([]);
     }
 
     public function testCommit(): void

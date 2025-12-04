@@ -12,7 +12,7 @@ use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 /**
- * @property \PHPUnit\Framework\MockObject\Stub&\Netgen\Layouts\Persistence\TransactionHandlerInterface $transactionHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\TransactionHandlerInterface $transactionHandler
  * @property \PHPUnit\Framework\MockObject\Stub&\Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface $layoutHandler
  * @property \PHPUnit\Framework\MockObject\Stub&\Netgen\Layouts\Persistence\Handler\BlockHandlerInterface $blockHandler
  * @property \PHPUnit\Framework\MockObject\Stub&\Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface $collectionHandler
@@ -22,7 +22,7 @@ abstract class TestCase extends CoreTestCase
 {
     final protected function createTransactionHandler(): TransactionHandlerInterface
     {
-        return self::createStub(TransactionHandlerInterface::class);
+        return $this->createMock(TransactionHandlerInterface::class);
     }
 
     final protected function createLayoutHandler(): LayoutHandlerInterface

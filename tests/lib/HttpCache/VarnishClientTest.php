@@ -8,28 +8,29 @@ use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
 use Netgen\Layouts\HttpCache\VarnishClient;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(VarnishClient::class)]
 final class VarnishClientTest extends TestCase
 {
-    private Stub&CacheInvalidator $fosInvalidatorStub;
+    private MockObject&CacheInvalidator $fosInvalidatorMock;
 
     private VarnishClient $client;
 
     protected function setUp(): void
     {
-        $this->fosInvalidatorStub = self::createStub(CacheInvalidator::class);
+        $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
 
         $this->client = new VarnishClient(
-            $this->fosInvalidatorStub,
+            $this->fosInvalidatorMock,
         );
     }
 
     public function testPurge(): void
     {
-        $this->fosInvalidatorStub
+        $this->fosInvalidatorMock
+            ->expects($this->once())
             ->method('invalidateTags')
             ->with(self::identicalTo(['tag-1', 'tag-2']));
 
@@ -38,7 +39,8 @@ final class VarnishClientTest extends TestCase
 
     public function testCommit(): void
     {
-        $this->fosInvalidatorStub
+        $this->fosInvalidatorMock
+            ->expects($this->once())
             ->method('flush');
 
         self::assertTrue($this->client->commit());
@@ -46,7 +48,8 @@ final class VarnishClientTest extends TestCase
 
     public function testCommitReturnsFalse(): void
     {
-        $this->fosInvalidatorStub
+        $this->fosInvalidatorMock
+            ->expects($this->once())
             ->method('flush')
             ->willThrowException(new ExceptionCollection());
 

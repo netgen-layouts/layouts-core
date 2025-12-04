@@ -74,6 +74,13 @@ final class BlockResponseListenerTest extends TestCase
             new Response(),
         );
 
+        $taggerMock = $this->createMock(TaggerInterface::class);
+        $taggerMock
+            ->expects($this->never())
+            ->method('tagBlock');
+
+        $this->listener = new BlockResponseListener($taggerMock);
+
         $this->listener->onKernelResponse($event);
     }
 
@@ -90,6 +97,13 @@ final class BlockResponseListenerTest extends TestCase
             HttpKernelInterface::MAIN_REQUEST,
             new Response(),
         );
+
+        $taggerMock = $this->createMock(TaggerInterface::class);
+        $taggerMock
+            ->expects($this->never())
+            ->method('tagBlock');
+
+        $this->listener = new BlockResponseListener($taggerMock);
 
         $this->listener->onKernelResponse($event);
     }

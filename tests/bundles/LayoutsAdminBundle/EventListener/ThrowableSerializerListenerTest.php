@@ -59,7 +59,9 @@ final class ThrowableSerializerListenerTest extends TestCase
             )
             ->willReturn('serialized content');
 
-        $this->loggerStub
+        $loggerMock = $this->createMock(LoggerInterface::class);
+        $loggerMock
+            ->expects($this->once())
             ->method('critical');
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
@@ -73,7 +75,12 @@ final class ThrowableSerializerListenerTest extends TestCase
             $throwable,
         );
 
-        $this->listener->onException($event);
+        $listener = new ThrowableSerializerListener(
+            $this->serializerStub,
+            $loggerMock,
+        );
+
+        $listener->onException($event);
 
         self::assertInstanceOf(
             JsonResponse::class,
@@ -99,10 +106,10 @@ final class ThrowableSerializerListenerTest extends TestCase
             )
             ->willReturn('serialized content');
 
-        if ($loggerCalled) {
-            $this->loggerStub
-                ->method('critical');
-        }
+        $loggerMock = $this->createMock(LoggerInterface::class);
+        $loggerMock
+            ->expects($loggerCalled ? $this->once() : $this->never())
+            ->method('critical');
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -115,7 +122,12 @@ final class ThrowableSerializerListenerTest extends TestCase
             $throwable,
         );
 
-        $this->listener->onException($event);
+        $listener = new ThrowableSerializerListener(
+            $this->serializerStub,
+            $loggerMock,
+        );
+
+        $listener->onException($event);
 
         self::assertInstanceOf(
             JsonResponse::class,

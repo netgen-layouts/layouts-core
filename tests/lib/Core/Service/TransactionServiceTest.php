@@ -9,29 +9,31 @@ use Netgen\Layouts\Core\Service\TransactionService;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(TransactionService::class)]
 final class TransactionServiceTest extends TestCase
 {
-    private Stub&TransactionHandlerInterface $transactionHandlerStub;
+    private MockObject&TransactionHandlerInterface $transactionHandlerMock;
 
     private TransactionService $service;
 
     protected function setUp(): void
     {
-        $this->transactionHandlerStub = self::createStub(TransactionHandlerInterface::class);
+        $this->transactionHandlerMock = $this->createMock(TransactionHandlerInterface::class);
 
-        $this->service = new TransactionService($this->transactionHandlerStub);
+        $this->service = new TransactionService($this->transactionHandlerMock);
     }
 
     public function testTransaction(): void
     {
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('beginTransaction');
 
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('commitTransaction');
 
         $return = $this->service->transaction(
@@ -46,10 +48,12 @@ final class TransactionServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception');
 
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('beginTransaction');
 
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->service->transaction(
@@ -61,7 +65,8 @@ final class TransactionServiceTest extends TestCase
 
     public function testBeginTransaction(): void
     {
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('beginTransaction');
 
         $this->service->beginTransaction();
@@ -69,7 +74,8 @@ final class TransactionServiceTest extends TestCase
 
     public function testCommitTransaction(): void
     {
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('commitTransaction');
 
         $this->service->commitTransaction();
@@ -80,7 +86,8 @@ final class TransactionServiceTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('commitTransaction')
             ->willThrowException(new RuntimeException('Test exception text'));
 
@@ -89,7 +96,8 @@ final class TransactionServiceTest extends TestCase
 
     public function testRollbackTransaction(): void
     {
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('rollbackTransaction');
 
         $this->service->rollbackTransaction();
@@ -100,7 +108,8 @@ final class TransactionServiceTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->transactionHandlerStub
+        $this->transactionHandlerMock
+            ->expects($this->once())
             ->method('rollbackTransaction')
             ->willThrowException(new RuntimeException('Test exception text'));
 

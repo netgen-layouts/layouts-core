@@ -105,6 +105,13 @@ final class LayoutResponseListenerTest extends TestCase
             new Response(),
         );
 
+        $taggerMock = $this->createMock(TaggerInterface::class);
+        $taggerMock
+            ->expects($this->never())
+            ->method('tagLayout');
+
+        $this->listener = new LayoutResponseListener($taggerMock);
+
         $this->listener->onKernelResponse($event);
     }
 
@@ -121,6 +128,13 @@ final class LayoutResponseListenerTest extends TestCase
             HttpKernelInterface::MAIN_REQUEST,
             new Response(),
         );
+
+        $taggerMock = $this->createMock(TaggerInterface::class);
+        $taggerMock
+            ->expects($this->never())
+            ->method('tagLayout');
+
+        $this->listener = new LayoutResponseListener($taggerMock);
 
         $this->listener->onKernelResponse($event);
     }
@@ -179,6 +193,13 @@ final class LayoutResponseListenerTest extends TestCase
             ),
         );
 
+        $taggerMock = $this->createMock(TaggerInterface::class);
+        $taggerMock
+            ->expects($this->never())
+            ->method('tagLayout');
+
+        $this->listener = new LayoutResponseListener($taggerMock);
+
         $this->listener->onKernelResponse($event);
     }
 
@@ -204,6 +225,13 @@ final class LayoutResponseListenerTest extends TestCase
                 new Exception(),
             ),
         );
+
+        $taggerMock = $this->createMock(TaggerInterface::class);
+        $taggerMock
+            ->expects($this->never())
+            ->method('tagLayout');
+
+        $this->listener = new LayoutResponseListener($taggerMock);
 
         $this->listener->onKernelResponse($event);
     }

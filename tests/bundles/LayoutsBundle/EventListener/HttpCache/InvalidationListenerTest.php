@@ -8,7 +8,6 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
 use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleErrorEvent;
@@ -24,19 +23,10 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 #[CoversClass(InvalidationListener::class)]
 final class InvalidationListenerTest extends TestCase
 {
-    private Stub&InvalidatorInterface $invalidatorStub;
-
-    private InvalidationListener $listener;
-
-    protected function setUp(): void
-    {
-        $this->invalidatorStub = self::createStub(InvalidatorInterface::class);
-
-        $this->listener = new InvalidationListener($this->invalidatorStub);
-    }
-
     public function testGetSubscribedEvents(): void
     {
+        $listener = new InvalidationListener(self::createStub(InvalidatorInterface::class));
+
         self::assertSame(
             [
                 TerminateEvent::class => 'onKernelTerminate',
@@ -44,7 +34,7 @@ final class InvalidationListenerTest extends TestCase
                 ConsoleTerminateEvent::class => 'onConsoleTerminate',
                 ConsoleErrorEvent::class => 'onConsoleError',
             ],
-            $this->listener::getSubscribedEvents(),
+            $listener::getSubscribedEvents(),
         );
     }
 
@@ -59,10 +49,14 @@ final class InvalidationListenerTest extends TestCase
             new Response(),
         );
 
-        $this->invalidatorStub
+        $invalidatorMock = $this->createMock(InvalidatorInterface::class);
+        $invalidatorMock
+            ->expects($this->once())
             ->method('commit');
 
-        $this->listener->onKernelTerminate($event);
+        $listener = new InvalidationListener($invalidatorMock);
+
+        $listener->onKernelTerminate($event);
     }
 
     public function testOnKernelException(): void
@@ -77,10 +71,14 @@ final class InvalidationListenerTest extends TestCase
             new Exception(),
         );
 
-        $this->invalidatorStub
+        $invalidatorMock = $this->createMock(InvalidatorInterface::class);
+        $invalidatorMock
+            ->expects($this->once())
             ->method('commit');
 
-        $this->listener->onKernelException($event);
+        $listener = new InvalidationListener($invalidatorMock);
+
+        $listener->onKernelException($event);
     }
 
     public function testOnConsoleTerminate(): void
@@ -96,10 +94,14 @@ final class InvalidationListenerTest extends TestCase
             Command::SUCCESS,
         );
 
-        $this->invalidatorStub
+        $invalidatorMock = $this->createMock(InvalidatorInterface::class);
+        $invalidatorMock
+            ->expects($this->once())
             ->method('commit');
 
-        $this->listener->onConsoleTerminate($event);
+        $listener = new InvalidationListener($invalidatorMock);
+
+        $listener->onConsoleTerminate($event);
     }
 
     public function testOnConsoleError(): void
@@ -113,9 +115,13 @@ final class InvalidationListenerTest extends TestCase
             new Exception(),
         );
 
-        $this->invalidatorStub
+        $invalidatorMock = $this->createMock(InvalidatorInterface::class);
+        $invalidatorMock
+            ->expects($this->once())
             ->method('commit');
 
-        $this->listener->onConsoleError($event);
+        $listener = new InvalidationListener($invalidatorMock);
+
+        $listener->onConsoleError($event);
     }
 }
