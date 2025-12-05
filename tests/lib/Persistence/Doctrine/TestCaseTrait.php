@@ -34,7 +34,7 @@ trait TestCaseTrait
     /**
      * Returns the persistence handler under test.
      */
-    protected function createTransactionHandler(): TransactionHandlerInterface
+    final protected function createTransactionHandler(): TransactionHandlerInterface
     {
         $this->createDatabase();
 
@@ -44,7 +44,7 @@ trait TestCaseTrait
     /**
      * Returns the layout handler under test.
      */
-    protected function createLayoutHandler(): LayoutHandlerInterface
+    final protected function createLayoutHandler(): LayoutHandlerInterface
     {
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
@@ -61,7 +61,7 @@ trait TestCaseTrait
     /**
      * Returns the block handler under test.
      */
-    protected function createBlockHandler(): BlockHandlerInterface
+    final protected function createBlockHandler(): BlockHandlerInterface
     {
         return new BlockHandler(
             new BlockQueryHandler(
@@ -77,7 +77,7 @@ trait TestCaseTrait
     /**
      * Returns the collection handler under test.
      */
-    protected function createCollectionHandler(): CollectionHandlerInterface
+    final protected function createCollectionHandler(): CollectionHandlerInterface
     {
         return new CollectionHandler(
             new CollectionQueryHandler(
@@ -92,7 +92,7 @@ trait TestCaseTrait
     /**
      * Returns the layout resolver handler under test.
      */
-    protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
+    final protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
     {
         return new LayoutResolverHandler(
             $this->createLayoutHandler(),
