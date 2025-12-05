@@ -38,8 +38,8 @@ final class BooleanType extends CompoundParameterType
         $optionsResolver->setDefault(
             'default_value',
             static fn (Options $options, $previousValue) => $options['required'] === true ?
-                    false :
-                    $previousValue,
+                false :
+                $previousValue,
         );
     }
 

@@ -12,20 +12,6 @@ abstract class ParameterType implements ParameterTypeInterface
 {
     public function configureOptions(OptionsResolver $optionsResolver): void {}
 
-    final public function getConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
-    {
-        if ($parameterDefinition->type::getIdentifier() !== $this::getIdentifier()) {
-            throw ParameterTypeException::unsupportedParameterType(
-                $parameterDefinition->type::getIdentifier(),
-            );
-        }
-
-        return [
-            ...$this->getRequiredConstraints($parameterDefinition, $value),
-            ...$this->getValueConstraints($parameterDefinition, $value),
-        ];
-    }
-
     /**
      * Converts the parameter value from a domain format to scalar/hash format.
      *
@@ -81,6 +67,20 @@ abstract class ParameterType implements ParameterTypeInterface
     public function isValueEmpty(ParameterDefinition $parameterDefinition, mixed $value): bool
     {
         return $value === null;
+    }
+
+    final public function getConstraints(ParameterDefinition $parameterDefinition, mixed $value): array
+    {
+        if ($parameterDefinition->type::getIdentifier() !== $this::getIdentifier()) {
+            throw ParameterTypeException::unsupportedParameterType(
+                $parameterDefinition->type::getIdentifier(),
+            );
+        }
+
+        return [
+            ...$this->getRequiredConstraints($parameterDefinition, $value),
+            ...$this->getValueConstraints($parameterDefinition, $value),
+        ];
     }
 
     /**
