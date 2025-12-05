@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Parameters\ParameterType\Compound;
 
-use Netgen\Layouts\Parameters\CompoundParameterType;
+use Netgen\Layouts\Parameters\CompoundParameterTypeInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -20,7 +21,7 @@ use Symfony\Component\Validator\Constraints;
  * If the boolean is checked, sub-parameters will be validated and stored,
  * and if the boolean is false, sub-parameter values will not be stored at all.
  */
-final class BooleanType extends CompoundParameterType
+final class BooleanType extends ParameterType implements CompoundParameterTypeInterface
 {
     public static function getIdentifier(): string
     {

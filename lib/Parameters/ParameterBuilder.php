@@ -310,10 +310,6 @@ final class ParameterBuilder implements ParameterBuilderInterface
             return $this->resolvedChildren;
         }
 
-        if ($this->type instanceof CompoundParameterTypeInterface) {
-            $this->type->buildParameters($this);
-        }
-
         foreach ($this->unresolvedChildren as $name => $builder) {
             $this->resolvedChildren[$name] = $this->buildParameterDefinition($builder);
         }

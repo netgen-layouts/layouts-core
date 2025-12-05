@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters\Stubs;
 
-use Netgen\Layouts\Parameters\CompoundParameterType as BaseCompoundParameterType;
+use Netgen\Layouts\Parameters\CompoundParameterTypeInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-final class CompoundParameterType extends BaseCompoundParameterType
+final class CompoundParameterType extends ParameterType implements CompoundParameterTypeInterface
 {
     public static function getIdentifier(): string
     {
