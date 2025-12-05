@@ -12,10 +12,10 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use function dirname;
 use function getenv;
 use function is_string;
+use function mb_trim;
 use function putenv;
 use function str_starts_with;
 use function sys_get_temp_dir;
-use function trim;
 
 final class Kernel extends BaseKernel implements CompilerPassInterface
 {
@@ -26,7 +26,7 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
         parent::boot();
 
         $databaseUrl = getenv('DATABASE');
-        if (!is_string($databaseUrl) || trim($databaseUrl) === '') {
+        if (!is_string($databaseUrl) || mb_trim($databaseUrl) === '') {
             $databaseUrl = 'sqlite:///' . $this->getCacheDir() . '/nglayouts.db';
         }
 
