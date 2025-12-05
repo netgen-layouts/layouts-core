@@ -5,21 +5,21 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\App\Item\ValueConverter;
 
 use Netgen\Layouts\Item\ValueConverterInterface;
-use Netgen\Layouts\Tests\App\Item\Value;
+use Netgen\Layouts\Tests\App\Item\TestValue;
 
 /**
- * @implements \Netgen\Layouts\Item\ValueConverterInterface<\Netgen\Layouts\Tests\App\Item\Value>
+ * @implements \Netgen\Layouts\Item\ValueConverterInterface<\Netgen\Layouts\Tests\App\Item\TestValue>
  */
-final class MyValueTypeValueConverter implements ValueConverterInterface
+final class TestValueTypeValueConverter implements ValueConverterInterface
 {
     public function supports(object $object): bool
     {
-        return $object instanceof Value;
+        return $object instanceof TestValue;
     }
 
     public function getValueType(object $object): string
     {
-        return 'my_value_type';
+        return 'test_value_type';
     }
 
     public function getId(object $object): int
@@ -42,7 +42,7 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
         return true;
     }
 
-    public function getObject(object $object): Value
+    public function getObject(object $object): TestValue
     {
         return $object;
     }

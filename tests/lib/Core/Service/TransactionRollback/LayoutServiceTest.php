@@ -237,7 +237,7 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutService->changeLayoutType(
             Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
-            LayoutType::fromArray(['identifier' => '4_zones_a']),
+            LayoutType::fromArray(['identifier' => 'test_layout_1']),
             [],
         );
     }

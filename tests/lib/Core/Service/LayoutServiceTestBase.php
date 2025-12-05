@@ -317,7 +317,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
     final public function testCreateLayout(): void
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             'My new layout',
             'en',
         );
@@ -337,7 +337,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
     final public function testCreateLayoutWithCustomUuid(): void
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             'My new layout',
             'en',
         );
@@ -362,7 +362,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Layout with provided UUID already exists.');
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             'My new layout',
             'en',
         );
@@ -378,7 +378,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $this->expectExceptionMessage('Argument "name" has an invalid state. Layout with provided name already exists.');
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             'My layout',
             'en',
         );
@@ -615,7 +615,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
             [
                 'top' => ['left', 'right'],
             ],
@@ -623,7 +623,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_b', $updatedLayout->layoutType->identifier);
+        self::assertSame('test_layout_2', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -667,7 +667,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             [
                 'top' => ['left', 'right'],
             ],
@@ -675,7 +675,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_a', $updatedLayout->layoutType->identifier);
+        self::assertSame('test_layout_1', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -719,7 +719,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             [
                 'top' => ['top'],
             ],
@@ -727,7 +727,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_a', $updatedLayout->layoutType->identifier);
+        self::assertSame('test_layout_1', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -772,7 +772,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
             [
                 'top' => ['top'],
             ],
@@ -780,7 +780,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_b', $updatedLayout->layoutType->identifier);
+        self::assertSame('test_layout_2', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -825,7 +825,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             [
                 'top' => ['top'],
             ],
@@ -834,7 +834,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_a', $updatedLayout->layoutType->identifier);
+        self::assertSame('test_layout_1', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -871,7 +871,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
             [
                 'top' => ['top'],
             ],
@@ -880,7 +880,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
         self::assertSame($layout->status, $updatedLayout->status);
-        self::assertSame('4_zones_b', $updatedLayout->layoutType->identifier);
+        self::assertSame('test_layout_2', $updatedLayout->layoutType->identifier);
 
         self::assertSame(
             $layout->created->format(DateTimeInterface::ATOM),
@@ -921,7 +921,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
         $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
             [],
         );
     }
@@ -1100,7 +1100,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
     final public function testNewLayoutCreateStruct(): void
     {
-        $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
+        $layoutType = LayoutType::fromArray(['identifier' => 'test_layout_1']);
 
         $struct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,

@@ -190,7 +190,7 @@ final class ResultBuilderTest extends TestCase
                 'query' => Query::fromArray(
                     [
                         'queryType' => new QueryType(
-                            'my_query_type',
+                            'test_query_type',
                             $this->buildQueryValues($queryValues),
                             $queryCount,
                             $contextual,

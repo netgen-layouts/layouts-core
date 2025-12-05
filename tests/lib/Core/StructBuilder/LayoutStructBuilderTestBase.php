@@ -25,7 +25,7 @@ abstract class LayoutStructBuilderTestBase extends CoreTestCase
 
     final public function testNewLayoutCreateStruct(): void
     {
-        $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
+        $layoutType = LayoutType::fromArray(['identifier' => 'test_layout_1']);
 
         $struct = $this->structBuilder->newLayoutCreateStruct(
             $layoutType,

@@ -35,7 +35,7 @@ final class ItemLinkTypeTest extends TestCase
         $cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
         $cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
+            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -47,7 +47,7 @@ final class ItemLinkTypeTest extends TestCase
 
         $cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
+            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -170,7 +170,7 @@ final class ItemLinkTypeTest extends TestCase
 
     public function testExport(): void
     {
-        self::assertSame('my-value-type://abc', $this->type->export($this->getParameterDefinition(), 'my-value-type://42'));
+        self::assertSame('test-value-type://abc', $this->type->export($this->getParameterDefinition(), 'test-value-type://42'));
     }
 
     public function testExportWithInvalidValue(): void
@@ -180,7 +180,7 @@ final class ItemLinkTypeTest extends TestCase
 
     public function testImport(): void
     {
-        self::assertSame('my-value-type://42', $this->type->import($this->getParameterDefinition(), 'my-value-type://abc'));
+        self::assertSame('test-value-type://42', $this->type->import($this->getParameterDefinition(), 'test-value-type://abc'));
     }
 
     public function testImportWithInvalidValue(): void

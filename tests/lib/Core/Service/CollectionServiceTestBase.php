@@ -197,7 +197,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
             $collection,
             CollectionType::Dynamic,
             $this->collectionService->newQueryCreateStruct(
-                new QueryType('my_query_type'),
+                new QueryType('test_query_type'),
             ),
         );
 
@@ -255,7 +255,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
     final public function testAddItem(): void
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
+            ItemDefinition::fromArray(['valueType' => 'test_value_type']),
             '66',
         );
 
@@ -276,7 +276,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->expectExceptionMessage('Argument "collection" has an invalid state. Items can only be added to draft collections.');
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
+            ItemDefinition::fromArray(['valueType' => 'test_value_type']),
             '66',
         );
 
@@ -295,7 +295,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-            ItemDefinition::fromArray(['valueType' => 'my_value_type']),
+            ItemDefinition::fromArray(['valueType' => 'test_value_type']),
             '66',
         );
 
@@ -426,7 +426,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertTrue($updatedQuery->isDraft);
-        self::assertSame('my_query_type', $updatedQuery->queryType->type);
+        self::assertSame('test_query_type', $updatedQuery->queryType->type);
 
         self::assertNull($updatedQuery->getParameter('param')->value);
         self::assertNull($updatedQuery->getParameter('param2')->value);
@@ -451,7 +451,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
         self::assertTrue($updatedQuery->isDraft);
-        self::assertSame('my_query_type', $updatedQuery->queryType->type);
+        self::assertSame('test_query_type', $updatedQuery->queryType->type);
 
         $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 
@@ -589,7 +589,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
     final public function testNewCollectionCreateStruct(): void
     {
-        $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
+        $queryCreateStruct = new QueryCreateStruct(new QueryType('test_query_type'));
         $struct = $this->collectionService->newCollectionCreateStruct($queryCreateStruct);
 
         self::assertSame(
@@ -722,7 +722,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
     final public function testNewQueryCreateStruct(): void
     {
-        $queryType = new QueryType('my_query_type');
+        $queryType = new QueryType('test_query_type');
 
         $struct = $this->collectionService->newQueryCreateStruct($queryType);
 

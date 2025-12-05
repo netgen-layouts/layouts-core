@@ -25,24 +25,24 @@ final class CreateTypeTest extends FormTestCase
     {
         $layoutType1 = LayoutType::fromArray(
             [
-                'name' => '4 zones A',
-                'identifier' => '4_zones_a',
+                'name' => 'Test layout 1',
+                'identifier' => 'test_layout_1',
                 'isEnabled' => true,
             ],
         );
 
         $layoutType2 = LayoutType::fromArray(
             [
-                'name' => '4 zones B',
-                'identifier' => '4_zones_b',
+                'name' => 'Test layout 2',
+                'identifier' => 'test_layout_2',
                 'isEnabled' => false,
             ],
         );
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry(
             [
-                '4_zones_a' => $layoutType1,
-                '4_zones_b' => $layoutType2,
+                'test_layout_1' => $layoutType1,
+                'test_layout_2' => $layoutType2,
             ],
         );
 
@@ -54,7 +54,7 @@ final class CreateTypeTest extends FormTestCase
         $submittedData = [
             'name' => 'My layout',
             'description' => 'My layout description',
-            'layoutType' => '4_zones_a',
+            'layoutType' => 'test_layout_1',
             'isShared' => true,
         ];
 
@@ -74,7 +74,7 @@ final class CreateTypeTest extends FormTestCase
         self::assertTrue($struct->isShared);
 
         self::assertInstanceOf(LayoutType::class, $struct->layoutType);
-        self::assertSame('4_zones_a', $struct->layoutType->identifier);
+        self::assertSame('test_layout_1', $struct->layoutType->identifier);
 
         $view = $form->createView();
 

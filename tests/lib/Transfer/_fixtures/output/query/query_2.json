@@ -17,5 +17,5 @@
             "param2": null
         }
     },
-    "query_type": "my_query_type"
+    "query_type": "test_query_type"
 }

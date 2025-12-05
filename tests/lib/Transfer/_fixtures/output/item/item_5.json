@@ -2,7 +2,7 @@
     "id": "966e55da-9671-581a-b3b4-84363f7db33d",
     "position": 2,
     "value": "abc",
-    "value_type": "my_value_type",
+    "value_type": "test_value_type",
     "view_type": "overlay",
     "configuration": {
         "key": {"visited_key": "visited_value"}

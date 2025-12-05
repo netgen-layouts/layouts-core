@@ -15,7 +15,7 @@ final class CreateTest extends ApiTestCase
     public function testCreate(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My new layout',
             'description' => 'My new layout description',
             'locale' => 'en',
@@ -33,7 +33,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithMissingDescription(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My new layout',
             'locale' => 'en',
         ];
@@ -50,7 +50,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithEmptyDescription(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My new layout',
             'description' => '',
             'locale' => 'en',
@@ -118,7 +118,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithInvalidName(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 42,
             'locale' => 'en',
         ];
@@ -135,7 +135,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithEmptyName(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => '',
             'locale' => 'en',
         ];
@@ -152,7 +152,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithMissingName(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'locale' => 'en',
         ];
 
@@ -168,7 +168,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithExistingName(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My layout',
             'locale' => 'en',
         ];
@@ -185,7 +185,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithInvalidDescription(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My name',
             'description' => 42,
             'locale' => 'en',
@@ -203,7 +203,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithInvalidLocale(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My new layout',
             'description' => 'My new layout description',
             'locale' => 42,
@@ -221,7 +221,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithMissingLocale(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My new layout',
             'description' => 'My new layout description',
         ];
@@ -238,7 +238,7 @@ final class CreateTest extends ApiTestCase
     public function testCreateWithNonExistentLocale(): void
     {
         $data = [
-            'layout_type' => '4_zones_a',
+            'layout_type' => 'test_layout_1',
             'name' => 'My new layout',
             'description' => 'My new layout description',
             'locale' => 'unknown',

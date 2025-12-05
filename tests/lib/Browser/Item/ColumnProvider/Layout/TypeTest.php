@@ -29,7 +29,7 @@ final class TypeTest extends TestCase
                 [
                     'layoutType' => LayoutType::fromArray(
                         [
-                            'name' => '4 zones A',
+                            'name' => 'Test layout 1',
                         ],
                     ),
                 ],
@@ -37,7 +37,7 @@ final class TypeTest extends TestCase
         );
 
         self::assertSame(
-            '4 zones A',
+            'Test layout 1',
             $this->provider->getValue($item),
         );
     }

@@ -1,7 +1,7 @@
 netgen_layouts:
     layout_types:
-        4_zones_a:
-            name: '4 zones A'
+        test_layout_1:
+            name: 'Test layout 1'
             enabled: false
             zones:
                 top:
@@ -14,8 +14,8 @@ netgen_layouts:
                 bottom:
                     name: 'Bottom'
 
-        4_zones_b:
-            name: '4 zones B'
+        test_layout_2:
+            name: 'Test layout 2'
             enabled: false
             zones:
                 top:
@@ -28,11 +28,11 @@ netgen_layouts:
                     name: 'Bottom'
 
     query_types:
-        my_query_type:
-            name: 'My query type'
+        test_query_type:
+            name: 'Test query type'
             enabled: false
 
     value_types:
-        my_value_type:
-            name: 'My value type'
+        test_value_type:
+            name: 'Test value type'
             enabled: false

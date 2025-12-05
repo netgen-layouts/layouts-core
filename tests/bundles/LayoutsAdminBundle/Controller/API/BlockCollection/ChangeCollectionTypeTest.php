@@ -30,7 +30,7 @@ final class ChangeCollectionTypeTest extends ApiTestCase
     {
         $data = [
             'new_type' => CollectionType::Dynamic->value,
-            'query_type' => 'my_query_type',
+            'query_type' => 'test_query_type',
         ];
 
         $this->browser()
@@ -57,7 +57,7 @@ final class ChangeCollectionTypeTest extends ApiTestCase
     {
         $data = [
             'new_type' => CollectionType::Dynamic->value,
-            'query_type' => 'my_query_type',
+            'query_type' => 'test_query_type',
         ];
 
         $this->browser()

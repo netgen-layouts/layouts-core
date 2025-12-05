@@ -39,7 +39,7 @@ final class CollectionQueryNormalizerTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
-                'queryType' => new QueryType('my_query_type'),
+                'queryType' => new QueryType('test_query_type'),
                 'isTranslatable' => true,
                 'isAlwaysAvailable' => true,
                 'availableLocales' => ['en'],

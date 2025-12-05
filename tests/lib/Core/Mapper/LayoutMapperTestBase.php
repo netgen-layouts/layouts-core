@@ -98,7 +98,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'type' => '4_zones_a',
+                'type' => 'test_layout_1',
                 'name' => 'My layout',
                 'description' => 'My description',
                 'created' => 1_447_065_813,
@@ -113,7 +113,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
         $layout = $this->mapper->mapLayout($persistenceLayout);
 
         self::assertSame(
-            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
             $layout->layoutType,
         );
 

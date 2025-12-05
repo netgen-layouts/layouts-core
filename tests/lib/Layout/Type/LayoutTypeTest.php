@@ -40,9 +40,9 @@ final class LayoutTypeTest extends TestCase
 
         $this->layoutType = LayoutType::fromArray(
             [
-                'identifier' => '4_zones_a',
+                'identifier' => 'test_layout_1',
                 'isEnabled' => false,
-                'name' => '4 zones A',
+                'name' => 'Test layout 1',
                 'icon' => '/icon.svg',
                 'zones' => [
                     'left' => $this->zone1,
@@ -54,7 +54,7 @@ final class LayoutTypeTest extends TestCase
 
     public function testGetIdentifier(): void
     {
-        self::assertSame('4_zones_a', $this->layoutType->identifier);
+        self::assertSame('test_layout_1', $this->layoutType->identifier);
     }
 
     public function testIsEnabled(): void
@@ -64,7 +64,7 @@ final class LayoutTypeTest extends TestCase
 
     public function testGetName(): void
     {
-        self::assertSame('4 zones A', $this->layoutType->name);
+        self::assertSame('Test layout 1', $this->layoutType->name);
     }
 
     public function testGetIcon(): void
@@ -106,7 +106,7 @@ final class LayoutTypeTest extends TestCase
     public function testGetZoneThrowsLayoutTypeException(): void
     {
         $this->expectException(LayoutTypeException::class);
-        $this->expectExceptionMessage('Zone "unknown" does not exist in "4_zones_a" layout type.');
+        $this->expectExceptionMessage('Zone "unknown" does not exist in "test_layout_1" layout type.');
 
         $this->layoutType->getZone('unknown');
     }

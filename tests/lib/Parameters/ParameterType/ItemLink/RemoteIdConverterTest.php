@@ -30,7 +30,7 @@ final class RemoteIdConverterTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
+            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -40,7 +40,7 @@ final class RemoteIdConverterTest extends TestCase
                 ),
             );
 
-        self::assertSame('my-value-type://abc', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
+        self::assertSame('test-value-type://abc', $this->remoteIdConverter->convertToRemoteId('test-value-type://42'));
     }
 
     public function testCovertToRemoteIdWithInvalidLink(): void
@@ -52,17 +52,17 @@ final class RemoteIdConverterTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
-            ->willReturn(new NullCmsItem('my_value_type'));
+            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
+            ->willReturn(new NullCmsItem('test_value_type'));
 
-        self::assertSame('null://0', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
+        self::assertSame('null://0', $this->remoteIdConverter->convertToRemoteId('test-value-type://42'));
     }
 
     public function testConvertFromRemoteId(): void
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
+            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -72,7 +72,7 @@ final class RemoteIdConverterTest extends TestCase
                 ),
             );
 
-        self::assertSame('my-value-type://42', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));
+        self::assertSame('test-value-type://42', $this->remoteIdConverter->convertFromRemoteId('test-value-type://abc'));
     }
 
     public function testConvertFromRemoteIdWithInvalidLink(): void
@@ -84,9 +84,9 @@ final class RemoteIdConverterTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
-            ->willReturn(new NullCmsItem('my_value_type'));
+            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
+            ->willReturn(new NullCmsItem('test_value_type'));
 
-        self::assertSame('null://0', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));
+        self::assertSame('null://0', $this->remoteIdConverter->convertFromRemoteId('test-value-type://abc'));
     }
 }

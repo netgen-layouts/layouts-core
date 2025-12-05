@@ -47,13 +47,13 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => 3,
                 'value' => 12,
                 'viewType' => 'overlay',
-                'definition' => ItemDefinition::fromArray(['valueType' => 'my_value_type']),
+                'definition' => ItemDefinition::fromArray(['valueType' => 'test_value_type']),
                 'cmsItem' => CmsItem::fromArray(
                     [
                         'name' => 'Value name',
                         'isVisible' => true,
                         'value' => 12,
-                        'valueType' => 'my_value_type',
+                        'valueType' => 'test_value_type',
                     ],
                 ),
             ],

@@ -182,7 +182,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $blockCreateStruct->isTranslatable = true;
 
         $queryCreateStruct = new QueryCreateStruct(
-            $this->queryTypeRegistry->getQueryType('my_query_type'),
+            $this->queryTypeRegistry->getQueryType('test_query_type'),
         );
 
         $collectionCreateStruct = new CollectionCreateStruct();
@@ -206,7 +206,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertNull($defaultCollection->limit);
         self::assertTrue($defaultCollection->hasQuery);
         self::assertInstanceOf(Query::class, $defaultCollection->query);
-        self::assertSame('my_query_type', $defaultCollection->query->queryType->type);
+        self::assertSame('test_query_type', $defaultCollection->query->queryType->type);
         self::assertSame($block->isTranslatable, $defaultCollection->isTranslatable);
         self::assertSame($block->isAlwaysAvailable, $defaultCollection->isAlwaysAvailable);
         self::assertSame($block->availableLocales, $defaultCollection->availableLocales);

@@ -28,7 +28,7 @@ final class LayoutTypeNormalizerTest extends TestCase
     public function testNormalize(): void
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
-            '4_zones_a',
+            'test_layout_1',
             [
                 'name' => 'Layout type',
                 'icon' => '/icon.svg',
@@ -48,7 +48,7 @@ final class LayoutTypeNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'identifier' => '4_zones_a',
+                'identifier' => 'test_layout_1',
                 'name' => 'Layout type',
                 'icon' => '/icon.svg',
                 'zones' => [

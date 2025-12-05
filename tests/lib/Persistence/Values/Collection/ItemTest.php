@@ -22,7 +22,7 @@ final class ItemTest extends TestCase
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 3,
                 'value' => 32,
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'my_view_type',
                 'config' => ['key' => ['param' => 'value']],
                 'status' => Status::Published,
@@ -35,7 +35,7 @@ final class ItemTest extends TestCase
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionUuid);
         self::assertSame(3, $item->position);
         self::assertSame(32, $item->value);
-        self::assertSame('my_value_type', $item->valueType);
+        self::assertSame('test_value_type', $item->valueType);
         self::assertSame('my_view_type', $item->viewType);
         self::assertSame(['key' => ['param' => 'value']], $item->config);
         self::assertSame(Status::Published, $item->status);

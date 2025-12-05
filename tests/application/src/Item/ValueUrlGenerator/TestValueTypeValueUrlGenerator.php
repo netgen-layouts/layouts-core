@@ -7,9 +7,9 @@ namespace Netgen\Layouts\Tests\App\Item\ValueUrlGenerator;
 use Netgen\Layouts\Item\ValueUrlGeneratorInterface;
 
 /**
- * @implements \Netgen\Layouts\Item\ValueUrlGeneratorInterface<\Netgen\Layouts\Tests\App\Item\Value>
+ * @implements \Netgen\Layouts\Item\ValueUrlGeneratorInterface<\Netgen\Layouts\Tests\App\Item\TestValue>
  */
-final class MyValueTypeValueUrlGenerator implements ValueUrlGeneratorInterface
+final class TestValueTypeValueUrlGenerator implements ValueUrlGeneratorInterface
 {
     public function generateDefaultUrl(object $object): string
     {

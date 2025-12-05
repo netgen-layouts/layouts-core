@@ -4,7 +4,7 @@
         {
             "__type": "layout",
             "id": "2331055f-452f-4112-a5a5-de31fb26a830",
-            "type_identifier": "4_zones_a",
+            "type_identifier": "test_layout_1",
             "name": "My layout",
             "description": "My layout description",
             "status": "PUBLISHED",

@@ -18,12 +18,12 @@ final class AddItemsTest extends ApiTestCase
             'items' => [
                 [
                     'value' => 73,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                     'position' => 3,
                 ],
                 [
                     'value' => 74,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                 ],
             ],
         ];
@@ -41,12 +41,12 @@ final class AddItemsTest extends ApiTestCase
             'items' => [
                 [
                     'value' => 73,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                     'position' => 3,
                 ],
                 [
                     'value' => 74,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                 ],
             ],
         ];
@@ -66,12 +66,12 @@ final class AddItemsTest extends ApiTestCase
             'items' => [
                 [
                     'value' => 73,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                     'position' => 3,
                 ],
                 [
                     'value' => 74,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                 ],
             ],
         ];
@@ -132,7 +132,7 @@ final class AddItemsTest extends ApiTestCase
             'items' => [
                 [
                     'value' => [42],
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                     'position' => 3,
                 ],
             ],
@@ -152,7 +152,7 @@ final class AddItemsTest extends ApiTestCase
         $data = [
             'items' => [
                 [
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                     'position' => 3,
                 ],
             ],
@@ -214,7 +214,7 @@ final class AddItemsTest extends ApiTestCase
             'items' => [
                 [
                     'value' => 73,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                     'position' => '3',
                 ],
             ],
@@ -235,7 +235,7 @@ final class AddItemsTest extends ApiTestCase
             'items' => [
                 [
                     'value' => 73,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                 ],
             ],
         ];
@@ -255,7 +255,7 @@ final class AddItemsTest extends ApiTestCase
             'items' => [
                 [
                     'value' => 73,
-                    'value_type' => 'my_value_type',
+                    'value_type' => 'test_value_type',
                     'position' => 9999,
                 ],
             ],

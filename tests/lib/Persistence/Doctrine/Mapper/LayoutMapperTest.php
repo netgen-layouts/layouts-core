@@ -30,7 +30,7 @@ final class LayoutMapperTest extends TestCase
             [
                 'id' => '42',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => '4_zones_a',
+                'type' => 'test_layout_1',
                 'name' => 'My layout',
                 'description' => 'My layout description',
                 'created' => '123',
@@ -43,7 +43,7 @@ final class LayoutMapperTest extends TestCase
             [
                 'id' => 84,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                'type' => '4_zones_b',
+                'type' => 'test_layout_2',
                 'name' => 'My other layout',
                 'description' => 'My other layout description',
                 'created' => 789,
@@ -66,7 +66,7 @@ final class LayoutMapperTest extends TestCase
                 'modified' => 456,
                 'name' => 'My layout',
                 'status' => Status::Published,
-                'type' => '4_zones_a',
+                'type' => 'test_layout_1',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             [
@@ -79,7 +79,7 @@ final class LayoutMapperTest extends TestCase
                 'modified' => 111,
                 'name' => 'My other layout',
                 'status' => Status::Published,
-                'type' => '4_zones_b',
+                'type' => 'test_layout_2',
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
             ],
         ];

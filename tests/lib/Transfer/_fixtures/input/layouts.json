@@ -4,7 +4,7 @@
         {
             "__type": "layout",
             "id": "fb232345-36dc-4afb-83c2-2ea7658e7751",
-            "type_identifier": "4_zones_a",
+            "type_identifier": "test_layout_1",
             "name": "My layout",
             "description": "My layout description",
             "status": "PUBLISHED",
@@ -135,7 +135,7 @@
                                             "id": "bd23d1f6-e15c-4f58-aef6-a2ea591835a3",
                                             "position": 1,
                                             "value": "72",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": "my_view_type",
                                             "configuration": {
                                                 "key": {
@@ -148,7 +148,7 @@
                                             "id": "4f63f3ea-af72-4479-986d-d110b9e60da7",
                                             "position": 2,
                                             "value": "73",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": null,
                                             "configuration": {
                                                 "key": {
@@ -161,7 +161,7 @@
                                             "id": "3ed24050-dc40-4fc4-9edf-3db4ba2084d0",
                                             "position": 5,
                                             "value": "74",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": "overlay",
                                             "configuration": {
                                                 "key": {
@@ -202,7 +202,7 @@
                                                 "param2": "zyx"
                                             }
                                         },
-                                        "query_type": "my_query_type"
+                                        "query_type": "test_query_type"
                                     }
                                 },
                                 "featured": {
@@ -221,7 +221,7 @@
                                             "id": "c5436bf5-406a-4063-b03d-6d126b125de1",
                                             "position": 2,
                                             "value": "72",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": null,
                                             "configuration": {
                                                 "key": {
@@ -234,7 +234,7 @@
                                             "id": "aa9ef972-7edf-4ade-931f-434e8aa267e4",
                                             "position": 3,
                                             "value": "73",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": "overlay",
                                             "configuration": {
                                                 "key": {
@@ -247,7 +247,7 @@
                                             "id": "bc57c22d-999c-4199-b689-2c5b5e4b0fb7",
                                             "position": 5,
                                             "value": "74",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": null,
                                             "configuration": {
                                                 "key": {
@@ -277,7 +277,7 @@
                                                 "param2": "zyx2"
                                             }
                                         },
-                                        "query_type": "my_query_type"
+                                        "query_type": "test_query_type"
                                     }
                                 }
                             }
@@ -329,7 +329,7 @@
                                             "id": "21feb8a3-8392-40b9-9e32-8669ebf80cab",
                                             "position": 2,
                                             "value": "72",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": null,
                                             "configuration": {
                                                 "key": {
@@ -342,7 +342,7 @@
                                             "id": "e2f00f91-f893-4e33-895c-6b6b684bdce9",
                                             "position": 3,
                                             "value": "73",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": null,
                                             "configuration": {
                                                 "key": {
@@ -355,7 +355,7 @@
                                             "id": "728fe4a2-04c3-43c5-ba9f-544099813ccf",
                                             "position": 5,
                                             "value": "74",
-                                            "value_type": "my_value_type",
+                                            "value_type": "test_value_type",
                                             "view_type": null,
                                             "configuration": {
                                                 "key": {
@@ -380,7 +380,7 @@
                                                 "param2": "def3"
                                             }
                                         },
-                                        "query_type": "my_query_type"
+                                        "query_type": "test_query_type"
                                     }
                                 }
                             }
@@ -397,7 +397,7 @@
         {
             "__type": "layout",
             "id": "505e4f35-dbf4-4fcd-bd01-dee758ea0313",
-            "type_identifier": "4_zones_b",
+            "type_identifier": "test_layout_2",
             "name": "My other layout",
             "description": "My other layout description",
             "status": "PUBLISHED",
@@ -558,7 +558,7 @@
         {
             "__type": "layout",
             "id": "50f741a2-8ae2-4a3d-9533-3ff62ca99424",
-            "type_identifier": "4_zones_b",
+            "type_identifier": "test_layout_2",
             "name": "My third layout",
             "description": "My third layout description",
             "status": "PUBLISHED",
@@ -595,7 +595,7 @@
         {
             "__type": "layout",
             "id": "0d185e89-04e9-40ca-a76e-f106dea11c24",
-            "type_identifier": "4_zones_b",
+            "type_identifier": "test_layout_2",
             "name": "My fifth layout",
             "description": "My fifth layout description",
             "status": "PUBLISHED",
@@ -632,7 +632,7 @@
         {
             "__type": "layout",
             "id": "0bd1c99a-29f1-4762-85d6-187c423e6a91",
-            "type_identifier": "4_zones_b",
+            "type_identifier": "test_layout_2",
             "name": "My sixth layout",
             "description": "My sixth layout description",
             "status": "PUBLISHED",

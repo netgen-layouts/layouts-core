@@ -1,7 +1,7 @@
 [
     {
         "id": "399ad9ac-777a-50ba-945a-06e9f57add12",
-        "type": "4_zones_b",
+        "type": "test_layout_2",
         "published": true,
         "has_archived_state": false,
         "has_published_state": true,
@@ -53,7 +53,7 @@
     },
     {
         "id": "d8e55af7-cf62-5f28-ae15-331b457d82e9",
-        "type": "4_zones_b",
+        "type": "test_layout_2",
         "published": true,
         "has_archived_state": false,
         "has_published_state": true,

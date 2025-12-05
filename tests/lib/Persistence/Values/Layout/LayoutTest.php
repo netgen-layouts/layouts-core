@@ -18,7 +18,7 @@ final class LayoutTest extends TestCase
             [
                 'id' => 42,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => '4_zones_a',
+                'type' => 'test_layout_1',
                 'name' => 'My layout',
                 'description' => 'My description',
                 'isShared' => true,
@@ -30,7 +30,7 @@ final class LayoutTest extends TestCase
 
         self::assertSame(42, $layout->id);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $layout->uuid);
-        self::assertSame('4_zones_a', $layout->type);
+        self::assertSame('test_layout_1', $layout->type);
         self::assertSame('My layout', $layout->name);
         self::assertSame('My description', $layout->description);
         self::assertTrue($layout->isShared);

@@ -11,7 +11,7 @@ use Netgen\ContentBrowser\Backend\SearchResultInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\Layouts\Exception\RuntimeException;
 
-final class MyValueTypeBackend implements BackendInterface
+final class TestValueTypeBackend implements BackendInterface
 {
     public function getSections(): never
     {

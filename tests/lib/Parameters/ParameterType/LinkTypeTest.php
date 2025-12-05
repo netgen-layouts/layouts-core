@@ -297,7 +297,7 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
+            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -314,8 +314,8 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('24'), self::identicalTo('my_value_type'))
-            ->willReturn(new NullCmsItem('my_value_type'));
+            ->with(self::identicalTo('24'), self::identicalTo('test_value_type'))
+            ->willReturn(new NullCmsItem('test_value_type'));
 
         self::assertSame(
             [
@@ -329,7 +329,7 @@ final class LinkTypeTest extends TestCase
                 LinkValue::fromArray(
                     [
                         'linkType' => LinkTypeEnum::Internal,
-                        'link' => 'my_value_type://24',
+                        'link' => 'test_value_type://24',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ],
@@ -365,14 +365,14 @@ final class LinkTypeTest extends TestCase
                 LinkValue::fromArray(
                     [
                         'linkType' => LinkTypeEnum::Internal,
-                        'link' => 'my-value-type://42',
+                        'link' => 'test-value-type://42',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ],
                 ),
                 [
                     'link_type' => LinkTypeEnum::Internal->value,
-                    'link' => 'my-value-type://abc',
+                    'link' => 'test-value-type://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
@@ -404,7 +404,7 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
+            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -424,14 +424,14 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('def'), self::identicalTo('my_value_type'))
-            ->willReturn(new NullCmsItem('my_value_type'));
+            ->with(self::identicalTo('def'), self::identicalTo('test_value_type'))
+            ->willReturn(new NullCmsItem('test_value_type'));
 
         $importedValue = $this->type->import(
             $this->getParameterDefinition(),
             [
                 'link_type' => LinkTypeEnum::Internal->value,
-                'link' => 'my_value_type://def',
+                'link' => 'test_value_type://def',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
             ],
@@ -500,12 +500,12 @@ final class LinkTypeTest extends TestCase
             [
                 [
                     'link_type' => LinkTypeEnum::Internal->value,
-                    'link' => 'my-value-type://abc',
+                    'link' => 'test-value-type://abc',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
                 [
-                    'link' => 'my-value-type://42',
+                    'link' => 'test-value-type://42',
                     'linkSuffix' => '?suffix',
                     'linkType' => LinkTypeEnum::Internal,
                     'newWindow' => true,
@@ -560,7 +560,7 @@ final class LinkTypeTest extends TestCase
             [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'link' => '123456']), false],
             [LinkValue::fromArray(['linkType' => LinkTypeEnum::Phone, 'linkSuffix' => '?suffix']), true],
             [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal]), true],
-            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'my_value_type://42']), false],
+            [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'link' => 'test_value_type://42']), false],
             [LinkValue::fromArray(['linkType' => LinkTypeEnum::Internal, 'linkSuffix' => '?suffix']), true],
         ];
     }

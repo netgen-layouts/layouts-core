@@ -82,7 +82,7 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
+            ->willReturn(PersistenceLayout::fromArray(['type' => 'test_layout_1']));
 
         $this->layoutHandler
             ->method('loadZone')
@@ -207,7 +207,7 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
+            ->willReturn(PersistenceLayout::fromArray(['type' => 'test_layout_1']));
 
         $this->layoutHandler
             ->method('loadZone')
@@ -283,7 +283,7 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
+            ->willReturn(PersistenceLayout::fromArray(['type' => 'test_layout_1']));
 
         $this->layoutHandler
             ->method('loadZone')

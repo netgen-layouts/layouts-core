@@ -326,7 +326,7 @@ abstract class CoreTestCase extends TestCase
     {
         $layoutType1 = LayoutType::fromArray(
             [
-                'identifier' => '4_zones_a',
+                'identifier' => 'test_layout_1',
                 'zones' => [
                     'top' => new Zone(),
                     'left' => new Zone(),
@@ -338,7 +338,7 @@ abstract class CoreTestCase extends TestCase
 
         $layoutType2 = LayoutType::fromArray(
             [
-                'identifier' => '4_zones_b',
+                'identifier' => 'test_layout_2',
                 'zones' => [
                     'top' => new Zone(),
                     'left' => new Zone(),
@@ -350,8 +350,8 @@ abstract class CoreTestCase extends TestCase
 
         return new LayoutTypeRegistry(
             [
-                '4_zones_a' => $layoutType1,
-                '4_zones_b' => $layoutType2,
+                'test_layout_1' => $layoutType1,
+                'test_layout_2' => $layoutType2,
             ],
         );
     }
@@ -367,19 +367,19 @@ abstract class CoreTestCase extends TestCase
 
         $itemDefinition = ItemDefinition::fromArray(
             [
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'configDefinitions' => [
                     'key' => $itemConfigDefinition,
                 ],
             ],
         );
 
-        return new ItemDefinitionRegistry(['my_value_type' => $itemDefinition]);
+        return new ItemDefinitionRegistry(['test_value_type' => $itemDefinition]);
     }
 
     protected function createQueryTypeRegistry(): QueryTypeRegistry
     {
-        return new QueryTypeRegistry(['my_query_type' => new QueryType('my_query_type')]);
+        return new QueryTypeRegistry(['test_query_type' => new QueryType('test_query_type')]);
     }
 
     protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry

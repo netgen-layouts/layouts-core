@@ -22,7 +22,7 @@ final class LayoutTest extends TestCase
         $createdDate = new DateTimeImmutable()->setTimestamp(123);
         $modifiedDate = new DateTimeImmutable()->setTimestamp(456);
 
-        $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
+        $layoutType = LayoutType::fromArray(['identifier' => 'test_layout_1']);
 
         $zones = [
             'left' => Zone::fromArray(['identifier' => 'left']),

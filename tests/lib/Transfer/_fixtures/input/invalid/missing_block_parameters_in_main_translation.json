@@ -4,7 +4,7 @@
         {
             "__type": "layout",
             "id": "1be69a4d-e6cc-46c7-a9dd-45fba806625e",
-            "type_identifier": "4_zones_a",
+            "type_identifier": "test_layout_1",
             "name": "My layout",
             "description": "My layout description",
             "status": "PUBLISHED",
@@ -96,7 +96,7 @@
                                                 "param2" :"zxy3"
                                             }
                                         },
-                                        "query_type": "my_query_type"
+                                        "query_type": "test_query_type"
                                     }
                                 }
                             }

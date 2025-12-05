@@ -44,9 +44,9 @@ final class LayoutNormalizerTest extends TestCase
         $this->blockServiceStub = self::createStub(BlockService::class);
 
         $this->layoutType = LayoutTypeFactory::buildLayoutType(
-            '4_zones_a',
+            'test_layout_1',
             [
-                'name' => '4 zones A',
+                'name' => 'Test layout 1',
                 'icon' => '/icon.svg',
                 'enabled' => true,
                 'zones' => [

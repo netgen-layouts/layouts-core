@@ -28,7 +28,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
 
     final public function testNewCollectionCreateStruct(): void
     {
-        $queryCreateStruct = new QueryCreateStruct(new QueryType('my_query_type'));
+        $queryCreateStruct = new QueryCreateStruct(new QueryType('test_query_type'));
         $struct = $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
 
         self::assertSame(
@@ -161,7 +161,7 @@ abstract class CollectionStructBuilderTestBase extends CoreTestCase
 
     final public function testNewQueryCreateStruct(): void
     {
-        $queryType = new QueryType('my_query_type');
+        $queryType = new QueryType('test_query_type');
 
         $struct = $this->structBuilder->newQueryCreateStruct($queryType);
 

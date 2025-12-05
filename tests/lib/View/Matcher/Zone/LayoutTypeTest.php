@@ -36,7 +36,7 @@ final class LayoutTypeTest extends TestCase
     {
         $layout = Layout::fromArray(
             [
-                'layoutType' => LayoutType::fromArray(['identifier' => '4_zones_a']),
+                'layoutType' => LayoutType::fromArray(['identifier' => 'test_layout_1']),
                 'zones' => ZoneList::fromArray(['left' => Zone::fromArray(['identifier' => 'left'])]),
             ],
         );
@@ -51,9 +51,9 @@ final class LayoutTypeTest extends TestCase
         return [
             [[], false],
             [['some_type'], false],
-            [['4_zones_a'], true],
+            [['test_layout_1'], true],
             [['some_type', 'some_type_2'], false],
-            [['some_type', '4_zones_a'], true],
+            [['some_type', 'test_layout_1'], true],
         ];
     }
 

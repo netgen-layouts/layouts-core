@@ -34,7 +34,7 @@ final class TypeTest extends TestCase
     {
         $layout = Layout::fromArray(
             [
-                'layoutType' => LayoutType::fromArray(['identifier' => '4_zones_a']),
+                'layoutType' => LayoutType::fromArray(['identifier' => 'test_layout_1']),
             ],
         );
 
@@ -75,7 +75,7 @@ final class TypeTest extends TestCase
     #[DataProvider('matchLayoutTypeDataProvider')]
     public function testMatchLayoutType(array $config, bool $expected): void
     {
-        $view = new LayoutTypeView(LayoutType::fromArray(['identifier' => '4_zones_a']));
+        $view = new LayoutTypeView(LayoutType::fromArray(['identifier' => 'test_layout_1']));
 
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
@@ -85,9 +85,9 @@ final class TypeTest extends TestCase
         return [
             [[], false],
             [['some_type'], false],
-            [['4_zones_a'], true],
+            [['test_layout_1'], true],
             [['some_type', 'some_type_2'], false],
-            [['some_type', '4_zones_a'], true],
+            [['some_type', 'test_layout_1'], true],
         ];
     }
 
@@ -96,9 +96,9 @@ final class TypeTest extends TestCase
         return [
             [[], false],
             [['some_type'], false],
-            [['4_zones_a'], true],
+            [['test_layout_1'], true],
             [['some_type', 'some_type_2'], false],
-            [['some_type', '4_zones_a'], true],
+            [['some_type', 'test_layout_1'], true],
         ];
     }
 

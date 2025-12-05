@@ -200,7 +200,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'overlay',
             ],
             $this->exportObject($item),
@@ -232,7 +232,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'overlay',
             ],
             $this->exportObject($item),
@@ -288,7 +288,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
@@ -333,7 +333,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
@@ -511,7 +511,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
@@ -575,7 +575,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
@@ -819,7 +819,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Published,
                     'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'value' => '72',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
                 [
@@ -831,7 +831,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Published,
                     'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'value' => '73',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
                 [
@@ -843,7 +843,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Published,
                     'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'value' => '74',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
             ],
@@ -878,7 +878,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
             ],
             $this->exportObject($query),
@@ -959,7 +959,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Draft,
                     'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'value' => '72',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => 'overlay',
                 ],
                 [
@@ -971,7 +971,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Draft,
                     'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'value' => '73',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
                 [
@@ -983,7 +983,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Draft,
                     'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'value' => '74',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => 'overlay',
                 ],
             ],
@@ -1068,7 +1068,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Archived,
                     'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                     'value' => '72',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
                 [
@@ -1080,7 +1080,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Archived,
                     'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                     'value' => '73',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
                 [
@@ -1092,7 +1092,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Archived,
                     'uuid' => '9701e116-51f4-5ff6-b9b5-5660cb2ab21d',
                     'value' => '74',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
             ],
@@ -1125,7 +1125,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Archived,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '0303abc4-c894-59b5-ba95-5cf330b99c66',
             ],
             $this->exportObject(
@@ -1195,7 +1195,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Archived,
                     'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                     'value' => '72',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => 'overlay',
                 ],
                 [
@@ -1207,7 +1207,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Archived,
                     'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                     'value' => '73',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => null,
                 ],
                 [
@@ -1219,7 +1219,7 @@ final class CollectionHandlerTest extends TestCase
                     'status' => Status::Archived,
                     'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                     'value' => '74',
-                    'valueType' => 'my_value_type',
+                    'valueType' => 'test_value_type',
                     'viewType' => 'overlay',
                 ],
             ],
@@ -1336,7 +1336,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($query),
@@ -1395,7 +1395,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = 1;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->valueType = 'test_value_type';
         $itemCreateStruct->viewType = 'my_view_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
@@ -1417,7 +1417,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'my_view_type',
             ],
             $this->exportObject($item),
@@ -1432,7 +1432,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->valueType = 'test_value_type';
         $itemCreateStruct->viewType = 'my_view_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
@@ -1454,7 +1454,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'my_view_type',
             ],
             $this->exportObject($item),
@@ -1475,7 +1475,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = 4;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->valueType = 'test_value_type';
         $itemCreateStruct->viewType = 'my_view_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
@@ -1497,7 +1497,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'my_view_type',
             ],
             $this->exportObject($item),
@@ -1512,7 +1512,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = null;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->valueType = 'test_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
         $itemCreateStruct->viewType = null;
 
@@ -1534,7 +1534,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'value' => '42',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => null,
             ],
             $this->exportObject($item),
@@ -1549,7 +1549,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = null;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->valueType = 'test_value_type';
         $itemCreateStruct->config = [];
         $itemCreateStruct->viewType = null;
 
@@ -1567,7 +1567,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = -1;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->valueType = 'test_value_type';
         $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
@@ -1584,7 +1584,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = 9999;
         $itemCreateStruct->value = '42';
-        $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->valueType = 'test_value_type';
         $itemCreateStruct->config = [];
 
         $this->collectionHandler->addItem(
@@ -1618,7 +1618,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'new_view_type',
             ],
             $this->exportObject($item),
@@ -1645,7 +1645,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => null,
             ],
             $this->exportObject($item),
@@ -1669,7 +1669,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '3562a253-72d1-54d1-8b31-ef1b55409cb5',
                 'value' => '74',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => null,
             ],
             $this->exportObject($movedItem),
@@ -1699,7 +1699,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'overlay',
             ],
             $this->exportObject($movedItem),
@@ -1729,7 +1729,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'value' => '72',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'overlay',
             ],
             $this->exportObject($movedItem),
@@ -1759,7 +1759,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                 'value' => '73',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => null,
             ],
             $this->exportObject($movedItem),
@@ -1786,7 +1786,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                 'value' => '74',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'overlay',
             ],
             $this->exportObject($movedItem),
@@ -1816,7 +1816,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                 'value' => '72',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => null,
             ],
             $this->exportObject($movedItem),
@@ -1846,7 +1846,7 @@ final class CollectionHandlerTest extends TestCase
                 'status' => Status::Draft,
                 'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                 'value' => '73',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => null,
             ],
             $this->exportObject($movedItem),
@@ -1962,7 +1962,7 @@ final class CollectionHandlerTest extends TestCase
         $collection = $this->collectionHandler->loadCollection(1, Status::Draft);
 
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->type = 'my_query_type';
+        $queryCreateStruct->type = 'test_query_type';
         $queryCreateStruct->parameters = [
             'param' => 'value',
         ];
@@ -1993,7 +1993,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Draft,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             $this->exportObject($createdQuery),
@@ -2006,7 +2006,7 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Provided collection already has a query.');
 
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->type = 'my_query_type';
+        $queryCreateStruct->type = 'test_query_type';
         $queryCreateStruct->parameters = [
             'param' => 'value',
         ];
@@ -2054,7 +2054,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($updatedQuery),
@@ -2095,7 +2095,7 @@ final class CollectionHandlerTest extends TestCase
                     ],
                 ],
                 'status' => Status::Published,
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
             ],
             $this->exportObject($updatedQuery),

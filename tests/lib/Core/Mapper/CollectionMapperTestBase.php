@@ -217,7 +217,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 1,
                 'value' => '12',
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'overlay',
                 'config' => [
                     'key' => [
@@ -232,14 +232,14 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('12'), self::identicalTo('my_value_type'))
+            ->with(self::identicalTo('12'), self::identicalTo('test_value_type'))
             ->willReturn($cmsItem);
 
         $item = $this->mapper->mapItem($persistenceItem);
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
-        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->definition);
+        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('test_value_type'), $item->definition);
         self::assertSame(1, $item->position);
         self::assertSame('12', $item->value);
         self::assertSame('overlay', $item->viewType);
@@ -265,7 +265,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 1,
                 'value' => null,
-                'valueType' => 'my_value_type',
+                'valueType' => 'test_value_type',
                 'viewType' => 'overlay',
                 'config' => [
                     'key' => [
@@ -280,12 +280,12 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
-        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->definition);
+        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('test_value_type'), $item->definition);
         self::assertSame(1, $item->position);
         self::assertNull($item->value);
         self::assertSame('overlay', $item->viewType);
         self::assertInstanceOf(NullCmsItem::class, $item->cmsItem);
-        self::assertSame('my_value_type', $item->cmsItem->valueType);
+        self::assertSame('test_value_type', $item->cmsItem->valueType);
         self::assertTrue($item->isPublished);
 
         self::assertTrue($item->hasConfig('key'));
@@ -348,7 +348,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'isAlwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -364,7 +364,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
         $query = $this->mapper->mapQuery($persistenceQuery);
 
         self::assertSame(
-            $this->queryTypeRegistry->getQueryType('my_query_type'),
+            $this->queryTypeRegistry->getQueryType('test_query_type'),
             $query->queryType,
         );
 
@@ -392,7 +392,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -414,7 +414,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -436,7 +436,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => PersistenceStatus::Published,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'isAlwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -460,7 +460,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'isAlwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -480,7 +480,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                'type' => 'my_query_type',
+                'type' => 'test_query_type',
                 'isAlwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],

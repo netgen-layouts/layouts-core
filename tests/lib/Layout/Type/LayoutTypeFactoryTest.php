@@ -17,9 +17,9 @@ final class LayoutTypeFactoryTest extends TestCase
     public function testBuildLayoutType(): void
     {
         $layoutType = LayoutTypeFactory::buildLayoutType(
-            '4_zones_a',
+            'test_layout_1',
             [
-                'name' => '4 zones A',
+                'name' => 'Test layout 1',
                 'icon' => '/icon.svg',
                 'enabled' => false,
                 'zones' => [
@@ -36,9 +36,9 @@ final class LayoutTypeFactoryTest extends TestCase
         self::assertSame(
             [
                 'icon' => '/icon.svg',
-                'identifier' => '4_zones_a',
+                'identifier' => 'test_layout_1',
                 'isEnabled' => false,
-                'name' => '4 zones A',
+                'name' => 'Test layout 1',
                 'zoneIdentifiers' => ['left'],
                 'zones' => [
                     'left' => [

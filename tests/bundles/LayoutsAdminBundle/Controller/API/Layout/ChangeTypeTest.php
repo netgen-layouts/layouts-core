@@ -15,7 +15,7 @@ final class ChangeTypeTest extends ApiTestCase
     public function testChangeType(): void
     {
         $data = [
-            'new_type' => '4_zones_b',
+            'new_type' => 'test_layout_2',
             'zone_mappings' => [
                 'left' => ['left'],
                 'right' => ['right'],
@@ -71,7 +71,7 @@ final class ChangeTypeTest extends ApiTestCase
     public function testChangeTypeWithInvalidMappings(): void
     {
         $data = [
-            'new_type' => '4_zones_b',
+            'new_type' => 'test_layout_2',
             'zone_mappings' => 42,
         ];
 
@@ -87,7 +87,7 @@ final class ChangeTypeTest extends ApiTestCase
     public function testChangeTypeWithNoMappings(): void
     {
         $data = [
-            'new_type' => '4_zones_b',
+            'new_type' => 'test_layout_2',
         ];
 
         $this->browser()
