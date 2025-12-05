@@ -26,3 +26,13 @@ netgen_layouts:
                     name: 'Right'
                 bottom:
                     name: 'Bottom'
+
+    query_types:
+        my_query_type:
+            name: 'My query type'
+            enabled: false
+
+    value_types:
+        my_value_type:
+            name: 'My value type'
+            enabled: false

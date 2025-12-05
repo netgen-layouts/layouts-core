@@ -1,5 +1,0 @@
-netgen_layouts:
-    value_types:
-        my_value_type:
-            name: 'My value type'
-            enabled: false

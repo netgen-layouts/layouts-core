@@ -10,7 +10,6 @@ parameters:
 
     excludePaths:
         - tests/application/public/bundles/
-        - tests/application/src/Kernel.php
 
     ignoreErrors:
         # Disable errors about missing value types in PHPUnit data providers

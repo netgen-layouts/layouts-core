@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 use function dirname;
@@ -21,9 +19,7 @@ use function trim;
 
 final class Kernel extends BaseKernel implements CompilerPassInterface
 {
-    use MicroKernelTrait {
-        configureContainer as protected configureBaseContainer;
-    }
+    use MicroKernelTrait;
 
     public function boot(): void
     {
@@ -58,11 +54,5 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $container->removeDefinition('netgen_layouts.event_listener.api_csrf_validation_listener');
-    }
-
-    private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
-    {
-        $this->configureBaseContainer($container, $loader, $builder);
-        $container->import($this->getConfigDir() . '/{packages}/netgen_layouts/**/*.yaml');
     }
 }

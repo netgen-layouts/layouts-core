@@ -1,5 +1,0 @@
-netgen_layouts:
-    query_types:
-        my_query_type:
-            name: 'My query type'
-            enabled: false
