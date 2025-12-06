@@ -117,19 +117,19 @@ abstract class CoreTestCase extends TestCase
 
         $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 
-        $this->parameterTypeRegistry ??= $this->createParameterTypeRegistry();
-        $this->layoutTypeRegistry ??= $this->createLayoutTypeRegistry();
-        $this->itemDefinitionRegistry ??= $this->createItemDefinitionRegistry();
-        $this->queryTypeRegistry ??= $this->createQueryTypeRegistry();
-        $this->blockDefinitionRegistry ??= $this->createBlockDefinitionRegistry();
-        $this->targetTypeRegistry ??= $this->createTargetTypeRegistry();
-        $this->conditionTypeRegistry ??= $this->createConditionTypeRegistry();
+        $this->parameterTypeRegistry = $this->createParameterTypeRegistry();
+        $this->layoutTypeRegistry = $this->createLayoutTypeRegistry();
+        $this->itemDefinitionRegistry = $this->createItemDefinitionRegistry();
+        $this->queryTypeRegistry = $this->createQueryTypeRegistry();
+        $this->blockDefinitionRegistry = $this->createBlockDefinitionRegistry();
+        $this->targetTypeRegistry = $this->createTargetTypeRegistry();
+        $this->conditionTypeRegistry = $this->createConditionTypeRegistry();
 
-        $this->transactionService ??= $this->createTransactionService();
-        $this->layoutService ??= $this->createLayoutService();
-        $this->blockService ??= $this->createBlockService();
-        $this->collectionService ??= $this->createCollectionService();
-        $this->layoutResolverService ??= $this->createLayoutResolverService();
+        $this->transactionService = $this->createTransactionService();
+        $this->layoutService = $this->createLayoutService();
+        $this->blockService = $this->createBlockService();
+        $this->collectionService = $this->createCollectionService();
+        $this->layoutResolverService = $this->createLayoutResolverService();
     }
 
     abstract protected function createTransactionHandler(): TransactionHandlerInterface;
