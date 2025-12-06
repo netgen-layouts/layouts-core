@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\TestCase;
 
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
@@ -18,6 +22,8 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
     private ConstraintValidatorFactory $baseValidatorFactory;
 
     public function __construct(
+        private LayoutService $layoutService,
+        private LayoutResolverService $layoutResolverService,
         private CmsItemLoaderInterface $cmsItemLoader,
     ) {
         $this->baseValidatorFactory = new ConstraintValidatorFactory();
@@ -44,6 +50,25 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             );
 
             return new Validator\ValueTypeValidator($valueTypeRegistry);
+        }
+
+        if ($name === 'nglayouts_block_definition') {
+            $blockDefinitionRegistry = new BlockDefinitionRegistry(
+                [
+                    'title' => BlockDefinition::fromArray(['identifier' => 'title']),
+                    'text' => BlockDefinition::fromArray(['identifier' => 'text']),
+                ],
+            );
+
+            return new Validator\BlockDefinitionValidator($blockDefinitionRegistry);
+        }
+
+        if ($name === 'nglayouts_layout') {
+            return new Validator\LayoutValidator($this->layoutService);
+        }
+
+        if ($name === 'nglayouts_rule_group') {
+            return new Validator\RuleGroupValidator($this->layoutResolverService);
         }
 
         if ($name === 'nglayouts_datetime') {

@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\Layouts\Block\DynamicParameters;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 
@@ -21,6 +22,26 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
         private array $parameterGroups = [],
         private array $placeholderIdentifiers = ['left', 'right'],
     ) {}
+
+    public function buildParameters(ParameterBuilderInterface $builder): void
+    {
+        $builder->add(
+            'css_class',
+            ParameterType\TextLineType::class,
+            [
+                'default_value' => 'some-class',
+                'groups' => $this->parameterGroups,
+            ],
+        );
+
+        $builder->add(
+            'css_id',
+            ParameterType\TextLineType::class,
+            [
+                'groups' => $this->parameterGroups,
+            ],
+        );
+    }
 
     /**
      * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>

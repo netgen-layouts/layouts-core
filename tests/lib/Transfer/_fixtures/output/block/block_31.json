@@ -14,12 +14,18 @@
     "placeholders": [],
     "parameters": {
         "en": {
-            "css_class": "some-class",
-            "css_id": null
+            "number_of_columns": 3,
+            "paged_collections:enabled": null,
+            "paged_collections:type": null,
+            "paged_collections:max_pages": null,
+            "paged_collections:ajax_first": null
         },
         "hr": {
-            "css_class": "some-class",
-            "css_id": null
+            "number_of_columns": 3,
+            "paged_collections:enabled": null,
+            "paged_collections:type": null,
+            "paged_collections:max_pages": null,
+            "paged_collections:ajax_first": null
         }
     },
     "configuration": {

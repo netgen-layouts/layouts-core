@@ -80,7 +80,9 @@
             {
                 "identifier": "left",
                 "name": "Left",
-                "block_ids": [],
+                "block_ids": [
+                    "d21c7114-12d7-46eb-89e3-8c84974b8655"
+                ],
                 "allowed_block_definitions": true,
                 "linked_layout_id": null,
                 "linked_zone_identifier": null

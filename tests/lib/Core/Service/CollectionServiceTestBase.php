@@ -421,7 +421,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('hr');
 
         $queryUpdateStruct->setParameterValue('param', 'new_value');
-        $queryUpdateStruct->setParameterValue('param2', 3);
+        $queryUpdateStruct->setParameterValue('param2', 'value');
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
@@ -436,7 +436,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
         self::assertNull($croQuery->getParameter('param')->value);
 
-        self::assertSame(3, $croQuery->getParameter('param2')->value);
+        self::assertSame('value', $croQuery->getParameter('param2')->value);
     }
 
     final public function testUpdateQueryInMainLocale(): void
@@ -446,7 +446,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
 
         $queryUpdateStruct->setParameterValue('param', 'new_value');
-        $queryUpdateStruct->setParameterValue('param2', 3);
+        $queryUpdateStruct->setParameterValue('param2', 'value');
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
@@ -456,7 +456,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
         $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 
         self::assertSame('new_value', $updatedQuery->getParameter('param')->value);
-        self::assertSame(3, $updatedQuery->getParameter('param2')->value);
+        self::assertSame('value', $updatedQuery->getParameter('param2')->value);
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
         self::assertSame('new_value', $croQuery->getParameter('param')->value);
@@ -473,7 +473,7 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
         $queryUpdateStruct->setParameterValue('param', 'value');
-        $queryUpdateStruct->setParameterValue('param2', 3);
+        $queryUpdateStruct->setParameterValue('param2', 'new_value');
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
     }
@@ -485,9 +485,9 @@ abstract class CollectionServiceTestBase extends CoreTestCase
 
         $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
 
-        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('non-existing');
+        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('de');
         $queryUpdateStruct->setParameterValue('param', 'value');
-        $queryUpdateStruct->setParameterValue('param2', 3);
+        $queryUpdateStruct->setParameterValue('param2', 'new_value');
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
     }

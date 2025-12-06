@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
@@ -36,7 +38,11 @@ final class BlockValidatorTest extends TestCase
     {
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(
-                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+                new ValidatorFactory(
+                    self::createStub(LayoutService::class),
+                    self::createStub(LayoutResolverService::class),
+                    self::createStub(CmsItemLoaderInterface::class),
+                ),
             )
             ->getValidator();
 

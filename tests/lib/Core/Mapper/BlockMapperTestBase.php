@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\Block\NullBlockDefinition;
-use Netgen\Layouts\Core\Mapper\BlockMapper;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
@@ -14,15 +13,6 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class BlockMapperTestBase extends CoreTestCase
 {
-    private BlockMapper $mapper;
-
-    final protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->mapper = $this->createBlockMapper();
-    }
-
     final public function testMapBlock(): void
     {
         $persistenceBlock = Block::fromArray(
@@ -46,8 +36,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
                 'status' => PersistenceStatus::Published,
                 'parameters' => [
                     'en' => [
-                        'css_class' => 'test',
-                        'some_param' => 'some_value',
+                        'content' => 'Test content',
                     ],
                 ],
                 'config' => [
@@ -59,7 +48,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock);
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
@@ -76,8 +65,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->parentBlockId->toString());
         self::assertSame('main', $block->parentPlaceholder);
         self::assertTrue($block->isPublished);
-        self::assertSame('test', $block->getParameter('css_class')->value);
-        self::assertNull($block->getParameter('css_id')->value);
+        self::assertSame('Test content', $block->getParameter('content')->value);
         self::assertTrue($block->hasConfig('key'));
 
         $blockConfig = $block->getConfig('key');
@@ -92,8 +80,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
 
         self::assertSame('en', $block->locale);
 
-        self::assertSame('test', $block->getParameter('css_class')->value);
-        self::assertNull($block->getParameter('css_id')->value);
+        self::assertSame('Test content', $block->getParameter('content')->value);
     }
 
     final public function testMapBlockWithNoParent(): void
@@ -122,7 +109,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock);
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         self::assertSame(3, $block->position);
         self::assertNull($block->parentBlockId);
@@ -155,7 +142,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock, ['hr']);
+        $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr']);
 
         self::assertSame(['en', 'hr', 'de'], $block->availableLocales);
         self::assertSame('hr', $block->locale);
@@ -187,7 +174,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock, ['hr', 'en']);
+        $block = $this->blockMapper->mapBlock($persistenceBlock, ['hr', 'en']);
 
         self::assertSame(['en', 'hr', 'de'], $block->availableLocales);
         self::assertSame('hr', $block->locale);
@@ -219,7 +206,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
+        $block = $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
 
         self::assertSame(['en', 'hr', 'de'], $block->availableLocales);
         self::assertSame('en', $block->locale);
@@ -254,7 +241,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $this->mapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
+        $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
     }
 
     final public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
@@ -276,7 +263,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
+        $this->blockMapper->mapBlock($persistenceBlock, ['fr', 'no']);
     }
 
     final public function testMapBlockWithInvalidDefinition(): void
@@ -317,7 +304,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock);
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         self::assertInstanceOf(NullBlockDefinition::class, $block->definition);
 
@@ -373,7 +360,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock);
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('two_columns'),
@@ -427,7 +414,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
             ],
         );
 
-        $block = $this->mapper->mapBlock($persistenceBlock);
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),

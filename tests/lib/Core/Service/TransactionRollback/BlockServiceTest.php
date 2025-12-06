@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\API\Values\Config\ConfigList;
@@ -393,10 +392,5 @@ final class BlockServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->blockService->deleteBlock(Block::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
-    }
-
-    protected function createLayoutService(): LayoutService
-    {
-        return self::createStub(LayoutService::class);
     }
 }

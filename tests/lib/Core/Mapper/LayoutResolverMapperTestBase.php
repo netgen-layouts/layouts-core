@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Core\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
@@ -20,15 +19,6 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class LayoutResolverMapperTestBase extends CoreTestCase
 {
-    private LayoutResolverMapper $mapper;
-
-    final protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->mapper = $this->createLayoutResolverMapper();
-    }
-
     final public function testMapRule(): void
     {
         $persistenceRule = Rule::fromArray(
@@ -44,7 +34,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $rule = $this->mapper->mapRule($persistenceRule);
+        $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
 
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $rule->id->toString());
         self::assertSame(RuleGroup::ROOT_UUID, $rule->ruleGroupId->toString());
@@ -74,7 +64,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $rule = $this->mapper->mapRule($persistenceRule);
+        $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
 
         self::assertNull($rule->layout);
     }
@@ -97,7 +87,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $ruleGroup = $this->mapper->mapRuleGroup($persistenceRuleGroup);
+        $ruleGroup = $this->layoutResolverMapper->mapRuleGroup($persistenceRuleGroup);
 
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $ruleGroup->id->toString());
         self::assertInstanceOf(UuidInterface::class, $ruleGroup->parentId);
@@ -126,7 +116,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $target = $this->mapper->mapTarget($persistenceTarget);
+        $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
 
         self::assertSame(
             $this->targetTypeRegistry->getTargetType('target1'),
@@ -153,7 +143,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $target = $this->mapper->mapTarget($persistenceTarget);
+        $target = $this->layoutResolverMapper->mapTarget($persistenceTarget);
 
         self::assertInstanceOf(NullTargetType::class, $target->targetType);
 
@@ -177,7 +167,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $condition = $this->mapper->mapRuleCondition($persistenceCondition);
+        $condition = $this->layoutResolverMapper->mapRuleCondition($persistenceCondition);
 
         self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
@@ -204,7 +194,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $condition = $this->mapper->mapRuleCondition($persistenceCondition);
+        $condition = $this->layoutResolverMapper->mapRuleCondition($persistenceCondition);
 
         self::assertInstanceOf(NullConditionType::class, $condition->conditionType);
 
@@ -228,7 +218,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $condition = $this->mapper->mapRuleGroupCondition($persistenceCondition);
+        $condition = $this->layoutResolverMapper->mapRuleGroupCondition($persistenceCondition);
 
         self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
@@ -255,7 +245,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
             ],
         );
 
-        $condition = $this->mapper->mapRuleGroupCondition($persistenceCondition);
+        $condition = $this->layoutResolverMapper->mapRuleGroupCondition($persistenceCondition);
 
         self::assertInstanceOf(NullConditionType::class, $condition->conditionType);
 

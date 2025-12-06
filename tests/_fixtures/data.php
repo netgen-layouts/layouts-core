@@ -100,6 +100,8 @@ return [
         ['id' => 37, 'status' => 1, 'uuid' => '129f51de-a535-5094-8517-45d672e06302', 'layout_id' => 2, 'depth' => 2, 'path' => '/7/33/37/', 'parent_id' => 33, 'placeholder' => 'left', 'position' => 0, 'definition_identifier' => 'text', 'view_type' => 'text', 'item_view_type' => 'standard', 'name' => 'My seventh block', 'config' => '', 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
         ['id' => 37, 'status' => 2, 'uuid' => '129f51de-a535-5094-8517-45d672e06302', 'layout_id' => 2, 'depth' => 2, 'path' => '/7/33/37/', 'parent_id' => 33, 'placeholder' => 'left', 'position' => 0, 'definition_identifier' => 'text', 'view_type' => 'text', 'item_view_type' => 'standard', 'name' => 'My seventh block', 'config' => '', 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
         ['id' => 38, 'status' => 0, 'uuid' => 'a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6', 'layout_id' => 2, 'depth' => 1, 'path' => '/7/38/', 'parent_id' => 7, 'placeholder' => 'root', 'position' => 2, 'definition_identifier' => 'column', 'view_type' => 'column', 'item_view_type' => 'standard', 'name' => 'My eight block', 'config' => '', 'main_locale' => 'en', 'translatable' => 1, 'always_available' => 1],
+        ['id' => 39, 'status' => 0, 'uuid' => 'd21c7114-12d7-46eb-89e3-8c84974b8655', 'layout_id' => 3, 'depth' => 1, 'path' => '/10/39/', 'parent_id' => 10, 'placeholder' => 'root', 'position' => 0, 'definition_identifier' => 'translatable', 'view_type' => 'small', 'item_view_type' => 'standard', 'name' => 'My translatable block', 'config' => '', 'main_locale' => 'en', 'translatable' => 1, 'always_available' => 1],
+        ['id' => 39, 'status' => 1, 'uuid' => 'd21c7114-12d7-46eb-89e3-8c84974b8655', 'layout_id' => 3, 'depth' => 1, 'path' => '/10/39/', 'parent_id' => 10, 'placeholder' => 'root', 'position' => 0, 'definition_identifier' => 'translatable', 'view_type' => 'small', 'item_view_type' => 'standard', 'name' => 'My translatable block', 'config' => '', 'main_locale' => 'en', 'translatable' => 1, 'always_available' => 1],
     ],
     'nglayouts_block_translation' => [
         ['block_id' => 1, 'status' => 0, 'locale' => 'en', 'parameters' => ''],
@@ -172,6 +174,10 @@ return [
         ['block_id' => 37, 'status' => 1, 'locale' => 'en', 'parameters' => '{"content": "Text"}'],
         ['block_id' => 37, 'status' => 2, 'locale' => 'en', 'parameters' => '{"content": "Text"}'],
         ['block_id' => 38, 'status' => 0, 'locale' => 'en', 'parameters' => '{}'],
+        ['block_id' => 39, 'status' => 0, 'locale' => 'en', 'parameters' => '{"css_class": "css-class", "css_id": "css-id"}'],
+        ['block_id' => 39, 'status' => 1, 'locale' => 'en', 'parameters' => '{}'],
+        ['block_id' => 39, 'status' => 0, 'locale' => 'hr', 'parameters' => '{"css_class": "css-class-hr", "css_id": "css-id"}'],
+        ['block_id' => 39, 'status' => 1, 'locale' => 'hr', 'parameters' => '{}'],
     ],
     'nglayouts_zone' => [
         ['identifier' => 'top', 'layout_id' => 1, 'status' => 0, 'root_block_id' => 1, 'linked_layout_uuid' => null, 'linked_zone_identifier' => null],

@@ -806,11 +806,11 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $createdZone->layoutUuid);
         self::assertSame(Status::Draft, $createdZone->status);
         self::assertSame('new_zone', $createdZone->identifier);
-        self::assertSame(39, $createdZone->rootBlockId);
+        self::assertSame(40, $createdZone->rootBlockId);
         self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $createdZone->linkedLayoutUuid);
         self::assertSame('left', $createdZone->linkedZoneIdentifier);
 
-        $rootBlock = $this->blockHandler->loadBlock(39, Status::Draft);
+        $rootBlock = $this->blockHandler->loadBlock(40, Status::Draft);
 
         self::assertSame(
             [
@@ -818,7 +818,7 @@ final class LayoutHandlerTest extends TestCase
                 'config' => [],
                 'definitionIdentifier' => '',
                 'depth' => 0,
-                'id' => 39,
+                'id' => 40,
                 'isAlwaysAvailable' => true,
                 'isTranslatable' => false,
                 'itemViewType' => '',
@@ -829,7 +829,7 @@ final class LayoutHandlerTest extends TestCase
                 'parameters' => ['en' => []],
                 'parentId' => null,
                 'parentUuid' => null,
-                'path' => '/39/',
+                'path' => '/40/',
                 'placeholder' => null,
                 'position' => null,
                 'status' => Status::Draft,
@@ -948,7 +948,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $copiedLayout->uuid,
                     'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
-                    'rootBlockId' => 39,
+                    'rootBlockId' => 40,
                     'status' => Status::Published,
                 ],
                 'left' => [
@@ -957,7 +957,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $copiedLayout->uuid,
                     'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                     'linkedZoneIdentifier' => 'left',
-                    'rootBlockId' => 40,
+                    'rootBlockId' => 41,
                     'status' => Status::Published,
                 ],
                 'right' => [
@@ -966,7 +966,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $copiedLayout->uuid,
                     'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
-                    'rootBlockId' => 42,
+                    'rootBlockId' => 43,
                     'status' => Status::Published,
                 ],
                 'top' => [
@@ -975,7 +975,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $copiedLayout->uuid,
                     'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
-                    'rootBlockId' => 45,
+                    'rootBlockId' => 46,
                     'status' => Status::Published,
                 ],
             ],
@@ -984,7 +984,7 @@ final class LayoutHandlerTest extends TestCase
             ),
         );
 
-        $rootBlock = $this->blockHandler->loadBlock(40, Status::Published);
+        $rootBlock = $this->blockHandler->loadBlock(41, Status::Published);
 
         self::assertSame(
             [
@@ -997,7 +997,7 @@ final class LayoutHandlerTest extends TestCase
                     ],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
-                    'id' => 41,
+                    'id' => 42,
                     'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard',
@@ -1015,7 +1015,7 @@ final class LayoutHandlerTest extends TestCase
                     ],
                     'parentId' => $rootBlock->id,
                     'parentUuid' => $rootBlock->uuid,
-                    'path' => '/40/41/',
+                    'path' => '/41/42/',
                     'placeholder' => 'root',
                     'position' => 0,
                     'status' => Status::Published,
@@ -1028,7 +1028,7 @@ final class LayoutHandlerTest extends TestCase
             ),
         );
 
-        $rootBlock = $this->blockHandler->loadBlock(42, Status::Published);
+        $rootBlock = $this->blockHandler->loadBlock(43, Status::Published);
 
         self::assertSame(
             [
@@ -1037,7 +1037,7 @@ final class LayoutHandlerTest extends TestCase
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
-                    'id' => 43,
+                    'id' => 44,
                     'isAlwaysAvailable' => true,
                     'isTranslatable' => true,
                     'itemViewType' => 'standard_with_intro',
@@ -1055,7 +1055,7 @@ final class LayoutHandlerTest extends TestCase
                     ],
                     'parentId' => $rootBlock->id,
                     'parentUuid' => $rootBlock->uuid,
-                    'path' => '/42/43/',
+                    'path' => '/43/44/',
                     'placeholder' => 'root',
                     'position' => 0,
                     'status' => Status::Published,
@@ -1067,7 +1067,7 @@ final class LayoutHandlerTest extends TestCase
                     'config' => [],
                     'definitionIdentifier' => 'list',
                     'depth' => 1,
-                    'id' => 44,
+                    'id' => 45,
                     'isAlwaysAvailable' => true,
                     'isTranslatable' => false,
                     'itemViewType' => 'standard',
@@ -1082,7 +1082,7 @@ final class LayoutHandlerTest extends TestCase
                     ],
                     'parentId' => $rootBlock->id,
                     'parentUuid' => $rootBlock->uuid,
-                    'path' => '/42/44/',
+                    'path' => '/43/45/',
                     'placeholder' => 'root',
                     'position' => 1,
                     'status' => Status::Published,
@@ -1103,14 +1103,14 @@ final class LayoutHandlerTest extends TestCase
 
         // First block
         $references = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(41, Status::Published),
+            $this->blockHandler->loadBlock(42, Status::Published),
         );
 
         self::assertCount(0, $references);
 
         // Second block
         $references = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(43, Status::Published),
+            $this->blockHandler->loadBlock(44, Status::Published),
         );
 
         self::assertCount(2, $references);
@@ -1119,7 +1119,7 @@ final class LayoutHandlerTest extends TestCase
 
         // Third block
         $references = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(44, Status::Published),
+            $this->blockHandler->loadBlock(45, Status::Published),
         );
 
         self::assertCount(1, $references);
@@ -1169,7 +1169,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $updatedLayout->uuid,
                     'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
-                    'rootBlockId' => 42,
+                    'rootBlockId' => 43,
                     'status' => Status::Draft,
                 ],
                 'left' => [
@@ -1178,7 +1178,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $updatedLayout->uuid,
                     'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
-                    'rootBlockId' => 40,
+                    'rootBlockId' => 41,
                     'status' => Status::Draft,
                 ],
                 'right' => [
@@ -1187,7 +1187,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $updatedLayout->uuid,
                     'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
-                    'rootBlockId' => 41,
+                    'rootBlockId' => 42,
                     'status' => Status::Draft,
                 ],
                 'top' => [
@@ -1196,7 +1196,7 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $updatedLayout->uuid,
                     'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
-                    'rootBlockId' => 39,
+                    'rootBlockId' => 40,
                     'status' => Status::Draft,
                 ],
             ],
@@ -1205,7 +1205,7 @@ final class LayoutHandlerTest extends TestCase
             ),
         );
 
-        $rootBlock = $this->blockHandler->loadBlock(39, Status::Draft);
+        $rootBlock = $this->blockHandler->loadBlock(40, Status::Draft);
 
         self::assertSame(
             [
@@ -1236,7 +1236,7 @@ final class LayoutHandlerTest extends TestCase
                     ],
                     'parentId' => $rootBlock->id,
                     'parentUuid' => $rootBlock->uuid,
-                    'path' => '/39/32/',
+                    'path' => '/40/32/',
                     'placeholder' => 'root',
                     'position' => 0,
                     'status' => Status::Draft,
@@ -1269,7 +1269,7 @@ final class LayoutHandlerTest extends TestCase
                     ],
                     'parentId' => $rootBlock->id,
                     'parentUuid' => $rootBlock->uuid,
-                    'path' => '/39/31/',
+                    'path' => '/40/31/',
                     'placeholder' => 'root',
                     'position' => 1,
                     'status' => Status::Draft,
@@ -1296,7 +1296,7 @@ final class LayoutHandlerTest extends TestCase
                     ],
                     'parentId' => $rootBlock->id,
                     'parentUuid' => $rootBlock->uuid,
-                    'path' => '/39/35/',
+                    'path' => '/40/35/',
                     'placeholder' => 'root',
                     'position' => 2,
                     'status' => Status::Draft,
@@ -1311,12 +1311,6 @@ final class LayoutHandlerTest extends TestCase
 
         self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(40, Status::Draft),
-            ),
-        );
-
-        self::assertEmpty(
-            $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(41, Status::Draft),
             ),
         );
@@ -1324,6 +1318,12 @@ final class LayoutHandlerTest extends TestCase
         self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(42, Status::Draft),
+            ),
+        );
+
+        self::assertEmpty(
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(43, Status::Draft),
             ),
         );
     }

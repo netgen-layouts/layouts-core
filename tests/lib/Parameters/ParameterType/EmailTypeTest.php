@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Parameters\ParameterType\EmailType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
@@ -78,7 +80,11 @@ final class EmailTypeTest extends TestCase
 
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(
-                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+                new ValidatorFactory(
+                    self::createStub(LayoutService::class),
+                    self::createStub(LayoutResolverService::class),
+                    self::createStub(CmsItemLoaderInterface::class),
+                ),
             )
             ->getValidator();
 

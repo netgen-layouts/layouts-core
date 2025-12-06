@@ -427,7 +427,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
     final public function testCreateBlockInZoneWithContainerBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('column'),
+            $this->blockDefinitionRegistry->getBlockDefinition('two_columns'),
         );
 
         $block = $this->blockService->createBlockInZone(
@@ -438,8 +438,8 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         self::assertCount(2, $block->placeholders);
 
-        self::assertTrue($block->hasPlaceholder('main'));
-        self::assertTrue($block->hasPlaceholder('other'));
+        self::assertTrue($block->hasPlaceholder('left'));
+        self::assertTrue($block->hasPlaceholder('right'));
     }
 
     final public function testCreateBlockInZoneWithoutCollection(): void
@@ -563,7 +563,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('gallery'),
+            $this->blockDefinitionRegistry->getBlockDefinition('text'),
         );
 
         $this->blockService->createBlockInZone(
@@ -574,7 +574,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testUpdateBlock(): void
     {
-        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('d21c7114-12d7-46eb-89e3-8c84974b8655'), ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
         $blockUpdateStruct->viewType = 'small';
@@ -591,7 +591,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('css-class', $updatedBlock->getParameter('css_class')->value);
         self::assertSame('css-id', $updatedBlock->getParameter('css_id')->value);
 
-        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
+        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('d21c7114-12d7-46eb-89e3-8c84974b8655'), ['hr']);
 
         self::assertSame('test_value', $croBlock->getParameter('css_class')->value);
 
@@ -601,7 +601,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testUpdateBlockInMainLocale(): void
     {
-        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('d21c7114-12d7-46eb-89e3-8c84974b8655'), ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -618,7 +618,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('test_value', $updatedBlock->getParameter('css_class')->value);
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
 
-        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
+        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('d21c7114-12d7-46eb-89e3-8c84974b8655'), ['hr']);
 
         self::assertSame('css-class-hr', $croBlock->getParameter('css_class')->value);
 
@@ -628,7 +628,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testUpdateBlockWithUntranslatableParameters(): void
     {
-        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('d21c7114-12d7-46eb-89e3-8c84974b8655'), ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -642,7 +642,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
+        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('d21c7114-12d7-46eb-89e3-8c84974b8655'), ['hr']);
 
         self::assertSame('english_css', $block->getParameter('css_class')->value);
         self::assertSame('some_other_test_value', $block->getParameter('css_id')->value);
@@ -678,18 +678,16 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
-        $blockUpdateStruct->viewType = 'small';
-        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
-        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
+        $blockUpdateStruct->viewType = 'grid';
+        $blockUpdateStruct->setParameterValue('number_of_columns', 4);
 
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         self::assertTrue($updatedBlock->isDraft);
-        self::assertSame('small', $updatedBlock->viewType);
+        self::assertSame('grid', $updatedBlock->viewType);
         self::assertSame('My block', $updatedBlock->name);
 
-        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->value);
-        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
+        self::assertSame(4, $updatedBlock->getParameter('number_of_columns')->value);
     }
 
     final public function testUpdateBlockWithBlankViewType(): void
@@ -698,8 +696,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->name = 'Super cool block';
-        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
-        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
+        $blockUpdateStruct->setParameterValue('number_of_columns', 4);
 
         $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
@@ -707,8 +704,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('list', $updatedBlock->viewType);
         self::assertSame('Super cool block', $updatedBlock->name);
 
-        self::assertSame('test_value', $updatedBlock->getParameter('css_class')->value);
-        self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->value);
+        self::assertSame(4, $updatedBlock->getParameter('number_of_columns')->value);
     }
 
     final public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock(): void
@@ -735,10 +731,9 @@ abstract class BlockServiceTestBase extends CoreTestCase
         $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('de');
-        $blockUpdateStruct->viewType = 'small';
+        $blockUpdateStruct->viewType = 'grid';
         $blockUpdateStruct->name = 'Super cool block';
-        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
-        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
+        $blockUpdateStruct->setParameterValue('number_of_columns', 4);
 
         $this->blockService->updateBlock($block, $blockUpdateStruct);
     }
@@ -1404,8 +1399,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('standard_with_intro', $restoredBlock->itemViewType);
         self::assertSame('My published block', $restoredBlock->name);
 
-        self::assertSame('some-class', $restoredBlock->getParameter('css_class')->value);
-        self::assertNull($restoredBlock->getParameter('css_id')->value);
+        self::assertSame(3, $restoredBlock->getParameter('number_of_columns')->value);
 
         $collections = $restoredBlock->collections;
         self::assertCount(2, $collections);
@@ -1589,14 +1583,16 @@ abstract class BlockServiceTestBase extends CoreTestCase
                 'configStructs' => [],
                 'definition' => $blockDefinition,
                 'isAlwaysAvailable' => true,
-                'isTranslatable' => true,
+                'isTranslatable' => false,
                 'itemViewType' => 'standard',
                 'name' => '',
                 'parameterValues' => [
-                    'css_class' => 'some-class',
-                    'css_id' => null,
+                    'tag' => 'h1',
+                    'title' => 'Title',
+                    'use_link' => null,
+                    'link' => null,
                 ],
-                'viewType' => 'small',
+                'viewType' => 'standard',
             ],
             $this->exportObject($struct),
         );
@@ -1642,8 +1638,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
                 'locale' => 'en',
                 'name' => 'My sixth block',
                 'parameterValues' => [
-                    'css_class' => 'CSS class',
-                    'css_id' => null,
+                    'tag' => 'h3',
+                    'title' => 'Title',
+                    'use_link' => null,
+                    'link' => null,
                 ],
                 'viewType' => 'title',
             ],

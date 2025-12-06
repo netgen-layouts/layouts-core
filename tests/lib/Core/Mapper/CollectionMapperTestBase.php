@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Tests\Core\Mapper;
 use Netgen\Layouts\API\Values\Collection\Query as APIQuery;
 use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use Netgen\Layouts\Collection\QueryType\NullQueryType;
-use Netgen\Layouts\Core\Mapper\CollectionMapper;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\NullCmsItem;
@@ -20,15 +19,6 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class CollectionMapperTestBase extends CoreTestCase
 {
-    private CollectionMapper $mapper;
-
-    final protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->mapper = $this->createCollectionMapper();
-    }
-
     final public function testMapCollection(): void
     {
         $persistenceCollection = Collection::fromArray(
@@ -47,7 +37,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $collection = $this->mapper->mapCollection($persistenceCollection);
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection);
 
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->id->toString());
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->blockId->toString());
@@ -82,7 +72,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $collection = $this->mapper->mapCollection($persistenceCollection, ['hr']);
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['hr']);
 
         self::assertSame(['en', 'hr', 'de'], $collection->availableLocales);
         self::assertSame('hr', $collection->locale);
@@ -106,7 +96,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $collection = $this->mapper->mapCollection($persistenceCollection, ['hr', 'en']);
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['hr', 'en']);
 
         self::assertSame(['en', 'hr', 'de'], $collection->availableLocales);
         self::assertSame('hr', $collection->locale);
@@ -130,7 +120,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $collection = $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no']);
 
         self::assertSame(['en', 'hr', 'de'], $collection->availableLocales);
         self::assertSame('en', $collection->locale);
@@ -151,7 +141,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $this->mapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
+        $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
     }
 
     final public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
@@ -169,7 +159,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
+        $this->collectionMapper->mapCollection($persistenceCollection, ['fr', 'no']);
     }
 
     final public function testMapCollectionWithNoQuery(): void
@@ -190,7 +180,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $collection = $this->mapper->mapCollection($persistenceCollection);
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection);
 
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->id->toString());
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->blockId->toString());
@@ -235,7 +225,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ->with(self::identicalTo('12'), self::identicalTo('test_value_type'))
             ->willReturn($cmsItem);
 
-        $item = $this->mapper->mapItem($persistenceItem);
+        $item = $this->collectionMapper->mapItem($persistenceItem);
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
@@ -276,7 +266,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $item = $this->mapper->mapItem($persistenceItem);
+        $item = $this->collectionMapper->mapItem($persistenceItem);
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
@@ -325,7 +315,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ->with(self::identicalTo('12'), self::identicalTo('null'))
             ->willReturn($cmsItem);
 
-        $item = $this->mapper->mapItem($persistenceItem);
+        $item = $this->collectionMapper->mapItem($persistenceItem);
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionId->toString());
@@ -361,7 +351,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $query = $this->mapper->mapQuery($persistenceQuery);
+        $query = $this->collectionMapper->mapQuery($persistenceQuery);
 
         self::assertSame(
             $this->queryTypeRegistry->getQueryType('test_query_type'),
@@ -401,7 +391,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $query = $this->mapper->mapQuery($persistenceQuery, ['hr']);
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['hr']);
 
         self::assertSame(['en', 'hr', 'de'], $query->availableLocales);
         self::assertSame('hr', $query->locale);
@@ -423,7 +413,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $query = $this->mapper->mapQuery($persistenceQuery, ['hr', 'en']);
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['hr', 'en']);
 
         self::assertSame(['en', 'hr', 'de'], $query->availableLocales);
         self::assertSame('hr', $query->locale);
@@ -445,7 +435,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $query = $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no']);
 
         self::assertSame(['en', 'hr', 'de'], $query->availableLocales);
         self::assertSame('en', $query->locale);
@@ -468,7 +458,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $this->mapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
+        $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
     }
 
     final public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
@@ -488,7 +478,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
+        $this->collectionMapper->mapQuery($persistenceQuery, ['fr', 'no']);
     }
 
     final public function testMapQueryWithInvalidType(): void
@@ -513,7 +503,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $query = $this->mapper->mapQuery($persistenceQuery);
+        $query = $this->collectionMapper->mapQuery($persistenceQuery);
 
         self::assertInstanceOf(NullQueryType::class, $query->queryType);
 
@@ -545,7 +535,7 @@ abstract class CollectionMapperTestBase extends CoreTestCase
             ],
         );
 
-        $slot = $this->mapper->mapSlot($persistenceSlot);
+        $slot = $this->collectionMapper->mapSlot($persistenceSlot);
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $slot->id->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $slot->collectionId->toString());

@@ -11,6 +11,12 @@ use Netgen\Layouts\Parameters\ParameterType;
 
 final class ConfigHandler implements ConfigDefinitionHandlerInterface
 {
+    public function buildParameters(ParameterBuilderInterface $builder): void
+    {
+        $builder->add('param1', ParameterType\BooleanType::class);
+        $builder->add('param2', ParameterType\IntegerType::class);
+    }
+
     /**
      * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
      */
@@ -36,11 +42,5 @@ final class ConfigHandler implements ConfigDefinitionHandlerInterface
                 ],
             ),
         ];
-    }
-
-    public function buildParameters(ParameterBuilderInterface $builder): void
-    {
-        $builder->add('param1', ParameterType\BooleanType::class);
-        $builder->add('param2', ParameterType\IntegerType::class);
     }
 }

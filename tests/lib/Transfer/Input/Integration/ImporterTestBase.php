@@ -8,23 +8,9 @@ use Coduo\PHPMatcher\PHPMatcher;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\Provider\StaticConfigProvider;
-use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
-use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
-use Netgen\Layouts\Block\BlockDefinitionFactory;
-use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
-use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
-use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemInterface;
-use Netgen\Layouts\Parameters\ParameterBuilderFactory;
-use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
-use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\TwoColumnsHandler;
-use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\ListHandler;
-use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TextHandler;
-use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
-use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler;
@@ -334,78 +320,5 @@ abstract class ImporterTestBase extends CoreTestCase
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->error);
         self::assertSame('Missing data for zone "right"', $result[0]->error->getMessage());
-    }
-
-    final protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry
-    {
-        $data = ['translatable' => true];
-        $configHandlers = ['key' => new ConfigHandler()];
-
-        $handlerPluginRegistry = new HandlerPluginRegistry(
-            [
-                new PagedCollectionsPlugin(['pager' => 'pager', 'load_more' => 'load_more'], []),
-                new CommonParametersPlugin([]),
-            ],
-        );
-
-        $parameterBuilderFactory = new ParameterBuilderFactory(
-            $this->createParameterTypeRegistry(),
-        );
-
-        $blockDefinitionFactory = new BlockDefinitionFactory(
-            $parameterBuilderFactory,
-            $handlerPluginRegistry,
-            new ConfigDefinitionFactory($parameterBuilderFactory),
-        );
-
-        $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
-            'title',
-            new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []),
-            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
-            $data,
-            $configHandlers,
-        );
-
-        $blockDefinition2 = $blockDefinitionFactory->buildBlockDefinition(
-            'text',
-            new TextHandler(),
-            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
-            $data,
-            $configHandlers,
-        );
-
-        $blockDefinition3 = $blockDefinitionFactory->buildBlockDefinition(
-            'list',
-            new ListHandler([2 => '2', 3 => '3', 4 => '4', 6 => '6']),
-            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
-            $data,
-            $configHandlers,
-        );
-
-        $blockDefinition4 = $blockDefinitionFactory->buildContainerDefinition(
-            'column',
-            new ColumnHandler(),
-            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
-            $data,
-            $configHandlers,
-        );
-
-        $blockDefinition5 = $blockDefinitionFactory->buildContainerDefinition(
-            'two_columns',
-            new TwoColumnsHandler(),
-            new StaticConfigProvider('title', ['view_types' => ['view_type' => ['enabled' => true]]]),
-            $data,
-            $configHandlers,
-        );
-
-        return new BlockDefinitionRegistry(
-            [
-                'title' => $blockDefinition1,
-                'text' => $blockDefinition2,
-                'list' => $blockDefinition3,
-                'column' => $blockDefinition4,
-                'two_columns' => $blockDefinition5,
-            ],
-        );
     }
 }

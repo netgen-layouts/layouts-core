@@ -8,18 +8,13 @@ use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
-use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use function array_keys;
 use function array_map;
@@ -36,10 +31,6 @@ abstract class BlockTestCase extends CoreTestCase
     final public function testCreateBlock(array $parameters, array $expectedParameters): void
     {
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
-
-        // We need to recreate the service due to recreating the block definition
-        // registry in $this->createBlockDefinition() call
-        $this->blockService = $this->createBlockService();
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
@@ -78,10 +69,6 @@ abstract class BlockTestCase extends CoreTestCase
             count($testedParams) > 0 ? $testedParams : array_keys($parameters),
         );
 
-        // We need to recreate the service due to recreating the block definition
-        // registry in $this->createBlockDefinition() call
-        $this->blockService = $this->createBlockService();
-
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
@@ -101,15 +88,6 @@ abstract class BlockTestCase extends CoreTestCase
     }
 
     abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
-
-    protected function createValidator(): ValidatorInterface
-    {
-        return Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
-            )
-            ->getValidator();
-    }
 
     /**
      * @param string[] $parameterNames
@@ -153,10 +131,9 @@ abstract class BlockTestCase extends CoreTestCase
             ],
         );
 
-        $allBlockDefinitions = $this->blockDefinitionRegistry->getBlockDefinitions();
-        $allBlockDefinitions['definition'] = $blockDefinition;
-
-        $this->blockDefinitionRegistry = new BlockDefinitionRegistry($allBlockDefinitions);
+        (function () use ($blockDefinition): void {
+            $this->blockDefinitions['definition'] = $blockDefinition;
+        })->call($this->blockDefinitionRegistry);
 
         return $blockDefinition;
     }

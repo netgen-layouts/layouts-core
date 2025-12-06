@@ -9,14 +9,15 @@ use Netgen\Layouts\API\Service\CollectionService as APICollectionService;
 use Netgen\Layouts\API\Service\LayoutResolverService as APILayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService as APILayoutService;
 use Netgen\Layouts\API\Service\TransactionService as APITransactionService;
-use Netgen\Layouts\API\Values\Collection\Collection;
-use Netgen\Layouts\Block\BlockDefinition;
-use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
+use Netgen\Layouts\Block\BlockDefinitionFactory;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
+use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Core\Mapper\BlockMapper;
 use Netgen\Layouts\Core\Mapper\CollectionMapper;
 use Netgen\Layouts\Core\Mapper\ConfigMapper;
@@ -46,6 +47,7 @@ use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\TargetType;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\Zone;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
@@ -54,19 +56,23 @@ use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
-use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\TwoColumnsHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\ListHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TextHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
-use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHandler;
 use Netgen\Layouts\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\HtmlPurifier;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class CoreTestCase extends TestCase
@@ -99,6 +105,18 @@ abstract class CoreTestCase extends TestCase
 
     final protected APITransactionService $transactionService;
 
+    final protected ParameterMapper $parameterMapper;
+
+    final protected ConfigMapper $configMapper;
+
+    final protected BlockMapper $blockMapper;
+
+    final protected LayoutMapper $layoutMapper;
+
+    final protected CollectionMapper $collectionMapper;
+
+    final protected LayoutResolverMapper $layoutResolverMapper;
+
     final protected APIBlockService $blockService;
 
     final protected APILayoutService $layoutService;
@@ -126,9 +144,20 @@ abstract class CoreTestCase extends TestCase
         $this->conditionTypeRegistry = $this->createConditionTypeRegistry();
 
         $this->transactionService = $this->createTransactionService();
+
+        $this->parameterMapper = $this->createParameterMapper();
+        $this->configMapper = $this->createConfigMapper();
+
+        $this->layoutMapper = $this->createLayoutMapper();
         $this->layoutService = $this->createLayoutService();
-        $this->blockService = $this->createBlockService();
+
+        $this->collectionMapper = $this->createCollectionMapper();
         $this->collectionService = $this->createCollectionService();
+
+        $this->blockMapper = $this->createBlockMapper();
+        $this->blockService = $this->createBlockService();
+
+        $this->layoutResolverMapper = $this->createLayoutResolverMapper();
         $this->layoutResolverService = $this->createLayoutResolverService();
     }
 
@@ -144,29 +173,21 @@ abstract class CoreTestCase extends TestCase
 
     protected function createValidator(): ValidatorInterface
     {
-        $validatorStub = self::createStub(ValidatorInterface::class);
-
-        $validatorStub
-            ->method('validate')
-            ->willReturn(new ConstraintViolationList());
-
-        return $validatorStub;
-    }
-
-    /**
-     * Creates a transaction service under test.
-     */
-    protected function createTransactionService(): APITransactionService
-    {
-        return new TransactionService(
-            $this->transactionHandler,
-        );
+        return Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(
+                new ValidatorFactory(
+                    self::createStub(APILayoutService::class),
+                    self::createStub(APILayoutResolverService::class),
+                    self::createStub(CmsItemLoaderInterface::class),
+                ),
+            )
+            ->getValidator();
     }
 
     /**
      * Creates a layout service under test.
      */
-    protected function createLayoutService(): APILayoutService
+    private function createLayoutService(): APILayoutService
     {
         $layoutValidator = new LayoutValidator();
         $layoutValidator->setValidator($this->createValidator());
@@ -174,16 +195,106 @@ abstract class CoreTestCase extends TestCase
         return new LayoutService(
             $this->transactionHandler,
             $layoutValidator,
-            $this->createLayoutMapper(),
+            $this->layoutMapper,
             new LayoutStructBuilder(),
             $this->layoutHandler,
+        );
+    }
+
+    private function createBlockDefinitionRegistry(): BlockDefinitionRegistry
+    {
+        $configDefinitionHandlers = ['key' => new BlockConfigHandler()];
+
+        $handlerPluginRegistry = new HandlerPluginRegistry(
+            [
+                new PagedCollectionsPlugin(['pager' => 'pager', 'load_more' => 'load_more'], []),
+            ],
+        );
+
+        $parameterBuilderFactory = new ParameterBuilderFactory(
+            $this->parameterTypeRegistry,
+        );
+
+        $blockDefinitionFactory = new BlockDefinitionFactory(
+            $parameterBuilderFactory,
+            $handlerPluginRegistry,
+            new ConfigDefinitionFactory($parameterBuilderFactory),
+        );
+
+        $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
+            'title',
+            new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []),
+            ConfigProvider::fromShortConfig(['standard' => ['standard']]),
+            ['translatable' => false],
+            $configDefinitionHandlers,
+        );
+
+        $blockDefinition2 = $blockDefinitionFactory->buildBlockDefinition(
+            'text',
+            new TextHandler(),
+            ConfigProvider::fromShortConfig(['standard' => ['standard']]),
+            ['translatable' => false],
+            $configDefinitionHandlers,
+        );
+
+        $blockDefinition3 = $blockDefinitionFactory->buildBlockDefinition(
+            'list',
+            new ListHandler([2 => '2', 3 => '3', 4 => '4', 6 => '6']),
+            ConfigProvider::fromShortConfig(['list' => ['standard'], 'grid' => ['standard_with_intro']]),
+            ['translatable' => false],
+            $configDefinitionHandlers,
+        );
+
+        $blockDefinition4 = $blockDefinitionFactory->buildContainerDefinition(
+            'column',
+            new ColumnHandler(),
+            ConfigProvider::fromShortConfig(['column' => ['standard']]),
+            ['translatable' => false],
+            $configDefinitionHandlers,
+        );
+
+        $blockDefinition5 = $blockDefinitionFactory->buildContainerDefinition(
+            'two_columns',
+            new TwoColumnsHandler(),
+            ConfigProvider::fromShortConfig(['two_columns_50_50' => ['standard']]),
+            ['translatable' => false],
+            $configDefinitionHandlers,
+        );
+
+        $blockDefinition6 = $blockDefinitionFactory->buildBlockDefinition(
+            'translatable',
+            new BlockDefinitionHandlerWithTranslatableParameter(),
+            ConfigProvider::fromShortConfig(['small' => ['standard']]),
+            ['translatable' => true],
+            $configDefinitionHandlers,
+        );
+
+        return new BlockDefinitionRegistry(
+            [
+                'title' => $blockDefinition1,
+                'text' => $blockDefinition2,
+                'list' => $blockDefinition3,
+                'column' => $blockDefinition4,
+                'two_columns' => $blockDefinition5,
+                'translatable' => $blockDefinition6,
+            ],
+        );
+    }
+
+    /**
+     * Creates a transaction service under test.
+     */
+    private function createTransactionService(): APITransactionService
+    {
+        return new TransactionService(
+            $this->transactionHandler,
         );
     }
 
     /**
      * Creates a block service under test.
      */
-    protected function createBlockService(): APIBlockService
+    private function createBlockService(): APIBlockService
     {
         $validator = $this->createValidator();
 
@@ -196,12 +307,12 @@ abstract class CoreTestCase extends TestCase
         return new BlockService(
             $this->transactionHandler,
             $blockValidator,
-            $this->createBlockMapper(),
+            $this->blockMapper,
             new BlockStructBuilder(
                 new ConfigStructBuilder(),
             ),
-            $this->createParameterMapper(),
-            $this->createConfigMapper(),
+            $this->parameterMapper,
+            $this->configMapper,
             $this->layoutTypeRegistry,
             $this->blockHandler,
             $this->layoutHandler,
@@ -212,7 +323,7 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates a collection service under test.
      */
-    protected function createCollectionService(): APICollectionService
+    private function createCollectionService(): APICollectionService
     {
         $collectionValidator = new CollectionValidator();
         $collectionValidator->setValidator($this->createValidator());
@@ -220,12 +331,12 @@ abstract class CoreTestCase extends TestCase
         return new CollectionService(
             $this->transactionHandler,
             $collectionValidator,
-            $this->createCollectionMapper(),
+            $this->collectionMapper,
             new CollectionStructBuilder(
                 new ConfigStructBuilder(),
             ),
-            $this->createParameterMapper(),
-            $this->createConfigMapper(),
+            $this->parameterMapper,
+            $this->configMapper,
             $this->collectionHandler,
         );
     }
@@ -233,7 +344,7 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates a layout resolver service under test.
      */
-    protected function createLayoutResolverService(): APILayoutResolverService
+    private function createLayoutResolverService(): APILayoutResolverService
     {
         $layoutResolverValidator = new LayoutResolverValidator(
             $this->targetTypeRegistry,
@@ -245,7 +356,7 @@ abstract class CoreTestCase extends TestCase
         return new LayoutResolverService(
             $this->transactionHandler,
             $layoutResolverValidator,
-            $this->createLayoutResolverMapper(),
+            $this->layoutResolverMapper,
             new LayoutResolverStructBuilder(),
             $this->layoutResolverHandler,
             $this->layoutHandler,
@@ -255,7 +366,7 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates a layout mapper under test.
      */
-    protected function createLayoutMapper(): LayoutMapper
+    private function createLayoutMapper(): LayoutMapper
     {
         return new LayoutMapper(
             $this->layoutHandler,
@@ -266,14 +377,14 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates a block mapper under test.
      */
-    protected function createBlockMapper(): BlockMapper
+    private function createBlockMapper(): BlockMapper
     {
         return new BlockMapper(
             $this->blockHandler,
             $this->collectionHandler,
-            $this->createCollectionMapper(),
-            $this->createParameterMapper(),
-            $this->createConfigMapper(),
+            $this->collectionMapper,
+            $this->parameterMapper,
+            $this->configMapper,
             $this->blockDefinitionRegistry,
         );
     }
@@ -281,12 +392,12 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates a collection mapper under test.
      */
-    protected function createCollectionMapper(): CollectionMapper
+    private function createCollectionMapper(): CollectionMapper
     {
         return new CollectionMapper(
             $this->collectionHandler,
-            $this->createParameterMapper(),
-            $this->createConfigMapper(),
+            $this->parameterMapper,
+            $this->configMapper,
             $this->itemDefinitionRegistry,
             $this->queryTypeRegistry,
             $this->cmsItemLoaderStub,
@@ -296,7 +407,7 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates a layout resolver mapper under test.
      */
-    protected function createLayoutResolverMapper(): LayoutResolverMapper
+    private function createLayoutResolverMapper(): LayoutResolverMapper
     {
         return new LayoutResolverMapper(
             $this->layoutResolverHandler,
@@ -309,7 +420,7 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates the parameter mapper under test.
      */
-    protected function createParameterMapper(): ParameterMapper
+    private function createParameterMapper(): ParameterMapper
     {
         return new ParameterMapper();
     }
@@ -317,12 +428,12 @@ abstract class CoreTestCase extends TestCase
     /**
      * Creates the config mapper under test.
      */
-    protected function createConfigMapper(): ConfigMapper
+    private function createConfigMapper(): ConfigMapper
     {
-        return new ConfigMapper($this->createParameterMapper());
+        return new ConfigMapper($this->parameterMapper);
     }
 
-    protected function createLayoutTypeRegistry(): LayoutTypeRegistry
+    private function createLayoutTypeRegistry(): LayoutTypeRegistry
     {
         $layoutType1 = LayoutType::fromArray(
             [
@@ -356,7 +467,7 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    protected function createItemDefinitionRegistry(): ItemDefinitionRegistry
+    private function createItemDefinitionRegistry(): ItemDefinitionRegistry
     {
         $itemConfigHandler = new ItemConfigHandler();
         $itemConfigDefinition = ConfigDefinition::fromArray(
@@ -377,98 +488,12 @@ abstract class CoreTestCase extends TestCase
         return new ItemDefinitionRegistry(['test_value_type' => $itemDefinition]);
     }
 
-    protected function createQueryTypeRegistry(): QueryTypeRegistry
+    private function createQueryTypeRegistry(): QueryTypeRegistry
     {
         return new QueryTypeRegistry(['test_query_type' => new QueryType('test_query_type')]);
     }
 
-    protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry
-    {
-        $configHandler = new BlockConfigHandler();
-        $configDefinition = ConfigDefinition::fromArray(
-            [
-                'parameterDefinitions' => $configHandler->getParameterDefinitions(),
-            ],
-        );
-
-        $blockDefinitionHandler1 = new BlockDefinitionHandler();
-        $blockDefinitionHandler2 = new BlockDefinitionHandlerWithTranslatableParameter();
-
-        $blockDefinition1 = BlockDefinition::fromArray(
-            [
-                'identifier' => 'title',
-                'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
-                'configDefinitions' => ['key' => $configDefinition],
-                'isTranslatable' => true,
-                'configProvider' => ConfigProvider::fromShortConfig(['small' => ['standard']]),
-            ],
-        );
-
-        $blockDefinition2 = BlockDefinition::fromArray(
-            [
-                'identifier' => 'text',
-                'parameterDefinitions' => $blockDefinitionHandler1->getParameterDefinitions(),
-                'configDefinitions' => ['key' => $configDefinition],
-                'isTranslatable' => false,
-                'configProvider' => ConfigProvider::fromShortConfig(['standard' => ['standard']]),
-            ],
-        );
-
-        $blockDefinition3 = BlockDefinition::fromArray(
-            [
-                'identifier' => 'gallery',
-                'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
-                'configDefinitions' => ['key' => $configDefinition],
-                'isTranslatable' => false,
-                'collections' => ['default' => new Collection()],
-                'configProvider' => ConfigProvider::fromShortConfig(['standard' => ['standard']]),
-            ],
-        );
-
-        $blockDefinition4 = BlockDefinition::fromArray(
-            [
-                'identifier' => 'list',
-                'parameterDefinitions' => $blockDefinitionHandler2->getParameterDefinitions(),
-                'configDefinitions' => ['key' => $configDefinition],
-                'isTranslatable' => false,
-                'collections' => ['default' => new Collection()],
-                'configProvider' => ConfigProvider::fromShortConfig(['small' => ['standard']]),
-            ],
-        );
-
-        $blockDefinition5 = ContainerDefinition::fromArray(
-            [
-                'identifier' => 'column',
-                'configDefinitions' => ['key' => $configDefinition],
-                'handler' => new ContainerDefinitionHandler([], ['main', 'other']),
-                'isTranslatable' => false,
-                'configProvider' => ConfigProvider::fromShortConfig(['column' => ['standard']]),
-            ],
-        );
-
-        $blockDefinition6 = ContainerDefinition::fromArray(
-            [
-                'identifier' => 'two_columns',
-                'configDefinitions' => ['key' => $configDefinition],
-                'handler' => new ContainerDefinitionHandler([], ['left', 'right']),
-                'isTranslatable' => false,
-                'configProvider' => ConfigProvider::fromShortConfig(['two_columns_50_50' => ['standard']]),
-            ],
-        );
-
-        return new BlockDefinitionRegistry(
-            [
-                'title' => $blockDefinition1,
-                'text' => $blockDefinition2,
-                'gallery' => $blockDefinition3,
-                'list' => $blockDefinition4,
-                'column' => $blockDefinition5,
-                'two_columns' => $blockDefinition6,
-            ],
-        );
-    }
-
-    protected function createTargetTypeRegistry(): TargetTypeRegistry
+    private function createTargetTypeRegistry(): TargetTypeRegistry
     {
         return new TargetTypeRegistry(
             [
@@ -483,7 +508,7 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    protected function createConditionTypeRegistry(): ConditionTypeRegistry
+    private function createConditionTypeRegistry(): ConditionTypeRegistry
     {
         return new ConditionTypeRegistry(
             [
@@ -493,7 +518,7 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    protected function createParameterTypeRegistry(): ParameterTypeRegistry
+    private function createParameterTypeRegistry(): ParameterTypeRegistry
     {
         $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderStub);
 
@@ -514,6 +539,7 @@ abstract class CoreTestCase extends TestCase
                 new ParameterType\EnumType(),
                 new ParameterType\BooleanType(),
                 new ParameterType\DateTimeType(),
+                new ParameterType\HiddenType(),
                 new ParameterType\Compound\BooleanType(),
             ],
         );

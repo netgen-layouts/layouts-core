@@ -38,7 +38,7 @@ final class SQLiteTest extends TestCase
             self::markTestSkipped('Test only runs on SQLite.');
         }
 
-        self::assertSame('39', $this->helper->nextId('nglayouts_block'));
+        self::assertSame('40', $this->helper->nextId('nglayouts_block'));
     }
 
     public function testLastId(): void
@@ -47,6 +47,6 @@ final class SQLiteTest extends TestCase
             self::markTestSkipped('Test only runs on SQLite.');
         }
 
-        self::assertSame(38, $this->helper->lastId('nglayouts_block'));
+        self::assertSame(39, $this->helper->lastId('nglayouts_block'));
     }
 }

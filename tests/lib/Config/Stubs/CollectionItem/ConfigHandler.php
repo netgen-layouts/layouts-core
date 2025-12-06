@@ -33,6 +33,10 @@ final class ConfigHandler implements ConfigDefinitionHandlerInterface
                     'isRequired' => false,
                     'defaultValue' => null,
                     'label' => null,
+                    'options' => [
+                        'min' => null,
+                        'max' => null,
+                    ],
                 ],
             ),
         ];

@@ -664,7 +664,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $targetCreateStruct = new TargetCreateStruct();
-        $targetCreateStruct->value = 42;
+        $targetCreateStruct->value = 'route_name';
         $targetCreateStruct->type = 'route';
 
         $this->layoutResolverService->addTarget(
@@ -691,7 +691,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $targetUpdateStruct = new TargetUpdateStruct();
-        $targetUpdateStruct->value = 42;
+        $targetUpdateStruct->value = 'route_name';
 
         $this->layoutResolverService->updateTarget(
             Target::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'targetType' => new Route()]),
@@ -737,7 +737,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $conditionCreateStruct = new ConditionCreateStruct();
-        $conditionCreateStruct->value = 42;
+        $conditionCreateStruct->value = ['parameter_name' => 'param', 'parameter_values' => ['value']];
         $conditionCreateStruct->type = 'route_parameter';
 
         $this->layoutResolverService->addRuleCondition(
@@ -764,7 +764,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $conditionCreateStruct = new ConditionCreateStruct();
-        $conditionCreateStruct->value = 42;
+        $conditionCreateStruct->value = ['parameter_name' => 'param', 'parameter_values' => ['value']];
         $conditionCreateStruct->type = 'route_parameter';
 
         $this->layoutResolverService->addRuleGroupCondition(
@@ -791,7 +791,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $conditionUpdateStruct = new ConditionUpdateStruct();
-        $conditionUpdateStruct->value = 42;
+        $conditionUpdateStruct->value = ['parameter_name' => 'param', 'parameter_values' => ['value']];
 
         $this->layoutResolverService->updateRuleCondition(
             RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'conditionType' => new RouteParameter()]),
@@ -817,7 +817,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $conditionUpdateStruct = new ConditionUpdateStruct();
-        $conditionUpdateStruct->value = 42;
+        $conditionUpdateStruct->value = ['parameter_name' => 'param', 'parameter_values' => ['value']];
 
         $this->layoutResolverService->updateRuleGroupCondition(
             RuleGroupCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'conditionType' => new RouteParameter()]),

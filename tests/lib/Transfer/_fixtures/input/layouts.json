@@ -37,7 +37,7 @@
                                 "hr"
                             ],
                             "view_type": "grid",
-                            "item_view_type": "standard",
+                            "item_view_type": "standard_with_intro",
                             "name": "My other block",
                             "placeholders": [],
                             "parameters": {
@@ -46,20 +46,14 @@
                                     "paged_collections:enabled": null,
                                     "paged_collections:type": null,
                                     "paged_collections:max_pages": null,
-                                    "paged_collections:ajax_first": null,
-                                    "css_class": null,
-                                    "css_id": null,
-                                    "set_container": null
+                                    "paged_collections:ajax_first": null
                                 },
                                 "hr": {
                                     "number_of_columns": 3,
                                     "paged_collections:enabled": null,
                                     "paged_collections:type": null,
                                     "paged_collections:max_pages": null,
-                                    "paged_collections:ajax_first": null,
-                                    "css_class": null,
-                                    "css_id": null,
-                                    "set_container": null
+                                    "paged_collections:ajax_first": null
                                 }
                             },
                             "configuration": {
@@ -96,20 +90,14 @@
                                     "paged_collections:enabled": null,
                                     "paged_collections:type": null,
                                     "paged_collections:max_pages": null,
-                                    "paged_collections:ajax_first": null,
-                                    "css_class": null,
-                                    "css_id": null,
-                                    "set_container": null
+                                    "paged_collections:ajax_first": null
                                 },
                                 "hr": {
                                     "number_of_columns": 3,
                                     "paged_collections:enabled": null,
                                     "paged_collections:type": null,
                                     "paged_collections:max_pages": null,
-                                    "paged_collections:ajax_first": null,
-                                    "css_class": null,
-                                    "css_id": null,
-                                    "set_container": null
+                                    "paged_collections:ajax_first": null
                                 }
                             },
                             "configuration": {
@@ -292,7 +280,7 @@
                                 "en"
                             ],
                             "view_type": "grid",
-                            "item_view_type": "standard",
+                            "item_view_type": "standard_with_intro",
                             "name": "My fourth block",
                             "placeholders": [],
                             "parameters": {
@@ -301,10 +289,7 @@
                                     "paged_collections:enabled": null,
                                     "paged_collections:type": null,
                                     "paged_collections:max_pages": null,
-                                    "paged_collections:ajax_first": null,
-                                    "css_class": null,
-                                    "css_id": null,
-                                    "set_container": null
+                                    "paged_collections:ajax_first": null
                                 }
                             },
                             "configuration": {
@@ -427,7 +412,7 @@
                             "available_locales": [
                                 "en"
                             ],
-                            "view_type": "title",
+                            "view_type": "small",
                             "item_view_type": "standard",
                             "name": "My fourth block",
                             "placeholders": [],
@@ -441,10 +426,7 @@
                                         "link": "",
                                         "link_suffix": "",
                                         "new_window": false
-                                    },
-                                    "css_class": null,
-                                    "css_id": null,
-                                    "set_container": null
+                                    }
                                 }
                             },
                             "configuration": {
@@ -486,16 +468,13 @@
                                             "available_locales": [
                                                 "en"
                                             ],
-                                            "view_type": "text",
+                                            "view_type": "standard",
                                             "item_view_type": "standard",
                                             "name": "My seventh block",
                                             "placeholders": [],
                                             "parameters": {
                                                 "en": {
-                                                    "content": "Text",
-                                                    "css_class": null,
-                                                    "css_id": null,
-                                                    "set_container": null
+                                                    "content": "Text"
                                                 }
                                             },
                                             "configuration": {
@@ -529,11 +508,7 @@
                                 }
                             },
                             "parameters": {
-                                "en": {
-                                    "css_class": null,
-                                    "css_id": null,
-                                    "set_container": null
-                                }
+                                "en": {}
                             },
                             "configuration": {
                                 "key": {

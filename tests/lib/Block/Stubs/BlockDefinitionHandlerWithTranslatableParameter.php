@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Block\Stubs;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\Layouts\Block\DynamicParameters;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 
@@ -18,6 +19,28 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
     public function __construct(
         private array $parameterGroups = [],
     ) {}
+
+    public function buildParameters(ParameterBuilderInterface $builder): void
+    {
+        $builder->add(
+            'css_class',
+            ParameterType\TextLineType::class,
+            [
+                'default_value' => 'some-class',
+                'groups' => $this->parameterGroups,
+                'translatable' => true,
+            ],
+        );
+
+        $builder->add(
+            'css_id',
+            ParameterType\TextLineType::class,
+            [
+                'groups' => $this->parameterGroups,
+                'translatable' => false,
+            ],
+        );
+    }
 
     /**
      * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>

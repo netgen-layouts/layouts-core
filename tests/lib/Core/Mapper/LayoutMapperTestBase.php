@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
-use Netgen\Layouts\Core\Mapper\LayoutMapper;
 use Netgen\Layouts\Layout\Type\NullLayoutType;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
@@ -14,15 +13,6 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class LayoutMapperTestBase extends CoreTestCase
 {
-    private LayoutMapper $mapper;
-
-    final protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->mapper = $this->createLayoutMapper();
-    }
-
     final public function testMapZone(): void
     {
         $persistenceZone = Zone::fromArray(
@@ -37,7 +27,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
             ],
         );
 
-        $zone = $this->mapper->mapZone($persistenceZone);
+        $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         self::assertSame('right', $zone->identifier);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
@@ -62,7 +52,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
             ],
         );
 
-        $zone = $this->mapper->mapZone($persistenceZone);
+        $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         self::assertSame('right', $zone->identifier);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
@@ -84,7 +74,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
             ],
         );
 
-        $zone = $this->mapper->mapZone($persistenceZone);
+        $zone = $this->layoutMapper->mapZone($persistenceZone);
 
         self::assertSame('right', $zone->identifier);
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->layoutId->toString());
@@ -110,7 +100,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
             ],
         );
 
-        $layout = $this->mapper->mapLayout($persistenceLayout);
+        $layout = $this->layoutMapper->mapLayout($persistenceLayout);
 
         self::assertSame(
             $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
@@ -145,7 +135,7 @@ abstract class LayoutMapperTestBase extends CoreTestCase
             ],
         );
 
-        $layout = $this->mapper->mapLayout($persistenceLayout);
+        $layout = $this->layoutMapper->mapLayout($persistenceLayout);
 
         self::assertInstanceOf(NullLayoutType::class, $layout->layoutType);
 

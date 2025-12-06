@@ -7,35 +7,27 @@ namespace Netgen\Layouts\Tests\Core\Mapper;
 use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\Config\ConfigDefinition;
-use Netgen\Layouts\Core\Mapper\ConfigMapper;
-use Netgen\Layouts\Core\Mapper\ParameterMapper;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 
-#[CoversClass(ConfigMapper::class)]
-final class ConfigMapperTest extends TestCase
+abstract class ConfigMapperTestBase extends CoreTestCase
 {
     private ConfigDefinition $configDefinition;
 
-    private ConfigMapper $mapper;
-
     protected function setUp(): void
     {
-        $handler = new ConfigDefinitionHandler();
+        parent::setUp();
 
         $this->configDefinition = ConfigDefinition::fromArray(
             [
-                'parameterDefinitions' => $handler->getParameterDefinitions(),
+                'parameterDefinitions' => new ConfigDefinitionHandler()->getParameterDefinitions(),
             ],
         );
-
-        $this->mapper = new ConfigMapper(new ParameterMapper());
     }
 
     public function testMapConfig(): void
     {
-        $mappedConfig = $this->mapper->mapConfig(
+        $mappedConfig = $this->configMapper->mapConfig(
             [
                 'config_key' => [
                     'param' => 'value',
@@ -67,7 +59,7 @@ final class ConfigMapperTest extends TestCase
         $configStruct->setParameterValue('param', 'new_value');
         $configStruct->setParameterValue('param2', 'new_value2');
 
-        $serializedConfig = $this->mapper->serializeValues(
+        $serializedConfig = $this->configMapper->serializeValues(
             [
                 'config_key' => $configStruct,
             ],

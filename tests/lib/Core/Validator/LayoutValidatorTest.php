@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
@@ -33,7 +35,11 @@ final class LayoutValidatorTest extends TestCase
     {
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(
-                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+                new ValidatorFactory(
+                    self::createStub(LayoutService::class),
+                    self::createStub(LayoutResolverService::class),
+                    self::createStub(CmsItemLoaderInterface::class),
+                ),
             )
             ->getValidator();
 
