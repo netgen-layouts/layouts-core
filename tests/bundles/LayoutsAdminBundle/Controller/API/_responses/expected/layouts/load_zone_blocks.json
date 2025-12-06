@@ -11,8 +11,8 @@
             "paged_collections:type": null,
             "paged_collections:max_pages": null,
             "paged_collections:ajax_first": null,
-            "css_class": "css-class",
-            "css_id": "css-id",
+            "css_class": null,
+            "css_id": null,
             "set_container": null
         },
         "view_type": "list",
