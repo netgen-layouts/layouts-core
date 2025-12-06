@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Validator;
 
 use Exception;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
@@ -25,7 +27,11 @@ final class ValidatorTraitTest extends TestCase
     {
         $baseValidator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(
-                new ValidatorFactory(self::createStub(CmsItemLoaderInterface::class)),
+                new ValidatorFactory(
+                    self::createStub(LayoutService::class),
+                    self::createStub(LayoutResolverService::class),
+                    self::createStub(CmsItemLoaderInterface::class),
+                ),
             )
             ->getValidator();
 

@@ -6,6 +6,27 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_layout_name }
 
+    netgen_layouts.validator.layout:
+        class: Netgen\Layouts\Validator\LayoutValidator
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+        tags:
+            - { name: validator.constraint_validator, alias: nglayouts_layout }
+
+    netgen_layouts.validator.rule_group:
+        class: Netgen\Layouts\Validator\RuleGroupValidator
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: validator.constraint_validator, alias: nglayouts_rule_group }
+
+    netgen_layouts.validator.block_definition:
+        class: Netgen\Layouts\Validator\BlockDefinitionValidator
+        arguments:
+            - "@netgen_layouts.block.registry.block_definition"
+        tags:
+            - { name: validator.constraint_validator, alias: nglayouts_block_definition }
+
     netgen_layouts.validator.block_view_type:
         class: Netgen\Layouts\Validator\BlockViewTypeValidator
         tags:
