@@ -28,11 +28,11 @@ final class ParameterBuilder implements ParameterBuilderInterface
      */
     private array $options;
 
-    private bool $isRequired = false;
+    private bool $isRequired;
 
-    private bool $isReadOnly = false;
+    private bool $isReadOnly;
 
-    private bool $isTranslatable = false;
+    private bool $isTranslatable;
 
     private mixed $defaultValue;
 
@@ -41,12 +41,12 @@ final class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var string[]
      */
-    private array $groups = [];
+    private array $groups;
 
     /**
      * @var array<\Symfony\Component\Validator\Constraint|\Closure>
      */
-    private array $constraints = [];
+    private array $constraints;
 
     /**
      * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface[]
