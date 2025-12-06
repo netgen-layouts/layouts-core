@@ -34,13 +34,17 @@ trait DatabaseTrait
 
     private string $databaseServer;
 
-    protected function insertDatabaseFixtures(string $fixturesPath): void
+    protected function provideFixturesPath(): string
     {
-        /**
-         * @var string $tableName
-         * @var array<int, array<string, mixed>> $tableData
-         */
-        foreach (require $fixturesPath as $tableName => $tableData) {
+        return __DIR__ . '/../../../_fixtures';
+    }
+
+    private function insertDatabaseFixtures(): void
+    {
+        /** @var array<string, array<int, array<string, mixed>>> $data */
+        $data = require mb_rtrim($this->provideFixturesPath(), '/') . '/data.php';
+
+        foreach ($data as $tableName => $tableData) {
             if (count($tableData) > 0) {
                 foreach ($tableData as $tableRow) {
                     $values = array_fill_keys(array_keys($tableRow), '?');
@@ -80,19 +84,17 @@ trait DatabaseTrait
         return $this->databaseConnection;
     }
 
-    private function createDatabase(string $fixturesPath = __DIR__ . '/../../../_fixtures'): void
+    private function createDatabase(): void
     {
         if (!isset($this->databaseConnection)) {
             $this->createDatabaseConnection();
         }
 
-        $schemaPath = mb_rtrim($fixturesPath, '/') . '/schema';
-
-        $this->executeStatements($schemaPath);
-        $this->insertDatabaseFixtures($fixturesPath . '/data.php');
+        $this->executeStatements();
+        $this->insertDatabaseFixtures();
 
         if ($this->databaseServer === 'pgsql') {
-            $this->executeStatements($schemaPath, 'setval');
+            $this->executeStatements('setval');
         }
     }
 
@@ -103,9 +105,11 @@ trait DatabaseTrait
         }
     }
 
-    private function executeStatements(string $filePath, string $fileName = 'schema'): void
+    private function executeStatements(string $fileName = 'schema'): void
     {
-        $fullPath = sprintf('%s/%s.%s.sql', $filePath, $fileName, $this->databaseServer);
+        $schemaPath = __DIR__ . '/../../../_fixtures/schema';
+        $fullPath = sprintf('%s/%s.%s.sql', $schemaPath, $fileName, $this->databaseServer);
+
         if (!file_exists($fullPath)) {
             throw new RuntimeException(sprintf('File "%s" does not exist.', $fullPath));
         }
