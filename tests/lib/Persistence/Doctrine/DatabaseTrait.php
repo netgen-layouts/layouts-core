@@ -36,13 +36,14 @@ trait DatabaseTrait
 
     protected function insertDatabaseFixtures(string $fixturesPath): void
     {
+        /**
+         * @var string $tableName
+         * @var array<int, array<string, mixed>> $tableData
+         */
         foreach (require $fixturesPath as $tableName => $tableData) {
             if (count($tableData) > 0) {
                 foreach ($tableData as $tableRow) {
-                    /** @var array<string, string> $values */
                     $values = array_fill_keys(array_keys($tableRow), '?');
-
-                    /** @var array<string, string> $parameters */
                     $parameters = array_fill_keys(array_keys($tableRow), Types::STRING);
 
                     $this->databaseConnection
