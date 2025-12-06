@@ -40,14 +40,6 @@ abstract class TargetHandlerTestBase extends TestCase
     }
 
     /**
-     * Tears down the tests.
-     */
-    final protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
-
-    /**
      * Returns the target identifier under test.
      */
     abstract protected function getTargetIdentifier(): string;

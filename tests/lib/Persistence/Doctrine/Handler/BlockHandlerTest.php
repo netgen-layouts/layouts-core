@@ -53,14 +53,6 @@ final class BlockHandlerTest extends TestCase
         $this->collectionHandler = $this->createCollectionHandler();
     }
 
-    /**
-     * Tears down the tests.
-     */
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
-
     public function testLoadBlock(): void
     {
         $block = $this->blockHandler->loadBlock(31, Status::Published);

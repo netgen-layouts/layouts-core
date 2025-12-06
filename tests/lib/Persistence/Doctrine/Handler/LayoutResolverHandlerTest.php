@@ -52,14 +52,6 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->layoutHandler = $this->createLayoutHandler();
     }
 
-    /**
-     * Tears down the tests.
-     */
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
-
     public function testLoadRule(): void
     {
         $rule = $this->handler->loadRule(1, Status::Published);

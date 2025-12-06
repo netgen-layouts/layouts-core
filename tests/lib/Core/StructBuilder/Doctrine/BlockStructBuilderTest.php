@@ -13,9 +13,4 @@ use PHPUnit\Framework\Attributes\CoversClass;
 final class BlockStructBuilderTest extends BlockStructBuilderTestBase
 {
     use TestCaseTrait;
-
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
 }

@@ -24,14 +24,6 @@ final class SQLiteTest extends TestCase
         $this->helper = new SQLite($this->databaseConnection);
     }
 
-    /**
-     * Tears down the tests.
-     */
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
-
     public function testNextId(): void
     {
         if (!$this->databaseConnection->getDatabasePlatform() instanceof SQLitePlatform) {

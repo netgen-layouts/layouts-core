@@ -49,14 +49,6 @@ final class LayoutHandlerTest extends TestCase
         $this->collectionHandler = $this->createCollectionHandler();
     }
 
-    /**
-     * Tears down the tests.
-     */
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
-
     public function testLoadLayout(): void
     {
         $layout = $this->layoutHandler->loadLayout(1, Status::Published);

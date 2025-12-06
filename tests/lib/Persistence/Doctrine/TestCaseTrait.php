@@ -31,6 +31,11 @@ trait TestCaseTrait
 {
     use DatabaseTrait;
 
+    final protected function tearDown(): void
+    {
+        $this->closeDatabase();
+    }
+
     /**
      * Returns the persistence handler under test.
      */

@@ -19,9 +19,4 @@ use PHPUnit\Framework\Attributes\CoversClass;
 final class ImporterTest extends ImporterTestBase
 {
     use TestCaseTrait;
-
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
 }

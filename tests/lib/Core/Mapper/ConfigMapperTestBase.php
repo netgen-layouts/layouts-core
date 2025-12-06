@@ -14,7 +14,7 @@ abstract class ConfigMapperTestBase extends CoreTestCase
 {
     private ConfigDefinition $configDefinition;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 
@@ -25,7 +25,7 @@ abstract class ConfigMapperTestBase extends CoreTestCase
         );
     }
 
-    public function testMapConfig(): void
+    final public function testMapConfig(): void
     {
         $mappedConfig = $this->configMapper->mapConfig(
             [
@@ -53,7 +53,7 @@ abstract class ConfigMapperTestBase extends CoreTestCase
         self::assertSame('value', $config->getParameter('param')->value);
     }
 
-    public function testSerializeValues(): void
+    final public function testSerializeValues(): void
     {
         $configStruct = new ConfigStruct();
         $configStruct->setParameterValue('param', 'new_value');

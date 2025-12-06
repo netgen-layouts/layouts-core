@@ -13,9 +13,4 @@ use PHPUnit\Framework\Attributes\CoversClass;
 final class QueryVisitorTest extends QueryVisitorTestBase
 {
     use TestCaseTrait;
-
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
 }

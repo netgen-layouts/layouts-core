@@ -29,14 +29,6 @@ final class PositionHelperTest extends TestCase
         $this->positionHelper = new PositionHelper($this->databaseConnection);
     }
 
-    /**
-     * Tears down the tests.
-     */
-    protected function tearDown(): void
-    {
-        $this->closeDatabase();
-    }
-
     public function testCreatePosition(): void
     {
         $newPosition = $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1);
