@@ -348,17 +348,10 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                     'de' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
                 ],
                 'parentId' => 3,
@@ -399,17 +392,9 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
-                    'de' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
+                    'de' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -706,13 +691,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -753,13 +733,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -808,10 +783,7 @@ final class BlockHandlerTest extends TestCase
                         'number_of_columns' => 4,
                         'some_param' => 'Some value',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -853,13 +825,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -946,13 +913,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -1033,13 +995,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -1098,13 +1055,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -1163,13 +1115,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -1397,13 +1344,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 8,
                 'parentUuid' => '842b223f-3d9c-58a3-97fd-d610a4479224',
@@ -1621,13 +1563,8 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
-                    'hr' => [
-                        'css_class' => 'css-class-hr',
-                        'css_id' => 'css-id',
-                    ],
+                    'hr' => [],
                 ],
                 'parentId' => 3,
                 'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
@@ -1916,8 +1853,6 @@ final class BlockHandlerTest extends TestCase
                 'parameters' => [
                     'en' => [
                         'number_of_columns' => 2,
-                        'css_class' => 'css-class',
-                        'css_id' => 'css-id',
                     ],
                 ],
                 'parentId' => 3,

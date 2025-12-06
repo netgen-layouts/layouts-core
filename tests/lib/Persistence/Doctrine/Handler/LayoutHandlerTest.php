@@ -1251,13 +1251,8 @@ final class LayoutHandlerTest extends TestCase
                     'parameters' => [
                         'en' => [
                             'number_of_columns' => 2,
-                            'css_class' => 'css-class',
-                            'css_id' => 'css-id',
                         ],
-                        'hr' => [
-                            'css_class' => 'css-class-hr',
-                            'css_id' => 'css-id',
-                        ],
+                        'hr' => [],
                     ],
                     'parentId' => $rootBlock->id,
                     'parentUuid' => $rootBlock->uuid,
