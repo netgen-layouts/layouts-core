@@ -26,7 +26,7 @@ trait ParameterBuilderTrait
             ),
         );
 
-        $builder = $builderFactory->createParameterBuilder([], true);
+        $builder = $builderFactory->createParameterBuilder();
         $this->buildParameters($builder);
 
         return $builder->buildParameterDefinitions();

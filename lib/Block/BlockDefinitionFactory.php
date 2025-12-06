@@ -110,7 +110,7 @@ final class BlockDefinitionFactory
         ?ConfigProviderInterface $configProvider,
         array $config,
     ): array {
-        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder([], true);
+        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
 
         $handlerPlugins = $this->handlerPluginRegistry->getPlugins($identifier, $handler::class);

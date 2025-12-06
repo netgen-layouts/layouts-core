@@ -29,7 +29,7 @@ final class TranslatableParameterBuilderTest extends TestCase
 
         $factory = new ParameterBuilderFactory($registry);
 
-        $this->builder = $factory->createParameterBuilder([], true);
+        $this->builder = $factory->createParameterBuilder();
     }
 
     public function testSetTranslatableOption(): void

@@ -47,7 +47,7 @@ final class PagedCollectionsPluginTest extends TestCase
 
     public function testBuildParameters(): void
     {
-        $builder = $this->parameterBuilderFactory->createParameterBuilder([], true);
+        $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->plugin->buildParameters($builder);
 
         self::assertCount(1, $builder);

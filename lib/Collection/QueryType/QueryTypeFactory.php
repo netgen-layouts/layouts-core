@@ -19,7 +19,7 @@ final class QueryTypeFactory
      */
     public function buildQueryType(string $type, QueryTypeHandlerInterface $handler, array $config): QueryTypeInterface
     {
-        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder([], true);
+        $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 

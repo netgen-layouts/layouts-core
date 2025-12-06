@@ -45,7 +45,7 @@ final class CommonParametersPluginTest extends TestCase
 
     public function testBuildParameters(): void
     {
-        $builder = $this->parameterBuilderFactory->createParameterBuilder([], true);
+        $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->plugin->buildParameters($builder);
 
         self::assertCount(3, $builder);

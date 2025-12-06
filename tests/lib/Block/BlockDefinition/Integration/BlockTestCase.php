@@ -91,7 +91,7 @@ abstract class BlockTestCase extends CoreTestCase
         $handler = $this->createBlockDefinitionHandler();
 
         $builderFactory = new ParameterBuilderFactory($this->parameterTypeRegistry);
-        $parameterBuilder = $builderFactory->createParameterBuilder([], true);
+        $parameterBuilder = $builderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 

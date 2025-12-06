@@ -31,7 +31,7 @@ final class ParameterBuilderFactoryTest extends TestCase
 
     public function testCreateParameterBuilder(): void
     {
-        $parameterBuilder = $this->factory->createParameterBuilder();
+        $parameterBuilder = $this->factory->createParameterBuilder([], false);
 
         self::assertNull($parameterBuilder->getName());
         self::assertFalse($parameterBuilder->isTranslatable());
@@ -45,6 +45,7 @@ final class ParameterBuilderFactoryTest extends TestCase
                 'name' => 'param',
                 'type' => ParameterType\TextType::class,
             ],
+            false,
         );
 
         self::assertSame('param', $parameterBuilder->getName());
@@ -58,7 +59,7 @@ final class ParameterBuilderFactoryTest extends TestCase
 
     public function testCreateTranslatableParameterBuilder(): void
     {
-        $parameterBuilder = $this->factory->createParameterBuilder([], true);
+        $parameterBuilder = $this->factory->createParameterBuilder();
 
         self::assertNull($parameterBuilder->getName());
         self::assertTrue($parameterBuilder->isTranslatable());
@@ -72,7 +73,6 @@ final class ParameterBuilderFactoryTest extends TestCase
                 'name' => 'param',
                 'type' => ParameterType\TextType::class,
             ],
-            true,
         );
 
         self::assertSame('param', $parameterBuilder->getName());
@@ -94,7 +94,6 @@ final class ParameterBuilderFactoryTest extends TestCase
                     'translatable' => false,
                 ],
             ],
-            true,
         );
 
         self::assertSame('param', $parameterBuilder->getName());

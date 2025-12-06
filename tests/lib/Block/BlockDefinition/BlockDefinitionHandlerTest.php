@@ -39,7 +39,7 @@ final class BlockDefinitionHandlerTest extends TestCase
 
     public function testBuildParameters(): void
     {
-        $builder = $this->parameterBuilderFactory->createParameterBuilder([], true);
+        $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->handler->buildParameters($builder);
 
         self::assertCount(0, $builder);

@@ -21,8 +21,10 @@ final class ParameterBuilderFactory
      *
      * @param array<string, mixed> $config
      */
-    public function createParameterBuilder(array $config = [], bool $isTranslatable = false): ParameterBuilderInterface
-    {
+    public function createParameterBuilder(
+        array $config = [],
+        bool $supportsTranslatableParameters = true,
+    ): ParameterBuilderInterface {
         $config = $this->resolveOptions($config);
 
         return new ParameterBuilder(
@@ -31,7 +33,7 @@ final class ParameterBuilderFactory
             $config['type'],
             $config['options'],
             $config['parent'],
-            $isTranslatable,
+            $supportsTranslatableParameters,
         );
     }
 
