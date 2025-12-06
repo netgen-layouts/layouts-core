@@ -224,49 +224,49 @@ abstract class CoreTestCase extends TestCase
         $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
             'title',
             new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []),
+            $configDefinitionHandlers,
             ConfigProvider::fromShortConfig(['standard' => ['standard']]),
             ['translatable' => false],
-            $configDefinitionHandlers,
         );
 
         $blockDefinition2 = $blockDefinitionFactory->buildBlockDefinition(
             'text',
             new TextHandler(),
+            $configDefinitionHandlers,
             ConfigProvider::fromShortConfig(['standard' => ['standard']]),
             ['translatable' => false],
-            $configDefinitionHandlers,
         );
 
         $blockDefinition3 = $blockDefinitionFactory->buildBlockDefinition(
             'list',
             new ListHandler([2 => '2', 3 => '3', 4 => '4', 6 => '6']),
+            $configDefinitionHandlers,
             ConfigProvider::fromShortConfig(['list' => ['standard'], 'grid' => ['standard_with_intro']]),
             ['translatable' => false],
-            $configDefinitionHandlers,
         );
 
         $blockDefinition4 = $blockDefinitionFactory->buildContainerDefinition(
             'column',
             new ColumnHandler(),
+            $configDefinitionHandlers,
             ConfigProvider::fromShortConfig(['column' => ['standard']]),
             ['translatable' => false],
-            $configDefinitionHandlers,
         );
 
         $blockDefinition5 = $blockDefinitionFactory->buildContainerDefinition(
             'two_columns',
             new TwoColumnsHandler(),
+            $configDefinitionHandlers,
             ConfigProvider::fromShortConfig(['two_columns_50_50' => ['standard']]),
             ['translatable' => false],
-            $configDefinitionHandlers,
         );
 
         $blockDefinition6 = $blockDefinitionFactory->buildBlockDefinition(
             'translatable',
             new BlockDefinitionHandlerWithTranslatableParameter(),
+            $configDefinitionHandlers,
             ConfigProvider::fromShortConfig(['small' => ['standard']]),
             ['translatable' => true],
-            $configDefinitionHandlers,
         );
 
         return new BlockDefinitionRegistry(

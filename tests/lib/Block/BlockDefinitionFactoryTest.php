@@ -63,6 +63,10 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerStub,
+            [
+                'test' => new ConfigDefinitionHandler(),
+                'test2' => new ConfigDefinitionHandler(),
+            ],
             new StaticConfigProvider(
                 'definition',
                 [
@@ -112,10 +116,6 @@ final class BlockDefinitionFactoryTest extends TestCase
                         'valid_query_types' => [],
                     ],
                 ],
-            ],
-            [
-                'test' => new ConfigDefinitionHandler(),
-                'test2' => new ConfigDefinitionHandler(),
             ],
         );
 
@@ -195,6 +195,10 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
             $this->handlerStub,
+            [
+                'test' => new ConfigDefinitionHandler(),
+                'test2' => new ConfigDefinitionHandler(),
+            ],
             new StaticConfigProvider(
                 'definition',
                 [
@@ -208,10 +212,6 @@ final class BlockDefinitionFactoryTest extends TestCase
             ),
             [
                 'translatable' => true,
-            ],
-            [
-                'test' => new ConfigDefinitionHandler(),
-                'test2' => new ConfigDefinitionHandler(),
             ],
         );
 
@@ -239,6 +239,10 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
             $this->handlerStub,
+            [
+                'test' => new ConfigDefinitionHandler(),
+                'test2' => new ConfigDefinitionHandler(),
+            ],
             new StaticConfigProvider(
                 'definition',
                 [
@@ -252,10 +256,6 @@ final class BlockDefinitionFactoryTest extends TestCase
             ),
             [
                 'translatable' => false,
-            ],
-            [
-                'test' => new ConfigDefinitionHandler(),
-                'test2' => new ConfigDefinitionHandler(),
             ],
         );
 

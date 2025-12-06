@@ -26,22 +26,22 @@ final class BlockDefinitionFactory
     /**
      * Builds the block definition.
      *
-     * @param array<string, mixed> $config
      * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param array<string, mixed> $config
      */
     public function buildBlockDefinition(
         string $identifier,
         BlockDefinitionHandlerInterface $handler,
+        array $configDefinitionHandlers,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers,
     ): BlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
+            $configDefinitionHandlers,
             $configProvider,
             $config,
-            $configDefinitionHandlers,
         );
 
         return BlockDefinition::fromArray($commonData);
@@ -50,22 +50,22 @@ final class BlockDefinitionFactory
     /**
      * Builds the block definition.
      *
-     * @param array<string, mixed> $config
      * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param array<string, mixed> $config
      */
     public function buildTwigBlockDefinition(
         string $identifier,
         TwigBlockDefinitionHandlerInterface $handler,
+        array $configDefinitionHandlers,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers,
     ): TwigBlockDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
+            $configDefinitionHandlers,
             $configProvider,
             $config,
-            $configDefinitionHandlers,
         );
 
         return TwigBlockDefinition::fromArray($commonData);
@@ -74,22 +74,22 @@ final class BlockDefinitionFactory
     /**
      * Builds the container definition.
      *
-     * @param array<string, mixed> $config
      * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param array<string, mixed> $config
      */
     public function buildContainerDefinition(
         string $identifier,
         ContainerDefinitionHandlerInterface $handler,
+        array $configDefinitionHandlers,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers,
     ): ContainerDefinitionInterface {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
+            $configDefinitionHandlers,
             $configProvider,
             $config,
-            $configDefinitionHandlers,
         );
 
         return ContainerDefinition::fromArray($commonData);
@@ -98,17 +98,17 @@ final class BlockDefinitionFactory
     /**
      * Returns the data common to all block definition types.
      *
-     * @param array<string, mixed> $config
      * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param array<string, mixed> $config
      *
      * @return array<string, mixed>
      */
     private function getCommonBlockDefinitionData(
         string $identifier,
         BlockDefinitionHandlerInterface $handler,
+        array $configDefinitionHandlers,
         ?ConfigProviderInterface $configProvider,
         array $config,
-        array $configDefinitionHandlers,
     ): array {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder([], true);
         $handler->buildParameters($parameterBuilder);

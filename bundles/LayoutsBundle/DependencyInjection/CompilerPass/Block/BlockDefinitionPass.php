@@ -88,9 +88,9 @@ final class BlockDefinitionPass implements CompilerPassInterface
 
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
+            $blockDefinitionService->addArgument([...$this->getConfigHandlers($container)]);
             $blockDefinitionService->addArgument($configProvider);
             $blockDefinitionService->addArgument($blockDefinition);
-            $blockDefinitionService->addArgument([...$this->getConfigHandlers($container)]);
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 
