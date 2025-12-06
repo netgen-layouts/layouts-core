@@ -43,11 +43,6 @@ final class QueryEditType extends AbstractType
             ->allowedTypes(Query::class);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        $view->vars['query'] = $options['query'];
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $locale = $options['data']->locale;
@@ -72,5 +67,10 @@ final class QueryEditType extends AbstractType
         if ($locale !== $mainLocale) {
             $this->disableUntranslatableForms($builder);
         }
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $view->vars['query'] = $options['query'];
     }
 }

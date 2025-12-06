@@ -31,11 +31,6 @@ final class CollectionEditType extends AbstractType
             ->allowedTypes(Collection::class);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        $view->vars['collection'] = $options['collection'];
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -68,5 +63,10 @@ final class CollectionEditType extends AbstractType
         );
 
         $builder->setDataMapper(new CollectionDataMapper());
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $view->vars['collection'] = $options['collection'];
     }
 }
