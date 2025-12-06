@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Tests\Block\BlockDefinition\Integration;
 
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Parameters\Parameter;
@@ -82,11 +81,6 @@ abstract class BlockTestCase extends CoreTestCase
 
     abstract public static function invalidParametersDataProvider(): iterable;
 
-    protected function hasCollection(): bool
-    {
-        return false;
-    }
-
     abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
 
     /**
@@ -110,22 +104,13 @@ abstract class BlockTestCase extends CoreTestCase
             }
         }
 
-        $collections = [];
-        if ($this->hasCollection()) {
-            $collections['default'] = Collection::fromArray(
-                [
-                    'identifier' => 'default',
-                ],
-            );
-        }
-
         $blockDefinition = BlockDefinition::fromArray(
             [
                 'identifier' => 'definition',
                 'handler' => $handler,
                 'configProvider' => ConfigProvider::fromShortConfig(['default' => ['standard']]),
                 'isTranslatable' => false,
-                'collections' => $collections,
+                'collections' => [],
                 'parameterDefinitions' => $filteredParameterDefinitions,
                 'configDefinitions' => [],
             ],
