@@ -8,11 +8,13 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
-use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Stubs\ParameterBuilderTrait;
 
 final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDefinitionHandler
 {
+    use ParameterBuilderTrait;
+
     /**
      * @param string[] $parameterGroups
      */
@@ -40,41 +42,6 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
                 'translatable' => false,
             ],
         );
-    }
-
-    /**
-     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
-     */
-    public function getParameterDefinitions(): array
-    {
-        return [
-            'css_class' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_class',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => 'some-class',
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => true,
-                    ],
-                ],
-            ),
-            'css_id' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_id',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-        ];
     }
 
     public function getDynamicParameters(DynamicParameters $params, Block $block): void

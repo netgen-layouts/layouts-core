@@ -114,19 +114,19 @@ final class ParameterMapperTest extends TestCase
         $untranslatableParams = $this->mapper->extractUntranslatableParameters(
             $blockDefinition,
             [
-                'css_id' => 'some-id',
-                'css_class' => 'some-class',
                 'compound' => true,
                 'inner' => 'inner-value',
+                'css_id' => 'some-id',
+                'css_class' => 'some-class',
             ],
         );
 
         self::assertSame(
             [
-                'other' => null,
-                'css_id' => 'some-id',
                 'compound' => true,
                 'inner' => 'inner-value',
+                'other' => null,
+                'css_id' => 'some-id',
             ],
             [...$untranslatableParams],
         );

@@ -6,37 +6,16 @@ namespace Netgen\Layouts\Tests\Config\Stubs;
 
 use Netgen\Layouts\Config\ConfigDefinitionHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
-use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Stubs\ParameterBuilderTrait;
 
 final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
 {
-    /**
-     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
-     */
-    public function getParameterDefinitions(): array
-    {
-        return [
-            'param' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'param',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                ],
-            ),
-            'param2' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'param2',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                ],
-            ),
-        ];
-    }
+    use ParameterBuilderTrait;
 
-    public function buildParameters(ParameterBuilderInterface $builder): void {}
+    public function buildParameters(ParameterBuilderInterface $builder): void
+    {
+        $builder->add('param', ParameterType\TextLineType::class);
+        $builder->add('param2', ParameterType\TextLineType::class);
+    }
 }

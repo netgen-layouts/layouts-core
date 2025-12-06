@@ -7,11 +7,14 @@ namespace Netgen\Layouts\Tests\Block\Stubs;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\Layouts\Block\DynamicParameters;
-use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Stubs\ParameterBuilderTrait;
 
 final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends BaseBlockDefinitionHandler
 {
+    use ParameterBuilderTrait;
+
     /**
      * @param string[] $parameterGroups
      */
@@ -19,69 +22,44 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
         private array $parameterGroups = [],
     ) {}
 
-    /**
-     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
-     */
-    public function getParameterDefinitions(): array
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
-        $compoundDefinition = ParameterDefinition::fromArray(
+        $builder->add(
+            'compound',
+            ParameterType\Compound\BooleanType::class,
             [
-                'name' => 'compound',
-                'type' => new ParameterType\Compound\BooleanType(),
-                'isRequired' => false,
-                'defaultValue' => null,
-                'label' => null,
                 'groups' => $this->parameterGroups,
-                'options' => [
-                    'translatable' => true,
-                ],
-                'parameterDefinitions' => [
-                    'inner' => ParameterDefinition::fromArray(
-                        [
-                            'name' => 'inner',
-                            'type' => new ParameterType\TextLineType(),
-                            'isRequired' => false,
-                            'defaultValue' => null,
-                            'label' => null,
-                            'groups' => $this->parameterGroups,
-                            'options' => [
-                                'translatable' => true,
-                            ],
-                        ],
-                    ),
-                ],
+                'translatable' => true,
             ],
         );
 
-        return [
-            'css_class' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_class',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => 'some-class',
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => true,
-                    ],
-                ],
-            ),
-            'css_id' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_id',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-            'compound' => $compoundDefinition,
-        ];
+        $builder->get('compound')->add(
+            'inner',
+            ParameterType\TextLineType::class,
+            [
+                'groups' => $this->parameterGroups,
+                'translatable' => true,
+            ],
+        );
+
+        $builder->add(
+            'css_class',
+            ParameterType\TextLineType::class,
+            [
+                'default_value' => 'some-class',
+                'groups' => $this->parameterGroups,
+                'translatable' => true,
+            ],
+        );
+
+        $builder->add(
+            'css_id',
+            ParameterType\TextLineType::class,
+            [
+                'groups' => $this->parameterGroups,
+                'translatable' => false,
+            ],
+        );
     }
 
     public function getDynamicParameters(DynamicParameters $params, Block $block): void

@@ -8,11 +8,13 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
-use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Stubs\ParameterBuilderTrait;
 
 final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 {
+    use ParameterBuilderTrait;
+
     /**
      * @param string[] $parameterGroups
      */
@@ -30,6 +32,7 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                 'required' => true,
                 'default_value' => 'some-class',
                 'groups' => $this->parameterGroups,
+                'translatable' => false,
             ],
         );
 
@@ -38,45 +41,9 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
             ParameterType\TextLineType::class,
             [
                 'groups' => $this->parameterGroups,
+                'translatable' => false,
             ],
         );
-    }
-
-    /**
-     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
-     */
-    public function getParameterDefinitions(): array
-    {
-        return [
-            'css_class' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_class',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => true,
-                    'isReadOnly' => false,
-                    'defaultValue' => 'some-class',
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-            'css_id' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_id',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'isReadOnly' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-        ];
     }
 
     public function getDynamicParameters(DynamicParameters $params, Block $block): void

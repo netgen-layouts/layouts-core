@@ -8,6 +8,7 @@ use Netgen\Layouts\Collection\Item\ItemDefinitionFactory;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Config\ConfigDefinitionInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -22,7 +23,11 @@ final class ItemDefinitionFactoryTest extends TestCase
     {
         $configDefinitionFactory = new ConfigDefinitionFactory(
             new ParameterBuilderFactory(
-                new ParameterTypeRegistry([]),
+                new ParameterTypeRegistry(
+                    [
+                        new ParameterType\TextLineType(),
+                    ],
+                ),
             ),
         );
 

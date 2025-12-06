@@ -7,42 +7,32 @@ namespace Netgen\Layouts\Tests\Block\Stubs;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\Layouts\Block\DynamicParameters;
-use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Stubs\ParameterBuilderTrait;
 
 final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHandler
 {
-    /**
-     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
-     */
-    public function getParameterDefinitions(): array
+    use ParameterBuilderTrait;
+
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
-        return [
-            'css_class' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_class',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => true,
-                    'defaultValue' => null,
-                    'label' => null,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-            'css_id' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_id',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-        ];
+        $builder->add(
+            'css_class',
+            ParameterType\TextLineType::class,
+            [
+                'required' => true,
+                'translatable' => false,
+            ],
+        );
+
+        $builder->add(
+            'css_id',
+            ParameterType\TextLineType::class,
+            [
+                'translatable' => false,
+            ],
+        );
     }
 
     public function getDynamicParameters(DynamicParameters $params, Block $block): void

@@ -9,11 +9,13 @@ use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
-use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Stubs\ParameterBuilderTrait;
 
 final class ContainerDefinitionHandler extends BlockDefinitionHandler implements ContainerDefinitionHandlerInterface
 {
+    use ParameterBuilderTrait;
+
     /**
      * @param string[] $parameterGroups
      * @param string[] $placeholderIdentifiers
@@ -41,41 +43,6 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
                 'groups' => $this->parameterGroups,
             ],
         );
-    }
-
-    /**
-     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
-     */
-    public function getParameterDefinitions(): array
-    {
-        return [
-            'css_class' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_class',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => 'some-class',
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-            'css_id' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'css_id',
-                    'type' => new ParameterType\TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                    'groups' => $this->parameterGroups,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-        ];
     }
 
     public function getPlaceholderIdentifiers(): array

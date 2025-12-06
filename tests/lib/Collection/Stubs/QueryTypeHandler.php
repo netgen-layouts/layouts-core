@@ -7,14 +7,16 @@ namespace Netgen\Layouts\Tests\Collection\Stubs;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
-use Netgen\Layouts\Parameters\ParameterDefinition;
-use Netgen\Layouts\Parameters\ParameterType\TextLineType;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Stubs\ParameterBuilderTrait;
 
 use function array_slice;
 use function count;
 
 final class QueryTypeHandler implements QueryTypeHandlerInterface
 {
+    use ParameterBuilderTrait;
+
     /**
      * @param mixed[] $values
      */
@@ -24,39 +26,25 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
         private bool $isContextual = false,
     ) {}
 
-    public function buildParameters(ParameterBuilderInterface $builder): void {}
-
-    /**
-     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
-     */
-    public function getParameterDefinitions(): array
+    public function buildParameters(ParameterBuilderInterface $builder): void
     {
-        return [
-            'param' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'param',
-                    'type' => new TextLineType(),
-                    'isRequired' => true,
-                    'defaultValue' => 'value',
-                    'label' => null,
-                    'options' => [
-                        'translatable' => false,
-                    ],
-                ],
-            ),
-            'param2' => ParameterDefinition::fromArray(
-                [
-                    'name' => 'param2',
-                    'type' => new TextLineType(),
-                    'isRequired' => false,
-                    'defaultValue' => null,
-                    'label' => null,
-                    'options' => [
-                        'translatable' => true,
-                    ],
-                ],
-            ),
-        ];
+        $builder->add(
+            'param',
+            ParameterType\TextLineType::class,
+            [
+                'required' => true,
+                'default_value' => 'value',
+                'translatable' => false,
+            ],
+        );
+
+        $builder->add(
+            'param2',
+            ParameterType\TextLineType::class,
+            [
+                'translatable' => true,
+            ],
+        );
     }
 
     public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable
