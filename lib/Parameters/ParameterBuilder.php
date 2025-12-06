@@ -463,10 +463,6 @@ final class ParameterBuilder implements ParameterBuilderInterface
             $this->type->configureOptions($optionsResolver);
         }
 
-        if (!$this->supportsTranslatableParameters) {
-            unset($options['translatable']);
-        }
-
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->isRequired = $resolvedOptions['required'];
