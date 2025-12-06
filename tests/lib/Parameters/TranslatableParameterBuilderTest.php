@@ -44,7 +44,7 @@ final class TranslatableParameterBuilderTest extends TestCase
 
         $this->builder->get('test')->setOption('translatable', true);
 
-        self::assertTrue($this->builder->get('test')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->isTranslatable());
     }
 
     public function testAdd(): void
@@ -59,8 +59,7 @@ final class TranslatableParameterBuilderTest extends TestCase
             ],
         );
 
-        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
-        self::assertTrue($this->builder->get('test')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->isTranslatable());
     }
 
     public function testAddUntranslatable(): void
@@ -76,8 +75,7 @@ final class TranslatableParameterBuilderTest extends TestCase
             ],
         );
 
-        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
-        self::assertFalse($this->builder->get('test')->getOption('translatable'));
+        self::assertFalse($this->builder->get('test')->isTranslatable());
     }
 
     public function testAddCompound(): void
@@ -92,11 +90,8 @@ final class TranslatableParameterBuilderTest extends TestCase
             ParameterType\TextType::class,
         );
 
-        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
-        self::assertTrue($this->builder->get('test')->getOption('translatable'));
-
-        self::assertTrue($this->builder->get('test')->get('test2')->hasOption('translatable'));
-        self::assertTrue($this->builder->get('test')->get('test2')->getOption('translatable'));
+        self::assertTrue($this->builder->get('test')->isTranslatable());
+        self::assertTrue($this->builder->get('test')->get('test2')->isTranslatable());
     }
 
     public function testAddCompoundUntranslatable(): void
@@ -117,11 +112,8 @@ final class TranslatableParameterBuilderTest extends TestCase
             ],
         );
 
-        self::assertTrue($this->builder->get('test')->hasOption('translatable'));
-        self::assertFalse($this->builder->get('test')->getOption('translatable'));
-
-        self::assertTrue($this->builder->get('test')->get('test2')->hasOption('translatable'));
-        self::assertFalse($this->builder->get('test')->get('test2')->getOption('translatable'));
+        self::assertFalse($this->builder->get('test')->isTranslatable());
+        self::assertFalse($this->builder->get('test')->get('test2')->isTranslatable());
     }
 
     public function testAddThrowsInvalidOptionsExceptionOnAddingTranslatableParameterToNonTranslatableCompoundParameter(): void

@@ -48,7 +48,6 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
             [
                 'default_value' => 'some-class',
                 'groups' => $this->parameterGroups,
-                'translatable' => true,
             ],
         );
 

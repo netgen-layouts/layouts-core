@@ -29,7 +29,6 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
             ParameterType\Compound\BooleanType::class,
             [
                 'groups' => $this->parameterGroups,
-                'translatable' => true,
             ],
         );
 
@@ -38,7 +37,6 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
             ParameterType\TextLineType::class,
             [
                 'groups' => $this->parameterGroups,
-                'translatable' => true,
             ],
         );
 
@@ -48,7 +46,6 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
             [
                 'default_value' => 'some-class',
                 'groups' => $this->parameterGroups,
-                'translatable' => true,
             ],
         );
 

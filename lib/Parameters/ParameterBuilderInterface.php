@@ -69,6 +69,11 @@ interface ParameterBuilderInterface extends Countable
     public function setReadOnly(bool $isReadOnly): self;
 
     /**
+     * Returns if the parameter is translatable.
+     */
+    public function isTranslatable(): bool;
+
+    /**
      * Returns if the parameter is compound.
      */
     public function isCompound(): bool;

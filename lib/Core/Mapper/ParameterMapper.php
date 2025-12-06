@@ -80,7 +80,7 @@ final class ParameterMapper
     public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $definitions, array $values): iterable
     {
         foreach ($definitions->parameterDefinitions as $paramName => $parameterDefinition) {
-            if ($parameterDefinition->getOption('translatable') === true) {
+            if ($parameterDefinition->isTranslatable === true) {
                 continue;
             }
 

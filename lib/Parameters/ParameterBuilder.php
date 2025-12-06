@@ -32,6 +32,8 @@ final class ParameterBuilder implements ParameterBuilderInterface
 
     private bool $isReadOnly = false;
 
+    private bool $isTranslatable = false;
+
     private mixed $defaultValue;
 
     private string|false|null $label;
@@ -67,7 +69,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
         private ?ParameterTypeInterface $type = null,
         array $options = [],
         private ?ParameterBuilderInterface $parentBuilder = null,
-        private bool $isTranslatable = false,
+        private bool $supportsTranslatableParameters = false,
     ) {
         $this->options = $this->resolveOptions($options);
     }
@@ -110,6 +112,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
         $options = $this->options + [
             'required' => $this->isRequired,
             'readonly' => $this->isReadOnly,
+            'translatable' => $this->isTranslatable,
             'default_value' => $this->defaultValue,
             'label' => $this->label,
             'groups' => $this->groups,
@@ -153,6 +156,11 @@ final class ParameterBuilder implements ParameterBuilderInterface
         $this->isReadOnly = $isReadOnly;
 
         return $this;
+    }
+
+    public function isTranslatable(): bool
+    {
+        return $this->isTranslatable;
     }
 
     public function isCompound(): bool
@@ -252,7 +260,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
                 'options' => $options,
                 'parent' => $this,
             ],
-            $this->isTranslatable,
+            $this->supportsTranslatableParameters,
         );
 
         return $this;
@@ -330,6 +338,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
             'options' => $builder->getOptions(),
             'isRequired' => $builder->isRequired(),
             'isReadOnly' => $builder->isReadOnly(),
+            'isTranslatable' => $builder->isTranslatable(),
             'defaultValue' => $builder->getDefaultValue(),
             'label' => $builder->getLabel(),
             'groups' => $builder->getGroups(),
@@ -409,7 +418,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
             ->allowedValues(fn (array $constraints): bool => $this->validateConstraints($constraints))
             ->info('It must be an array of constraints or closures.');
 
-        if ($this->isTranslatable) {
+        if ($this->supportsTranslatableParameters) {
             $optionsResolver
                 ->define('translatable')
                 ->required()
@@ -425,7 +434,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
                             return true;
                         }
 
-                        if ($value !== $this->parentBuilder->getOption('translatable')) {
+                        if ($value !== $this->parentBuilder->isTranslatable()) {
                             if ($value) {
                                 throw new InvalidOptionsException(
                                     sprintf(
@@ -454,10 +463,15 @@ final class ParameterBuilder implements ParameterBuilderInterface
             $this->type->configureOptions($optionsResolver);
         }
 
+        if (!$this->supportsTranslatableParameters) {
+            unset($options['translatable']);
+        }
+
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->isRequired = $resolvedOptions['required'];
         $this->isReadOnly = $resolvedOptions['readonly'];
+        $this->isTranslatable = $resolvedOptions['translatable'] ?? false;
         $this->defaultValue = $resolvedOptions['default_value'];
         $this->label = $resolvedOptions['label'];
         $this->groups = $resolvedOptions['groups'];
@@ -466,6 +480,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
         unset(
             $resolvedOptions['required'],
             $resolvedOptions['readonly'],
+            $resolvedOptions['translatable'],
             $resolvedOptions['default_value'],
             $resolvedOptions['label'],
             $resolvedOptions['groups'],

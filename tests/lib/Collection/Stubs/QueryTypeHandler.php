@@ -41,9 +41,6 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
         $builder->add(
             'param2',
             ParameterType\TextLineType::class,
-            [
-                'translatable' => true,
-            ],
         );
     }
 

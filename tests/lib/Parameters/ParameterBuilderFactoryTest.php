@@ -34,7 +34,7 @@ final class ParameterBuilderFactoryTest extends TestCase
         $parameterBuilder = $this->factory->createParameterBuilder();
 
         self::assertNull($parameterBuilder->getName());
-        self::assertFalse($parameterBuilder->hasOption('translatable'));
+        self::assertFalse($parameterBuilder->isTranslatable());
         self::assertNull($parameterBuilder->getType());
     }
 
@@ -48,7 +48,7 @@ final class ParameterBuilderFactoryTest extends TestCase
         );
 
         self::assertSame('param', $parameterBuilder->getName());
-        self::assertFalse($parameterBuilder->hasOption('translatable'));
+        self::assertFalse($parameterBuilder->isTranslatable());
 
         self::assertSame(
             $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
@@ -61,8 +61,7 @@ final class ParameterBuilderFactoryTest extends TestCase
         $parameterBuilder = $this->factory->createParameterBuilder([], true);
 
         self::assertNull($parameterBuilder->getName());
-        self::assertTrue($parameterBuilder->hasOption('translatable'));
-        self::assertTrue($parameterBuilder->getOption('translatable'));
+        self::assertTrue($parameterBuilder->isTranslatable());
         self::assertNull($parameterBuilder->getType());
     }
 
@@ -77,8 +76,7 @@ final class ParameterBuilderFactoryTest extends TestCase
         );
 
         self::assertSame('param', $parameterBuilder->getName());
-        self::assertTrue($parameterBuilder->hasOption('translatable'));
-        self::assertTrue($parameterBuilder->getOption('translatable'));
+        self::assertTrue($parameterBuilder->isTranslatable());
 
         self::assertSame(
             $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
@@ -100,8 +98,7 @@ final class ParameterBuilderFactoryTest extends TestCase
         );
 
         self::assertSame('param', $parameterBuilder->getName());
-        self::assertTrue($parameterBuilder->hasOption('translatable'));
-        self::assertSame(['translatable' => false], $parameterBuilder->getOptions());
+        self::assertFalse($parameterBuilder->isTranslatable());
 
         self::assertSame(
             $this->registry->getParameterTypeByClass(ParameterType\TextType::class),

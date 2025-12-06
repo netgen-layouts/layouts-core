@@ -20,7 +20,7 @@ trait TranslatableTypeTrait
 
             $parameterDefinition = $form->getOption('ngl_parameter_definition');
             if ($parameterDefinition instanceof ParameterDefinition) {
-                $disabled = $parameterDefinition->getOption('translatable') !== true;
+                $disabled = $parameterDefinition->isTranslatable !== true;
             }
 
             $form->setDisabled($disabled);

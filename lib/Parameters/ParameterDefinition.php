@@ -45,6 +45,11 @@ final class ParameterDefinition implements ParameterDefinitionCollectionInterfac
     public private(set) bool $isReadOnly;
 
     /**
+     * Returns if the parameter is translatable.
+     */
+    public private(set) bool $isTranslatable;
+
+    /**
      * Returns if the parameter is compound. A compound parameter can contain other parameters.
      */
     public bool $isCompound {

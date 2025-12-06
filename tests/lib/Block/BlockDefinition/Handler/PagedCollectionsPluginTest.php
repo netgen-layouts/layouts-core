@@ -55,7 +55,7 @@ final class PagedCollectionsPluginTest extends TestCase
         self::assertTrue($builder->has('paged_collections:enabled'));
         self::assertInstanceOf(ParameterType\Compound\BooleanType::class, $builder->get('paged_collections:enabled')->getType());
         self::assertSame(['group'], $builder->get('paged_collections:enabled')->getGroups());
-        self::assertTrue($builder->get('paged_collections:enabled')->getOption('translatable'));
+        self::assertTrue($builder->get('paged_collections:enabled')->isTranslatable());
 
         $compoundBuilder = $builder->get('paged_collections:enabled');
 
@@ -65,17 +65,17 @@ final class PagedCollectionsPluginTest extends TestCase
         self::assertInstanceOf(ParameterType\ChoiceType::class, $compoundBuilder->get('paged_collections:type')->getType());
         self::assertSame(['group'], $compoundBuilder->get('paged_collections:type')->getGroups());
         self::assertSame(['Load more' => 'load_more'], $compoundBuilder->get('paged_collections:type')->getOption('options'));
-        self::assertTrue($compoundBuilder->get('paged_collections:type')->getOption('translatable'));
+        self::assertTrue($compoundBuilder->get('paged_collections:type')->isTranslatable());
 
         self::assertTrue($compoundBuilder->has('paged_collections:max_pages'));
         self::assertInstanceOf(ParameterType\IntegerType::class, $compoundBuilder->get('paged_collections:max_pages')->getType());
         self::assertSame(['group'], $compoundBuilder->get('paged_collections:max_pages')->getGroups());
         self::assertSame(1, $compoundBuilder->get('paged_collections:max_pages')->getOption('min'));
-        self::assertTrue($compoundBuilder->get('paged_collections:max_pages')->getOption('translatable'));
+        self::assertTrue($compoundBuilder->get('paged_collections:max_pages')->isTranslatable());
 
         self::assertTrue($compoundBuilder->has('paged_collections:ajax_first'));
         self::assertInstanceOf(ParameterType\BooleanType::class, $compoundBuilder->get('paged_collections:ajax_first')->getType());
         self::assertSame(['group'], $compoundBuilder->get('paged_collections:ajax_first')->getGroups());
-        self::assertTrue($compoundBuilder->get('paged_collections:ajax_first')->getOption('translatable'));
+        self::assertTrue($compoundBuilder->get('paged_collections:ajax_first')->isTranslatable());
     }
 }

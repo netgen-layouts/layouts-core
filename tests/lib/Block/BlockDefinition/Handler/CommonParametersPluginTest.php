@@ -53,16 +53,16 @@ final class CommonParametersPluginTest extends TestCase
         self::assertTrue($builder->has('css_class'));
         self::assertInstanceOf(ParameterType\TextLineType::class, $builder->get('css_class')->getType());
         self::assertSame(['group'], $builder->get('css_class')->getGroups());
-        self::assertFalse($builder->get('css_class')->getOption('translatable'));
+        self::assertFalse($builder->get('css_class')->isTranslatable());
 
         self::assertTrue($builder->has('css_id'));
         self::assertInstanceOf(ParameterType\TextLineType::class, $builder->get('css_id')->getType());
         self::assertSame(['group'], $builder->get('css_id')->getGroups());
-        self::assertFalse($builder->get('css_id')->getOption('translatable'));
+        self::assertFalse($builder->get('css_id')->isTranslatable());
 
         self::assertTrue($builder->has('set_container'));
         self::assertInstanceOf(ParameterType\BooleanType::class, $builder->get('set_container')->getType());
         self::assertSame(['group'], $builder->get('set_container')->getGroups());
-        self::assertFalse($builder->get('set_container')->getOption('translatable'));
+        self::assertFalse($builder->get('set_container')->isTranslatable());
     }
 }

@@ -15,7 +15,7 @@ final class TestQueryTypeHandler implements QueryTypeHandlerInterface
     public function buildParameters(ParameterBuilderInterface $builder): void
     {
         $builder->add('param', TextLineType::class, ['required' => true, 'translatable' => false]);
-        $builder->add('param2', TextLineType::class, ['required' => false, 'translatable' => true]);
+        $builder->add('param2', TextLineType::class, ['required' => false]);
     }
 
     public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable

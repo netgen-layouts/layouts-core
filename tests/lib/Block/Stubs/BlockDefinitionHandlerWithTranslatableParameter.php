@@ -30,7 +30,6 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
             [
                 'default_value' => 'some-class',
                 'groups' => $this->parameterGroups,
-                'translatable' => true,
             ],
         );
 
