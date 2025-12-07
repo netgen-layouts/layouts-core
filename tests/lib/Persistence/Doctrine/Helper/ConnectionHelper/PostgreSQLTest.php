@@ -45,6 +45,6 @@ final class PostgreSQLTest extends TestCase
             self::markTestSkipped('Test only runs on PostgresSQL.');
         }
 
-        self::assertSame(38, $this->helper->lastId('nglayouts_block'));
+        self::assertSame(39, $this->helper->lastId('nglayouts_block'));
     }
 }
