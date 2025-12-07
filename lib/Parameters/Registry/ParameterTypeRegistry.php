@@ -68,13 +68,21 @@ final class ParameterTypeRegistry implements IteratorAggregate, Countable, Array
     }
 
     /**
+     * Returns if registry has a parameter type with provided class.
+     */
+    public function hasParameterTypeByClass(string $class): bool
+    {
+        return array_key_exists($class, $this->parameterTypesByClass);
+    }
+
+    /**
      * Returns a parameter type with provided class.
      *
      * @throws \Netgen\Layouts\Exception\Parameters\ParameterTypeException If parameter type does not exist
      */
     public function getParameterTypeByClass(string $class): ParameterTypeInterface
     {
-        if (!array_key_exists($class, $this->parameterTypesByClass)) {
+        if (!$this->hasParameterTypeByClass($class)) {
             throw ParameterTypeException::noParameterTypeClass($class);
         }
 

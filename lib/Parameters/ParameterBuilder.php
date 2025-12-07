@@ -91,7 +91,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
 
     public function getOption(string $name): mixed
     {
-        if (!array_key_exists($name, $this->options)) {
+        if (!$this->hasOption($name)) {
             throw ParameterBuilderException::noOption($name, $this->name);
         }
 
