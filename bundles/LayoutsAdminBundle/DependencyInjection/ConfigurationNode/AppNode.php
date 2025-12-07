@@ -29,7 +29,7 @@ final class AppNode implements ConfigurationNodeInterface
                         ->cannotBeEmpty()
                         ->validate()
                             ->ifTrue(
-                                static fn ($v): bool => !is_string($v),
+                                static fn (mixed $v): bool => !is_string($v),
                             )
                             ->thenInvalid('The value should be a string')
                         ->end()

@@ -293,7 +293,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
 
     public function has(string $name): bool
     {
-        return isset($this->unresolvedChildren[$name]);
+        return array_key_exists($name, $this->unresolvedChildren);
     }
 
     public function remove(string $name): ParameterBuilderInterface
@@ -388,7 +388,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
             ->required()
             ->default(null)
             ->allowedTypes('string', 'null', 'bool')
-            ->allowedValues(static fn ($value): bool => !is_bool($value) || $value === false)
+            ->allowedValues(static fn (string|bool|null $value): bool => !is_bool($value) || $value === false)
             ->info('It must be a string, null or false.');
 
         $optionsResolver
@@ -397,16 +397,10 @@ final class ParameterBuilder implements ParameterBuilderInterface
             ->default([])
             ->allowedTypes('string[]')
             ->normalize(
-                function (Options $options, array $value): array {
-                    if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
-                        return $value;
-                    }
-
-                    if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
-                        return $value;
-                    }
-
-                    return $this->parentBuilder->getGroups();
+                fn (Options $options, array $value): array => match (true) {
+                    !$this->parentBuilder instanceof ParameterBuilderInterface => $value,
+                    !$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface => $value,
+                    default => $this->parentBuilder->getGroups(),
                 },
             );
 
@@ -435,19 +429,11 @@ final class ParameterBuilder implements ParameterBuilderInterface
                         }
 
                         if ($value !== $this->parentBuilder->isTranslatable()) {
-                            if ($value) {
-                                throw new InvalidOptionsException(
-                                    sprintf(
-                                        'Parameter "%s" cannot be translatable, since its parent parameter "%s" is not translatable',
-                                        $this->name ?? '',
-                                        $this->parentBuilder->getName() ?? '',
-                                    ),
-                                );
-                            }
-
                             throw new InvalidOptionsException(
                                 sprintf(
-                                    'Parameter "%s" needs to be translatable, since its parent parameter "%s" is translatable',
+                                    $value ?
+                                        'Parameter "%s" cannot be translatable, since its parent parameter "%s" is not translatable' :
+                                        'Parameter "%s" needs to be translatable, since its parent parameter "%s" is translatable',
                                     $this->name ?? '',
                                     $this->parentBuilder->getName() ?? '',
                                 ),

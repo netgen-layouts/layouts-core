@@ -18,8 +18,12 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     {
         $definition = new ParameterDefinition();
 
-        $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => $definition],
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'name' => $definition,
+                ],
+            ],
         );
 
         self::assertSame($definition, $parameterDefinitions->getParameterDefinition('name'));
@@ -30,8 +34,12 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
         $this->expectException(ParameterException::class);
         $this->expectExceptionMessage('Parameter definition with "test" name does not exist.');
 
-        $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => new ParameterDefinition()],
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'name' => new ParameterDefinition(),
+                ],
+            ],
         );
 
         $parameterDefinitions->getParameterDefinition('test');
@@ -41,8 +49,12 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     {
         $definition = new ParameterDefinition();
 
-        $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => $definition],
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'name' => $definition,
+                ],
+            ],
         );
 
         self::assertSame(
@@ -53,8 +65,12 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
 
     public function testHasParameterDefinition(): void
     {
-        $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => new ParameterDefinition()],
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'name' => new ParameterDefinition(),
+                ],
+            ],
         );
 
         self::assertFalse($parameterDefinitions->hasParameterDefinition('test'));

@@ -29,7 +29,7 @@ final class Hydrator
      */
     public function hydrate(array $data, object $object): mixed
     {
-        return (function (array $data) {
+        return (function (array $data): object {
             foreach ($data as $property => $value) {
                 if (!property_exists($this, $property)) {
                     throw new RuntimeException(

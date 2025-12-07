@@ -49,7 +49,7 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
             ->willReturnCallback(
-                static fn ($remoteId): CmsItemInterface => CmsItem::fromArray(
+                static fn (string $remoteId): CmsItemInterface => CmsItem::fromArray(
                     [
                         'value' => $remoteId,
                         'remoteId' => $remoteId,
@@ -60,7 +60,7 @@ abstract class ImporterTestBase extends CoreTestCase
         $this->cmsItemLoaderStub
             ->method('load')
             ->willReturnCallback(
-                static fn ($value): CmsItemInterface => CmsItem::fromArray(
+                static fn (int|string $value): CmsItemInterface => CmsItem::fromArray(
                     [
                         'value' => $value,
                         'remoteId' => $value,

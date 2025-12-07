@@ -55,7 +55,7 @@ final class LayoutResolver implements LayoutResolverInterface
         );
 
         $matches = [...$resolvedGroups, ...$this->resolveGroupRules($ruleGroup, $request, $enabledConditions)];
-        usort($matches, static fn ($a, $b): int => $b->priority <=> $a->priority);
+        usort($matches, static fn (Rule|RuleGroup $a, Rule|RuleGroup $b): int => $b->priority <=> $a->priority);
 
         foreach ($matches as $match) {
             /** @var \Netgen\Layouts\API\Values\LayoutResolver\Rule|\Netgen\Layouts\API\Values\LayoutResolver\RuleGroup $match */

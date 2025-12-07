@@ -13,6 +13,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Traversable;
 
+use function array_key_exists;
 use function count;
 
 /**
@@ -43,7 +44,7 @@ final class ConditionTypeRegistry implements IteratorAggregate, Countable, Array
      */
     public function hasConditionType(string $type): bool
     {
-        return isset($this->conditionTypes[$type]);
+        return array_key_exists($type, $this->conditionTypes);
     }
 
     /**

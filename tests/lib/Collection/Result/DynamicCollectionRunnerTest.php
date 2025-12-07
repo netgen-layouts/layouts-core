@@ -84,7 +84,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $result = [...$collectionRunner->runCollection($collection, $offset, $limit)];
 
         $result = array_map(
-            static fn (Result $resultItem) => $resultItem->item->value,
+            static fn (Result $resultItem): int|string|null => $resultItem->item->value,
             $result,
         );
 

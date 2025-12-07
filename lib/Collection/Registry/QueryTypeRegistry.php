@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
 use function array_filter;
+use function array_key_exists;
 use function count;
 
 /**
@@ -39,7 +40,7 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
      */
     public function hasQueryType(string $type): bool
     {
-        return isset($this->queryTypes[$type]);
+        return array_key_exists($type, $this->queryTypes);
     }
 
     /**

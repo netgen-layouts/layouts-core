@@ -47,12 +47,12 @@ final class EnumType extends ParameterType
             ->define('class')
             ->required()
             ->allowedTypes('string')
-            ->allowedValues(static fn ($value): bool => is_a($value, BackedEnum::class, true))
+            ->allowedValues(static fn (string $value): bool => is_a($value, BackedEnum::class, true))
             ->info('It must be a valid backed enum.');
 
         $optionsResolver->setDefault(
             'default_value',
-            static function (Options $options, $previousValue) {
+            static function (Options $options, mixed $previousValue): mixed {
                 if ($options['required'] === true) {
                     $defaultValue = array_first($options['class']::cases());
 

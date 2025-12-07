@@ -10,6 +10,8 @@ use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\View\View\PlaceholderView;
 use Netgen\Layouts\View\ViewInterface;
 
+use function array_key_exists;
+
 /**
  * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\API\Values\Block\Placeholder>
  */
@@ -17,7 +19,7 @@ final class PlaceholderViewProvider implements ViewProviderInterface
 {
     public function provideView(mixed $value, array $parameters = []): ViewInterface
     {
-        if (!isset($parameters['block'])) {
+        if (!array_key_exists('block', $parameters)) {
             throw ViewProviderException::noParameter('placeholder', 'block');
         }
 

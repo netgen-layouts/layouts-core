@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+use function array_key_exists;
 use function count;
 use function json_decode;
 use function sprintf;
@@ -96,7 +97,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
         foreach ($queryTypes as $queryType) {
             $queryTypeIdentifier = $queryType->type;
-            if (isset(self::KNOWN_QUERY_TYPES[$queryTypeIdentifier])) {
+            if (array_key_exists($queryTypeIdentifier, self::KNOWN_QUERY_TYPES)) {
                 $queryTypeParameters[$queryTypeIdentifier] = self::KNOWN_QUERY_TYPES[$queryTypeIdentifier];
 
                 continue;

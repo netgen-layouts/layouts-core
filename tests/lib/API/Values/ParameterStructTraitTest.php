@@ -269,6 +269,10 @@ final class ParameterStructTraitTest extends TestCase
             'compound' => $compoundDefinition,
         ];
 
-        return new ParameterDefinitionCollection($parameterDefinitions);
+        return ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => $parameterDefinitions,
+            ],
+        );
     }
 }

@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
 use function array_filter;
+use function array_key_exists;
 use function count;
 
 /**
@@ -39,7 +40,7 @@ final class ItemDefinitionRegistry implements IteratorAggregate, Countable, Arra
      */
     public function hasItemDefinition(string $valueType): bool
     {
-        return isset($this->itemDefinitions[$valueType]);
+        return array_key_exists($valueType, $this->itemDefinitions);
     }
 
     /**

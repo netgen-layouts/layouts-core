@@ -14,6 +14,7 @@ use Netgen\Layouts\Item\ValueType\ValueType;
 use Traversable;
 
 use function array_filter;
+use function array_key_exists;
 use function count;
 
 /**
@@ -39,7 +40,7 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
      */
     public function hasValueType(string $identifier): bool
     {
-        return isset($this->valueTypes[$identifier]);
+        return array_key_exists($identifier, $this->valueTypes);
     }
 
     /**

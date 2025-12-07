@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Block\BlockDefinition\Configuration;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Utils\HydratorTrait;
 
+use function array_key_exists;
 use function array_keys;
 
 final class ViewType
@@ -53,7 +54,7 @@ final class ViewType
      */
     public function hasItemViewType(string $itemViewType): bool
     {
-        return isset($this->itemViewTypes[$itemViewType]);
+        return array_key_exists($itemViewType, $this->itemViewTypes);
     }
 
     /**

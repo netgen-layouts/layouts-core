@@ -45,17 +45,19 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         );
 
         $this->constraint = new ParameterStruct(
-            parameterDefinitions: new ParameterDefinitionCollection(
+            parameterDefinitions: ParameterDefinitionCollection::fromArray(
                 [
-                    'css_id' => ParameterDefinition::fromArray(
-                        [
-                            'name' => 'css_id',
-                            'type' => new ParameterType\TextLineType(),
-                            'isRequired' => true,
-                            'defaultValue' => null,
-                        ],
-                    ),
-                    'checkbox' => $compoundDefinition,
+                    'parameterDefinitions' => [
+                        'css_id' => ParameterDefinition::fromArray(
+                            [
+                                'name' => 'css_id',
+                                'type' => new ParameterType\TextLineType(),
+                                'isRequired' => true,
+                                'defaultValue' => null,
+                            ],
+                        ),
+                        'checkbox' => $compoundDefinition,
+                    ],
                 ],
             ),
             allowMissingFields: true,
@@ -107,21 +109,23 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         );
 
         $this->constraint = new ParameterStruct(
-            parameterDefinitions: new ParameterDefinitionCollection(
+            parameterDefinitions: ParameterDefinitionCollection::fromArray(
                 [
-                    'css_id' => ParameterDefinition::fromArray(
-                        [
-                            'name' => 'css_id',
-                            'type' => new ParameterType\TextLineType(),
-                            'isRequired' => true,
-                            'defaultValue' => null,
-                            'constraints' => [
-                                new Length(max: 6),
-                                static fn (): Constraint => new Length(min: 3),
+                    'parameterDefinitions' => [
+                        'css_id' => ParameterDefinition::fromArray(
+                            [
+                                'name' => 'css_id',
+                                'type' => new ParameterType\TextLineType(),
+                                'isRequired' => true,
+                                'defaultValue' => null,
+                                'constraints' => [
+                                    new Length(max: 6),
+                                    static fn (): Constraint => new Length(min: 3),
+                                ],
                             ],
-                        ],
-                    ),
-                    'checkbox' => $compoundDefinition,
+                        ),
+                        'checkbox' => $compoundDefinition,
+                    ],
                 ],
             ),
             allowMissingFields: true,

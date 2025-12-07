@@ -28,7 +28,7 @@ final class ConfigVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return array_map(
-            static function (Parameter $parameter) {
+            static function (Parameter $parameter): mixed {
                 $definition = $parameter->parameterDefinition;
 
                 return $definition->type->export($definition, $parameter->value);

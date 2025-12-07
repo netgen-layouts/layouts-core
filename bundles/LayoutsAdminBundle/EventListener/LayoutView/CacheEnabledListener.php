@@ -14,12 +14,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class CacheEnabledListener implements EventSubscriberInterface
 {
-    private bool $cacheEnabled;
-
-    public function __construct(ClientInterface $httpCacheClient)
-    {
-        $this->cacheEnabled = !$httpCacheClient instanceof NullClient;
-    }
+    public function __construct(
+        private ClientInterface $httpCacheClient,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -43,6 +40,6 @@ final class CacheEnabledListener implements EventSubscriberInterface
             return;
         }
 
-        $event->view->addParameter('http_cache_enabled', $this->cacheEnabled);
+        $event->view->addParameter('http_cache_enabled', !$this->httpCacheClient instanceof NullClient);
     }
 }

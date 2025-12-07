@@ -66,23 +66,25 @@ final class ParametersTypeTest extends FormTestCase
             ],
         );
 
-        $parameterDefinitions = new ParameterDefinitionCollection(
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
             [
-                'css_class' => ParameterDefinition::fromArray(
-                    [
-                        'name' => 'css_class',
-                        'type' => new ParameterType\TextLineType(),
-                        'label' => false,
-                    ],
-                ),
-                'css_id' => ParameterDefinition::fromArray(
-                    [
-                        'name' => 'css_id',
-                        'type' => new ParameterType\TextLineType(),
-                        'label' => 'custom label',
-                    ],
-                ),
-                'compound' => $compoundDefinition,
+                'parameterDefinitions' => [
+                    'css_class' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_class',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => false,
+                        ],
+                    ),
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => 'custom label',
+                        ],
+                    ),
+                    'compound' => $compoundDefinition,
+                ],
             ],
         );
 
@@ -145,15 +147,17 @@ final class ParametersTypeTest extends FormTestCase
         $this->expectException(ParameterTypeException::class);
         $this->expectExceptionMessage('Form mapper for "text" parameter type does not exist.');
 
-        $parameterDefinitions = new ParameterDefinitionCollection(
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
             [
-                'test' => ParameterDefinition::fromArray(
-                    [
-                        'name' => 'test',
-                        'type' => new ParameterType\TextType(),
-                        'label' => null,
-                    ],
-                ),
+                'parameterDefinitions' => [
+                    'test' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'test',
+                            'type' => new ParameterType\TextType(),
+                            'label' => null,
+                        ],
+                    ),
+                ],
             ],
         );
 
@@ -176,24 +180,26 @@ final class ParametersTypeTest extends FormTestCase
             ],
         ];
 
-        $parameterDefinitions = new ParameterDefinitionCollection(
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
             [
-                'excluded' => ParameterDefinition::fromArray(
-                    [
-                        'name' => 'excluded',
-                        'type' => new ParameterType\TextLineType(),
-                        'groups' => ['excluded'],
-                        'label' => null,
-                    ],
-                ),
-                'css_id' => ParameterDefinition::fromArray(
-                    [
-                        'name' => 'css_id',
-                        'type' => new ParameterType\TextLineType(),
-                        'groups' => ['group'],
-                        'label' => null,
-                    ],
-                ),
+                'parameterDefinitions' => [
+                    'excluded' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'excluded',
+                            'type' => new ParameterType\TextLineType(),
+                            'groups' => ['excluded'],
+                            'label' => null,
+                        ],
+                    ),
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'groups' => ['group'],
+                            'label' => null,
+                        ],
+                    ),
+                ],
             ],
         );
 

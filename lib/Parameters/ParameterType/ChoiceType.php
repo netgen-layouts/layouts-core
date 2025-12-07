@@ -46,12 +46,12 @@ final class ChoiceType extends ParameterType
             ->define('options')
             ->required()
             ->allowedTypes('array', 'callable')
-            ->allowedValues(static fn ($value): bool => is_callable($value) || count($value) > 0)
+            ->allowedValues(static fn (array|callable $value): bool => is_callable($value) || count($value) > 0)
             ->info('It must be a callable or a non-empty array.');
 
         $optionsResolver->setDefault(
             'default_value',
-            static function (Options $options, $previousValue) {
+            static function (Options $options, mixed $previousValue): mixed {
                 if ($options['required'] === true && !is_callable($options['options']) && count($options['options']) > 0) {
                     $defaultValue = array_first($options['options']);
 

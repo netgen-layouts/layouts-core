@@ -9,6 +9,7 @@ use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\View\View\ItemView;
 use Netgen\Layouts\View\ViewInterface;
 
+use function array_key_exists;
 use function is_string;
 
 /**
@@ -18,7 +19,7 @@ final class ItemViewProvider implements ViewProviderInterface
 {
     public function provideView(mixed $value, array $parameters = []): ViewInterface
     {
-        if (!isset($parameters['view_type'])) {
+        if (!array_key_exists('view_type', $parameters)) {
             throw ViewProviderException::noParameter('item', 'view_type');
         }
 

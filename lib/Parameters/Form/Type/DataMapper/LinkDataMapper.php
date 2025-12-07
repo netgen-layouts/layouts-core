@@ -9,6 +9,8 @@ use Netgen\Layouts\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 use Traversable;
 
+use function array_key_exists;
+
 /**
  * Mapper used to convert to and from the LinkValue object to the Symfony form structure.
  */
@@ -32,7 +34,7 @@ final class LinkDataMapper implements DataMapperInterface
 
         $linkType = $viewData->linkType->value ?? '';
 
-        if (isset($forms[$linkType])) {
+        if (array_key_exists($linkType, $forms)) {
             $forms[$linkType]->setData($viewData->link);
         }
     }
@@ -47,7 +49,7 @@ final class LinkDataMapper implements DataMapperInterface
         if ($linkType !== '') {
             $viewData = [
                 'link_type' => $linkType,
-                'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : '',
+                'link' => array_key_exists($linkType, $forms) ? $forms[$linkType]->getData() : '',
                 'link_suffix' => $forms['link_suffix']->getData() ?? '',
                 'new_window' => (bool) $forms['new_window']->getData(),
             ];

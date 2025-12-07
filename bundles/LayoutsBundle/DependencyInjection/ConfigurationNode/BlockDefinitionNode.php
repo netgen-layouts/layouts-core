@@ -47,7 +47,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->defaultValue(null)
                         ->validate()
                             ->ifTrue(
-                                static fn ($v): bool => !($v === null || (is_string($v) && $v !== '')),
+                                static fn (mixed $v): bool => !($v === null || (is_string($v) && $v !== '')),
                             )
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()
@@ -76,13 +76,13 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                         ->defaultNull()
                                         ->validate()
                                             ->ifTrue(
-                                                static fn ($v): bool => $v !== null && !is_array($v),
+                                                static fn (mixed $v): bool => $v !== null && !is_array($v),
                                             )
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
                                             ->always(
-                                                static fn ($v) => is_array($v) ? array_values(array_unique($v)) : $v,
+                                                static fn (mixed $v): ?array => is_array($v) ? array_values(array_unique($v)) : $v,
                                             )
                                         ->end()
                                     ->end()
@@ -90,13 +90,13 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                         ->defaultNull()
                                         ->validate()
                                             ->ifTrue(
-                                                static fn ($v): bool => $v !== null && !is_array($v),
+                                                static fn (mixed $v): bool => $v !== null && !is_array($v),
                                             )
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
                                             ->always(
-                                                static fn ($v) => is_array($v) ? array_values(array_unique($v)) : $v,
+                                                static fn (mixed $v): ?array => is_array($v) ? array_values(array_unique($v)) : $v,
                                             )
                                         ->end()
                                     ->end()
@@ -223,13 +223,13 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->defaultNull()
                                     ->validate()
                                         ->ifTrue(
-                                            static fn ($v): bool => $v !== null && !is_array($v),
+                                            static fn (mixed $v): bool => $v !== null && !is_array($v),
                                         )
                                         ->thenInvalid('The value should be null or an array')
                                     ->end()
                                     ->validate()
                                         ->always(
-                                            static fn ($v) => is_array($v) ? array_values(array_unique($v)) : $v,
+                                            static fn (mixed $v): ?array => is_array($v) ? array_values(array_unique($v)) : $v,
                                         )
                                     ->end()
                                 ->end()

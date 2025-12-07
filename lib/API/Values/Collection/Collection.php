@@ -106,7 +106,7 @@ final class Collection implements Value
     public function hasItem(int $position): bool
     {
         return $this->items->exists(
-            static fn ($key, Item $item): bool => $item->position === $position,
+            static fn (int $key, Item $item): bool => $item->position === $position,
         );
     }
 
@@ -130,7 +130,7 @@ final class Collection implements Value
     public function hasSlot(int $position): bool
     {
         return $this->slots->exists(
-            static fn ($key, Slot $slot): bool => $slot->position === $position,
+            static fn (int $key, Slot $slot): bool => $slot->position === $position,
         );
     }
 

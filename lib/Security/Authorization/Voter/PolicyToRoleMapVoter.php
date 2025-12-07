@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+use function array_key_exists;
 use function str_starts_with;
 
 /**
@@ -71,7 +72,7 @@ final class PolicyToRoleMapVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
-        if (!isset(self::POLICY_TO_ROLE_MAP[$attribute])) {
+        if (!array_key_exists($attribute, self::POLICY_TO_ROLE_MAP)) {
             return false;
         }
 

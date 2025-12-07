@@ -34,24 +34,19 @@ final class IntegerType extends ParameterType
             ->default(null)
             ->allowedTypes('int', 'null')
             ->normalize(
-                static function (Options $options, ?int $value): ?int {
-                    if ($value === null || $options['min'] === null) {
-                        return $value;
-                    }
-
-                    if ($value < $options['min']) {
-                        return $options['min'];
-                    }
-
-                    return $value;
+                static fn (Options $options, ?int $value): ?int => match (true) {
+                    $value === null || $options['min'] === null => $value,
+                    $value < $options['min'] => $options['min'],
+                    default => $value,
                 },
             );
 
         $optionsResolver->setDefault(
             'default_value',
-            static fn (Options $options, $previousValue) => $options['required'] === true ?
-                    $options['min'] :
-                    $previousValue,
+            static fn (Options $options, mixed $previousValue): mixed => match (true) {
+                $options['required'] === true => $options['min'],
+                default => $previousValue,
+            },
         );
     }
 

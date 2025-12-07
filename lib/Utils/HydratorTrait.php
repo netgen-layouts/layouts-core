@@ -36,7 +36,7 @@ trait HydratorTrait
         $object = $reflector->newLazyGhost(
             static function (object $object) use ($lazyInitializers): void {
                 $lazyData = array_map(
-                    static fn (callable $initializer) => $initializer($object),
+                    static fn (callable $initializer): mixed => $initializer($object),
                     $lazyInitializers,
                 );
 

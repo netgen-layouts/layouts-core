@@ -35,7 +35,7 @@ final class TemplateResolver implements TemplateResolverInterface
 
         $viewIdentifier = sprintf('%s_view', $view->identifier);
         foreach ($contextList as $context) {
-            if (!is_string($context) || !isset($this->viewConfig[$viewIdentifier][$context])) {
+            if (!is_string($context) || ($this->viewConfig[$viewIdentifier][$context] ?? null) === null) {
                 continue;
             }
 

@@ -14,6 +14,7 @@ use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Traversable;
 
 use function array_filter;
+use function array_key_exists;
 use function count;
 
 /**
@@ -39,7 +40,7 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
      */
     public function hasLayoutType(string $identifier): bool
     {
-        return isset($this->layoutTypes[$identifier]);
+        return array_key_exists($identifier, $this->layoutTypes);
     }
 
     /**

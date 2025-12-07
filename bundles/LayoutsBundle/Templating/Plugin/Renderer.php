@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Plugin;
 use Throwable;
 use Twig\Environment;
 
+use function array_key_exists;
 use function ob_end_clean;
 use function ob_get_clean;
 use function ob_get_level;
@@ -36,7 +37,7 @@ final class Renderer implements RendererInterface
 
     public function renderPlugins(string $pluginName, array $parameters = []): string
     {
-        if (!isset($this->pluginCollections[$pluginName])) {
+        if (!array_key_exists($pluginName, $this->pluginCollections)) {
             return '';
         }
 

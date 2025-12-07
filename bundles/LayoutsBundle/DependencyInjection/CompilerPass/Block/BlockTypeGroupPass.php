@@ -75,7 +75,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
         uasort(
             $blockTypeGroups,
-            static fn (array $group1, array $group2) => $group2['priority'] <=> $group1['priority'],
+            static fn (array $group1, array $group2): int => $group2['priority'] <=> $group1['priority'],
         );
 
         return $blockTypeGroups;
@@ -99,7 +99,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
             uasort(
                 $groupBlockTypes,
-                static fn (array $type1, array $type2) => $type2['priority'] <=> $type1['priority'],
+                static fn (array $type1, array $type2): int => $type2['priority'] <=> $type1['priority'],
             );
 
             foreach ($groupBlockTypes as $groupBlockType) {

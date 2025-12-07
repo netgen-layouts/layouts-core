@@ -60,9 +60,10 @@ final class ParameterBuilderFactory
             ->default(null)
             ->allowedTypes(ParameterTypeInterface::class, 'string', 'null')
             ->normalize(
-                fn (Options $options, $value) => is_string($value) ?
-                        $this->parameterTypeRegistry->getParameterTypeByClass($value) :
-                        $value,
+                fn (Options $options, ParameterTypeInterface|string|null $value): ?ParameterTypeInterface => match (true) {
+                    is_string($value) => $this->parameterTypeRegistry->getParameterTypeByClass($value),
+                    default => $value,
+                },
             );
 
         $optionsResolver

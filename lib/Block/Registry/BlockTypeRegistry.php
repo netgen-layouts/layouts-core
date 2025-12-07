@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
 use function array_filter;
+use function array_key_exists;
 use function count;
 
 /**
@@ -39,7 +40,7 @@ final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
      */
     public function hasBlockType(string $identifier): bool
     {
-        return isset($this->blockTypes[$identifier]);
+        return array_key_exists($identifier, $this->blockTypes);
     }
 
     /**

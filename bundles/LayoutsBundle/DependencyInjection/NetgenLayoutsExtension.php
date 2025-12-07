@@ -39,6 +39,7 @@ use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 
+use function array_key_exists;
 use function array_keys;
 use function array_reverse;
 use function file_exists;
@@ -71,7 +72,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
      */
     public function hasPlugin(string $pluginName): bool
     {
-        return isset($this->plugins[$pluginName]);
+        return array_key_exists($pluginName, $this->plugins);
     }
 
     /**

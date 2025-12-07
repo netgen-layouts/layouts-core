@@ -25,9 +25,10 @@ final class CopyRuleType extends AbstractType
 
         $resolver->setDefault(
             'validation_groups',
-            static fn (FormInterface $form): array => ((bool) $form->get('copy_layout')->getData()) ?
-                ['Default', 'CopyLayout'] :
-                ['Default'],
+            static fn (FormInterface $form): array => match (true) {
+                (bool) $form->get('copy_layout')->getData() => ['Default', 'CopyLayout'],
+                default => ['Default'],
+            },
         );
     }
 

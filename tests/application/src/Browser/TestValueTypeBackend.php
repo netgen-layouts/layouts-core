@@ -13,9 +13,9 @@ use Netgen\Layouts\Exception\RuntimeException;
 
 final class TestValueTypeBackend implements BackendInterface
 {
-    public function getSections(): never
+    public function getSections(): iterable
     {
-        throw new RuntimeException('Not implemented');
+        return [];
     }
 
     public function loadLocation(int|string $id): never

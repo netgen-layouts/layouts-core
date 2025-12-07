@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Throwable;
 
+use function array_key_exists;
+
 final class ThrowableNormalizer implements NormalizerInterface
 {
     public function __construct(
@@ -28,7 +30,7 @@ final class ThrowableNormalizer implements NormalizerInterface
 
         if ($data instanceof HttpExceptionInterface) {
             $statusCode = $data->getStatusCode();
-            if (isset(Response::$statusTexts[$statusCode])) {
+            if (array_key_exists($statusCode, Response::$statusTexts)) {
                 $normalizedData['status_code'] = $statusCode;
                 $normalizedData['status_text'] = Response::$statusTexts[$statusCode];
             }

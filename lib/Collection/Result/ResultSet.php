@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Traversable;
 
+use function array_key_exists;
 use function count;
 
 use const PHP_INT_MAX;
@@ -108,7 +109,7 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
 
     public function offsetExists(mixed $offset): bool
     {
-        return isset($this->results[$offset]);
+        return array_key_exists($offset, $this->results);
     }
 
     public function offsetGet(mixed $offset): Result
