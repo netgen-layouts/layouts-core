@@ -11,6 +11,8 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Traversable;
 
+use function count;
+
 /**
  * Placeholder represents a set of blocks inside a container block.
  *
@@ -43,7 +45,7 @@ final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
 
     public function count(): int
     {
-        return $this->blocks->count();
+        return count($this->blocks->toArray());
     }
 
     public function offsetExists(mixed $offset): bool

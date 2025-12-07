@@ -17,6 +17,7 @@ use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
 use Traversable;
 
+use function count;
 use function in_array;
 
 /**
@@ -113,7 +114,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
 
     public function count(): int
     {
-        return $this->zones->count();
+        return count($this->zones->toArray());
     }
 
     public function offsetExists(mixed $offset): bool
