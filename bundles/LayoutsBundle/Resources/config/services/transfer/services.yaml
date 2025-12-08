@@ -35,7 +35,7 @@ services:
         class: Netgen\Layouts\Transfer\Output\Serializer
         arguments:
             - "@netgen_layouts.transfer.serializer.visitor"
-            - !abstract "Set in EntityHandlerPass"
+            - !tagged_locator { tag: netgen_layouts.transfer.entity_handler, index_by: entity_type }
 
     netgen_layouts.transfer.input.json_validator:
         class: Netgen\Layouts\Transfer\Input\JsonValidator
@@ -45,4 +45,4 @@ services:
         arguments:
             - "@netgen_layouts.api.service.transaction"
             - "@netgen_layouts.transfer.input.json_validator"
-            - !abstract "Set in EntityHandlerPass"
+            - !tagged_locator { tag: netgen_layouts.transfer.entity_handler, index_by: entity_type }

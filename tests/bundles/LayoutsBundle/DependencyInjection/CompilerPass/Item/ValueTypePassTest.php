@@ -76,6 +76,26 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
         );
     }
 
+    public function testProcessWithInvalidValueType(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Value type "123_value_type" is not valid. Identifier must begin with a letter, followed by any combination of letters, digits and underscore.');
+
+        $this->setParameter(
+            'netgen_layouts.value_types',
+            [
+                '123_value_type' => [
+                    'enabled' => true,
+                    'manual_items' => false,
+                ],
+            ],
+        );
+
+        $this->container->setDefinition('netgen_layouts.item.registry.value_type', new Definition());
+
+        $this->compile();
+    }
+
     public function testProcessWithInvalidBrowserType(): void
     {
         $this->expectException(RuntimeException::class);

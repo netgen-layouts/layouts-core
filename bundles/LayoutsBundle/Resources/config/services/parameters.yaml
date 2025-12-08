@@ -205,7 +205,7 @@ services:
     netgen_layouts.parameters.form.parameters:
         class: Netgen\Layouts\Parameters\Form\Type\ParametersType
         arguments:
-            - !abstract "Set in ParametersFormPass"
+            - !tagged_locator { tag: netgen_layouts.parameter_type.form_mapper, index_by: type }
         tags:
             - { name: form.type }
 

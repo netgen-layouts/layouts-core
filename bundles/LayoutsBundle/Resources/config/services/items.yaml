@@ -8,12 +8,12 @@ services:
         class: Netgen\Layouts\Item\CmsItemLoader
         arguments:
             - "@netgen_layouts.item.item_builder"
-            - !abstract "Set in CmsItemLoaderPass"
+            - !tagged_locator { tag: netgen_layouts.cms_value_loader, index_by: value_type }
 
     netgen_layouts.item.url_generator:
         class: Netgen\Layouts\Item\UrlGenerator
         arguments:
-            - !abstract "Set in UrlGeneratorPass"
+            - !tagged_locator { tag: netgen_layouts.cms_value_url_generator, index_by: value_type }
 
     netgen_layouts.item.registry.value_type:
         class: Netgen\Layouts\Item\Registry\ValueTypeRegistry

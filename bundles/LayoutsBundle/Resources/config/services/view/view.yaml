@@ -22,4 +22,4 @@ services:
         class: Netgen\Layouts\View\TemplateResolver
         arguments:
             - "@=service('netgen_layouts.configuration').getParameter('view')"
-            - !abstract "Set in TemplateResolverPass"
+            - !tagged_locator { tag: netgen_layouts.view_matcher, index_by: identifier }

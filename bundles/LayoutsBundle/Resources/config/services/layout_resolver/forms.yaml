@@ -9,14 +9,14 @@ services:
     netgen_layouts.layout.resolver.form.target_type:
         class: Netgen\Layouts\Layout\Resolver\Form\TargetType
         arguments:
-            - !abstract "Set in TargetTypePass"
+            - !tagged_locator { tag: netgen_layouts.target_type.form_mapper, index_by: target_type }
         tags:
             - { name: form.type }
 
     netgen_layouts.layout.resolver.form.condition_type:
         class: Netgen\Layouts\Layout\Resolver\Form\ConditionType
         arguments:
-            - !abstract "Set in ConditionTypePass"
+            - !tagged_locator { tag: netgen_layouts.condition_type.form_mapper, index_by: condition_type }
         tags:
             - { name: form.type }
 

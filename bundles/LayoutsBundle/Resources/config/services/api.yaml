@@ -78,7 +78,7 @@ services:
         arguments:
             - "@database_connection"
             - "@netgen_layouts.persistence.doctrine.helper.connection"
-            - !abstract "Set in DoctrineTargetHandlerPass"
+            - !tagged_locator { tag: netgen_layouts.target_type.doctrine_handler, index_by: target_type }
 
     netgen_layouts.persistence.doctrine.layout_resolver.mapper:
         class: Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper

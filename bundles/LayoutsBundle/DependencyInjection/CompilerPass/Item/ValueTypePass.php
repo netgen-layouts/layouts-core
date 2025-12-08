@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+use function preg_match;
 use function sprintf;
 
 final class ValueTypePass implements CompilerPassInterface
@@ -42,6 +43,8 @@ final class ValueTypePass implements CompilerPassInterface
     private function buildValueTypes(ContainerBuilder $container, array $valueTypes): iterable
     {
         foreach ($valueTypes as $identifier => $valueType) {
+            $this->validateValueType($identifier);
+
             if ($valueType['manual_items'] === true) {
                 $this->validateBrowserType($container, $identifier);
             }
@@ -53,6 +56,18 @@ final class ValueTypePass implements CompilerPassInterface
                 ->setFactory([ValueTypeFactory::class, 'buildValueType']);
 
             yield $identifier => new Reference($serviceIdentifier);
+        }
+    }
+
+    private function validateValueType(string $valueType): void
+    {
+        if (preg_match('/^[A-Za-z]\w*$/', $valueType) !== 1) {
+            throw new RuntimeException(
+                sprintf(
+                    'Value type "%s" is not valid. Identifier must begin with a letter, followed by any combination of letters, digits and underscore.',
+                    $valueType,
+                ),
+            );
         }
     }
 
