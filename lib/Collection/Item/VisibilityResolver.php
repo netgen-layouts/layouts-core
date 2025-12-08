@@ -9,7 +9,7 @@ use Netgen\Layouts\API\Values\Collection\Item;
 final class VisibilityResolver implements VisibilityResolverInterface
 {
     /**
-     * @param iterable|\Netgen\Layouts\Collection\Item\VisibilityVoterInterface[] $voters
+     * @param iterable<\Netgen\Layouts\Collection\Item\VisibilityVoterInterface> $voters
      */
     public function __construct(
         private iterable $voters,

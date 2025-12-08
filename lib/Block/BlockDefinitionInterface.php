@@ -143,14 +143,14 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     /**
      * Returns if the block definition handler has a plugin with provided FQCN.
      *
-     * @param class-string $className
+     * @param class-string<\Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface> $className
      */
     public function hasHandlerPlugin(string $className): bool;
 
     /**
      * Returns the block definition handler plugin with provided FQCN.
      *
-     * @param class-string $className
+     * @param class-string<\Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface> $className
      */
     public function getHandlerPlugin(string $className): PluginInterface;
 }

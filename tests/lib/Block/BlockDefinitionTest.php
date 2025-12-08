@@ -14,11 +14,11 @@ use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\Block\Stubs\EmptyHandlerPlugin;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 use function sprintf;
 
@@ -259,7 +259,7 @@ final class BlockDefinitionTest extends TestCase
 
     public function testHasHandlerPluginWithUnknownPlugin(): void
     {
-        self::assertFalse($this->blockDefinition->hasHandlerPlugin(stdClass::class));
+        self::assertFalse($this->blockDefinition->hasHandlerPlugin(EmptyHandlerPlugin::class));
     }
 
     public function testGetHandlerPlugin(): void
@@ -272,9 +272,9 @@ final class BlockDefinitionTest extends TestCase
     public function testGetHandlerPluginWithUnknownPlugin(): void
     {
         $this->expectException(BlockDefinitionException::class);
-        $this->expectExceptionMessage(sprintf('Block definition with "%s" identifier does not have a plugin with "%s" class.', 'block_definition', stdClass::class));
+        $this->expectExceptionMessage(sprintf('Block definition with "%s" identifier does not have a plugin with "%s" class.', 'block_definition', EmptyHandlerPlugin::class));
 
-        $this->blockDefinition->getHandlerPlugin(stdClass::class);
+        $this->blockDefinition->getHandlerPlugin(EmptyHandlerPlugin::class);
     }
 
     public function testGetHandlerPlugins(): void

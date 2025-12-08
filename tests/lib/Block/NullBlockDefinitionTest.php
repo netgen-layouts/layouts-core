@@ -7,10 +7,10 @@ namespace Netgen\Layouts\Tests\Block;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\NullBlockDefinition;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Tests\Block\Stubs\EmptyHandlerPlugin;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 use function sprintf;
 
@@ -117,7 +117,7 @@ final class NullBlockDefinitionTest extends TestCase
 
     public function testHasHandlerPluginWithUnknownPlugin(): void
     {
-        self::assertFalse($this->blockDefinition->hasHandlerPlugin(stdClass::class));
+        self::assertFalse($this->blockDefinition->hasHandlerPlugin(EmptyHandlerPlugin::class));
     }
 
     public function testGetHandlerPlugin(): void
