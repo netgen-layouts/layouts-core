@@ -108,10 +108,7 @@ services:
         tags:
             - { name: twig.extension }
 
-    netgen_layouts.templating.pagelayout_resolver.default:
+    netgen_layouts.templating.pagelayout_resolver:
         class: Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolver
         arguments:
             - "%netgen_layouts.pagelayout%"
-
-    netgen_layouts.templating.pagelayout_resolver:
-        alias: netgen_layouts.templating.pagelayout_resolver.default
