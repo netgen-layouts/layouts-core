@@ -16,11 +16,6 @@ parameters:
 
         - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'
 
-        # Disable errors for various tests that verify values have correct types or arrays not having certain elements
-
-        - '#Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given.#'
-        - '#expects array<Closure\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'
-
         # Symfony
 
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
@@ -29,6 +24,8 @@ parameters:
         # Netgen Layouts
 
         - '#Method Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'
+        - '#Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given.#'
+        - '#expects array<Closure\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'
 
         -
             message: '#Undefined variable: \$this#'
