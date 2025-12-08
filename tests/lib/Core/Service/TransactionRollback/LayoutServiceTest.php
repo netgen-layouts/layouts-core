@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
+use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Core\Service\LayoutService;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
@@ -238,7 +239,7 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->changeLayoutType(
             Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
             LayoutType::fromArray(['identifier' => 'test_layout_1']),
-            [],
+            new ZoneMappings(),
         );
     }
 

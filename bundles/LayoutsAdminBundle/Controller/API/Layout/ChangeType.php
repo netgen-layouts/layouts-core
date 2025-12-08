@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -33,12 +34,17 @@ final class ChangeType extends AbstractController
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);
 
-        $zoneMappings = $requestData->get('zone_mappings');
+        $zoneMappingData = $requestData->get('zone_mappings');
+
+        $zoneMappings = new ZoneMappings();
+        foreach (($zoneMappingData ?? []) as $zone => $targetZones) {
+            $zoneMappings->addZoneMapping($zone, $targetZones);
+        }
 
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType($requestData->get('new_type')),
-            $zoneMappings ?? [],
+            $zoneMappings,
         );
 
         return new View($updatedLayout);

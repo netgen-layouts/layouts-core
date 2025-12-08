@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Validator\ValidatorTrait;
@@ -15,7 +16,6 @@ use Symfony\Component\Validator\Constraints;
 
 use function count;
 use function in_array;
-use function is_array;
 use function mb_trim;
 use function sprintf;
 
@@ -94,11 +94,9 @@ final class LayoutValidator
     /**
      * Validates zone mappings for changing the provided layout type.
      *
-     * @param array<string, string[]> $zoneMappings
-     *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): void
+    public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, ZoneMappings $zoneMappings, bool $preserveSharedZones = true): void
     {
         $seenZones = [];
         foreach ($zoneMappings as $newZone => $oldZones) {
@@ -109,16 +107,6 @@ final class LayoutValidator
                         'Zone "%s" does not exist in "%s" layout type.',
                         $newZone,
                         $targetLayoutType->identifier,
-                    ),
-                );
-            }
-
-            if (!is_array($oldZones)) {
-                throw ValidationException::validationFailed(
-                    'zoneMappings',
-                    sprintf(
-                        'The list of mapped zones for "%s" zone must be an array.',
-                        $newZone,
                     ),
                 );
             }

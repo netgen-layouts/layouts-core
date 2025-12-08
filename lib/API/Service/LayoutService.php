@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
+use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -203,11 +204,9 @@ interface LayoutService extends TransactionService
      * of the zones from the new layout type is mapped to a shared zone from the old layout,
      * the mapping needs to be 1:1, instead of 1:n.
      *
-     * @param array<string, string[]> $zoneMappings
-     *
      * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      */
-    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): Layout;
+    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, ZoneMappings $zoneMappings, bool $preserveSharedZones = true): Layout;
 
     /**
      * Creates a layout draft.

@@ -12,6 +12,7 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
+use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Core\Mapper\LayoutMapper;
 use Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder;
 use Netgen\Layouts\Core\Validator\LayoutValidator;
@@ -402,7 +403,7 @@ final class LayoutService implements LayoutServiceInterface
         return $this->mapper->mapLayout($copiedLayout);
     }
 
-    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): Layout
+    public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, ZoneMappings $zoneMappings, bool $preserveSharedZones = true): Layout
     {
         if (!$layout->isDraft) {
             throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');
@@ -413,25 +414,25 @@ final class LayoutService implements LayoutServiceInterface
 
         $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
-        /** @var array<string, string[]> $zoneMappings */
-        $zoneMappings = [
+        /** @var array<string, string[]> $mappingData */
+        $mappingData = [
             ...array_fill_keys($targetLayoutType->zoneIdentifiers, []),
-            ...$zoneMappings,
+            ...$zoneMappings->zoneMappings,
         ];
 
         $newLayout = $this->transaction(
-            function () use ($persistenceLayout, $layoutZones, $targetLayoutType, $zoneMappings, $preserveSharedZones): PersistenceLayout {
+            function () use ($persistenceLayout, $layoutZones, $targetLayoutType, $mappingData, $preserveSharedZones): PersistenceLayout {
                 $updatedLayout = $this->layoutHandler->changeLayoutType(
                     $persistenceLayout,
                     $targetLayoutType->identifier,
-                    $zoneMappings,
+                    $mappingData,
                 );
 
                 if (!$preserveSharedZones) {
                     return $updatedLayout;
                 }
 
-                foreach ($zoneMappings as $newZone => $oldZones) {
+                foreach ($mappingData as $newZone => $oldZones) {
                     if (count($oldZones) !== 1) {
                         // Shared zones should always have 1:1 mapping with the new zone.
                         continue;

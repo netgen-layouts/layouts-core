@@ -9,6 +9,7 @@ use DateTimeInterface;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutType;
@@ -616,9 +617,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
-            [
-                'top' => ['left', 'right'],
-            ],
+            new ZoneMappings()->addZoneMapping('top', ['left', 'right']),
         );
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
@@ -668,9 +667,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
-            [
-                'top' => ['left', 'right'],
-            ],
+            new ZoneMappings()->addZoneMapping('top', ['left', 'right']),
         );
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
@@ -720,9 +717,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
-            [
-                'top' => ['top'],
-            ],
+            new ZoneMappings()->addZoneMapping('top', ['top']),
         );
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
@@ -773,9 +768,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
-            [
-                'top' => ['top'],
-            ],
+            new ZoneMappings()->addZoneMapping('top', ['top']),
         );
 
         self::assertSame($layout->id->toString(), $updatedLayout->id->toString());
@@ -826,9 +819,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('test_layout_1'),
-            [
-                'top' => ['top'],
-            ],
+            new ZoneMappings()->addZoneMapping('top', ['top']),
             false,
         );
 
@@ -872,9 +863,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
-            [
-                'top' => ['top'],
-            ],
+            new ZoneMappings()->addZoneMapping('top', ['top']),
             false,
         );
 
@@ -922,7 +911,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('test_layout_2'),
-            [],
+            new ZoneMappings(),
         );
     }
 

@@ -12,6 +12,7 @@ use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Layout\ZoneList;
+use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Core\Validator\LayoutValidator;
 use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
@@ -104,11 +105,8 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateLayoutCopyStruct($struct);
     }
 
-    /**
-     * @param array<string, string[]> $zoneMapping
-     */
     #[DataProvider('validateChangeLayoutTypeDataProvider')]
-    public function testValidateChangeLayoutType(array $zoneMapping): void
+    public function testValidateChangeLayoutType(ZoneMappings $zoneMappings): void
     {
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -116,7 +114,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),
-            $zoneMapping,
+            $zoneMappings,
         );
     }
 
@@ -128,7 +126,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),
-            ['left' => ['top', 'shared']],
+            new ZoneMappings()->addZoneMapping('left', ['top', 'shared']),
             false,
         );
     }
@@ -141,19 +139,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),
-            ['unknown' => []],
-        );
-    }
-
-    public function testValidateChangeLayoutTypeWithInvalidMappedZones(): void
-    {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('The list of mapped zones for "left" zone must be an array.');
-
-        $this->layoutValidator->validateChangeLayoutType(
-            $this->getLayout(),
-            self::getLayoutType(),
-            ['left' => 42],
+            new ZoneMappings()->addZoneMapping('unknown', []),
         );
     }
 
@@ -162,10 +148,14 @@ final class LayoutValidatorTest extends TestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Zone "top" is specified more than once.');
 
+        $zoneMappings = new ZoneMappings()
+            ->addZoneMapping('left', ['top'])
+            ->addZoneMapping('right', ['top']);
+
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),
-            ['left' => ['top'], 'right' => ['top']],
+            $zoneMappings,
         );
     }
 
@@ -177,7 +167,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),
-            ['left' => ['unknown']],
+            new ZoneMappings()->addZoneMapping('left', ['unknown']),
         );
     }
 
@@ -189,7 +179,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),
-            ['left' => ['top', 'shared']],
+            new ZoneMappings()->addZoneMapping('left', ['top', 'shared']),
         );
     }
 
@@ -320,39 +310,25 @@ final class LayoutValidatorTest extends TestCase
     {
         return [
             [
-                [
-                    'left' => ['top'],
-                ],
+                new ZoneMappings()->addZoneMapping('left', ['top']),
             ],
             [
-                [
-                    'left' => ['shared'],
-                ],
+                new ZoneMappings()->addZoneMapping('left', ['shared']),
             ],
             [
-                [
-                    'left' => ['top', 'bottom'],
-                ],
+                new ZoneMappings()->addZoneMapping('left', ['top', 'bottom']),
             ],
             [
-                [
-                    'left' => ['top'],
-                    'right' => ['bottom'],
-                ],
+                new ZoneMappings()->addZoneMapping('left', ['top'])->addZoneMapping('right', ['bottom']),
             ],
             [
-                [
-                    'left' => [],
-                    'right' => [],
-                ],
+                new ZoneMappings()->addZoneMapping('left', [])->addZoneMapping('right', []),
             ],
             [
-                [
-                    'left' => [],
-                ],
+                new ZoneMappings()->addZoneMapping('left', []),
             ],
             [
-                [],
+                new ZoneMappings(),
             ],
         ];
     }
