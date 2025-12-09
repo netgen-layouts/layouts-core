@@ -11,15 +11,11 @@ interface CmsItemLoaderInterface
 {
     /**
      * Loads the CMS item from provided ID and value type.
-     *
-     * @throws \Netgen\Layouts\Exception\Item\ItemException If item could not be loaded
      */
     public function load(int|string $id, string $valueType): CmsItemInterface;
 
     /**
      * Loads the CMS item from provided value remote ID and value type.
-     *
-     * @throws \Netgen\Layouts\Exception\Item\ItemException If item could not be loaded
      */
     public function loadByRemoteId(int|string $remoteId, string $valueType): CmsItemInterface;
 }
