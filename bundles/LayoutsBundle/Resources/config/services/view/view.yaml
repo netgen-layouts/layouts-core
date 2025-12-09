@@ -20,6 +20,7 @@ services:
 
     netgen_layouts.view.template_resolver:
         class: Netgen\Layouts\View\TemplateResolver
+        lazy: true
         arguments:
             - "@=service('netgen_layouts.configuration').getParameter('view')"
             - !tagged_locator { tag: netgen_layouts.view_matcher, index_by: identifier }
