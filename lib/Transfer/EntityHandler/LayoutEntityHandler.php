@@ -21,7 +21,9 @@ use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
 use Netgen\Layouts\Config\ConfigDefinitionInterface;
 use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
 use Ramsey\Uuid\Uuid;
@@ -417,10 +419,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         foreach ($collectionItemsData as $collectionItemData) {
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($collectionItemData['value_type']);
 
-            $item = $this->cmsItemLoader->loadByRemoteId(
-                $collectionItemData['value'],
-                $collectionItemData['value_type'],
-            );
+            $item = $this->getItem($collectionItemData['value'], $collectionItemData['value_type']);
 
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
@@ -452,5 +451,14 @@ final class LayoutEntityHandler implements EntityHandlerInterface
 
             $this->collectionService->addSlot($collection, $slotCreateStruct, $collectionSlotData['position']);
         }
+    }
+
+    private function getItem(mixed $value, string $valueType): CmsItemInterface
+    {
+        if ($value === null) {
+            return new NullCmsItem($valueType);
+        }
+
+        return $this->cmsItemLoader->loadByRemoteId($value, $valueType);
     }
 }
