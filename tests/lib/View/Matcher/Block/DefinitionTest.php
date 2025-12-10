@@ -13,11 +13,12 @@ use Netgen\Layouts\View\Matcher\Block\Definition;
 use Netgen\Layouts\View\Matcher\Block\DefinitionTrait;
 use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Definition::class)]
-#[CoversClass(DefinitionTrait::class)]
+#[CoversTrait(DefinitionTrait::class)]
 final class DefinitionTest extends TestCase
 {
     private Definition $matcher;

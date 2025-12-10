@@ -12,13 +12,13 @@ use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Tests\Validator\Stubs\ValueValidator;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-#[CoversClass(ValidatorTrait::class)]
+#[CoversTrait(ValidatorTrait::class)]
 final class ValidatorTraitTest extends TestCase
 {
     private ValueValidator $validator;

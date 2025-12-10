@@ -13,10 +13,10 @@ use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterCollection;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ParameterStructTrait::class)]
+#[CoversTrait(ParameterStructTrait::class)]
 final class ParameterStructTraitTest extends TestCase
 {
     private ParameterStruct $struct;

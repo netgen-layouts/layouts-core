@@ -8,10 +8,10 @@ use Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\Exception\API\ConfigException;
 use Netgen\Layouts\Tests\API\Stubs\ConfigAwareStruct;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ConfigAwareStructTrait::class)]
+#[CoversTrait(ConfigAwareStructTrait::class)]
 final class ConfigAwareStructTraitTest extends TestCase
 {
     private ConfigAwareStruct $struct;

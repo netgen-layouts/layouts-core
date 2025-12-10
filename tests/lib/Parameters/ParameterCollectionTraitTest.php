@@ -9,10 +9,10 @@ use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Parameters\ParameterCollectionTrait;
 use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterCollection;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ParameterCollectionTrait::class)]
+#[CoversTrait(ParameterCollectionTrait::class)]
 final class ParameterCollectionTraitTest extends TestCase
 {
     public function testGetParameter(): void

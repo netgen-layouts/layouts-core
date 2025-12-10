@@ -8,10 +8,10 @@ use Netgen\Layouts\Exception\Parameters\ParameterException;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ParameterDefinitionCollectionTrait::class)]
+#[CoversTrait(ParameterDefinitionCollectionTrait::class)]
 final class ParameterDefinitionCollectionTraitTest extends TestCase
 {
     public function testGetParameterDefinition(): void

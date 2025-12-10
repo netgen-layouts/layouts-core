@@ -6,10 +6,10 @@ namespace Netgen\Layouts\Tests\Utils;
 
 use Netgen\Layouts\Tests\Stubs\Value;
 use Netgen\Layouts\Utils\HydratorTrait;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(HydratorTrait::class)]
+#[CoversTrait(HydratorTrait::class)]
 final class HydratorTraitTest extends TestCase
 {
     public function testFromArray(): void

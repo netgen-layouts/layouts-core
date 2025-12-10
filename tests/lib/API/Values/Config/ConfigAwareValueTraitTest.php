@@ -9,10 +9,10 @@ use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
 use Netgen\Layouts\API\Values\Config\ConfigList;
 use Netgen\Layouts\Exception\API\ConfigException;
 use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ConfigAwareValueTrait::class)]
+#[CoversTrait(ConfigAwareValueTrait::class)]
 final class ConfigAwareValueTraitTest extends TestCase
 {
     public function testDefaultProperties(): void

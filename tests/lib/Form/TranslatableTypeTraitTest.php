@@ -16,10 +16,10 @@ use Netgen\Layouts\Tests\Form\Stubs\TranslatableTypeStub;
 use Netgen\Layouts\Tests\Parameters\Stubs\FormMapper;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use Symfony\Component\Form\FormTypeInterface;
 
-#[CoversClass(TranslatableTypeTrait::class)]
+#[CoversTrait(TranslatableTypeTrait::class)]
 final class TranslatableTypeTraitTest extends FormTestCase
 {
     public function testDisableUntranslatableFormsWithTranslatableCompoundParameter(): void

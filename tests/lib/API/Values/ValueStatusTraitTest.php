@@ -7,11 +7,11 @@ namespace Netgen\Layouts\Tests\API\Values;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Tests\API\Stubs\Value;
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ValueStatusTrait::class)]
+#[CoversTrait(ValueStatusTrait::class)]
 final class ValueStatusTraitTest extends TestCase
 {
     #[DataProvider('statusDataProvider')]
