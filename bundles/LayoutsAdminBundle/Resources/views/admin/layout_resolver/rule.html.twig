@@ -56,11 +56,7 @@
                     <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'nglayouts') }}:</p>
                     <ul>
                         {% for target in rule.targets %}
-                            {% set one_on_one = target_type_identifier == 'ez_location'
-                                or target_type_identifier == 'ez_content'
-                                or target_type_identifier == 'ibexa_location'
-                                or target_type_identifier == 'ibexa_content'
-                            %}
+                            {% set one_on_one = target_type_identifier == 'ibexa_location' or target_type_identifier == 'ibexa_content' %}
 
                             <li {% if rule_count == 1 and one_on_one %}class="unique"{% endif %}>
                                 {{ nglayouts_render_rule_target(target, {}, 'value') }}

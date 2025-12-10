@@ -70,7 +70,7 @@ final class ManualCollectionRunnerTest extends TestCase
     /**
      * Builds data providers for building result from manual collection.
      *
-     * IDs are identifiers of 3rd party values (for example eZ content)
+     * IDs are identifiers of 3rd party values
      */
     public static function manualCollectionDataProvider(): iterable
     {
