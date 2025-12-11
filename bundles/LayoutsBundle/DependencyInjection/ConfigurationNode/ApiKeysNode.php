@@ -22,7 +22,9 @@ final class ApiKeysNode implements ConfigurationNodeInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->stringNode('google_maps')
-                ->defaultValue('')
+                    ->treatNullLike('')
+                    ->defaultValue('')
+                ->end()
             ->end();
 
         return $node;

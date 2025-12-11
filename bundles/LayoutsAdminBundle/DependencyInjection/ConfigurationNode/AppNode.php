@@ -8,8 +8,6 @@ use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-use function is_string;
-
 final class AppNode implements ConfigurationNodeInterface
 {
     /**
@@ -27,12 +25,6 @@ final class AppNode implements ConfigurationNodeInterface
                     ->requiresAtLeastOneElement()
                     ->stringPrototype()
                         ->cannotBeEmpty()
-                        ->validate()
-                            ->ifTrue(
-                                static fn (mixed $v): bool => !is_string($v),
-                            )
-                            ->thenInvalid('The value should be a string')
-                        ->end()
                     ->end()
                 ->end()
                 ->arrayNode('stylesheets')
