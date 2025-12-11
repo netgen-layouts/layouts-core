@@ -11,7 +11,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 final class DesignNode implements ConfigurationNodeInterface
 {
     /**
-     * @return \Symfony\Component\Config\Definition\Builder\StringNodeDefinition<\Symfony\Component\Config\Definition\Builder\NodeParentInterface>
+     * @return \Symfony\Component\Config\Definition\Builder\StringNodeDefinition<\Symfony\Component\Config\Definition\Builder\TreeBuilder<'string'>>
      */
     public function getConfigurationNode(): StringNodeDefinition
     {

@@ -11,7 +11,7 @@ interface ConfigurationNodeInterface
     /**
      * Returns a node definition.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition<\Symfony\Component\Config\Definition\Builder\NodeParentInterface>
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition<\Symfony\Component\Config\Definition\Builder\TreeBuilder>
      */
     public function getConfigurationNode(): NodeDefinition;
 }

@@ -20,7 +20,7 @@ use function is_string;
 final class BlockDefinitionNode implements ConfigurationNodeInterface
 {
     /**
-     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition<\Symfony\Component\Config\Definition\Builder\NodeParentInterface>
+     * @return \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition<\Symfony\Component\Config\Definition\Builder\TreeBuilder<'array'>>
      */
     public function getConfigurationNode(): ArrayNodeDefinition
     {
