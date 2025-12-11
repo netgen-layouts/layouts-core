@@ -40,6 +40,9 @@ jobs:
 
       - run: composer config extra.symfony.require ~7.4.0
 
-      - run: composer update --prefer-dist
+      - uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: highest
+          composer-options: '--prefer-dist'
 
       - run: php tests/application/bin/console doctrine:migrations:migrate --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yaml --ansi -vv

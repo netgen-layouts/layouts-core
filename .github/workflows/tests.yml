@@ -22,29 +22,29 @@ jobs:
         symfony: ['~7.4.0', '~8.0.0']
         script: ['test', 'test-api']
         db: ['sqlite']
-        deps: ['latest']
+        deps: ['highest']
         include:
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test'
             db: 'mysql'
-            deps: 'latest'
+            deps: 'highest'
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test-api'
             db: 'mysql'
-            deps: 'latest'
+            deps: 'highest'
 
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test'
             db: 'postgres'
-            deps: 'latest'
+            deps: 'highest'
           - php: '8.4'
             symfony: '~7.4.0'
             script: 'test-api'
             db: 'postgres'
-            deps: 'latest'
+            deps: 'highest'
 
           - php: '8.4'
             symfony: '~7.4.0'
@@ -104,12 +104,9 @@ jobs:
 
       - run: composer config extra.symfony.require ${{ matrix.symfony }}
 
-      -
-        run: composer update --prefer-dist
-        if: ${{ matrix.deps == 'latest' }}
-
-      -
-        run: composer update --prefer-dist --prefer-lowest --prefer-stable
-        if: ${{ matrix.deps == 'lowest' }}
+      - uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: ${{ matrix.deps }}
+          composer-options: '--prefer-dist'
 
       - run: composer ${{ matrix.script }}

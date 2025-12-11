@@ -37,7 +37,10 @@ jobs:
 
       - run: composer config extra.symfony.require ~7.4.0
 
-      - run: composer update --prefer-dist
+      - uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: highest
+          composer-options: '--prefer-dist'
 
       - run: yarn install
 
