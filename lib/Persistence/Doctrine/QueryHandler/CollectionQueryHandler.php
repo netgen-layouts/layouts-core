@@ -180,7 +180,7 @@ final class CollectionQueryHandler
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'id'));
+        return array_map(intval(...), array_column($result, 'id'));
     }
 
     /**
@@ -810,7 +810,7 @@ final class CollectionQueryHandler
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'collection_id'));
+        return array_map(intval(...), array_column($result, 'collection_id'));
     }
 
     /**

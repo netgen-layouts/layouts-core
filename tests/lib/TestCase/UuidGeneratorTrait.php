@@ -17,10 +17,7 @@ trait UuidGeneratorTrait
      */
     private function withUuids(callable $callable, array $uuids): mixed
     {
-        $uuids = array_map(
-            static fn (string $uuid): UuidInterface => Uuid::fromString($uuid),
-            $uuids,
-        );
+        $uuids = array_map(Uuid::fromString(...), $uuids);
 
         $originalFactory = Uuid::getFactory();
         $factoryStub = self::createStub(UuidFactoryInterface::class);

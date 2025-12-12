@@ -88,7 +88,7 @@ final class LayoutMapper
             'availableLocales' => $layout->availableLocales,
             'zones' => ZoneList::fromCallable(
                 fn (): array => array_map(
-                    fn (PersistenceZone $zone): Zone => $this->mapZone($zone),
+                    $this->mapZone(...),
                     $this->layoutHandler->loadLayoutZones($layout),
                 ),
             ),

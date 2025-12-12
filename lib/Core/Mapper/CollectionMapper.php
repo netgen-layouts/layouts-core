@@ -81,13 +81,13 @@ final class CollectionMapper
             'limit' => $collection->limit,
             'items' => ItemList::fromCallable(
                 fn (): array => array_map(
-                    fn (PersistenceItem $item): Item => $this->mapItem($item),
+                    $this->mapItem(...),
                     $this->collectionHandler->loadCollectionItems($collection),
                 ),
             ),
             'slots' => SlotList::fromCallable(
                 fn (): array => array_map(
-                    fn (PersistenceSlot $slot): Slot => $this->mapSlot($slot),
+                    $this->mapSlot(...),
                     $this->collectionHandler->loadCollectionSlots($collection),
                 ),
             ),

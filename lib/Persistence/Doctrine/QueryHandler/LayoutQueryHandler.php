@@ -94,7 +94,7 @@ final class LayoutQueryHandler
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'id'));
+        return array_map(intval(...), array_column($result, 'id'));
     }
 
     /**

@@ -75,7 +75,7 @@ final class ThemePass implements CompilerPassInterface
         );
 
         $paths = array_merge(...array_values($paths));
-        $paths = array_filter($paths, 'is_dir');
+        $paths = array_filter($paths, is_dir(...));
 
         $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path')) . '/nglayouts/themes';
         if (is_dir($defaultTwigDir)) {

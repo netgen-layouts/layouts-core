@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout;
 
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
-use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -51,7 +50,7 @@ final class LayoutTypePass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, LayoutType::class)
                 ->setArguments([$identifier, $layoutType])
-                ->setFactory([LayoutTypeFactory::class, 'buildLayoutType']);
+                ->setFactory([new Reference('netgen_layouts.layout.layout_type_factory'), 'buildLayoutType']);
 
             yield $identifier => new Reference($serviceIdentifier);
         }

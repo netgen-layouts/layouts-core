@@ -180,6 +180,6 @@ final class PositionHelperTest extends TestCase
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'position'));
+        return array_map(intval(...), array_column($result, 'position'));
     }
 }

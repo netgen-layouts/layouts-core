@@ -40,7 +40,7 @@ final class IdProvider implements IdProviderInterface
 
         return [
             ...$layoutIds,
-            ...array_map('strval', $relatedLayouts->getLayoutIds()),
+            ...array_map(strval(...), $relatedLayouts->getLayoutIds()),
         ];
     }
 }

@@ -52,7 +52,7 @@ final class ClearRelatedLayoutsCache extends AbstractController
             /** @var \Netgen\Layouts\API\Values\Layout\LayoutList $selectedLayouts */
             $selectedLayouts = $form->get('layouts')->getData();
 
-            $this->invalidator->invalidateLayouts(array_map('strval', $selectedLayouts->getLayoutIds()));
+            $this->invalidator->invalidateLayouts(array_map(strval(...), $selectedLayouts->getLayoutIds()));
             $cacheCleared = $this->invalidator->commit();
 
             if ($cacheCleared) {

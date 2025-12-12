@@ -151,7 +151,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         return RuleList::fromArray(
             array_map(
-                fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
+                $this->mapper->mapRule(...),
                 $persistenceRules,
             ),
         );
@@ -191,7 +191,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         return RuleList::fromArray(
             array_map(
-                fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
+                $this->mapper->mapRule(...),
                 $persistenceRules,
             ),
         );
@@ -231,7 +231,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         return new RuleGroupList(
             array_map(
-                fn (PersistenceRuleGroup $ruleGroup): RuleGroup => $this->mapper->mapRuleGroup($ruleGroup),
+                $this->mapper->mapRuleGroup(...),
                 $persistenceRuleGroups,
             ),
         );
@@ -260,7 +260,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         return RuleList::fromArray(
             array_map(
-                fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
+                $this->mapper->mapRule(...),
                 $this->layoutResolverHandler->matchRules($persistenceGroup, $targetType, $targetValue),
             ),
         );

@@ -24,18 +24,15 @@ final class ThrowableSerializerListenerTest extends TestCase
 {
     private Stub&SerializerInterface $serializerStub;
 
-    private Stub&LoggerInterface $loggerStub;
-
     private ThrowableSerializerListener $listener;
 
     protected function setUp(): void
     {
         $this->serializerStub = self::createStub(SerializerInterface::class);
-        $this->loggerStub = self::createStub(LoggerInterface::class);
 
         $this->listener = new ThrowableSerializerListener(
             $this->serializerStub,
-            $this->loggerStub,
+            self::createStub(LoggerInterface::class),
         );
     }
 

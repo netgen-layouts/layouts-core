@@ -15,6 +15,9 @@ services:
         arguments:
             - !tagged_locator { tag: netgen_layouts.cms_value_url_generator, index_by: value_type }
 
+    netgen_layouts.item.value_type_factory:
+        class: Netgen\Layouts\Item\ValueType\ValueTypeFactory
+
     netgen_layouts.item.registry.value_type:
         class: Netgen\Layouts\Item\Registry\ValueTypeRegistry
         arguments:

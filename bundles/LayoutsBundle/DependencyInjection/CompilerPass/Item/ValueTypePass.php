@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item;
 
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\ValueType\ValueType;
-use Netgen\Layouts\Item\ValueType\ValueTypeFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -53,7 +52,7 @@ final class ValueTypePass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, ValueType::class)
                 ->setArguments([$identifier, $valueType])
-                ->setFactory([ValueTypeFactory::class, 'buildValueType']);
+                ->setFactory([new Reference('netgen_layouts.item.value_type_factory'), 'buildValueType']);
 
             yield $identifier => new Reference($serviceIdentifier);
         }

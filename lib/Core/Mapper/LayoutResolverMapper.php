@@ -61,13 +61,13 @@ final class LayoutResolverMapper
             'description' => $rule->description,
             'targets' => TargetList::fromCallable(
                 fn (): array => array_map(
-                    fn (PersistenceTarget $target): Target => $this->mapTarget($target),
+                    $this->mapTarget(...),
                     $this->layoutResolverHandler->loadRuleTargets($rule),
                 ),
             ),
             'conditions' => ConditionList::fromCallable(
                 fn (): array => array_map(
-                    fn (PersistenceRuleCondition $condition): RuleCondition => $this->mapRuleCondition($condition),
+                    $this->mapRuleCondition(...),
                     $this->layoutResolverHandler->loadRuleConditions($rule),
                 ),
             ),
@@ -107,13 +107,13 @@ final class LayoutResolverMapper
             'priority' => $ruleGroup->priority,
             'rules' => RuleList::fromCallable(
                 fn (): array => array_map(
-                    fn (PersistenceRule $rule): Rule => $this->mapRule($rule),
+                    $this->mapRule(...),
                     $this->layoutResolverHandler->loadRulesFromGroup($ruleGroup),
                 ),
             ),
             'conditions' => ConditionList::fromCallable(
                 fn (): array => array_map(
-                    fn (PersistenceRuleGroupCondition $condition): RuleGroupCondition => $this->mapRuleGroupCondition($condition),
+                    $this->mapRuleGroupCondition(...),
                     $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup),
                 ),
             ),

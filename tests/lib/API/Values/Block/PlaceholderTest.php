@@ -34,7 +34,7 @@ final class PlaceholderTest extends TestCase
 
         self::assertCount(1, $placeholder);
 
-        self::assertTrue(isset($placeholder[0]));
+        self::assertArrayHasKey(0, $placeholder);
         self::assertSame($block, $placeholder[0]);
     }
 

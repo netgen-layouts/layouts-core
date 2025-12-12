@@ -44,7 +44,7 @@ final class ResultSetTest extends TestCase
 
         self::assertCount(1, $result);
 
-        self::assertTrue(isset($result[0]));
+        self::assertArrayHasKey(0, $result);
         self::assertSame($resultItem, $result[0]);
     }
 

@@ -1,4 +1,7 @@
 services:
+    netgen_layouts.layout.layout_type_factory:
+        class: Netgen\Layouts\Layout\Type\LayoutTypeFactory
+
     netgen_layouts.layout.registry.layout_type:
         class: Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
         arguments:

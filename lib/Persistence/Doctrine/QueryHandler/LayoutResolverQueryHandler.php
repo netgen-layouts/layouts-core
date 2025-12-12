@@ -891,7 +891,7 @@ final class LayoutResolverQueryHandler
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'id'));
+        return array_map(intval(...), array_column($result, 'id'));
     }
 
     /**
@@ -913,7 +913,7 @@ final class LayoutResolverQueryHandler
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'id'));
+        return array_map(intval(...), array_column($result, 'id'));
     }
 
     /**
@@ -1257,7 +1257,7 @@ final class LayoutResolverQueryHandler
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'condition_id'));
+        return array_map(intval(...), array_column($result, 'condition_id'));
     }
 
     /**
@@ -1279,7 +1279,7 @@ final class LayoutResolverQueryHandler
 
         $result = $query->fetchAllAssociative();
 
-        return array_map('intval', array_column($result, 'condition_id'));
+        return array_map(intval(...), array_column($result, 'condition_id'));
     }
 
     /**

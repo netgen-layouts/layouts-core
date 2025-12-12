@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block;
 
 use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
-use Netgen\Layouts\Block\BlockType\BlockTypeGroupFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -115,7 +114,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, BlockTypeGroup::class)
                 ->setArguments([$identifier, $blockTypeGroup, $blockTypeReferences])
-                ->setFactory([BlockTypeGroupFactory::class, 'buildBlockTypeGroup']);
+                ->setFactory([new Reference('netgen_layouts.block.block_type_group_factory'), 'buildBlockTypeGroup']);
 
             yield $identifier => new Reference($serviceIdentifier);
         }

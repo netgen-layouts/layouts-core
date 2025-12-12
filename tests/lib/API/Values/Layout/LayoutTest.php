@@ -69,7 +69,7 @@ final class LayoutTest extends TestCase
 
         self::assertCount(2, $layout);
 
-        self::assertTrue(isset($layout['left']));
+        self::assertArrayHasKey('left', $layout);
         self::assertSame($zones['left'], $layout['left']);
     }
 

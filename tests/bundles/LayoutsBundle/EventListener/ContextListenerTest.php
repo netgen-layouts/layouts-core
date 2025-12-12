@@ -22,8 +22,6 @@ final class ContextListenerTest extends TestCase
 
     private Stub&ContextBuilderInterface $contextBuilderStub;
 
-    private Stub&UriSigner $uriSignerStub;
-
     private ContextListener $listener;
 
     protected function setUp(): void
@@ -31,12 +29,11 @@ final class ContextListenerTest extends TestCase
         $this->context = new Context();
 
         $this->contextBuilderStub = self::createStub(ContextBuilderInterface::class);
-        $this->uriSignerStub = self::createStub(UriSigner::class);
 
         $this->listener = new ContextListener(
             $this->context,
             $this->contextBuilderStub,
-            $this->uriSignerStub,
+            self::createStub(UriSigner::class),
         );
     }
 

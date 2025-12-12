@@ -119,7 +119,7 @@ trait DatabaseTrait
             throw new RuntimeException(sprintf('File "%s" is not readable.', $fullPath));
         }
 
-        foreach (array_map('mb_trim', explode(';', $schema)) as $sqlQuery) {
+        foreach (array_map(mb_trim(...), explode(';', $schema)) as $sqlQuery) {
             if ($sqlQuery !== '') {
                 $this->databaseConnection->executeQuery($sqlQuery);
             }

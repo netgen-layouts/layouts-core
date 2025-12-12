@@ -88,7 +88,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                fn (PersistenceLayout $layout): Layout => $this->mapper->mapLayout($layout),
+                $this->mapper->mapLayout(...),
                 $persistenceLayouts,
             ),
         );
@@ -109,7 +109,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                fn (PersistenceLayout $layout): Layout => $this->mapper->mapLayout($layout),
+                $this->mapper->mapLayout(...),
                 $persistenceLayouts,
             ),
         );
@@ -130,7 +130,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                fn (PersistenceLayout $layout): Layout => $this->mapper->mapLayout($layout),
+                $this->mapper->mapLayout(...),
                 $persistenceLayouts,
             ),
         );
@@ -155,7 +155,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                fn (PersistenceLayout $relatedLayout): Layout => $this->mapper->mapLayout($relatedLayout),
+                $this->mapper->mapLayout(...),
                 $this->layoutHandler->loadRelatedLayouts($persistenceLayout),
             ),
         );

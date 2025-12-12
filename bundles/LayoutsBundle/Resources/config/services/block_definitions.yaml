@@ -24,10 +24,16 @@ services:
         arguments:
             - !tagged_iterator netgen_layouts.block_definition_handler.plugin
 
+    netgen_layouts.block.block_type_factory:
+        class: Netgen\Layouts\Block\BlockType\BlockTypeFactory
+
     netgen_layouts.block.registry.block_type:
         class: Netgen\Layouts\Block\Registry\BlockTypeRegistry
         arguments:
             - !abstract "Set in BlockTypePass"
+
+    netgen_layouts.block.block_type_group_factory:
+        class: Netgen\Layouts\Block\BlockType\BlockTypeGroupFactory
 
     netgen_layouts.block.registry.block_type_group:
         class: Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry

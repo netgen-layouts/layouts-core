@@ -33,7 +33,7 @@ final class DefaultViewTemplatesPass implements CompilerPassInterface
      */
     private function updateRules(ContainerBuilder $container, ?array $allRules): array
     {
-        $allRules = $allRules ?? [];
+        $allRules ??= [];
 
         /** @var array<string, mixed[]> $defaultTemplates */
         $defaultTemplates = $container->getParameter('netgen_layouts.default_view_templates');
