@@ -135,7 +135,7 @@ final class BlockDefinitionFactory
             'configProvider' => $configProvider ?? new StaticConfigProvider($identifier, $config),
             'parameterDefinitions' => $parameterDefinitions,
             'configDefinitions' => $configDefinitions,
-        ] + $this->processConfig($identifier, $config);
+        ] + $this->processConfig($config);
     }
 
     /**
@@ -145,7 +145,7 @@ final class BlockDefinitionFactory
      *
      * @return array<string, mixed>
      */
-    private function processConfig(string $identifier, array $config): array
+    private function processConfig(array $config): array
     {
         $collections = [];
         $forms = [];

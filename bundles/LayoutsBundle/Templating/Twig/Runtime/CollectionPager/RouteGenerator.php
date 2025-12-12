@@ -59,7 +59,7 @@ final class RouteGenerator
         /** @var string $signature */
         $signature = $params['_hash'];
 
-        $uri .= (!str_contains($uri, '?') ? '?' : '&') . '_hash=' . urlencode($signature);
+        $uri .= (str_contains($uri, '?') ? '&' : '?') . '_hash=' . urlencode($signature);
 
         if ($page > 1) {
             $uri .= '&page=' . $page;

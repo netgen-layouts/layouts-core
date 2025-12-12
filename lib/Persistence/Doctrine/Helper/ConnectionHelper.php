@@ -12,7 +12,6 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\PostgreSQL;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\SQLite;
 
 use function array_find;
-use function is_a;
 
 final class ConnectionHelper implements ConnectionHelperInterface
 {
@@ -56,7 +55,7 @@ final class ConnectionHelper implements ConnectionHelperInterface
     {
         return array_find(
             $this->databaseSpecificHelpers,
-            static fn (ConnectionHelperInterface $helper, string $class): bool => is_a($platform, $class),
+            static fn (ConnectionHelperInterface $helper, string $class): bool => $platform instanceof $class,
         );
     }
 }

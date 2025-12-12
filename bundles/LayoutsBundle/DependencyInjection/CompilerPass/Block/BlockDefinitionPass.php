@@ -23,6 +23,7 @@ use function sprintf;
 final class BlockDefinitionPass implements CompilerPassInterface
 {
     private const string SERVICE_NAME = 'netgen_layouts.block.registry.block_definition';
+
     private const string TAG_NAME = 'netgen_layouts.block_definition_handler';
 
     public function process(ContainerBuilder $container): void

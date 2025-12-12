@@ -12,8 +12,6 @@ use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdate
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\Layouts\Validator\ValidatorTrait;
 
-use function count;
-
 final class BlockValidator
 {
     use ValidatorTrait;
@@ -43,11 +41,8 @@ final class BlockValidator
             ),
         );
 
-        $collectionCreateStructs = $blockCreateStruct->collectionCreateStructs;
-        if (count($collectionCreateStructs) > 0) {
-            foreach ($collectionCreateStructs as $collectionCreateStruct) {
-                $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
-            }
+        foreach ($blockCreateStruct->collectionCreateStructs as $collectionCreateStruct) {
+            $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
         }
     }
 

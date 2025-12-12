@@ -511,6 +511,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         $updatedLayout = clone $layout;
         $updatedLayout->modified = time();
+
         $this->queryHandler->updateLayout($updatedLayout);
     }
 }

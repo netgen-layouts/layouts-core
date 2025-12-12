@@ -41,7 +41,6 @@ use Ramsey\Uuid\UuidInterface;
 use function array_filter;
 use function array_search;
 use function array_splice;
-use function count;
 use function in_array;
 use function is_int;
 
@@ -663,51 +662,48 @@ final class BlockService implements BlockServiceInterface
                     $placeholder,
                 );
 
-                $collectionCreateStructs = $blockCreateStruct->collectionCreateStructs;
-                if (count($collectionCreateStructs) > 0) {
-                    foreach ($collectionCreateStructs as $identifier => $collectionCreateStruct) {
-                        $createdCollection = $this->collectionHandler->createCollection(
-                            CollectionCreateStruct::fromArray(
+                foreach ($blockCreateStruct->collectionCreateStructs as $identifier => $collectionCreateStruct) {
+                    $createdCollection = $this->collectionHandler->createCollection(
+                        CollectionCreateStruct::fromArray(
+                            [
+                                'status' => PersistenceStatus::Draft,
+                                'offset' => $collectionCreateStruct->offset,
+                                'limit' => $collectionCreateStruct->limit,
+                                'isAlwaysAvailable' => $blockCreateStruct->isAlwaysAvailable,
+                                'isTranslatable' => $blockCreateStruct->isTranslatable,
+                                'mainLocale' => $layout->mainLocale,
+                            ],
+                        ),
+                        $createdBlock,
+                        (string) $identifier,
+                    );
+
+                    if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
+                        $queryType = $collectionCreateStruct->queryCreateStruct->queryType;
+                        $this->collectionHandler->createQuery(
+                            $createdCollection,
+                            QueryCreateStruct::fromArray(
                                 [
-                                    'status' => PersistenceStatus::Draft,
-                                    'offset' => $collectionCreateStruct->offset,
-                                    'limit' => $collectionCreateStruct->limit,
-                                    'isAlwaysAvailable' => $blockCreateStruct->isAlwaysAvailable,
-                                    'isTranslatable' => $blockCreateStruct->isTranslatable,
-                                    'mainLocale' => $layout->mainLocale,
+                                    'type' => $queryType->type,
+                                    'parameters' => [
+                                        ...$this->parameterMapper->serializeValues(
+                                            $queryType,
+                                            $collectionCreateStruct->queryCreateStruct->parameterValues,
+                                        ),
+                                    ],
                                 ],
                             ),
-                            $createdBlock,
-                            (string) $identifier,
                         );
+                    }
 
-                        if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
-                            $queryType = $collectionCreateStruct->queryCreateStruct->queryType;
-                            $this->collectionHandler->createQuery(
-                                $createdCollection,
-                                QueryCreateStruct::fromArray(
-                                    [
-                                        'type' => $queryType->type,
-                                        'parameters' => [
-                                            ...$this->parameterMapper->serializeValues(
-                                                $queryType,
-                                                $collectionCreateStruct->queryCreateStruct->parameterValues,
-                                            ),
-                                        ],
-                                    ],
-                                ),
-                            );
-                        }
-
-                        if ($blockCreateStruct->isTranslatable) {
-                            foreach ($layout->availableLocales as $locale) {
-                                if ($locale !== $layout->mainLocale) {
-                                    $createdCollection = $this->collectionHandler->createCollectionTranslation(
-                                        $createdCollection,
-                                        $locale,
-                                        $createdCollection->mainLocale,
-                                    );
-                                }
+                    if ($blockCreateStruct->isTranslatable) {
+                        foreach ($layout->availableLocales as $locale) {
+                            if ($locale !== $layout->mainLocale) {
+                                $createdCollection = $this->collectionHandler->createCollectionTranslation(
+                                    $createdCollection,
+                                    $locale,
+                                    $createdCollection->mainLocale,
+                                );
                             }
                         }
                     }

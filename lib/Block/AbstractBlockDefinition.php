@@ -18,7 +18,6 @@ use Netgen\Layouts\Utils\HydratorTrait;
 use function array_any;
 use function array_key_exists;
 use function array_keys;
-use function is_a;
 
 abstract class AbstractBlockDefinition implements BlockDefinitionInterface
 {
@@ -135,14 +134,14 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
     {
         return array_any(
             $this->handlerPlugins,
-            static fn (PluginInterface $handlerPlugin): bool => is_a($handlerPlugin, $className, true),
+            static fn (PluginInterface $handlerPlugin): bool => $handlerPlugin instanceof $className,
         );
     }
 
     final public function getHandlerPlugin(string $className): PluginInterface
     {
         foreach ($this->handlerPlugins as $handlerPlugin) {
-            if (is_a($handlerPlugin, $className, true)) {
+            if ($handlerPlugin instanceof $className) {
                 return $handlerPlugin;
             }
         }

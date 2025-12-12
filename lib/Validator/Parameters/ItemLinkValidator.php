@@ -46,7 +46,10 @@ final class ItemLinkValidator extends ConstraintValidator
 
         $parsedValue = parse_url($value);
 
-        if (!is_array($parsedValue) || ($parsedValue['scheme'] ?? '') === '' || !isset($parsedValue['host'])) {
+        if (
+            !is_array($parsedValue) ||
+            ($parsedValue['scheme'] ?? '') === '' || !isset($parsedValue['host'])
+        ) {
             $this->context->buildViolation($constraint->invalidItemMessage)
                 ->addViolation();
 
@@ -64,14 +67,12 @@ final class ItemLinkValidator extends ConstraintValidator
                 return;
             }
 
-            if (count($constraint->valueTypes) > 0) {
-                if (!in_array($valueType, $constraint->valueTypes, true)) {
-                    $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
-                        ->setParameter('%valueType%', $valueType)
-                        ->addViolation();
+            if (count($constraint->valueTypes) > 0 && !in_array($valueType, $constraint->valueTypes, true)) {
+                $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
+                    ->setParameter('%valueType%', $valueType)
+                    ->addViolation();
 
-                    return;
-                }
+                return;
             }
 
             $item = $this->cmsItemLoader->load($itemValue, $valueType);

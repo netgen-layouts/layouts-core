@@ -19,6 +19,7 @@ use function sprintf;
 final class QueryTypePass implements CompilerPassInterface
 {
     private const string SERVICE_NAME = 'netgen_layouts.collection.registry.query_type';
+
     private const string TAG_NAME = 'netgen_layouts.query_type_handler';
 
     public function process(ContainerBuilder $container): void

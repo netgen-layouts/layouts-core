@@ -57,7 +57,7 @@ final class TransactionServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->service->transaction(
-            static function (): void {
+            static function (): never {
                 throw new RuntimeException('Test exception');
             },
         );

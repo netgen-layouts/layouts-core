@@ -19,7 +19,6 @@ final class TemplateResolver implements TemplateResolverInterface
 {
     /**
      * @param array<string, array<string, array<string, mixed>>> $viewConfig
-     * @param \Psr\Container\ContainerInterface $matchers
      */
     public function __construct(
         private array $viewConfig,
@@ -63,7 +62,7 @@ final class TemplateResolver implements TemplateResolverInterface
     {
         foreach ($matchConfig as $identifier => $matcherConfig) {
             $matcher = $this->getMatcher($identifier);
-            $matcherConfig = !is_array($matcherConfig) ? [$matcherConfig] : $matcherConfig;
+            $matcherConfig = is_array($matcherConfig) ? $matcherConfig : [$matcherConfig];
 
             if (!$matcher->match($view, $matcherConfig)) {
                 return false;

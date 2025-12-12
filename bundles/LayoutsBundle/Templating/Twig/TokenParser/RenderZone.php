@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Node\RenderZone as RenderZoneNode;
 use Twig\Error\SyntaxError;
-use Twig\Node\Node;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
@@ -14,7 +13,7 @@ use function sprintf;
 
 final class RenderZone extends AbstractTokenParser
 {
-    public function parse(Token $token): Node
+    public function parse(Token $token): RenderZoneNode
     {
         $stream = $this->parser->getStream();
 
