@@ -6,11 +6,11 @@ namespace Netgen\Layouts\Behat\Context\Hook;
 
 use Behat\Behat\Context\Context;
 use Behat\Hook\BeforeScenario;
-use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 
 final class DoctrineDatabaseContext implements Context
 {
-    use TestCaseTrait;
+    use DatabaseTrait;
 
     #[BeforeScenario]
     public function resetDatabase(): void

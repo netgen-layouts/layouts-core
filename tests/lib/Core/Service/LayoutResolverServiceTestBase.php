@@ -11,7 +11,6 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
-use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -20,7 +19,6 @@ use Ramsey\Uuid\UuidInterface;
 abstract class LayoutResolverServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
-    use UuidGeneratorTrait;
 
     final public function testLoadRule(): void
     {

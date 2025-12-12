@@ -15,13 +15,11 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
-use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use Ramsey\Uuid\Uuid;
 
 abstract class BlockServiceTestBase extends CoreTestCase
 {
     use ExportObjectTrait;
-    use UuidGeneratorTrait;
 
     final public function testLoadBlock(): void
     {
@@ -119,10 +117,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
 
-        $block = $this->withUuids(
-            fn (): Block => $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
-        );
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
@@ -346,10 +341,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
 
-        $block = $this->withUuids(
-            fn (): Block => $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left'),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
-        );
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left');
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
@@ -400,13 +392,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
-        $block = $this->withUuids(
-            fn (): Block => $this->blockService->createBlockInZone(
-                $blockCreateStruct,
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0,
-            ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
+        $block = $this->blockService->createBlockInZone(
+            $blockCreateStruct,
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+            0,
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
@@ -445,13 +434,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
-        $block = $this->withUuids(
-            fn (): Block => $this->blockService->createBlockInZone(
-                $blockCreateStruct,
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0,
-            ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
+        $block = $this->blockService->createBlockInZone(
+            $blockCreateStruct,
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+            0,
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
@@ -519,12 +505,9 @@ abstract class BlockServiceTestBase extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
-        $block = $this->withUuids(
-            fn (): Block => $this->blockService->createBlockInZone(
-                $blockCreateStruct,
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
+        $block = $this->blockService->createBlockInZone(
+            $blockCreateStruct,
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
@@ -735,60 +718,53 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlock(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlock(
-                $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
-                $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-                'left',
-            ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+            'left',
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
         self::assertSame(0, $originalBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(1, $copiedBlock->position);
     }
 
     final public function testCopyBlockWithPosition(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlock(
-                $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
-                $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-                'left',
-                1,
-            ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+            'left',
+            1,
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
         self::assertSame(0, $originalBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(1, $copiedBlock->position);
     }
 
     final public function testCopyBlockWithSamePosition(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlock(
-                $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
-                $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-                'left',
-                0,
-            ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+            'left',
+            0,
         );
 
         $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
         self::assertSame(1, $firstBlockInTargetBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(0, $copiedBlock->position);
     }
 
@@ -879,27 +855,9 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockToZone(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlockToZone(
-                $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            ),
-            [
-                'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
-                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
-                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
-                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
-                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
-                'f08717e5-5910-574d-b976-03d877c4729b',
-                'e804ebd6-dc99-53bb-85d5-196d68933761',
-                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
-                '8634280c-f498-416e-b4a7-0b0bd0869c85',
-                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
-                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
-                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ],
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -909,7 +867,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(2, $copiedBlock->position);
 
         self::assertTrue($copiedBlock->getCollection('default')->isDraft);
@@ -918,28 +876,10 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockToZoneWithPosition(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlockToZone(
-                $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                1,
-            ),
-            [
-                'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
-                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
-                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
-                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
-                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
-                'f08717e5-5910-574d-b976-03d877c4729b',
-                'e804ebd6-dc99-53bb-85d5-196d68933761',
-                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
-                '8634280c-f498-416e-b4a7-0b0bd0869c85',
-                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
-                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
-                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ],
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+            1,
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -949,34 +889,16 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(2, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(1, $copiedBlock->position);
     }
 
     final public function testCopyBlockToZoneWithSamePosition(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlockToZone(
-                $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0,
-            ),
-            [
-                'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
-                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
-                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
-                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
-                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
-                'f08717e5-5910-574d-b976-03d877c4729b',
-                'e804ebd6-dc99-53bb-85d5-196d68933761',
-                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
-                '8634280c-f498-416e-b4a7-0b0bd0869c85',
-                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
-                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
-                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ],
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+            0,
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -986,34 +908,16 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(2, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(0, $copiedBlock->position);
     }
 
     final public function testCopyBlockToZoneWithLastPosition(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlockToZone(
-                $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                2,
-            ),
-            [
-                'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
-                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
-                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
-                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
-                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
-                'f08717e5-5910-574d-b976-03d877c4729b',
-                'e804ebd6-dc99-53bb-85d5-196d68933761',
-                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
-                '8634280c-f498-416e-b4a7-0b0bd0869c85',
-                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
-                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
-                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ],
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+            2,
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1023,36 +927,26 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame(1, $secondBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(2, $copiedBlock->position);
     }
 
     final public function testCopyBlockToZoneWithLowerPosition(): void
     {
-        $copiedBlock = $this->withUuids(
-            fn (): Block => $this->blockService->copyBlockToZone(
-                $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e')),
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0,
-            ),
-            [
-                'f06f245a-f951-52c8-bfa3-84c80154eadc',
-                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
-                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
-                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
-                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
-                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
-            ],
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e')),
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+            0,
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
-        self::assertSame(1, $originalBlock->position);
+        $firstBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
+        self::assertSame(1, $firstBlock->position);
 
-        $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
-        self::assertSame(2, $secondBlock->position);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
+        self::assertSame(2, $originalBlock->position);
 
         self::assertTrue($copiedBlock->isDraft);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->id->toString());
+        self::assertNotSame($originalBlock->id->toString(), $copiedBlock->id->toString());
         self::assertSame(0, $copiedBlock->position);
     }
 
