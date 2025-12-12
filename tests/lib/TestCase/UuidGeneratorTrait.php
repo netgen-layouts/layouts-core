@@ -13,7 +13,12 @@ use function array_map;
 trait UuidGeneratorTrait
 {
     /**
+     * @template T
+     *
+     * @param callable(): T $callable
      * @param array<int, string> $uuids
+     *
+     * @return T
      */
     private function withUuids(callable $callable, array $uuids): mixed
     {

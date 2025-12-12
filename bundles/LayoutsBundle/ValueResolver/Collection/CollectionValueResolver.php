@@ -32,7 +32,7 @@ final class CollectionValueResolver extends ValueResolver
 
     public function loadValue(array $values): Collection
     {
-        /** @var string[] $locales */
+        /** @var string[]|null $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
         return match ($values['status']) {

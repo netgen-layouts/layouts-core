@@ -32,7 +32,7 @@ final class QueryValueResolver extends ValueResolver
 
     public function loadValue(array $values): Query
     {
-        /** @var string[] $locales */
+        /** @var string[]|null $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
         return match ($values['status']) {

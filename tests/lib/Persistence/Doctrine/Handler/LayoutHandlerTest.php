@@ -785,7 +785,6 @@ final class LayoutHandlerTest extends TestCase
         $zoneCreateStruct->identifier = 'new_zone';
         $zoneCreateStruct->linkedZone = $linkedZone;
 
-        /** @var \Netgen\Layouts\Persistence\Values\Layout\Zone $createdZone */
         $createdZone = $this->withUuids(
             fn (): Zone => $this->layoutHandler->createZone(
                 $this->layoutHandler->loadLayout(1, Status::Draft),
@@ -885,7 +884,6 @@ final class LayoutHandlerTest extends TestCase
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Status::Published);
 
-        /** @var \Netgen\Layouts\Persistence\Values\Layout\Layout $copiedLayout */
         $copiedLayout = $this->withUuids(
             fn (): Layout => $this->layoutHandler->copyLayout($originalLayout, $copyStruct),
             [

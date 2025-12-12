@@ -32,7 +32,7 @@ final class BlockValueResolver extends ValueResolver
 
     public function loadValue(array $values): Block
     {
-        /** @var string[] $locales */
+        /** @var string[]|null $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
         return match ($values['status']) {

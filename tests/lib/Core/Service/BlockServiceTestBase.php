@@ -119,7 +119,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
 
-        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -347,7 +346,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
 
-        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left'),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
@@ -402,7 +400,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
-        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlockInZone(
                 $blockCreateStruct,
@@ -448,7 +445,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
-        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlockInZone(
                 $blockCreateStruct,
@@ -523,7 +519,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
-        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlockInZone(
                 $blockCreateStruct,
@@ -740,7 +735,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlock(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlock(
                 $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
@@ -760,7 +754,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockWithPosition(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlock(
                 $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
@@ -781,7 +774,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockWithSamePosition(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlock(
                 $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
@@ -887,7 +879,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockToZone(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
@@ -927,7 +918,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockToZoneWithPosition(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
@@ -965,7 +955,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockToZoneWithSamePosition(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
@@ -1003,7 +992,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockToZoneWithLastPosition(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
@@ -1041,7 +1029,6 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
     final public function testCopyBlockToZoneWithLowerPosition(): void
     {
-        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e')),
