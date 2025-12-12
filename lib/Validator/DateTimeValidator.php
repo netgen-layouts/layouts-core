@@ -66,7 +66,7 @@ final class DateTimeValidator extends ConstraintValidator
             $value->getTimezone()->getName() :
             ($value['timezone'] ?? '');
 
-        /** @var array<string> $timeZoneIdentifiers */
+        /** @var string[] $timeZoneIdentifiers */
         $timeZoneIdentifiers = DateTimeZone::listIdentifiers();
 
         $validator->atPath('timezone')->validate(

@@ -14,7 +14,7 @@ use function get_debug_type;
 final class ViewBuilder implements ViewBuilderInterface
 {
     /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface<object>[]
+     * @var array<\Netgen\Layouts\View\Provider\ViewProviderInterface<object>>
      */
     private array $viewProviders = [];
 

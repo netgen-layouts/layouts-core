@@ -50,9 +50,6 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
         return $data instanceof View;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

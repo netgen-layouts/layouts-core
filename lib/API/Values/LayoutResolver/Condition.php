@@ -27,7 +27,7 @@ abstract class Condition implements Value
      *
      * Can be a scalar or a multidimensional array of scalars.
      *
-     * @var int|string|array<mixed>
+     * @var int|string|mixed[]
      */
     final public protected(set) int|string|array $value;
 }

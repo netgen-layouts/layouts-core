@@ -161,14 +161,29 @@ abstract class CoreTestCase extends TestCase
         $this->layoutResolverService = $this->createLayoutResolverService();
     }
 
+    /**
+     * Returns the persistence handler under test.
+     */
     abstract protected function createTransactionHandler(): TransactionHandlerInterface;
 
+    /**
+     * Returns the layout handler under test.
+     */
     abstract protected function createLayoutHandler(): LayoutHandlerInterface;
 
+    /**
+     * Returns the block handler under test.
+     */
     abstract protected function createBlockHandler(): BlockHandlerInterface;
 
+    /**
+     * Returns the collection handler under test.
+     */
     abstract protected function createCollectionHandler(): CollectionHandlerInterface;
 
+    /**
+     * Returns the layout resolver handler under test.
+     */
     abstract protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface;
 
     protected function createValidator(): ValidatorInterface

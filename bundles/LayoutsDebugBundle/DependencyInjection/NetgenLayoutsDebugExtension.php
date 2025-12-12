@@ -13,9 +13,6 @@ use function array_key_exists;
 
 final class NetgenLayoutsDebugExtension extends Extension
 {
-    /**
-     * @param mixed[] $configs
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         if (!$this->debugEnabled($container)) {

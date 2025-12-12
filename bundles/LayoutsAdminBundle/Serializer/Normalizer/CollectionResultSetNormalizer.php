@@ -43,9 +43,6 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
         return $data->value instanceof ResultSet;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

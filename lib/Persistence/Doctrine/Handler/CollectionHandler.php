@@ -274,9 +274,6 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    /**
-     * Adds the provided collection to the block and assigns it the specified identifier.
-     */
     public function createCollectionReference(Collection $collection, Block $block, string $collectionIdentifier): CollectionReference
     {
         $newCollectionReference = CollectionReference::fromArray(

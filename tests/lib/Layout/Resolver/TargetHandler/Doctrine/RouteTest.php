@@ -29,17 +29,11 @@ final class RouteTest extends TargetHandlerTestBase
         self::assertSame(1, $rules[0]->id);
     }
 
-    /**
-     * Returns the target handler identifier under test.
-     */
     protected function getTargetIdentifier(): string
     {
         return 'route';
     }
 
-    /**
-     * Creates the handler under test.
-     */
     protected function getTargetHandler(): TargetHandlerInterface
     {
         return new Route();

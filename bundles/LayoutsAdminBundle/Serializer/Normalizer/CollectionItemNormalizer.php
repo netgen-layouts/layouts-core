@@ -70,9 +70,6 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
         return $data->value instanceof Item;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

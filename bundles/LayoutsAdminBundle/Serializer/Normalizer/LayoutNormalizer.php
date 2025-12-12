@@ -84,9 +84,6 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         return $data->value instanceof Layout;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

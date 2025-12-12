@@ -28,7 +28,7 @@ trait ExportObjectTrait
     }
 
     /**
-     * @param array<object> $objects
+     * @param object[] $objects
      *
      * @return array<array<string, mixed>>
      */

@@ -13,9 +13,6 @@ use Twig\TwigFunction;
 
 final class RenderingExtension extends AbstractExtension
 {
-    /**
-     * @return \Twig\TwigFunction[]
-     */
     public function getFunctions(): array
     {
         return [
@@ -109,17 +106,11 @@ final class RenderingExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return \Twig\NodeVisitor\NodeVisitorInterface[]
-     */
     public function getNodeVisitors(): array
     {
         return [new DefaultContextVisitor()];
     }
 
-    /**
-     * @return \Twig\TokenParser\TokenParserInterface[]
-     */
     public function getTokenParsers(): array
     {
         return [new RenderZoneParser(), new DefaultContextParser()];

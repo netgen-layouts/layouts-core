@@ -15,13 +15,13 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \ArrayAccess<mixed, mixed>
- * @implements \IteratorAggregate<mixed, mixed>
+ * @implements \ArrayAccess<string, mixed>
+ * @implements \IteratorAggregate<string, mixed>
  */
 final class DynamicParameters implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
-     * @var array<mixed, mixed>
+     * @var array<string, mixed>
      */
     private array $dynamicParameters = [];
 

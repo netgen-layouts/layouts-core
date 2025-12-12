@@ -44,9 +44,6 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
         return $data->value instanceof Query;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

@@ -93,9 +93,6 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
             );
     }
 
-    /**
-     * @param mixed[] $configs
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $extensionAlias = $this->getAlias();

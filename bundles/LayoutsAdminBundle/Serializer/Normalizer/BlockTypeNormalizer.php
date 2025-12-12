@@ -45,9 +45,6 @@ final class BlockTypeNormalizer implements NormalizerInterface
         return $data->value instanceof BlockType;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

@@ -92,7 +92,7 @@ final class DateTimeUtils
     {
         $timeZoneList = [];
 
-        /** @var array<string> $timeZoneIdentifiers */
+        /** @var string[] $timeZoneIdentifiers */
         $timeZoneIdentifiers = DateTimeZone::listIdentifiers();
 
         foreach ($timeZoneIdentifiers as $timeZone) {

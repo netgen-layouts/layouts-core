@@ -18,7 +18,7 @@ final class ConditionCreateStruct
     /**
      * Condition value. Can be a scalar or a multidimensional array of scalars.
      *
-     * @var int|string|array<mixed>
+     * @var int|string|mixed[]
      */
     public int|string|array $value;
 }

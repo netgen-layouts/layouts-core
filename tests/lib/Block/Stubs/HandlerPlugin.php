@@ -13,12 +13,12 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class HandlerPlugin extends Plugin
 {
     /**
-     * @var class-string<\Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface>[]
+     * @var array<class-string<\Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface>>
      */
     private static array $extendedHandlers = [];
 
     /**
-     * @param class-string<\Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface>[] $extendedHandlers
+     * @param array<class-string<\Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface>> $extendedHandlers
      */
     public static function instance(array $extendedHandlers): self
     {

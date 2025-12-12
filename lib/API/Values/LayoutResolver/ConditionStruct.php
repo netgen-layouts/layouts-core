@@ -11,7 +11,7 @@ abstract class ConditionStruct
      *
      * Required.
      *
-     * @var int|string|array<mixed>
+     * @var int|string|mixed[]
      */
     final public int|string|array $value;
 }

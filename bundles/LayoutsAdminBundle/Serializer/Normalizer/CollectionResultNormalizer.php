@@ -65,9 +65,6 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         return $data->value instanceof Result;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

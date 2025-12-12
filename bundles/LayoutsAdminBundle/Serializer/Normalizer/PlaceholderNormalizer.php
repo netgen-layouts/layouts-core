@@ -40,9 +40,6 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
         return $data->value instanceof Placeholder;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

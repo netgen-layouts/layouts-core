@@ -29,7 +29,7 @@ abstract class Condition extends Value
     /**
      * Condition value. Can be a scalar or a multidimensional array of scalars.
      *
-     * @var int|string|array<mixed>
+     * @var int|string|mixed[]
      */
     final public int|string|array $value;
 }

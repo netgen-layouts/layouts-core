@@ -40,17 +40,11 @@ final class TargetHandlerTest extends TargetHandlerTestBase
         );
     }
 
-    /**
-     * Returns the target handler identifier under test.
-     */
     protected function getTargetIdentifier(): string
     {
         return 'route';
     }
 
-    /**
-     * Creates the handler under test.
-     */
     protected function getTargetHandler(): TargetHandlerInterface
     {
         return new Route();

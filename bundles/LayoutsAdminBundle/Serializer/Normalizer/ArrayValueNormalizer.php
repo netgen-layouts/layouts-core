@@ -26,9 +26,6 @@ final class ArrayValueNormalizer implements NormalizerInterface, NormalizerAware
         return $data instanceof ArrayValue;
     }
 
-    /**
-     * @return array<class-string, bool>
-     */
     public function getSupportedTypes(?string $format): array
     {
         return [

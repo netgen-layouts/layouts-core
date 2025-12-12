@@ -13,8 +13,6 @@ abstract class ParameterType implements ParameterTypeInterface
     public function configureOptions(OptionsResolver $optionsResolver): void {}
 
     /**
-     * Converts the parameter value from a domain format to scalar/hash format.
-     *
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      */
@@ -24,8 +22,6 @@ abstract class ParameterType implements ParameterTypeInterface
     }
 
     /**
-     * Converts the provided parameter value to value usable by the domain.
-     *
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      */
@@ -35,12 +31,6 @@ abstract class ParameterType implements ParameterTypeInterface
     }
 
     /**
-     * Returns the parameter value converted to a format suitable for exporting.
-     *
-     * This is useful if exported value is different from a stored value, for example
-     * when exporting IDs from an external CMS which need to be exported not as IDs
-     * but as remote IDs.
-     *
      * This is a trivial implementation that returns the value in the same format as
      * self::toHash(). Overridden implementations should take care to retain this behaviour.
      */
@@ -50,12 +40,6 @@ abstract class ParameterType implements ParameterTypeInterface
     }
 
     /**
-     * Returns the parameter value converted from the exported format.
-     *
-     * This is useful if stored value is different from an exported value, for example
-     * when importing IDs from an external CMS which need to be imported as database IDs
-     * in contrast to some kind of remote ID which would be stored in the export.
-     *
      * This is a trivial implementation that returns the value in the same format as
      * self::fromHash(). Overridden implementations should take care to retain this behaviour.
      */

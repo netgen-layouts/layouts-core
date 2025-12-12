@@ -10,9 +10,6 @@ use Twig\TwigFunction;
 
 final class CollectionPagerExtension extends AbstractExtension
 {
-    /**
-     * @return \Twig\TwigFunction[]
-     */
     public function getFunctions(): array
     {
         return [
