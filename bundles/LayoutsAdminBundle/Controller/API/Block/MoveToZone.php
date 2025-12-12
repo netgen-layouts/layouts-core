@@ -53,8 +53,6 @@ final class MoveToZone extends AbstractController
 
     /**
      * Validates the provided parameter bag.
-     *
-     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
     private function validateRequestData(ParameterBag $data): void
     {

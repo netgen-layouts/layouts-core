@@ -29,9 +29,6 @@ final class ChangeCollectionType extends AbstractController
 
     /**
      * Changes the collection type within the block.
-     *
-     * @throws \Netgen\Layouts\Exception\InvalidArgumentException If new collection type is not valid
-     *                                                                 If query type does not exist
      */
     public function __invoke(Block $block, string $collectionIdentifier, Request $request): Response
     {

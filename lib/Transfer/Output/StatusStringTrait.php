@@ -11,8 +11,6 @@ trait StatusStringTrait
 {
     /**
      * Return status string representation for the given $value.
-     *
-     * @throws \Netgen\Layouts\Exception\RuntimeException If status is not recognized
      */
     private function getStatusString(Value $value): string
     {

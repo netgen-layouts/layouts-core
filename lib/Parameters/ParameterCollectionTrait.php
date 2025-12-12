@@ -12,20 +12,12 @@ trait ParameterCollectionTrait
         get => new ParameterList($this->parameters->toArray());
     }
 
-    /**
-     * Returns the parameter with provided name.
-     *
-     * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If the requested parameter does not exist
-     */
     final public function getParameter(string $parameterName): Parameter
     {
         return $this->parameters->get($parameterName) ??
             throw ParameterException::noParameter($parameterName);
     }
 
-    /**
-     * Returns if the parameter with provided name exists in the collection.
-     */
     final public function hasParameter(string $parameterName): bool
     {
         return $this->parameters->containsKey($parameterName);
