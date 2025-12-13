@@ -10,7 +10,7 @@ use function array_key_exists;
 
 trait ParameterDefinitionCollectionTrait
 {
-    final public protected(set) array $parameterDefinitions = [];
+    public private(set) array $parameterDefinitions = [];
 
     final public function getParameterDefinition(string $parameterName): ParameterDefinition
     {

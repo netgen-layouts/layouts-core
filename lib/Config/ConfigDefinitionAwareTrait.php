@@ -10,7 +10,7 @@ use function array_key_exists;
 
 trait ConfigDefinitionAwareTrait
 {
-    final public protected(set) array $configDefinitions = [];
+    public private(set) array $configDefinitions = [];
 
     final public function getConfigDefinition(string $configKey): ConfigDefinitionInterface
     {

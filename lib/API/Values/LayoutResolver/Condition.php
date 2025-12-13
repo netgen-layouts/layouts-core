@@ -15,12 +15,12 @@ abstract class Condition implements Value
     use HydratorTrait;
     use ValueStatusTrait;
 
-    final public protected(set) Uuid $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the condition type.
      */
-    final public protected(set) ConditionTypeInterface $conditionType;
+    public private(set) ConditionTypeInterface $conditionType;
 
     /**
      * Returns the condition value.
@@ -29,5 +29,5 @@ abstract class Condition implements Value
      *
      * @var int|string|mixed[]
      */
-    final public protected(set) int|string|array $value;
+    public private(set) int|string|array $value;
 }

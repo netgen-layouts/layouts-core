@@ -25,28 +25,28 @@ abstract class AbstractBlockDefinition implements BlockDefinitionInterface
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
-    final public protected(set) string $identifier;
+    public private(set) string $identifier;
 
-    final public protected(set) string $name;
+    public private(set) string $name;
 
-    final public protected(set) ?string $icon;
+    public private(set) ?string $icon;
 
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
-    final public protected(set) array $handlerPlugins = [];
+    public private(set) array $handlerPlugins = [];
 
-    final public protected(set) bool $isTranslatable;
+    public private(set) bool $isTranslatable;
 
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection[]
      */
-    final public protected(set) array $collections = [];
+    public private(set) array $collections = [];
 
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form[]
      */
-    final public protected(set) array $forms = [];
+    public private(set) array $forms = [];
 
     final public array $viewTypes {
         get => $this->configProvider->provideViewTypes();

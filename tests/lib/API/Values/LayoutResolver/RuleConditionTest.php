@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,7 @@ final class RuleConditionTest extends TestCase
         $condition = RuleCondition::fromArray(
             [
                 'id' => $conditionUuid,
+                'status' => Status::Archived,
                 'ruleId' => $ruleUuid,
                 'conditionType' => $conditionType,
                 'value' => 32,
@@ -32,6 +34,7 @@ final class RuleConditionTest extends TestCase
         );
 
         self::assertSame($conditionUuid->toString(), $condition->id->toString());
+        self::assertSame(Status::Archived, $condition->status);
         self::assertSame($ruleUuid->toString(), $condition->ruleId->toString());
         self::assertSame($conditionType, $condition->conditionType);
         self::assertSame(32, $condition->value);
