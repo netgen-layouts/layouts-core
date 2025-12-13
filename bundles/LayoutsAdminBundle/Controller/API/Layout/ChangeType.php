@@ -74,6 +74,19 @@ final class ChangeType extends AbstractController
                 $data->all('zone_mappings'),
                 [
                     new Constraints\Type(type: 'associative_array'),
+                    new Constraints\Count(min: 1),
+                    new Constraints\All(
+                        constraints: [
+                            new Constraints\Type(type: 'list'),
+                            new Constraints\Count(min: 1),
+                            new Constraints\All(
+                                constraints: [
+                                    new Constraints\NotBlank(),
+                                    new Constraints\Type(type: 'string'),
+                                ],
+                            ),
+                        ],
+                    ),
                 ],
                 'zone_mappings',
             );

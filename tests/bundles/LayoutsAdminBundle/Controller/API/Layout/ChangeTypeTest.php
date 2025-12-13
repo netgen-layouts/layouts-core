@@ -98,4 +98,100 @@ final class ChangeTypeTest extends ApiTestCase
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonIs('layouts/change_type_without_mappings');
     }
+
+    public function testChangeTypeWithEmptyMappings(): void
+    {
+        $data = [
+            'new_type' => 'test_layout_2',
+            'zone_mappings' => [],
+        ];
+
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "zone_mappings": This value should be of type associative_array.');
+    }
+
+    public function testChangeTypeWithListMappings(): void
+    {
+        $data = [
+            'new_type' => 'test_layout_2',
+            'zone_mappings' => [['left']],
+        ];
+
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "zone_mappings": This value should be of type associative_array.');
+    }
+
+    public function testChangeTypeWithEmptySingleMapping(): void
+    {
+        $data = [
+            'new_type' => 'test_layout_2',
+            'zone_mappings' => ['left' => []],
+        ];
+
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "zone_mappings[left]": This collection should contain 1 element or more.');
+    }
+
+    public function testChangeTypeWithInvalidSingleMapping(): void
+    {
+        $data = [
+            'new_type' => 'test_layout_2',
+            'zone_mappings' => ['left' => 42],
+        ];
+
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "zone_mappings[left]": This value should be of type list.');
+    }
+
+    public function testChangeTypeWithEmptySingleMappingItem(): void
+    {
+        $data = [
+            'new_type' => 'test_layout_2',
+            'zone_mappings' => ['left' => ['']],
+        ];
+
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "zone_mappings[left][0]": This value should not be blank.');
+    }
+
+    public function testChangeTypeWithInvalidSingleMappingItem(): void
+    {
+        $data = [
+            'new_type' => 'test_layout_2',
+            'zone_mappings' => ['left' => [42]],
+        ];
+
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/change_type?html=false',
+                ['json' => $data],
+            )->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "zone_mappings[left][0]": This value should be of type string.');
+    }
 }
