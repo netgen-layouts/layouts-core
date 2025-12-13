@@ -35,36 +35,17 @@ final class LinkValidator extends ConstraintValidator
 
         $validator = $this->context->getValidator()->inContext($this->context);
 
-        $linkType = $value->linkType;
-
-        $validator->atPath('linkType')->validate(
-            $linkType,
-            [
-                new Constraints\Choice(
-                    choices: [
-                        null,
-                        LinkType::Url,
-                        LinkType::RelativeUrl,
-                        LinkType::Email,
-                        LinkType::Phone,
-                        LinkType::Internal,
-                    ],
-                    strict: true,
-                ),
-            ],
-        );
-
         $linkConstraints = [];
-        if ($linkType === null) {
+        if ($value->linkType === null) {
             $linkConstraints[] = new Constraints\IdenticalTo('');
         } elseif ($constraint->isRequired) {
             $linkConstraints[] = new Constraints\NotBlank();
         }
 
-        if ($linkType !== null) {
+        if ($value->linkType !== null) {
             $linkConstraints[] = new Constraints\NotNull();
 
-            $linkConstraints[] = match ($linkType) {
+            $linkConstraints[] = match ($value->linkType) {
                 LinkType::Url => new Constraints\Url(requireTld: false),
                 LinkType::RelativeUrl => new Constraints\Type(type: 'string'),
                 LinkType::Email => new Constraints\Email(mode: Constraints\Email::VALIDATION_MODE_STRICT),
