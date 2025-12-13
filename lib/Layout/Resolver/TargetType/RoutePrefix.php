@@ -23,8 +23,8 @@ final class RoutePrefix extends TargetType
         ];
     }
 
-    public function provideValue(Request $request): ?string
+    public function provideValue(Request $request): string
     {
-        return $request->attributes->get('_route');
+        return $request->attributes->getString('_route');
     }
 }

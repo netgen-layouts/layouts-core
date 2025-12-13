@@ -38,7 +38,7 @@ final class SetIsApiRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertTrue($event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME));
+        self::assertTrue($event->getRequest()->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME));
     }
 
     public function testOnKernelRequestWithInvalidRoute(): void

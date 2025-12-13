@@ -37,7 +37,7 @@ final class SerializerListener implements EventSubscriberInterface
         }
 
         $context = [];
-        if ($request->query->get('html') === 'false') {
+        if ($request->query->getString('html') === 'false') {
             $context['disable_html'] = true;
         }
 

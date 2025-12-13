@@ -42,7 +42,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
         $this->listener->onKernelRequest($event);
 
         self::assertTrue(
-            $event->getRequest()->attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME),
+            $event->getRequest()->attributes->getBoolean(SetIsAdminRequestListener::ADMIN_FLAG_NAME),
         );
     }
 

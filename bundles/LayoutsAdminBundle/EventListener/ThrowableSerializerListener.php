@@ -37,8 +37,8 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
             return;
         }
 
-        $attributes = $event->getRequest()->attributes;
-        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
+        $request = $event->getRequest();
+        if (!$request->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME)) {
             return;
         }
 

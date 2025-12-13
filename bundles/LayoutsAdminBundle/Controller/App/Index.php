@@ -21,7 +21,7 @@ final class Index extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        $appEnvironment = $request->attributes->get('_nglayouts_environment');
+        $appEnvironment = $request->attributes->getString('_nglayouts_environment');
 
         return $this->render(
             $this->pageLayout,

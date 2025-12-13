@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface CsrfTokenValidatorInterface
 {
+    final public const string DISABLE_CSRF_ATTRIBUTE_NAME = '_nglayouts_no_csrf';
+
     final public const string CSRF_TOKEN_HEADER = 'X-CSRF-Token';
 
     /**

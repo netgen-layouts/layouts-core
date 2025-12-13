@@ -30,7 +30,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        $currentRoute = $request->attributes->get('_route', '');
+        $currentRoute = $request->attributes->getString('_route');
         if (!str_starts_with($currentRoute, self::API_ROUTE_PREFIX)) {
             return;
         }

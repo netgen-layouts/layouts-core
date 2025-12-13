@@ -14,7 +14,6 @@ use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Uid\Uuid;
 
-use function is_string;
 use function sprintf;
 
 final class LinkLayout extends AbstractController
@@ -38,8 +37,8 @@ final class LinkLayout extends AbstractController
             ],
         );
 
-        $layoutId = $request->request->get('layout_id');
-        if (!is_string($layoutId)) {
+        $layoutId = $request->request->getString('layout_id');
+        if ($layoutId === '') {
             throw new BadStateException('layout_id', 'Valid layout ID needs to be specified.');
         }
 

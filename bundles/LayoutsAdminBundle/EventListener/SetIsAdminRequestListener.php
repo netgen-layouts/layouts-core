@@ -36,7 +36,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        $currentRoute = $request->attributes->get('_route', '');
+        $currentRoute = $request->attributes->getString('_route');
         if (!str_starts_with($currentRoute, self::ADMIN_ROUTE_PREFIX)) {
             return;
         }

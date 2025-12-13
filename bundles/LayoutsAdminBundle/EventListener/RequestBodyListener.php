@@ -37,7 +37,7 @@ final class RequestBodyListener implements EventSubscriberInterface
             return;
         }
 
-        if ($request->attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
+        if (!$request->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME)) {
             return;
         }
 

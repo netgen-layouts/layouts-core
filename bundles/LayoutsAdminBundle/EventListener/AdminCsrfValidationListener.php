@@ -34,7 +34,7 @@ final class AdminCsrfValidationListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
 
-        if ($request->attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME) !== true) {
+        if (!$request->attributes->getBoolean(SetIsAdminRequestListener::ADMIN_FLAG_NAME)) {
             return;
         }
 

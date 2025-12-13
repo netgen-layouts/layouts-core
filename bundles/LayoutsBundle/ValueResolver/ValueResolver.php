@@ -42,7 +42,7 @@ abstract class ValueResolver implements ValueResolverInterface
                 return [];
             }
 
-            $values[$attributeName] = $request->attributes->get($attributeName) ?? '';
+            $values[$attributeName] = $request->attributes->get($attributeName, '');
 
             if ($values[$attributeName] === '') {
                 throw new InvalidArgumentException(
@@ -52,8 +52,8 @@ abstract class ValueResolver implements ValueResolverInterface
             }
         }
 
-        $routeStatusParam = $request->attributes->get(self::ROUTE_STATUS_PARAM);
-        $queryPublishedParam = $request->query->get('published');
+        $routeStatusParam = $request->attributes->getString(self::ROUTE_STATUS_PARAM);
+        $queryPublishedParam = $request->query->getString('published');
 
         $values['status'] = self::STATUS_DRAFT;
         if (in_array($routeStatusParam, [self::STATUS_PUBLISHED, self::STATUS_DRAFT, self::STATUS_ARCHIVED], true)) {
@@ -63,7 +63,7 @@ abstract class ValueResolver implements ValueResolverInterface
         }
 
         if ($request->attributes->has('locale')) {
-            $values['locale'] = $request->attributes->get('locale');
+            $values['locale'] = $request->attributes->getString('locale');
         }
 
         yield $this->loadValue($values);
