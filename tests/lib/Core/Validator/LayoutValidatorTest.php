@@ -21,11 +21,11 @@ use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
-use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(LayoutValidator::class)]
 final class LayoutValidatorTest extends TestCase
@@ -59,7 +59,7 @@ final class LayoutValidatorTest extends TestCase
         }
 
         $struct = new LayoutCreateStruct();
-        new Hydrator()->hydrate($params, $struct);
+        Hydrator::hydrate($struct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -78,7 +78,7 @@ final class LayoutValidatorTest extends TestCase
         }
 
         $struct = new LayoutUpdateStruct();
-        new Hydrator()->hydrate($params, $struct);
+        Hydrator::hydrate($struct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -97,7 +97,7 @@ final class LayoutValidatorTest extends TestCase
         }
 
         $struct = new LayoutCopyStruct();
-        new Hydrator()->hydrate($params, $struct);
+        Hydrator::hydrate($struct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);

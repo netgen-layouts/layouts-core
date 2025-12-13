@@ -23,11 +23,11 @@ use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
-use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(BlockValidator::class)]
 final class BlockValidatorTest extends TestCase
@@ -64,7 +64,7 @@ final class BlockValidatorTest extends TestCase
         }
 
         $blockCreateStruct = new BlockCreateStruct($params['definition']);
-        new Hydrator()->hydrate($params, $blockCreateStruct);
+        Hydrator::hydrate($blockCreateStruct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -83,7 +83,7 @@ final class BlockValidatorTest extends TestCase
         }
 
         $blockUpdateStruct = new BlockUpdateStruct();
-        new Hydrator()->hydrate($params, $blockUpdateStruct);
+        Hydrator::hydrate($blockUpdateStruct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);

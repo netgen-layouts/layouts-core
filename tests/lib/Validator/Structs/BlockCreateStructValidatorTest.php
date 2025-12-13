@@ -13,7 +13,6 @@ use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
-use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\Layouts\Validator\Structs\BlockCreateStructValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -21,6 +20,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(BlockCreateStructValidator::class)]
 final class BlockCreateStructValidatorTest extends ValidatorTestCase
@@ -39,7 +39,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     public function testValidate(array $value, bool $isValid): void
     {
         $blockCreateStruct = new BlockCreateStruct($value['definition']);
-        new Hydrator()->hydrate($value, $blockCreateStruct);
+        Hydrator::hydrate($blockCreateStruct, $value);
 
         $this->assertValid($isValid, $blockCreateStruct);
     }

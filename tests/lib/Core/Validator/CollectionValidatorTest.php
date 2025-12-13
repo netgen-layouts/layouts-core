@@ -23,11 +23,11 @@ use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
-use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(CollectionValidator::class)]
 final class CollectionValidatorTest extends TestCase
@@ -61,7 +61,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new CollectionCreateStruct();
-        new Hydrator()->hydrate($params, $struct);
+        Hydrator::hydrate($struct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -80,7 +80,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new CollectionUpdateStruct();
-        new Hydrator()->hydrate($params, $struct);
+        Hydrator::hydrate($struct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -102,7 +102,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new ItemCreateStruct();
-        new Hydrator()->hydrate($params, $struct);
+        Hydrator::hydrate($struct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -121,7 +121,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $struct = new ItemUpdateStruct();
-        new Hydrator()->hydrate($params, $struct);
+        Hydrator::hydrate($struct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -153,7 +153,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $queryCreateStruct = new QueryCreateStruct($params['queryType']);
-        new Hydrator()->hydrate($params, $queryCreateStruct);
+        Hydrator::hydrate($queryCreateStruct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);
@@ -172,7 +172,7 @@ final class CollectionValidatorTest extends TestCase
         }
 
         $queryUpdateStruct = new QueryUpdateStruct();
-        new Hydrator()->hydrate($params, $queryUpdateStruct);
+        Hydrator::hydrate($queryUpdateStruct, $params);
 
         // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
         $this->addToAssertionCount(1);

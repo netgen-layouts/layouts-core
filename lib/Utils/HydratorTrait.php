@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Utils;
 
 use ReflectionClass;
+use Symfony\Component\VarExporter\Hydrator;
 
 use function array_map;
 use function count;
 
 trait HydratorTrait
 {
-    private static Hydrator $__hydrator;
-
     final public function __construct() {}
 
     /**
@@ -24,10 +23,8 @@ trait HydratorTrait
      */
     final public static function fromArray(array $data, array $lazyInitializers = []): static
     {
-        self::initHydrator();
-
         if (count($lazyInitializers) === 0) {
-            return self::$__hydrator->hydrate($data, new static());
+            return Hydrator::hydrate(new static(), $data);
         }
 
         $reflector = new ReflectionClass(static::class);
@@ -40,7 +37,7 @@ trait HydratorTrait
                     $lazyInitializers,
                 );
 
-                self::$__hydrator->hydrate($lazyData, $object);
+                Hydrator::hydrate($object, $lazyData);
             },
         );
 
@@ -49,25 +46,5 @@ trait HydratorTrait
         }
 
         return $object;
-    }
-
-    /**
-     * Hydrates the object instance with provided data.
-     *
-     * @param array<string, mixed> $data
-     */
-    final public function hydrate(array $data): static
-    {
-        self::initHydrator();
-
-        return self::$__hydrator->hydrate($data, $this);
-    }
-
-    /**
-     * Initializes the hydrator in case it was not initialized yet.
-     */
-    private static function initHydrator(): void
-    {
-        self::$__hydrator ??= new Hydrator();
     }
 }

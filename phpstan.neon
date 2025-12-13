@@ -15,9 +15,3 @@ parameters:
         # PHPStan
 
         - '#Method .*::getConfigurationNode\(\) should return Symfony\\Component\\Config\\Definition\\Builder\\StringNodeDefinition#'
-
-        # Netgen Layouts
-
-        -
-            message: '#Variable property access on object.#'
-            path: lib/Utils/Hydrator.php

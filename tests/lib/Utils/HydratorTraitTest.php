@@ -20,15 +20,4 @@ final class HydratorTraitTest extends TestCase
         self::assertSame('bar', $value->b);
         self::assertSame('baz', $value->c);
     }
-
-    public function testHydrate(): void
-    {
-        $value = new Value();
-
-        $value->hydrate(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
-
-        self::assertSame('foo', $value->a);
-        self::assertSame('bar', $value->b);
-        self::assertSame('baz', $value->c);
-    }
 }
