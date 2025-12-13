@@ -105,7 +105,6 @@ final class ChoiceType extends ParameterType
                 new Constraints\Choice(
                     callback: $options,
                     multiple: $parameterDefinition->getOption('multiple'),
-                    strict: true,
                 ),
             ];
         }
@@ -114,7 +113,6 @@ final class ChoiceType extends ParameterType
             new Constraints\Choice(
                 choices: array_values($options),
                 multiple: $parameterDefinition->getOption('multiple'),
-                strict: true,
             ),
         ];
     }

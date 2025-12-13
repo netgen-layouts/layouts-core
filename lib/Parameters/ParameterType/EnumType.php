@@ -128,7 +128,6 @@ final class EnumType extends ParameterType
             new Constraints\Choice(
                 choices: $parameterDefinition->getOption('class')::cases(),
                 multiple: $parameterDefinition->getOption('multiple'),
-                strict: true,
             ),
         ];
     }
