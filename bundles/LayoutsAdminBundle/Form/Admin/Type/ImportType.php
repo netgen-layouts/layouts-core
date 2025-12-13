@@ -34,9 +34,7 @@ final class ImportType extends AbstractType
                     new Constraints\NotBlank(),
                     new Constraints\File(
                         maxSize: $this->maxUploadSize,
-                        mimeTypes: [
-                            'application/json',
-                        ],
+                        mimeTypes: ['application/json'],
                         mimeTypesMessage: 'import.file.mime_types_message',
                     ),
                 ],
