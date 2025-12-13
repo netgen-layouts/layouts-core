@@ -67,6 +67,20 @@ final class ChangeCollectionTypeTest extends ApiTestCase
             )->assertStatus(Response::HTTP_NO_CONTENT);
     }
 
+    public function testChangeCollectionTypeWithInvalidNewType(): void
+    {
+        $data = [
+            'new_type' => 'unknown',
+        ];
+
+        $this->browser()
+            ->post(
+                '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/featured/change_type',
+                ['json' => $data],
+            )->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'There was an error validating "new_type": The value you selected is not a valid choice.');
+    }
+
     public function testChangeCollectionTypeWithInvalidQueryType(): void
     {
         $data = [

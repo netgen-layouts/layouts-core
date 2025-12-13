@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
 
+use function array_map;
 use function sprintf;
 
 final class ChangeCollectionType extends AbstractController
@@ -40,7 +41,7 @@ final class ChangeCollectionType extends AbstractController
         $collection = $block->getCollection($collectionIdentifier);
         $queryCreateStruct = null;
 
-        $newType = CollectionType::from($requestData->getString('new_type'));
+        $newType = $requestData->getEnum('new_type', CollectionType::class);
 
         if ($newType === CollectionType::Manual) {
             if (!$collection->hasQuery) {
@@ -67,7 +68,21 @@ final class ChangeCollectionType extends AbstractController
      */
     private function validateRequestData(Block $block, string $collectionIdentifier, InputBag $data): void
     {
-        $newType = CollectionType::from($data->getString('new_type'));
+        $this->validate(
+            $data->get('new_type'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Choice(
+                    choices: array_map(
+                        static fn (CollectionType $case): string => $case->value,
+                        CollectionType::cases(),
+                    ),
+                ),
+            ],
+            'new_type',
+        );
+
+        $newType = $data->getEnum('new_type', CollectionType::class);
 
         $queryTypeConstraints = [
             new Constraints\Type(type: 'string'),
