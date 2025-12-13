@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values;
 
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface Value
 {
     /**
      * Returns the value UUID.
      */
-    public UuidInterface $id { get; }
+    public Uuid $id { get; }
 
     /**
      * Returns the status of the value.

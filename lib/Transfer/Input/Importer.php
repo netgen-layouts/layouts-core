@@ -13,7 +13,7 @@ use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SkippedResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use Psr\Container\ContainerInterface;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use Throwable;
 use Traversable;
 

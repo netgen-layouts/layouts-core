@@ -10,6 +10,7 @@ use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Symfony\Component\Uid\Factory\UuidFactory;
 
 /**
  * @property \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\TransactionHandlerInterface $transactionHandler
@@ -20,6 +21,11 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
  */
 abstract class TestCase extends CoreTestCase
 {
+    final protected function createUuidFactory(): UuidFactory
+    {
+        return new UuidFactory();
+    }
+
     final protected function createTransactionHandler(): TransactionHandlerInterface
     {
         return $this->createMock(TransactionHandlerInterface::class);

@@ -28,8 +28,8 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Factory\UuidFactory;
+use Symfony\Component\Uid\Uuid;
 
 use function count;
 use function is_bool;
@@ -44,11 +44,12 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         private LayoutHandlerInterface $layoutHandler,
         private LayoutResolverQueryHandler $queryHandler,
         private LayoutResolverMapper $mapper,
+        private UuidFactory $uuidFactory,
     ) {}
 
-    public function loadRule(int|string|UuidInterface $ruleId, Status $status): Rule
+    public function loadRule(int|string|Uuid $ruleId, Status $status): Rule
     {
-        $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
+        $ruleId = $ruleId instanceof Uuid ? $ruleId->toString() : $ruleId;
         $data = $this->queryHandler->loadRuleData($ruleId, $status);
 
         if (count($data) === 0) {
@@ -58,9 +59,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data)[0];
     }
 
-    public function loadRuleGroup(int|string|UuidInterface $ruleGroupId, Status $status): RuleGroup
+    public function loadRuleGroup(int|string|Uuid $ruleGroupId, Status $status): RuleGroup
     {
-        $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
+        $ruleGroupId = $ruleGroupId instanceof Uuid ? $ruleGroupId->toString() : $ruleGroupId;
         $data = $this->queryHandler->loadRuleGroupData($ruleGroupId, $status);
 
         if (count($data) === 0) {
@@ -117,9 +118,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data);
     }
 
-    public function loadTarget(int|string|UuidInterface $targetId, Status $status): Target
+    public function loadTarget(int|string|Uuid $targetId, Status $status): Target
     {
-        $targetId = $targetId instanceof UuidInterface ? $targetId->toString() : $targetId;
+        $targetId = $targetId instanceof Uuid ? $targetId->toString() : $targetId;
         $data = $this->queryHandler->loadTargetData($targetId, $status);
 
         if (count($data) === 0) {
@@ -136,9 +137,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    public function loadRuleCondition(int|string|UuidInterface $conditionId, Status $status): RuleCondition
+    public function loadRuleCondition(int|string|Uuid $conditionId, Status $status): RuleCondition
     {
-        $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
+        $conditionId = $conditionId instanceof Uuid ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadRuleConditionData($conditionId, $status);
 
         if (count($data) === 0) {
@@ -148,9 +149,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRuleConditions($data)[0];
     }
 
-    public function loadRuleGroupCondition(int|string|UuidInterface $conditionId, Status $status): RuleGroupCondition
+    public function loadRuleGroupCondition(int|string|Uuid $conditionId, Status $status): RuleGroupCondition
     {
-        $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
+        $conditionId = $conditionId instanceof Uuid ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadRuleGroupConditionData($conditionId, $status);
 
         if (count($data) === 0) {
@@ -174,9 +175,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    public function ruleExists(int|string|UuidInterface $ruleId, ?Status $status = null): bool
+    public function ruleExists(int|string|Uuid $ruleId, ?Status $status = null): bool
     {
-        $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
+        $ruleId = $ruleId instanceof Uuid ? $ruleId->toString() : $ruleId;
 
         return $this->queryHandler->ruleExists($ruleId, $status);
     }
@@ -196,7 +197,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             [
                 'uuid' => is_string($ruleCreateStruct->uuid) ?
                     $ruleCreateStruct->uuid :
-                    Uuid::uuid4()->toString(),
+                    $this->uuidFactory->create()->toString(),
                 'status' => $ruleCreateStruct->status,
                 'ruleGroupId' => $targetGroup->id,
                 'layoutUuid' => $layout?->uuid,
@@ -255,7 +256,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $copiedRule = clone $rule;
 
         unset($copiedRule->id);
-        $copiedRule->uuid = Uuid::uuid4()->toString();
+        $copiedRule->uuid = $this->uuidFactory->create()->toString();
         $copiedRule->ruleGroupId = $targetGroup->id;
 
         $copiedRule = $this->queryHandler->createRule($copiedRule);
@@ -268,7 +269,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedTarget = clone $ruleTarget;
 
             unset($copiedTarget->id);
-            $copiedTarget->uuid = Uuid::uuid4()->toString();
+            $copiedTarget->uuid = $this->uuidFactory->create()->toString();
 
             $copiedTarget->ruleId = $copiedRule->id;
             $copiedTarget->ruleUuid = $copiedRule->uuid;
@@ -284,7 +285,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedCondition = clone $ruleCondition;
 
             unset($copiedCondition->id);
-            $copiedCondition->uuid = Uuid::uuid4()->toString();
+            $copiedCondition->uuid = $this->uuidFactory->create()->toString();
 
             $copiedCondition->ruleId = $copiedRule->id;
             $copiedCondition->ruleUuid = $copiedRule->uuid;
@@ -347,9 +348,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->queryHandler->deleteRule($ruleId, $status);
     }
 
-    public function ruleGroupExists(int|string|UuidInterface $ruleGroupId, ?Status $status = null): bool
+    public function ruleGroupExists(int|string|Uuid $ruleGroupId, ?Status $status = null): bool
     {
-        $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
+        $ruleGroupId = $ruleGroupId instanceof Uuid ? $ruleGroupId->toString() : $ruleGroupId;
 
         return $this->queryHandler->ruleGroupExists($ruleGroupId, $status);
     }
@@ -368,7 +369,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             [
                 'uuid' => is_string($ruleGroupCreateStruct->uuid) ?
                     $ruleGroupCreateStruct->uuid :
-                    Uuid::uuid4()->toString(),
+                    $this->uuidFactory->create()->toString(),
                 'status' => $ruleGroupCreateStruct->status,
                 'depth' => $parentGroup !== null ? $parentGroup->depth + 1 : 0,
                 'path' => $parentGroup !== null ? $parentGroup->path : '/',
@@ -434,7 +435,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $newRuleGroup = clone $ruleGroup;
 
         unset($newRuleGroup->id);
-        $newRuleGroup->uuid = Uuid::uuid4()->toString();
+        $newRuleGroup->uuid = $this->uuidFactory->create()->toString();
 
         $newRuleGroup->depth = $targetGroup->depth + 1;
         // This is only the initial path.
@@ -453,7 +454,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedCondition = clone $ruleGroupCondition;
 
             unset($copiedCondition->id);
-            $copiedCondition->uuid = Uuid::uuid4()->toString();
+            $copiedCondition->uuid = $this->uuidFactory->create()->toString();
 
             $copiedCondition->ruleGroupId = $copiedRuleGroup->id;
             $copiedCondition->ruleGroupUuid = $copiedRuleGroup->uuid;
@@ -536,7 +537,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $newTarget = Target::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
                 'ruleUuid' => $rule->uuid,
@@ -567,7 +568,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $newCondition = RuleCondition::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
                 'ruleUuid' => $rule->uuid,
@@ -583,7 +584,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $newCondition = RuleGroupCondition::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'status' => $ruleGroup->status,
                 'ruleGroupId' => $ruleGroup->id,
                 'ruleGroupUuid' => $ruleGroup->uuid,

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsDebugBundle\DataCollector;
 
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface LayoutUrlGeneratorInterface
 {
     /**
      * @param array<string, mixed> $parameters
      */
-    public function generateLayoutUrl(UuidInterface $layoutId, array $parameters = []): string;
+    public function generateLayoutUrl(Uuid $layoutId, array $parameters = []): string;
 }

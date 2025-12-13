@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\View\View\RuleView;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleView::class)]
 final class RuleViewTest extends TestCase
@@ -19,7 +19,7 @@ final class RuleViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->rule = Rule::fromArray(['id' => Uuid::uuid4()]);
+        $this->rule = Rule::fromArray(['id' => Uuid::v4()]);
 
         $this->view = new RuleView($this->rule);
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LazyCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_map;
 
@@ -23,12 +23,12 @@ final class TargetList extends LazyCollection
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface[]
+     * @return \Symfony\Component\Uid\Uuid[]
      */
     public function getTargetIds(): array
     {
         return array_map(
-            static fn (Target $target): UuidInterface => $target->id,
+            static fn (Target $target): Uuid => $target->id,
             $this->getTargets(),
         );
     }

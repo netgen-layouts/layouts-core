@@ -4,12 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\TestCase;
 
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidFactoryInterface;
-use Ramsey\Uuid\UuidInterface;
-
-use function array_map;
-
 trait UuidGeneratorTrait
 {
     /**
@@ -22,31 +16,10 @@ trait UuidGeneratorTrait
      */
     private function withUuids(callable $callable, array $uuids): mixed
     {
-        $uuids = array_map(Uuid::fromString(...), $uuids);
+        $this->uuidFactory = new MockUuidFactory($uuids);
 
-        $originalFactory = Uuid::getFactory();
-        $factoryStub = self::createStub(UuidFactoryInterface::class);
+        $this->createHandlers();
 
-        $factoryStub
-            ->method('getValidator')
-            ->willReturn($originalFactory->getValidator());
-
-        $factoryStub
-            ->method('fromString')
-            ->willReturnCallback(
-                static fn (string $uuid): UuidInterface => $originalFactory->fromString($uuid),
-            );
-
-        $factoryStub
-            ->method('uuid4')
-            ->willReturnOnConsecutiveCalls(...$uuids);
-
-        Uuid::setFactory($factoryStub);
-
-        try {
-            return $callable();
-        } finally {
-            Uuid::setFactory($originalFactory);
-        }
+        return $callable();
     }
 }

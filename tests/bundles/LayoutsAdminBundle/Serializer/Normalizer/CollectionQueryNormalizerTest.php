@@ -15,8 +15,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionQueryNormalizer::class)]
 final class CollectionQueryNormalizerTest extends TestCase
@@ -37,8 +37,8 @@ final class CollectionQueryNormalizerTest extends TestCase
     {
         $query = Query::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'collectionId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'collectionId' => Uuid::v4(),
                 'queryType' => new QueryType('test_query_type'),
                 'isTranslatable' => true,
                 'isAlwaysAvailable' => true,

@@ -13,7 +13,7 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface LayoutService extends TransactionService
 {
@@ -22,21 +22,21 @@ interface LayoutService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified UUID does not exist
      */
-    public function loadLayout(UuidInterface $layoutId): Layout;
+    public function loadLayout(Uuid $layoutId): Layout;
 
     /**
      * Loads a layout draft with specified UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified UUID does not exist
      */
-    public function loadLayoutDraft(UuidInterface $layoutId): Layout;
+    public function loadLayoutDraft(Uuid $layoutId): Layout;
 
     /**
      * Loads a layout archive with specified UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified UUID does not exist
      */
-    public function loadLayoutArchive(UuidInterface $layoutId): Layout;
+    public function loadLayoutArchive(Uuid $layoutId): Layout;
 
     /**
      * Loads all published non-shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -101,14 +101,14 @@ interface LayoutService extends TransactionService
     /**
      * Returns if layout with provided UUID, and optionally status, exists.
      */
-    public function layoutExists(UuidInterface $layoutId, ?Status $status = null): bool;
+    public function layoutExists(Uuid $layoutId, ?Status $status = null): bool;
 
     /**
      * Returns if layout with provided name exists.
      *
      * If $excludedLayoutId is provided, the check will not apply to the provided UUID.
      */
-    public function layoutNameExists(string $name, ?UuidInterface $excludedLayoutId = null): bool;
+    public function layoutNameExists(string $name, ?Uuid $excludedLayoutId = null): bool;
 
     /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.

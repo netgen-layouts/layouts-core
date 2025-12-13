@@ -19,7 +19,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface CollectionHandlerInterface
 {
@@ -30,7 +30,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
      */
-    public function loadCollection(int|string|UuidInterface $collectionId, Status $status): Collection;
+    public function loadCollection(int|string|Uuid $collectionId, Status $status): Collection;
 
     /**
      * Loads all collections belonging to the provided block.
@@ -60,7 +60,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
      */
-    public function loadItem(int|string|UuidInterface $itemId, Status $status): Item;
+    public function loadItem(int|string|Uuid $itemId, Status $status): Item;
 
     /**
      * Loads an item with specified position in specified collection.
@@ -83,7 +83,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
      */
-    public function loadQuery(int|string|UuidInterface $queryId, Status $status): Query;
+    public function loadQuery(int|string|Uuid $queryId, Status $status): Query;
 
     /**
      * Loads the query that belongs to collection with specified ID.
@@ -99,7 +99,7 @@ interface CollectionHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified ID does not exist
      */
-    public function loadSlot(int|string|UuidInterface $slotId, Status $status): Slot;
+    public function loadSlot(int|string|Uuid $slotId, Status $status): Slot;
 
     /**
      * Loads the slots that belong to specified collection.
@@ -113,7 +113,7 @@ interface CollectionHandlerInterface
      *
      * Collection ID can be an auto-incremented ID or an UUID.
      */
-    public function collectionExists(int|string|UuidInterface $collectionId, Status $status): bool;
+    public function collectionExists(int|string|Uuid $collectionId, Status $status): bool;
 
     /**
      * Creates a collection in the specified block.

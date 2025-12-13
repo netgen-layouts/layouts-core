@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 final class RuleGroupConditionValueResolver extends ValueResolver
 {

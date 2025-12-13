@@ -7,7 +7,7 @@ namespace Netgen\Layouts\API\Values\LayoutResolver;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class RuleGroup implements Value
 {
@@ -21,14 +21,14 @@ final class RuleGroup implements Value
      */
     public const string ROOT_UUID = '00000000-0000-0000-0000-000000000000';
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the parent rule group where this rule group is located.
      *
      * If rule group does not have a parent rule group, null is returned.
      */
-    public private(set) ?UuidInterface $parentId;
+    public private(set) ?Uuid $parentId;
 
     /**
      * Returns human readable name of the rule group.

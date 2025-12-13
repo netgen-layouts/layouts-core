@@ -12,7 +12,7 @@ use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Utils\FlagGenerator;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use Throwable;
 
 use function array_unshift;

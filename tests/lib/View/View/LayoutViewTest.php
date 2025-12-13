@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\View\View\LayoutView;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutView::class)]
 final class LayoutViewTest extends TestCase
@@ -19,7 +19,7 @@ final class LayoutViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->layout = Layout::fromArray(['id' => Uuid::uuid4()]);
+        $this->layout = Layout::fromArray(['id' => Uuid::v4()]);
 
         $this->view = new LayoutView($this->layout);
 

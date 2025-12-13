@@ -12,7 +12,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Layout::class)]
 final class LayoutTest extends TestCase
@@ -29,7 +29,7 @@ final class LayoutTest extends TestCase
             'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
         ];
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $layout = Layout::fromArray(
             [

@@ -7,12 +7,12 @@ namespace Netgen\Layouts\Tests\API\Stubs;
 use Netgen\Layouts\API\Values\Value as APIValue;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Value implements APIValue
 {
     use HydratorTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 }

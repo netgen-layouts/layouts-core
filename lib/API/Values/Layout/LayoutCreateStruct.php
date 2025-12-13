@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Layout;
 
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class LayoutCreateStruct
 {
@@ -13,7 +13,7 @@ final class LayoutCreateStruct
      * Layout UUID. If specified, layout will be created with this UUID if not
      * already taken by an existing layout.
      */
-    public ?UuidInterface $uuid = null;
+    public ?Uuid $uuid = null;
 
     /**
      * Layout type from which the new layout will be created.

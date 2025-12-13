@@ -12,7 +12,7 @@ use Netgen\Layouts\View\View\RuleConditionViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleConditionViewProvider::class)]
 final class RuleConditionProviderTest extends TestCase
@@ -26,7 +26,7 @@ final class RuleConditionProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $condition = RuleCondition::fromArray(['id' => Uuid::uuid4()]);
+        $condition = RuleCondition::fromArray(['id' => Uuid::v4()]);
 
         $view = $this->ruleConditionViewProvider->provideView($condition);
 

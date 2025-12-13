@@ -18,8 +18,8 @@ use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Status;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Factory\UuidFactory;
+use Symfony\Component\Uid\Uuid;
 
 use function count;
 use function in_array;
@@ -36,11 +36,12 @@ final class BlockHandler implements BlockHandlerInterface
         private CollectionHandlerInterface $collectionHandler,
         private BlockMapper $blockMapper,
         private PositionHelper $positionHelper,
+        private UuidFactory $uuidFactory,
     ) {}
 
-    public function loadBlock(int|string|UuidInterface $blockId, Status $status): Block
+    public function loadBlock(int|string|Uuid $blockId, Status $status): Block
     {
-        $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
+        $blockId = $blockId instanceof Uuid ? $blockId->toString() : $blockId;
         $data = $this->queryHandler->loadBlockData($blockId, $status);
 
         if (count($data) === 0) {
@@ -50,9 +51,9 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->blockMapper->mapBlocks($data)[0];
     }
 
-    public function blockExists(int|string|UuidInterface $blockId, Status $status): bool
+    public function blockExists(int|string|Uuid $blockId, Status $status): bool
     {
-        $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
+        $blockId = $blockId instanceof Uuid ? $blockId->toString() : $blockId;
 
         return $this->queryHandler->blockExists($blockId, $status);
     }
@@ -79,7 +80,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $newBlock = Block::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'depth' => $targetBlock !== null ? $targetBlock->depth + 1 : 0,
                 'path' => $targetBlock !== null ? $targetBlock->path : '/',
                 'parentId' => $targetBlock?->id,
@@ -238,7 +239,7 @@ final class BlockHandler implements BlockHandlerInterface
         $newBlock = clone $block;
 
         unset($newBlock->id);
-        $newBlock->uuid = Uuid::uuid4()->toString();
+        $newBlock->uuid = $this->uuidFactory->create()->toString();
 
         $newBlock->layoutId = $targetBlock->layoutId;
         $newBlock->layoutUuid = $targetBlock->layoutUuid;

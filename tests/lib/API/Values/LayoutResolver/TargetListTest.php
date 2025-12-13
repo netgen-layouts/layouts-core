@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(TargetList::class)]
 final class TargetListTest extends TestCase
@@ -22,8 +22,8 @@ final class TargetListTest extends TestCase
 
     public function testGetTargetIds(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $targets = [Target::fromArray(['id' => $uuid1]), Target::fromArray(['id' => $uuid2])];
 

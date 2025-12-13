@@ -9,7 +9,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutListTransformer::class)]
 final class LayoutListTransformerTest extends TestCase
@@ -37,8 +37,8 @@ final class LayoutListTransformerTest extends TestCase
 
     public function testReverseTransform(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $layouts = [Layout::fromArray(['id' => $uuid1]), Layout::fromArray(['id' => $uuid2])];
 

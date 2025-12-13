@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\Tagger;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Tagger::class)]
 final class TaggerTest extends TestCase
@@ -27,7 +27,7 @@ final class TaggerTest extends TestCase
 
     public function testTagLayout(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
         $layout = Layout::fromArray(['id' => $uuid]);
 
         $this->tagger->tagLayout($layout);
@@ -38,8 +38,8 @@ final class TaggerTest extends TestCase
 
     public function testTagBlock(): void
     {
-        $layoutUuid = Uuid::uuid4();
-        $blockUuid = Uuid::uuid4();
+        $layoutUuid = Uuid::v4();
+        $blockUuid = Uuid::v4();
 
         $block = Block::fromArray(['id' => $blockUuid, 'layoutId' => $layoutUuid]);
 

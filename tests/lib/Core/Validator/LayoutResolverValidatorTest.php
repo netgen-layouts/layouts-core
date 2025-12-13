@@ -27,7 +27,7 @@ use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Validation;
 
 #[CoversClass(LayoutResolverValidator::class)]
@@ -214,7 +214,7 @@ final class LayoutResolverValidatorTest extends TestCase
     {
         return [
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
-            [['uuid' => Uuid::uuid4(), 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
+            [['uuid' => Uuid::v4(), 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
             [['uuid' => null, 'name' => '', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], false],
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => false, 'description' => 'Description'], true],

@@ -26,8 +26,7 @@ use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_flip;
 use function array_key_exists;
@@ -49,17 +48,17 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         private CmsItemLoaderInterface $cmsItemLoader,
     ) {}
 
-    public function loadEntity(UuidInterface $uuid): Layout
+    public function loadEntity(Uuid $uuid): Layout
     {
         return $this->layoutService->loadLayout($uuid);
     }
 
-    public function entityExists(UuidInterface $uuid): bool
+    public function entityExists(Uuid $uuid): bool
     {
         return $this->layoutService->layoutExists($uuid);
     }
 
-    public function deleteEntity(UuidInterface $uuid): void
+    public function deleteEntity(Uuid $uuid): void
     {
         $this->layoutService->deleteLayout(
             $this->layoutService->loadLayout($uuid),

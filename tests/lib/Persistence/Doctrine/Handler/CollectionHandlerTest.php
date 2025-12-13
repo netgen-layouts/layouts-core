@@ -8,8 +8,6 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
-use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
-use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
@@ -24,30 +22,26 @@ use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 
 #[CoversClass(CollectionHandler::class)]
 #[CoversClass(CollectionQueryHandler::class)]
-final class CollectionHandlerTest extends TestCase
+final class CollectionHandlerTest extends CoreTestCase
 {
     use ExportObjectTrait;
     use TestCaseTrait;
     use UuidGeneratorTrait;
 
-    private CollectionHandlerInterface $collectionHandler;
-
-    private BlockHandlerInterface $blockHandler;
-
     protected function setUp(): void
     {
-        $this->createDatabase();
+        parent::setUp();
 
-        $this->collectionHandler = $this->createCollectionHandler();
-        $this->blockHandler = $this->createBlockHandler();
+        $this->createDatabase();
+        $this->createHandlers();
     }
 
     public function testLoadCollection(): void
@@ -2258,5 +2252,11 @@ final class CollectionHandlerTest extends TestCase
         );
 
         self::assertCount(0, $this->collectionHandler->loadCollectionSlots($collection));
+    }
+
+    private function createHandlers(): void
+    {
+        $this->collectionHandler = $this->createCollectionHandler();
+        $this->blockHandler = $this->createBlockHandler();
     }
 }

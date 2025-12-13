@@ -9,11 +9,11 @@ use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Layout\Form\EditType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Uid\Uuid;
 
 use function array_keys;
 
@@ -26,7 +26,7 @@ final class EditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->layout = Layout::fromArray(['id' => Uuid::uuid4()]);
+        $this->layout = Layout::fromArray(['id' => Uuid::v4()]);
     }
 
     public function testSubmitValidData(): void

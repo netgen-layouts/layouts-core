@@ -16,7 +16,7 @@ use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 abstract class LayoutServiceTestBase extends CoreTestCase
 {
@@ -34,7 +34,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessageMatches('/^Could not find layout with identifier "[\w-]+"$/');
 
-        $this->layoutService->loadLayout(Uuid::uuid4());
+        $this->layoutService->loadLayout(Uuid::v4());
     }
 
     final public function testLoadLayoutDraft(): void
@@ -49,7 +49,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessageMatches('/^Could not find layout with identifier "[\w-]+"$/');
 
-        $this->layoutService->loadLayoutDraft(Uuid::uuid4());
+        $this->layoutService->loadLayoutDraft(Uuid::v4());
     }
 
     final public function testLoadLayoutArchive(): void
@@ -64,7 +64,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessageMatches('/^Could not find layout with identifier "[\w-]+"$/');
 
-        $this->layoutService->loadLayoutArchive(Uuid::uuid4());
+        $this->layoutService->loadLayoutArchive(Uuid::v4());
     }
 
     final public function testLoadLayouts(): void

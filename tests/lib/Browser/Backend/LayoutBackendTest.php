@@ -17,7 +17,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 use function sprintf;
 
@@ -58,7 +58,7 @@ final class LayoutBackendTest extends TestCase
 
     public function testLoadItem(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
         $layout = new Layout();
 
         $this->layoutServiceStub
@@ -73,7 +73,7 @@ final class LayoutBackendTest extends TestCase
 
     public function testLoadItemThrowsNotFoundException(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->expectException(ContentBrowserNotFoundException::class);
         $this->expectExceptionMessage(sprintf('Item with value "%s" not found.', $uuid->toString()));

@@ -9,10 +9,10 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(ClearLayoutsCacheType::class)]
 final class ClearLayoutsCacheTypeTest extends FormTestCase

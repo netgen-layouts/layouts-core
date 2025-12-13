@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Stubs;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver as BaseValueResolver;
 use Netgen\Layouts\API\Values\Status;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 final class ValueResolver extends BaseValueResolver
 {

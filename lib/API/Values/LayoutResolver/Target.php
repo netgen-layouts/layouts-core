@@ -10,19 +10,19 @@ use Netgen\Layouts\Exception\Layout\TargetException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Netgen\Layouts\Layout\Resolver\ValueObjectProviderInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Target implements Value
 {
     use HydratorTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the rule where this target belongs.
      */
-    public private(set) UuidInterface $ruleId;
+    public private(set) Uuid $ruleId;
 
     /**
      * Returns the target type.

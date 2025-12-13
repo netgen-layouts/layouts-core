@@ -29,7 +29,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRul
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as PersistenceRuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 use function array_map;
 

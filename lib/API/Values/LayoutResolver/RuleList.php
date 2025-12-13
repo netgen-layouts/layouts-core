@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LazyCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_map;
 
@@ -23,12 +23,12 @@ final class RuleList extends LazyCollection
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface[]
+     * @return \Symfony\Component\Uid\Uuid[]
      */
     public function getRuleIds(): array
     {
         return array_map(
-            static fn (Rule $rule): UuidInterface => $rule->id,
+            static fn (Rule $rule): Uuid => $rule->id,
             $this->getRules(),
         );
     }

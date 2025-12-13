@@ -8,21 +8,20 @@ use Exception;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(ErrorResult::class)]
 final class ErrorResultTest extends TestCase
 {
     private ErrorResult $result;
 
-    private UuidInterface $entityId;
+    private Uuid $entityId;
 
     private Exception $error;
 
     protected function setUp(): void
     {
-        $this->entityId = Uuid::uuid4();
+        $this->entityId = Uuid::v4();
         $this->error = new Exception();
 
         $this->result = new ErrorResult('type', ['key' => 'data'], $this->entityId, $this->error);

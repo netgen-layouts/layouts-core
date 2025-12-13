@@ -12,7 +12,7 @@ use Netgen\Layouts\View\View\BlockViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(BlockViewProvider::class)]
 final class BlockViewProviderTest extends TestCase
@@ -28,7 +28,7 @@ final class BlockViewProviderTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
             ],
         );
 

@@ -28,7 +28,7 @@ use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_fill_keys;
 use function array_map;
@@ -48,7 +48,7 @@ final class LayoutService implements LayoutServiceInterface
         $this->transactionHandler = $transactionHandler;
     }
 
-    public function loadLayout(UuidInterface $layoutId): Layout
+    public function loadLayout(Uuid $layoutId): Layout
     {
         return $this->mapper->mapLayout(
             $this->layoutHandler->loadLayout(
@@ -58,7 +58,7 @@ final class LayoutService implements LayoutServiceInterface
         );
     }
 
-    public function loadLayoutDraft(UuidInterface $layoutId): Layout
+    public function loadLayoutDraft(Uuid $layoutId): Layout
     {
         return $this->mapper->mapLayout(
             $this->layoutHandler->loadLayout(
@@ -68,7 +68,7 @@ final class LayoutService implements LayoutServiceInterface
         );
     }
 
-    public function loadLayoutArchive(UuidInterface $layoutId): Layout
+    public function loadLayoutArchive(Uuid $layoutId): Layout
     {
         return $this->mapper->mapLayout(
             $this->layoutHandler->loadLayout(
@@ -176,12 +176,12 @@ final class LayoutService implements LayoutServiceInterface
         return $this->layoutHandler->getRelatedLayoutsCount($persistenceLayout);
     }
 
-    public function layoutExists(UuidInterface $layoutId, ?Status $status = null): bool
+    public function layoutExists(Uuid $layoutId, ?Status $status = null): bool
     {
         return $this->layoutHandler->layoutExists($layoutId, PersistenceStatus::tryFrom($status->value ?? -1));
     }
 
-    public function layoutNameExists(string $name, ?UuidInterface $excludedLayoutId = null): bool
+    public function layoutNameExists(string $name, ?Uuid $excludedLayoutId = null): bool
     {
         return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);
     }
@@ -263,7 +263,7 @@ final class LayoutService implements LayoutServiceInterface
                 $createdLayout = $this->layoutHandler->createLayout(
                     LayoutCreateStruct::fromArray(
                         [
-                            'uuid' => $layoutCreateStruct->uuid instanceof UuidInterface ?
+                            'uuid' => $layoutCreateStruct->uuid instanceof Uuid ?
                                 $layoutCreateStruct->uuid->toString() :
                                 $layoutCreateStruct->uuid,
                             'type' => $layoutCreateStruct->layoutType->identifier,

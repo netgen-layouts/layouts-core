@@ -14,7 +14,7 @@ use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 use Traversable;
 
 use function count;
@@ -29,7 +29,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     use HydratorTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the layout type.

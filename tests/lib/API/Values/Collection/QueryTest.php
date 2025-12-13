@@ -9,7 +9,7 @@ use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Query::class)]
 final class QueryTest extends TestCase
@@ -18,8 +18,8 @@ final class QueryTest extends TestCase
     {
         $queryType = new QueryType('query_type');
 
-        $queryUuid = Uuid::uuid4();
-        $collectionUuid = Uuid::uuid4();
+        $queryUuid = Uuid::v4();
+        $collectionUuid = Uuid::v4();
 
         $query = Query::fromArray(
             [
@@ -49,8 +49,8 @@ final class QueryTest extends TestCase
     {
         $query = Query::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'collectionId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'collectionId' => Uuid::v4(),
                 'queryType' => new QueryType('query_type'),
             ],
         );

@@ -9,7 +9,7 @@ use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
 use Netgen\Layouts\Transfer\EntityType;
 use Psr\Container\ContainerInterface;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * Serializer serializes domain entities into hash representation, which can be

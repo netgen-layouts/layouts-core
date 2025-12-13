@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Block;
 
 use Netgen\Layouts\API\Values\LazyCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_map;
 
@@ -23,12 +23,12 @@ final class BlockList extends LazyCollection
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface[]
+     * @return \Symfony\Component\Uid\Uuid[]
      */
     public function getBlockIds(): array
     {
         return array_map(
-            static fn (Block $block): UuidInterface => $block->id,
+            static fn (Block $block): Uuid => $block->id,
             $this->getBlocks(),
         );
     }

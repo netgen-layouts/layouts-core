@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Collection;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 final class QueryValueResolver extends ValueResolver
 {

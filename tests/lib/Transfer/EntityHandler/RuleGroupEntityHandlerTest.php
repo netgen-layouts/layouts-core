@@ -14,7 +14,7 @@ use Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 use function sprintf;
 
@@ -42,7 +42,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
 
     public function testLoadEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $ruleGroup = RuleGroup::fromArray(['id' => $uuid]);
 
@@ -56,7 +56,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
 
     public function testLoadEntityWithNonExistentEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find rule group with identifier "%s"', $uuid->toString()));
@@ -71,7 +71,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
 
     public function testEntityExists(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('ruleGroupExists')
@@ -83,7 +83,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
 
     public function testEntityExistsReturnsFalse(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('ruleGroupExists')
@@ -95,7 +95,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
 
     public function testDeleteEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $ruleGroup = RuleGroup::fromArray(['id' => $uuid]);
 
@@ -113,7 +113,7 @@ final class RuleGroupEntityHandlerTest extends TestCase
 
     public function testDeleteEntityWithNonExistentEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find rule group with identifier "%s"', $uuid->toString()));

@@ -13,7 +13,7 @@ use Netgen\Layouts\View\View\LayoutViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutViewProvider::class)]
 final class LayoutViewProviderTest extends TestCase
@@ -27,7 +27,7 @@ final class LayoutViewProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $layout = Layout::fromArray(['id' => Uuid::uuid4()]);
+        $layout = Layout::fromArray(['id' => Uuid::v4()]);
 
         $view = $this->layoutViewProvider->provideView($layout);
 

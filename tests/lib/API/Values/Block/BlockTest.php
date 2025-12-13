@@ -15,8 +15,7 @@ use Netgen\Layouts\Parameters\ParameterList;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Block::class)]
 final class BlockTest extends TestCase
@@ -26,11 +25,11 @@ final class BlockTest extends TestCase
         $definition = new BlockDefinition();
 
         $placeholder = Placeholder::fromArray(['identifier' => 'main']);
-        $collection = Collection::fromArray(['id' => Uuid::uuid4()]);
+        $collection = Collection::fromArray(['id' => Uuid::v4()]);
 
-        $blockUuid = Uuid::uuid4();
-        $parentUuid = Uuid::uuid4();
-        $layoutUuid = Uuid::uuid4();
+        $blockUuid = Uuid::v4();
+        $parentUuid = Uuid::v4();
+        $layoutUuid = Uuid::v4();
 
         $block = Block::fromArray(
             [
@@ -67,7 +66,7 @@ final class BlockTest extends TestCase
         self::assertSame('standard', $block->itemViewType);
         self::assertSame('My block', $block->name);
         self::assertSame(3, $block->position);
-        self::assertInstanceOf(UuidInterface::class, $block->parentBlockId);
+        self::assertInstanceOf(Uuid::class, $block->parentBlockId);
         self::assertSame($parentUuid->toString(), $block->parentBlockId->toString());
         self::assertSame('main', $block->parentPlaceholder);
         self::assertTrue($block->isTranslatable);

@@ -7,19 +7,19 @@ namespace Netgen\Layouts\API\Values\Collection;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Collection implements Value
 {
     use HydratorTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the block where this collection located.
      */
-    public private(set) UuidInterface $blockId;
+    public private(set) Uuid $blockId;
 
     /**
      * Returns the starting collection offset.

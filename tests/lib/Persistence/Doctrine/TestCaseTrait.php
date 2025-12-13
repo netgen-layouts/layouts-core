@@ -26,6 +26,7 @@ use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Netgen\Layouts\Tests\Stubs\Container;
+use Symfony\Component\Uid\Factory\UuidFactory;
 
 trait TestCaseTrait
 {
@@ -34,6 +35,11 @@ trait TestCaseTrait
     final protected function tearDown(): void
     {
         $this->closeDatabase();
+    }
+
+    final protected function createUuidFactory(): UuidFactory
+    {
+        return $this->uuidFactory ??= new UuidFactory();
     }
 
     final protected function createTransactionHandler(): TransactionHandlerInterface
@@ -54,6 +60,7 @@ trait TestCaseTrait
             ),
             $this->createBlockHandler(),
             new LayoutMapper(),
+            $this->createUuidFactory(),
         );
     }
 
@@ -67,6 +74,7 @@ trait TestCaseTrait
             $this->createCollectionHandler(),
             new BlockMapper(),
             new PositionHelper($this->databaseConnection),
+            $this->createUuidFactory(),
         );
     }
 
@@ -79,6 +87,7 @@ trait TestCaseTrait
             ),
             new CollectionMapper(),
             new PositionHelper($this->databaseConnection),
+            $this->createUuidFactory(),
         );
     }
 
@@ -101,6 +110,7 @@ trait TestCaseTrait
                 ),
             ),
             new LayoutResolverMapper(),
+            $this->createUuidFactory(),
         );
     }
 }

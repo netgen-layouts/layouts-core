@@ -19,8 +19,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionResultNormalizer::class)]
 final class CollectionResultNormalizerTest extends TestCase
@@ -44,8 +44,8 @@ final class CollectionResultNormalizerTest extends TestCase
     {
         $collectionItem = Item::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'collectionId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'collectionId' => Uuid::v4(),
                 'viewType' => 'overlay',
                 'cmsItem' => CmsItem::fromArray(
                     [
@@ -69,7 +69,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('normalize')
             ->willReturn($serializedConfig);
 
-        $slotUuid = Uuid::uuid4();
+        $slotUuid = Uuid::v4();
         $result = Result::fromArray(
             [
                 'position' => 3,
@@ -109,8 +109,8 @@ final class CollectionResultNormalizerTest extends TestCase
     {
         $collectionItem = Item::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'collectionId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'collectionId' => Uuid::v4(),
                 'viewType' => 'overlay',
                 'cmsItem' => CmsItem::fromArray(
                     [
@@ -217,8 +217,8 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $collectionItem = Item::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'collectionId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'collectionId' => Uuid::v4(),
                 'viewType' => 'overlay',
                 'cmsItem' => $item,
             ],

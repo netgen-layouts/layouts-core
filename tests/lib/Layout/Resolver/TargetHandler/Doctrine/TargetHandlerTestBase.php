@@ -10,13 +10,14 @@ use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Uid\Factory\UuidFactory;
 
 abstract class TargetHandlerTestBase extends TestCase
 {
-    use TestCaseTrait;
+    use DatabaseTrait;
 
     final protected LayoutResolverHandler $handler;
 
@@ -36,7 +37,13 @@ abstract class TargetHandlerTestBase extends TestCase
                 ),
             ),
             new LayoutResolverMapper(),
+            new UuidFactory(),
         );
+    }
+
+    final protected function tearDown(): void
+    {
+        $this->closeDatabase();
     }
 
     /**

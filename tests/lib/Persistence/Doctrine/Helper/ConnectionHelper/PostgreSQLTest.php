@@ -26,6 +26,11 @@ final class PostgreSQLTest extends TestCase
         $this->helper = new PostgreSQL($this->databaseConnection);
     }
 
+    protected function tearDown(): void
+    {
+        $this->closeDatabase();
+    }
+
     public function testNextId(): void
     {
         $platform = new PostgreSQLPlatform();

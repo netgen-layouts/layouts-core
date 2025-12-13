@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleValueResolver::class)]
 final class RuleValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class RuleValueResolverTest extends TestCase
     {
         $rule = new Rule();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRule')
@@ -67,7 +67,7 @@ final class RuleValueResolverTest extends TestCase
     {
         $rule = new Rule();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleArchive')
@@ -89,7 +89,7 @@ final class RuleValueResolverTest extends TestCase
     {
         $rule = new Rule();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleDraft')

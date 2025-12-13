@@ -24,7 +24,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\Attributes\CoversClass;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionService::class)]
 final class CollectionServiceTest extends TestCase
@@ -47,7 +47,7 @@ final class CollectionServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'query' => new Query()]),
+            Collection::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'query' => new Query()]),
             CollectionType::Manual,
         );
     }
@@ -74,7 +74,7 @@ final class CollectionServiceTest extends TestCase
         $itemCreateStruct->definition = ItemDefinition::fromArray(['valueType' => 'value_type']);
 
         $this->collectionService->addItem(
-            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'query' => null]),
+            Collection::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'query' => null]),
             $itemCreateStruct,
         );
     }
@@ -97,7 +97,7 @@ final class CollectionServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
-            Item::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'definition' => new ItemDefinition()]),
+            Item::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'definition' => new ItemDefinition()]),
             new ItemUpdateStruct(),
         );
     }
@@ -119,7 +119,7 @@ final class CollectionServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]), 0);
+        $this->collectionService->moveItem(Item::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]), 0);
     }
 
     public function testDeleteItem(): void
@@ -139,7 +139,7 @@ final class CollectionServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->collectionService->deleteItem(Item::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 
     public function testDeleteItems(): void
@@ -159,7 +159,7 @@ final class CollectionServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItems(Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->collectionService->deleteItems(Collection::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 
     public function testUpdateQuery(): void
@@ -193,7 +193,7 @@ final class CollectionServiceTest extends TestCase
         $this->collectionService->updateQuery(
             Query::fromArray(
                 [
-                    'id' => Uuid::uuid4(),
+                    'id' => Uuid::v4(),
                     'status' => Status::Draft,
                     'queryType' => new QueryType('type'),
                 ],
@@ -223,7 +223,7 @@ final class CollectionServiceTest extends TestCase
         $slotCreateStruct->viewType = 'my_view_type';
 
         $this->collectionService->addSlot(
-            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            Collection::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
             $slotCreateStruct,
             1,
         );
@@ -247,7 +247,7 @@ final class CollectionServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateSlot(
-            Slot::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            Slot::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
             new SlotUpdateStruct(),
         );
     }
@@ -269,7 +269,7 @@ final class CollectionServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteSlot(Slot::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->collectionService->deleteSlot(Slot::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 
     public function testDeleteSlots(): void
@@ -289,6 +289,6 @@ final class CollectionServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteSlots(Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->collectionService->deleteSlots(Collection::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 }

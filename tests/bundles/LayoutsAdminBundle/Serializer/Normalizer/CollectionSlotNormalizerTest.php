@@ -11,7 +11,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionSlotNormalizer::class)]
 final class CollectionSlotNormalizerTest extends TestCase
@@ -27,8 +27,8 @@ final class CollectionSlotNormalizerTest extends TestCase
     {
         $slot = Slot::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'collectionId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'collectionId' => Uuid::v4(),
                 'position' => 3,
                 'viewType' => 'overlay',
             ],

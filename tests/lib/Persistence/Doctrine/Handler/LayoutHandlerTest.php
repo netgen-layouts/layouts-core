@@ -8,9 +8,6 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
-use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
-use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
@@ -19,34 +16,27 @@ use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutHandler::class)]
 #[CoversClass(LayoutQueryHandler::class)]
-final class LayoutHandlerTest extends TestCase
+final class LayoutHandlerTest extends CoreTestCase
 {
     use ExportObjectTrait;
     use TestCaseTrait;
     use UuidGeneratorTrait;
 
-    private LayoutHandlerInterface $layoutHandler;
-
-    private BlockHandlerInterface $blockHandler;
-
-    private CollectionHandlerInterface $collectionHandler;
-
     protected function setUp(): void
     {
-        $this->createDatabase();
+        parent::setUp();
 
-        $this->layoutHandler = $this->createLayoutHandler();
-        $this->blockHandler = $this->createBlockHandler();
-        $this->collectionHandler = $this->createCollectionHandler();
+        $this->createDatabase();
+        $this->createHandlers();
     }
 
     public function testLoadLayout(): void
@@ -1647,5 +1637,12 @@ final class LayoutHandlerTest extends TestCase
             $this->layoutHandler->loadLayout(1, Status::Draft),
             'en',
         );
+    }
+
+    private function createHandlers(): void
+    {
+        $this->layoutHandler = $this->createLayoutHandler();
+        $this->blockHandler = $this->createBlockHandler();
+        $this->collectionHandler = $this->createCollectionHandler();
     }
 }

@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Collection\Slot;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(SlotValueResolver::class)]
 final class SlotValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class SlotValueResolverTest extends TestCase
     {
         $slot = new Slot();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->collectionServiceStub
             ->method('loadSlot')
@@ -67,7 +67,7 @@ final class SlotValueResolverTest extends TestCase
     {
         $slot = new Slot();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->collectionServiceStub
             ->method('loadSlotDraft')

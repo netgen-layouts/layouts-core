@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleList::class)]
 final class RuleListTest extends TestCase
@@ -22,8 +22,8 @@ final class RuleListTest extends TestCase
 
     public function testGetRuleIds(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $rules = [Rule::fromArray(['id' => $uuid1]), Rule::fromArray(['id' => $uuid2])];
 

@@ -11,7 +11,7 @@ use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface BlockService extends TransactionService
 {
@@ -29,7 +29,7 @@ interface BlockService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified UUID does not exist
      */
-    public function loadBlock(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
+    public function loadBlock(Uuid $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads a block draft with specified ID.
@@ -45,7 +45,7 @@ interface BlockService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified UUID does not exist
      */
-    public function loadBlockDraft(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
+    public function loadBlockDraft(Uuid $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads all blocks belonging to provided zone. This method DOES NOT load

@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\View\RuleTargetView;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleTargetView::class)]
 final class RuleTargetViewTest extends TestCase
@@ -19,7 +19,7 @@ final class RuleTargetViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->target = Target::fromArray(['id' => Uuid::uuid4()]);
+        $this->target = Target::fromArray(['id' => Uuid::v4()]);
 
         $this->view = new RuleTargetView($this->target);
 

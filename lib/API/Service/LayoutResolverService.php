@@ -24,7 +24,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\API\Values\Status;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface LayoutResolverService extends TransactionService
 {
@@ -33,42 +33,42 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified UUID does not exist
      */
-    public function loadRule(UuidInterface $ruleId): Rule;
+    public function loadRule(Uuid $ruleId): Rule;
 
     /**
      * Loads a rule draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified UUID does not exist
      */
-    public function loadRuleDraft(UuidInterface $ruleId): Rule;
+    public function loadRuleDraft(Uuid $ruleId): Rule;
 
     /**
      * Loads a rule archive by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified UUID does not exist
      */
-    public function loadRuleArchive(UuidInterface $ruleId): Rule;
+    public function loadRuleArchive(Uuid $ruleId): Rule;
 
     /**
      * Loads a rule group by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified UUID does not exist
      */
-    public function loadRuleGroup(UuidInterface $ruleGroupId): RuleGroup;
+    public function loadRuleGroup(Uuid $ruleGroupId): RuleGroup;
 
     /**
      * Loads a rule group draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified UUID does not exist
      */
-    public function loadRuleGroupDraft(UuidInterface $ruleGroupId): RuleGroup;
+    public function loadRuleGroupDraft(Uuid $ruleGroupId): RuleGroup;
 
     /**
      * Loads a rule group archive by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified UUID does not exist
      */
-    public function loadRuleGroupArchive(UuidInterface $ruleGroupId): RuleGroup;
+    public function loadRuleGroupArchive(Uuid $ruleGroupId): RuleGroup;
 
     /**
      * Loads all published rules pointing to the provided layout.
@@ -126,47 +126,47 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified UUID does not exist
      */
-    public function loadTarget(UuidInterface $targetId): Target;
+    public function loadTarget(Uuid $targetId): Target;
 
     /**
      * Loads a target draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified UUID does not exist
      */
-    public function loadTargetDraft(UuidInterface $targetId): Target;
+    public function loadTargetDraft(Uuid $targetId): Target;
 
     /**
      * Loads a rule condition by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    public function loadRuleCondition(UuidInterface $conditionId): RuleCondition;
+    public function loadRuleCondition(Uuid $conditionId): RuleCondition;
 
     /**
      * Loads a rule condition draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    public function loadRuleConditionDraft(UuidInterface $conditionId): RuleCondition;
+    public function loadRuleConditionDraft(Uuid $conditionId): RuleCondition;
 
     /**
      * Loads a rule group condition by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    public function loadRuleGroupCondition(UuidInterface $conditionId): RuleGroupCondition;
+    public function loadRuleGroupCondition(Uuid $conditionId): RuleGroupCondition;
 
     /**
      * Loads a rule group condition draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    public function loadRuleGroupConditionDraft(UuidInterface $conditionId): RuleGroupCondition;
+    public function loadRuleGroupConditionDraft(Uuid $conditionId): RuleGroupCondition;
 
     /**
      * Returns if rule with provided UUID, and optionally status, exists.
      */
-    public function ruleExists(UuidInterface $ruleId, ?Status $status = null): bool;
+    public function ruleExists(Uuid $ruleId, ?Status $status = null): bool;
 
     /**
      * Creates a rule.
@@ -235,7 +235,7 @@ interface LayoutResolverService extends TransactionService
     /**
      * Returns if rule group with provided UUID, and optionally status, exists.
      */
-    public function ruleGroupExists(UuidInterface $ruleGroupId, ?Status $status = null): bool;
+    public function ruleGroupExists(Uuid $ruleGroupId, ?Status $status = null): bool;
 
     /**
      * Creates a rule group.

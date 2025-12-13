@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Tests\API\Values\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Zone::class)]
 final class ZoneTest extends TestCase
@@ -16,7 +16,7 @@ final class ZoneTest extends TestCase
     {
         $linkedZone = new Zone();
 
-        $layoutUuid = Uuid::uuid4();
+        $layoutUuid = Uuid::v4();
 
         $zone = Zone::fromArray(
             [

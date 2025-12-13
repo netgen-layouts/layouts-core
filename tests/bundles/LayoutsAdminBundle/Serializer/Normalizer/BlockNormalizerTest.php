@@ -26,8 +26,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(BlockNormalizer::class)]
 final class BlockNormalizerTest extends TestCase
@@ -48,7 +48,7 @@ final class BlockNormalizerTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'status' => Status::Published,
                 'offset' => 10,
                 'limit' => 5,
@@ -60,8 +60,8 @@ final class BlockNormalizerTest extends TestCase
 
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'layoutId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'layoutId' => Uuid::v4(),
                 'definition' => BlockDefinition::fromArray(['identifier' => 'definition']),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -133,8 +133,8 @@ final class BlockNormalizerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'layoutId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'layoutId' => Uuid::v4(),
                 'definition' => ContainerDefinition::fromArray(
                     [
                         'identifier' => 'definition',

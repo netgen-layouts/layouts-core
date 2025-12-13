@@ -8,8 +8,8 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use stdClass;
+use Symfony\Component\Uid\Uuid;
 use TypeError;
 
 use function sprintf;
@@ -34,8 +34,8 @@ final class LayoutListTest extends TestCase
 
     public function testGetLayoutIds(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $layouts = [Layout::fromArray(['id' => $uuid1]), Layout::fromArray(['id' => $uuid2])];
 

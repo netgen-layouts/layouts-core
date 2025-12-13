@@ -19,8 +19,8 @@ use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Factory\UuidFactory;
+use Symfony\Component\Uid\Uuid;
 
 use function array_first;
 use function count;
@@ -36,11 +36,12 @@ final class LayoutHandler implements LayoutHandlerInterface
         private LayoutQueryHandler $queryHandler,
         private BlockHandlerInterface $blockHandler,
         private LayoutMapper $layoutMapper,
+        private UuidFactory $uuidFactory,
     ) {}
 
-    public function loadLayout(int|string|UuidInterface $layoutId, Status $status): Layout
+    public function loadLayout(int|string|Uuid $layoutId, Status $status): Layout
     {
-        $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
+        $layoutId = $layoutId instanceof Uuid ? $layoutId->toString() : $layoutId;
         $data = $this->queryHandler->loadLayoutData($layoutId, $status);
 
         if (count($data) === 0) {
@@ -50,9 +51,9 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapLayouts($data)[0];
     }
 
-    public function loadZone(int|string|UuidInterface $layoutId, Status $status, string $identifier): Zone
+    public function loadZone(int|string|Uuid $layoutId, Status $status, string $identifier): Zone
     {
-        $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
+        $layoutId = $layoutId instanceof Uuid ? $layoutId->toString() : $layoutId;
         $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
 
         return array_first($this->layoutMapper->mapZones($data)) ??
@@ -110,9 +111,9 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->queryHandler->getRelatedLayoutsCount($sharedLayout);
     }
 
-    public function layoutExists(int|string|UuidInterface $layoutId, ?Status $status = null): bool
+    public function layoutExists(int|string|Uuid $layoutId, ?Status $status = null): bool
     {
-        $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
+        $layoutId = $layoutId instanceof Uuid ? $layoutId->toString() : $layoutId;
 
         return $this->queryHandler->layoutExists($layoutId, $status);
     }
@@ -124,9 +125,9 @@ final class LayoutHandler implements LayoutHandlerInterface
         );
     }
 
-    public function layoutNameExists(string $name, int|string|UuidInterface|null $excludedLayoutId = null): bool
+    public function layoutNameExists(string $name, int|string|Uuid|null $excludedLayoutId = null): bool
     {
-        $excludedLayoutId = $excludedLayoutId instanceof UuidInterface ?
+        $excludedLayoutId = $excludedLayoutId instanceof Uuid ?
             $excludedLayoutId->toString() :
             $excludedLayoutId;
 
@@ -145,7 +146,7 @@ final class LayoutHandler implements LayoutHandlerInterface
             [
                 'uuid' => is_string($layoutCreateStruct->uuid) ?
                     $layoutCreateStruct->uuid :
-                    Uuid::uuid4()->toString(),
+                    $this->uuidFactory->create()->toString(),
                 'type' => $layoutCreateStruct->type,
                 'name' => mb_trim($layoutCreateStruct->name),
                 'description' => mb_trim($layoutCreateStruct->description),
@@ -307,7 +308,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         $copiedLayout = clone $layout;
 
         unset($copiedLayout->id);
-        $copiedLayout->uuid = Uuid::uuid4()->toString();
+        $copiedLayout->uuid = $this->uuidFactory->create()->toString();
 
         $currentTimeStamp = time();
         $copiedLayout->created = $currentTimeStamp;

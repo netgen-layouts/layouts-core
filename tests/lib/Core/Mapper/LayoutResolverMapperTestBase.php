@@ -14,8 +14,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 abstract class LayoutResolverMapperTestBase extends CoreTestCase
 {
@@ -57,7 +56,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 1,
-                'layoutUuid' => Uuid::uuid4()->toString(),
+                'layoutUuid' => Uuid::v4()->toString(),
                 'isEnabled' => true,
                 'priority' => 12,
                 'description' => 'Description',
@@ -90,7 +89,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
         $ruleGroup = $this->layoutResolverMapper->mapRuleGroup($persistenceRuleGroup);
 
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $ruleGroup->id->toString());
-        self::assertInstanceOf(UuidInterface::class, $ruleGroup->parentId);
+        self::assertInstanceOf(Uuid::class, $ruleGroup->parentId);
         self::assertSame(RuleGroup::ROOT_UUID, $ruleGroup->parentId->toString());
         self::assertTrue($ruleGroup->isPublished);
         self::assertSame('Name', $ruleGroup->name);

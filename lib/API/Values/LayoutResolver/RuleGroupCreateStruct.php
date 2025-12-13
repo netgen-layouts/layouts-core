@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class RuleGroupCreateStruct
 {
@@ -12,7 +12,7 @@ final class RuleGroupCreateStruct
      * Rule group UUID. If specified, rule group will be created with this UUID if not
      * already taken by an existing rule group.
      */
-    public ?UuidInterface $uuid = null;
+    public ?Uuid $uuid = null;
 
     /**
      * Human readable name of the rule group.

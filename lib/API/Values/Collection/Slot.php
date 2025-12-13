@@ -7,19 +7,19 @@ namespace Netgen\Layouts\API\Values\Collection;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Slot implements Value
 {
     use HydratorTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the collection to which the slot belongs.
      */
-    public private(set) UuidInterface $collectionId;
+    public private(set) Uuid $collectionId;
 
     /**
      * Returns the slot position within the collection.

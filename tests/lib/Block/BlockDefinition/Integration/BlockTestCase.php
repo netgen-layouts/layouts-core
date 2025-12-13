@@ -13,7 +13,7 @@ use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 use function array_keys;
 use function array_map;

@@ -14,10 +14,10 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints;
 
 final class CreateInZone extends AbstractController

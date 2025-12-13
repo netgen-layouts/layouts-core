@@ -9,7 +9,7 @@ use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\View\View\PlaceholderView;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(PlaceholderView::class)]
 final class PlaceholderViewTest extends TestCase
@@ -22,7 +22,7 @@ final class PlaceholderViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->block = Block::fromArray(['id' => Uuid::uuid4()]);
+        $this->block = Block::fromArray(['id' => Uuid::v4()]);
         $this->placeholder = Placeholder::fromArray(['identifier' => 'main']);
 
         $this->view = new PlaceholderView($this->placeholder, $this->block);

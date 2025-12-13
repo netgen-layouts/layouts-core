@@ -72,6 +72,7 @@ use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\HtmlPurifier;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Uid\Factory\UuidFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -94,6 +95,8 @@ abstract class CoreTestCase extends TestCase
     final protected ParameterTypeRegistry $parameterTypeRegistry;
 
     final protected TransactionHandlerInterface $transactionHandler;
+
+    final protected UuidFactory $uuidFactory;
 
     final protected BlockHandlerInterface $blockHandler;
 
@@ -160,6 +163,11 @@ abstract class CoreTestCase extends TestCase
         $this->layoutResolverMapper = $this->createLayoutResolverMapper();
         $this->layoutResolverService = $this->createLayoutResolverService();
     }
+
+    /**
+     * Returns the UUID factory under test.
+     */
+    abstract protected function createUuidFactory(): UuidFactory;
 
     /**
      * Returns the persistence handler under test.

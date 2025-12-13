@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleGroupValueResolver::class)]
 final class RuleGroupValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class RuleGroupValueResolverTest extends TestCase
     {
         $ruleGroup = new RuleGroup();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
@@ -67,7 +67,7 @@ final class RuleGroupValueResolverTest extends TestCase
     {
         $ruleGroup = new RuleGroup();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupArchive')
@@ -89,7 +89,7 @@ final class RuleGroupValueResolverTest extends TestCase
     {
         $ruleGroup = new RuleGroup();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupDraft')

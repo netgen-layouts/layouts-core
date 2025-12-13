@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Target::class)]
 final class TargetTest extends TestCase
@@ -17,8 +17,8 @@ final class TargetTest extends TestCase
     {
         $targetType = new TargetType1();
 
-        $targetUuid = Uuid::uuid4();
-        $ruleUuid = Uuid::uuid4();
+        $targetUuid = Uuid::v4();
+        $ruleUuid = Uuid::v4();
 
         $target = Target::fromArray(
             [

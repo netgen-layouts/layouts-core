@@ -36,7 +36,7 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_filter;
 use function array_search;
@@ -63,7 +63,7 @@ final class BlockService implements BlockServiceInterface
         $this->transactionHandler = $transactionHandler;
     }
 
-    public function loadBlock(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block
+    public function loadBlock(Uuid $blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
         $block = $this->blockHandler->loadBlock($blockId, PersistenceStatus::Published);
 
@@ -75,7 +75,7 @@ final class BlockService implements BlockServiceInterface
         return $this->mapper->mapBlock($block, $locales, $useMainLocale);
     }
 
-    public function loadBlockDraft(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block
+    public function loadBlockDraft(Uuid $blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
         $block = $this->blockHandler->loadBlock($blockId, PersistenceStatus::Draft);
 

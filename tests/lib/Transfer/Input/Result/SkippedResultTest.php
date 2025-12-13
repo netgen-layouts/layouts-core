@@ -7,19 +7,18 @@ namespace Netgen\Layouts\Tests\Transfer\Input\Result;
 use Netgen\Layouts\Transfer\Input\Result\SkippedResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(SkippedResult::class)]
 final class SkippedResultTest extends TestCase
 {
     private SkippedResult $result;
 
-    private UuidInterface $entityId;
+    private Uuid $entityId;
 
     protected function setUp(): void
     {
-        $this->entityId = Uuid::uuid4();
+        $this->entityId = Uuid::v4();
 
         $this->result = new SkippedResult('type', ['key' => 'value'], $this->entityId);
     }

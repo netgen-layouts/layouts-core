@@ -12,7 +12,7 @@ use Netgen\Layouts\View\View\RuleTargetViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleTargetViewProvider::class)]
 final class RuleTargetProviderTest extends TestCase
@@ -26,7 +26,7 @@ final class RuleTargetProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $target = Target::fromArray(['id' => Uuid::uuid4()]);
+        $target = Target::fromArray(['id' => Uuid::v4()]);
 
         $view = $this->ruleTargetViewProvider->provideView($target);
 

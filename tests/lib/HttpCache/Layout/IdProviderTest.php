@@ -12,7 +12,7 @@ use Netgen\Layouts\HttpCache\Layout\IdProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(IdProvider::class)]
 final class IdProviderTest extends TestCase
@@ -30,7 +30,7 @@ final class IdProviderTest extends TestCase
 
     public function testProvideIds(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -51,7 +51,7 @@ final class IdProviderTest extends TestCase
 
     public function testProvideIdsWithNonExistingLayout(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -65,9 +65,9 @@ final class IdProviderTest extends TestCase
 
     public function testProvideIdsWithSharedLayout(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
-        $uuid3 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
+        $uuid3 = Uuid::v4();
 
         $sharedLayout = Layout::fromArray(
             [

@@ -9,8 +9,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class RuleGroupEntityHandler implements EntityHandlerInterface
 {
@@ -20,17 +19,17 @@ final class RuleGroupEntityHandler implements EntityHandlerInterface
         private ConditionTypeRegistry $conditionTypeRegistry,
     ) {}
 
-    public function loadEntity(UuidInterface $uuid): RuleGroup
+    public function loadEntity(Uuid $uuid): RuleGroup
     {
         return $this->layoutResolverService->loadRuleGroup($uuid);
     }
 
-    public function entityExists(UuidInterface $uuid): bool
+    public function entityExists(Uuid $uuid): bool
     {
         return $this->layoutResolverService->ruleGroupExists($uuid);
     }
 
-    public function deleteEntity(UuidInterface $uuid): void
+    public function deleteEntity(Uuid $uuid): void
     {
         $this->layoutResolverService->deleteRuleGroup(
             $this->layoutResolverService->loadRuleGroup($uuid),

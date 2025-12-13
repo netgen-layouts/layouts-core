@@ -13,7 +13,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(ZoneValueResolver::class)]
 final class ZoneValueResolverTest extends TestCase
@@ -49,7 +49,7 @@ final class ZoneValueResolverTest extends TestCase
         $zone = new Zone();
         $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['left' => $zone])]);
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -73,7 +73,7 @@ final class ZoneValueResolverTest extends TestCase
         $zone = new Zone();
         $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['left' => $zone])]);
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayoutDraft')
@@ -100,7 +100,7 @@ final class ZoneValueResolverTest extends TestCase
         $zone = new Zone();
         $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['right' => $zone])]);
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayout')

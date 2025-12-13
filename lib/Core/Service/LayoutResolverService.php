@@ -50,7 +50,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_map;
 use function count;
@@ -71,7 +71,7 @@ final class LayoutResolverService implements APILayoutResolverService
         $this->transactionHandler = $transactionHandler;
     }
 
-    public function loadRule(UuidInterface $ruleId): Rule
+    public function loadRule(Uuid $ruleId): Rule
     {
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
@@ -81,7 +81,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleDraft(UuidInterface $ruleId): Rule
+    public function loadRuleDraft(Uuid $ruleId): Rule
     {
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
@@ -91,7 +91,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleArchive(UuidInterface $ruleId): Rule
+    public function loadRuleArchive(Uuid $ruleId): Rule
     {
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
@@ -101,7 +101,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleGroup(UuidInterface $ruleGroupId): RuleGroup
+    public function loadRuleGroup(Uuid $ruleGroupId): RuleGroup
     {
         return $this->mapper->mapRuleGroup(
             $this->layoutResolverHandler->loadRuleGroup(
@@ -111,7 +111,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleGroupDraft(UuidInterface $ruleGroupId): RuleGroup
+    public function loadRuleGroupDraft(Uuid $ruleGroupId): RuleGroup
     {
         return $this->mapper->mapRuleGroup(
             $this->layoutResolverHandler->loadRuleGroup(
@@ -121,7 +121,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleGroupArchive(UuidInterface $ruleGroupId): RuleGroup
+    public function loadRuleGroupArchive(Uuid $ruleGroupId): RuleGroup
     {
         return $this->mapper->mapRuleGroup(
             $this->layoutResolverHandler->loadRuleGroup(
@@ -266,7 +266,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadTarget(UuidInterface $targetId): Target
+    public function loadTarget(Uuid $targetId): Target
     {
         return $this->mapper->mapTarget(
             $this->layoutResolverHandler->loadTarget(
@@ -276,7 +276,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadTargetDraft(UuidInterface $targetId): Target
+    public function loadTargetDraft(Uuid $targetId): Target
     {
         return $this->mapper->mapTarget(
             $this->layoutResolverHandler->loadTarget(
@@ -286,7 +286,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleCondition(UuidInterface $conditionId): RuleCondition
+    public function loadRuleCondition(Uuid $conditionId): RuleCondition
     {
         return $this->mapper->mapRuleCondition(
             $this->layoutResolverHandler->loadRuleCondition(
@@ -296,7 +296,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleConditionDraft(UuidInterface $conditionId): RuleCondition
+    public function loadRuleConditionDraft(Uuid $conditionId): RuleCondition
     {
         return $this->mapper->mapRuleCondition(
             $this->layoutResolverHandler->loadRuleCondition(
@@ -306,7 +306,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleGroupCondition(UuidInterface $conditionId): RuleGroupCondition
+    public function loadRuleGroupCondition(Uuid $conditionId): RuleGroupCondition
     {
         return $this->mapper->mapRuleGroupCondition(
             $this->layoutResolverHandler->loadRuleGroupCondition(
@@ -316,7 +316,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadRuleGroupConditionDraft(UuidInterface $conditionId): RuleGroupCondition
+    public function loadRuleGroupConditionDraft(Uuid $conditionId): RuleGroupCondition
     {
         return $this->mapper->mapRuleGroupCondition(
             $this->layoutResolverHandler->loadRuleGroupCondition(
@@ -326,7 +326,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function ruleExists(UuidInterface $ruleId, ?Status $status = null): bool
+    public function ruleExists(Uuid $ruleId, ?Status $status = null): bool
     {
         return $this->layoutResolverHandler->ruleExists($ruleId, PersistenceStatus::tryFrom($status->value ?? -1));
     }
@@ -341,10 +341,10 @@ final class LayoutResolverService implements APILayoutResolverService
             fn (): PersistenceRule => $this->layoutResolverHandler->createRule(
                 RuleCreateStruct::fromArray(
                     [
-                        'uuid' => $ruleCreateStruct->uuid instanceof UuidInterface ?
+                        'uuid' => $ruleCreateStruct->uuid instanceof Uuid ?
                             $ruleCreateStruct->uuid->toString() :
                             $ruleCreateStruct->uuid,
-                        'layoutId' => $ruleCreateStruct->layoutId instanceof UuidInterface ?
+                        'layoutId' => $ruleCreateStruct->layoutId instanceof Uuid ?
                             $ruleCreateStruct->layoutId->toString() :
                             $ruleCreateStruct->layoutId,
                         'priority' => $ruleCreateStruct->priority,
@@ -375,7 +375,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $persistenceRule,
                 RuleUpdateStruct::fromArray(
                     [
-                        'layoutId' => $ruleUpdateStruct->layoutId instanceof UuidInterface ?
+                        'layoutId' => $ruleUpdateStruct->layoutId instanceof Uuid ?
                             $ruleUpdateStruct->layoutId->toString() :
                             $ruleUpdateStruct->layoutId,
                         'description' => $ruleUpdateStruct->description,
@@ -570,7 +570,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function ruleGroupExists(UuidInterface $ruleGroupId, ?Status $status = null): bool
+    public function ruleGroupExists(Uuid $ruleGroupId, ?Status $status = null): bool
     {
         return $this->layoutResolverHandler->ruleGroupExists($ruleGroupId, PersistenceStatus::tryFrom($status->value ?? -1));
     }
@@ -587,7 +587,7 @@ final class LayoutResolverService implements APILayoutResolverService
             fn (): PersistenceRuleGroup => $this->layoutResolverHandler->createRuleGroup(
                 RuleGroupCreateStruct::fromArray(
                     [
-                        'uuid' => $ruleGroupCreateStruct->uuid instanceof UuidInterface ?
+                        'uuid' => $ruleGroupCreateStruct->uuid instanceof Uuid ?
                             $ruleGroupCreateStruct->uuid->toString() :
                             $ruleGroupCreateStruct->uuid,
                         'name' => $ruleGroupCreateStruct->name,

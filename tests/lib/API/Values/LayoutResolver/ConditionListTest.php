@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(ConditionList::class)]
 final class ConditionListTest extends TestCase
@@ -22,8 +22,8 @@ final class ConditionListTest extends TestCase
 
     public function testGetConditionIds(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $conditions = [RuleCondition::fromArray(['id' => $uuid1]), RuleCondition::fromArray(['id' => $uuid2])];
 

@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Block;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 final class BlockValueResolver extends ValueResolver
 {

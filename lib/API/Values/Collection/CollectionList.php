@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\LazyCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_map;
 use function array_values;
@@ -24,13 +24,13 @@ final class CollectionList extends LazyCollection
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface[]
+     * @return \Symfony\Component\Uid\Uuid[]
      */
     public function getCollectionIds(): array
     {
         return array_values(
             array_map(
-                static fn (Collection $collection): UuidInterface => $collection->id,
+                static fn (Collection $collection): Uuid => $collection->id,
                 $this->getCollections(),
             ),
         );

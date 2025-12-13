@@ -17,8 +17,8 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use Netgen\Layouts\Exception\NotFoundException as BaseNotFoundException;
-use Ramsey\Uuid\Exception\InvalidUuidStringException;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Exception\InvalidArgumentException;
+use Symfony\Component\Uid\Uuid;
 
 use function sprintf;
 
@@ -43,7 +43,7 @@ final class LayoutBackend implements BackendInterface
     {
         try {
             $layout = $this->layoutService->loadLayout(Uuid::fromString((string) $value));
-        } catch (BaseNotFoundException|InvalidUuidStringException $e) {
+        } catch (BaseNotFoundException|InvalidArgumentException $e) {
             throw new NotFoundException(
                 sprintf('Item with value "%s" not found.', $value),
                 0,

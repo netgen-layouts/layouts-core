@@ -13,8 +13,8 @@ use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use stdClass;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Serializer::class)]
 final class SerializerTest extends TestCase
@@ -31,8 +31,8 @@ final class SerializerTest extends TestCase
 
     public function testSerialize(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         self::assertSame(
             [
@@ -56,8 +56,8 @@ final class SerializerTest extends TestCase
             new Container(),
         );
 
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $this->serializer->serialize([$uuid1->toString() => 'layout', $uuid2->toString() => 'layout']);
     }
@@ -72,8 +72,8 @@ final class SerializerTest extends TestCase
             new Container(['entity' => new stdClass()]),
         );
 
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $this->serializer->serialize([$uuid1->toString() => 'layout', $uuid2->toString() => 'layout']);
     }

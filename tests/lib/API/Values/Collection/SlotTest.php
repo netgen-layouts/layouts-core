@@ -7,15 +7,15 @@ namespace Netgen\Layouts\Tests\API\Values\Collection;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Slot::class)]
 final class SlotTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $slotUuid = Uuid::uuid4();
-        $collectionUuid = Uuid::uuid4();
+        $slotUuid = Uuid::v4();
+        $collectionUuid = Uuid::v4();
 
         $slot = Slot::fromArray(
             [

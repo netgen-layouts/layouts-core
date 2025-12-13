@@ -8,15 +8,15 @@ use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\Layouts\Persistence\Values\Status;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\TestCase;
 
 use function array_column;
 use function array_map;
 
 #[CoversClass(PositionHelper::class)]
-final class PositionHelperTest extends TestCase
+final class PositionHelperTest extends CoreTestCase
 {
     use TestCaseTrait;
 
@@ -24,6 +24,8 @@ final class PositionHelperTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->createDatabase();
 
         $this->positionHelper = new PositionHelper($this->databaseConnection);

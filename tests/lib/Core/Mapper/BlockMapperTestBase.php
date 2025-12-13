@@ -9,7 +9,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 abstract class BlockMapperTestBase extends CoreTestCase
 {
@@ -61,7 +61,7 @@ abstract class BlockMapperTestBase extends CoreTestCase
         self::assertSame('standard', $block->itemViewType);
         self::assertSame('My block', $block->name);
         self::assertSame(3, $block->position);
-        self::assertInstanceOf(UuidInterface::class, $block->parentBlockId);
+        self::assertInstanceOf(Uuid::class, $block->parentBlockId);
         self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->parentBlockId->toString());
         self::assertSame('main', $block->parentPlaceholder);
         self::assertTrue($block->isPublished);

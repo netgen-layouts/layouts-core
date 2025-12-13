@@ -12,11 +12,11 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RouteGenerator::class)]
 final class RouteGeneratorTest extends TestCase
@@ -51,7 +51,7 @@ final class RouteGeneratorTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'locale' => 'en',
                 'status' => Status::Published,
             ],
@@ -97,7 +97,7 @@ final class RouteGeneratorTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'locale' => 'en',
                 'status' => Status::Published,
             ],

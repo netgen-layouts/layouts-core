@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer;
 
 use Netgen\Layouts\API\Values\Value;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface EntityHandlerInterface
 {
@@ -14,19 +14,19 @@ interface EntityHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException if the layout with provided UUID does not exist
      */
-    public function loadEntity(UuidInterface $uuid): Value;
+    public function loadEntity(Uuid $uuid): Value;
 
     /**
      * Returns if the entity with provided UUID exists.
      */
-    public function entityExists(UuidInterface $uuid): bool;
+    public function entityExists(Uuid $uuid): bool;
 
     /**
      * Remove the entity with provided UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException if the layout with provided UUID does not exist
      */
-    public function deleteEntity(UuidInterface $uuid): void;
+    public function deleteEntity(Uuid $uuid): void;
 
     /**
      * Imports an entity from the given serialized $data.

@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutValueResolver::class)]
 final class LayoutValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class LayoutValueResolverTest extends TestCase
     {
         $layout = new Layout();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -67,7 +67,7 @@ final class LayoutValueResolverTest extends TestCase
     {
         $layout = new Layout();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayoutArchive')
@@ -89,7 +89,7 @@ final class LayoutValueResolverTest extends TestCase
     {
         $layout = new Layout();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayoutDraft')

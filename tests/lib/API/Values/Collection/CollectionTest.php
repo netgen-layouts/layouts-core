@@ -12,7 +12,7 @@ use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Collection\SlotList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Collection::class)]
 final class CollectionTest extends TestCase
@@ -31,8 +31,8 @@ final class CollectionTest extends TestCase
 
         $query = new Query();
 
-        $uuid = Uuid::uuid4();
-        $blockUuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
+        $blockUuid = Uuid::v4();
 
         $collection = Collection::fromArray(
             [
@@ -92,7 +92,7 @@ final class CollectionTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'offset' => 5,
                 'query' => null,
             ],
@@ -105,7 +105,7 @@ final class CollectionTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'items' => ItemList::fromArray([Item::fromArray(['position' => 0])]),
             ],
         );

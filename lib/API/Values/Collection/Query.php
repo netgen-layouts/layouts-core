@@ -10,7 +10,7 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterCollectionTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Query implements Value, ParameterCollectionInterface
 {
@@ -18,12 +18,12 @@ final class Query implements Value, ParameterCollectionInterface
     use ParameterCollectionTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the collection to which this query belongs.
      */
-    public private(set) UuidInterface $collectionId;
+    public private(set) Uuid $collectionId;
 
     /**
      * Returns the query type.

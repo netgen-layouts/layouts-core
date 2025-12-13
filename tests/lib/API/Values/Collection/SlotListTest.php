@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Collection\SlotList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(SlotList::class)]
 final class SlotListTest extends TestCase
@@ -22,8 +22,8 @@ final class SlotListTest extends TestCase
 
     public function testGetSlotIds(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $slots = [Slot::fromArray(['id' => $uuid1]), Slot::fromArray(['id' => $uuid2])];
 

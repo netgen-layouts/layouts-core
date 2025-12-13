@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Input\Result;
 
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface ResultInterface
 {
@@ -23,5 +23,5 @@ interface ResultInterface
     /**
      * Returns the UUID of the entity which was imported.
      */
-    public UuidInterface $entityId { get; }
+    public Uuid $entityId { get; }
 }

@@ -12,7 +12,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionNormalizer::class)]
 final class CollectionNormalizerTest extends TestCase
@@ -28,7 +28,7 @@ final class CollectionNormalizerTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'query' => new Query(),
                 'isTranslatable' => true,
                 'isAlwaysAvailable' => true,

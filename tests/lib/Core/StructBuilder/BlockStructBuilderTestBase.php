@@ -8,7 +8,7 @@ use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
 use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 abstract class BlockStructBuilderTestBase extends CoreTestCase
 {

@@ -24,8 +24,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutNormalizer::class)]
 final class LayoutNormalizerTest extends TestCase
@@ -71,7 +71,7 @@ final class LayoutNormalizerTest extends TestCase
         $date1 = new DateTimeImmutable();
         $date1 = $date1->setTimestamp(123);
 
-        $blockUuid = Uuid::uuid4();
+        $blockUuid = Uuid::v4();
 
         $block = Block::fromArray(
             [
@@ -79,8 +79,8 @@ final class LayoutNormalizerTest extends TestCase
             ],
         );
 
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $layout = Layout::fromArray(
             [
@@ -200,7 +200,7 @@ final class LayoutNormalizerTest extends TestCase
         $date2 = new DateTimeImmutable();
         $date2 = $date2->setTimestamp(456);
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $layout = Layout::fromArray(
             [

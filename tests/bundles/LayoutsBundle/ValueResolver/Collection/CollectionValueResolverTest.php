@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionValueResolver::class)]
 final class CollectionValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class CollectionValueResolverTest extends TestCase
     {
         $collection = new Collection();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->collectionServiceStub
             ->method('loadCollection')
@@ -67,7 +67,7 @@ final class CollectionValueResolverTest extends TestCase
     {
         $collection = new Collection();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->collectionServiceStub
             ->method('loadCollectionDraft')

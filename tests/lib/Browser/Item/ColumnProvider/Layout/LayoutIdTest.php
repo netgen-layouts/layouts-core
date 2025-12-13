@@ -10,7 +10,7 @@ use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\LayoutId;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutId::class)]
 final class LayoutIdTest extends TestCase
@@ -24,7 +24,7 @@ final class LayoutIdTest extends TestCase
 
     public function testGetValue(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $item = new Item(
             Layout::fromArray(

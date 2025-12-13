@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(BlockValueResolver::class)]
 final class BlockValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class BlockValueResolverTest extends TestCase
     {
         $block = new Block();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->blockServiceStub
             ->method('loadBlock')
@@ -67,7 +67,7 @@ final class BlockValueResolverTest extends TestCase
     {
         $block = new Block();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->blockServiceStub
             ->method('loadBlockDraft')

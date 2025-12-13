@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(QueryValueResolver::class)]
 final class QueryValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class QueryValueResolverTest extends TestCase
     {
         $query = new Query();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->collectionServiceStub
             ->method('loadQuery')
@@ -67,7 +67,7 @@ final class QueryValueResolverTest extends TestCase
     {
         $query = new Query();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->collectionServiceStub
             ->method('loadQueryDraft')

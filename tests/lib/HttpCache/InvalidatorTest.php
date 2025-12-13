@@ -10,7 +10,7 @@ use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Invalidator::class)]
 final class InvalidatorTest extends TestCase
@@ -34,10 +34,10 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayouts(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
-        $uuid3 = Uuid::uuid4();
-        $uuid4 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
+        $uuid3 = Uuid::v4();
+        $uuid4 = Uuid::v4();
 
         $this->idProviderStub
             ->method('provideIds')
@@ -81,8 +81,8 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateBlocks(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $this->clientStub
             ->method('purge')
@@ -115,8 +115,8 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayoutBlocks(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $this->clientStub
             ->method('purge')

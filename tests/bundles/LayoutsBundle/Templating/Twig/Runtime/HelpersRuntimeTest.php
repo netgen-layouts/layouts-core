@@ -17,7 +17,7 @@ use Netgen\Layouts\Item\ValueType\ValueType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(HelpersRuntime::class)]
 final class HelpersRuntimeTest extends TestCase
@@ -46,7 +46,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetLayoutName(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -58,7 +58,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetLayoutNameWithNonExistingLayout(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -70,8 +70,8 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetRuleGroup(): void
     {
-        $ruleUuid = Uuid::uuid4();
-        $groupUuid = Uuid::uuid4();
+        $ruleUuid = Uuid::v4();
+        $groupUuid = Uuid::v4();
 
         $rule = Rule::fromArray(['id' => $ruleUuid, 'ruleGroupId' => $groupUuid]);
         $ruleGroup = RuleGroup::fromArray(['id' => $groupUuid]);
@@ -91,7 +91,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetRuleGroupName(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
@@ -103,7 +103,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetRuleGroupNameWithNonExistingRuleGroup(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')

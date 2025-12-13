@@ -12,7 +12,7 @@ use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Item implements Value, ConfigAwareValue
 {
@@ -20,12 +20,12 @@ final class Item implements Value, ConfigAwareValue
     use HydratorTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the collection to which the item belongs.
      */
-    public private(set) UuidInterface $collectionId;
+    public private(set) Uuid $collectionId;
 
     /**
      * Returns the item definition.

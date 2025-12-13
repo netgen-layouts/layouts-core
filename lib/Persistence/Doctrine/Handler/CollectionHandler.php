@@ -25,8 +25,8 @@ use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Factory\UuidFactory;
+use Symfony\Component\Uid\Uuid;
 
 use function array_fill_keys;
 use function array_first;
@@ -44,11 +44,12 @@ final class CollectionHandler implements CollectionHandlerInterface
         private CollectionQueryHandler $queryHandler,
         private CollectionMapper $collectionMapper,
         private PositionHelper $positionHelper,
+        private UuidFactory $uuidFactory,
     ) {}
 
-    public function loadCollection(int|string|UuidInterface $collectionId, Status $status): Collection
+    public function loadCollection(int|string|Uuid $collectionId, Status $status): Collection
     {
-        $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
+        $collectionId = $collectionId instanceof Uuid ? $collectionId->toString() : $collectionId;
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
 
         if (count($data) === 0) {
@@ -98,9 +99,9 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->collectionMapper->mapCollectionReferences($data);
     }
 
-    public function loadItem(int|string|UuidInterface $itemId, Status $status): Item
+    public function loadItem(int|string|Uuid $itemId, Status $status): Item
     {
-        $itemId = $itemId instanceof UuidInterface ? $itemId->toString() : $itemId;
+        $itemId = $itemId instanceof Uuid ? $itemId->toString() : $itemId;
         $data = $this->queryHandler->loadItemData($itemId, $status);
 
         if (count($data) === 0) {
@@ -134,9 +135,9 @@ final class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    public function loadQuery(int|string|UuidInterface $queryId, Status $status): Query
+    public function loadQuery(int|string|Uuid $queryId, Status $status): Query
     {
-        $queryId = $queryId instanceof UuidInterface ? $queryId->toString() : $queryId;
+        $queryId = $queryId instanceof Uuid ? $queryId->toString() : $queryId;
         $data = $this->queryHandler->loadQueryData($queryId, $status);
 
         if (count($data) === 0) {
@@ -171,9 +172,9 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $query;
     }
 
-    public function loadSlot(int|string|UuidInterface $slotId, Status $status): Slot
+    public function loadSlot(int|string|Uuid $slotId, Status $status): Slot
     {
-        $slotId = $slotId instanceof UuidInterface ? $slotId->toString() : $slotId;
+        $slotId = $slotId instanceof Uuid ? $slotId->toString() : $slotId;
         $data = $this->queryHandler->loadSlotData($slotId, $status);
 
         $mappedSlots = $this->collectionMapper->mapSlots($data);
@@ -189,9 +190,9 @@ final class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    public function collectionExists(int|string|UuidInterface $collectionId, Status $status): bool
+    public function collectionExists(int|string|Uuid $collectionId, Status $status): bool
     {
-        $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
+        $collectionId = $collectionId instanceof Uuid ? $collectionId->toString() : $collectionId;
 
         return $this->queryHandler->collectionExists($collectionId, $status);
     }
@@ -204,7 +205,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $newCollection = Collection::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'blockId' => $block->id,
                 'blockUuid' => $block->uuid,
                 'status' => $collectionCreateStruct->status,
@@ -342,7 +343,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $newCollection = clone $collection;
 
         unset($newCollection->id);
-        $newCollection->uuid = Uuid::uuid4()->toString();
+        $newCollection->uuid = $this->uuidFactory->create()->toString();
 
         $newCollection = $this->queryHandler->createCollection($newCollection);
 
@@ -356,7 +357,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             $newItem = clone $collectionItem;
 
             unset($newItem->id);
-            $newItem->uuid = Uuid::uuid4()->toString();
+            $newItem->uuid = $this->uuidFactory->create()->toString();
 
             $newItem->collectionId = $newCollection->id;
             $newItem->collectionUuid = $newCollection->uuid;
@@ -376,7 +377,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             $newQuery = clone $collectionQuery;
 
             unset($newQuery->id);
-            $newQuery->uuid = Uuid::uuid4()->toString();
+            $newQuery->uuid = $this->uuidFactory->create()->toString();
 
             $newQuery->collectionId = $newCollection->id;
             $newQuery->collectionUuid = $newCollection->uuid;
@@ -394,7 +395,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             $newSlot = clone $collectionSlot;
 
             unset($newSlot->id);
-            $newSlot->uuid = Uuid::uuid4()->toString();
+            $newSlot->uuid = $this->uuidFactory->create()->toString();
 
             $newSlot->collectionId = $newCollection->id;
             $newSlot->collectionUuid = $newCollection->uuid;
@@ -516,7 +517,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $newItem = Item::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'position' => $position,
@@ -638,7 +639,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $newSlot = Slot::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'position' => $slotCreateStruct->position,
@@ -687,7 +688,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $newQuery = Query::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $this->uuidFactory->create()->toString(),
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'type' => $queryCreateStruct->type,

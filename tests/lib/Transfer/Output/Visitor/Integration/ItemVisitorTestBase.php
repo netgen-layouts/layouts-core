@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTestBase<\Netgen\Layouts\API\Values\Collection\Item>

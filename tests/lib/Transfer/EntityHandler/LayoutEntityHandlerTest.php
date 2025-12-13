@@ -18,7 +18,7 @@ use Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 use function sprintf;
 
@@ -47,7 +47,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
     public function testLoadEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $layout = Layout::fromArray(['id' => $uuid]);
 
@@ -61,7 +61,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
     public function testLoadEntityWithNonExistentEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find layout with identifier "%s"', $uuid->toString()));
@@ -76,7 +76,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
     public function testEntityExists(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('layoutExists')
@@ -88,7 +88,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
     public function testEntityExistsReturnsFalse(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutServiceStub
             ->method('layoutExists')
@@ -100,7 +100,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
     public function testDeleteEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $layout = Layout::fromArray(['id' => $uuid]);
 
@@ -118,7 +118,7 @@ final class LayoutEntityHandlerTest extends TestCase
 
     public function testDeleteEntityWithNonExistentEntity(): void
     {
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find layout with identifier "%s"', $uuid->toString()));

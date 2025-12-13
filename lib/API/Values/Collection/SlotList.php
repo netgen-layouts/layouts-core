@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\LazyCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_map;
 
@@ -23,12 +23,12 @@ final class SlotList extends LazyCollection
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface[]
+     * @return \Symfony\Component\Uid\Uuid[]
      */
     public function getSlotIds(): array
     {
         return array_map(
-            static fn (Slot $slot): UuidInterface => $slot->id,
+            static fn (Slot $slot): Uuid => $slot->id,
             $this->getSlots(),
         );
     }

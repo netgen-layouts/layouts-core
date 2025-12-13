@@ -31,7 +31,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as Persi
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(LayoutResolverService::class)]
 final class LayoutResolverServiceTest extends TestCase
@@ -57,7 +57,7 @@ final class LayoutResolverServiceTest extends TestCase
             new RuleCreateStruct(),
             RuleGroup::fromArray(
                 [
-                    'id' => Uuid::uuid4(),
+                    'id' => Uuid::v4(),
                     'status' => Status::Published,
                 ],
             ),
@@ -82,7 +82,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRule(
-            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
             new RuleUpdateStruct(),
         );
     }
@@ -105,7 +105,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleMetadata(
-            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
             new RuleMetadataUpdateStruct(),
         );
     }
@@ -132,10 +132,10 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->copyRule(
-            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
             RuleGroup::fromArray(
                 [
-                    'id' => Uuid::uuid4(),
+                    'id' => Uuid::v4(),
                     'status' => Status::Published,
                 ],
             ),
@@ -164,10 +164,10 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->moveRule(
-            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
             RuleGroup::fromArray(
                 [
-                    'id' => Uuid::uuid4(),
+                    'id' => Uuid::v4(),
                     'status' => Status::Published,
                 ],
             ),
@@ -195,7 +195,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->createRuleDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
+        $this->layoutResolverService->createRuleDraft(Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]));
     }
 
     public function testDiscardRuleDraft(): void
@@ -215,7 +215,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->discardRuleDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->layoutResolverService->discardRuleDraft(Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 
     public function testPublishRule(): void
@@ -235,7 +235,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->publishRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->layoutResolverService->publishRule(Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 
     public function testRestoreRuleFromArchive(): void
@@ -259,7 +259,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->restoreRuleFromArchive(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]));
+        $this->layoutResolverService->restoreRuleFromArchive(Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Archived]));
     }
 
     public function testDeleteRule(): void
@@ -279,7 +279,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->layoutResolverService->deleteRule(Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 
     public function testEnableRule(): void
@@ -292,7 +292,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willReturn(
                 PersistenceRule::fromArray(
                     [
-                        'layoutUuid' => Uuid::uuid4()->toString(),
+                        'layoutUuid' => Uuid::v4()->toString(),
                         'isEnabled' => false,
                     ],
                 ),
@@ -306,7 +306,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->enableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
+        $this->layoutResolverService->enableRule(Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]));
     }
 
     public function testDisableRule(): void
@@ -332,7 +332,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->disableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]));
+        $this->layoutResolverService->disableRule(Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]));
     }
 
     public function testCreateRuleGroup(): void
@@ -359,7 +359,7 @@ final class LayoutResolverServiceTest extends TestCase
             $createStruct,
             RuleGroup::fromArray(
                 [
-                    'id' => Uuid::uuid4(),
+                    'id' => Uuid::v4(),
                     'status' => Status::Published,
                 ],
             ),
@@ -384,7 +384,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
             new RuleGroupUpdateStruct(),
         );
     }
@@ -407,7 +407,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleGroupMetadata(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
             new RuleGroupMetadataUpdateStruct(),
         );
     }
@@ -430,10 +430,10 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->copyRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
             RuleGroup::fromArray(
                 [
-                    'id' => Uuid::uuid4(),
+                    'id' => Uuid::v4(),
                     'status' => Status::Published,
                 ],
             ),
@@ -458,10 +458,10 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->moveRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
             RuleGroup::fromArray(
                 [
-                    'id' => Uuid::uuid4(),
+                    'id' => Uuid::v4(),
                     'status' => Status::Published,
                 ],
             ),
@@ -490,7 +490,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->createRuleGroupDraft(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
         );
     }
 
@@ -512,7 +512,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->discardRuleGroupDraft(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
         );
     }
 
@@ -534,7 +534,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->publishRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
         );
     }
 
@@ -560,7 +560,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->restoreRuleGroupFromArchive(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Archived]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Archived]),
         );
     }
 
@@ -582,7 +582,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->deleteRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
         );
     }
 
@@ -610,7 +610,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->enableRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
         );
     }
 
@@ -638,7 +638,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->disableRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Published]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]),
         );
     }
 
@@ -668,7 +668,7 @@ final class LayoutResolverServiceTest extends TestCase
         $targetCreateStruct->type = 'route';
 
         $this->layoutResolverService->addTarget(
-            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
             $targetCreateStruct,
         );
     }
@@ -694,7 +694,7 @@ final class LayoutResolverServiceTest extends TestCase
         $targetUpdateStruct->value = 'route_name';
 
         $this->layoutResolverService->updateTarget(
-            Target::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'targetType' => new Route()]),
+            Target::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'targetType' => new Route()]),
             $targetUpdateStruct,
         );
     }
@@ -716,7 +716,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteTarget(Target::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->layoutResolverService->deleteTarget(Target::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 
     public function testAddRuleCondition(): void
@@ -741,7 +741,7 @@ final class LayoutResolverServiceTest extends TestCase
         $conditionCreateStruct->type = 'route_parameter';
 
         $this->layoutResolverService->addRuleCondition(
-            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            Rule::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
             $conditionCreateStruct,
         );
     }
@@ -768,7 +768,7 @@ final class LayoutResolverServiceTest extends TestCase
         $conditionCreateStruct->type = 'route_parameter';
 
         $this->layoutResolverService->addRuleGroupCondition(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]),
+            RuleGroup::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
             $conditionCreateStruct,
         );
     }
@@ -794,7 +794,7 @@ final class LayoutResolverServiceTest extends TestCase
         $conditionUpdateStruct->value = ['parameter_name' => 'param', 'parameter_values' => ['value']];
 
         $this->layoutResolverService->updateRuleCondition(
-            RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'conditionType' => new RouteParameter()]),
+            RuleCondition::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'conditionType' => new RouteParameter()]),
             $conditionUpdateStruct,
         );
     }
@@ -820,7 +820,7 @@ final class LayoutResolverServiceTest extends TestCase
         $conditionUpdateStruct->value = ['parameter_name' => 'param', 'parameter_values' => ['value']];
 
         $this->layoutResolverService->updateRuleGroupCondition(
-            RuleGroupCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft, 'conditionType' => new RouteParameter()]),
+            RuleGroupCondition::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'conditionType' => new RouteParameter()]),
             $conditionUpdateStruct,
         );
     }
@@ -842,6 +842,6 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteCondition(RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Status::Draft]));
+        $this->layoutResolverService->deleteCondition(RuleCondition::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
     }
 }

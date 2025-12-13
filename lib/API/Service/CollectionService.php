@@ -19,7 +19,7 @@ use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface CollectionService extends TransactionService
 {
@@ -37,7 +37,7 @@ interface CollectionService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified UUID does not exist
      */
-    public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
+    public function loadCollection(Uuid $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Loads a collection draft with specified UUID.
@@ -53,7 +53,7 @@ interface CollectionService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified UUID does not exist
      */
-    public function loadCollectionDraft(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
+    public function loadCollectionDraft(Uuid $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Updates a collection.
@@ -67,14 +67,14 @@ interface CollectionService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified UUID does not exist
      */
-    public function loadItem(UuidInterface $itemId): Item;
+    public function loadItem(Uuid $itemId): Item;
 
     /**
      * Loads an item draft with specified UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified UUID does not exist
      */
-    public function loadItemDraft(UuidInterface $itemId): Item;
+    public function loadItemDraft(Uuid $itemId): Item;
 
     /**
      * Loads a query with specified UUID.
@@ -90,7 +90,7 @@ interface CollectionService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified UUID does not exist
      */
-    public function loadQuery(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
+    public function loadQuery(Uuid $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
     /**
      * Loads a query with specified UUID.
@@ -106,21 +106,21 @@ interface CollectionService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified UUID does not exist
      */
-    public function loadQueryDraft(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
+    public function loadQueryDraft(Uuid $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
     /**
      * Loads a slot with specified UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified UUID does not exist
      */
-    public function loadSlot(UuidInterface $slotId): Slot;
+    public function loadSlot(Uuid $slotId): Slot;
 
     /**
      * Loads a slot draft with specified UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified UUID does not exist
      */
-    public function loadSlotDraft(UuidInterface $slotId): Slot;
+    public function loadSlotDraft(Uuid $slotId): Slot;
 
     /**
      * Changes the type of specified collection.

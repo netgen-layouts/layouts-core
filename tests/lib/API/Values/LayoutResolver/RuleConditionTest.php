@@ -9,7 +9,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Condition::class)]
 #[CoversClass(RuleCondition::class)]
@@ -19,8 +19,8 @@ final class RuleConditionTest extends TestCase
     {
         $conditionType = new ConditionType1();
 
-        $conditionUuid = Uuid::uuid4();
-        $ruleUuid = Uuid::uuid4();
+        $conditionUuid = Uuid::v4();
+        $ruleUuid = Uuid::v4();
 
         $condition = RuleCondition::fromArray(
             [

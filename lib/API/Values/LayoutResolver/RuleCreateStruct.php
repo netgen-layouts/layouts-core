@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class RuleCreateStruct
 {
@@ -12,12 +12,12 @@ final class RuleCreateStruct
      * Rule UUID. If specified, rule will be created with this UUID if not
      * already taken by an existing rule.
      */
-    public ?UuidInterface $uuid = null;
+    public ?Uuid $uuid = null;
 
     /**
      * The UUID of the layout to which the rule will be mapped.
      */
-    public ?UuidInterface $layoutId = null;
+    public ?Uuid $layoutId = null;
 
     /**
      * Priority of the rule.

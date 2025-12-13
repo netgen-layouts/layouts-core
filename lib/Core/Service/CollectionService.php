@@ -40,7 +40,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status as PersistenceStatus;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_search;
 use function array_splice;
@@ -63,7 +63,7 @@ final class CollectionService implements APICollectionService
         $this->transactionHandler = $transactionHandler;
     }
 
-    public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
+    public function loadCollection(Uuid $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
     {
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
@@ -75,7 +75,7 @@ final class CollectionService implements APICollectionService
         );
     }
 
-    public function loadCollectionDraft(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
+    public function loadCollectionDraft(Uuid $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
     {
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
@@ -112,7 +112,7 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapCollection($updatedCollection, [$collection->locale]);
     }
 
-    public function loadItem(UuidInterface $itemId): Item
+    public function loadItem(Uuid $itemId): Item
     {
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
@@ -122,7 +122,7 @@ final class CollectionService implements APICollectionService
         );
     }
 
-    public function loadItemDraft(UuidInterface $itemId): Item
+    public function loadItemDraft(Uuid $itemId): Item
     {
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
@@ -132,7 +132,7 @@ final class CollectionService implements APICollectionService
         );
     }
 
-    public function loadQuery(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query
+    public function loadQuery(Uuid $queryId, ?array $locales = null, bool $useMainLocale = true): Query
     {
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
@@ -144,7 +144,7 @@ final class CollectionService implements APICollectionService
         );
     }
 
-    public function loadQueryDraft(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query
+    public function loadQueryDraft(Uuid $queryId, ?array $locales = null, bool $useMainLocale = true): Query
     {
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
@@ -156,7 +156,7 @@ final class CollectionService implements APICollectionService
         );
     }
 
-    public function loadSlot(UuidInterface $slotId): Slot
+    public function loadSlot(Uuid $slotId): Slot
     {
         return $this->mapper->mapSlot(
             $this->collectionHandler->loadSlot(
@@ -166,7 +166,7 @@ final class CollectionService implements APICollectionService
         );
     }
 
-    public function loadSlotDraft(UuidInterface $slotId): Slot
+    public function loadSlotDraft(Uuid $slotId): Slot
     {
         return $this->mapper->mapSlot(
             $this->collectionHandler->loadSlot(

@@ -12,7 +12,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Rule::class)]
 final class RuleTest extends TestCase
@@ -26,8 +26,8 @@ final class RuleTest extends TestCase
 
         $layout = new Layout();
 
-        $uuid = Uuid::uuid4();
-        $ruleGroupUuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
+        $ruleGroupUuid = Uuid::v4();
 
         $rule = Rule::fromArray(
             [

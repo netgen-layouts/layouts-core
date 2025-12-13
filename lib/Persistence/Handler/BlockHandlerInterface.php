@@ -10,7 +10,7 @@ use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Status;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface BlockHandlerInterface
 {
@@ -21,14 +21,14 @@ interface BlockHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
      */
-    public function loadBlock(int|string|UuidInterface $blockId, Status $status): Block;
+    public function loadBlock(int|string|Uuid $blockId, Status $status): Block;
 
     /**
      * Returns if block with specified ID exists.
      *
      * Block ID can be an auto-incremented ID or an UUID.
      */
-    public function blockExists(int|string|UuidInterface $blockId, Status $status): bool;
+    public function blockExists(int|string|Uuid $blockId, Status $status): bool;
 
     /**
      * Loads all blocks from specified layout.

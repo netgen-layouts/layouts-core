@@ -11,8 +11,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleGroup::class)]
 final class RuleGroupTest extends TestCase
@@ -24,8 +23,8 @@ final class RuleGroupTest extends TestCase
 
         $condition = new RuleGroupCondition();
 
-        $uuid = Uuid::uuid4();
-        $parentUuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
+        $parentUuid = Uuid::v4();
 
         $ruleGroup = RuleGroup::fromArray(
             [
@@ -41,7 +40,7 @@ final class RuleGroupTest extends TestCase
         );
 
         self::assertSame($uuid->toString(), $ruleGroup->id->toString());
-        self::assertInstanceOf(UuidInterface::class, $ruleGroup->parentId);
+        self::assertInstanceOf(Uuid::class, $ruleGroup->parentId);
         self::assertSame($parentUuid->toString(), $ruleGroup->parentId->toString());
         self::assertSame('Name', $ruleGroup->name);
         self::assertSame('Description', $ruleGroup->description);

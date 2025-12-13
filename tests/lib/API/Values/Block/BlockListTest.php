@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(BlockList::class)]
 final class BlockListTest extends TestCase
@@ -22,8 +22,8 @@ final class BlockListTest extends TestCase
 
     public function testGetBlockIds(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $blocks = [Block::fromArray(['id' => $uuid1]), Block::fromArray(['id' => $uuid2])];
 

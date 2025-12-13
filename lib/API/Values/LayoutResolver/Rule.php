@@ -8,19 +8,19 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Rule implements Value
 {
     use HydratorTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the rule group where this rule belongs.
      */
-    public private(set) UuidInterface $ruleGroupId;
+    public private(set) Uuid $ruleGroupId;
 
     /**
      * Returns the layout mapped to this rule.

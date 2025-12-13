@@ -16,8 +16,8 @@ use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use stdClass;
+use Symfony\Component\Uid\Uuid;
 use Twig\Template;
 
 #[CoversClass(GetTwigBlockContentListener::class)]
@@ -42,7 +42,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(),
@@ -82,7 +82,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
@@ -127,7 +127,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
@@ -157,7 +157,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'definition' => new BlockDefinition(),
             ],
         );
@@ -173,7 +173,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'definition' => new TwigBlockDefinition(),
             ],
         );
@@ -192,7 +192,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
                 'definition' => new TwigBlockDefinition(),
             ],
         );

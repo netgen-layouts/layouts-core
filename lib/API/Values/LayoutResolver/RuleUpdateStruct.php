@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class RuleUpdateStruct
 {
@@ -13,7 +13,7 @@ final class RuleUpdateStruct
      *
      * Set to "false" to remove the mapping.
      */
-    public UuidInterface|false|null $layoutId = null;
+    public Uuid|false|null $layoutId = null;
 
     /**
      * Description of the rule.

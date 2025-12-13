@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleGroupConditionValueResolver::class)]
 final class RuleGroupConditionValueResolverTest extends TestCase
@@ -45,7 +45,7 @@ final class RuleGroupConditionValueResolverTest extends TestCase
     {
         $condition = new RuleGroupCondition();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupCondition')
@@ -67,7 +67,7 @@ final class RuleGroupConditionValueResolverTest extends TestCase
     {
         $condition = new RuleGroupCondition();
 
-        $uuid = Uuid::uuid4();
+        $uuid = Uuid::v4();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupConditionDraft')

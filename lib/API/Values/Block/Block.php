@@ -16,7 +16,7 @@ use Netgen\Layouts\Exception\API\BlockException;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterCollectionTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Block implements Value, ParameterCollectionInterface, ConfigAwareValue
 {
@@ -25,12 +25,12 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     use ParameterCollectionTrait;
     use ValueStatusTrait;
 
-    public private(set) UuidInterface $id;
+    public private(set) Uuid $id;
 
     /**
      * Returns the UUID of the layout where the block is located.
      */
-    public private(set) UuidInterface $layoutId;
+    public private(set) Uuid $layoutId;
 
     /**
      * Returns the block definition.
@@ -62,7 +62,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
      *
      * If block does not have a parent block, null is returned.
      */
-    public private(set) ?UuidInterface $parentBlockId;
+    public private(set) ?Uuid $parentBlockId;
 
     /**
      * Returns the placeholder identifier in the parent block where this block is located.

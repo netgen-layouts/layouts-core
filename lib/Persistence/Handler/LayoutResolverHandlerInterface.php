@@ -22,7 +22,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 interface LayoutResolverHandlerInterface
 {
@@ -33,7 +33,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
      */
-    public function loadRule(int|string|UuidInterface $ruleId, Status $status): Rule;
+    public function loadRule(int|string|Uuid $ruleId, Status $status): Rule;
 
     /**
      * Loads a rule group with specified ID.
@@ -42,7 +42,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified ID does not exist
      */
-    public function loadRuleGroup(int|string|UuidInterface $ruleGroupId, Status $status): RuleGroup;
+    public function loadRuleGroup(int|string|Uuid $ruleGroupId, Status $status): RuleGroup;
 
     /**
      * Loads all rules mapped to provided layout.
@@ -106,7 +106,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
      */
-    public function loadTarget(int|string|UuidInterface $targetId, Status $status): Target;
+    public function loadTarget(int|string|Uuid $targetId, Status $status): Target;
 
     /**
      * Loads all targets that belong to rule with specified ID.
@@ -122,7 +122,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      */
-    public function loadRuleCondition(int|string|UuidInterface $conditionId, Status $status): RuleCondition;
+    public function loadRuleCondition(int|string|Uuid $conditionId, Status $status): RuleCondition;
 
     /**
      * Loads a rule group condition with specified ID.
@@ -131,7 +131,7 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      */
-    public function loadRuleGroupCondition(int|string|UuidInterface $conditionId, Status $status): RuleGroupCondition;
+    public function loadRuleGroupCondition(int|string|Uuid $conditionId, Status $status): RuleGroupCondition;
 
     /**
      * Loads all conditions that belong to rule with specified ID.
@@ -152,7 +152,7 @@ interface LayoutResolverHandlerInterface
      *
      * Rule ID can be an auto-incremented ID or an UUID.
      */
-    public function ruleExists(int|string|UuidInterface $ruleId, ?Status $status = null): bool;
+    public function ruleExists(int|string|Uuid $ruleId, ?Status $status = null): bool;
 
     /**
      * Creates a rule.
@@ -194,7 +194,7 @@ interface LayoutResolverHandlerInterface
      *
      * Rule group ID can be an auto-incremented ID or an UUID.
      */
-    public function ruleGroupExists(int|string|UuidInterface $ruleGroupId, ?Status $status = null): bool;
+    public function ruleGroupExists(int|string|Uuid $ruleGroupId, ?Status $status = null): bool;
 
     /**
      * Creates a rule group.

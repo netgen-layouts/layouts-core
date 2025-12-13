@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Validator;
 
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Validator\Constraint\Layout;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

@@ -17,8 +17,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionItemNormalizer::class)]
 final class CollectionItemNormalizerTest extends TestCase
@@ -42,8 +42,8 @@ final class CollectionItemNormalizerTest extends TestCase
     {
         $item = Item::fromArray(
             [
-                'id' => Uuid::uuid4(),
-                'collectionId' => Uuid::uuid4(),
+                'id' => Uuid::v4(),
+                'collectionId' => Uuid::v4(),
                 'position' => 3,
                 'value' => 12,
                 'viewType' => 'overlay',

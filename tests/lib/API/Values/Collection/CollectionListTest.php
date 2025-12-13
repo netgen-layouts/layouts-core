@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionList::class)]
 final class CollectionListTest extends TestCase
@@ -22,8 +22,8 @@ final class CollectionListTest extends TestCase
 
     public function testGetCollectionIds(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
 
         $collections = [
             'one' => Collection::fromArray(['id' => $uuid1]),

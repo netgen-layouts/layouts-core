@@ -11,8 +11,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class RuleEntityHandler implements EntityHandlerInterface
 {
@@ -22,17 +21,17 @@ final class RuleEntityHandler implements EntityHandlerInterface
         private ConditionTypeRegistry $conditionTypeRegistry,
     ) {}
 
-    public function loadEntity(UuidInterface $uuid): Rule
+    public function loadEntity(Uuid $uuid): Rule
     {
         return $this->layoutResolverService->loadRule($uuid);
     }
 
-    public function entityExists(UuidInterface $uuid): bool
+    public function entityExists(Uuid $uuid): bool
     {
         return $this->layoutResolverService->ruleExists($uuid);
     }
 
-    public function deleteEntity(UuidInterface $uuid): void
+    public function deleteEntity(Uuid $uuid): void
     {
         $this->layoutResolverService->deleteRule(
             $this->layoutResolverService->loadRule($uuid),

@@ -8,8 +8,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(SuccessResult::class)]
 final class SuccessResultTest extends TestCase
@@ -18,12 +17,12 @@ final class SuccessResultTest extends TestCase
 
     private Value $entity;
 
-    private UuidInterface $entityId;
+    private Uuid $entityId;
 
     protected function setUp(): void
     {
         $this->entity = new Value();
-        $this->entityId = Uuid::uuid4();
+        $this->entityId = Uuid::v4();
 
         $this->result = new SuccessResult('type', ['key' => 'value'], $this->entityId, $this->entity);
     }

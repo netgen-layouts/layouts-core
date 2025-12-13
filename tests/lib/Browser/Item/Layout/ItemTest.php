@@ -8,21 +8,20 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(Item::class)]
 final class ItemTest extends TestCase
 {
     private Layout $layout;
 
-    private UuidInterface $layoutId;
+    private Uuid $layoutId;
 
     private Item $item;
 
     protected function setUp(): void
     {
-        $this->layoutId = Uuid::uuid4();
+        $this->layoutId = Uuid::v4();
 
         $this->layout = Layout::fromArray(['id' => $this->layoutId, 'name' => 'My layout']);
 

@@ -11,20 +11,17 @@ use Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
-use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
-use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Status;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
-use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
@@ -32,25 +29,18 @@ use function sprintf;
 #[CoversClass(CollectionHandler::class)]
 #[CoversClass(BlockQueryHandler::class)]
 #[CoversClass(CollectionQueryHandler::class)]
-final class BlockHandlerTest extends TestCase
+final class BlockHandlerTest extends CoreTestCase
 {
     use ExportObjectTrait;
     use TestCaseTrait;
     use UuidGeneratorTrait;
 
-    private BlockHandlerInterface $blockHandler;
-
-    private LayoutHandlerInterface $layoutHandler;
-
-    private CollectionHandlerInterface $collectionHandler;
-
     protected function setUp(): void
     {
-        $this->createDatabase();
+        parent::setUp();
 
-        $this->blockHandler = $this->createBlockHandler();
-        $this->layoutHandler = $this->createLayoutHandler();
-        $this->collectionHandler = $this->createCollectionHandler();
+        $this->createDatabase();
+        $this->createHandlers();
     }
 
     public function testLoadBlock(): void
@@ -2000,5 +1990,12 @@ final class BlockHandlerTest extends TestCase
 
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);
+    }
+
+    private function createHandlers(): void
+    {
+        $this->blockHandler = $this->createBlockHandler();
+        $this->layoutHandler = $this->createLayoutHandler();
+        $this->collectionHandler = $this->createCollectionHandler();
     }
 }

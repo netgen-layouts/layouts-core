@@ -6,7 +6,7 @@ namespace Netgen\Layouts\API\Values\Layout;
 
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Zone
 {
@@ -21,7 +21,7 @@ final class Zone
     /**
      * Returns the UUID of the layout to which this zone belongs.
      */
-    public private(set) UuidInterface $layoutId;
+    public private(set) Uuid $layoutId;
 
     /**
      * Returns the linked zone or null if no linked zone exists.

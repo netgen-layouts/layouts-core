@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 use function array_filter;
 use function array_map;
@@ -37,12 +37,12 @@ final class RuleGroupList extends ArrayCollection
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface[]
+     * @return \Symfony\Component\Uid\Uuid[]
      */
     public function getRuleGroupIds(): array
     {
         return array_map(
-            static fn (RuleGroup $ruleGroup): UuidInterface => $ruleGroup->id,
+            static fn (RuleGroup $ruleGroup): Uuid => $ruleGroup->id,
             $this->getRuleGroups(),
         );
     }
