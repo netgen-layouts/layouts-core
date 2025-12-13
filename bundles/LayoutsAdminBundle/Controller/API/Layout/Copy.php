@@ -9,7 +9,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -33,7 +33,7 @@ final class Copy extends AbstractController
         $this->validateRequestData($requestData);
 
         $copyStruct = $this->layoutService->newLayoutCopyStruct();
-        $copyStruct->name = $requestData->get('name');
+        $copyStruct->name = $requestData->getString('name');
         $copyStruct->description = $requestData->get('description');
 
         $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
@@ -42,9 +42,11 @@ final class Copy extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('name'),
@@ -55,12 +57,15 @@ final class Copy extends AbstractController
             'name',
         );
 
-        $this->validate(
-            $data->get('description'),
-            [
-                new Constraints\Type(type: 'string'),
-            ],
-            'description',
-        );
+        if ($data->has('description')) {
+            $this->validate(
+                $data->get('description'),
+                [
+                    new Constraints\NotNull(),
+                    new Constraints\Type(type: 'string'),
+                ],
+                'description',
+            );
+        }
     }
 }

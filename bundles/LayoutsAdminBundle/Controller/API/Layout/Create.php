@@ -11,7 +11,7 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -38,18 +38,18 @@ final class Create extends AbstractController
         $this->validateRequestData($requestData);
 
         try {
-            $layoutType = $this->layoutTypeRegistry->getLayoutType($requestData->get('layout_type'));
+            $layoutType = $this->layoutTypeRegistry->getLayoutType($requestData->getString('layout_type'));
         } catch (LayoutTypeException $e) {
             throw new BadStateException('layout_type', 'Layout type does not exist.', $e);
         }
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,
-            $requestData->get('name'),
-            $requestData->get('locale'),
+            $requestData->getString('name'),
+            $requestData->getString('locale'),
         );
 
-        $layoutCreateStruct->description = $requestData->get('description', '');
+        $layoutCreateStruct->description = $requestData->getString('description');
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
@@ -57,9 +57,11 @@ final class Create extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('layout_type'),
@@ -79,13 +81,16 @@ final class Create extends AbstractController
             'name',
         );
 
-        $this->validate(
-            $data->get('description'),
-            [
-                new Constraints\Type(type: 'string'),
-            ],
-            'description',
-        );
+        if ($data->has('description')) {
+            $this->validate(
+                $data->get('description'),
+                [
+                    new Constraints\NotNull(),
+                    new Constraints\Type(type: 'string'),
+                ],
+                'description',
+            );
+        }
 
         $this->validate(
             $data->get('locale'),

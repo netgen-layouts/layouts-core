@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -38,7 +38,7 @@ final class AddItems extends AbstractController
 
         $this->collectionService->transaction(
             function () use ($block, $collectionIdentifier, $requestData): void {
-                foreach ($requestData->get('items') as $item) {
+                foreach ($requestData->all('items') as $item) {
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                         $this->itemDefinitionRegistry->getItemDefinition($item['value_type']),
                         $item['value'],
@@ -57,18 +57,19 @@ final class AddItems extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
-    private function validateRequestData(Block $block, string $collectionIdentifier, ParameterBag $data): void
+    private function validateRequestData(Block $block, string $collectionIdentifier, InputBag $data): void
     {
-        $items = $data->get('items');
+        $items = $data->all('items');
 
         $this->validate(
             $items,
             [
-                new Constraints\Type(type: 'array'),
                 new Constraints\NotBlank(),
                 new Constraints\All(
                     constraints: new Constraints\Collection(

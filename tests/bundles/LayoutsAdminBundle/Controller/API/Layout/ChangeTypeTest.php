@@ -81,7 +81,7 @@ final class ChangeTypeTest extends ApiTestCase
                 ['json' => $data],
             )->assertJson()
             ->assertStatus(Response::HTTP_BAD_REQUEST)
-            ->assertJsonMatches('message', 'There was an error validating "zone_mappings": This value should be of type associative_array.');
+            ->assertJsonMatches('message', 'Unexpected value for parameter "zone_mappings": expecting "array", got "int".');
     }
 
     public function testChangeTypeWithNoMappings(): void

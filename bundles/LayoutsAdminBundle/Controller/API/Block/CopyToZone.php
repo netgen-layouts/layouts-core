@@ -11,7 +11,7 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
@@ -42,9 +42,9 @@ final class CopyToZone extends AbstractController
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);
 
-        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->get('layout_id')));
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->getString('layout_id')));
 
-        $zoneIdentifier = $requestData->get('zone_identifier');
+        $zoneIdentifier = $requestData->getString('zone_identifier');
         if (!$layout->hasZone($zoneIdentifier)) {
             throw new NotFoundException('zone', $zoneIdentifier);
         }
@@ -59,9 +59,11 @@ final class CopyToZone extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('layout_id'),
@@ -81,12 +83,15 @@ final class CopyToZone extends AbstractController
             'zone_identifier',
         );
 
-        $this->validate(
-            $data->get('parent_position'),
-            [
-                new Constraints\Type(type: 'int'),
-            ],
-            'parent_position',
-        );
+        if ($data->has('parent_position')) {
+            $this->validate(
+                $data->get('parent_position'),
+                [
+                    new Constraints\NotNull(),
+                    new Constraints\Type(type: 'int'),
+                ],
+                'parent_position',
+            );
+        }
     }
 }

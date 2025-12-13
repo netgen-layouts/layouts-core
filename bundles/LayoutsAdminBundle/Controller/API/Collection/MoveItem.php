@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -33,16 +33,18 @@ final class MoveItem extends AbstractController
 
         $this->collectionService->moveItem(
             $item,
-            $requestData->get('position'),
+            $requestData->getInt('position'),
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('position'),

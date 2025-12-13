@@ -9,7 +9,7 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
@@ -33,9 +33,9 @@ final class LinkZone extends AbstractController
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);
 
-        $sharedLayout = $this->layoutService->loadLayout(Uuid::fromString($requestData->get('linked_layout_id')));
+        $sharedLayout = $this->layoutService->loadLayout(Uuid::fromString($requestData->getString('linked_layout_id')));
 
-        $zoneIdentifier = $requestData->get('linked_zone_identifier');
+        $zoneIdentifier = $requestData->getString('linked_zone_identifier');
         if (!$sharedLayout->hasZone($zoneIdentifier)) {
             throw new NotFoundException('zone', $zoneIdentifier);
         }
@@ -46,9 +46,11 @@ final class LinkZone extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('linked_layout_id'),

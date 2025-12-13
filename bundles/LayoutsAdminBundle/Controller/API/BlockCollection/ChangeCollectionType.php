@@ -11,7 +11,7 @@ use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -40,7 +40,7 @@ final class ChangeCollectionType extends AbstractController
         $collection = $block->getCollection($collectionIdentifier);
         $queryCreateStruct = null;
 
-        $newType = CollectionType::from($requestData->get('new_type'));
+        $newType = CollectionType::from($requestData->getString('new_type'));
 
         if ($newType === CollectionType::Manual) {
             if (!$collection->hasQuery) {
@@ -49,7 +49,7 @@ final class ChangeCollectionType extends AbstractController
             }
         } elseif ($newType === CollectionType::Dynamic) {
             $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-                $this->queryTypeRegistry->getQueryType($requestData->get('query_type')),
+                $this->queryTypeRegistry->getQueryType($requestData->getString('query_type')),
             );
         }
 
@@ -59,14 +59,15 @@ final class ChangeCollectionType extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
-    private function validateRequestData(Block $block, string $collectionIdentifier, ParameterBag $data): void
+    private function validateRequestData(Block $block, string $collectionIdentifier, InputBag $data): void
     {
-        $newType = CollectionType::from($data->get('new_type'));
-        $queryType = $data->get('query_type');
+        $newType = CollectionType::from($data->getString('new_type'));
 
         $queryTypeConstraints = [
             new Constraints\Type(type: 'string'),
@@ -76,7 +77,7 @@ final class ChangeCollectionType extends AbstractController
             $queryTypeConstraints[] = new Constraints\NotBlank();
         }
 
-        $this->validate($queryType, $queryTypeConstraints, 'query_type');
+        $this->validate($data->get('query_type'), $queryTypeConstraints, 'query_type');
 
         $blockDefinition = $block->definition;
         if (!$blockDefinition->hasCollection($collectionIdentifier)) {
@@ -86,6 +87,8 @@ final class ChangeCollectionType extends AbstractController
         $collectionConfig = $blockDefinition->getCollection($collectionIdentifier);
 
         if ($newType === CollectionType::Dynamic) {
+            $queryType = $data->getString('query_type');
+
             if (!$collectionConfig->isValidQueryType($queryType)) {
                 throw ValidationException::validationFailed(
                     'new_type',

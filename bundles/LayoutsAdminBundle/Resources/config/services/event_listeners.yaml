@@ -22,8 +22,6 @@ services:
 
     netgen_layouts.event_listener.request_body_listener:
         class: Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener
-        arguments:
-            - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 

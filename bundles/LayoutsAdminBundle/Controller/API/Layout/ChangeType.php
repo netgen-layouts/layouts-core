@@ -11,7 +11,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
@@ -34,16 +34,19 @@ final class ChangeType extends AbstractController
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);
 
-        $zoneMappingData = $requestData->get('zone_mappings');
+        $zoneMappingData = [];
+        if ($requestData->has('zone_mappings')) {
+            $zoneMappingData = $requestData->all('zone_mappings');
+        }
 
         $zoneMappings = new ZoneMappings();
-        foreach (($zoneMappingData ?? []) as $zone => $targetZones) {
+        foreach ($zoneMappingData as $zone => $targetZones) {
             $zoneMappings->addZoneMapping($zone, $targetZones);
         }
 
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
-            $this->layoutTypeRegistry->getLayoutType($requestData->get('new_type')),
+            $this->layoutTypeRegistry->getLayoutType($requestData->getString('new_type')),
             $zoneMappings,
         );
 
@@ -51,9 +54,11 @@ final class ChangeType extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('new_type'),
@@ -64,12 +69,14 @@ final class ChangeType extends AbstractController
             'new_type',
         );
 
-        $this->validate(
-            $data->get('zone_mappings'),
-            [
-                new Constraints\Type(type: 'associative_array'),
-            ],
-            'zone_mappings',
-        );
+        if ($data->has('zone_mappings')) {
+            $this->validate(
+                $data->all('zone_mappings'),
+                [
+                    new Constraints\Type(type: 'associative_array'),
+                ],
+                'zone_mappings',
+            );
+        }
     }
 }

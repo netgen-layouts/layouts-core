@@ -5,29 +5,22 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 use function in_array;
-use function is_array;
 
 final class RequestBodyListener implements EventSubscriberInterface
 {
-    public function __construct(
-        private DecoderInterface $decoder,
-    ) {}
-
     public static function getSubscribedEvents(): array
     {
         return [RequestEvent::class => 'onKernelRequest'];
     }
 
     /**
-     * Decodes the request data into request parameter bag.
+     * Extracts the request payload and stores it in the request attributes.
      */
     public function onKernelRequest(RequestEvent $event): void
     {
@@ -41,27 +34,21 @@ final class RequestBodyListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->isDecodeable($request)) {
+        if (!$this->isRequestAcceptable($request)) {
             return;
         }
 
         try {
-            $data = $this->decoder->decode($request->getContent(), 'json');
-        } catch (UnexpectedValueException $e) {
+            $request->attributes->set('data', $request->getPayload());
+        } catch (JsonException $e) {
             throw new BadRequestHttpException('Request body has an invalid format', $e);
         }
-
-        if (!is_array($data)) {
-            throw new BadRequestHttpException('Request body has an invalid format');
-        }
-
-        $request->attributes->set('data', new ParameterBag($data));
     }
 
     /**
-     * Check if we should try to decode the body.
+     * Check if we the request is acceptable.
      */
-    private function isDecodeable(Request $request): bool
+    private function isRequestAcceptable(Request $request): bool
     {
         if (
             !in_array(

@@ -14,7 +14,7 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
@@ -42,12 +42,12 @@ final class CreateInZone extends AbstractController
         $this->validateRequestData($requestData);
 
         try {
-            $blockType = $this->blockTypeRegistry->getBlockType($requestData->get('block_type'));
+            $blockType = $this->blockTypeRegistry->getBlockType($requestData->getString('block_type'));
         } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
-        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->get('layout_id')));
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->getString('layout_id')));
 
         $this->denyAccessUnlessGranted(
             'nglayouts:block:add',
@@ -57,7 +57,7 @@ final class CreateInZone extends AbstractController
             ],
         );
 
-        $zoneIdentifier = $requestData->get('zone_identifier');
+        $zoneIdentifier = $requestData->getString('zone_identifier');
         if (!$layout->hasZone($zoneIdentifier)) {
             throw new NotFoundException('zone', $zoneIdentifier);
         }
@@ -74,9 +74,11 @@ final class CreateInZone extends AbstractController
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('block_type'),
@@ -105,12 +107,15 @@ final class CreateInZone extends AbstractController
             'zone_identifier',
         );
 
-        $this->validate(
-            $data->get('parent_position'),
-            [
-                new Constraints\Type(type: 'int'),
-            ],
-            'parent_position',
-        );
+        if ($data->has('parent_position')) {
+            $this->validate(
+                $data->get('parent_position'),
+                [
+                    new Constraints\NotNull(),
+                    new Constraints\Type(type: 'int'),
+                ],
+                'parent_position',
+            );
+        }
     }
 }

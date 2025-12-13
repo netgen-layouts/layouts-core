@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
@@ -33,23 +33,25 @@ final class Move extends AbstractController
         $this->validateRequestData($requestData);
 
         $targetBlock = $this->blockService->loadBlockDraft(
-            Uuid::fromString($requestData->get('parent_block_id')),
+            Uuid::fromString($requestData->getString('parent_block_id')),
         );
 
         $this->blockService->moveBlock(
             $block,
             $targetBlock,
-            $requestData->get('parent_placeholder'),
-            $requestData->get('parent_position'),
+            $requestData->getString('parent_placeholder'),
+            $requestData->getInt('parent_position'),
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
-     * Validates the provided parameter bag.
+     * Validates the provided input bag.
+     *
+     * @param \Symfony\Component\HttpFoundation\InputBag<int|string> $data
      */
-    private function validateRequestData(ParameterBag $data): void
+    private function validateRequestData(InputBag $data): void
     {
         $this->validate(
             $data->get('parent_block_id'),
