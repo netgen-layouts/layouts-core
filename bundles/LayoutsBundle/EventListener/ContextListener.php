@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 use function count;
 use function http_build_query;
-use function is_array;
 use function sprintf;
 use function urlencode;
 
@@ -44,9 +43,7 @@ final class ContextListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         if ($request->attributes->has('nglContext')) {
-            $context = $request->attributes->get('nglContext');
-            $context = is_array($context) ? $context : [];
-
+            $context = $request->attributes->all('nglContext');
             $this->context->add($context);
 
             return;

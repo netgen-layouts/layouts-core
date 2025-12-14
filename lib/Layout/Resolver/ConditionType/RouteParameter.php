@@ -8,6 +8,7 @@ use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
+use function array_key_exists;
 use function count;
 use function in_array;
 use function is_array;
@@ -56,8 +57,8 @@ final class RouteParameter extends ConditionType
             return false;
         }
 
-        $routeParameters = $request->attributes->get('_route_params', []);
-        if (!isset($routeParameters[$value['parameter_name']])) {
+        $routeParameters = $request->attributes->all('_route_params');
+        if (!array_key_exists($value['parameter_name'], $routeParameters)) {
             return false;
         }
 
