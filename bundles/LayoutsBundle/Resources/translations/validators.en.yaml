@@ -9,7 +9,6 @@ netgen_layouts.item_link.value_type_not_allowed: 'Value type "%valueType%" is no
 netgen_layouts.parameter_struct.invalid_value: 'Parameter %parameterName% is invalid: %message%'
 netgen_layouts.parameter_struct.readonly: 'Parameter %parameterName% cannot be set as it is read only.'
 netgen_layouts.config_aware_struct.missing_definition: 'Config definition with "%configKey%" config key does not exist.'
-netgen_layouts.datetime.invalid_timezone: 'Time zone "%timeZone%" does not exist.'
 netgen_layouts.layout_resolver.condition_type.time.to_lower: '"Until" date should be larger than "From" date.'
 netgen_layouts.block_definition.block_definition_not_found: 'Block definition "%blockDefinition%" does not exist.'
 netgen_layouts.layout.layout_not_found: 'Layout with UUID "%layoutId%" does not exist.'

@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Validator;
 
 use DateTimeInterface;
-use DateTimeZone;
 use Netgen\Layouts\Validator\Constraint\DateTime;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-use function in_array;
 use function is_array;
 use function sprintf;
 
@@ -66,24 +63,12 @@ final class DateTimeValidator extends ConstraintValidator
             $value->getTimezone()->getName() :
             ($value['timezone'] ?? '');
 
-        /** @var string[] $timeZoneIdentifiers */
-        $timeZoneIdentifiers = DateTimeZone::listIdentifiers();
-
         $validator->atPath('timezone')->validate(
             $timeZone,
             [
+                new Constraints\NotBlank(),
                 new Constraints\Type(type: 'string'),
-                new Constraints\Callback(
-                    callback: static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint, $timeZoneIdentifiers): void {
-                        if (in_array($timeZoneName, $timeZoneIdentifiers, true)) {
-                            return;
-                        }
-
-                        $context->buildViolation($constraint->invalidTimeZoneMessage)
-                            ->setParameter('%timeZone%', $timeZoneName)
-                            ->addViolation();
-                    },
-                ),
+                new Constraints\Timezone(),
             ],
         );
     }

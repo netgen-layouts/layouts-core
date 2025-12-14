@@ -16,7 +16,6 @@ final class DateTime extends Constraint
          * keys as a datetime value.
          */
         public bool $allowArray = false,
-        public string $invalidTimeZoneMessage = 'netgen_layouts.datetime.invalid_timezone',
         ?array $groups = null,
         mixed $payload = null,
     ) {
