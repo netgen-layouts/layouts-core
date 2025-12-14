@@ -24,8 +24,6 @@ final class BlockDefinitionPass implements CompilerPassInterface
 {
     private const string SERVICE_NAME = 'netgen_layouts.block.registry.block_definition';
 
-    private const string TAG_NAME = 'netgen_layouts.block_definition_handler';
-
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::SERVICE_NAME)) {
@@ -33,7 +31,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
         }
 
         $blockDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $blockDefinitionHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $blockDefinitionHandlers = $container->findTaggedServiceIds('netgen_layouts.block_definition_handler');
         $blockDefinitionServices = [];
 
         /** @var array<string, mixed[]> $blockDefinitions */

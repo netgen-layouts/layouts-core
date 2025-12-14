@@ -20,8 +20,6 @@ final class QueryTypePass implements CompilerPassInterface
 {
     private const string SERVICE_NAME = 'netgen_layouts.collection.registry.query_type';
 
-    private const string TAG_NAME = 'netgen_layouts.query_type_handler';
-
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::SERVICE_NAME)) {
@@ -29,7 +27,7 @@ final class QueryTypePass implements CompilerPassInterface
         }
 
         $queryTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $queryTypeHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $queryTypeHandlers = $container->findTaggedServiceIds('netgen_layouts.query_type_handler');
         $queryTypeServices = [];
 
         /** @var array<string, mixed[]> $queryTypes */

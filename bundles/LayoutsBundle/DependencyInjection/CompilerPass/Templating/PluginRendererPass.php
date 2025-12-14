@@ -16,8 +16,6 @@ final class PluginRendererPass implements CompilerPassInterface
 {
     private const string SERVICE_NAME = 'netgen_layouts.templating.plugin_renderer';
 
-    private const string TAG_NAME = 'netgen_layouts.template_plugin';
-
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::SERVICE_NAME)) {
@@ -25,7 +23,7 @@ final class PluginRendererPass implements CompilerPassInterface
         }
 
         $pluginRenderer = $container->findDefinition(self::SERVICE_NAME);
-        $pluginServices = $container->findTaggedServiceIds(self::TAG_NAME);
+        $pluginServices = $container->findTaggedServiceIds('netgen_layouts.template_plugin');
 
         $pluginsByName = [];
         $sortedPlugins = [];
