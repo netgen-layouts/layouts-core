@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+use function array_key_exists;
 use function sprintf;
 
 final class LayoutTypePass implements CompilerPassInterface
@@ -69,7 +70,7 @@ final class LayoutTypePass implements CompilerPassInterface
         foreach ($layoutTypes as $layoutType => $layoutTypeConfig) {
             foreach ($layoutTypeConfig['zones'] as $zoneConfig) {
                 foreach ($zoneConfig['allowed_block_definitions'] as $blockDefinition) {
-                    if (!isset($blockDefinitions[$blockDefinition])) {
+                    if (!array_key_exists($blockDefinition, $blockDefinitions)) {
                         throw new RuntimeException(
                             sprintf(
                                 'Block definition "%s" used in "%s" layout type does not exist.',

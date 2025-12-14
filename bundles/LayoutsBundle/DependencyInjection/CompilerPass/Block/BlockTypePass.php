@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+use function array_key_exists;
 use function sprintf;
 
 final class BlockTypePass implements CompilerPassInterface
@@ -60,7 +61,7 @@ final class BlockTypePass implements CompilerPassInterface
                 continue;
             }
 
-            if (!isset($blockTypes[$identifier])) {
+            if (!array_key_exists($identifier, $blockTypes)) {
                 $blockTypes[$identifier] = [
                     'name' => $blockDefinition['name'],
                     'icon' => $blockDefinition['icon'],
@@ -88,7 +89,7 @@ final class BlockTypePass implements CompilerPassInterface
         foreach ($blockTypes as $identifier => $blockType) {
             $definitionIdentifier = $blockType['definition_identifier'] ?? $identifier;
 
-            if (!isset($blockDefinitions[$definitionIdentifier])) {
+            if (!array_key_exists($definitionIdentifier, $blockDefinitions)) {
                 continue;
             }
 
@@ -150,7 +151,7 @@ final class BlockTypePass implements CompilerPassInterface
     private function validateBlockTypes(array $blockTypes, array $blockDefinitions): void
     {
         foreach ($blockTypes as $identifier => $blockType) {
-            if (!isset($blockDefinitions[$blockType['definition_identifier']])) {
+            if (!array_key_exists($blockType['definition_identifier'], $blockDefinitions)) {
                 throw new RuntimeException(
                     sprintf(
                         'Block definition "%s" used in "%s" block type does not exist.',

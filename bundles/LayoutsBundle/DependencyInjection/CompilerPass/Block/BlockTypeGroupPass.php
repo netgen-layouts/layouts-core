@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 use function array_column;
+use function array_key_exists;
 use function array_keys;
 use function in_array;
 use function sprintf;
@@ -102,7 +103,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
             );
 
             foreach ($groupBlockTypes as $groupBlockType) {
-                if (isset($blockTypes[$groupBlockType['identifier']])) {
+                if (array_key_exists($groupBlockType['identifier'], $blockTypes)) {
                     $blockTypeReferences[] = new Reference(
                         sprintf(
                             'netgen_layouts.block.block_type.%s',
