@@ -26,7 +26,7 @@ final class ParametersTypeExtensionTest extends TestCase
 
     public function testGetExtendedTypes(): void
     {
-        self::assertSame([FormType::class], $this->formTypeExtension::getExtendedTypes());
+        self::assertSame([FormType::class], [...$this->formTypeExtension::getExtendedTypes()]);
     }
 
     public function testBuildView(): void

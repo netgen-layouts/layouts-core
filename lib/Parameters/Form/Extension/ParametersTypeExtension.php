@@ -19,7 +19,7 @@ final class ParametersTypeExtension extends AbstractTypeExtension
 {
     public static function getExtendedTypes(): iterable
     {
-        return [FormType::class];
+        yield FormType::class;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
