@@ -23,7 +23,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
         /** @var \Netgen\Layouts\API\Values\Block\Placeholder $placeholder */
         $placeholder = $data->value;
 
-        $blocks = $this->buildViewValues($placeholder);
+        $blocks = $this->buildViewValues($placeholder->blocks);
 
         return [
             'identifier' => $placeholder->identifier,
@@ -48,16 +48,16 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
     }
 
     /**
-     * Builds the list of View objects for provided list of values.
+     * Builds the list of View objects for provided list of blocks.
      *
-     * @param iterable<object> $values
+     * @param iterable<\Netgen\Layouts\API\Values\Block\Block> $blocks
      *
      * @return iterable<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View>
      */
-    private function buildViewValues(iterable $values): iterable
+    private function buildViewValues(iterable $blocks): iterable
     {
-        foreach ($values as $key => $value) {
-            yield $key => new View($value);
+        foreach ($blocks as $key => $block) {
+            yield $key => new View($block);
         }
     }
 }

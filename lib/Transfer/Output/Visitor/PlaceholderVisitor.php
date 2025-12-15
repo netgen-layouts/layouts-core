@@ -37,7 +37,7 @@ final class PlaceholderVisitor implements VisitorInterface
      */
     private function visitBlocks(Placeholder $placeholder, OutputVisitor $outputVisitor): iterable
     {
-        foreach ($placeholder as $block) {
+        foreach ($placeholder->blocks as $block) {
             yield $outputVisitor->visit($block);
         }
     }

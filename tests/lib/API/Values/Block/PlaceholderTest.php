@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Tests\API\Values\Block;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\API\Values\Block\Placeholder;
-use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -29,40 +28,5 @@ final class PlaceholderTest extends TestCase
 
         self::assertCount(1, $placeholder->blocks);
         self::assertSame($block, $placeholder->blocks[0]);
-
-        self::assertSame([$block], [...$placeholder]);
-
-        self::assertCount(1, $placeholder);
-
-        self::assertArrayHasKey(0, $placeholder);
-        self::assertSame($block, $placeholder[0]);
-    }
-
-    public function testSet(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Method call not supported.');
-
-        $placeholder = Placeholder::fromArray(
-            [
-                'blocks' => BlockList::fromArray([new Block()]),
-            ],
-        );
-
-        $placeholder->offsetSet(1, new Block());
-    }
-
-    public function testUnset(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Method call not supported.');
-
-        $placeholder = Placeholder::fromArray(
-            [
-                'blocks' => BlockList::fromArray([new Block()]),
-            ],
-        );
-
-        unset($placeholder[0]);
     }
 }
