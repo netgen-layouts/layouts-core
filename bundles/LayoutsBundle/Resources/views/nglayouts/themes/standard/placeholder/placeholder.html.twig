@@ -4,7 +4,7 @@
     <ngl-placeholder isMarked="false" {% if placeholder|length == 0 %}isEmpty{% endif %}>
 {% endif %}
 
-{% for placeholder_block in placeholder %}
+{% for placeholder_block in placeholder.blocks %}
     {{ nglayouts_render_block(placeholder_block) }}
 {% endfor %}
 
