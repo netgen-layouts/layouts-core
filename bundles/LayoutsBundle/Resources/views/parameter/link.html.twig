@@ -11,7 +11,7 @@
     {% elseif value.linkType == enum('Netgen\\Layouts\\Parameters\\Value\\LinkType').Phone %}
         {% set link = 'tel:' ~ value.link ~ value.linkSuffix %}
     {% elseif value.linkType == enum('Netgen\\Layouts\\Parameters\\Value\\LinkType').Internal %}
-        {% set link = nglayouts_item_path(value.link, 'default') ~ value.linkSuffix %}
+        {% set link = nglayouts_item_path(value.link) ~ value.linkSuffix %}
     {% endif %}
 
     {% if link is not empty %}

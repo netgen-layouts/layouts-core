@@ -20,6 +20,13 @@ final class ItemExtension extends AbstractExtension
                     'is_safe' => ['html'],
                 ],
             ),
+            new TwigFunction(
+                'nglayouts_item_admin_path',
+                [ItemRuntime::class, 'getItemAdminPath'],
+                [
+                    'is_safe' => ['html'],
+                ],
+            ),
         ];
     }
 }

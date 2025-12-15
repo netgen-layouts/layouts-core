@@ -27,6 +27,22 @@ final class ItemRuntime
     ) {}
 
     /**
+     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $value
+     */
+    public function getItemPath(string|array|CmsItemInterface $value): string
+    {
+        return $this->getItemPathInternal($value, UrlType::Default);
+    }
+
+    /**
+     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $value
+     */
+    public function getItemAdminPath(string|array|CmsItemInterface $value): string
+    {
+        return $this->getItemPathInternal($value, UrlType::Admin);
+    }
+
+    /**
      * The method returns the full path of provided item.
      *
      * It accepts three kinds of references to the item:
@@ -39,7 +55,7 @@ final class ItemRuntime
      *
      * @throws \Netgen\Layouts\Exception\Item\ItemException If provided item or item reference is not valid
      */
-    public function getItemPath(string|array|CmsItemInterface $value, string $type = UrlType::Default->value): string
+    private function getItemPathInternal(string|array|CmsItemInterface $value, UrlType $type): string
     {
         try {
             $item = null;
@@ -64,7 +80,7 @@ final class ItemRuntime
                 throw ItemException::canNotLoadItem();
             }
 
-            return $this->urlGenerator->generate($item, UrlType::from($type));
+            return $this->urlGenerator->generate($item, $type);
         } catch (Throwable $t) {
             $this->errorHandler->handleError($t);
         }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Item;
 
-enum UrlType: string
+enum UrlType
 {
-    case Default = 'default';
-    case Admin = 'admin';
+    case Default;
+    case Admin;
 }
