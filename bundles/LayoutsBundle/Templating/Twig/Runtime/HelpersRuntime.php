@@ -11,7 +11,6 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
-use Netgen\Layouts\Utils\FlagGenerator;
 use Symfony\Component\Uid\Uuid;
 use Throwable;
 
@@ -70,20 +69,6 @@ final class HelpersRuntime
             return $this->valueTypeRegistry->getValueType($cmsItem->valueType)->name;
         } catch (ItemException) {
             return '';
-        }
-    }
-
-    /**
-     * Returns the country flag as an emoji string for provided country code.
-     *
-     * If the flag cannot be generated, the country code is returned as is.
-     */
-    public function getCountryFlag(string $countryCode): string
-    {
-        try {
-            return FlagGenerator::fromCountryCode($countryCode);
-        } catch (Throwable) {
-            return $countryCode;
         }
     }
 

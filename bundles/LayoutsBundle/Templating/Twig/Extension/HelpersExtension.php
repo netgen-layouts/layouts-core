@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 final class HelpersExtension extends AbstractExtension
@@ -33,16 +32,6 @@ final class HelpersExtension extends AbstractExtension
             new TwigFunction(
                 'nglayouts_parent_rule_groups',
                 [HelpersRuntime::class, 'getParentRuleGroups'],
-            ),
-        ];
-    }
-
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter(
-                'nglayouts_country_flag',
-                [HelpersRuntime::class, 'getCountryFlag'],
             ),
         ];
     }

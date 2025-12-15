@@ -5,6 +5,6 @@
 {% macro country_flags(locales) %}
 {% for locale in locales %}
     {% set country_code = locale|length > 2 ? locale|split('_')[1] : locale %}
-    <span title="{{ locale|locale_name }}">{{ country_code|nglayouts_country_flag|raw }}</span>
+    <span title="{{ locale|locale_name }}">{{ (':' ~ country_code|lower ~ ':')|emojify }}</span>
 {% endfor %}
 {% endmacro %}

@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\HelpersExtension;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 #[CoversClass(HelpersExtension::class)]
@@ -18,12 +17,6 @@ final class HelpersExtensionTest extends TestCase
     protected function setUp(): void
     {
         $this->extension = new HelpersExtension();
-    }
-
-    public function testGetFilters(): void
-    {
-        self::assertNotEmpty($this->extension->getFilters());
-        self::assertContainsOnlyInstancesOf(TwigFilter::class, $this->extension->getFilters());
     }
 
     public function testGetFunctions(): void
