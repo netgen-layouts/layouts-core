@@ -7,7 +7,7 @@
             "type_identifier": "test_layout_1",
             "name": "My layout",
             "description": "My layout description",
-            "status": "PUBLISHED",
+            "status": "published",
             "main_locale": "en",
             "available_locales": [
                 "en",
@@ -385,7 +385,7 @@
             "type_identifier": "test_layout_2",
             "name": "My other layout",
             "description": "My other layout description",
-            "status": "PUBLISHED",
+            "status": "published",
             "main_locale": "en",
             "available_locales": [
                 "en"
@@ -536,7 +536,7 @@
             "type_identifier": "test_layout_2",
             "name": "My third layout",
             "description": "My third layout description",
-            "status": "PUBLISHED",
+            "status": "published",
             "main_locale": "en",
             "available_locales": [
                 "en"
@@ -573,7 +573,7 @@
             "type_identifier": "test_layout_2",
             "name": "My fifth layout",
             "description": "My fifth layout description",
-            "status": "PUBLISHED",
+            "status": "published",
             "main_locale": "en",
             "available_locales": [
                 "en"
@@ -610,7 +610,7 @@
             "type_identifier": "test_layout_2",
             "name": "My sixth layout",
             "description": "My sixth layout description",
-            "status": "PUBLISHED",
+            "status": "published",
             "main_locale": "en",
             "available_locales": [
                 "en"

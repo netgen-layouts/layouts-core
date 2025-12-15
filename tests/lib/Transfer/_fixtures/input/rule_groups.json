@@ -4,7 +4,7 @@
         {
             "__type": "rule_group",
             "id": "dbf2b267-9410-4a91-95ed-ed3e8efafc57",
-            "status": "PUBLISHED",
+            "status": "published",
             "parent_id": "00000000-0000-0000-0000-000000000000",
             "name": "First rule group",
             "description": "First rule group",
@@ -14,7 +14,7 @@
                 {
                     "__type": "rule_group",
                     "id": "c8e3d1a3-fbc8-47b0-aa33-136390bd0de4",
-                    "status": "PUBLISHED",
+                    "status": "published",
                     "parent_id": "dbf2b267-9410-4a91-95ed-ed3e8efafc57",
                     "name": "Sub rule group",
                     "description": "Sub rule group",
@@ -31,7 +31,7 @@
         {
             "__type": "rule_group",
             "id": "14329a6c-fd42-4f62-9518-aec127769ebb",
-            "status": "PUBLISHED",
+            "status": "published",
             "parent_id": "00000000-0000-0000-0000-000000000000",
             "name": "Second rule group",
             "description": "Second rule group",
@@ -42,7 +42,7 @@
                 {
                     "__type": "rule",
                     "id": "3cf08309-94f0-408d-b075-f6148a1d41f7",
-                    "status": "PUBLISHED",
+                    "status": "published",
                     "rule_group_id": "14329a6c-fd42-4f62-9518-aec127769ebb",
                     "layout_id": null,
                     "is_enabled": false,
@@ -57,7 +57,7 @@
         {
             "__type": "rule_group",
             "id": "0a9c5aa0-57c7-42ea-977e-e55930dc96ce",
-            "status": "PUBLISHED",
+            "status": "published",
             "parent_id": "00000000-0000-0000-0000-000000000000",
             "name": "Third rule group",
             "description": "Third rule group",
@@ -82,7 +82,7 @@
         {
             "__type": "rule_group",
             "id": "dc30c48c-bf5a-4009-b4dd-2af1772a00cb",
-            "status": "PUBLISHED",
+            "status": "published",
             "parent_id": "00000000-0000-0000-0000-000000000000",
             "name": "Fourth rule group",
             "description": "Fourth rule group",

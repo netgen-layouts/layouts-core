@@ -35,9 +35,9 @@ final class StatusStringTraitTest extends TestCase
     public static function visitDataProvider(): iterable
     {
         return [
-            [Status::Draft, ['status' => 'DRAFT']],
-            [Status::Published, ['status' => 'PUBLISHED']],
-            [Status::Archived, ['status' => 'ARCHIVED']],
+            [Status::Draft, ['status' => 'draft']],
+            [Status::Published, ['status' => 'published']],
+            [Status::Archived, ['status' => 'archived']],
         ];
     }
 }

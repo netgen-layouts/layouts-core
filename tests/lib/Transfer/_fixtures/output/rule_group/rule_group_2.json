@@ -1,7 +1,7 @@
 {
     "__type": "rule_group",
     "id": "b4f85f38-de3f-4af7-9a5f-21df63a49da9",
-    "status": "PUBLISHED",
+    "status": "published",
     "parent_id": "00000000-0000-0000-0000-000000000000",
     "name": "First group",
     "description": "My description",

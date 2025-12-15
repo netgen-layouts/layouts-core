@@ -7,7 +7,7 @@
             "type_identifier": "test_layout_1",
             "name": "My layout",
             "description": "My layout description",
-            "status": "PUBLISHED",
+            "status": "published",
             "main_locale": "en",
             "available_locales": [
                 "en",

@@ -15,9 +15,9 @@ trait StatusStringTrait
     private function getStatusString(Value $value): string
     {
         return match ($value->status) {
-            Status::Draft => 'DRAFT',
-            Status::Published => 'PUBLISHED',
-            Status::Archived => 'ARCHIVED',
+            Status::Draft => 'draft',
+            Status::Published => 'published',
+            Status::Archived => 'archived',
         };
     }
 }

@@ -114,7 +114,7 @@
                     "status": {
                         "type": "string",
                         "description": "The status of the layout",
-                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                        "enum": ["draft", "published", "archived"]
                     },
                     "type_identifier": {
                         "$ref": "#/definitions/simple/identifier",
@@ -491,7 +491,7 @@
                     "status": {
                         "type": "string",
                         "description": "The status of the rule",
-                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                        "enum": ["draft", "published", "archived"]
                     },
                     "rule_group_id": {
                         "$ref": "#/definitions/simple/uuid",
@@ -550,7 +550,7 @@
                     "status": {
                         "type": "string",
                         "description": "The status of the rule group",
-                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                        "enum": ["draft", "published", "archived"]
                     },
                     "parent_id": {
                         "oneOf": [
@@ -673,7 +673,7 @@
                     "status": {
                         "type": "string",
                         "description": "The status of the role",
-                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                        "enum": ["draft", "published", "archived"]
                     },
                     "identifier": {
                         "$ref": "#/definitions/simple/identifier",

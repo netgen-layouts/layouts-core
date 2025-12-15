@@ -1,7 +1,7 @@
 {
     "__type": "rule",
     "id": "55622437-f700-5378-99c9-7dafe89a8fb6",
-    "status": "PUBLISHED",
+    "status": "published",
     "rule_group_id": "00000000-0000-0000-0000-000000000000",
     "layout_id": "71cbe281-430c-51d5-8e21-c3cc4e656dac",
     "is_enabled": true,
