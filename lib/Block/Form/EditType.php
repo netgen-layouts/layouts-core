@@ -161,8 +161,6 @@ abstract class EditType extends AbstractType
      *
      * These lists are used by the interface to hide and show item view types
      * and parameters based on selected view type.
-     *
-     * @todo Move this code somewhere else
      */
     private function processViewTypeConfig(Block $block): void
     {

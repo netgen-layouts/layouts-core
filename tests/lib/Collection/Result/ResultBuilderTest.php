@@ -101,7 +101,6 @@ final class ResultBuilderTest extends TestCase
 
         foreach ($result->results as $index => $resultItem) {
             self::assertSame($index, $resultItem->position);
-            // @todo Test item types
         }
     }
 
@@ -123,7 +122,6 @@ final class ResultBuilderTest extends TestCase
 
         foreach ($result->results as $index => $resultItem) {
             self::assertSame($index, $resultItem->position);
-            // @todo Test item types
         }
     }
 
@@ -145,7 +143,6 @@ final class ResultBuilderTest extends TestCase
 
         foreach ($result->results as $index => $resultItem) {
             self::assertSame($index, $resultItem->position);
-            // @todo Test item types
         }
     }
 
