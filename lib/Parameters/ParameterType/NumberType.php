@@ -65,12 +65,8 @@ final class NumberType extends ParameterType
             new Constraints\Type(type: 'numeric'),
         ];
 
-        if ($min !== null) {
-            $constraints[] = new Constraints\GreaterThanOrEqual(value: $min);
-        }
-
-        if ($max !== null) {
-            $constraints[] = new Constraints\LessThanOrEqual(value: $max);
+        if ($min !== null || $max !== null) {
+            $constraints[] = new Constraints\Range(min: $min, max: $max);
         }
 
         return $constraints;
