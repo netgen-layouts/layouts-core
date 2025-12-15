@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Stubs;
 
-use Netgen\Bundle\LayoutsBundle\ValueResolver\Status as ValueResolverStatus;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver as BaseValueResolver;
-use Netgen\Layouts\API\Values\Status;
 use Symfony\Component\Uid\Uuid;
 
 final class ValueResolver extends BaseValueResolver
@@ -28,14 +26,14 @@ final class ValueResolver extends BaseValueResolver
 
     public function loadValue(array $parameters): Value
     {
-        $status = match ($parameters['status']) {
-            ValueResolverStatus::Published => Status::Published,
-            ValueResolverStatus::Archived => Status::Archived,
-            default => Status::Draft,
-        };
-
-        unset($parameters['status']);
-
-        return Value::fromArray([...$parameters, ...['id' => Uuid::fromString($parameters['id']), 'status' => $status]]);
+        return Value::fromArray(
+            [
+                ...$parameters,
+                ...[
+                    'id' => Uuid::fromString($parameters['id']),
+                    'status' => $parameters['status'],
+                ],
+            ],
+        );
     }
 }

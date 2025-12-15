@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs;
 
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
-use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -14,8 +13,6 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  */
 final class ValueVisitor implements VisitorInterface
 {
-    use StatusStringTrait;
-
     public function accept(object $value): bool
     {
         return $value instanceof Value;
@@ -24,7 +21,7 @@ final class ValueVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            'status' => $this->getStatusString($value),
+            'status' => $value->status->value,
         ];
     }
 }

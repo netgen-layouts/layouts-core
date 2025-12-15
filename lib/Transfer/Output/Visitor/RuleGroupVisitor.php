@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Transfer\EntityType;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
-use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -20,8 +19,6 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  */
 final class RuleGroupVisitor implements VisitorInterface
 {
-    use StatusStringTrait;
-
     public function __construct(
         private LayoutResolverService $layoutResolverService,
     ) {}
@@ -36,7 +33,7 @@ final class RuleGroupVisitor implements VisitorInterface
         return [
             '__type' => EntityType::RuleGroup->value,
             'id' => $value->id->toString(),
-            'status' => $this->getStatusString($value),
+            'status' => $value->status->value,
             'parent_id' => $value->parentId?->toString(),
             'name' => $value->name,
             'description' => $value->description,

@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Transfer\EntityType;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
-use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -19,8 +18,6 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  */
 final class RuleVisitor implements VisitorInterface
 {
-    use StatusStringTrait;
-
     public function accept(object $value): bool
     {
         return $value instanceof Rule;
@@ -31,7 +28,7 @@ final class RuleVisitor implements VisitorInterface
         return [
             '__type' => EntityType::Rule->value,
             'id' => $value->id->toString(),
-            'status' => $this->getStatusString($value),
+            'status' => $value->status->value,
             'rule_group_id' => $value->ruleGroupId->toString(),
             'layout_id' => $value->layout?->id->toString(),
             'is_enabled' => $value->isEnabled,

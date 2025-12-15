@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Transfer\EntityType;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
-use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -19,8 +18,6 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  */
 final class LayoutVisitor implements VisitorInterface
 {
-    use StatusStringTrait;
-
     public function accept(object $value): bool
     {
         return $value instanceof Layout;
@@ -34,7 +31,7 @@ final class LayoutVisitor implements VisitorInterface
             'type_identifier' => $value->layoutType->identifier,
             'name' => $value->name,
             'description' => $value->description,
-            'status' => $this->getStatusString($value),
+            'status' => $value->status->value,
             'main_locale' => $value->mainLocale,
             'available_locales' => $value->availableLocales,
             'creation_date' => $value->created->getTimestamp(),

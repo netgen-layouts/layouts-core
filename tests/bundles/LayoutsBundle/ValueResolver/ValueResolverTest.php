@@ -6,12 +6,10 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver;
 
 use Netgen\Bundle\LayoutsBundle\Tests\Stubs\Value;
 use Netgen\Bundle\LayoutsBundle\Tests\Stubs\ValueResolver as ValueResolverStub;
-use Netgen\Bundle\LayoutsBundle\ValueResolver\Status as ValueResolverStatus;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -56,12 +54,11 @@ final class ValueResolverTest extends TestCase
         self::assertSame(Status::Draft, $values[0]->status);
     }
 
-    #[Group('a')]
     public function testResolveWithPublishedRouteStatusParam(): void
     {
         $request = Request::create('/');
         $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
-        $request->attributes->set('_nglayouts_status', ValueResolverStatus::Published->value);
+        $request->attributes->set('_nglayouts_status', Status::Published->value);
         $argument = new ArgumentMetadata('value', Value::class, false, false, null);
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
@@ -76,7 +73,7 @@ final class ValueResolverTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
-        $request->attributes->set('_nglayouts_status', ValueResolverStatus::Archived->value);
+        $request->attributes->set('_nglayouts_status', Status::Archived->value);
         $argument = new ArgumentMetadata('value', Value::class, false, false, null);
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
@@ -91,7 +88,7 @@ final class ValueResolverTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
-        $request->attributes->set('_nglayouts_status', ValueResolverStatus::Draft->value);
+        $request->attributes->set('_nglayouts_status', Status::Draft->value);
         $argument = new ArgumentMetadata('value', Value::class, false, false, null);
 
         $values = [...$this->valueResolver->resolve($request, $argument)];

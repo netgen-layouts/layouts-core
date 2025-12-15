@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Layout;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver;
-use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Layout\ZoneList;
+use Netgen\Layouts\API\Values\Status;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
