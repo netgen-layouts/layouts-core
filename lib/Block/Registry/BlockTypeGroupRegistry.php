@@ -18,10 +18,10 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\Layouts\Block\BlockType\BlockTypeGroup>
  * @implements \ArrayAccess<string, \Netgen\Layouts\Block\BlockType\BlockTypeGroup>
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Block\BlockType\BlockTypeGroup>
  */
-final class BlockTypeGroupRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class BlockTypeGroupRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @param array<string, \Netgen\Layouts\Block\BlockType\BlockTypeGroup> $blockTypeGroups

@@ -19,10 +19,10 @@ use function count;
  * Each container block can have multiple placeholders, allowing to render
  * each block set separately.
  *
- * @implements \IteratorAggregate<int, \Netgen\Layouts\API\Values\Block\Block>
  * @implements \ArrayAccess<int, \Netgen\Layouts\API\Values\Block\Block>
+ * @implements \IteratorAggregate<int, \Netgen\Layouts\API\Values\Block\Block>
  */
-final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
+final class Placeholder implements ArrayAccess, Countable, IteratorAggregate
 {
     use HydratorTrait;
 

@@ -16,10 +16,10 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \IteratorAggregate<string, mixed>
  * @implements \ArrayAccess<string, mixed>
+ * @implements \IteratorAggregate<string, mixed>
  */
-final class Context implements IteratorAggregate, Countable, ArrayAccess
+final class Context implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @var array<string, mixed>

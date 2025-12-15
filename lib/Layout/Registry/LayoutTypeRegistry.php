@@ -18,10 +18,10 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
  * @implements \ArrayAccess<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
  */
-final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class LayoutTypeRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @param array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface> $layoutTypes

@@ -17,10 +17,10 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
  * @implements \ArrayAccess<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
  */
-final class ParameterTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class ParameterTypeRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @var array<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>

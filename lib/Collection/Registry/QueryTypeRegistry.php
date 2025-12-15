@@ -18,10 +18,10 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
  * @implements \ArrayAccess<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
  */
-final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class QueryTypeRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @param array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface> $queryTypes

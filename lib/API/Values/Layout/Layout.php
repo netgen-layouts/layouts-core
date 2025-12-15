@@ -21,10 +21,10 @@ use function count;
 use function in_array;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\Layouts\API\Values\Layout\Zone>
  * @implements \ArrayAccess<string, \Netgen\Layouts\API\Values\Layout\Zone>
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\API\Values\Layout\Zone>
  */
-final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
+final class Layout implements Value, ArrayAccess, Countable, IteratorAggregate
 {
     use HydratorTrait;
     use ValueStatusTrait;

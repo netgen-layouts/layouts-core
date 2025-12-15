@@ -23,10 +23,10 @@ use const PHP_INT_MAX;
  * Result set is a calculated result of the collection
  * containing manual items + items received from running the query.
  *
- * @implements \IteratorAggregate<int, \Netgen\Layouts\Collection\Result\Result>
  * @implements \ArrayAccess<int, \Netgen\Layouts\Collection\Result\Result>
+ * @implements \IteratorAggregate<int, \Netgen\Layouts\Collection\Result\Result>
  */
-final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
+final class ResultSet implements ArrayAccess, Countable, IteratorAggregate
 {
     use HydratorTrait;
 

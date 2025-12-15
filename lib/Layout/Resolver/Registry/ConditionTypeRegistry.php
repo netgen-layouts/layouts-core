@@ -17,10 +17,10 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
  * @implements \ArrayAccess<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
  */
-final class ConditionTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class ConditionTypeRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @var array<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>

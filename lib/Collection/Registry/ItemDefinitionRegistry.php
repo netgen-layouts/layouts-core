@@ -18,10 +18,10 @@ use function array_key_exists;
 use function count;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
  * @implements \ArrayAccess<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
  */
-final class ItemDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class ItemDefinitionRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @param array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface> $itemDefinitions
