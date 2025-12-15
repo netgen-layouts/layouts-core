@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Output;
 
 use Netgen\Layouts\Exception\Transfer\TransferException;
-use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
 use Netgen\Layouts\Transfer\EntityType;
 use Psr\Container\ContainerInterface;
@@ -48,7 +47,7 @@ final class Serializer implements SerializerInterface
     private function createBasicData(): array
     {
         return [
-            '__version' => Descriptor::FORMAT_VERSION,
+            '__version' => self::FORMAT_VERSION,
         ];
     }
 

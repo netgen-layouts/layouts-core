@@ -8,9 +8,9 @@ use Netgen\Layouts\Exception\Transfer\TransferException;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Tests\Transfer\Stubs\EntityHandlerStub;
-use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
+use Netgen\Layouts\Transfer\Output\SerializerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -36,7 +36,7 @@ final class SerializerTest extends TestCase
 
         self::assertSame(
             [
-                '__version' => Descriptor::FORMAT_VERSION,
+                '__version' => SerializerInterface::FORMAT_VERSION,
                 'layouts' => [
                     ['visited_key' => 'visited_value'],
                     ['visited_key' => 'visited_value'],

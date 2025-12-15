@@ -14,6 +14,11 @@ namespace Netgen\Layouts\Transfer\Output;
 interface SerializerInterface
 {
     /**
+     * Format version.
+     */
+    final public const int FORMAT_VERSION = 2;
+
+    /**
      * Serializes the entities with provided UUIDs.
      *
      * @param array<string, string> $entityIds The list of entities to serialize. Keys should be
