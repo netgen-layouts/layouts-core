@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
-use Netgen\Layouts\Utils\HtmlPurifier;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints;
 final class HtmlType extends ParameterType
 {
     public function __construct(
-        private HtmlPurifier $htmlPurifier,
+        private HtmlSanitizerInterface $sanitizer,
     ) {}
 
     public static function getIdentifier(): string
@@ -32,7 +32,7 @@ final class HtmlType extends ParameterType
 
     public function toHash(ParameterDefinition $parameterDefinition, mixed $value): string
     {
-        return $this->htmlPurifier->purify($value ?? '');
+        return $this->sanitizer->sanitize($value ?? '');
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, mixed $value): array

@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterType\HtmlType;
-use Netgen\Layouts\Utils\HtmlPurifier;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
@@ -19,7 +20,11 @@ final class HtmlTypeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->type = new HtmlType(new HtmlPurifier());
+        $sanitizer = new HtmlSanitizer(
+            new HtmlSanitizerConfig()->allowSafeElements(),
+        );
+
+        $this->type = new HtmlType($sanitizer);
     }
 
     public function testGetIdentifier(): void

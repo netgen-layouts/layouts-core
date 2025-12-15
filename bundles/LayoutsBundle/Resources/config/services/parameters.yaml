@@ -58,7 +58,7 @@ services:
     netgen_layouts.parameters.parameter_type.html:
         class: Netgen\Layouts\Parameters\ParameterType\HtmlType
         arguments:
-            - "@netgen_layouts.utils.html_purifier"
+            - "@netgen_layouts.utils.html_sanitizer"
         tags:
             - { name: netgen_layouts.parameter_type }
 

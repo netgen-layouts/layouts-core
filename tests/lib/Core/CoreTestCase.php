@@ -69,9 +69,10 @@ use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
-use Netgen\Layouts\Utils\HtmlPurifier;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 use Symfony\Component\Uid\Factory\UuidFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -556,7 +557,7 @@ abstract class CoreTestCase extends TestCase
                 new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
                 new ParameterType\IntegerType(),
                 new ParameterType\IdentifierType(),
-                new ParameterType\HtmlType(new HtmlPurifier()),
+                new ParameterType\HtmlType(new HtmlSanitizer(new HtmlSanitizerConfig())),
                 new ParameterType\EmailType(),
                 new ParameterType\ChoiceType(),
                 new ParameterType\EnumType(),
