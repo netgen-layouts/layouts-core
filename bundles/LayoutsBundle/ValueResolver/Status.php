@@ -7,8 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\ValueResolver;
 enum Status: string
 {
     case Published = 'published';
-
     case Draft = 'draft';
-
     case Archived = 'archived';
 }

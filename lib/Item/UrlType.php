@@ -7,6 +7,5 @@ namespace Netgen\Layouts\Item;
 enum UrlType: string
 {
     case Default = 'default';
-
     case Admin = 'admin';
 }

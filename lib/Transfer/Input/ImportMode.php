@@ -7,8 +7,6 @@ namespace Netgen\Layouts\Transfer\Input;
 enum ImportMode: string
 {
     case Copy = 'copy';
-
     case Overwrite = 'overwrite';
-
     case Skip = 'skip';
 }
