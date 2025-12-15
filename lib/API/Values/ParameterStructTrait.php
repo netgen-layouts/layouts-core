@@ -16,7 +16,7 @@ trait ParameterStructTrait
     /**
      * @var array<string, mixed>
      */
-    final public array $parameterValues = [];
+    public private(set) array $parameterValues = [];
 
     final public function setParameterValue(string $parameterName, mixed $parameterValue): void
     {

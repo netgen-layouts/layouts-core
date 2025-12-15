@@ -12,6 +12,7 @@ use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_intersect;
@@ -66,6 +67,9 @@ final class ParametersType extends AbstractType
                 'translation_domain' => 'nglayouts',
                 'property_path' => 'parameterValues[' . $parameterName . ']',
                 'ngl_parameter_definition' => $parameterDefinition,
+                'setter' => static function (ParameterStruct &$struct, mixed $value, FormInterface $form): void {
+                    $struct->setParameterValue($form->getName(), $value);
+                },
             ];
 
             $parameterForm = $builder->create(

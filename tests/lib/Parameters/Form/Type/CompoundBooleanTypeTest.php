@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters\Form\Type;
 
+use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper;
+use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use function array_keys;
 
@@ -21,10 +27,12 @@ final class CompoundBooleanTypeTest extends FormTestCase
     public function testSubmitValidData(): void
     {
         $submittedData = [
-            'main_checkbox' => [
-                '_self' => '1',
-                'css_id' => 'Some CSS ID',
-                'css_class' => 'Some CSS class',
+            'parameter_values' => [
+                'main_checkbox' => [
+                    '_self' => '1',
+                    'css_id' => 'Some CSS ID',
+                    'css_class' => 'Some CSS class',
+                ],
             ],
         ];
 
@@ -35,27 +43,49 @@ final class CompoundBooleanTypeTest extends FormTestCase
             $struct,
         );
 
+        $compoundDefinition = ParameterDefinition::fromArray(
+            [
+                'name' => 'main_checkbox',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'label' => null,
+                'options' => [
+                    'reverse' => false,
+                ],
+                'parameterDefinitions' => [
+                    'css_class' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_class',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                ],
+            ],
+        );
+
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'main_checkbox' => $compoundDefinition,
+                ],
+            ],
+        );
+
         $parentForm->add(
-            'main_checkbox',
-            CompoundBooleanType::class,
+            'parameter_values',
+            ParametersType::class,
             [
-                'property_path' => 'parameterValues[main_checkbox]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_class',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_class]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_id',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_id]',
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
             ],
         );
 
@@ -75,19 +105,22 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('parameter_values', $children);
+        self::assertArrayHasKey('main_checkbox', $children['parameter_values']);
 
-        foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
+        foreach (array_keys($submittedData['parameter_values']['main_checkbox']) as $key) {
+            self::assertArrayHasKey($key, $children['parameter_values']['main_checkbox']->children);
         }
     }
 
     public function testSubmitValidDataWithUncheckedCheckbox(): void
     {
         $submittedData = [
-            'main_checkbox' => [
-                'css_id' => 'Some CSS ID',
-                'css_class' => 'Some CSS class',
+            'parameter_values' => [
+                'main_checkbox' => [
+                    'css_id' => 'Some CSS ID',
+                    'css_class' => 'Some CSS class',
+                ],
             ],
         ];
 
@@ -98,27 +131,49 @@ final class CompoundBooleanTypeTest extends FormTestCase
             $struct,
         );
 
+        $compoundDefinition = ParameterDefinition::fromArray(
+            [
+                'name' => 'main_checkbox',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'label' => null,
+                'options' => [
+                    'reverse' => false,
+                ],
+                'parameterDefinitions' => [
+                    'css_class' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_class',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                ],
+            ],
+        );
+
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'main_checkbox' => $compoundDefinition,
+                ],
+            ],
+        );
+
         $parentForm->add(
-            'main_checkbox',
-            CompoundBooleanType::class,
+            'parameter_values',
+            ParametersType::class,
             [
-                'property_path' => 'parameterValues[main_checkbox]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_class',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_class]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_id',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_id]',
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
             ],
         );
 
@@ -129,6 +184,8 @@ final class CompoundBooleanTypeTest extends FormTestCase
         self::assertSame(
             [
                 'main_checkbox' => false,
+                'css_class' => null,
+                'css_id' => null,
             ],
             $struct->parameterValues,
         );
@@ -136,17 +193,20 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('parameter_values', $children);
+        self::assertArrayHasKey('main_checkbox', $children['parameter_values']);
 
-        foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
+        foreach (array_keys($submittedData['parameter_values']['main_checkbox']) as $key) {
+            self::assertArrayHasKey($key, $children['parameter_values']['main_checkbox']->children);
         }
     }
 
     public function testSubmitValidDataWithUncheckedCheckboxAndEmptyData(): void
     {
         $submittedData = [
-            'main_checkbox' => [],
+            'parameter_values' => [
+                'main_checkbox' => [],
+            ],
         ];
 
         $struct = new ParameterStruct();
@@ -156,27 +216,49 @@ final class CompoundBooleanTypeTest extends FormTestCase
             $struct,
         );
 
+        $compoundDefinition = ParameterDefinition::fromArray(
+            [
+                'name' => 'main_checkbox',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'label' => null,
+                'options' => [
+                    'reverse' => false,
+                ],
+                'parameterDefinitions' => [
+                    'css_class' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_class',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                ],
+            ],
+        );
+
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'main_checkbox' => $compoundDefinition,
+                ],
+            ],
+        );
+
         $parentForm->add(
-            'main_checkbox',
-            CompoundBooleanType::class,
+            'parameter_values',
+            ParametersType::class,
             [
-                'property_path' => 'parameterValues[main_checkbox]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_class',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_class]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_id',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_id]',
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
             ],
         );
 
@@ -187,6 +269,8 @@ final class CompoundBooleanTypeTest extends FormTestCase
         self::assertSame(
             [
                 'main_checkbox' => false,
+                'css_class' => null,
+                'css_id' => null,
             ],
             $struct->parameterValues,
         );
@@ -194,18 +278,21 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
-        self::assertArrayHasKey('css_class', $children['main_checkbox']->children);
-        self::assertArrayHasKey('css_id', $children['main_checkbox']->children);
+        self::assertArrayHasKey('parameter_values', $children);
+        self::assertArrayHasKey('main_checkbox', $children['parameter_values']);
+        self::assertArrayHasKey('css_class', $children['parameter_values']['main_checkbox']->children);
+        self::assertArrayHasKey('css_id', $children['parameter_values']['main_checkbox']->children);
     }
 
     public function testSubmitValidDataWithReverseMode(): void
     {
         $submittedData = [
-            'main_checkbox' => [
-                '_self' => '1',
-                'css_id' => 'Some CSS ID',
-                'css_class' => 'Some CSS class',
+            'parameter_values' => [
+                'main_checkbox' => [
+                    '_self' => '1',
+                    'css_id' => 'Some CSS ID',
+                    'css_class' => 'Some CSS class',
+                ],
             ],
         ];
 
@@ -216,28 +303,49 @@ final class CompoundBooleanTypeTest extends FormTestCase
             $struct,
         );
 
+        $compoundDefinition = ParameterDefinition::fromArray(
+            [
+                'name' => 'main_checkbox',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'label' => null,
+                'options' => [
+                    'reverse' => true,
+                ],
+                'parameterDefinitions' => [
+                    'css_class' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_class',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                ],
+            ],
+        );
+
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'main_checkbox' => $compoundDefinition,
+                ],
+            ],
+        );
+
         $parentForm->add(
-            'main_checkbox',
-            CompoundBooleanType::class,
+            'parameter_values',
+            ParametersType::class,
             [
-                'property_path' => 'parameterValues[main_checkbox]',
-                'reverse' => true,
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_class',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_class]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_id',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_id]',
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
             ],
         );
 
@@ -248,6 +356,8 @@ final class CompoundBooleanTypeTest extends FormTestCase
         self::assertSame(
             [
                 'main_checkbox' => true,
+                'css_class' => null,
+                'css_id' => null,
             ],
             $struct->parameterValues,
         );
@@ -255,19 +365,22 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('parameter_values', $children);
+        self::assertArrayHasKey('main_checkbox', $children['parameter_values']);
 
-        foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
+        foreach (array_keys($submittedData['parameter_values']['main_checkbox']) as $key) {
+            self::assertArrayHasKey($key, $children['parameter_values']['main_checkbox']->children);
         }
     }
 
     public function testSubmitValidDataWithUncheckedCheckboxAndReverseMode(): void
     {
         $submittedData = [
-            'main_checkbox' => [
-                'css_id' => 'Some CSS ID',
-                'css_class' => 'Some CSS class',
+            'parameter_values' => [
+                'main_checkbox' => [
+                    'css_id' => 'Some CSS ID',
+                    'css_class' => 'Some CSS class',
+                ],
             ],
         ];
 
@@ -278,28 +391,49 @@ final class CompoundBooleanTypeTest extends FormTestCase
             $struct,
         );
 
+        $compoundDefinition = ParameterDefinition::fromArray(
+            [
+                'name' => 'main_checkbox',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'label' => null,
+                'options' => [
+                    'reverse' => true,
+                ],
+                'parameterDefinitions' => [
+                    'css_class' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_class',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                    'css_id' => ParameterDefinition::fromArray(
+                        [
+                            'name' => 'css_id',
+                            'type' => new ParameterType\TextLineType(),
+                            'label' => null,
+                        ],
+                    ),
+                ],
+            ],
+        );
+
+        $parameterDefinitions = ParameterDefinitionCollection::fromArray(
+            [
+                'parameterDefinitions' => [
+                    'main_checkbox' => $compoundDefinition,
+                ],
+            ],
+        );
+
         $parentForm->add(
-            'main_checkbox',
-            CompoundBooleanType::class,
+            'parameter_values',
+            ParametersType::class,
             [
-                'property_path' => 'parameterValues[main_checkbox]',
-                'reverse' => true,
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_class',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_class]',
-            ],
-        );
-
-        $parentForm->get('main_checkbox')->add(
-            'css_id',
-            TextType::class,
-            [
-                'property_path' => 'parameterValues[css_id]',
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
             ],
         );
 
@@ -319,36 +453,28 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        self::assertArrayHasKey('main_checkbox', $children);
+        self::assertArrayHasKey('parameter_values', $children);
+        self::assertArrayHasKey('main_checkbox', $children['parameter_values']);
 
-        foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
+        foreach (array_keys($submittedData['parameter_values']['main_checkbox']) as $key) {
+            self::assertArrayHasKey($key, $children['parameter_values']['main_checkbox']->children);
         }
-    }
-
-    public function testConfigureOptions(): void
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $options = [
-            'reverse' => true,
-        ];
-
-        $resolvedOptions = $optionsResolver->resolve($options);
-
-        self::assertTrue($resolvedOptions['inherit_data']);
-        self::assertTrue($resolvedOptions['reverse']);
-    }
-
-    public function testGetBlockPrefix(): void
-    {
-        self::assertSame('nglayouts_compound_boolean', $this->formType->getBlockPrefix());
     }
 
     protected function getMainType(): FormTypeInterface
     {
-        return new CompoundBooleanType();
+        return new ParametersType(
+            new Container(
+                [
+                    'text_line' => new TextLineMapper(),
+                    'compound_boolean' => new BooleanMapper(),
+                ],
+            ),
+        );
+    }
+
+    protected function getTypeExtensions(): array
+    {
+        return [new ParametersTypeExtension()];
     }
 }

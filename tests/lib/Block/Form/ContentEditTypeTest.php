@@ -115,7 +115,8 @@ final class ContentEditTypeTest extends FormTestCase
         self::assertTrue($form->isSynchronized());
 
         self::assertSame('My block', $struct->name);
-        self::assertSame(['css_class' => 'Some CSS class'], $struct->parameterValues);
+        self::assertSame('Some CSS class', $struct->parameterValues['css_class']);
+        self::assertNull($struct->parameterValues['css_id']);
 
         $view = $form->createView();
         $children = $view->children;

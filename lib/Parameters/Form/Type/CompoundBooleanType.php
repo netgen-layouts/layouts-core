@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Parameters\Form\Type;
 
+use Netgen\Layouts\API\Values\ParameterStruct;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -67,6 +68,9 @@ final class CompoundBooleanType extends AbstractType
                 'required' => $builder->getRequired(),
                 'label' => $builder->getOption('label'),
                 'property_path' => $builder->getPropertyPath(),
+                'setter' => static function (ParameterStruct &$struct, mixed $value, FormInterface $form): void {
+                    $struct->setParameterValue($form->getParent()?->getName() ?? '', $value);
+                },
             ],
         );
     }
