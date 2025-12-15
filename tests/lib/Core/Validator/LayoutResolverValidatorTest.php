@@ -65,15 +65,12 @@ final class LayoutResolverValidatorTest extends TestCase
     #[DataProvider('validateRuleUpdateStructDataProvider')]
     public function testValidateRuleUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new RuleUpdateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleUpdateStruct($struct);
     }
@@ -84,15 +81,12 @@ final class LayoutResolverValidatorTest extends TestCase
     #[DataProvider('validateRuleGroupCreateStructDataProvider')]
     public function testValidateRuleGroupCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new RuleGroupCreateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleGroupCreateStruct($struct);
     }
@@ -103,15 +97,12 @@ final class LayoutResolverValidatorTest extends TestCase
     #[DataProvider('validateRuleGroupUpdateStructDataProvider')]
     public function testValidateRuleGroupUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new RuleGroupUpdateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleGroupUpdateStruct($struct);
     }
@@ -122,15 +113,12 @@ final class LayoutResolverValidatorTest extends TestCase
     #[DataProvider('validateTargetCreateStructDataProvider')]
     public function testValidateTargetCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new TargetCreateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateTargetCreateStruct($struct);
     }
@@ -141,15 +129,12 @@ final class LayoutResolverValidatorTest extends TestCase
     #[DataProvider('validateTargetUpdateStructDataProvider')]
     public function testValidateTargetUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new TargetUpdateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
             Target::fromArray(['targetType' => new TargetType1()]),
@@ -163,15 +148,12 @@ final class LayoutResolverValidatorTest extends TestCase
     #[DataProvider('validateConditionCreateStructDataProvider')]
     public function testValidateConditionCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new ConditionCreateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateConditionCreateStruct($struct);
     }
@@ -182,15 +164,12 @@ final class LayoutResolverValidatorTest extends TestCase
     #[DataProvider('validateConditionUpdateStructDataProvider')]
     public function testValidateConditionUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new ConditionUpdateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
             RuleCondition::fromArray(['conditionType' => new ConditionType1()]),

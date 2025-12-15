@@ -14,6 +14,7 @@ use Netgen\Layouts\Tests\Validator\Stubs\ValueValidator;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -42,12 +43,9 @@ final class ValidatorTraitTest extends TestCase
     #[DataProvider('validateIdentifierDataProvider')]
     public function testValidateIdentifier(mixed $identifier, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->validator->validateIdentifier($identifier);
     }
@@ -68,33 +66,25 @@ final class ValidatorTraitTest extends TestCase
     #[DataProvider('validatePositionDataProvider')]
     public function testValidatePosition(mixed $position, bool $isRequired, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->validator->validatePosition($position, null, $isRequired);
     }
 
+    #[DoesNotPerformAssertions]
     public function testValidatePositionWithDefaultRequiredValue(): void
     {
         $this->validator->validatePosition(null);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
     }
 
     #[DataProvider('validateLocaleDataProvider')]
     public function testValidateLocale(string $locale, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->validator->validateLocale($locale);
     }

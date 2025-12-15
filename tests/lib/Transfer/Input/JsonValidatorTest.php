@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Transfer\Input;
 use Netgen\Layouts\Exception\Transfer\JsonValidationException;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(JsonValidator::class)]
@@ -19,12 +20,10 @@ final class JsonValidatorTest extends TestCase
         $this->validator = new JsonValidator();
     }
 
+    #[DoesNotPerformAssertions]
     public function testValidateJson(): void
     {
         $this->validator->validateJson('{}', '{}');
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
     public function testValidateJsonThrowsJsonValidationExceptionWithInvalidJson(): void

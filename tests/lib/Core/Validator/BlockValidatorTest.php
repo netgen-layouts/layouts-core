@@ -59,15 +59,12 @@ final class BlockValidatorTest extends TestCase
     #[DataProvider('validateBlockCreateStructDataProvider')]
     public function testValidateBlockCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $blockCreateStruct = new BlockCreateStruct($params['definition']);
         Hydrator::hydrate($blockCreateStruct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
     }
@@ -78,15 +75,12 @@ final class BlockValidatorTest extends TestCase
     #[DataProvider('validateBlockUpdateStructDataProvider')]
     public function testValidateBlockUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $blockUpdateStruct = new BlockUpdateStruct();
         Hydrator::hydrate($blockUpdateStruct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->blockValidator->validateBlockUpdateStruct(
             Block::fromArray(

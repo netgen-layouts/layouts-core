@@ -11,6 +11,7 @@ use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 
@@ -37,6 +38,7 @@ abstract class VisitorTestBase extends CoreTestCase
     }
 
     #[DataProvider('visitDataProvider')]
+    #[DoesNotPerformAssertions]
     final public function testVisit(string $fixturePath, string $id, string ...$additionalParameters): void
     {
         $fixturePath = __DIR__ . '/../../../_fixtures/output/' . $fixturePath;
@@ -58,9 +60,6 @@ abstract class VisitorTestBase extends CoreTestCase
             $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
             self::fail($matcher->error() . PHP_EOL . $differ->diff($expectedData, $visitedData));
         }
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
     /**

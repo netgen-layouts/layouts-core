@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\HttpCache;
 
 use Netgen\Layouts\HttpCache\NullClient;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(NullClient::class)]
@@ -18,11 +19,9 @@ final class NullClientTest extends TestCase
         $this->client = new NullClient();
     }
 
+    #[DoesNotPerformAssertions]
     public function testPurge(): void
     {
         $this->client->purge(['ngl-block-1', 'ngl-block-2']);
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 }

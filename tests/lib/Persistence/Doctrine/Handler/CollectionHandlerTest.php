@@ -27,6 +27,7 @@ use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 
 #[CoversClass(CollectionHandler::class)]
 #[CoversClass(CollectionQueryHandler::class)]
@@ -2113,13 +2114,12 @@ final class CollectionHandlerTest extends CoreTestCase
         $this->collectionHandler->loadQuery(2, Status::Published);
     }
 
+    #[DoesNotPerformAssertions]
     public function testDeleteCollectionQueryWithNoQuery(): void
     {
         $this->collectionHandler->deleteCollectionQuery(
             $this->collectionHandler->loadCollection(1, Status::Draft),
         );
-
-        $this->addToAssertionCount(1);
     }
 
     public function testSlotWithPositionExists(): void

@@ -163,9 +163,6 @@ abstract class ImporterTestBase extends CoreTestCase
                 self::fail($matcher->error() . PHP_EOL . $diff);
             }
         }
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
     final public function testImportRuleGroups(): void
@@ -207,9 +204,6 @@ abstract class ImporterTestBase extends CoreTestCase
                 self::fail($matcher->error() . PHP_EOL . $diff);
             }
         }
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
     final public function testImportLayouts(): void
@@ -252,9 +246,6 @@ abstract class ImporterTestBase extends CoreTestCase
                 self::fail($matcher->error() . PHP_EOL . $diff);
             }
         }
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
     final public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void

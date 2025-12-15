@@ -23,6 +23,7 @@ use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\VarExporter\Hydrator;
@@ -54,15 +55,12 @@ final class LayoutValidatorTest extends TestCase
     #[DataProvider('validateLayoutCreateStructDataProvider')]
     public function testValidateLayoutCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new LayoutCreateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateLayoutCreateStruct($struct);
     }
@@ -73,15 +71,12 @@ final class LayoutValidatorTest extends TestCase
     #[DataProvider('validateLayoutUpdateStructDataProvider')]
     public function testValidateLayoutUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new LayoutUpdateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateLayoutUpdateStruct($struct);
     }
@@ -92,25 +87,20 @@ final class LayoutValidatorTest extends TestCase
     #[DataProvider('validateLayoutCopyStructDataProvider')]
     public function testValidateLayoutCopyStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new LayoutCopyStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateLayoutCopyStruct($struct);
     }
 
     #[DataProvider('validateChangeLayoutTypeDataProvider')]
+    #[DoesNotPerformAssertions]
     public function testValidateChangeLayoutType(ZoneMappings $zoneMappings): void
     {
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),
@@ -118,11 +108,9 @@ final class LayoutValidatorTest extends TestCase
         );
     }
 
+    #[DoesNotPerformAssertions]
     public function testValidateChangeLayoutTypeWhenNotPreservingSharedZones(): void
     {
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             self::getLayoutType(),

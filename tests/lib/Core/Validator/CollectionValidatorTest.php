@@ -56,15 +56,12 @@ final class CollectionValidatorTest extends TestCase
     #[DataProvider('validateCollectionCreateStructDataProvider')]
     public function testValidateCollectionCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new CollectionCreateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateCollectionCreateStruct($struct);
     }
@@ -75,15 +72,12 @@ final class CollectionValidatorTest extends TestCase
     #[DataProvider('validateCollectionUpdateStructDataProvider')]
     public function testValidateCollectionUpdateStruct(array $params, bool $isDynamic, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new CollectionUpdateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateCollectionUpdateStruct(
             Collection::fromArray(['query' => $isDynamic ? new Query() : null]),
@@ -97,15 +91,12 @@ final class CollectionValidatorTest extends TestCase
     #[DataProvider('validateItemCreateStructDataProvider')]
     public function testValidateItemCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new ItemCreateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateItemCreateStruct($struct);
     }
@@ -116,15 +107,12 @@ final class CollectionValidatorTest extends TestCase
     #[DataProvider('validateItemUpdateStructDataProvider')]
     public function testValidateItemUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $struct = new ItemUpdateStruct();
         Hydrator::hydrate($struct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateItemUpdateStruct(
             Item::fromArray(
@@ -148,15 +136,12 @@ final class CollectionValidatorTest extends TestCase
     #[DataProvider('validateQueryCreateStructDataProvider')]
     public function testValidateQueryCreateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $queryCreateStruct = new QueryCreateStruct($params['queryType']);
         Hydrator::hydrate($queryCreateStruct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
     }
@@ -167,15 +152,12 @@ final class CollectionValidatorTest extends TestCase
     #[DataProvider('validateQueryUpdateStructDataProvider')]
     public function testValidateQueryUpdateStruct(array $params, bool $isValid): void
     {
-        if (!$isValid) {
+        $isValid ?
+            $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
-        }
 
         $queryUpdateStruct = new QueryUpdateStruct();
         Hydrator::hydrate($queryUpdateStruct, $params);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateQueryUpdateStruct(
             Query::fromArray(['queryType' => new QueryType('query_type')]),

@@ -10,6 +10,7 @@ use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\EmptyExtensionPl
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 use function array_merge_recursive;
@@ -92,23 +93,19 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $this->load(['design' => 'non_existing', ...$this->minimalConfig]);
     }
 
+    #[DoesNotPerformAssertions]
     public function testStandardAsCurrentDesign(): void
     {
         $this->load(['design' => 'standard', ...$this->minimalConfig]);
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
+    #[DoesNotPerformAssertions]
     public function testCustomDesignAsCurrentDesign(): void
     {
         $designList = $this->minimalConfig;
         $designList['design_list']['custom'] = [];
 
         $this->load(['design' => 'custom', ...$designList]);
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
     protected function getContainerExtensions(): array

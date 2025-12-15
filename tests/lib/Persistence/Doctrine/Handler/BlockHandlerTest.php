@@ -1957,6 +1957,7 @@ final class BlockHandlerTest extends CoreTestCase
         }
     }
 
+    #[DoesNotPerformAssertions]
     public function testDeleteBlocksInStatus(): void
     {
         $this->blockHandler->deleteBlocks([31, 32], Status::Published);
@@ -1987,9 +1988,6 @@ final class BlockHandlerTest extends CoreTestCase
         } catch (NotFoundException) {
             // Do nothing
         }
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
     }
 
     private function createHandlers(): void
