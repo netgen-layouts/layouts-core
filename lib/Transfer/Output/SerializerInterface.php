@@ -9,7 +9,7 @@ namespace Netgen\Layouts\Transfer\Output;
  * transferred through a plain text format, like JSON or XML.
  *
  * Hash format is either a scalar value, a hash array (associative array),
- * a pure numeric array or a nested combination of these.
+ * a list or a nested combination of these.
  */
 interface SerializerInterface
 {

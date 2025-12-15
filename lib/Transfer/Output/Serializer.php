@@ -11,13 +11,6 @@ use Netgen\Layouts\Transfer\EntityType;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * Serializer serializes domain entities into hash representation, which can be
- * transferred through a plain text format, like JSON or XML.
- *
- * Hash format is either a scalar value, a hash array (associative array),
- * a pure numeric array or a nested combination of these.
- */
 final class Serializer implements SerializerInterface
 {
     public function __construct(

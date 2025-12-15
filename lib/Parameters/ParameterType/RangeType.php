@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * Parameter type used to store and validate an integer specified
+ * Parameter type used to store and validate a number specified
  * between provided minimum and maximum value.
  */
 final class RangeType extends ParameterType

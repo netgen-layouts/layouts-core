@@ -8,7 +8,7 @@ namespace Netgen\Layouts\Transfer\Output;
  * Visits values into hash representation.
  *
  * Hash format is either a scalar value, a hash array (associative array),
- * a pure numeric array or a nested combination of these.
+ * a list or a nested combination of these.
  *
  * @see \Netgen\Layouts\Transfer\SerializerInterface
  *
