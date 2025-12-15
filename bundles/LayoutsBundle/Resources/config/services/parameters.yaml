@@ -212,4 +212,4 @@ services:
     netgen_layouts.parameters.form.extension.parameters:
         class: Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension
         tags:
-            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
+            - { name: form.type_extension }
