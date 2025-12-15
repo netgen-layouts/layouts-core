@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Layout\ZoneList;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -64,50 +63,5 @@ final class LayoutTest extends TestCase
         self::assertCount(2, $layout->zones);
         self::assertSame($zones['left'], $layout->zones['left']);
         self::assertSame($zones['right'], $layout->zones['right']);
-
-        self::assertSame($zones, [...$layout]);
-
-        self::assertCount(2, $layout);
-
-        self::assertArrayHasKey('left', $layout);
-        self::assertSame($zones['left'], $layout['left']);
-    }
-
-    public function testSet(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Method call not supported.');
-
-        $zones = [
-            'left' => Zone::fromArray(['identifier' => 'left']),
-            'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
-        ];
-
-        $layout = Layout::fromArray(
-            [
-                'zones' => ZoneList::fromArray($zones),
-            ],
-        );
-
-        $layout->offsetSet('left', new Zone());
-    }
-
-    public function testUnset(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Method call not supported.');
-
-        $zones = [
-            'left' => Zone::fromArray(['identifier' => 'left']),
-            'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
-        ];
-
-        $layout = Layout::fromArray(
-            [
-                'zones' => ZoneList::fromArray($zones),
-            ],
-        );
-
-        unset($layout['left']);
     }
 }

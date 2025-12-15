@@ -4,27 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Layout;
 
-use ArrayAccess;
-use Countable;
 use DateTimeImmutable;
-use IteratorAggregate;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Exception\API\LayoutException;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Symfony\Component\Uid\Uuid;
-use Traversable;
 
-use function count;
 use function in_array;
 
-/**
- * @implements \ArrayAccess<string, \Netgen\Layouts\API\Values\Layout\Zone>
- * @implements \IteratorAggregate<string, \Netgen\Layouts\API\Values\Layout\Zone>
- */
-final class Layout implements Value, ArrayAccess, Countable, IteratorAggregate
+final class Layout implements Value
 {
     use HydratorTrait;
     use ValueStatusTrait;
@@ -105,35 +95,5 @@ final class Layout implements Value, ArrayAccess, Countable, IteratorAggregate
     public function hasZone(string $zoneIdentifier): bool
     {
         return $this->zones->containsKey($zoneIdentifier);
-    }
-
-    public function getIterator(): Traversable
-    {
-        return $this->zones->getIterator();
-    }
-
-    public function count(): int
-    {
-        return count($this->zones->toArray());
-    }
-
-    public function offsetExists(mixed $offset): bool
-    {
-        return $this->zones->offsetExists($offset);
-    }
-
-    public function offsetGet(mixed $offset): ?Zone
-    {
-        return $this->zones->offsetGet($offset);
-    }
-
-    public function offsetSet(mixed $offset, mixed $value): never
-    {
-        throw new RuntimeException('Method call not supported.');
-    }
-
-    public function offsetUnset(mixed $offset): never
-    {
-        throw new RuntimeException('Method call not supported.');
     }
 }
