@@ -31,7 +31,7 @@ final class Configuration implements ConfigurationInterface
         }
 
         return $this->container->hasParameter(
-            ConfigurationInterface::PARAMETER_NAMESPACE . '.' . $parameterName,
+            self::PARAMETER_NAMESPACE . '.' . $parameterName,
         );
     }
 
@@ -46,7 +46,7 @@ final class Configuration implements ConfigurationInterface
         }
 
         return $this->container->getParameter(
-            ConfigurationInterface::PARAMETER_NAMESPACE . '.' . $parameterName,
+            self::PARAMETER_NAMESPACE . '.' . $parameterName,
         );
     }
 }
