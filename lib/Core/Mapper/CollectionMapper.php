@@ -76,7 +76,7 @@ final class CollectionMapper
         $collectionData = [
             'id' => Uuid::fromString($collection->uuid),
             'blockId' => Uuid::fromString($collection->blockUuid),
-            'status' => Status::from($collection->status->value),
+            'status' => Status::fromPersistenceEnum($collection->status),
             'offset' => $collection->offset,
             'limit' => $collection->limit,
             'items' => ItemList::fromCallable(
@@ -127,7 +127,7 @@ final class CollectionMapper
 
         $itemData = [
             'id' => Uuid::fromString($item->uuid),
-            'status' => Status::from($item->status->value),
+            'status' => Status::fromPersistenceEnum($item->status),
             'definition' => $itemDefinition,
             'collectionId' => Uuid::fromString($item->collectionUuid),
             'position' => $item->position,
@@ -203,7 +203,7 @@ final class CollectionMapper
 
         $queryData = [
             'id' => Uuid::fromString($query->uuid),
-            'status' => Status::from($query->status->value),
+            'status' => Status::fromPersistenceEnum($query->status),
             'collectionId' => Uuid::fromString($query->collectionUuid),
             'queryType' => $queryType,
             'isTranslatable' => $query->isTranslatable,
@@ -231,7 +231,7 @@ final class CollectionMapper
     {
         $slotData = [
             'id' => Uuid::fromString($slot->uuid),
-            'status' => Status::from($slot->status->value),
+            'status' => Status::fromPersistenceEnum($slot->status),
             'collectionId' => Uuid::fromString($slot->collectionUuid),
             'position' => $slot->position,
             'viewType' => $slot->viewType,

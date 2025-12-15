@@ -1271,7 +1271,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
 
         $zone = $this->layoutService->loadLayoutDraft($block->layoutId)->getZone('left');
         $movedBlock = $this->blockService->moveBlockToZone($block, $zone, 1);
-        $movedPersistenceBlock = $this->blockHandler->loadBlock($movedBlock->id, PersistenceStatus::from($movedBlock->status->value));
+        $movedPersistenceBlock = $this->blockHandler->loadBlock($movedBlock->id, PersistenceStatus::fromAPIEnum($movedBlock->status));
 
         $restoredBlock = $this->blockService->restoreBlock($movedBlock);
 
@@ -1293,7 +1293,7 @@ abstract class BlockServiceTestBase extends CoreTestCase
         self::assertSame('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a', $collections['default']->id->toString());
         self::assertSame('da050624-8ae0-5fb9-ae85-092bf8242b89', $collections['featured']->id->toString());
 
-        $restoredPersistenceBlock = $this->blockHandler->loadBlock($restoredBlock->id, PersistenceStatus::from($restoredBlock->status->value));
+        $restoredPersistenceBlock = $this->blockHandler->loadBlock($restoredBlock->id, PersistenceStatus::fromAPIEnum($restoredBlock->status));
 
         // Make sure the position is not moved.
 

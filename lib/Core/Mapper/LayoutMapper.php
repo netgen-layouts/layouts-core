@@ -36,7 +36,7 @@ final class LayoutMapper
         $zoneData = [
             'identifier' => $zone->identifier,
             'layoutId' => Uuid::fromString($zone->layoutUuid),
-            'status' => Status::from($zone->status->value),
+            'status' => Status::fromPersistenceEnum($zone->status),
         ];
 
         return Zone::fromArray(
@@ -82,7 +82,7 @@ final class LayoutMapper
             'description' => $layout->description,
             'created' => DateTimeUtils::create($layout->created),
             'modified' => DateTimeUtils::create($layout->modified),
-            'status' => Status::from($layout->status->value),
+            'status' => Status::fromPersistenceEnum($layout->status),
             'isShared' => $layout->isShared,
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,

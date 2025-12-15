@@ -151,7 +151,7 @@ final class LayoutService implements LayoutServiceInterface
             throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for shared layouts.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($sharedLayout->id, PersistenceStatus::from($sharedLayout->status->value));
+        $persistenceLayout = $this->layoutHandler->loadLayout($sharedLayout->id, PersistenceStatus::fromAPIEnum($sharedLayout->status));
 
         return new LayoutList(
             array_map(
@@ -171,14 +171,17 @@ final class LayoutService implements LayoutServiceInterface
             throw new BadStateException('sharedLayout', 'Count of related layouts can only be loaded for shared layouts.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($sharedLayout->id, PersistenceStatus::from($sharedLayout->status->value));
+        $persistenceLayout = $this->layoutHandler->loadLayout($sharedLayout->id, PersistenceStatus::fromAPIEnum($sharedLayout->status));
 
         return $this->layoutHandler->getRelatedLayoutsCount($persistenceLayout);
     }
 
     public function layoutExists(Uuid $layoutId, ?Status $status = null): bool
     {
-        return $this->layoutHandler->layoutExists($layoutId, PersistenceStatus::tryFrom($status->value ?? -1));
+        return $this->layoutHandler->layoutExists(
+            $layoutId,
+            $status !== null ? PersistenceStatus::fromAPIEnum($status) : null,
+        );
     }
 
     public function layoutNameExists(string $name, ?Uuid $excludedLayoutId = null): bool
@@ -386,7 +389,7 @@ final class LayoutService implements LayoutServiceInterface
             throw new BadStateException('layoutCopyStruct', 'Layout with provided name already exists.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->id, PersistenceStatus::from($layout->status->value));
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->id, PersistenceStatus::fromAPIEnum($layout->status));
 
         $copiedLayout = $this->transaction(
             fn (): PersistenceLayout => $this->layoutHandler->copyLayout(
@@ -590,7 +593,7 @@ final class LayoutService implements LayoutServiceInterface
 
     public function deleteLayout(Layout $layout): void
     {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->id, PersistenceStatus::from($layout->status->value));
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->id, PersistenceStatus::fromAPIEnum($layout->status));
 
         $this->transaction(
             function () use ($persistenceLayout): void {

@@ -97,7 +97,7 @@ final class BlockMapper
                 Uuid::fromString($block->parentUuid) :
                 null,
             'parentPlaceholder' => $block->depth > 1 ? $block->placeholder : null,
-            'status' => Status::from($block->status->value),
+            'status' => Status::fromPersistenceEnum($block->status),
             'placeholders' => new PlaceholderList(
                 [
                     ...$this->mapPlaceholders($block, $blockDefinition, $locales),

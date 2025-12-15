@@ -49,7 +49,7 @@ final class LayoutResolverMapper
     {
         $ruleData = [
             'id' => Uuid::fromString($rule->uuid),
-            'status' => Status::from($rule->status->value),
+            'status' => Status::fromPersistenceEnum($rule->status),
             'ruleGroupId' => Uuid::fromString(
                 $this->layoutResolverHandler->loadRuleGroup(
                     $rule->ruleGroupId,
@@ -100,7 +100,7 @@ final class LayoutResolverMapper
             'parentId' => $ruleGroup->parentUuid !== null ?
                 Uuid::fromString($ruleGroup->parentUuid) :
                 null,
-            'status' => Status::from($ruleGroup->status->value),
+            'status' => Status::fromPersistenceEnum($ruleGroup->status),
             'name' => $ruleGroup->name,
             'description' => $ruleGroup->description,
             'isEnabled' => $ruleGroup->isEnabled,
@@ -137,7 +137,7 @@ final class LayoutResolverMapper
 
         $targetData = [
             'id' => Uuid::fromString($target->uuid),
-            'status' => Status::from($target->status->value),
+            'status' => Status::fromPersistenceEnum($target->status),
             'ruleId' => Uuid::fromString($target->ruleUuid),
             'targetType' => $targetType,
             'value' => $target->value,
@@ -161,7 +161,7 @@ final class LayoutResolverMapper
 
         $conditionData = [
             'id' => Uuid::fromString($condition->uuid),
-            'status' => Status::from($condition->status->value),
+            'status' => Status::fromPersistenceEnum($condition->status),
             'ruleId' => Uuid::fromString($condition->ruleUuid),
             'conditionType' => $conditionType,
             'value' => $condition->value,
@@ -185,7 +185,7 @@ final class LayoutResolverMapper
 
         $conditionData = [
             'id' => Uuid::fromString($condition->uuid),
-            'status' => Status::from($condition->status->value),
+            'status' => Status::fromPersistenceEnum($condition->status),
             'ruleGroupId' => Uuid::fromString($condition->ruleGroupUuid),
             'conditionType' => $conditionType,
             'value' => $condition->value,

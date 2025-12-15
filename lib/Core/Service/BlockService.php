@@ -91,7 +91,7 @@ final class BlockService implements BlockServiceInterface
     {
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->layoutId,
-            PersistenceStatus::from($zone->status->value),
+            PersistenceStatus::fromAPIEnum($zone->status),
             $zone->identifier,
         );
 
@@ -115,7 +115,7 @@ final class BlockService implements BlockServiceInterface
     {
         $persistenceBlock = $this->blockHandler->loadBlock(
             $block->id,
-            PersistenceStatus::from($block->status->value),
+            PersistenceStatus::fromAPIEnum($block->status),
         );
 
         return BlockList::fromArray(
@@ -133,7 +133,7 @@ final class BlockService implements BlockServiceInterface
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->id,
-            PersistenceStatus::from($layout->status->value),
+            PersistenceStatus::fromAPIEnum($layout->status),
         );
 
         // We filter out all root blocks, since we do not allow loading those
