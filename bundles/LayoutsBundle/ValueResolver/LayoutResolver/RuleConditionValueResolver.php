@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
@@ -30,11 +31,11 @@ final class RuleConditionValueResolver extends ValueResolver
         return RuleCondition::class;
     }
 
-    public function loadValue(array $values): RuleCondition
+    public function loadValue(array $parameters): RuleCondition
     {
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->layoutResolverService->loadRuleCondition(Uuid::fromString($values['conditionId'])),
-            default => $this->layoutResolverService->loadRuleConditionDraft(Uuid::fromString($values['conditionId'])),
+        return match ($parameters['status']) {
+            Status::Published => $this->layoutResolverService->loadRuleCondition(Uuid::fromString($parameters['conditionId'])),
+            default => $this->layoutResolverService->loadRuleConditionDraft(Uuid::fromString($parameters['conditionId'])),
         };
     }
 }

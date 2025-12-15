@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\LayoutResolver;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupConditionValueResolver;
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -57,7 +58,7 @@ final class RuleGroupConditionValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'conditionId' => $uuid->toString(),
-                    'status' => 'published',
+                    'status' => Status::Published,
                 ],
             ),
         );
@@ -79,7 +80,7 @@ final class RuleGroupConditionValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'conditionId' => $uuid->toString(),
-                    'status' => 'draft',
+                    'status' => Status::Draft,
                 ],
             ),
         );

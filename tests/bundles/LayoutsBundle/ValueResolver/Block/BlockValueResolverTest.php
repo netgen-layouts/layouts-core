@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Block;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Block\BlockValueResolver;
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -57,7 +58,7 @@ final class BlockValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'blockId' => $uuid->toString(),
-                    'status' => 'published',
+                    'status' => Status::Published,
                 ],
             ),
         );
@@ -79,7 +80,7 @@ final class BlockValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'blockId' => $uuid->toString(),
-                    'status' => 'draft',
+                    'status' => Status::Draft,
                 ],
             ),
         );

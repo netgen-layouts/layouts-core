@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Collection;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Collection\CollectionValueResolver;
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -57,7 +58,7 @@ final class CollectionValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'collectionId' => $uuid->toString(),
-                    'status' => 'published',
+                    'status' => Status::Published,
                 ],
             ),
         );
@@ -79,7 +80,7 @@ final class CollectionValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'collectionId' => $uuid->toString(),
-                    'status' => 'draft',
+                    'status' => Status::Draft,
                 ],
             ),
         );

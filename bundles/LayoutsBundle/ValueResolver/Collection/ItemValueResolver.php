@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Collection;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Item;
@@ -30,11 +31,11 @@ final class ItemValueResolver extends ValueResolver
         return Item::class;
     }
 
-    public function loadValue(array $values): Item
+    public function loadValue(array $parameters): Item
     {
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->collectionService->loadItem(Uuid::fromString($values['itemId'])),
-            default => $this->collectionService->loadItemDraft(Uuid::fromString($values['itemId'])),
+        return match ($parameters['status']) {
+            Status::Published => $this->collectionService->loadItem(Uuid::fromString($parameters['itemId'])),
+            default => $this->collectionService->loadItemDraft(Uuid::fromString($parameters['itemId'])),
         };
     }
 }

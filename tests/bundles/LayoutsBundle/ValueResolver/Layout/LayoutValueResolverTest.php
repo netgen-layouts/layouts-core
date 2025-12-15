@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Layout;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\LayoutValueResolver;
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -57,7 +58,7 @@ final class LayoutValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'layoutId' => $uuid->toString(),
-                    'status' => 'published',
+                    'status' => Status::Published,
                 ],
             ),
         );
@@ -79,7 +80,7 @@ final class LayoutValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'layoutId' => $uuid->toString(),
-                    'status' => 'archived',
+                    'status' => Status::Archived,
                 ],
             ),
         );
@@ -101,7 +102,7 @@ final class LayoutValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'layoutId' => $uuid->toString(),
-                    'status' => 'draft',
+                    'status' => Status::Draft,
                 ],
             ),
         );

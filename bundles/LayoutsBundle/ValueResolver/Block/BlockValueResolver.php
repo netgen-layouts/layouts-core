@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Block;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
@@ -30,14 +31,14 @@ final class BlockValueResolver extends ValueResolver
         return Block::class;
     }
 
-    public function loadValue(array $values): Block
+    public function loadValue(array $parameters): Block
     {
         /** @var string[]|null $locales */
-        $locales = isset($values['locale']) ? [$values['locale']] : null;
+        $locales = isset($parameters['locale']) ? [$parameters['locale']] : null;
 
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->blockService->loadBlock(Uuid::fromString($values['blockId']), $locales),
-            default => $this->blockService->loadBlockDraft(Uuid::fromString($values['blockId']), $locales),
+        return match ($parameters['status']) {
+            Status::Published => $this->blockService->loadBlock(Uuid::fromString($parameters['blockId']), $locales),
+            default => $this->blockService->loadBlockDraft(Uuid::fromString($parameters['blockId']), $locales),
         };
     }
 }

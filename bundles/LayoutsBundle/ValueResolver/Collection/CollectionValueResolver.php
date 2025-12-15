@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Collection;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
@@ -30,14 +31,14 @@ final class CollectionValueResolver extends ValueResolver
         return Collection::class;
     }
 
-    public function loadValue(array $values): Collection
+    public function loadValue(array $parameters): Collection
     {
         /** @var string[]|null $locales */
-        $locales = isset($values['locale']) ? [$values['locale']] : null;
+        $locales = isset($parameters['locale']) ? [$parameters['locale']] : null;
 
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->collectionService->loadCollection(Uuid::fromString($values['collectionId']), $locales),
-            default => $this->collectionService->loadCollectionDraft(Uuid::fromString($values['collectionId']), $locales),
+        return match ($parameters['status']) {
+            Status::Published => $this->collectionService->loadCollection(Uuid::fromString($parameters['collectionId']), $locales),
+            default => $this->collectionService->loadCollectionDraft(Uuid::fromString($parameters['collectionId']), $locales),
         };
     }
 }

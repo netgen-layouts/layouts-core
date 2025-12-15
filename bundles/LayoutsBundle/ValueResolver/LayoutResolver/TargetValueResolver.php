@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
@@ -30,11 +31,11 @@ final class TargetValueResolver extends ValueResolver
         return Target::class;
     }
 
-    public function loadValue(array $values): Target
+    public function loadValue(array $parameters): Target
     {
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->layoutResolverService->loadTarget(Uuid::fromString($values['targetId'])),
-            default => $this->layoutResolverService->loadTargetDraft(Uuid::fromString($values['targetId'])),
+        return match ($parameters['status']) {
+            Status::Published => $this->layoutResolverService->loadTarget(Uuid::fromString($parameters['targetId'])),
+            default => $this->layoutResolverService->loadTargetDraft(Uuid::fromString($parameters['targetId'])),
         };
     }
 }

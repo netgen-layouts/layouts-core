@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Collection;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Slot;
@@ -30,11 +31,11 @@ final class SlotValueResolver extends ValueResolver
         return Slot::class;
     }
 
-    public function loadValue(array $values): Slot
+    public function loadValue(array $parameters): Slot
     {
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->collectionService->loadSlot(Uuid::fromString($values['slotId'])),
-            default => $this->collectionService->loadSlotDraft(Uuid::fromString($values['slotId'])),
+        return match ($parameters['status']) {
+            Status::Published => $this->collectionService->loadSlot(Uuid::fromString($parameters['slotId'])),
+            default => $this->collectionService->loadSlotDraft(Uuid::fromString($parameters['slotId'])),
         };
     }
 }

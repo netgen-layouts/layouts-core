@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\LayoutResolver;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver\RuleGroupValueResolver;
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -57,7 +58,7 @@ final class RuleGroupValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'ruleGroupId' => $uuid->toString(),
-                    'status' => 'published',
+                    'status' => Status::Published,
                 ],
             ),
         );
@@ -79,7 +80,7 @@ final class RuleGroupValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'ruleGroupId' => $uuid->toString(),
-                    'status' => 'archived',
+                    'status' => Status::Archived,
                 ],
             ),
         );
@@ -101,7 +102,7 @@ final class RuleGroupValueResolverTest extends TestCase
             $this->valueResolver->loadValue(
                 [
                     'ruleGroupId' => $uuid->toString(),
-                    'status' => 'draft',
+                    'status' => Status::Draft,
                 ],
             ),
         );

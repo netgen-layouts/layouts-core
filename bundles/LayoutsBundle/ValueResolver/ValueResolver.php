@@ -8,18 +8,12 @@ use Netgen\Layouts\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use ValueError;
 
-use function in_array;
 use function is_a;
 
 abstract class ValueResolver implements ValueResolverInterface
 {
-    final protected const string STATUS_PUBLISHED = 'published';
-
-    final protected const string STATUS_DRAFT = 'draft';
-
-    final protected const string STATUS_ARCHIVED = 'archived';
-
     /**
      * @return iterable<mixed>
      */
@@ -33,16 +27,16 @@ abstract class ValueResolver implements ValueResolverInterface
             return [];
         }
 
-        $values = [];
+        $parameters = [];
 
         foreach ($this->getSourceAttributeNames() as $attributeName) {
             if (!$request->attributes->has($attributeName)) {
                 return [];
             }
 
-            $values[$attributeName] = $request->attributes->get($attributeName, '');
+            $parameters[$attributeName] = $request->attributes->get($attributeName, '');
 
-            if ($values[$attributeName] === '') {
+            if ($parameters[$attributeName] === '') {
                 throw new InvalidArgumentException(
                     $attributeName,
                     'Required request attribute is empty.',
@@ -53,18 +47,21 @@ abstract class ValueResolver implements ValueResolverInterface
         $routeStatusParam = $request->attributes->getString('_nglayouts_status');
         $queryPublishedParam = $request->query->getString('published');
 
-        $values['status'] = self::STATUS_DRAFT;
-        if (in_array($routeStatusParam, [self::STATUS_PUBLISHED, self::STATUS_DRAFT, self::STATUS_ARCHIVED], true)) {
-            $values['status'] = $routeStatusParam;
-        } elseif ($queryPublishedParam === 'true') {
-            $values['status'] = self::STATUS_PUBLISHED;
+        $parameters['status'] = Status::Draft;
+
+        try {
+            $parameters['status'] = Status::from($routeStatusParam);
+        } catch (ValueError) {
+            if ($queryPublishedParam === 'true') {
+                $parameters['status'] = Status::Published;
+            }
         }
 
         if ($request->attributes->has('locale')) {
-            $values['locale'] = $request->attributes->getString('locale');
+            $parameters['locale'] = $request->attributes->getString('locale');
         }
 
-        yield $this->loadValue($values);
+        yield $this->loadValue($parameters);
     }
 
     /**
@@ -89,7 +86,7 @@ abstract class ValueResolver implements ValueResolverInterface
     /**
      * Returns the value.
      *
-     * @param array<string, mixed> $values
+     * @param array<string, mixed> $parameters
      */
-    abstract public function loadValue(array $values): object;
+    abstract public function loadValue(array $parameters): object;
 }

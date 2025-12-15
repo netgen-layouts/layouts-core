@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Collection;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
@@ -30,14 +31,14 @@ final class QueryValueResolver extends ValueResolver
         return Query::class;
     }
 
-    public function loadValue(array $values): Query
+    public function loadValue(array $parameters): Query
     {
         /** @var string[]|null $locales */
-        $locales = isset($values['locale']) ? [$values['locale']] : null;
+        $locales = isset($parameters['locale']) ? [$parameters['locale']] : null;
 
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->collectionService->loadQuery(Uuid::fromString($values['queryId']), $locales),
-            default => $this->collectionService->loadQueryDraft(Uuid::fromString($values['queryId']), $locales),
+        return match ($parameters['status']) {
+            Status::Published => $this->collectionService->loadQuery(Uuid::fromString($parameters['queryId']), $locales),
+            default => $this->collectionService->loadQueryDraft(Uuid::fromString($parameters['queryId']), $locales),
         };
     }
 }

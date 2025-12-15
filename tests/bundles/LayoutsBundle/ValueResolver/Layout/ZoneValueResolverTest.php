@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\ValueResolver\Layout;
 
 use Netgen\Bundle\LayoutsBundle\ValueResolver\Layout\ZoneValueResolver;
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
@@ -62,7 +63,7 @@ final class ZoneValueResolverTest extends TestCase
                 [
                     'layoutId' => $uuid->toString(),
                     'zoneIdentifier' => 'left',
-                    'status' => 'published',
+                    'status' => Status::Published,
                 ],
             ),
         );
@@ -86,7 +87,7 @@ final class ZoneValueResolverTest extends TestCase
                 [
                     'layoutId' => $uuid->toString(),
                     'zoneIdentifier' => 'left',
-                    'status' => 'draft',
+                    'status' => Status::Draft,
                 ],
             ),
         );
@@ -111,7 +112,7 @@ final class ZoneValueResolverTest extends TestCase
             [
                 'layoutId' => $uuid->toString(),
                 'zoneIdentifier' => 'left',
-                'status' => 'published',
+                'status' => Status::Published,
             ],
         );
     }

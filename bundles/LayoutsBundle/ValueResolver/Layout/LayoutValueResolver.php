@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Layout;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
@@ -30,12 +31,12 @@ final class LayoutValueResolver extends ValueResolver
         return Layout::class;
     }
 
-    public function loadValue(array $values): Layout
+    public function loadValue(array $parameters): Layout
     {
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->layoutService->loadLayout(Uuid::fromString($values['layoutId'])),
-            self::STATUS_ARCHIVED => $this->layoutService->loadLayoutArchive(Uuid::fromString($values['layoutId'])),
-            default => $this->layoutService->loadLayoutDraft(Uuid::fromString($values['layoutId'])),
+        return match ($parameters['status']) {
+            Status::Published => $this->layoutService->loadLayout(Uuid::fromString($parameters['layoutId'])),
+            Status::Archived => $this->layoutService->loadLayoutArchive(Uuid::fromString($parameters['layoutId'])),
+            default => $this->layoutService->loadLayoutDraft(Uuid::fromString($parameters['layoutId'])),
         };
     }
 }

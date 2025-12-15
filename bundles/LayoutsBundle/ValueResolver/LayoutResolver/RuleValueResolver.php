@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\LayoutResolver;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
@@ -30,12 +31,12 @@ final class RuleValueResolver extends ValueResolver
         return Rule::class;
     }
 
-    public function loadValue(array $values): Rule
+    public function loadValue(array $parameters): Rule
     {
-        return match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->layoutResolverService->loadRule(Uuid::fromString($values['ruleId'])),
-            self::STATUS_ARCHIVED => $this->layoutResolverService->loadRuleArchive(Uuid::fromString($values['ruleId'])),
-            default => $this->layoutResolverService->loadRuleDraft(Uuid::fromString($values['ruleId'])),
+        return match ($parameters['status']) {
+            Status::Published => $this->layoutResolverService->loadRule(Uuid::fromString($parameters['ruleId'])),
+            Status::Archived => $this->layoutResolverService->loadRuleArchive(Uuid::fromString($parameters['ruleId'])),
+            default => $this->layoutResolverService->loadRuleDraft(Uuid::fromString($parameters['ruleId'])),
         };
     }
 }

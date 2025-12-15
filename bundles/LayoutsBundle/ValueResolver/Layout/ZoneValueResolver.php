@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ValueResolver\Layout;
 
+use Netgen\Bundle\LayoutsBundle\ValueResolver\Status;
 use Netgen\Bundle\LayoutsBundle\ValueResolver\ValueResolver;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Zone;
@@ -31,17 +32,17 @@ final class ZoneValueResolver extends ValueResolver
         return Zone::class;
     }
 
-    public function loadValue(array $values): Zone
+    public function loadValue(array $parameters): Zone
     {
-        $layout = match ($values['status']) {
-            self::STATUS_PUBLISHED => $this->layoutService->loadLayout(Uuid::fromString($values['layoutId'])),
-            default => $this->layoutService->loadLayoutDraft(Uuid::fromString($values['layoutId'])),
+        $layout = match ($parameters['status']) {
+            Status::Published => $this->layoutService->loadLayout(Uuid::fromString($parameters['layoutId'])),
+            default => $this->layoutService->loadLayoutDraft(Uuid::fromString($parameters['layoutId'])),
         };
 
-        if (!$layout->hasZone($values['zoneIdentifier'])) {
-            throw new NotFoundException('zone', $values['zoneIdentifier']);
+        if (!$layout->hasZone($parameters['zoneIdentifier'])) {
+            throw new NotFoundException('zone', $parameters['zoneIdentifier']);
         }
 
-        return $layout->getZone($values['zoneIdentifier']);
+        return $layout->getZone($parameters['zoneIdentifier']);
     }
 }
