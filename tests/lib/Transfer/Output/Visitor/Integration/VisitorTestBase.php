@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
-use Closure;
 use Coduo\PHPMatcher\PHPMatcher;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
@@ -38,7 +37,7 @@ abstract class VisitorTestBase extends CoreTestCase
     }
 
     #[DataProvider('visitDataProvider')]
-    final public function testVisit(mixed $value, string $fixturePath): void
+    final public function testVisit(string $fixturePath, string $id, string ...$additionalParameters): void
     {
         $fixturePath = __DIR__ . '/../../../_fixtures/output/' . $fixturePath;
 
@@ -46,13 +45,7 @@ abstract class VisitorTestBase extends CoreTestCase
             throw new RuntimeException(sprintf('%s file does not exist.', $fixturePath));
         }
 
-        if ($value instanceof Closure) {
-            // We're using closures as values in case data providers need dependencies
-            // from setUp method, because data providers are executed before the setUp method
-            // This rebinds the closure to $this, to get the instantiated dependencies
-            // https://github.com/sebastianbergmann/phpunit/issues/3097
-            $value = $value->call($this);
-        }
+        $value = $this->loadValue($id, ...$additionalParameters);
 
         $expectedData = mb_trim((string) file_get_contents($fixturePath));
         $visitedData = $this->getVisitor()->visit($value, new OutputVisitor([new VisitorStub()]));
@@ -86,4 +79,11 @@ abstract class VisitorTestBase extends CoreTestCase
      * Provides data for testing VisitorInterface::visit method.
      */
     abstract public static function visitDataProvider(): iterable;
+
+    /**
+     * Loads the value under test.
+     *
+     * @return T
+     */
+    abstract protected function loadValue(string $id, string ...$additionalParameters): object;
 }

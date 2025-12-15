@@ -33,8 +33,13 @@ abstract class RuleVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Rule => $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')), 'rule/rule_2.json'],
-            [fn (): Rule => $this->layoutResolverService->loadRule(Uuid::fromString('c6891782-9d3e-58b7-95ac-261f491cc1ae')), 'rule/rule_11.json'],
+            ['rule/rule_2.json', '55622437-f700-5378-99c9-7dafe89a8fb6'],
+            ['rule/rule_11.json', 'c6891782-9d3e-58b7-95ac-261f491cc1ae'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Rule
+    {
+        return $this->layoutResolverService->loadRule(Uuid::fromString($id));
     }
 }

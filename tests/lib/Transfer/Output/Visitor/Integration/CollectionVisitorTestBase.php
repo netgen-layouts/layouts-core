@@ -33,9 +33,14 @@ abstract class CollectionVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Collection => $this->collectionService->loadCollection(Uuid::fromString('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a')), 'collection/collection_2.json'],
-            [fn (): Collection => $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89')), 'collection/collection_3.json'],
-            [fn (): Collection => $this->collectionService->loadCollection(Uuid::fromString('00872ad1-60e2-5947-95c2-e2eb75427af6')), 'collection/collection_6.json'],
+            ['collection/collection_2.json', '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a'],
+            ['collection/collection_3.json', 'da050624-8ae0-5fb9-ae85-092bf8242b89'],
+            ['collection/collection_6.json', '00872ad1-60e2-5947-95c2-e2eb75427af6'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Collection
+    {
+        return $this->collectionService->loadCollection(Uuid::fromString($id));
     }
 }

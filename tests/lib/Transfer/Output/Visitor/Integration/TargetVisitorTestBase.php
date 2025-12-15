@@ -33,8 +33,13 @@ abstract class TargetVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Target => $this->layoutResolverService->loadTarget(Uuid::fromString('c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46')), 'target/target_1.json'],
-            [fn (): Target => $this->layoutResolverService->loadTarget(Uuid::fromString('0cd23062-3fa7-582f-b022-034595ec68d5')), 'target/target_2.json'],
+            ['target/target_1.json', 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46'],
+            ['target/target_2.json', '0cd23062-3fa7-582f-b022-034595ec68d5'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Target
+    {
+        return $this->layoutResolverService->loadTarget(Uuid::fromString($id));
     }
 }

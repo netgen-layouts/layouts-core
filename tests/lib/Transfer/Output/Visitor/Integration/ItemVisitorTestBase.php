@@ -43,8 +43,13 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Item => $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')), 'item/item_4.json'],
-            [fn (): Item => $this->collectionService->loadItem(Uuid::fromString('966e55da-9671-581a-b3b4-84363f7db33d')), 'item/item_5.json'],
+            ['item/item_4.json', '79b6f162-d801-57e0-8b2d-a4b568a74231'],
+            ['item/item_5.json', '966e55da-9671-581a-b3b4-84363f7db33d'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Item
+    {
+        return $this->collectionService->loadItem(Uuid::fromString($id));
     }
 }

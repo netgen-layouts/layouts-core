@@ -33,8 +33,13 @@ abstract class PlaceholderVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Placeholder => $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))->getPlaceholder('left'), 'placeholder/block_33_left.json'],
-            [fn (): Placeholder => $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))->getPlaceholder('right'), 'placeholder/block_33_right.json'],
+            ['placeholder/block_33_left.json', 'e666109d-f1db-5fd5-97fa-346f50e9ae59', 'left'],
+            ['placeholder/block_33_right.json', 'e666109d-f1db-5fd5-97fa-346f50e9ae59', 'right'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Placeholder
+    {
+        return $this->blockService->loadBlock(Uuid::fromString($id))->getPlaceholder($additionalParameters[0]);
     }
 }

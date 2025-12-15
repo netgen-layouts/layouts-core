@@ -132,6 +132,19 @@ final class LayoutHandlerTest extends CoreTestCase
                 [
                     'availableLocales' => ['en'],
                     'created' => 1_447_065_813,
+                    'description' => 'My seventh layout description',
+                    'id' => 7,
+                    'isShared' => false,
+                    'mainLocale' => 'en',
+                    'modified' => 1_447_065_813,
+                    'name' => 'My seventh layout',
+                    'status' => Status::Published,
+                    'type' => 'test_layout_2',
+                    'uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503',
+                ],
+                [
+                    'availableLocales' => ['en'],
+                    'created' => 1_447_065_813,
                     'description' => 'My sixth layout description',
                     'id' => 6,
                     'isShared' => false,
@@ -203,7 +216,7 @@ final class LayoutHandlerTest extends CoreTestCase
                     'mainLocale' => 'en',
                     'modified' => 1_447_065_813,
                     'name' => 'My seventh layout',
-                    'status' => Status::Draft,
+                    'status' => Status::Published,
                     'type' => 'test_layout_2',
                     'uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503',
                 ],
@@ -318,7 +331,7 @@ final class LayoutHandlerTest extends CoreTestCase
 
     public function testGetLayoutsCount(): void
     {
-        self::assertSame(3, $this->layoutHandler->getLayoutsCount());
+        self::assertSame(4, $this->layoutHandler->getLayoutsCount());
     }
 
     public function testGetLayoutsCountWithUnpublishedLayouts(): void
@@ -420,6 +433,19 @@ final class LayoutHandlerTest extends CoreTestCase
                 [
                     'availableLocales' => ['en'],
                     'created' => 1_447_065_813,
+                    'description' => 'My seventh layout description',
+                    'id' => 7,
+                    'isShared' => false,
+                    'mainLocale' => 'en',
+                    'modified' => 1_447_065_813,
+                    'name' => 'My seventh layout',
+                    'status' => Status::Published,
+                    'type' => 'test_layout_2',
+                    'uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503',
+                ],
+                [
+                    'availableLocales' => ['en'],
+                    'created' => 1_447_065_813,
                     'description' => 'My sixth layout description',
                     'id' => 6,
                     'isShared' => false,
@@ -450,7 +476,7 @@ final class LayoutHandlerTest extends CoreTestCase
 
     public function testGetAllLayoutsCount(): void
     {
-        self::assertSame(5, $this->layoutHandler->getAllLayoutsCount());
+        self::assertSame(6, $this->layoutHandler->getAllLayoutsCount());
     }
 
     public function testLoadRelatedLayouts(): void

@@ -33,7 +33,12 @@ abstract class ConfigVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Config => $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'))->getConfig('key'), 'config/block_31.json'],
+            ['config/block_31.json', '28df256a-2467-5527-b398-9269ccc652de', 'key'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Config
+    {
+        return $this->blockService->loadBlock(Uuid::fromString($id))->getConfig($additionalParameters[0]);
     }
 }

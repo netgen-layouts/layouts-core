@@ -71,7 +71,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
     {
         $layouts = $this->layoutService->loadLayouts();
 
-        self::assertCount(3, $layouts);
+        self::assertCount(4, $layouts);
 
         foreach ($layouts as $layout) {
             self::assertFalse($layout->isShared);
@@ -101,7 +101,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
     final public function testGetLayoutsCount(): void
     {
-        self::assertSame(3, $this->layoutService->getLayoutsCount());
+        self::assertSame(4, $this->layoutService->getLayoutsCount());
     }
 
     final public function testGetLayoutsCountWithUnpublishedLayouts(): void
@@ -130,7 +130,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
     {
         $layouts = $this->layoutService->loadAllLayouts();
 
-        self::assertCount(5, $layouts);
+        self::assertCount(6, $layouts);
 
         foreach ($layouts as $layout) {
             self::assertTrue($layout->isPublished);
@@ -139,7 +139,7 @@ abstract class LayoutServiceTestBase extends CoreTestCase
 
     final public function testGetAllLayoutsCount(): void
     {
-        self::assertSame(5, $this->layoutService->getAllLayoutsCount());
+        self::assertSame(6, $this->layoutService->getAllLayoutsCount());
     }
 
     final public function testLoadRelatedLayouts(): void

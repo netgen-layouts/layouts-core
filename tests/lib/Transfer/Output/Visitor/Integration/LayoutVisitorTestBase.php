@@ -33,10 +33,15 @@ abstract class LayoutVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Layout => $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')), 'layout/layout_1.json'],
-            [fn (): Layout => $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')), 'layout/layout_2.json'],
-            [fn (): Layout => $this->layoutService->loadLayout(Uuid::fromString('399ad9ac-777a-50ba-945a-06e9f57add12')), 'layout/layout_5.json'],
-            [fn (): Layout => $this->layoutService->loadLayoutDraft(Uuid::fromString('4b0202b3-5d06-5962-ae0c-bbeb25ee3503')), 'layout/layout_7.json'],
+            ['layout/layout_1.json', '81168ed3-86f9-55ea-b153-101f96f2c136'],
+            ['layout/layout_2.json', '71cbe281-430c-51d5-8e21-c3cc4e656dac'],
+            ['layout/layout_5.json', '399ad9ac-777a-50ba-945a-06e9f57add12'],
+            ['layout/layout_7.json', '4b0202b3-5d06-5962-ae0c-bbeb25ee3503'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Layout
+    {
+        return $this->layoutService->loadLayout(Uuid::fromString($id));
     }
 }

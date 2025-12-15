@@ -33,8 +33,13 @@ abstract class SlotVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Slot => $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014')), 'slot/slot_3.json'],
-            [fn (): Slot => $this->collectionService->loadSlot(Uuid::fromString('2e0bbc16-8f14-4740-aa58-fbf6d547e734')), 'slot/slot_4.json'],
+            ['slot/slot_3.json', 'c63c9523-e579-4dc9-b1d2-f9d12470a014'],
+            ['slot/slot_4.json', '2e0bbc16-8f14-4740-aa58-fbf6d547e734'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Slot
+    {
+        return $this->collectionService->loadSlot(Uuid::fromString($id));
     }
 }

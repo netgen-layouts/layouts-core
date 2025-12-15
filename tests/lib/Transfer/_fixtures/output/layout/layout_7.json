@@ -4,7 +4,7 @@
     "type_identifier": "test_layout_2",
     "name": "My seventh layout",
     "description": "My seventh layout description",
-    "status": "DRAFT",
+    "status": "PUBLISHED",
     "main_locale": "en",
     "available_locales": [
         "en"

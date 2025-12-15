@@ -33,8 +33,13 @@ abstract class RuleGroupVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): RuleGroup => $this->layoutResolverService->loadRuleGroup(Uuid::fromString('00000000-0000-0000-0000-000000000000')), 'rule_group/rule_group_1.json'],
-            [fn (): RuleGroup => $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')), 'rule_group/rule_group_2.json'],
+            ['rule_group/rule_group_1.json', '00000000-0000-0000-0000-000000000000'],
+            ['rule_group/rule_group_2.json', 'b4f85f38-de3f-4af7-9a5f-21df63a49da9'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): RuleGroup
+    {
+        return $this->layoutResolverService->loadRuleGroup(Uuid::fromString($id));
     }
 }

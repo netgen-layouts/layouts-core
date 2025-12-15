@@ -33,8 +33,13 @@ abstract class ConditionVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): RuleCondition => $this->layoutResolverService->loadRuleCondition(Uuid::fromString('35f4594c-6674-5815-add6-07f288b79686')), 'condition/condition_1.json'],
-            [fn (): RuleCondition => $this->layoutResolverService->loadRuleCondition(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca')), 'condition/condition_2.json'],
+            ['condition/condition_1.json', '35f4594c-6674-5815-add6-07f288b79686'],
+            ['condition/condition_2.json', '7db46c94-3139-5a3d-9b2a-b2d28e7573ca'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): RuleCondition
+    {
+        return $this->layoutResolverService->loadRuleCondition(Uuid::fromString($id));
     }
 }

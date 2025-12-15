@@ -33,9 +33,14 @@ abstract class QueryVisitorTestBase extends VisitorTestBase
     final public static function visitDataProvider(): iterable
     {
         return [
-            [fn (): Query => $this->collectionService->loadQuery(Uuid::fromString('86c5af5d-bcb3-5a93-aeed-754466d76878')), 'query/query_1.json'],
-            [fn (): Query => $this->collectionService->loadQuery(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66')), 'query/query_2.json'],
-            [fn (): Query => $this->collectionService->loadQuery(Uuid::fromString('6d60fcbc-ae38-57c2-af72-e462a3e5c9f2')), 'query/query_4.json'],
+            ['query/query_1.json', '86c5af5d-bcb3-5a93-aeed-754466d76878'],
+            ['query/query_2.json', '0303abc4-c894-59b5-ba95-5cf330b99c66'],
+            ['query/query_4.json', '6d60fcbc-ae38-57c2-af72-e462a3e5c9f2'],
         ];
+    }
+
+    final protected function loadValue(string $id, string ...$additionalParameters): Query
+    {
+        return $this->collectionService->loadQuery(Uuid::fromString($id));
     }
 }
