@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Parameters\Form\Type;
 use Netgen\Layouts\API\Values\ParameterStruct;
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Netgen\Layouts\Parameters\Form\MapperInterface;
-use Netgen\Layouts\Parameters\Form\Type\DataMapper\ParameterValuesDataMapper;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 use Psr\Container\ContainerInterface;
@@ -86,8 +85,6 @@ final class ParametersType extends AbstractType
 
             $builder->add($parameterForm);
         }
-
-        $builder->setDataMapper(new ParameterValuesDataMapper());
     }
 
     /**

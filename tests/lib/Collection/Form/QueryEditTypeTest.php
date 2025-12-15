@@ -58,8 +58,7 @@ final class QueryEditTypeTest extends FormTestCase
 
         self::assertTrue($form->isSynchronized());
 
-        self::assertSame('Param value', $struct->parameterValues['param']);
-        self::assertNull($struct->parameterValues['param2']);
+        self::assertSame(['param' => 'Param value'], $struct->parameterValues);
 
         $view = $form->createView();
         $children = $view->children;

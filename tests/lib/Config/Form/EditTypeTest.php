@@ -79,8 +79,7 @@ final class EditTypeTest extends FormTestCase
 
         self::assertTrue($form->isSynchronized());
 
-        self::assertSame('new_value', $configStruct->parameterValues['param']);
-        self::assertNull($configStruct->parameterValues['param2']);
+        self::assertSame(['param' => 'new_value'], $configStruct->parameterValues);
 
         $view = $form->createView();
         $children = $view->children;
@@ -119,8 +118,7 @@ final class EditTypeTest extends FormTestCase
 
         self::assertTrue($form->isSynchronized());
 
-        self::assertSame('new_value', $configStruct->parameterValues['param']);
-        self::assertNull($configStruct->parameterValues['param2']);
+        self::assertSame(['param' => 'new_value'], $configStruct->parameterValues);
 
         $view = $form->createView();
         $children = $view->children;

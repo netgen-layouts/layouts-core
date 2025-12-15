@@ -14,12 +14,11 @@ use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
-use Netgen\Layouts\Tests\Parameters\Form\Type\Stubs\ParameterStructFormType;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Group;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -30,7 +29,6 @@ use function array_keys;
 
 #[CoversClass(Mapper::class)]
 #[CoversClass(ParametersType::class)]
-#[Group('a')]
 final class ParametersTypeTest extends FormTestCase
 {
     public function testSubmitValidData(): void
@@ -45,6 +43,13 @@ final class ParametersTypeTest extends FormTestCase
                 ],
             ],
         ];
+
+        $struct = new ParameterStruct();
+
+        $parentForm = $this->factory->create(
+            FormType::class,
+            $struct,
+        );
 
         $compoundDefinition = ParameterDefinition::fromArray(
             [
@@ -88,19 +93,20 @@ final class ParametersTypeTest extends FormTestCase
             ],
         );
 
-        $struct = new ParameterStruct();
-
-        $form = $this->factory->create(
-            ParameterStructFormType::class,
-            $struct,
+        $parentForm->add(
+            'parameter_values',
+            ParametersType::class,
             [
-                'definition_collection' => $parameterDefinitions,
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
             ],
         );
 
-        $form->submit($submittedData);
+        $parentForm->submit($submittedData);
 
-        self::assertTrue($form->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
         self::assertSame(
             [
@@ -112,10 +118,10 @@ final class ParametersTypeTest extends FormTestCase
             $struct->parameterValues,
         );
 
-        self::assertCount(3, $form->get('parameter_values')->all());
+        self::assertCount(3, $parentForm->get('parameter_values')->all());
 
         foreach (array_keys($submittedData['parameter_values']) as $key) {
-            $paramForm = $form->get('parameter_values')->get($key);
+            $paramForm = $parentForm->get('parameter_values')->get($key);
 
             self::assertSame('parameterValues[' . $key . ']', (string) $paramForm->getPropertyPath());
 
@@ -132,7 +138,7 @@ final class ParametersTypeTest extends FormTestCase
 
         // View test
 
-        $view = $form->createView();
+        $view = $parentForm->createView();
         $children = $view->children;
 
         self::assertArrayHasKey('parameter_values', $children);
@@ -146,6 +152,11 @@ final class ParametersTypeTest extends FormTestCase
     {
         $this->expectException(ParameterTypeException::class);
         $this->expectExceptionMessage('Form mapper for "text" parameter type does not exist.');
+
+        $parentForm = $this->factory->create(
+            FormType::class,
+            new ParameterStruct(),
+        );
 
         $parameterDefinitions = ParameterDefinitionCollection::fromArray(
             [
@@ -161,15 +172,18 @@ final class ParametersTypeTest extends FormTestCase
             ],
         );
 
-        $form = $this->factory->create(
-            ParameterStructFormType::class,
-            new ParameterStruct(),
+        $parentForm->add(
+            'parameter_values',
+            ParametersType::class,
             [
-                'definition_collection' => $parameterDefinitions,
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
             ],
         );
 
-        $form->submit([]);
+        $parentForm->submit([]);
     }
 
     public function testSubmitValidDataWithGroups(): void
@@ -179,6 +193,13 @@ final class ParametersTypeTest extends FormTestCase
                 'css_id' => 'Some CSS ID',
             ],
         ];
+
+        $struct = new ParameterStruct();
+
+        $parentForm = $this->factory->create(
+            FormType::class,
+            $struct,
+        );
 
         $parameterDefinitions = ParameterDefinitionCollection::fromArray(
             [
@@ -203,26 +224,27 @@ final class ParametersTypeTest extends FormTestCase
             ],
         );
 
-        $struct = new ParameterStruct();
-
-        $form = $this->factory->create(
-            ParameterStructFormType::class,
-            $struct,
+        $parentForm->add(
+            'parameter_values',
+            ParametersType::class,
             [
-                'definition_collection' => $parameterDefinitions,
+                'inherit_data' => true,
+                'parameter_definitions' => $parameterDefinitions,
+                'label_prefix' => 'label',
+                'property_path' => 'parameterValues',
                 'groups' => ['group'],
             ],
         );
 
-        $form->submit($submittedData);
+        $parentForm->submit($submittedData);
 
-        self::assertTrue($form->isSynchronized());
+        self::assertTrue($parentForm->isSynchronized());
 
         self::assertSame(['css_id' => 'Some CSS ID'], $struct->parameterValues);
 
-        self::assertCount(1, $form->get('parameter_values')->all());
-        self::assertTrue($form->get('parameter_values')->has('css_id'));
-        self::assertFalse($form->get('parameter_values')->has('excluded'));
+        self::assertCount(1, $parentForm->get('parameter_values')->all());
+        self::assertTrue($parentForm->get('parameter_values')->has('css_id'));
+        self::assertFalse($parentForm->get('parameter_values')->has('excluded'));
     }
 
     public function testConfigureOptions(): void

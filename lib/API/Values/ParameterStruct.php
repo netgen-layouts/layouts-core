@@ -11,7 +11,7 @@ interface ParameterStruct
      *
      * @var array<string, mixed>
      */
-    public array $parameterValues { get; }
+    public array $parameterValues { get; set; }
 
     /**
      * Sets the parameter value to the struct.

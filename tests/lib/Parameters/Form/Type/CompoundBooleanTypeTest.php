@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Parameters\Form\Type;
 
 use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\Layouts\Tests\Parameters\Form\Type\Stubs\CompoundBoolean;
+use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -23,39 +23,39 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $submittedData = [
             'main_checkbox' => [
                 '_self' => '1',
-                'param1' => 'param 1 value',
-                'param2' => 'param 2 value',
+                'css_id' => 'Some CSS ID',
+                'css_class' => 'Some CSS class',
             ],
         ];
 
-        $data = new CompoundBoolean();
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $data,
+            $struct,
         );
 
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
             [
-                'property_path' => 'mainCheckbox',
+                'property_path' => 'parameterValues[main_checkbox]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param1',
+            'css_class',
             TextType::class,
             [
-                'property_path' => 'param1',
+                'property_path' => 'parameterValues[css_class]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param2',
+            'css_id',
             TextType::class,
             [
-                'property_path' => 'param2',
+                'property_path' => 'parameterValues[css_id]',
             ],
         );
 
@@ -63,9 +63,14 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         self::assertTrue($parentForm->isSynchronized());
 
-        self::assertTrue($data->mainCheckbox);
-        self::assertSame('param 1 value', $data->param1);
-        self::assertSame('param 2 value', $data->param2);
+        self::assertSame(
+            [
+                'main_checkbox' => true,
+                'css_class' => 'Some CSS class',
+                'css_id' => 'Some CSS ID',
+            ],
+            $struct->parameterValues,
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -81,39 +86,39 @@ final class CompoundBooleanTypeTest extends FormTestCase
     {
         $submittedData = [
             'main_checkbox' => [
-                'param1' => 'param 1 value',
-                'param2' => 'param 2 value',
+                'css_id' => 'Some CSS ID',
+                'css_class' => 'Some CSS class',
             ],
         ];
 
-        $data = new CompoundBoolean();
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $data,
+            $struct,
         );
 
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
             [
-                'property_path' => 'mainCheckbox',
+                'property_path' => 'parameterValues[main_checkbox]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param1',
+            'css_class',
             TextType::class,
             [
-                'property_path' => 'param1',
+                'property_path' => 'parameterValues[css_class]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param2',
+            'css_id',
             TextType::class,
             [
-                'property_path' => 'param2',
+                'property_path' => 'parameterValues[css_id]',
             ],
         );
 
@@ -121,9 +126,12 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         self::assertTrue($parentForm->isSynchronized());
 
-        self::assertFalse($data->mainCheckbox);
-        self::assertNull($data->param1);
-        self::assertNull($data->param2);
+        self::assertSame(
+            [
+                'main_checkbox' => false,
+            ],
+            $struct->parameterValues,
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -141,34 +149,34 @@ final class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox' => [],
         ];
 
-        $data = new CompoundBoolean();
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $data,
+            $struct,
         );
 
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
             [
-                'property_path' => 'mainCheckbox',
+                'property_path' => 'parameterValues[main_checkbox]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param1',
+            'css_class',
             TextType::class,
             [
-                'property_path' => 'param1',
+                'property_path' => 'parameterValues[css_class]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param2',
+            'css_id',
             TextType::class,
             [
-                'property_path' => 'param2',
+                'property_path' => 'parameterValues[css_id]',
             ],
         );
 
@@ -176,16 +184,19 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         self::assertTrue($parentForm->isSynchronized());
 
-        self::assertFalse($data->mainCheckbox);
-        self::assertNull($data->param1);
-        self::assertNull($data->param2);
+        self::assertSame(
+            [
+                'main_checkbox' => false,
+            ],
+            $struct->parameterValues,
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
 
         self::assertArrayHasKey('main_checkbox', $children);
-        self::assertArrayHasKey('param1', $children['main_checkbox']->children);
-        self::assertArrayHasKey('param2', $children['main_checkbox']->children);
+        self::assertArrayHasKey('css_class', $children['main_checkbox']->children);
+        self::assertArrayHasKey('css_id', $children['main_checkbox']->children);
     }
 
     public function testSubmitValidDataWithReverseMode(): void
@@ -193,40 +204,40 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $submittedData = [
             'main_checkbox' => [
                 '_self' => '1',
-                'param1' => 'param 1 value',
-                'param2' => 'param 2 value',
+                'css_id' => 'Some CSS ID',
+                'css_class' => 'Some CSS class',
             ],
         ];
 
-        $data = new CompoundBoolean();
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $data,
+            $struct,
         );
 
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
             [
-                'property_path' => 'mainCheckbox',
+                'property_path' => 'parameterValues[main_checkbox]',
                 'reverse' => true,
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param1',
+            'css_class',
             TextType::class,
             [
-                'property_path' => 'param1',
+                'property_path' => 'parameterValues[css_class]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param2',
+            'css_id',
             TextType::class,
             [
-                'property_path' => 'param2',
+                'property_path' => 'parameterValues[css_id]',
             ],
         );
 
@@ -234,9 +245,12 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         self::assertTrue($parentForm->isSynchronized());
 
-        self::assertTrue($data->mainCheckbox);
-        self::assertNull($data->param1);
-        self::assertNull($data->param2);
+        self::assertSame(
+            [
+                'main_checkbox' => true,
+            ],
+            $struct->parameterValues,
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
@@ -252,40 +266,40 @@ final class CompoundBooleanTypeTest extends FormTestCase
     {
         $submittedData = [
             'main_checkbox' => [
-                'param1' => 'param 1 value',
-                'param2' => 'param 2 value',
+                'css_id' => 'Some CSS ID',
+                'css_class' => 'Some CSS class',
             ],
         ];
 
-        $data = new CompoundBoolean();
+        $struct = new ParameterStruct();
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $data,
+            $struct,
         );
 
         $parentForm->add(
             'main_checkbox',
             CompoundBooleanType::class,
             [
-                'property_path' => 'mainCheckbox',
+                'property_path' => 'parameterValues[main_checkbox]',
                 'reverse' => true,
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param1',
+            'css_class',
             TextType::class,
             [
-                'property_path' => 'param1',
+                'property_path' => 'parameterValues[css_class]',
             ],
         );
 
         $parentForm->get('main_checkbox')->add(
-            'param2',
+            'css_id',
             TextType::class,
             [
-                'property_path' => 'param2',
+                'property_path' => 'parameterValues[css_id]',
             ],
         );
 
@@ -293,9 +307,14 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         self::assertTrue($parentForm->isSynchronized());
 
-        self::assertFalse($data->mainCheckbox);
-        self::assertSame('param 1 value', $data->param1);
-        self::assertSame('param 2 value', $data->param2);
+        self::assertSame(
+            [
+                'main_checkbox' => false,
+                'css_class' => 'Some CSS class',
+                'css_id' => 'Some CSS ID',
+            ],
+            $struct->parameterValues,
+        );
 
         $view = $parentForm->createView();
         $children = $view->children;
