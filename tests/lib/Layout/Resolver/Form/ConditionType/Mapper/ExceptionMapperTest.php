@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\ExceptionMapper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-#[CoversClass(Exception::class)]
-final class ExceptionTest extends TestCase
+#[CoversClass(ExceptionMapper::class)]
+final class ExceptionMapperTest extends TestCase
 {
-    private Exception $mapper;
+    private ExceptionMapper $mapper;
 
     protected function setUp(): void
     {
-        $this->mapper = new Exception();
+        $this->mapper = new ExceptionMapper();
     }
 
     public function testGetFormType(): void

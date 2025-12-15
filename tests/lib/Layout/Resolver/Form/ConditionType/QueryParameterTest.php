@@ -9,7 +9,7 @@ use Netgen\Layouts\Form\KeyValuesType;
 use Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
-use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter as QueryParameterMapper;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameterMapper;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;

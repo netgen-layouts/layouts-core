@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Layout\Resolver\Form\TargetType\Mapper;
 
-use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\Route;
+use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RequestUriMapper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-#[CoversClass(Route::class)]
-final class RouteTest extends TestCase
+#[CoversClass(RequestUriMapper::class)]
+final class RequestUriMapperTest extends TestCase
 {
-    private Route $mapper;
+    private RequestUriMapper $mapper;
 
     protected function setUp(): void
     {
-        $this->mapper = new Route();
+        $this->mapper = new RequestUriMapper();
     }
 
     public function testGetFormType(): void

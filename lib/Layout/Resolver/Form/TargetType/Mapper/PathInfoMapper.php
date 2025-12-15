@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class RequestUriPrefix extends Mapper
+final class PathInfoMapper extends Mapper
 {
     public function getFormType(): string
     {

@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\Layouts\Form\KeyValuesType;
-use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameterMapper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-#[CoversClass(RouteParameter::class)]
-final class RouteParameterTest extends TestCase
+#[CoversClass(QueryParameterMapper::class)]
+final class QueryParameterMapperTest extends TestCase
 {
-    private RouteParameter $mapper;
+    private QueryParameterMapper $mapper;
 
     protected function setUp(): void
     {
-        $this->mapper = new RouteParameter();
+        $this->mapper = new QueryParameterMapper();
     }
 
     public function testGetFormType(): void
@@ -32,9 +32,9 @@ final class RouteParameterTest extends TestCase
                 'label' => false,
                 'required' => false,
                 'key_name' => 'parameter_name',
-                'key_label' => 'condition_type.route_parameter.parameter_name',
+                'key_label' => 'condition_type.query_parameter.parameter_name',
                 'values_name' => 'parameter_values',
-                'values_label' => 'condition_type.route_parameter.parameter_values',
+                'values_label' => 'condition_type.query_parameter.parameter_values',
                 'values_type' => TextType::class,
                 'values_options' => [
                     'empty_data' => ' ',

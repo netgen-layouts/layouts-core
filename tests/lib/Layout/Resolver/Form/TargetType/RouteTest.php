@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\Form\TargetType;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper;
-use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\Route as RouteMapper;
+use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RouteMapper;
 use Netgen\Layouts\Layout\Resolver\TargetType\Route;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;

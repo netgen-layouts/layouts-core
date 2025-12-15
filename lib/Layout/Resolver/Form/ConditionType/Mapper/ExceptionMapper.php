@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use function count;
 use function sprintf;
 
-final class Exception extends Mapper
+final class ExceptionMapper extends Mapper
 {
     /**
      * @var array<string, int>

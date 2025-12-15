@@ -8,7 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Layout\Resolver\ConditionType\Time;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
-use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Time as TimeMapper;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\TimeMapper;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;

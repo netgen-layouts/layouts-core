@@ -23,51 +23,51 @@ services:
     # Mappers
 
     netgen_layouts.layout.resolver.form.target_type.mapper.route:
-        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\Route
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RouteMapper
         tags:
             - { name: netgen_layouts.target_type.form_mapper, target_type: route }
 
     netgen_layouts.layout.resolver.form.target_type.mapper.route_prefix:
-        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RoutePrefixMapper
         tags:
             - { name: netgen_layouts.target_type.form_mapper, target_type: route_prefix }
 
     netgen_layouts.layout.resolver.form.target_type.mapper.path_info:
-        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfo
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfoMapper
         tags:
             - { name: netgen_layouts.target_type.form_mapper, target_type: path_info }
 
     netgen_layouts.layout.resolver.form.target_type.mapper.path_info_prefix:
-        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefixMapper
         tags:
             - { name: netgen_layouts.target_type.form_mapper, target_type: path_info_prefix }
 
     netgen_layouts.layout.resolver.form.target_type.mapper.request_uri:
-        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RequestUri
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RequestUriMapper
         tags:
             - { name: netgen_layouts.target_type.form_mapper, target_type: request_uri }
 
     netgen_layouts.layout.resolver.form.target_type.mapper.request_uri_prefix:
-        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefix
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefixMapper
         tags:
             - { name: netgen_layouts.target_type.form_mapper, target_type: request_uri_prefix }
 
     netgen_layouts.layout.resolver.form.condition_type.mapper.route_parameter:
-        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameterMapper
         tags:
             - { name: netgen_layouts.condition_type.form_mapper, condition_type: route_parameter }
 
     netgen_layouts.layout.resolver.form.condition_type.mapper.query_parameter:
-        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameterMapper
         tags:
             - { name: netgen_layouts.condition_type.form_mapper, condition_type: query_parameter }
 
     netgen_layouts.layout.resolver.form.condition_type.mapper.exception:
-        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\ExceptionMapper
         tags:
             - { name: netgen_layouts.condition_type.form_mapper, condition_type: exception }
 
     netgen_layouts.layout.resolver.form.condition_type.mapper.time:
-        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Time
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\TimeMapper
         tags:
             - { name: netgen_layouts.condition_type.form_mapper, condition_type: time }
