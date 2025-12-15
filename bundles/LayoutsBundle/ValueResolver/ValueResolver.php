@@ -20,8 +20,6 @@ abstract class ValueResolver implements ValueResolverInterface
 
     final protected const string STATUS_ARCHIVED = 'archived';
 
-    private const string ROUTE_STATUS_PARAM = '_nglayouts_status';
-
     /**
      * @return iterable<mixed>
      */
@@ -52,7 +50,7 @@ abstract class ValueResolver implements ValueResolverInterface
             }
         }
 
-        $routeStatusParam = $request->attributes->getString(self::ROUTE_STATUS_PARAM);
+        $routeStatusParam = $request->attributes->getString('_nglayouts_status');
         $queryPublishedParam = $request->query->getString('published');
 
         $values['status'] = self::STATUS_DRAFT;
