@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\TestCase;
 
+use function array_map;
 use function get_object_vars;
 use function is_array;
 use function is_object;
@@ -34,17 +35,10 @@ trait ExportObjectTrait
      */
     private function exportObjectList(array $objects, bool $recursive = false): array
     {
-        $data = [];
-
-        foreach ($objects as $key => $object) {
-            if (!is_object($object)) {
-                continue;
-            }
-
-            $data[$key] = $this->exportObject($object, $recursive);
-        }
-
-        return $data;
+        return array_map(
+            fn (object $object): array => $this->exportObject($object, $recursive),
+            $objects,
+        );
     }
 
     /**
