@@ -38,6 +38,7 @@ final class EnumMapperTest extends TestCase
                     'class' => EnumStub::class,
                     'multiple' => true,
                     'expanded' => true,
+                    'option_label_prefix' => null,
                 ],
             ],
         );

@@ -86,6 +86,7 @@ final class EnumTypeTest extends TestCase
                 [
                     'multiple' => false,
                     'expanded' => false,
+                    'option_label_prefix' => null,
                     'class' => EnumStub::class,
                 ],
             ],
@@ -97,6 +98,7 @@ final class EnumTypeTest extends TestCase
                 [
                     'multiple' => false,
                     'expanded' => false,
+                    'option_label_prefix' => null,
                     'class' => EnumStub::class,
                 ],
             ],
@@ -108,6 +110,7 @@ final class EnumTypeTest extends TestCase
                 [
                     'multiple' => true,
                     'expanded' => false,
+                    'option_label_prefix' => null,
                     'class' => EnumStub::class,
                 ],
             ],
@@ -119,6 +122,7 @@ final class EnumTypeTest extends TestCase
                 [
                     'multiple' => false,
                     'expanded' => false,
+                    'option_label_prefix' => null,
                     'class' => EnumStub::class,
                 ],
             ],
@@ -130,6 +134,31 @@ final class EnumTypeTest extends TestCase
                 [
                     'multiple' => false,
                     'expanded' => true,
+                    'option_label_prefix' => null,
+                    'class' => EnumStub::class,
+                ],
+            ],
+            [
+                [
+                    'option_label_prefix' => null,
+                    'class' => EnumStub::class,
+                ],
+                [
+                    'multiple' => false,
+                    'expanded' => false,
+                    'option_label_prefix' => null,
+                    'class' => EnumStub::class,
+                ],
+            ],
+            [
+                [
+                    'option_label_prefix' => 'prefix',
+                    'class' => EnumStub::class,
+                ],
+                [
+                    'multiple' => false,
+                    'expanded' => false,
+                    'option_label_prefix' => 'prefix',
                     'class' => EnumStub::class,
                 ],
             ],
