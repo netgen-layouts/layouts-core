@@ -5,11 +5,8 @@ includes:
 
 parameters:
     ignoreErrors:
-        # Symfony
+        # PHPStan
 
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
         - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
-
-        # PHPStan
-
         - '#Method .*::getConfigurationNode\(\) should return Symfony\\Component\\Config\\Definition\\Builder\\StringNodeDefinition#'

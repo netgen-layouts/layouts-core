@@ -14,7 +14,7 @@ parameters:
 
         - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'
 
-        # Symfony
+        # PHPStan
 
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
         - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
