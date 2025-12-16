@@ -9,7 +9,6 @@ use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\ItemViewProvider;
-use Netgen\Layouts\View\View\ItemViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -29,8 +28,6 @@ final class ItemViewProviderTest extends TestCase
         $item = new CmsItem();
 
         $view = $this->itemViewProvider->provideView($item, ['view_type' => 'view_type']);
-
-        self::assertInstanceOf(ItemViewInterface::class, $view);
 
         self::assertSame($item, $view->item);
         self::assertNull($view->template);
@@ -60,7 +57,7 @@ final class ItemViewProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->itemViewProvider->supports($value));
     }

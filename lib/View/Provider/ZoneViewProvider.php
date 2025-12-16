@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Block\BlockList;
 use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\View\View\ZoneView;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
-use Netgen\Layouts\View\ViewInterface;
 
 use function array_key_exists;
 
@@ -17,7 +16,7 @@ use function array_key_exists;
  */
 final class ZoneViewProvider implements ViewProviderInterface
 {
-    public function provideView(mixed $value, array $parameters = []): ViewInterface
+    public function provideView(object $value, array $parameters = []): ZoneView
     {
         if (!array_key_exists('blocks', $parameters)) {
             throw ViewProviderException::noParameter('zone', 'blocks');
@@ -30,7 +29,7 @@ final class ZoneViewProvider implements ViewProviderInterface
         return new ZoneView($value, $parameters['blocks']);
     }
 
-    public function supports(mixed $value): bool
+    public function supports(object $value): bool
     {
         return $value instanceof ZoneReference;
     }

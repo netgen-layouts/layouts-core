@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\RuleViewProvider;
-use Netgen\Layouts\View\View\RuleViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -30,8 +29,6 @@ final class RuleViewProviderTest extends TestCase
 
         $view = $this->ruleViewProvider->provideView($rule);
 
-        self::assertInstanceOf(RuleViewInterface::class, $view);
-
         self::assertSame($rule, $view->rule);
         self::assertNull($view->template);
         self::assertSame(
@@ -43,7 +40,7 @@ final class RuleViewProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->ruleViewProvider->supports($value));
     }

@@ -6,19 +6,18 @@ namespace Netgen\Layouts\View\Provider;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\View\View\LayoutView;
-use Netgen\Layouts\View\ViewInterface;
 
 /**
  * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\API\Values\Layout\Layout>
  */
 final class LayoutViewProvider implements ViewProviderInterface
 {
-    public function provideView(mixed $value, array $parameters = []): ViewInterface
+    public function provideView(object $value, array $parameters = []): LayoutView
     {
         return new LayoutView($value);
     }
 
-    public function supports(mixed $value): bool
+    public function supports(object $value): bool
     {
         return $value instanceof Layout;
     }

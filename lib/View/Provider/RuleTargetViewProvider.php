@@ -6,19 +6,18 @@ namespace Netgen\Layouts\View\Provider;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\View\RuleTargetView;
-use Netgen\Layouts\View\ViewInterface;
 
 /**
  * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\API\Values\LayoutResolver\Target>
  */
 final class RuleTargetViewProvider implements ViewProviderInterface
 {
-    public function provideView(mixed $value, array $parameters = []): ViewInterface
+    public function provideView(object $value, array $parameters = []): RuleTargetView
     {
         return new RuleTargetView($value);
     }
 
-    public function supports(mixed $value): bool
+    public function supports(object $value): bool
     {
         return $value instanceof Target;
     }

@@ -9,7 +9,6 @@ use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\PlaceholderViewProvider;
-use Netgen\Layouts\View\View\PlaceholderViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -35,8 +34,6 @@ final class PlaceholderViewProviderTest extends TestCase
                 'block' => $block,
             ],
         );
-
-        self::assertInstanceOf(PlaceholderViewInterface::class, $view);
 
         self::assertSame($placeholder, $view->placeholder);
         self::assertSame($block, $view->block);
@@ -67,7 +64,7 @@ final class PlaceholderViewProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->placeholderViewProvider->supports($value));
     }

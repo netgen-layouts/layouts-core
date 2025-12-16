@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\BlockViewProvider;
-use Netgen\Layouts\View\View\BlockViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -34,8 +33,6 @@ final class BlockViewProviderTest extends TestCase
 
         $view = $this->blockViewProvider->provideView($block);
 
-        self::assertInstanceOf(BlockViewInterface::class, $view);
-
         self::assertSame($block, $view->block);
         self::assertNull($view->template);
         self::assertSame(
@@ -47,7 +44,7 @@ final class BlockViewProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->blockViewProvider->supports($value));
     }

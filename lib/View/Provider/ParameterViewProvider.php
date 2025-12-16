@@ -13,7 +13,7 @@ use Netgen\Layouts\View\ViewInterface;
  */
 final class ParameterViewProvider implements ViewProviderInterface
 {
-    public function provideView(mixed $value, array $parameters = []): ViewInterface
+    public function provideView(object $value, array $parameters = []): ParameterView
     {
         $view = new ParameterView($value);
 
@@ -22,7 +22,7 @@ final class ParameterViewProvider implements ViewProviderInterface
         return $view;
     }
 
-    public function supports(mixed $value): bool
+    public function supports(object $value): bool
     {
         return $value instanceof Parameter;
     }

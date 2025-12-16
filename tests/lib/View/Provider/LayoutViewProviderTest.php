@@ -9,7 +9,6 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\LayoutViewProvider;
-use Netgen\Layouts\View\View\LayoutViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -31,8 +30,6 @@ final class LayoutViewProviderTest extends TestCase
 
         $view = $this->layoutViewProvider->provideView($layout);
 
-        self::assertInstanceOf(LayoutViewInterface::class, $view);
-
         self::assertSame($layout, $view->layout);
         self::assertNull($view->template);
         self::assertSame(
@@ -44,7 +41,7 @@ final class LayoutViewProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->layoutViewProvider->supports($value));
     }

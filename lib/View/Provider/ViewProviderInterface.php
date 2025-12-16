@@ -22,10 +22,10 @@ interface ViewProviderInterface
      * @param T $value
      * @param array<string, mixed> $parameters
      */
-    public function provideView(mixed $value, array $parameters = []): ViewInterface;
+    public function provideView(object $value, array $parameters = []): ViewInterface;
 
     /**
      * Returns if this view provider supports the given value.
      */
-    public function supports(mixed $value): bool;
+    public function supports(object $value): bool;
 }

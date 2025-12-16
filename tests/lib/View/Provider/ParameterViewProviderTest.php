@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\ParameterViewProvider;
-use Netgen\Layouts\View\View\ParameterViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -30,8 +29,6 @@ final class ParameterViewProviderTest extends TestCase
 
         $view = $this->parameterViewProvider->provideView($parameter);
 
-        self::assertInstanceOf(ParameterViewInterface::class, $view);
-
         self::assertSame($parameter, $view->parameterValue);
         self::assertSame(ViewInterface::CONTEXT_DEFAULT, $view->fallbackContext);
         self::assertNull($view->template);
@@ -44,7 +41,7 @@ final class ParameterViewProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->parameterViewProvider->supports($value));
     }

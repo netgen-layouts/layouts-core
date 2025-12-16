@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\View\Provider;
 
 use Netgen\Layouts\View\Provider\FormViewProvider;
-use Netgen\Layouts\View\View\FormViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -32,8 +31,6 @@ final class FormViewProviderTest extends TestCase
             ->willReturn($formView);
 
         $view = $this->formViewProvider->provideView($formStub);
-
-        self::assertInstanceOf(FormViewInterface::class, $view);
 
         self::assertSame($formStub, $view->form);
         self::assertNull($view->template);

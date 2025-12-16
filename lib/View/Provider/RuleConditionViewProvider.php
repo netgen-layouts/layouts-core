@@ -6,19 +6,18 @@ namespace Netgen\Layouts\View\Provider;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\View\View\RuleConditionView;
-use Netgen\Layouts\View\ViewInterface;
 
 /**
  * @implements \Netgen\Layouts\View\Provider\ViewProviderInterface<\Netgen\Layouts\API\Values\LayoutResolver\Condition>
  */
 final class RuleConditionViewProvider implements ViewProviderInterface
 {
-    public function provideView(mixed $value, array $parameters = []): ViewInterface
+    public function provideView(object $value, array $parameters = []): RuleConditionView
     {
         return new RuleConditionView($value);
     }
 
-    public function supports(mixed $value): bool
+    public function supports(object $value): bool
     {
         return $value instanceof Condition;
     }

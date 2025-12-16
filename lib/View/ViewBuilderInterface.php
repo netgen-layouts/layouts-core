@@ -11,5 +11,5 @@ interface ViewBuilderInterface
      *
      * @param array<string, mixed> $parameters
      */
-    public function buildView(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface;
+    public function buildView(object $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface;
 }

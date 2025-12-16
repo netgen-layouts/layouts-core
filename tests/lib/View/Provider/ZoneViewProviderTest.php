@@ -12,7 +12,6 @@ use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\ZoneViewProvider;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
-use Netgen\Layouts\View\View\ZoneViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -44,8 +43,6 @@ final class ZoneViewProviderTest extends TestCase
 
         $view = $this->ZoneViewProvider->provideView(new ZoneReference($layout, 'zone'), ['blocks' => $blocks]);
 
-        self::assertInstanceOf(ZoneViewInterface::class, $view);
-
         self::assertSame($layout, $view->layout);
         self::assertSame($zone, $view->zone);
         self::assertNull($view->template);
@@ -76,7 +73,7 @@ final class ZoneViewProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->ZoneViewProvider->supports($value));
     }

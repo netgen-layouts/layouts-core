@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\Provider\RuleTargetViewProvider;
-use Netgen\Layouts\View\View\RuleTargetViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -30,8 +29,6 @@ final class RuleTargetProviderTest extends TestCase
 
         $view = $this->ruleTargetViewProvider->provideView($target);
 
-        self::assertInstanceOf(RuleTargetViewInterface::class, $view);
-
         self::assertSame($target, $view->target);
         self::assertNull($view->template);
         self::assertSame(
@@ -43,7 +40,7 @@ final class RuleTargetProviderTest extends TestCase
     }
 
     #[DataProvider('supportsDataProvider')]
-    public function testSupports(mixed $value, bool $supports): void
+    public function testSupports(object $value, bool $supports): void
     {
         self::assertSame($supports, $this->ruleTargetViewProvider->supports($value));
     }

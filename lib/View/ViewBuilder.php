@@ -9,8 +9,6 @@ use Netgen\Layouts\Exception\View\ViewProviderException;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-use function get_debug_type;
-
 final class ViewBuilder implements ViewBuilderInterface
 {
     /**
@@ -22,7 +20,7 @@ final class ViewBuilder implements ViewBuilderInterface
         private iterable $viewProviders,
     ) {}
 
-    public function buildView(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface
+    public function buildView(object $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface
     {
         $viewProvider = $this->getViewProvider($value);
 
@@ -47,7 +45,7 @@ final class ViewBuilder implements ViewBuilderInterface
      *
      * @return \Netgen\Layouts\View\Provider\ViewProviderInterface<object>
      */
-    private function getViewProvider(mixed $value): ViewProviderInterface
+    private function getViewProvider(object $value): ViewProviderInterface
     {
         foreach ($this->viewProviders as $viewProvider) {
             if ($viewProvider->supports($value)) {
@@ -55,6 +53,6 @@ final class ViewBuilder implements ViewBuilderInterface
             }
         }
 
-        throw ViewProviderException::noViewProvider(get_debug_type($value));
+        throw ViewProviderException::noViewProvider($value::class);
     }
 }

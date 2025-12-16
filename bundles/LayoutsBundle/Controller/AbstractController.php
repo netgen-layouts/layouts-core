@@ -25,7 +25,7 @@ abstract class AbstractController extends BaseAbstractController
      * @param array<string, mixed> $parameters
      */
     final protected function buildView(
-        mixed $value,
+        object $value,
         string $context = ViewInterface::CONTEXT_DEFAULT,
         array $parameters = [],
         ?Response $response = null,

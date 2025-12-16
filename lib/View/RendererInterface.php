@@ -11,5 +11,5 @@ interface RendererInterface
      *
      * @param array<string, mixed> $parameters
      */
-    public function renderValue(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string;
+    public function renderValue(object $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string;
 }
