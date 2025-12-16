@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -57,7 +58,7 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
         }
 
         $response = new JsonResponse();
-        $response->setContent($this->serializer->serialize($throwable, 'json'));
+        $response->setContent($this->serializer->serialize(new Value($throwable), 'json'));
 
         $event->setResponse($response);
     }

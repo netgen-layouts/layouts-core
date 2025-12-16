@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ThrowableSerializerListener;
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
@@ -51,7 +52,7 @@ final class ThrowableSerializerListenerTest extends TestCase
         $this->serializerStub
             ->method('serialize')
             ->with(
-                self::identicalTo($throwable),
+                self::equalTo(new Value($throwable)),
                 self::identicalTo('json'),
             )
             ->willReturn('serialized content');
@@ -98,7 +99,7 @@ final class ThrowableSerializerListenerTest extends TestCase
         $this->serializerStub
             ->method('serialize')
             ->with(
-                self::identicalTo($throwable),
+                self::equalTo(new Value($throwable)),
                 self::identicalTo('json'),
             )
             ->willReturn('serialized content');

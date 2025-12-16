@@ -7,7 +7,8 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Normalizer;
 use Error;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ThrowableNormalizer;
-use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
+use Netgen\Layouts\Tests\API\Stubs\Value as StubValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -33,7 +34,7 @@ final class ThrowableNormalizerTest extends TestCase
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ],
-            $this->throwableNormalizer->normalize($exception),
+            $this->throwableNormalizer->normalize(new Value($exception)),
         );
     }
 
@@ -43,7 +44,7 @@ final class ThrowableNormalizerTest extends TestCase
 
         $previousException = new Exception('Previous exception', 321);
         $exception = new Exception('Exception message', 123, $previousException);
-        $data = $this->throwableNormalizer->normalize($exception);
+        $data = $this->throwableNormalizer->normalize(new Value($exception));
 
         self::assertArrayHasKey('code', $data);
         self::assertArrayHasKey('message', $data);
@@ -70,7 +71,7 @@ final class ThrowableNormalizerTest extends TestCase
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
             ],
-            $this->throwableNormalizer->normalize($exception),
+            $this->throwableNormalizer->normalize(new Value($exception)),
         );
     }
 
@@ -90,9 +91,12 @@ final class ThrowableNormalizerTest extends TestCase
             [[], false],
             [42, false],
             [42.12, false],
-            [new Value(), false],
-            [new Exception(), true],
-            [new Error(), true],
+            [new StubValue(), false],
+            [new Exception(), false],
+            [new Error(), false],
+            [new Value(new StubValue()), false],
+            [new Value(new Exception()), true],
+            [new Value(new Error()), true],
         ];
     }
 }
