@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Collection\Collection;
-use Netgen\Layouts\API\Values\Collection\CollectionType;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionNormalizer implements NormalizerInterface
@@ -21,10 +20,7 @@ final class CollectionNormalizer implements NormalizerInterface
 
         return [
             'id' => $collection->id->toString(),
-            'type' => match ($collection->collectionType) {
-                CollectionType::Manual => 0,
-                CollectionType::Dynamic => 1,
-            },
+            'type' => $collection->collectionType->value,
             'is_translatable' => $collection->isTranslatable,
             'main_locale' => $collection->mainLocale,
             'always_available' => $collection->isAlwaysAvailable,

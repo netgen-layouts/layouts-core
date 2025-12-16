@@ -27,14 +27,14 @@
         {
             "identifier": "default",
             "collection_id": "45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a",
-            "collection_type": 1,
+            "collection_type": "dynamic",
             "offset": 0,
             "limit": null
         },
         {
             "identifier": "featured",
             "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
-            "collection_type": 1,
+            "collection_type": "dynamic",
             "offset": 4,
             "limit": 2
         }

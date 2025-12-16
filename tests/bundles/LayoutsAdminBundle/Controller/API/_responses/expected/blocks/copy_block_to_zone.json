@@ -27,14 +27,14 @@
         {
             "identifier": "default",
             "collection_id": "@uuid@",
-            "collection_type": 0,
+            "collection_type": "manual",
             "offset": 0,
             "limit": null
         },
         {
             "identifier": "featured",
             "collection_id": "@uuid@",
-            "collection_type": 1,
+            "collection_type": "dynamic",
             "offset": 4,
             "limit": 2
         }

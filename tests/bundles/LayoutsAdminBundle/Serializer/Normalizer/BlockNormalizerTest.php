@@ -118,7 +118,7 @@ final class BlockNormalizerTest extends TestCase
                     [
                         'identifier' => 'default',
                         'collection_id' => $collection->id->toString(),
-                        'collection_type' => 0,
+                        'collection_type' => $collection->collectionType->value,
                         'offset' => $collection->offset,
                         'limit' => $collection->limit,
                     ],

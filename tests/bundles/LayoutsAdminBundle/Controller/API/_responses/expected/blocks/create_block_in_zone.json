@@ -27,7 +27,7 @@
         {
             "identifier": "default",
             "collection_id": "@uuid@",
-            "collection_type": 0,
+            "collection_type": "manual",
             "offset": 0,
             "limit": null
         }

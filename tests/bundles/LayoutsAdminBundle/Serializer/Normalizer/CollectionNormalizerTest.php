@@ -40,7 +40,7 @@ final class CollectionNormalizerTest extends TestCase
         self::assertSame(
             [
                 'id' => $collection->id->toString(),
-                'type' => 1,
+                'type' => $collection->collectionType->value,
                 'is_translatable' => $collection->isTranslatable,
                 'main_locale' => $collection->mainLocale,
                 'always_available' => $collection->isAlwaysAvailable,
