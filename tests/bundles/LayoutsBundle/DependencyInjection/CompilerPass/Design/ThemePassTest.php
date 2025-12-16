@@ -19,18 +19,18 @@ final class ThemePassTest extends AbstractContainerBuilderTestCase
     {
         parent::setUp();
 
-        @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme2', 0777, true);
-        @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme3', 0777, true);
-        @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/theme3', 0777, true);
-        @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/standard', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme1', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme3', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme1', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme2', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme1', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme2', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/standard', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/second/templates/nglayouts/themes/standard', 0777, true);
+        @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme2', 0o777, true);
+        @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme3', 0o777, true);
+        @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/theme3', 0o777, true);
+        @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/standard', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme1', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme3', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme1', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme2', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme1', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme2', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/standard', 0o777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/templates/nglayouts/themes/standard', 0o777, true);
 
         $this->container->addCompilerPass(new ThemePass());
     }
