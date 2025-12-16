@@ -557,7 +557,7 @@ abstract class CoreTestCase extends TestCase
                 new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
                 new ParameterType\IntegerType(),
                 new ParameterType\IdentifierType(),
-                new ParameterType\HtmlType(new HtmlSanitizer(new HtmlSanitizerConfig())),
+                new ParameterType\HtmlType(new HtmlSanitizer(new HtmlSanitizerConfig()->allowSafeElements())),
                 new ParameterType\EmailType(),
                 new ParameterType\ChoiceType(),
                 new ParameterType\EnumType(),
