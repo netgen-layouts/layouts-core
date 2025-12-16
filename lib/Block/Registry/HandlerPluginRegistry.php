@@ -4,57 +4,40 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Block\Registry;
 
-use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
-
-use function array_filter;
-use function array_values;
 use function is_a;
 
 final class HandlerPluginRegistry
 {
     /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
-     */
-    private array $handlerPlugins = [];
-
-    /**
      * @param iterable<\Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface> $handlerPlugins
      */
-    public function __construct(iterable $handlerPlugins)
-    {
-        foreach ($handlerPlugins as $handlerPlugin) {
-            if ($handlerPlugin instanceof PluginInterface) {
-                $this->handlerPlugins[] = $handlerPlugin;
-            }
-        }
-    }
+    public function __construct(
+        private iterable $handlerPlugins,
+    ) {}
 
     /**
      * Returns all handler plugins for the provided handler class.
      *
-     * @return \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
+     * @return iterable<\Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface>
      */
-    public function getPlugins(string $identifier, string $handlerClass): array
+    public function getPlugins(string $identifier, string $handlerClass): iterable
     {
-        return array_values(
-            array_filter(
-                $this->handlerPlugins,
-                static function (PluginInterface $plugin) use ($identifier, $handlerClass): bool {
-                    foreach ($plugin::getExtendedIdentifiers() as $extendedIdentifier) {
-                        if ($extendedIdentifier === $identifier) {
-                            return true;
-                        }
-                    }
+        foreach ($this->handlerPlugins as $plugin) {
+            foreach ($plugin::getExtendedIdentifiers() as $extendedIdentifier) {
+                if ($extendedIdentifier === $identifier) {
+                    yield $plugin;
 
-                    foreach ($plugin::getExtendedHandlers() as $extendedHandler) {
-                        if (is_a($handlerClass, $extendedHandler, true)) {
-                            return true;
-                        }
-                    }
+                    continue 2;
+                }
+            }
 
-                    return false;
-                },
-            ),
-        );
+            foreach ($plugin::getExtendedHandlers() as $extendedHandler) {
+                if (is_a($handlerClass, $extendedHandler, true)) {
+                    yield $plugin;
+
+                    continue 2;
+                }
+            }
+        }
     }
 }

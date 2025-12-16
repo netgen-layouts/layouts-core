@@ -23,12 +23,12 @@ final class HandlerPluginRegistryTest extends TestCase
 
         self::assertSame(
             [$handlerPlugin],
-            $registry->getPlugins('definition', BlockDefinitionHandler::class),
+            [...$registry->getPlugins('definition', BlockDefinitionHandler::class)],
         );
 
         self::assertSame(
             [],
-            $registry->getPlugins('definition', stdClass::class),
+            [...$registry->getPlugins('definition', stdClass::class)],
         );
     }
 
@@ -40,12 +40,12 @@ final class HandlerPluginRegistryTest extends TestCase
 
         self::assertSame(
             [$handlerPlugin],
-            $registry->getPlugins('definition', BlockDefinitionHandler::class),
+            [...$registry->getPlugins('definition', BlockDefinitionHandler::class)],
         );
 
         self::assertSame(
             [],
-            $registry->getPlugins('definition', stdClass::class),
+            [...$registry->getPlugins('definition', stdClass::class)],
         );
     }
 }

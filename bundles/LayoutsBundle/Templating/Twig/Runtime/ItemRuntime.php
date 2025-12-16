@@ -36,7 +36,7 @@ final class ItemRuntime
      * 2) ID and value type as an array, e.g. [42, 'type']
      * 3) \Netgen\Layouts\Item\CmsItemInterface object
      *
-     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $item
+     * @param string|array<int|string>|\Netgen\Layouts\Item\CmsItemInterface $item
      */
     public function getItemPath(string|array|CmsItemInterface $item): string
     {
@@ -56,7 +56,7 @@ final class ItemRuntime
      * 2) ID and value type as an array, e.g. [42, 'type']
      * 3) \Netgen\Layouts\Item\CmsItemInterface object
      *
-     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $item
+     * @param string|array<int|string>|\Netgen\Layouts\Item\CmsItemInterface $item
      */
     public function getItemAdminPath(string|array|CmsItemInterface $item): string
     {
@@ -68,7 +68,7 @@ final class ItemRuntime
     }
 
     /**
-     * @param string|array{0: int|string, 1: string} $value
+     * @param string|array<int|string> $value
      *
      * Loads the item from the provided reference
      */
@@ -76,7 +76,7 @@ final class ItemRuntime
     {
         try {
             if (is_array($value) && count($value) === 2) {
-                return $this->cmsItemLoader->load($value[0], $value[1]);
+                return $this->cmsItemLoader->load($value[0], (string) $value[1]);
             }
 
             if (is_string($value)) {
@@ -87,7 +87,7 @@ final class ItemRuntime
 
                 return $this->cmsItemLoader->load(
                     $itemUri['host'],
-                    str_replace('-', '_', $itemUri['scheme'] ?? ''),
+                    str_replace('-', '_', $itemUri['scheme']),
                 );
             }
 

@@ -11,21 +11,11 @@ use function sprintf;
 final class OutputVisitor
 {
     /**
-     * @var array<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>>
-     */
-    private array $subVisitors = [];
-
-    /**
      * @param iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>> $subVisitors
      */
-    public function __construct(iterable $subVisitors)
-    {
-        foreach ($subVisitors as $subVisitor) {
-            if ($subVisitor instanceof VisitorInterface) {
-                $this->subVisitors[] = $subVisitor;
-            }
-        }
-    }
+    public function __construct(
+        private iterable $subVisitors,
+    ) {}
 
     /**
      * Visit the given $value into hash array representation.

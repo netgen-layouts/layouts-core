@@ -23,7 +23,7 @@ final class TargetTypeRegistryTest extends TestCase
     {
         $this->targetType = new TargetType1(42);
 
-        $this->registry = new TargetTypeRegistry([$this->targetType]);
+        $this->registry = new TargetTypeRegistry([$this->targetType::getType() => $this->targetType]);
     }
 
     public function testGetTargetTypes(): void

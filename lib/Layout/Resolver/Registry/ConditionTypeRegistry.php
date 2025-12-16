@@ -13,6 +13,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Traversable;
 
+use function array_filter;
 use function array_key_exists;
 use function count;
 
@@ -25,18 +26,18 @@ final class ConditionTypeRegistry implements ArrayAccess, Countable, IteratorAgg
     /**
      * @var array<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
      */
-    private array $conditionTypes = [];
+    private array $conditionTypes;
 
     /**
-     * @param iterable<int, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface> $conditionTypes
+     * @param iterable<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface> $conditionTypes
      */
-    public function __construct(iterable $conditionTypes)
-    {
-        foreach ($conditionTypes as $conditionType) {
-            if ($conditionType instanceof ConditionTypeInterface) {
-                $this->conditionTypes[$conditionType::getType()] = $conditionType;
-            }
-        }
+    public function __construct(
+        iterable $conditionTypes,
+    ) {
+        $this->conditionTypes = array_filter(
+            [...$conditionTypes],
+            static fn (ConditionTypeInterface $conditionType): bool => true,
+        );
     }
 
     /**

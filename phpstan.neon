@@ -4,8 +4,6 @@ includes:
     - vendor/phpstan/phpstan-symfony/rules.neon
 
 parameters:
-    treatPhpDocTypesAsCertain: false
-
     ignoreErrors:
         # Symfony
 

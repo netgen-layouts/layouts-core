@@ -155,9 +155,7 @@ final class ParameterStructValidator extends ConstraintValidator
                 $constraint = $constraint($parameterValue, $allParameterValues, $parameterDefinition);
             }
 
-            if ($constraint instanceof Constraint) {
-                yield $constraint;
-            }
+            yield $constraint;
         }
     }
 

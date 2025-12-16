@@ -14,24 +14,13 @@ use function get_debug_type;
 final class ViewBuilder implements ViewBuilderInterface
 {
     /**
-     * @var array<\Netgen\Layouts\View\Provider\ViewProviderInterface<object>>
-     */
-    private array $viewProviders = [];
-
-    /**
      * @param iterable<\Netgen\Layouts\View\Provider\ViewProviderInterface<object>> $viewProviders
      */
     public function __construct(
         private TemplateResolverInterface $templateResolver,
         private EventDispatcherInterface $eventDispatcher,
-        iterable $viewProviders,
-    ) {
-        foreach ($viewProviders as $viewProvider) {
-            if ($viewProvider instanceof ViewProviderInterface) {
-                $this->viewProviders[] = $viewProvider;
-            }
-        }
-    }
+        private iterable $viewProviders,
+    ) {}
 
     public function buildView(mixed $value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface
     {

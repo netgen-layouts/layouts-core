@@ -57,7 +57,7 @@ final class ItemLinkValidator extends ConstraintValidator
         }
 
         if (!$constraint->allowInvalid) {
-            $valueType = str_replace('-', '_', $parsedValue['scheme'] ?? '');
+            $valueType = str_replace('-', '_', $parsedValue['scheme']);
             $itemValue = $parsedValue['host'];
 
             $validator->validate($valueType, new ValueType());

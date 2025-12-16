@@ -47,9 +47,9 @@ final class LayoutResolverValidatorTest extends TestCase
             )
             ->getValidator();
 
-        $targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
+        $targetTypeRegistry = new TargetTypeRegistry([TargetType1::getType() => new TargetType1(42)]);
 
-        $conditionTypeRegistry = new ConditionTypeRegistry([new ConditionType1()]);
+        $conditionTypeRegistry = new ConditionTypeRegistry([ConditionType1::getType() => new ConditionType1()]);
 
         $this->layoutResolverValidator = new LayoutResolverValidator(
             $targetTypeRegistry,

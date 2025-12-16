@@ -22,8 +22,8 @@ final class TranslatableParameterBuilderTest extends TestCase
     {
         $registry = new ParameterTypeRegistry(
             [
-                new ParameterType\TextType(),
-                new ParameterType\Compound\BooleanType(),
+                ParameterType\TextType::getIdentifier() => new ParameterType\TextType(),
+                ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
             ],
         );
 

@@ -13,6 +13,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
 
+use function array_filter;
 use function array_key_exists;
 use function count;
 
@@ -25,18 +26,18 @@ final class TargetTypeRegistry implements ArrayAccess, Countable, IteratorAggreg
     /**
      * @var array<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
      */
-    private array $targetTypes = [];
+    private array $targetTypes;
 
     /**
-     * @param iterable<int, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes
+     * @param iterable<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes
      */
-    public function __construct(iterable $targetTypes)
-    {
-        foreach ($targetTypes as $targetType) {
-            if ($targetType instanceof TargetTypeInterface) {
-                $this->targetTypes[$targetType::getType()] = $targetType;
-            }
-        }
+    public function __construct(
+        iterable $targetTypes,
+    ) {
+        $this->targetTypes = array_filter(
+            [...$targetTypes],
+            static fn (TargetTypeInterface $targetType): bool => true,
+        );
     }
 
     /**

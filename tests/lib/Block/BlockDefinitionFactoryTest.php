@@ -34,7 +34,7 @@ final class BlockDefinitionFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $parameterTypeRegistry = new ParameterTypeRegistry([new TextLineType()]);
+        $parameterTypeRegistry = new ParameterTypeRegistry([TextLineType::getIdentifier() => new TextLineType()]);
         $parameterBuilderFactory = new ParameterBuilderFactory(
             $parameterTypeRegistry,
         );

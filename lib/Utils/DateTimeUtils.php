@@ -49,7 +49,7 @@ final class DateTimeUtils
      *
      * Returns null if provided array is not of valid format.
      *
-     * @param array<string, string> $datetime
+     * @param array<string, mixed> $datetime
      */
     public static function createFromArray(array $datetime): ?DateTimeImmutable
     {

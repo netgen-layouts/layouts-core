@@ -29,7 +29,7 @@ final class ItemLinkDataMapper implements DataMapperInterface
 
         if (is_array($parsedData) && ($parsedData['scheme'] ?? '') !== '' && isset($parsedData['host'])) {
             $forms['item_value']->setData($parsedData['host']);
-            $forms['item_type']->setData(str_replace('-', '_', $parsedData['scheme'] ?? ''));
+            $forms['item_type']->setData(str_replace('-', '_', $parsedData['scheme']));
         }
     }
 

@@ -13,6 +13,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterTypeInterface;
 use Traversable;
 
+use function array_filter;
 use function array_key_exists;
 use function count;
 
@@ -25,7 +26,7 @@ final class ParameterTypeRegistry implements ArrayAccess, Countable, IteratorAgg
     /**
      * @var array<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
      */
-    private array $parameterTypes = [];
+    private array $parameterTypes;
 
     /**
      * @var array<class-string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
@@ -33,15 +34,17 @@ final class ParameterTypeRegistry implements ArrayAccess, Countable, IteratorAgg
     private array $parameterTypesByClass = [];
 
     /**
-     * @param iterable<\Netgen\Layouts\Parameters\ParameterTypeInterface> $parameterTypes
+     * @param iterable<string, \Netgen\Layouts\Parameters\ParameterTypeInterface> $parameterTypes
      */
     public function __construct(iterable $parameterTypes)
     {
-        foreach ($parameterTypes as $parameterType) {
-            if ($parameterType instanceof ParameterTypeInterface) {
-                $this->parameterTypes[$parameterType::getIdentifier()] = $parameterType;
-                $this->parameterTypesByClass[$parameterType::class] = $parameterType;
-            }
+        $this->parameterTypes = array_filter(
+            [...$parameterTypes],
+            static fn (ParameterTypeInterface $parameterType): bool => true,
+        );
+
+        foreach ($this->parameterTypes as $parameterType) {
+            $this->parameterTypesByClass[$parameterType::class] = $parameterType;
         }
     }
 

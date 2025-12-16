@@ -2,12 +2,12 @@ services:
     netgen_layouts.layout.resolver.registry.target_type:
         class: Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
         arguments:
-            - !tagged_iterator netgen_layouts.target_type
+            - !tagged_iterator { tag: netgen_layouts.target_type, default_index_method: getType }
 
     netgen_layouts.layout.resolver.registry.condition_type:
         class: Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
         arguments:
-            - !tagged_iterator netgen_layouts.condition_type
+            - !tagged_iterator { tag: netgen_layouts.condition_type, default_index_method: getType }
 
     netgen_layouts.layout.resolver:
         class: Netgen\Layouts\Layout\Resolver\LayoutResolver
