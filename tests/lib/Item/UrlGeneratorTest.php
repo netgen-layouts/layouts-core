@@ -31,6 +31,7 @@ final class UrlGeneratorTest extends TestCase
     {
         $url = $this->urlGenerator->generate(
             CmsItem::fromArray(['valueType' => 'value', 'object' => new stdClass()]),
+            UrlType::Default,
         );
 
         self::assertSame('/item-url', $url);
@@ -75,6 +76,7 @@ final class UrlGeneratorTest extends TestCase
             CmsItem::fromArray(
                 ['valueType' => 'unknown', 'object' => new stdClass()],
             ),
+            UrlType::Default,
         );
     }
 
@@ -91,6 +93,7 @@ final class UrlGeneratorTest extends TestCase
             CmsItem::fromArray(
                 ['valueType' => 'value', 'object' => new stdClass()],
             ),
+            UrlType::Default,
         );
     }
 }

@@ -13,7 +13,7 @@ final class UrlGenerator implements UrlGeneratorInterface
         private ContainerInterface $valueUrlGenerators,
     ) {}
 
-    public function generate(CmsItemInterface $item, UrlType $type = UrlType::Default): string
+    public function generate(CmsItemInterface $item, UrlType $type): string
     {
         if ($item instanceof NullCmsItem || $item->object === null) {
             return '';

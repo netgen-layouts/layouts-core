@@ -8,6 +8,7 @@ use Netgen\Layouts\Error\ErrorHandlerInterface;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Item\UrlType;
 use Throwable;
@@ -27,22 +28,6 @@ final class ItemRuntime
     ) {}
 
     /**
-     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $value
-     */
-    public function getItemPath(string|array|CmsItemInterface $value): string
-    {
-        return $this->getItemPathInternal($value, UrlType::Default);
-    }
-
-    /**
-     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $value
-     */
-    public function getItemAdminPath(string|array|CmsItemInterface $value): string
-    {
-        return $this->getItemPathInternal($value, UrlType::Admin);
-    }
-
-    /**
      * The method returns the full path of provided item.
      *
      * It accepts three kinds of references to the item:
@@ -51,14 +36,48 @@ final class ItemRuntime
      * 2) ID and value type as an array, e.g. [42, 'type']
      * 3) \Netgen\Layouts\Item\CmsItemInterface object
      *
-     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $value
-     *
-     * @throws \Netgen\Layouts\Exception\Item\ItemException If provided item or item reference is not valid
+     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $item
      */
-    private function getItemPathInternal(string|array|CmsItemInterface $value, UrlType $type): string
+    public function getItemPath(string|array|CmsItemInterface $item): string
+    {
+        if (!$item instanceof CmsItemInterface) {
+            $item = $this->getItem($item) ?? new NullCmsItem('item');
+        }
+
+        return $this->urlGenerator->generate($item, UrlType::Default);
+    }
+
+    /**
+     * The method returns the full admin path of provided item.
+     *
+     * It accepts three kinds of references to the item:
+     *
+     * 1) URI with value_type://value format, e.g. type://42
+     * 2) ID and value type as an array, e.g. [42, 'type']
+     * 3) \Netgen\Layouts\Item\CmsItemInterface object
+     *
+     * @param string|array{0: int|string, 1: string}|\Netgen\Layouts\Item\CmsItemInterface $item
+     */
+    public function getItemAdminPath(string|array|CmsItemInterface $item): string
+    {
+        if (!$item instanceof CmsItemInterface) {
+            $item = $this->getItem($item) ?? new NullCmsItem('item');
+        }
+
+        return $this->urlGenerator->generate($item, UrlType::Admin);
+    }
+
+    /**
+     * @param string|array{0: int|string, 1: string} $value
+     *
+     * Loads the item from the provided reference
+     */
+    private function getItem(string|array $value): ?CmsItemInterface
     {
         try {
-            $item = null;
+            if (is_array($value) && count($value) === 2) {
+                return $this->cmsItemLoader->load($value[0], $value[1]);
+            }
 
             if (is_string($value)) {
                 $itemUri = parse_url($value);
@@ -66,25 +85,17 @@ final class ItemRuntime
                     throw ItemException::invalidValue($value);
                 }
 
-                $item = $this->cmsItemLoader->load(
+                return $this->cmsItemLoader->load(
                     $itemUri['host'],
                     str_replace('-', '_', $itemUri['scheme'] ?? ''),
                 );
-            } elseif (is_array($value) && count($value) === 2) {
-                $item = $this->cmsItemLoader->load($value[0], $value[1]);
-            } elseif ($value instanceof CmsItemInterface) {
-                $item = $value;
             }
 
-            if (!$item instanceof CmsItemInterface) {
-                throw ItemException::canNotLoadItem();
-            }
-
-            return $this->urlGenerator->generate($item, $type);
+            throw ItemException::canNotLoadItem();
         } catch (Throwable $t) {
             $this->errorHandler->handleError($t);
         }
 
-        return '';
+        return null;
     }
 }
