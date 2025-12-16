@@ -11,6 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+use function sprintf;
+
 final class ImportType extends AbstractType
 {
     public function __construct(
@@ -49,11 +51,10 @@ final class ImportType extends AbstractType
                 'expanded' => true,
                 'data' => ImportMode::from($this->importMode),
                 'class' => ImportMode::class,
-                'choice_label' => static fn (ImportMode $mode): string => match ($mode) {
-                    ImportMode::Copy => 'import.import_mode.copy',
-                    ImportMode::Overwrite => 'import.import_mode.overwrite',
-                    ImportMode::Skip => 'import.import_mode.skip',
-                },
+                'choice_label' => static fn (ImportMode $mode): string => sprintf(
+                    'import.import_mode.%s',
+                    $mode->value,
+                ),
             ],
         );
     }

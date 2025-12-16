@@ -19,6 +19,8 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use function sprintf;
+
 final class LinkType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
@@ -40,13 +42,10 @@ final class LinkType extends AbstractType
             [
                 'class' => LinkTypeEnum::class,
                 'label' => 'parameter.link.link_type',
-                'choice_label' => static fn (LinkTypeEnum $linkType): string => match ($linkType) {
-                    LinkTypeEnum::Url => 'parameter.link.link_type.url',
-                    LinkTypeEnum::RelativeUrl => 'parameter.link.link_type.relative_url',
-                    LinkTypeEnum::Email => 'parameter.link.link_type.email',
-                    LinkTypeEnum::Phone => 'parameter.link.link_type.phone',
-                    LinkTypeEnum::Internal => 'parameter.link.link_type.internal',
-                },
+                'choice_label' => static fn (LinkTypeEnum $linkType): string => sprintf(
+                    'parameter.link.link_type.%s',
+                    $linkType->value,
+                ),
                 'required' => true,
                 'property_path' => 'linkType',
             ],
