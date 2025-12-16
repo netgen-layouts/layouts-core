@@ -11,6 +11,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Form\CreateType;
 use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\View\ViewInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,7 +28,7 @@ final class CreateForm extends AbstractController
     /**
      * Displays and processes layout create form.
      */
-    public function __invoke(Request $request): ViewInterface|Response
+    public function __invoke(Request $request): ViewInterface|JsonResponse
     {
         $this->denyAccessUnlessGranted('nglayouts:layout:add');
 
