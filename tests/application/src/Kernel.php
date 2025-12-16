@@ -53,6 +53,6 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
-        $container->removeDefinition('netgen_layouts.event_listener.api_csrf_validation_listener');
+        $container->removeDefinition('netgen_layouts.event_listener.app_csrf_validation_listener');
     }
 }

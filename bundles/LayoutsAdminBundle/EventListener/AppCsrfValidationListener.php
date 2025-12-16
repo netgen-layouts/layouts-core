@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-final class ApiCsrfValidationListener implements EventSubscriberInterface
+final class AppCsrfValidationListener implements EventSubscriberInterface
 {
     public function __construct(
         private CsrfTokenValidatorInterface $csrfTokenValidator,

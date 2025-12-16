@@ -30,8 +30,8 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_layouts.event_listener.api_csrf_validation_listener:
-        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener
+    netgen_layouts.event_listener.app_csrf_validation_listener:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\AppCsrfValidationListener
         arguments:
             - "@netgen_layouts.security.csrf_validator"
             - "%netgen_layouts.app.csrf_token_id%"

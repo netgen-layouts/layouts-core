@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
-use Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\AppCsrfValidationListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -15,14 +15,14 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-#[CoversClass(ApiCsrfValidationListener::class)]
-final class ApiCsrfValidationListenerTest extends TestCase
+#[CoversClass(AppCsrfValidationListener::class)]
+final class AppCsrfValidationListenerTest extends TestCase
 {
     private Stub&CsrfTokenValidatorInterface $csrfTokenValidatorStub;
 
     private string $csrfTokenId;
 
-    private ApiCsrfValidationListener $listener;
+    private AppCsrfValidationListener $listener;
 
     protected function setUp(): void
     {
@@ -30,7 +30,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
 
         $this->csrfTokenId = 'token_id';
 
-        $this->listener = new ApiCsrfValidationListener(
+        $this->listener = new AppCsrfValidationListener(
             $this->csrfTokenValidatorStub,
             $this->csrfTokenId,
         );
@@ -93,7 +93,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
             ->expects($this->never())
             ->method('validateCsrfToken');
 
-        $this->listener = new ApiCsrfValidationListener(
+        $this->listener = new AppCsrfValidationListener(
             $csrfTokenValidatorMock,
             $this->csrfTokenId,
         );
@@ -114,7 +114,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
             ->expects($this->never())
             ->method('validateCsrfToken');
 
-        $this->listener = new ApiCsrfValidationListener(
+        $this->listener = new AppCsrfValidationListener(
             $csrfTokenValidatorMock,
             $this->csrfTokenId,
         );
