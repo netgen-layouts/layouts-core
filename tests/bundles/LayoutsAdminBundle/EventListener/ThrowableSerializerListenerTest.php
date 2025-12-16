@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Exception;
-use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ThrowableSerializerListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -64,7 +64,7 @@ final class ThrowableSerializerListenerTest extends TestCase
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
             $kernelStub,
@@ -111,7 +111,7 @@ final class ThrowableSerializerListenerTest extends TestCase
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
             $kernelStub,

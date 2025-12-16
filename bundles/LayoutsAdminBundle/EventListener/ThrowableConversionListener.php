@@ -50,7 +50,7 @@ final class ThrowableConversionListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        if (!$request->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME)) {
+        if (!$request->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME)) {
             return;
         }
 

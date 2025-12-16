@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener;
-use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -54,7 +54,7 @@ final class SerializerListenerTest extends TestCase
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new ViewEvent(
             $kernelStub,
@@ -92,7 +92,7 @@ final class SerializerListenerTest extends TestCase
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->query->set('html', 'false');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new ViewEvent(
             $kernelStub,
@@ -135,7 +135,7 @@ final class SerializerListenerTest extends TestCase
     {
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new ViewEvent(
             $kernelStub,

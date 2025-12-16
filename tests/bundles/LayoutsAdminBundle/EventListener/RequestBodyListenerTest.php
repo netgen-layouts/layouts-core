@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener;
-use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\InputBag;
@@ -37,7 +37,7 @@ final class RequestBodyListenerTest extends TestCase
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -68,7 +68,7 @@ final class RequestBodyListenerTest extends TestCase
     {
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
         $request->headers->set('Content-Type', 'application/json');
 
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
@@ -81,7 +81,7 @@ final class RequestBodyListenerTest extends TestCase
     {
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -94,7 +94,7 @@ final class RequestBodyListenerTest extends TestCase
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
         $request->headers->set('Content-Type', 'some/type');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -110,7 +110,7 @@ final class RequestBodyListenerTest extends TestCase
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{]');
         $request->headers->set('Content-Type', 'application/json');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -124,7 +124,7 @@ final class RequestBodyListenerTest extends TestCase
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '42');
         $request->headers->set('Content-Type', 'application/json');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);

@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
-use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-#[CoversClass(SetIsApiRequestListener::class)]
-final class SetIsApiRequestListenerTest extends TestCase
+#[CoversClass(SetIsAppRequestListener::class)]
+final class SetIsAppRequestListenerTest extends TestCase
 {
-    private SetIsApiRequestListener $listener;
+    private SetIsAppRequestListener $listener;
 
     protected function setUp(): void
     {
-        $this->listener = new SetIsApiRequestListener();
+        $this->listener = new SetIsAppRequestListener();
     }
 
     public function testGetSubscribedEvents(): void
@@ -38,7 +38,7 @@ final class SetIsApiRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertTrue($event->getRequest()->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME));
+        self::assertTrue($event->getRequest()->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME));
     }
 
     public function testOnKernelRequestWithInvalidRoute(): void
@@ -50,7 +50,7 @@ final class SetIsApiRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
+        self::assertFalse($event->getRequest()->attributes->has(SetIsAppRequestListener::APP_FLAG_NAME));
     }
 
     public function testOnKernelRequestInSubRequest(): void
@@ -61,6 +61,6 @@ final class SetIsApiRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
+        self::assertFalse($event->getRequest()->attributes->has(SetIsAppRequestListener::APP_FLAG_NAME));
     }
 }

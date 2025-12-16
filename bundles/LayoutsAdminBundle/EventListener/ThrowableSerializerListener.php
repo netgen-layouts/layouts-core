@@ -29,7 +29,7 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
     }
 
     /**
-     * Serializes the throwable if SetIsApiRequestListener::API_FLAG_NAME
+     * Serializes the throwable if SetIsAppRequestListener::APP_FLAG_NAME
      * is set to true.
      */
     public function onException(ExceptionEvent $event): void
@@ -39,7 +39,7 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        if (!$request->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME)) {
+        if (!$request->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME)) {
             return;
         }
 

@@ -9,11 +9,11 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 use function str_starts_with;
 
-final class SetIsApiRequestListener implements EventSubscriberInterface
+final class SetIsAppRequestListener implements EventSubscriberInterface
 {
-    public const string API_FLAG_NAME = 'nglayouts_is_app_api_request';
+    public const string APP_FLAG_NAME = 'nglayouts_is_app_request';
 
-    private const string API_ROUTE_PREFIX = 'nglayouts_app_';
+    private const string APP_ROUTE_PREFIX = 'nglayouts_app_';
 
     public static function getSubscribedEvents(): array
     {
@@ -21,7 +21,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
     }
 
     /**
-     * Sets the self::API_FLAG_NAME flag if this is a REST API request.
+     * Sets the self::APP_FLAG_NAME flag if this is a request in layout editing interface.
      */
     public function onKernelRequest(RequestEvent $event): void
     {
@@ -31,10 +31,10 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->getString('_route');
-        if (!str_starts_with($currentRoute, self::API_ROUTE_PREFIX)) {
+        if (!str_starts_with($currentRoute, self::APP_ROUTE_PREFIX)) {
             return;
         }
 
-        $request->attributes->set(self::API_FLAG_NAME, true);
+        $request->attributes->set(self::APP_FLAG_NAME, true);
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener;
-use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
@@ -47,7 +47,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     public function testOnKernelRequest(): void
     {
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $this->csrfTokenValidatorStub
             ->method('validateCsrfToken')
@@ -66,7 +66,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
         $this->expectExceptionMessage('Missing or invalid CSRF token');
 
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $this->csrfTokenValidatorStub
             ->method('validateCsrfToken')
@@ -82,7 +82,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     public function testOnKernelRequestInSubRequest(): void
     {
         $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
 

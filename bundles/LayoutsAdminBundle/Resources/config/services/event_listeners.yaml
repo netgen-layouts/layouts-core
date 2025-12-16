@@ -25,8 +25,8 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_layouts.event_listener.set_is_api_request:
-        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener
+    netgen_layouts.event_listener.set_is_app_request:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener
         tags:
             - { name: kernel.event_subscriber }
 
