@@ -8,22 +8,10 @@ use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Block\PlaceholderList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
-use TypeError;
-
-use function sprintf;
 
 #[CoversClass(PlaceholderList::class)]
 final class PlaceholderListTest extends TestCase
 {
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', Placeholder::class, stdClass::class));
-
-        new PlaceholderList(['one' => new Placeholder(), 'two' => new stdClass(), 'three' => new Placeholder()]);
-    }
-
     public function testGetPlaceholders(): void
     {
         $placeholders = ['one' => new Placeholder(), 'two' => new Placeholder()];

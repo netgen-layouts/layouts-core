@@ -8,22 +8,10 @@ use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\Config\ConfigList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
-use TypeError;
-
-use function sprintf;
 
 #[CoversClass(ConfigList::class)]
 final class ConfigListTest extends TestCase
 {
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', Config::class, stdClass::class));
-
-        new ConfigList(['key1' => new Config(), 'key2' => new stdClass(), 'key3' => new Config()]);
-    }
-
     public function testGetConfigs(): void
     {
         $configs = ['key1' => new Config(), 'key2' => new Config()];

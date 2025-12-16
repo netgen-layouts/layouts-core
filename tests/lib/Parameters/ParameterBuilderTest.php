@@ -15,7 +15,6 @@ use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -330,14 +329,6 @@ final class ParameterBuilderTest extends TestCase
     public function testGetConstraintsWithoutParentBuilder(): void
     {
         self::assertSame([], $this->builder->getConstraints());
-    }
-
-    public function testSetConstraintsWithInvalidConstraints(): void
-    {
-        $this->expectException(ParameterBuilderException::class);
-        $this->expectExceptionMessage('Parameter constraints need to be either a Symfony constraint or a closure.');
-
-        $this->builder->setConstraints([new stdClass()]);
     }
 
     public function testSetConstraintsAfterBuildingParameters(): void

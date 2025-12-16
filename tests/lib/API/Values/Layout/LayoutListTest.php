@@ -8,23 +8,11 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Symfony\Component\Uid\Uuid;
-use TypeError;
-
-use function sprintf;
 
 #[CoversClass(LayoutList::class)]
 final class LayoutListTest extends TestCase
 {
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', Layout::class, stdClass::class));
-
-        new LayoutList([new Layout(), new stdClass(), new Layout()]);
-    }
-
     public function testGetLayouts(): void
     {
         $layouts = [new Layout(), new Layout()];

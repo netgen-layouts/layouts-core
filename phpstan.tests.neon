@@ -18,9 +18,3 @@ parameters:
 
         - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
         - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
-
-        # Netgen Layouts
-
-        - '#Method Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'
-        - '#Parameter \#1 \$\w+ of class .+List constructor expects array\<.+\>, array\<.+\|stdClass\> given.#'
-        - '#expects array<\(Closure\(mixed ...\): Symfony\\Component\\Validator\\Constraint\)\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'

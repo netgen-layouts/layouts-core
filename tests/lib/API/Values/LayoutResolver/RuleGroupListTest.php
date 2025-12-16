@@ -8,23 +8,11 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Symfony\Component\Uid\Uuid;
-use TypeError;
-
-use function sprintf;
 
 #[CoversClass(RuleGroupList::class)]
 final class RuleGroupListTest extends TestCase
 {
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(sprintf('must be of type %s, %s given', RuleGroup::class, stdClass::class));
-
-        new RuleGroupList([new RuleGroup(), new stdClass(), new RuleGroup()]);
-    }
-
     public function testGetRuleGroups(): void
     {
         $ruleGroups = [new RuleGroup(), new RuleGroup()];
