@@ -44,7 +44,7 @@ final class ParameterBuilder implements ParameterBuilderInterface
     private array $groups;
 
     /**
-     * @var array<\Symfony\Component\Validator\Constraint|\Closure>
+     * @var array<\Symfony\Component\Validator\Constraint|\Closure(mixed ...): \Symfony\Component\Validator\Constraint>
      */
     private array $constraints;
 

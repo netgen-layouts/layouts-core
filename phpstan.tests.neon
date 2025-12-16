@@ -25,4 +25,4 @@ parameters:
 
         - '#Method Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'
         - '#Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given.#'
-        - '#expects array<Closure\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'
+        - '#expects array<\(Closure\(mixed ...\): Symfony\\Component\\Validator\\Constraint\)\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'

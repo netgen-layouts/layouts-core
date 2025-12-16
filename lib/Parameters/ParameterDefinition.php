@@ -79,7 +79,7 @@ final class ParameterDefinition implements ParameterDefinitionCollectionInterfac
      * These can either be instances of Symfony constraints (\Symfony\Component\Validator\Constraint)
      * or closures that return a Symfony constraint each.
      *
-     * @var array<\Symfony\Component\Validator\Constraint|\Closure>
+     * @var array<\Symfony\Component\Validator\Constraint|\Closure(mixed ...): \Symfony\Component\Validator\Constraint>
      */
     public private(set) array $constraints = [];
 

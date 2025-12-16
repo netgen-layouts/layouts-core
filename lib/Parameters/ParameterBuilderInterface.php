@@ -115,14 +115,14 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Returns the runtime constraints for this parameter.
      *
-     * @return array<\Symfony\Component\Validator\Constraint|\Closure>
+     * @return array<\Symfony\Component\Validator\Constraint|\Closure(mixed ...): \Symfony\Component\Validator\Constraint>
      */
     public function getConstraints(): array;
 
     /**
      * Sets the parameter constraints.
      *
-     * @param array<\Symfony\Component\Validator\Constraint|\Closure> $constraints
+     * @param array<\Symfony\Component\Validator\Constraint|\Closure(mixed ...): \Symfony\Component\Validator\Constraint> $constraints
      */
     public function setConstraints(array $constraints): self;
 

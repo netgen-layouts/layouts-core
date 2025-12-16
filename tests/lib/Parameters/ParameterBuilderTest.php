@@ -315,7 +315,7 @@ final class ParameterBuilderTest extends TestCase
 
     public function testGetSetConstraints(): void
     {
-        $constraints = [new NotBlank(), static function (): void {}];
+        $constraints = [new NotBlank(), static fn (): NotBlank => new NotBlank()];
 
         $this->builder->add(
             'test',
