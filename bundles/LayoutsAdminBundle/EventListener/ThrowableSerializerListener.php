@@ -47,7 +47,7 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
         if (!$throwable instanceof HttpExceptionInterface || $throwable->getStatusCode() >= 500) {
             $this->logger->critical(
                 sprintf(
-                    'Uncaught PHP Exception %s: "%s" at %s line %s',
+                    'Uncaught PHP error %s: "%s" at %s line %s',
                     $throwable::class,
                     $throwable->getMessage(),
                     $throwable->getFile(),
