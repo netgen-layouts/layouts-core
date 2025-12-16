@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Tests\Block;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\NullBlockDefinition;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
-use Netgen\Layouts\Tests\Block\Stubs\EmptyHandlerPlugin;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -44,11 +43,6 @@ final class NullBlockDefinitionTest extends TestCase
         self::assertSame([], $this->blockDefinition->forms);
     }
 
-    public function testHasForm(): void
-    {
-        self::assertFalse($this->blockDefinition->hasForm('content'));
-    }
-
     public function testGetForm(): void
     {
         $this->expectException(BlockDefinitionException::class);
@@ -60,11 +54,6 @@ final class NullBlockDefinitionTest extends TestCase
     public function testGetCollections(): void
     {
         self::assertSame([], $this->blockDefinition->collections);
-    }
-
-    public function testHasCollection(): void
-    {
-        self::assertFalse($this->blockDefinition->hasCollection('collection'));
     }
 
     public function testGetCollection(): void
@@ -85,11 +74,6 @@ final class NullBlockDefinitionTest extends TestCase
         self::assertSame([], $this->blockDefinition->viewTypeIdentifiers);
     }
 
-    public function testHasViewType(): void
-    {
-        self::assertFalse($this->blockDefinition->hasViewType('large'));
-    }
-
     public function testGetViewType(): void
     {
         $this->expectException(BlockDefinitionException::class);
@@ -103,21 +87,6 @@ final class NullBlockDefinitionTest extends TestCase
         $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
 
         self::assertCount(0, $dynamicParameters);
-    }
-
-    public function testIsContextual(): void
-    {
-        self::assertFalse($this->blockDefinition->isContextual(new Block()));
-    }
-
-    public function testHasHandlerPlugin(): void
-    {
-        self::assertFalse($this->blockDefinition->hasHandlerPlugin(HandlerPlugin::class));
-    }
-
-    public function testHasHandlerPluginWithUnknownPlugin(): void
-    {
-        self::assertFalse($this->blockDefinition->hasHandlerPlugin(EmptyHandlerPlugin::class));
     }
 
     public function testGetHandlerPlugin(): void

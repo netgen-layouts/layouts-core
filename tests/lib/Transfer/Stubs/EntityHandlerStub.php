@@ -16,7 +16,7 @@ final class EntityHandlerStub implements EntityHandlerInterface
         return Value::fromArray(['id' => $uuid]);
     }
 
-    public function entityExists(Uuid $uuid): bool
+    public function entityExists(Uuid $uuid): false
     {
         return false;
     }

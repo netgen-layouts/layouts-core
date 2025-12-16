@@ -11,7 +11,7 @@ use Netgen\Layouts\Item\ValueConverterInterface;
  */
 final class UnsupportedValueConverter implements ValueConverterInterface
 {
-    public function supports(object $object): bool
+    public function supports(object $object): false
     {
         return false;
     }

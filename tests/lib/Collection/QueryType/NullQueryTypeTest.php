@@ -41,9 +41,4 @@ final class NullQueryTypeTest extends TestCase
     {
         self::assertSame(0, $this->queryType->getCount(new Query()));
     }
-
-    public function testIsContextual(): void
-    {
-        self::assertFalse($this->queryType->isContextual(new Query()));
-    }
 }

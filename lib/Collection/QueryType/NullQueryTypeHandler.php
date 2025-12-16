@@ -21,7 +21,7 @@ final class NullQueryTypeHandler implements QueryTypeHandlerInterface
         return 0;
     }
 
-    public function isContextual(Query $query): bool
+    public function isContextual(Query $query): false
     {
         return false;
     }

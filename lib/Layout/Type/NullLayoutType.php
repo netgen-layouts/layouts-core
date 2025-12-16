@@ -33,12 +33,12 @@ final class NullLayoutType implements LayoutTypeInterface
         public private(set) string $identifier,
     ) {}
 
-    public function hasZone(string $zoneIdentifier): bool
+    public function hasZone(string $zoneIdentifier): false
     {
         return false;
     }
 
-    public function getZone(string $zoneIdentifier): Zone
+    public function getZone(string $zoneIdentifier): never
     {
         throw LayoutTypeException::noZone($this->identifier, $zoneIdentifier);
     }

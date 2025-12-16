@@ -23,7 +23,7 @@ final class TestQueryTypeHandler implements QueryTypeHandlerInterface
         return 3;
     }
 
-    public function isContextual(Query $query): bool
+    public function isContextual(Query $query): false
     {
         return false;
     }

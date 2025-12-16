@@ -44,11 +44,6 @@ final class NullLayoutTypeTest extends TestCase
         self::assertSame([], $this->layoutType->zoneIdentifiers);
     }
 
-    public function testHasZone(): void
-    {
-        self::assertFalse($this->layoutType->hasZone('left'));
-    }
-
     public function testGetZone(): void
     {
         $this->expectException(LayoutTypeException::class);

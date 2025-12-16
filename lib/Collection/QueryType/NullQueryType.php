@@ -37,7 +37,7 @@ final class NullQueryType implements QueryTypeInterface
         return 0;
     }
 
-    public function isContextual(Query $query): bool
+    public function isContextual(Query $query): false
     {
         return false;
     }
