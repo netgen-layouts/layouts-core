@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.25, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.4.7, for Linux (x86_64)
 --
 -- Host: localhost    Database: netgen_layouts
 -- ------------------------------------------------------
--- Server version	8.0.25-0ubuntu0.21.04.1
+-- Server version	8.4.7
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -58,9 +58,9 @@ DROP TABLE IF EXISTS `nglayouts_block_collection`;
 CREATE TABLE `nglayouts_block_collection` (
   `block_id` int NOT NULL,
   `block_status` int NOT NULL,
-  `identifier` varchar(191) NOT NULL,
   `collection_id` int NOT NULL,
   `collection_status` int NOT NULL,
+  `identifier` varchar(191) NOT NULL,
   PRIMARY KEY (`block_id`,`block_status`,`identifier`),
   KEY `idx_ngl_block` (`block_id`,`block_status`),
   KEY `idx_ngl_collection` (`collection_id`,`collection_status`),
@@ -222,7 +222,7 @@ CREATE TABLE `nglayouts_layout` (
   `description` longtext NOT NULL,
   `created` int NOT NULL,
   `modified` int NOT NULL,
-  `shared` tinyint(1) NOT NULL,
+  `shared` tinyint NOT NULL,
   `main_locale` varchar(191) NOT NULL,
   PRIMARY KEY (`id`,`status`),
   UNIQUE KEY `idx_ngl_layout_uuid` (`uuid`,`status`),
@@ -256,8 +256,8 @@ DROP TABLE IF EXISTS `nglayouts_migration_versions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nglayouts_migration_versions` (
-  `version` varchar(14) NOT NULL,
-  `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `version` varchar(191) NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
   `execution_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -269,16 +269,16 @@ CREATE TABLE `nglayouts_migration_versions` (
 
 LOCK TABLES `nglayouts_migration_versions` WRITE;
 /*!40000 ALTER TABLE `nglayouts_migration_versions` DISABLE KEYS */;
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000700','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000800','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000900','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001000','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001100','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001200','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001300','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010100','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010200','2020-06-15 12:00:00',NULL);
-INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010300','2020-06-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000700','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000800','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version000900','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001000','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001100','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001200','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version001300','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010000','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010200','2025-12-15 12:00:00',NULL);
+INSERT INTO `nglayouts_migration_versions` VALUES ('Netgen\\Layouts\\Migrations\\Doctrine\\Version010300','2025-12-15 12:00:00',NULL);
 /*!40000 ALTER TABLE `nglayouts_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,7 +411,7 @@ DROP TABLE IF EXISTS `nglayouts_rule_data`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nglayouts_rule_data` (
   `rule_id` int NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
+  `enabled` tinyint NOT NULL,
   `priority` int NOT NULL,
   PRIMARY KEY (`rule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -458,7 +458,7 @@ DROP TABLE IF EXISTS `nglayouts_rule_group_data`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nglayouts_rule_group_data` (
   `rule_group_id` int NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
+  `enabled` tinyint NOT NULL,
   `priority` int NOT NULL,
   PRIMARY KEY (`rule_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -528,4 +528,4 @@ CREATE TABLE `nglayouts_zone` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-15 12:00:00
+-- Dump completed on 2025-12-15 12:00:00
