@@ -6,8 +6,13 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
+    level: 8
+
+    paths:
+        - tests
+
     excludePaths:
-        - tests/application/public/bundles/
+        - tests/application/public/bundles
 
     ignoreErrors:
         # Disable errors about missing value types in PHPUnit data providers

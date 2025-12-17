@@ -4,6 +4,13 @@ includes:
     - vendor/phpstan/phpstan-symfony/rules.neon
 
 parameters:
+    level: 8
+
+    paths:
+        - lib
+        - bundles
+        - migrations
+
     ignoreErrors:
         # PHPStan
 
