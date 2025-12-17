@@ -16,201 +16,233 @@ final class Version000700 extends AbstractMigration
 
         // ngbm_layout table
 
-        $layoutTable = $schema->createTable('ngbm_layout');
-
-        $layoutTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $layoutTable->addColumn('status', 'integer');
-        $layoutTable->addColumn('type', 'string', ['length' => 191]);
-        $layoutTable->addColumn('name', 'string', ['length' => 191]);
-        $layoutTable->addColumn('created', 'integer');
-        $layoutTable->addColumn('modified', 'integer');
-        $layoutTable->addColumn('shared', 'boolean');
-
-        $layoutTable->setPrimaryKey(['id', 'status']);
-
-        $layoutTable->addIndex(['name'], 'idx_ngl_layout_name');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_layout (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              type varchar(191) NOT NULL,
+              name varchar(191) NOT NULL,
+              created int NOT NULL,
+              modified int NOT NULL,
+              shared tinyint NOT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_layout_name (name)
+            )
+            EOT
+        );
 
         // ngbm_block table
 
-        $blockTable = $schema->createTable('ngbm_block');
-
-        $blockTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $blockTable->addColumn('status', 'integer');
-        $blockTable->addColumn('layout_id', 'integer');
-        $blockTable->addColumn('depth', 'integer');
-        $blockTable->addColumn('path', 'string', ['length' => 191]);
-        $blockTable->addColumn('parent_id', 'integer', ['notnull' => false]);
-        $blockTable->addColumn('placeholder', 'string', ['length' => 191, 'notnull' => false]);
-        $blockTable->addColumn('position', 'integer', ['notnull' => false]);
-        $blockTable->addColumn('definition_identifier', 'string', ['length' => 191]);
-        $blockTable->addColumn('view_type', 'string', ['length' => 191]);
-        $blockTable->addColumn('item_view_type', 'string', ['length' => 191]);
-        $blockTable->addColumn('name', 'string', ['length' => 191]);
-        $blockTable->addColumn('placeholder_parameters', 'text', ['length' => 65535]);
-        $blockTable->addColumn('parameters', 'text', ['length' => 65535]);
-
-        $blockTable->setPrimaryKey(['id', 'status']);
-        $blockTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status'], [], 'fk_ngl_block_layout');
-
-        $blockTable->addIndex(['layout_id', 'status'], 'idx_ngl_layout');
-        $blockTable->addIndex(['parent_id', 'placeholder', 'status'], 'idx_ngl_parent_block');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_block (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              layout_id int NOT NULL,
+              depth int NOT NULL,
+              path varchar(191) NOT NULL,
+              parent_id int DEFAULT NULL,
+              placeholder varchar(191) DEFAULT NULL,
+              position int DEFAULT NULL,
+              definition_identifier varchar(191) NOT NULL,
+              view_type varchar(191) NOT NULL,
+              item_view_type varchar(191) NOT NULL,
+              name varchar(191) NOT NULL,
+              placeholder_parameters longtext NOT NULL,
+              parameters longtext NOT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_layout (layout_id,status),
+              KEY idx_ngl_parent_block (parent_id,placeholder,status),
+              CONSTRAINT fk_ngl_block_layout FOREIGN KEY (layout_id, status)
+                REFERENCES ngbm_layout (id, status)
+            )
+            EOT
+        );
 
         // ngbm_zone table
 
-        $zoneTable = $schema->createTable('ngbm_zone');
-
-        $zoneTable->addColumn('identifier', 'string', ['length' => 191]);
-        $zoneTable->addColumn('layout_id', 'integer');
-        $zoneTable->addColumn('status', 'integer');
-        $zoneTable->addColumn('root_block_id', 'integer');
-        $zoneTable->addColumn('linked_layout_id', 'integer', ['notnull' => false]);
-        $zoneTable->addColumn('linked_zone_identifier', 'string', ['length' => 191, 'notnull' => false]);
-
-        $zoneTable->setPrimaryKey(['identifier', 'layout_id', 'status']);
-        $zoneTable->addForeignKeyConstraint('ngbm_layout', ['layout_id', 'status'], ['id', 'status'], [], 'fk_ngl_zone_layout');
-        $zoneTable->addForeignKeyConstraint('ngbm_block', ['root_block_id', 'status'], ['id', 'status'], [], 'fk_ngl_zone_block');
-
-        $zoneTable->addIndex(['layout_id', 'status'], 'idx_ngl_layout');
-        $zoneTable->addIndex(['root_block_id', 'status'], 'idx_ngl_root_block');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_zone (
+              identifier varchar(191) NOT NULL,
+              layout_id int NOT NULL,
+              status int NOT NULL,
+              root_block_id int NOT NULL,
+              linked_layout_id int DEFAULT NULL,
+              linked_zone_identifier varchar(191) DEFAULT NULL,
+              PRIMARY KEY (identifier,layout_id,status),
+              KEY idx_ngl_layout (layout_id,status),
+              KEY idx_ngl_root_block (root_block_id,status),
+              CONSTRAINT fk_ngl_zone_block FOREIGN KEY (root_block_id, status)
+                REFERENCES ngbm_block (id, status),
+              CONSTRAINT fk_ngl_zone_layout FOREIGN KEY (layout_id, status)
+                REFERENCES ngbm_layout (id, status)
+            )
+            EOT
+        );
 
         // ngbm_rule table
 
-        $ruleTable = $schema->createTable('ngbm_rule');
-
-        $ruleTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $ruleTable->addColumn('status', 'integer');
-        $ruleTable->addColumn('layout_id', 'integer', ['notnull' => false]);
-        $ruleTable->addColumn('comment', 'string', ['length' => 191, 'notnull' => false]);
-
-        $ruleTable->setPrimaryKey(['id', 'status']);
-
-        $ruleTable->addIndex(['layout_id'], 'idx_ngl_related_layout');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_rule (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              layout_id int DEFAULT NULL,
+              comment varchar(191) DEFAULT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_related_layout (layout_id)
+            )
+            EOT
+        );
 
         // ngbm_rule_data table
 
-        $ruleDataTable = $schema->createTable('ngbm_rule_data');
-
-        $ruleDataTable->addColumn('rule_id', 'integer');
-        $ruleDataTable->addColumn('enabled', 'boolean');
-        $ruleDataTable->addColumn('priority', 'integer');
-
-        $ruleDataTable->setPrimaryKey(['rule_id']);
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_rule_data (
+              rule_id int NOT NULL,
+              enabled tinyint NOT NULL,
+              priority int NOT NULL,
+              PRIMARY KEY (rule_id)
+            )
+            EOT
+        );
 
         // ngbm_rule_target table
 
-        $ruleTargetTable = $schema->createTable('ngbm_rule_target');
-
-        $ruleTargetTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $ruleTargetTable->addColumn('status', 'integer');
-        $ruleTargetTable->addColumn('rule_id', 'integer');
-        $ruleTargetTable->addColumn('type', 'string', ['length' => 191]);
-        $ruleTargetTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
-
-        $ruleTargetTable->setPrimaryKey(['id', 'status']);
-        $ruleTargetTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status'], [], 'fk_ngl_target_rule');
-
-        $ruleTargetTable->addIndex(['rule_id', 'status'], 'idx_ngl_rule');
-        $ruleTargetTable->addIndex(['type'], 'idx_ngl_target_type');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_rule_target (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              rule_id int NOT NULL,
+              type varchar(191) NOT NULL,
+              value longtext DEFAULT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_rule (rule_id,status),
+              KEY idx_ngl_target_type (type),
+              CONSTRAINT fk_ngl_target_rule FOREIGN KEY (rule_id, status)
+                REFERENCES ngbm_rule (id, status)
+            )
+            EOT
+        );
 
         // ngbm_rule_condition table
 
-        $ruleConditionTable = $schema->createTable('ngbm_rule_condition');
-
-        $ruleConditionTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $ruleConditionTable->addColumn('status', 'integer');
-        $ruleConditionTable->addColumn('rule_id', 'integer');
-        $ruleConditionTable->addColumn('type', 'string', ['length' => 191]);
-        $ruleConditionTable->addColumn('value', 'text', ['length' => 65535, 'notnull' => false]);
-
-        $ruleConditionTable->setPrimaryKey(['id', 'status']);
-        $ruleConditionTable->addForeignKeyConstraint('ngbm_rule', ['rule_id', 'status'], ['id', 'status'], [], 'fk_ngl_condition_rule');
-
-        $ruleConditionTable->addIndex(['rule_id', 'status'], 'idx_ngl_rule');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_rule_condition (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              rule_id int NOT NULL,
+              type varchar(191) NOT NULL,
+              value longtext DEFAULT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_rule (rule_id,status),
+              CONSTRAINT fk_ngl_condition_rule FOREIGN KEY (rule_id, status)
+                REFERENCES ngbm_rule (id, status)
+            )
+            EOT
+        );
 
         // ngbm_collection table
 
-        $collectionTable = $schema->createTable('ngbm_collection');
-
-        $collectionTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $collectionTable->addColumn('status', 'integer');
-        $collectionTable->addColumn('type', 'integer');
-        $collectionTable->addColumn('shared', 'boolean');
-        $collectionTable->addColumn('name', 'string', ['length' => 191, 'notnull' => false]);
-
-        $collectionTable->setPrimaryKey(['id', 'status']);
-
-        $collectionTable->addIndex(['name'], 'idx_ngl_collection_name');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_collection (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              type int NOT NULL,
+              shared tinyint NOT NULL,
+              name varchar(191) DEFAULT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_collection_name (name)
+            )
+            EOT
+        );
 
         // ngbm_collection_item table
 
-        $collectionItemTable = $schema->createTable('ngbm_collection_item');
-
-        $collectionItemTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $collectionItemTable->addColumn('status', 'integer');
-        $collectionItemTable->addColumn('collection_id', 'integer');
-        $collectionItemTable->addColumn('position', 'integer');
-        $collectionItemTable->addColumn('type', 'integer');
-        $collectionItemTable->addColumn('value_id', 'string', ['length' => 191]);
-        $collectionItemTable->addColumn('value_type', 'string', ['length' => 191]);
-
-        $collectionItemTable->setPrimaryKey(['id', 'status']);
-        $collectionItemTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status'], [], 'fk_ngl_item_collection');
-
-        $collectionItemTable->addIndex(['collection_id', 'status'], 'idx_ngl_collection');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_collection_item (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              collection_id int NOT NULL,
+              position int NOT NULL,
+              type int NOT NULL,
+              value_id varchar(191) NOT NULL,
+              value_type varchar(191) NOT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_collection (collection_id,status),
+              CONSTRAINT fk_ngl_item_collection FOREIGN KEY (collection_id, status)
+                REFERENCES ngbm_collection (id, status)
+            )
+            EOT
+        );
 
         // ngbm_collection_query table
 
-        $collectionQueryTable = $schema->createTable('ngbm_collection_query');
-
-        $collectionQueryTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $collectionQueryTable->addColumn('status', 'integer');
-        $collectionQueryTable->addColumn('collection_id', 'integer');
-        $collectionQueryTable->addColumn('position', 'integer');
-        $collectionQueryTable->addColumn('identifier', 'string', ['length' => 191]);
-        $collectionQueryTable->addColumn('type', 'string', ['length' => 191]);
-        $collectionQueryTable->addColumn('parameters', 'text', ['length' => 65535]);
-
-        $collectionQueryTable->setPrimaryKey(['id', 'status']);
-        $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status'], [], 'fk_ngl_query_collection');
-
-        $collectionQueryTable->addIndex(['collection_id', 'status'], 'idx_ngl_collection');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_collection_query (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              collection_id int NOT NULL,
+              position int NOT NULL,
+              identifier varchar(191) NOT NULL,
+              type varchar(191) NOT NULL,
+              parameters longtext NOT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_collection (collection_id,status),
+              CONSTRAINT fk_ngl_query_collection FOREIGN KEY (collection_id, status)
+                REFERENCES ngbm_collection (id, status)
+            )
+            EOT
+        );
 
         // ngbm_block_collection table
 
-        $blockCollectionTable = $schema->createTable('ngbm_block_collection');
-
-        $blockCollectionTable->addColumn('block_id', 'integer');
-        $blockCollectionTable->addColumn('block_status', 'integer');
-        $blockCollectionTable->addColumn('collection_id', 'integer');
-        $blockCollectionTable->addColumn('collection_status', 'integer');
-        $blockCollectionTable->addColumn('identifier', 'string', ['length' => 191]);
-        $blockCollectionTable->addColumn('start', 'integer');
-        $blockCollectionTable->addColumn('length', 'integer', ['notnull' => false]);
-
-        $blockCollectionTable->setPrimaryKey(['block_id', 'block_status', 'identifier']);
-        $blockCollectionTable->addForeignKeyConstraint('ngbm_block', ['block_id', 'block_status'], ['id', 'status'], [], 'fk_ngl_block_collection_block');
-        $blockCollectionTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'collection_status'], ['id', 'status'], [], 'fk_ngl_block_collection_collection');
-
-        $blockCollectionTable->addIndex(['block_id', 'block_status'], 'idx_ngl_block');
-        $blockCollectionTable->addIndex(['collection_id', 'collection_status'], 'idx_ngl_collection');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_block_collection (
+              block_id int NOT NULL,
+              block_status int NOT NULL,
+              collection_id int NOT NULL,
+              collection_status int NOT NULL,
+              identifier varchar(191) NOT NULL,
+              start int NOT NULL,
+              length int DEFAULT NULL,
+              PRIMARY KEY (block_id,block_status,identifier),
+              KEY idx_ngl_block (block_id,block_status),
+              KEY idx_ngl_collection (collection_id,collection_status),
+              CONSTRAINT fk_ngl_block_collection_block FOREIGN KEY (block_id, block_status)
+                REFERENCES ngbm_block (id, status),
+              CONSTRAINT fk_ngl_block_collection_collection FOREIGN KEY (collection_id, collection_status)
+                REFERENCES ngbm_collection (id, status)
+            )
+            EOT
+        );
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
-        $schema->dropTable('ngbm_block_collection');
-        $schema->dropTable('ngbm_collection_item');
-        $schema->dropTable('ngbm_collection_query');
-        $schema->dropTable('ngbm_collection');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_block_collection');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_collection_item');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_collection_query');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_collection');
 
-        $schema->dropTable('ngbm_zone');
-        $schema->dropTable('ngbm_block');
-        $schema->dropTable('ngbm_layout');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_zone');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_block');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_layout');
 
-        $schema->dropTable('ngbm_rule_target');
-        $schema->dropTable('ngbm_rule_condition');
-        $schema->dropTable('ngbm_rule_data');
-        $schema->dropTable('ngbm_rule');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_rule_target');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_rule_condition');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_rule_data');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_rule');
     }
 }

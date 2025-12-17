@@ -36,7 +36,7 @@ final class Version010300 extends AbstractMigration
             <<<'EOT'
             CREATE TABLE nglayouts_rule_group_data (
               rule_group_id int(11) NOT NULL,
-              enabled tinyint(1) NOT NULL,
+              enabled tinyint NOT NULL,
               priority int(11) NOT NULL,
               PRIMARY KEY (rule_group_id)
             )

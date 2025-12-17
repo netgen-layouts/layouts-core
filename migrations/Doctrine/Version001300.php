@@ -16,42 +16,47 @@ final class Version001300 extends AbstractMigration
 
         // ngbm_role table
 
-        $roleTable = $schema->createTable('ngbm_role');
-
-        $roleTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $roleTable->addColumn('status', 'integer');
-        $roleTable->addColumn('name', 'string', ['length' => 191]);
-        $roleTable->addColumn('identifier', 'string', ['length' => 191]);
-        $roleTable->addColumn('description', 'text', ['length' => 65535]);
-
-        $roleTable->setPrimaryKey(['id', 'status']);
-
-        $roleTable->addIndex(['identifier'], 'idx_ngl_role_identifier');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_role (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              name varchar(191) NOT NULL,
+              identifier varchar(191) NOT NULL,
+              description longtext NOT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_role_identifier (identifier)
+            )
+            EOT
+        );
 
         // ngbm_role_policy table
 
-        $rolePolicyTable = $schema->createTable('ngbm_role_policy');
-
-        $rolePolicyTable->addColumn('id', 'integer', ['autoincrement' => true]);
-        $rolePolicyTable->addColumn('status', 'integer');
-        $rolePolicyTable->addColumn('role_id', 'integer');
-        $rolePolicyTable->addColumn('component', 'string', ['length' => 191, 'notnull' => false]);
-        $rolePolicyTable->addColumn('permission', 'string', ['length' => 191, 'notnull' => false]);
-        $rolePolicyTable->addColumn('limitations', 'text', ['length' => 65535]);
-
-        $rolePolicyTable->setPrimaryKey(['id', 'status']);
-        $rolePolicyTable->addForeignKeyConstraint('ngbm_role', ['role_id', 'status'], ['id', 'status'], [], 'fk_ngl_policy_role');
-
-        $rolePolicyTable->addIndex(['role_id', 'status'], 'idx_ngl_role');
-        $rolePolicyTable->addIndex(['component'], 'idx_ngl_policy_component');
-        $rolePolicyTable->addIndex(['component', 'permission'], 'idx_ngl_policy_component_permission');
+        $this->addSql(
+            <<<'EOT'
+            CREATE TABLE ngbm_role_policy (
+              id int NOT NULL AUTO_INCREMENT,
+              status int NOT NULL,
+              role_id int NOT NULL,
+              component varchar(191) DEFAULT NULL,
+              permission varchar(191) DEFAULT NULL,
+              limitations longtext NOT NULL,
+              PRIMARY KEY (id,status),
+              KEY idx_ngl_role (role_id,status),
+              KEY idx_ngl_policy_component (component),
+              KEY idx_ngl_policy_component_permission (component,permission),
+              CONSTRAINT fk_ngl_policy_role FOREIGN KEY (role_id, status)
+                REFERENCES ngbm_role (id, status)
+            )
+            EOT
+        );
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf(!$this->connection->getDatabasePlatform() instanceof MySQLPlatform, 'Migration can only be executed safely on MySQL.');
 
-        $schema->dropTable('ngbm_role_policy');
-        $schema->dropTable('ngbm_role');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_role_policy');
+        $this->addSql('DROP TABLE IF EXISTS ngbm_role');
     }
 }
