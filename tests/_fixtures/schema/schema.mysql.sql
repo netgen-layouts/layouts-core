@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS `nglayouts_layout` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
   `type` varchar(191) NOT NULL,
   `name` varchar(191) NOT NULL,
   `description` longtext NOT NULL,
-  `created` int(11) NOT NULL,
-  `modified` int(11) NOT NULL,
+  `created` int NOT NULL,
+  `modified` int NOT NULL,
   `shared` tinyint NOT NULL,
   `main_locale` varchar(191) NOT NULL,
   PRIMARY KEY (`id`, `status`),
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS `nglayouts_layout` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_layout_translation` (
-  `layout_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
+  `layout_id` int NOT NULL,
+  `status` int NOT NULL,
   `locale` varchar(191) NOT NULL,
   PRIMARY KEY (`layout_id`, `status`, `locale`(191)),
   FOREIGN KEY (`layout_id`, `status`)
@@ -23,15 +23,15 @@ CREATE TABLE IF NOT EXISTS `nglayouts_layout_translation` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_block` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  `depth` int(11) NOT NULL,
+  `layout_id` int NOT NULL,
+  `depth` int NOT NULL,
   `path` varchar(191) NOT NULL,
-  `parent_id` int(11) DEFAULT NULL,
+  `parent_id` int DEFAULT NULL,
   `placeholder` varchar(191) DEFAULT NULL,
-  `position` int(11) DEFAULT NULL,
+  `position` int DEFAULT NULL,
   `definition_identifier` varchar(191) NOT NULL,
   `view_type` varchar(191) NOT NULL,
   `item_view_type` varchar(191) NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `nglayouts_block` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_block_translation` (
-  `block_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
+  `block_id` int NOT NULL,
+  `status` int NOT NULL,
   `locale` varchar(191) NOT NULL,
   `parameters` longtext NOT NULL,
   PRIMARY KEY (`block_id`, `status`, `locale`(191)),
@@ -58,9 +58,9 @@ CREATE TABLE IF NOT EXISTS `nglayouts_block_translation` (
 
 CREATE TABLE IF NOT EXISTS `nglayouts_zone` (
   `identifier` varchar(191) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `root_block_id` int(11) NOT NULL,
+  `layout_id` int NOT NULL,
+  `status` int NOT NULL,
+  `root_block_id` int NOT NULL,
   `linked_layout_uuid` char(36),
   `linked_zone_identifier` varchar(191),
   PRIMARY KEY (`identifier`(191), `layout_id`, `status`),
@@ -71,11 +71,11 @@ CREATE TABLE IF NOT EXISTS `nglayouts_zone` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_collection` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `start` int(11) NOT NULL,
-  `length` int(11),
+  `start` int NOT NULL,
+  `length` int,
   `translatable` tinyint NOT NULL,
   `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint NOT NULL,
@@ -84,8 +84,8 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_translation` (
-  `collection_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
+  `collection_id` int NOT NULL,
+  `status` int NOT NULL,
   `locale` varchar(191) NOT NULL,
   PRIMARY KEY (`collection_id`, `status`, `locale`(191)),
   FOREIGN KEY (`collection_id`, `status`)
@@ -93,11 +93,11 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_translation` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_item` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `collection_id` int(11) NOT NULL,
-  `position` int(11) NOT NULL,
+  `collection_id` int NOT NULL,
+  `position` int NOT NULL,
   `value` varchar(191),
   `value_type` varchar(191) NOT NULL,
   `view_type` varchar(191),
@@ -109,10 +109,10 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_item` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_query` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `collection_id` int(11) NOT NULL,
+  `collection_id` int NOT NULL,
   `type` varchar(191) NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),
@@ -121,8 +121,8 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_query` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_query_translation` (
-  `query_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
+  `query_id` int NOT NULL,
+  `status` int NOT NULL,
   `locale` varchar(191) NOT NULL,
   `parameters` longtext NOT NULL,
   PRIMARY KEY (`query_id`, `status`, `locale`(191)),
@@ -131,11 +131,11 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_query_translation` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_slot` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `collection_id` int(11) NOT NULL,
-  `position` int(11) NOT NULL,
+  `collection_id` int NOT NULL,
+  `position` int NOT NULL,
   `view_type` varchar(191),
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),
@@ -144,10 +144,10 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_slot` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_block_collection` (
-  `block_id` int(11) NOT NULL,
-  `block_status` int(11) NOT NULL,
-  `collection_id` int(11) NOT NULL,
-  `collection_status` int(11) NOT NULL,
+  `block_id` int NOT NULL,
+  `block_status` int NOT NULL,
+  `collection_id` int NOT NULL,
+  `collection_status` int NOT NULL,
   `identifier` varchar(191) NOT NULL,
   PRIMARY KEY (`block_id`, `block_status`, `identifier`(191)),
   FOREIGN KEY (`block_id`, `block_status`)
@@ -157,8 +157,8 @@ CREATE TABLE IF NOT EXISTS `nglayouts_block_collection` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
   `name` varchar(191) NOT NULL,
   `identifier` varchar(191) NOT NULL,
@@ -168,10 +168,10 @@ CREATE TABLE IF NOT EXISTS `nglayouts_role` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_role_policy` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `role_id` int(11) NOT NULL,
+  `role_id` int NOT NULL,
   `component` varchar(191) DEFAULT NULL,
   `permission` varchar(191) DEFAULT NULL,
   `limitations` longtext NOT NULL,
@@ -182,10 +182,10 @@ CREATE TABLE IF NOT EXISTS `nglayouts_role_policy` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `rule_group_id` int(11) NOT NULL,
+  `rule_group_id` int NOT NULL,
   `layout_uuid` char(36) DEFAULT NULL,
   `description` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
@@ -193,19 +193,19 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_data` (
-  `rule_id` int(11) NOT NULL,
+  `rule_id` int NOT NULL,
   `enabled` tinyint NOT NULL,
-  `priority` int(11) NOT NULL,
+  `priority` int NOT NULL,
   PRIMARY KEY (`rule_id`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `depth` int(11) NOT NULL,
+  `depth` int NOT NULL,
   `path` varchar(191) NOT NULL,
-  `parent_id` int(11) DEFAULT NULL,
+  `parent_id` int DEFAULT NULL,
   `name` varchar(191) NOT NULL,
   `description` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
@@ -213,17 +213,17 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_group` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_group_data` (
-  `rule_group_id` int(11) NOT NULL,
+  `rule_group_id` int NOT NULL,
   `enabled` tinyint NOT NULL,
-  `priority` int(11) NOT NULL,
+  `priority` int NOT NULL,
   PRIMARY KEY (`rule_group_id`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_target` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `rule_id` int(11) NOT NULL,
+  `rule_id` int NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` longtext,
   PRIMARY KEY (`id`, `status`),
@@ -233,8 +233,8 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_target` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` int NOT NULL,
   `uuid` char(36) NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` longtext,
@@ -243,10 +243,10 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition_rule` (
-  `condition_id` int(11) NOT NULL,
-  `condition_status` int(11) NOT NULL,
-  `rule_id` int(11) NOT NULL,
-  `rule_status` int(11) NOT NULL,
+  `condition_id` int NOT NULL,
+  `condition_status` int NOT NULL,
+  `rule_id` int NOT NULL,
+  `rule_status` int NOT NULL,
   PRIMARY KEY (`condition_id`, `condition_status`),
   FOREIGN KEY (`condition_id`, `condition_status`)
     REFERENCES nglayouts_rule_condition (`id`, `status`),
@@ -255,10 +255,10 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition_rule` (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition_rule_group` (
-  `condition_id` int(11) NOT NULL,
-  `condition_status` int(11) NOT NULL,
-  `rule_group_id` int(11) NOT NULL,
-  `rule_group_status` int(11) NOT NULL,
+  `condition_id` int NOT NULL,
+  `condition_status` int NOT NULL,
+  `rule_group_id` int NOT NULL,
+  `rule_group_status` int NOT NULL,
   PRIMARY KEY (`condition_id`, `condition_status`),
   FOREIGN KEY (`condition_id`, `condition_status`)
     REFERENCES nglayouts_rule_condition (`id`, `status`),
