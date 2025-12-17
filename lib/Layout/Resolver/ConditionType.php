@@ -6,13 +6,13 @@ namespace Netgen\Layouts\Layout\Resolver;
 
 abstract class ConditionType implements ConditionTypeInterface
 {
-    public function export(mixed $value): mixed
+    public function export(int|string|array $value): int|string|array|null
     {
         return $value;
     }
 
-    public function import(mixed $value): mixed
+    public function import(int|string|array|null $value): int|string|array
     {
-        return $value;
+        return $value ?? '';
     }
 }

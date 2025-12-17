@@ -19,7 +19,7 @@ final class NullConditionType extends ConditionType
         return [];
     }
 
-    public function matches(Request $request, mixed $value): true
+    public function matches(Request $request, int|string|array $value): true
     {
         return true;
     }

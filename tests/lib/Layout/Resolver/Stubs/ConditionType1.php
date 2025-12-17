@@ -24,7 +24,7 @@ final class ConditionType1 extends ConditionType
         return [new Constraints\NotBlank()];
     }
 
-    public function matches(Request $request, mixed $value): bool
+    public function matches(Request $request, int|string|array $value): bool
     {
         return $this->matches;
     }
@@ -32,7 +32,7 @@ final class ConditionType1 extends ConditionType
     /**
      * @return string[]
      */
-    public function export(mixed $value): array
+    public function export(int|string|array $value): array
     {
         return ['some_value_exported'];
     }

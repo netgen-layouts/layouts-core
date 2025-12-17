@@ -16,7 +16,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      */
-    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): mixed
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): array|string|int|float|bool|null
     {
         return $value;
     }
@@ -34,7 +34,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation that returns the value in the same format as
      * self::toHash(). Overridden implementations should take care to retain this behaviour.
      */
-    public function export(ParameterDefinition $parameterDefinition, mixed $value): mixed
+    public function export(ParameterDefinition $parameterDefinition, mixed $value): array|string|int|float|bool|null
     {
         return $this->toHash($parameterDefinition, $value);
     }

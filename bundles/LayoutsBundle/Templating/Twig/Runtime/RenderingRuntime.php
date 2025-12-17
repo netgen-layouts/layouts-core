@@ -25,7 +25,6 @@ use Twig\Environment;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
-use function get_debug_type;
 use function is_object;
 use function is_scalar;
 use function method_exists;
@@ -115,7 +114,7 @@ final class RenderingRuntime
      * @param array<string, mixed> $context
      * @param array<string, mixed> $parameters
      */
-    public function renderValue(array $context, mixed $value, array $parameters = [], ?string $viewContext = null): string
+    public function renderValue(array $context, object $value, array $parameters = [], ?string $viewContext = null): string
     {
         try {
             return $this->renderer->renderValue(
@@ -124,7 +123,7 @@ final class RenderingRuntime
                 $parameters,
             );
         } catch (Throwable $t) {
-            $message = sprintf('Error rendering a value of type "%s"', get_debug_type($value));
+            $message = sprintf('Error rendering a value of type "%s"', $value::class);
 
             $this->errorHandler->handleError($t, $message, ['object' => $value]);
         }

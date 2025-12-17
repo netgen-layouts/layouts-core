@@ -70,7 +70,10 @@ final class EnumType extends ParameterType
         );
     }
 
-    public function fromHash(ParameterDefinition $parameterDefinition, mixed $value): mixed
+    /**
+     * @return \BackedEnum|\BackedEnum[]|null
+     */
+    public function fromHash(ParameterDefinition $parameterDefinition, mixed $value): BackedEnum|array|null
     {
         if ($value === null || $value === []) {
             return null;
@@ -95,7 +98,10 @@ final class EnumType extends ParameterType
         return $enumClass::tryFrom(is_array($value) ? array_first($value) : $value);
     }
 
-    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): mixed
+    /**
+     * @return int[]|string[]|string|int|null
+     */
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): array|string|int|null
     {
         if ($value === null || $value === []) {
             return null;

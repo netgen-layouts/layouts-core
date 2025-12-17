@@ -452,7 +452,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         }
     }
 
-    private function getItem(mixed $value, string $valueType): CmsItemInterface
+    private function getItem(int|string|null $value, string $valueType): CmsItemInterface
     {
         if ($value === null) {
             return new NullCmsItem($valueType);

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Parameters\Form\Type;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
+use RecursiveIteratorIterator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -144,7 +145,7 @@ final class LinkType extends AbstractType
 
         $targetForm = $form->get($linkType->value);
 
-        foreach ($form->get('link')->getErrors() as $linkError) {
+        foreach (new RecursiveIteratorIterator($form->get('link')->getErrors()) as $linkError) {
             $targetForm->addError($linkError);
         }
     }

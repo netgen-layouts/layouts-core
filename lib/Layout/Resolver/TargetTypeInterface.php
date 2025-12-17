@@ -39,21 +39,21 @@ interface TargetTypeInterface
      */
     public function provideValue(Request $request): mixed;
 
-    /*
+    /**
      * Returns the target value converted to a format suitable for exporting.
      *
      * This is useful if exported value is different from a stored value, for example
      * when exporting IDs from an external CMS which need to be exported not as IDs
      * but as remote IDs.
      */
-    public function export(mixed $value): mixed;
+    public function export(int|string $value): int|string|null;
 
-    /*
+    /**
      * Returns the target value converted from the exported format.
      *
      * This is useful if stored value is different from an exported value, for example
      * when importing IDs from an external CMS which need to be imported as database IDs
      * in contrast to some kind of remote ID which would be stored in the export.
      */
-    public function import(mixed $value): mixed;
+    public function import(int|string|null $value): int|string;
 }

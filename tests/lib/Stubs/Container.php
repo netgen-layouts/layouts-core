@@ -17,7 +17,7 @@ final class Container implements ContainerInterface
         private array $entries = [],
     ) {}
 
-    public function get(string $id): mixed
+    public function get(string $id): object
     {
         return $this->entries[$id];
     }
