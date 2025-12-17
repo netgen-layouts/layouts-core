@@ -33,6 +33,7 @@ jobs:
         with:
           dependency-versions: highest
           composer-options: '--prefer-dist'
+          ignore-cache: 'yes'
 
       - run: ./tests/prepare_behat.sh > /dev/null 2>&1 &
 

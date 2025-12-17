@@ -38,5 +38,6 @@ jobs:
         with:
           dependency-versions: highest
           composer-options: '--prefer-dist'
+          ignore-cache: 'yes'
 
       - run: composer ${{ matrix.script }}

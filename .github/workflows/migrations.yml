@@ -44,5 +44,6 @@ jobs:
         with:
           dependency-versions: highest
           composer-options: '--prefer-dist'
+          ignore-cache: 'yes'
 
       - run: php tests/application/bin/console doctrine:migrations:migrate --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yaml --ansi -vv
