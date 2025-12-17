@@ -49,9 +49,9 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $eventException = $event->getThrowable();
+        $eventThrowable = $event->getThrowable();
 
-        self::assertInstanceOf(AccessDeniedHttpException::class, $eventException);
+        self::assertInstanceOf(AccessDeniedHttpException::class, $eventThrowable);
         self::assertTrue($event->isPropagationStopped());
     }
 
@@ -71,9 +71,9 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $eventException = $event->getThrowable();
+        $eventThrowable = $event->getThrowable();
 
-        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventThrowable);
         self::assertFalse($event->isPropagationStopped());
     }
 
@@ -92,9 +92,9 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $eventException = $event->getThrowable();
+        $eventThrowable = $event->getThrowable();
 
-        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventThrowable);
         self::assertFalse($event->isPropagationStopped());
     }
 
@@ -113,9 +113,9 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        $eventException = $event->getThrowable();
+        $eventThrowable = $event->getThrowable();
 
-        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventThrowable);
         self::assertFalse($event->isPropagationStopped());
     }
 }

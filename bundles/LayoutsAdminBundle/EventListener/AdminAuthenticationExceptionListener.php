@@ -32,8 +32,8 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
             return;
         }
 
-        $exception = $event->getThrowable();
-        if (!$exception instanceof AuthenticationException && !$exception instanceof AccessDeniedException) {
+        $throwable = $event->getThrowable();
+        if (!$throwable instanceof AuthenticationException && !$throwable instanceof AccessDeniedException) {
             return;
         }
 

@@ -53,7 +53,7 @@ final class ThrowableConversionListenerTest extends TestCase
     {
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
             $kernelStub,
@@ -80,7 +80,7 @@ final class ThrowableConversionListenerTest extends TestCase
     {
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_API_FLAG_NAME, true);
         $throwable = new RuntimeException('Some error');
 
         $event = new ExceptionEvent(
@@ -101,7 +101,7 @@ final class ThrowableConversionListenerTest extends TestCase
     {
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_API_FLAG_NAME, true);
         $throwable = new NotFoundException('param', 'Some error');
 
         $event = new ExceptionEvent(

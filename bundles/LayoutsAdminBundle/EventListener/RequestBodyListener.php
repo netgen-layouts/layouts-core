@@ -30,7 +30,7 @@ final class RequestBodyListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$request->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME)) {
+        if (!$request->attributes->getBoolean(SetIsAppRequestListener::APP_API_FLAG_NAME)) {
             return;
         }
 
