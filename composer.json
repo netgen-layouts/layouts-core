@@ -110,9 +110,7 @@
     "autoload": {
         "psr-4": {
             "Netgen\\Layouts\\": "lib/",
-
             "Netgen\\Layouts\\Migrations\\": "migrations/",
-
             "Netgen\\Bundle\\LayoutsBundle\\": "bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\": "bundles/LayoutsAdminBundle/",
             "Netgen\\Bundle\\LayoutsDebugBundle\\": "bundles/LayoutsDebugBundle/"
