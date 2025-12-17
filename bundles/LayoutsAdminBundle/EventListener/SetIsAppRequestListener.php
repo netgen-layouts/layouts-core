@@ -13,7 +13,11 @@ final class SetIsAppRequestListener implements EventSubscriberInterface
 {
     public const string APP_FLAG_NAME = 'nglayouts_is_app_request';
 
+    public const string APP_API_FLAG_NAME = 'nglayouts_is_app_api_request';
+
     private const string APP_ROUTE_PREFIX = 'nglayouts_app_';
+
+    private const string APP_API_ROUTE_PREFIX = 'nglayouts_app_api_';
 
     public static function getSubscribedEvents(): array
     {
@@ -21,7 +25,8 @@ final class SetIsAppRequestListener implements EventSubscriberInterface
     }
 
     /**
-     * Sets the self::APP_FLAG_NAME flag if this is a request in layout editing interface.
+     * Sets the self::APP_FLAG_NAME and/or APP_API_FLAG_NAME flag if this is
+     * a request in layout editing interface.
      */
     public function onKernelRequest(RequestEvent $event): void
     {
@@ -31,10 +36,12 @@ final class SetIsAppRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->getString('_route');
-        if (!str_starts_with($currentRoute, self::APP_ROUTE_PREFIX)) {
-            return;
-        }
 
-        $request->attributes->set(self::APP_FLAG_NAME, true);
+        if (str_starts_with($currentRoute, self::APP_API_ROUTE_PREFIX)) {
+            $request->attributes->set(self::APP_API_FLAG_NAME, true);
+            $request->attributes->set(self::APP_FLAG_NAME, true);
+        } elseif (str_starts_with($currentRoute, self::APP_ROUTE_PREFIX)) {
+            $request->attributes->set(self::APP_FLAG_NAME, true);
+        }
     }
 }

@@ -34,7 +34,7 @@ final class AppCsrfValidationListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
 
-        if (!$request->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME)) {
+        if (!$request->attributes->getBoolean(SetIsAppRequestListener::APP_API_FLAG_NAME)) {
             return;
         }
 
