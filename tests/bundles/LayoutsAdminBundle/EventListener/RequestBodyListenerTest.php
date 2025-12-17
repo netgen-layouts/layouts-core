@@ -42,11 +42,11 @@ final class RequestBodyListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $request = $event->getRequest();
+        $request = $request;
 
         self::assertTrue($request->attributes->has('data'));
 
-        $data = $event->getRequest()->attributes->get('data');
+        $data = $request->attributes->get('data');
         self::assertInstanceOf(InputBag::class, $data);
 
         self::assertSame('value', $data->get('test'));
@@ -61,7 +61,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($request->attributes->has('data'));
     }
 
     public function testOnKernelRequestInSubRequest(): void
@@ -74,7 +74,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($request->attributes->has('data'));
     }
 
     public function testOnKernelRequestWithInvalidMethod(): void
@@ -86,7 +86,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($request->attributes->has('data'));
     }
 
     public function testOnKernelRequestWithInvalidContentType(): void
@@ -99,7 +99,7 @@ final class RequestBodyListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has('data'));
+        self::assertFalse($request->attributes->has('data'));
     }
 
     public function testOnKernelRequestWithInvalidJson(): void

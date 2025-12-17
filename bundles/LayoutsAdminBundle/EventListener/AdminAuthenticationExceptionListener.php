@@ -23,8 +23,8 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
      */
     public function onException(ExceptionEvent $event): void
     {
-        $attributes = $event->getRequest()->attributes;
-        if (!$attributes->getBoolean(SetIsAdminRequestListener::ADMIN_FLAG_NAME)) {
+        $request = $event->getRequest();
+        if (!$request->attributes->getBoolean(SetIsAdminRequestListener::ADMIN_FLAG_NAME)) {
             return;
         }
 

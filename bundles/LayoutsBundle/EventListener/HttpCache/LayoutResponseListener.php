@@ -35,16 +35,16 @@ final class LayoutResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $attributes = $event->getRequest()->attributes;
+        $request = $event->getRequest();
 
         $attributeName = 'nglLayoutView';
-        if ($attributes->has('nglOverrideLayoutView')) {
+        if ($request->attributes->has('nglOverrideLayoutView')) {
             $attributeName = 'nglOverrideLayoutView';
         } elseif ($this->isExceptionResponse) {
             $attributeName = 'nglExceptionLayoutView';
         }
 
-        $layoutView = $attributes->get($attributeName);
+        $layoutView = $request->attributes->get($attributeName);
         if (!$layoutView instanceof LayoutViewInterface) {
             return;
         }

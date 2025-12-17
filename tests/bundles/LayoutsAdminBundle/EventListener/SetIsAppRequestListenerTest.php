@@ -38,7 +38,21 @@ final class SetIsAppRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertTrue($event->getRequest()->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME));
+        self::assertTrue($request->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME));
+        self::assertTrue($request->attributes->getBoolean(SetIsAppRequestListener::APP_API_FLAG_NAME));
+    }
+
+    public function testOnKernelRequestWithAppRoute(): void
+    {
+        $kernelStub = self::createStub(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $request->attributes->set('_route', 'nglayouts_app_block_edit');
+
+        $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
+        $this->listener->onKernelRequest($event);
+
+        self::assertTrue($request->attributes->getBoolean(SetIsAppRequestListener::APP_FLAG_NAME));
+        self::assertFalse($request->attributes->getBoolean(SetIsAppRequestListener::APP_API_FLAG_NAME));
     }
 
     public function testOnKernelRequestWithInvalidRoute(): void
@@ -50,7 +64,7 @@ final class SetIsAppRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has(SetIsAppRequestListener::APP_FLAG_NAME));
+        self::assertFalse($request->attributes->has(SetIsAppRequestListener::APP_FLAG_NAME));
     }
 
     public function testOnKernelRequestInSubRequest(): void
@@ -61,6 +75,6 @@ final class SetIsAppRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has(SetIsAppRequestListener::APP_FLAG_NAME));
+        self::assertFalse($request->attributes->has(SetIsAppRequestListener::APP_FLAG_NAME));
     }
 }

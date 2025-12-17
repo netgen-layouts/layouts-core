@@ -47,7 +47,7 @@ final class AppCsrfValidationListenerTest extends TestCase
     public function testOnKernelRequest(): void
     {
         $request = Request::create('/');
-        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_API_FLAG_NAME, true);
 
         $this->csrfTokenValidatorStub
             ->method('validateCsrfToken')
@@ -66,7 +66,7 @@ final class AppCsrfValidationListenerTest extends TestCase
         $this->expectExceptionMessage('Missing or invalid CSRF token');
 
         $request = Request::create('/');
-        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_API_FLAG_NAME, true);
 
         $this->csrfTokenValidatorStub
             ->method('validateCsrfToken')
@@ -82,7 +82,7 @@ final class AppCsrfValidationListenerTest extends TestCase
     public function testOnKernelRequestInSubRequest(): void
     {
         $request = Request::create('/');
-        $request->attributes->set(SetIsAppRequestListener::APP_FLAG_NAME, true);
+        $request->attributes->set(SetIsAppRequestListener::APP_API_FLAG_NAME, true);
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
 
