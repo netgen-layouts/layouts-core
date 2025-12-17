@@ -12,14 +12,14 @@
 {% verbatim %}
     <ul>
         <li <%=if (this.page === 1) {%>class='disabled'<%=}%>>
-            <a href='<%=this.url(this.page - 1)%>' class='ajax-nav-prev' rel='prev'>
+            <a href='<%=this.url(this.page - 1)%>' class='ajax-nav-prev' rel='prev nofollow noopener noreferrer'>
                 {% endverbatim %}{{ 'collection.pager.previous'|trans }}{% verbatim %}
             </a>
         </li>
         <%=for(var i = 1; i <= this.pages; i++) {%>
             <%=if (this.pages < 10 || i === 1 || i === this.pages || i === this.page || i-1 === this.page || i-2 === this.page || i+1 === this.page || i+2 === this.page) {%>
                 <li <%=if (this.page === i) {%>class='current'<%=}%>>
-                    <a href='<%=this.url(i)%>' class='ajax-nav-link' <%=if (this.page-1 === i) {%>rel='prev'<%=}else if (this.page+1 === i) {%>rel='next'<%=}%>>
+                    <a href='<%=this.url(i)%>' class='ajax-nav-link' <%=if (this.page-1 === i) {%>rel='prev nofollow noopener noreferrer'<%=}else if (this.page+1 === i) {%>rel='next nofollow noopener noreferrer'<%=} else {%>rel='nofollow noopener noreferrer'<%=}%>>
                         <%=i%>
                     </a>
                 </li>
@@ -28,7 +28,7 @@
             <%=}%>
         <%=}%>
         <li <%=if (this.page === this.pages) {%>class='disabled'<%=}%>>
-            <a href='<%=this.url(this.page + 1)%>' class='ajax-nav-next' rel='next'>
+            <a href='<%=this.url(this.page + 1)%>' class='ajax-nav-next' rel='next nofollow noopener noreferrer'>
                 {% endverbatim %}{{ 'collection.pager.next'|trans }}{% verbatim %}
             </a>
         </li>
@@ -39,7 +39,7 @@
 {% block load_more_template %}
 {% verbatim %}
     <%=if (this.page < this.pages) {%>
-        <a href='<%=this.url(this.page + 1)%>' class='ajax-load-more'>
+        <a href='<%=this.url(this.page + 1)%>' class='ajax-load-more' rel='nofollow noopener noreferrer'>
             {% endverbatim %}{{ 'collection.pager.load_more'|trans }}{% verbatim %}
         </a>
     <%=}%>
