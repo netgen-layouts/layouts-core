@@ -79,7 +79,7 @@ final class RuleGroupValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
 

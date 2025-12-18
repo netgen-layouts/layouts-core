@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
@@ -16,37 +14,27 @@ use Netgen\Layouts\API\Values\ZoneMappings;
 use Netgen\Layouts\Core\Validator\LayoutValidator;
 use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(LayoutValidator::class)]
 final class LayoutValidatorTest extends TestCase
 {
+    use ValidatorTestCaseTrait;
+
     private LayoutValidator $layoutValidator;
 
     protected function setUp(): void
     {
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
-
         $this->layoutValidator = new LayoutValidator();
-        $this->layoutValidator->setValidator($validator);
+        $this->layoutValidator->setValidator($this->createValidator());
     }
 
     /**

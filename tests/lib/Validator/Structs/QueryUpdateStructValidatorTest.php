@@ -157,7 +157,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         return new QueryUpdateStructValidator();
     }

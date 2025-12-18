@@ -79,7 +79,7 @@ final class LayoutValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         $this->layoutServiceStub = self::createStub(LayoutService::class);
 

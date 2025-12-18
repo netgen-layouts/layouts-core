@@ -17,14 +17,20 @@ use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 
+use function array_key_exists;
+
 final class ValidatorFactory implements ConstraintValidatorFactoryInterface
 {
     private ConstraintValidatorFactory $baseValidatorFactory;
 
+    /**
+     * @param array<string, \Symfony\Component\Validator\ConstraintValidatorInterface> $additionalValidators
+     */
     public function __construct(
         private LayoutService $layoutService,
         private LayoutResolverService $layoutResolverService,
         private CmsItemLoaderInterface $cmsItemLoader,
+        private array $additionalValidators = [],
     ) {
         $this->baseValidatorFactory = new ConstraintValidatorFactory();
     }
@@ -32,6 +38,10 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
     public function getInstance(Constraint $constraint): ConstraintValidatorInterface
     {
         $name = $constraint->validatedBy();
+
+        if (array_key_exists($name, $this->additionalValidators)) {
+            return $this->additionalValidators[$name];
+        }
 
         if ($name === 'nglayouts_block_view_type') {
             return new Validator\BlockViewTypeValidator();

@@ -6,11 +6,8 @@ namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Resolver\ConditionType\Time;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -18,11 +15,12 @@ use Symfony\Component\Clock\Clock;
 use Symfony\Component\Clock\MockClock;
 use Symfony\Component\Clock\NativeClock;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validation;
 
 #[CoversClass(Time::class)]
 final class TimeTest extends TestCase
 {
+    use ValidatorTestCaseTrait;
+
     private Time $conditionType;
 
     protected function setUp(): void
@@ -38,15 +36,7 @@ final class TimeTest extends TestCase
     #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
+        $validator = $this->createValidator();
 
         $errors = $validator->validate($value, $this->conditionType->getConstraints());
         self::assertSame($isValid, $errors->count() === 0);

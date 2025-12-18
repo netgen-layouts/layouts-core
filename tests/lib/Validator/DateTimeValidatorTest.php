@@ -92,7 +92,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         return new DateTimeValidator();
     }

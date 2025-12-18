@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
@@ -16,13 +14,12 @@ use Netgen\Layouts\Parameters\ParameterType\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkType as LinkTypeEnum;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
-use Symfony\Component\Validator\Validation;
 
 #[CoversClass(RemoteIdConverter::class)]
 #[CoversClass(LinkType::class)]
@@ -30,6 +27,7 @@ final class LinkTypeTest extends TestCase
 {
     use ExportObjectTrait;
     use ParameterTypeTestTrait;
+    use ValidatorTestCaseTrait;
 
     private Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
 
@@ -138,18 +136,11 @@ final class LinkTypeTest extends TestCase
     #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isRequired, array $valueTypes, bool $isValid): void
     {
-        $parameter = $this->getParameterDefinition(['required' => $isRequired, 'value_types' => $valueTypes]);
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
+        $validator = $this->createValidator();
 
-        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
+        $parameterDefinition = $this->getParameterDefinition(['required' => $isRequired, 'value_types' => $valueTypes]);
+
+        $errors = $validator->validate($value, $this->type->getConstraints($parameterDefinition, $value));
         self::assertSame($isValid, $errors->count() === 0);
     }
 

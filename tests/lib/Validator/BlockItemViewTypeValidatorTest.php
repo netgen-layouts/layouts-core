@@ -72,7 +72,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         return new BlockItemViewTypeValidator();
     }

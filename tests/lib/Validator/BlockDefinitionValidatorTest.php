@@ -65,7 +65,7 @@ final class BlockDefinitionValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         $blockDefinitionRegistry = new BlockDefinitionRegistry(['title' => BlockDefinition::fromArray(['identifier' => 'title'])]);
 

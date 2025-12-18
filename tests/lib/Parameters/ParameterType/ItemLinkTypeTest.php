@@ -4,25 +4,23 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\ItemLinkType;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
-use Symfony\Component\Validator\Validation;
 
 #[CoversClass(ItemLinkType::class)]
 final class ItemLinkTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
+    use ValidatorTestCaseTrait;
 
     protected function setUp(): void
     {
@@ -149,18 +147,11 @@ final class ItemLinkTypeTest extends TestCase
     #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
-        $parameter = $this->getParameterDefinition();
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
+        $validator = $this->createValidator();
 
-        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
+        $parameterDefinition = $this->getParameterDefinition();
+
+        $errors = $validator->validate($value, $this->type->getConstraints($parameterDefinition, $value));
         self::assertSame($isValid, $errors->count() === 0);
     }
 

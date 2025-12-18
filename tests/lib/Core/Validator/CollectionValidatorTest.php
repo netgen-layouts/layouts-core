@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
@@ -20,34 +18,24 @@ use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Core\Validator\CollectionValidator;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(CollectionValidator::class)]
 final class CollectionValidatorTest extends TestCase
 {
+    use ValidatorTestCaseTrait;
+
     private CollectionValidator $collectionValidator;
 
     protected function setUp(): void
     {
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
-
         $this->collectionValidator = new CollectionValidator();
-        $this->collectionValidator->setValidator($validator);
+        $this->collectionValidator->setValidator($this->createValidator());
     }
 
     /**

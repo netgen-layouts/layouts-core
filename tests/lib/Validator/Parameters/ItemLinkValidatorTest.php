@@ -105,7 +105,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 

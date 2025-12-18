@@ -6,20 +6,17 @@ namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Parameters\ParameterType\DateTimeType;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Validation;
 
 #[CoversClass(DateTimeType::class)]
 final class DateTimeTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
+    use ValidatorTestCaseTrait;
 
     protected function setUp(): void
     {
@@ -108,18 +105,11 @@ final class DateTimeTypeTest extends TestCase
     #[DataProvider('validationDataProvider')]
     public function testValidation(mixed $value, bool $isValid): void
     {
-        $parameter = $this->getParameterDefinition();
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
+        $validator = $this->createValidator();
 
-        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
+        $parameterDefinition = $this->getParameterDefinition();
+
+        $errors = $validator->validate($value, $this->type->getConstraints($parameterDefinition, $value));
         self::assertSame($isValid, $errors->count() === 0);
     }
 

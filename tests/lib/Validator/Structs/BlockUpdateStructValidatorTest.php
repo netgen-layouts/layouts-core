@@ -352,7 +352,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
         ];
     }
 
-    protected function getValidator(): ConstraintValidatorInterface
+    protected function getConstraintValidator(): ConstraintValidatorInterface
     {
         return new BlockUpdateStructValidator();
     }

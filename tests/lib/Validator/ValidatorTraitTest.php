@@ -5,39 +5,27 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Validator;
 
 use Exception;
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use Netgen\Layouts\Tests\Validator\Stubs\ValueValidator;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[CoversTrait(ValidatorTrait::class)]
 final class ValidatorTraitTest extends TestCase
 {
-    private ValueValidator $validator;
+    use ValidatorTestCaseTrait;
+
+    private ValueValidator $valueValidator;
 
     protected function setUp(): void
     {
-        $baseValidator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
-
-        $this->validator = new ValueValidator();
-        $this->validator->setValidator($baseValidator);
+        $this->valueValidator = new ValueValidator();
+        $this->valueValidator->setValidator($this->createValidator());
     }
 
     #[DataProvider('validateIdentifierDataProvider')]
@@ -47,7 +35,7 @@ final class ValidatorTraitTest extends TestCase
             $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
 
-        $this->validator->validateIdentifier($identifier);
+        $this->valueValidator->validateIdentifier($identifier);
     }
 
     public function testValidateIdentifierThrowsValidationExceptionOnValidationError(): void
@@ -59,8 +47,8 @@ final class ValidatorTraitTest extends TestCase
             ->method('validate')
             ->willThrowException(new Exception());
 
-        $this->validator->setValidator($validatorStub);
-        $this->validator->validateIdentifier('identifier');
+        $this->valueValidator->setValidator($validatorStub);
+        $this->valueValidator->validateIdentifier('identifier');
     }
 
     #[DataProvider('validatePositionDataProvider')]
@@ -70,13 +58,13 @@ final class ValidatorTraitTest extends TestCase
             $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
 
-        $this->validator->validatePosition($position, null, $isRequired);
+        $this->valueValidator->validatePosition($position, null, $isRequired);
     }
 
     #[DoesNotPerformAssertions]
     public function testValidatePositionWithDefaultRequiredValue(): void
     {
-        $this->validator->validatePosition(null);
+        $this->valueValidator->validatePosition(null);
     }
 
     #[DataProvider('validateLocaleDataProvider')]
@@ -86,7 +74,7 @@ final class ValidatorTraitTest extends TestCase
             $this->expectNotToPerformAssertions() :
             $this->expectException(ValidationException::class);
 
-        $this->validator->validateLocale($locale);
+        $this->valueValidator->validateLocale($locale);
     }
 
     public static function validateIdDataProvider(): iterable

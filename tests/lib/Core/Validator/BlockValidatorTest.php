@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
@@ -17,34 +15,26 @@ use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Core\Validator\BlockValidator;
 use Netgen\Layouts\Core\Validator\CollectionValidator;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(BlockValidator::class)]
 final class BlockValidatorTest extends TestCase
 {
+    use ValidatorTestCaseTrait;
+
     private BlockValidator $blockValidator;
 
     protected function setUp(): void
     {
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
+        $validator = $this->createValidator();
 
         $collectionValidator = new CollectionValidator();
         $collectionValidator->setValidator($validator);

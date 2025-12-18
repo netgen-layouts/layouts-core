@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
@@ -17,38 +15,27 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Core\Validator\LayoutResolverValidator;
 use Netgen\Layouts\Exception\Validation\ValidationException;
-use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Uuid;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(LayoutResolverValidator::class)]
 final class LayoutResolverValidatorTest extends TestCase
 {
+    use ValidatorTestCaseTrait;
+
     private LayoutResolverValidator $layoutResolverValidator;
 
     protected function setUp(): void
     {
-        $validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(LayoutService::class),
-                    self::createStub(LayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
-
         $targetTypeRegistry = new TargetTypeRegistry([TargetType1::getType() => new TargetType1(42)]);
-
         $conditionTypeRegistry = new ConditionTypeRegistry([ConditionType1::getType() => new ConditionType1()]);
 
         $this->layoutResolverValidator = new LayoutResolverValidator(
@@ -56,7 +43,7 @@ final class LayoutResolverValidatorTest extends TestCase
             $conditionTypeRegistry,
         );
 
-        $this->layoutResolverValidator->setValidator($validator);
+        $this->layoutResolverValidator->setValidator($this->createValidator());
     }
 
     /**

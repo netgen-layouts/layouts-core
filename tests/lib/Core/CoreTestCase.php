@@ -68,20 +68,21 @@ use Netgen\Layouts\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfig
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
-use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 use Symfony\Component\Uid\Factory\UuidFactory;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class CoreTestCase extends TestCase
 {
-    final protected UuidFactory $uuidFactory;
+    use ValidatorTestCaseTrait;
 
     final protected ValidatorInterface $validator;
+
+    final protected UuidFactory $uuidFactory;
 
     final protected Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
 
@@ -133,8 +134,9 @@ abstract class CoreTestCase extends TestCase
 
     protected function setUp(): void
     {
-        $this->uuidFactory = $this->createUuidFactory();
         $this->validator = $this->createValidator();
+
+        $this->uuidFactory = $this->createUuidFactory();
         $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
 
         $this->transactionHandler = $this->createTransactionHandler();
@@ -172,19 +174,6 @@ abstract class CoreTestCase extends TestCase
     final protected function createUuidFactory(): UuidFactory
     {
         return new UuidFactory();
-    }
-
-    protected function createValidator(): ValidatorInterface
-    {
-        return Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(
-                new ValidatorFactory(
-                    self::createStub(APILayoutService::class),
-                    self::createStub(APILayoutResolverService::class),
-                    self::createStub(CmsItemLoaderInterface::class),
-                ),
-            )
-            ->getValidator();
     }
 
     /**
