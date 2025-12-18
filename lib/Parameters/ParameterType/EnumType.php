@@ -99,9 +99,9 @@ final class EnumType extends ParameterType
     }
 
     /**
-     * @return int[]|string[]|string|int|null
+     * @return int|string|int[]|string[]|null
      */
-    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): array|string|int|null
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): int|string|array|null
     {
         if ($value === null || $value === []) {
             return null;

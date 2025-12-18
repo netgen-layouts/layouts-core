@@ -11,9 +11,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class ParameterNormalizer implements NormalizerInterface
 {
     /**
-     * @return mixed[]|string|int|float|bool|null
+     * @return int|string|mixed[]|float|bool|null
      */
-    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|null
+    public function normalize(mixed $data, ?string $format = null, array $context = []): int|string|array|float|bool|null
     {
         /** @var \Netgen\Layouts\Parameters\Parameter $parameter */
         $parameter = $data->value;

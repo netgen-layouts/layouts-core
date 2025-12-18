@@ -28,9 +28,9 @@ interface ParameterTypeInterface
     /**
      * Converts the parameter value from a domain format to scalar/hash format.
      *
-     * @return mixed[]|string|int|float|bool|null
+     * @return int|string|mixed[]|float|bool|null
      */
-    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): array|string|int|float|bool|null;
+    public function toHash(ParameterDefinition $parameterDefinition, mixed $value): int|string|array|float|bool|null;
 
     /**
      * Converts the provided parameter value to value usable by the domain.
@@ -44,9 +44,9 @@ interface ParameterTypeInterface
      * when exporting IDs from an external CMS which need to be exported not as IDs
      * but as remote IDs.
      *
-     * @return mixed[]|string|int|float|bool|null
+     * @return int|string|mixed[]|float|bool|null
      */
-    public function export(ParameterDefinition $parameterDefinition, mixed $value): array|string|int|float|bool|null;
+    public function export(ParameterDefinition $parameterDefinition, mixed $value): int|string|array|float|bool|null;
 
     /**
      * Returns the parameter value converted from the exported format.
