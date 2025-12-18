@@ -1582,7 +1582,7 @@ final class LayoutResolverHandlerTest extends CoreTestCase
 
     private function createHandlers(): void
     {
-        $this->layoutResolverHandler = $this->createLayoutResolverHandler();
         $this->layoutHandler = $this->createLayoutHandler();
+        $this->layoutResolverHandler = $this->createLayoutResolverHandler();
     }
 }

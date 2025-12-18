@@ -1992,8 +1992,8 @@ final class BlockHandlerTest extends CoreTestCase
 
     private function createHandlers(): void
     {
+        $this->collectionHandler = $this->createCollectionHandler();
         $this->blockHandler = $this->createBlockHandler();
         $this->layoutHandler = $this->createLayoutHandler();
-        $this->collectionHandler = $this->createCollectionHandler();
     }
 }

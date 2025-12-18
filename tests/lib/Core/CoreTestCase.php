@@ -79,7 +79,23 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class CoreTestCase extends TestCase
 {
+    final protected UuidFactory $uuidFactory;
+
+    final protected ValidatorInterface $validator;
+
     final protected Stub&CmsItemLoaderInterface $cmsItemLoaderStub;
+
+    final protected TransactionHandlerInterface $transactionHandler;
+
+    final protected CollectionHandlerInterface $collectionHandler;
+
+    final protected BlockHandlerInterface $blockHandler;
+
+    final protected LayoutHandlerInterface $layoutHandler;
+
+    final protected LayoutResolverHandlerInterface $layoutResolverHandler;
+
+    final protected ParameterTypeRegistry $parameterTypeRegistry;
 
     final protected LayoutTypeRegistry $layoutTypeRegistry;
 
@@ -93,51 +109,39 @@ abstract class CoreTestCase extends TestCase
 
     final protected ConditionTypeRegistry $conditionTypeRegistry;
 
-    final protected ParameterTypeRegistry $parameterTypeRegistry;
-
-    final protected TransactionHandlerInterface $transactionHandler;
-
-    final protected UuidFactory $uuidFactory;
-
-    final protected BlockHandlerInterface $blockHandler;
-
-    final protected LayoutHandlerInterface $layoutHandler;
-
-    final protected CollectionHandlerInterface $collectionHandler;
-
-    final protected LayoutResolverHandlerInterface $layoutResolverHandler;
-
     final protected APITransactionService $transactionService;
 
     final protected ParameterMapper $parameterMapper;
 
     final protected ConfigMapper $configMapper;
 
-    final protected BlockMapper $blockMapper;
-
     final protected LayoutMapper $layoutMapper;
-
-    final protected CollectionMapper $collectionMapper;
-
-    final protected LayoutResolverMapper $layoutResolverMapper;
-
-    final protected APIBlockService $blockService;
 
     final protected APILayoutService $layoutService;
 
+    final protected CollectionMapper $collectionMapper;
+
     final protected APICollectionService $collectionService;
+
+    final protected BlockMapper $blockMapper;
+
+    final protected APIBlockService $blockService;
+
+    final protected LayoutResolverMapper $layoutResolverMapper;
 
     final protected APILayoutResolverService $layoutResolverService;
 
     protected function setUp(): void
     {
-        $this->transactionHandler = $this->createTransactionHandler();
-        $this->layoutHandler = $this->createLayoutHandler();
-        $this->blockHandler = $this->createBlockHandler();
-        $this->collectionHandler = $this->createCollectionHandler();
-        $this->layoutResolverHandler = $this->createLayoutResolverHandler();
-
+        $this->uuidFactory = $this->createUuidFactory();
+        $this->validator = $this->createValidator();
         $this->cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
+
+        $this->transactionHandler = $this->createTransactionHandler();
+        $this->collectionHandler = $this->createCollectionHandler();
+        $this->blockHandler = $this->createBlockHandler();
+        $this->layoutHandler = $this->createLayoutHandler();
+        $this->layoutResolverHandler = $this->createLayoutResolverHandler();
 
         $this->parameterTypeRegistry = $this->createParameterTypeRegistry();
         $this->layoutTypeRegistry = $this->createLayoutTypeRegistry();
@@ -165,35 +169,10 @@ abstract class CoreTestCase extends TestCase
         $this->layoutResolverService = $this->createLayoutResolverService();
     }
 
-    /**
-     * Returns the UUID factory under test.
-     */
-    abstract protected function createUuidFactory(): UuidFactory;
-
-    /**
-     * Returns the persistence handler under test.
-     */
-    abstract protected function createTransactionHandler(): TransactionHandlerInterface;
-
-    /**
-     * Returns the layout handler under test.
-     */
-    abstract protected function createLayoutHandler(): LayoutHandlerInterface;
-
-    /**
-     * Returns the block handler under test.
-     */
-    abstract protected function createBlockHandler(): BlockHandlerInterface;
-
-    /**
-     * Returns the collection handler under test.
-     */
-    abstract protected function createCollectionHandler(): CollectionHandlerInterface;
-
-    /**
-     * Returns the layout resolver handler under test.
-     */
-    abstract protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface;
+    final protected function createUuidFactory(): UuidFactory
+    {
+        return new UuidFactory();
+    }
 
     protected function createValidator(): ValidatorInterface
     {
@@ -209,20 +188,115 @@ abstract class CoreTestCase extends TestCase
     }
 
     /**
-     * Creates a layout service under test.
+     * Returns the persistence handler under test.
      */
-    private function createLayoutService(): APILayoutService
-    {
-        $layoutValidator = new LayoutValidator();
-        $layoutValidator->setValidator($this->createValidator());
+    abstract protected function createTransactionHandler(): TransactionHandlerInterface;
 
-        return new LayoutService(
-            $this->transactionHandler,
-            $layoutValidator,
-            $this->layoutMapper,
-            new LayoutStructBuilder(),
-            $this->layoutHandler,
+    /**
+     * Returns the collection handler under test.
+     */
+    abstract protected function createCollectionHandler(): CollectionHandlerInterface;
+
+    /**
+     * Returns the block handler under test.
+     */
+    abstract protected function createBlockHandler(): BlockHandlerInterface;
+
+    /**
+     * Returns the layout handler under test.
+     */
+    abstract protected function createLayoutHandler(): LayoutHandlerInterface;
+
+    /**
+     * Returns the layout resolver handler under test.
+     */
+    abstract protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface;
+
+    private function createParameterTypeRegistry(): ParameterTypeRegistry
+    {
+        $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderStub);
+
+        return new ParameterTypeRegistry(
+            [
+                ParameterType\TextLineType::getIdentifier() => new ParameterType\TextLineType(),
+                ParameterType\TextType::getIdentifier() => new ParameterType\TextType(),
+                ParameterType\UrlType::getIdentifier() => new ParameterType\UrlType(),
+                ParameterType\RangeType::getIdentifier() => new ParameterType\RangeType(),
+                ParameterType\NumberType::getIdentifier() => new ParameterType\NumberType(),
+                ParameterType\LinkType::getIdentifier() => new ParameterType\LinkType(new ValueTypeRegistry([]), $remoteIdConverter),
+                ParameterType\ItemLinkType::getIdentifier() => new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
+                ParameterType\IntegerType::getIdentifier() => new ParameterType\IntegerType(),
+                ParameterType\IdentifierType::getIdentifier() => new ParameterType\IdentifierType(),
+                ParameterType\HtmlType::getIdentifier() => new ParameterType\HtmlType(new HtmlSanitizer(new HtmlSanitizerConfig()->allowSafeElements())),
+                ParameterType\EmailType::getIdentifier() => new ParameterType\EmailType(),
+                ParameterType\ChoiceType::getIdentifier() => new ParameterType\ChoiceType(),
+                ParameterType\EnumType::getIdentifier() => new ParameterType\EnumType(),
+                ParameterType\BooleanType::getIdentifier() => new ParameterType\BooleanType(),
+                ParameterType\DateTimeType::getIdentifier() => new ParameterType\DateTimeType(),
+                ParameterType\HiddenType::getIdentifier() => new ParameterType\HiddenType(),
+                ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
+            ],
         );
+    }
+
+    private function createLayoutTypeRegistry(): LayoutTypeRegistry
+    {
+        $layoutType1 = LayoutType::fromArray(
+            [
+                'identifier' => 'test_layout_1',
+                'zones' => [
+                    'top' => new Zone(),
+                    'left' => new Zone(),
+                    'right' => Zone::fromArray(['allowedBlockDefinitions' => ['title', 'list']]),
+                    'bottom' => Zone::fromArray(['allowedBlockDefinitions' => ['title']]),
+                ],
+            ],
+        );
+
+        $layoutType2 = LayoutType::fromArray(
+            [
+                'identifier' => 'test_layout_2',
+                'zones' => [
+                    'top' => new Zone(),
+                    'left' => new Zone(),
+                    'right' => new Zone(),
+                    'bottom' => new Zone(),
+                ],
+            ],
+        );
+
+        return new LayoutTypeRegistry(
+            [
+                'test_layout_1' => $layoutType1,
+                'test_layout_2' => $layoutType2,
+            ],
+        );
+    }
+
+    private function createItemDefinitionRegistry(): ItemDefinitionRegistry
+    {
+        $itemConfigHandler = new ItemConfigHandler();
+        $itemConfigDefinition = ConfigDefinition::fromArray(
+            [
+                'parameterDefinitions' => $itemConfigHandler->getParameterDefinitions(),
+            ],
+        );
+
+        $itemDefinition = ItemDefinition::fromArray(
+            [
+                'valueType' => 'test_value_type',
+                'configDefinitions' => [
+                    'key' => $itemConfigDefinition,
+                ],
+            ],
+        );
+
+        return new ItemDefinitionRegistry(['test_value_type' => $itemDefinition]);
+    }
+
+    private function createQueryTypeRegistry(): QueryTypeRegistry
+    {
+        return new QueryTypeRegistry(['test_query_type' => new QueryType('test_query_type')]);
     }
 
     private function createBlockDefinitionRegistry(): BlockDefinitionRegistry
@@ -305,218 +379,6 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    /**
-     * Creates a transaction service under test.
-     */
-    private function createTransactionService(): APITransactionService
-    {
-        return new TransactionService(
-            $this->transactionHandler,
-        );
-    }
-
-    /**
-     * Creates a block service under test.
-     */
-    private function createBlockService(): APIBlockService
-    {
-        $validator = $this->createValidator();
-
-        $collectionValidator = new CollectionValidator();
-        $collectionValidator->setValidator($validator);
-
-        $blockValidator = new BlockValidator($collectionValidator);
-        $blockValidator->setValidator($validator);
-
-        return new BlockService(
-            $this->transactionHandler,
-            $blockValidator,
-            $this->blockMapper,
-            new BlockStructBuilder(
-                new ConfigStructBuilder(),
-            ),
-            $this->parameterMapper,
-            $this->configMapper,
-            $this->layoutTypeRegistry,
-            $this->blockHandler,
-            $this->layoutHandler,
-            $this->collectionHandler,
-        );
-    }
-
-    /**
-     * Creates a collection service under test.
-     */
-    private function createCollectionService(): APICollectionService
-    {
-        $collectionValidator = new CollectionValidator();
-        $collectionValidator->setValidator($this->createValidator());
-
-        return new CollectionService(
-            $this->transactionHandler,
-            $collectionValidator,
-            $this->collectionMapper,
-            new CollectionStructBuilder(
-                new ConfigStructBuilder(),
-            ),
-            $this->parameterMapper,
-            $this->configMapper,
-            $this->collectionHandler,
-        );
-    }
-
-    /**
-     * Creates a layout resolver service under test.
-     */
-    private function createLayoutResolverService(): APILayoutResolverService
-    {
-        $layoutResolverValidator = new LayoutResolverValidator(
-            $this->targetTypeRegistry,
-            $this->conditionTypeRegistry,
-        );
-
-        $layoutResolverValidator->setValidator($this->createValidator());
-
-        return new LayoutResolverService(
-            $this->transactionHandler,
-            $layoutResolverValidator,
-            $this->layoutResolverMapper,
-            new LayoutResolverStructBuilder(),
-            $this->layoutResolverHandler,
-            $this->layoutHandler,
-        );
-    }
-
-    /**
-     * Creates a layout mapper under test.
-     */
-    private function createLayoutMapper(): LayoutMapper
-    {
-        return new LayoutMapper(
-            $this->layoutHandler,
-            $this->layoutTypeRegistry,
-        );
-    }
-
-    /**
-     * Creates a block mapper under test.
-     */
-    private function createBlockMapper(): BlockMapper
-    {
-        return new BlockMapper(
-            $this->blockHandler,
-            $this->collectionHandler,
-            $this->collectionMapper,
-            $this->parameterMapper,
-            $this->configMapper,
-            $this->blockDefinitionRegistry,
-        );
-    }
-
-    /**
-     * Creates a collection mapper under test.
-     */
-    private function createCollectionMapper(): CollectionMapper
-    {
-        return new CollectionMapper(
-            $this->collectionHandler,
-            $this->parameterMapper,
-            $this->configMapper,
-            $this->itemDefinitionRegistry,
-            $this->queryTypeRegistry,
-            $this->cmsItemLoaderStub,
-        );
-    }
-
-    /**
-     * Creates a layout resolver mapper under test.
-     */
-    private function createLayoutResolverMapper(): LayoutResolverMapper
-    {
-        return new LayoutResolverMapper(
-            $this->layoutResolverHandler,
-            $this->targetTypeRegistry,
-            $this->conditionTypeRegistry,
-            $this->layoutService,
-        );
-    }
-
-    /**
-     * Creates the parameter mapper under test.
-     */
-    private function createParameterMapper(): ParameterMapper
-    {
-        return new ParameterMapper();
-    }
-
-    /**
-     * Creates the config mapper under test.
-     */
-    private function createConfigMapper(): ConfigMapper
-    {
-        return new ConfigMapper($this->parameterMapper);
-    }
-
-    private function createLayoutTypeRegistry(): LayoutTypeRegistry
-    {
-        $layoutType1 = LayoutType::fromArray(
-            [
-                'identifier' => 'test_layout_1',
-                'zones' => [
-                    'top' => new Zone(),
-                    'left' => new Zone(),
-                    'right' => Zone::fromArray(['allowedBlockDefinitions' => ['title', 'list']]),
-                    'bottom' => Zone::fromArray(['allowedBlockDefinitions' => ['title']]),
-                ],
-            ],
-        );
-
-        $layoutType2 = LayoutType::fromArray(
-            [
-                'identifier' => 'test_layout_2',
-                'zones' => [
-                    'top' => new Zone(),
-                    'left' => new Zone(),
-                    'right' => new Zone(),
-                    'bottom' => new Zone(),
-                ],
-            ],
-        );
-
-        return new LayoutTypeRegistry(
-            [
-                'test_layout_1' => $layoutType1,
-                'test_layout_2' => $layoutType2,
-            ],
-        );
-    }
-
-    private function createItemDefinitionRegistry(): ItemDefinitionRegistry
-    {
-        $itemConfigHandler = new ItemConfigHandler();
-        $itemConfigDefinition = ConfigDefinition::fromArray(
-            [
-                'parameterDefinitions' => $itemConfigHandler->getParameterDefinitions(),
-            ],
-        );
-
-        $itemDefinition = ItemDefinition::fromArray(
-            [
-                'valueType' => 'test_value_type',
-                'configDefinitions' => [
-                    'key' => $itemConfigDefinition,
-                ],
-            ],
-        );
-
-        return new ItemDefinitionRegistry(['test_value_type' => $itemDefinition]);
-    }
-
-    private function createQueryTypeRegistry(): QueryTypeRegistry
-    {
-        return new QueryTypeRegistry(['test_query_type' => new QueryType('test_query_type')]);
-    }
-
     private function createTargetTypeRegistry(): TargetTypeRegistry
     {
         return new TargetTypeRegistry(
@@ -542,30 +404,170 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    private function createParameterTypeRegistry(): ParameterTypeRegistry
+    /**
+     * Creates the parameter mapper under test.
+     */
+    private function createParameterMapper(): ParameterMapper
     {
-        $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderStub);
+        return new ParameterMapper();
+    }
 
-        return new ParameterTypeRegistry(
-            [
-                ParameterType\TextLineType::getIdentifier() => new ParameterType\TextLineType(),
-                ParameterType\TextType::getIdentifier() => new ParameterType\TextType(),
-                ParameterType\UrlType::getIdentifier() => new ParameterType\UrlType(),
-                ParameterType\RangeType::getIdentifier() => new ParameterType\RangeType(),
-                ParameterType\NumberType::getIdentifier() => new ParameterType\NumberType(),
-                ParameterType\LinkType::getIdentifier() => new ParameterType\LinkType(new ValueTypeRegistry([]), $remoteIdConverter),
-                ParameterType\ItemLinkType::getIdentifier() => new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
-                ParameterType\IntegerType::getIdentifier() => new ParameterType\IntegerType(),
-                ParameterType\IdentifierType::getIdentifier() => new ParameterType\IdentifierType(),
-                ParameterType\HtmlType::getIdentifier() => new ParameterType\HtmlType(new HtmlSanitizer(new HtmlSanitizerConfig()->allowSafeElements())),
-                ParameterType\EmailType::getIdentifier() => new ParameterType\EmailType(),
-                ParameterType\ChoiceType::getIdentifier() => new ParameterType\ChoiceType(),
-                ParameterType\EnumType::getIdentifier() => new ParameterType\EnumType(),
-                ParameterType\BooleanType::getIdentifier() => new ParameterType\BooleanType(),
-                ParameterType\DateTimeType::getIdentifier() => new ParameterType\DateTimeType(),
-                ParameterType\HiddenType::getIdentifier() => new ParameterType\HiddenType(),
-                ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
-            ],
+    /**
+     * Creates the config mapper under test.
+     */
+    private function createConfigMapper(): ConfigMapper
+    {
+        return new ConfigMapper($this->parameterMapper);
+    }
+
+    /**
+     * Creates a transaction service under test.
+     */
+    private function createTransactionService(): APITransactionService
+    {
+        return new TransactionService(
+            $this->transactionHandler,
+        );
+    }
+
+    /**
+     * Creates a layout mapper under test.
+     */
+    private function createLayoutMapper(): LayoutMapper
+    {
+        return new LayoutMapper(
+            $this->layoutHandler,
+            $this->layoutTypeRegistry,
+        );
+    }
+
+    /**
+     * Creates a layout service under test.
+     */
+    private function createLayoutService(): APILayoutService
+    {
+        $layoutValidator = new LayoutValidator();
+        $layoutValidator->setValidator($this->validator);
+
+        return new LayoutService(
+            $this->transactionHandler,
+            $layoutValidator,
+            $this->layoutMapper,
+            new LayoutStructBuilder(),
+            $this->layoutHandler,
+        );
+    }
+
+    /**
+     * Creates a collection mapper under test.
+     */
+    private function createCollectionMapper(): CollectionMapper
+    {
+        return new CollectionMapper(
+            $this->collectionHandler,
+            $this->parameterMapper,
+            $this->configMapper,
+            $this->itemDefinitionRegistry,
+            $this->queryTypeRegistry,
+            $this->cmsItemLoaderStub,
+        );
+    }
+
+    /**
+     * Creates a collection service under test.
+     */
+    private function createCollectionService(): APICollectionService
+    {
+        $collectionValidator = new CollectionValidator();
+        $collectionValidator->setValidator($this->validator);
+
+        return new CollectionService(
+            $this->transactionHandler,
+            $collectionValidator,
+            $this->collectionMapper,
+            new CollectionStructBuilder(
+                new ConfigStructBuilder(),
+            ),
+            $this->parameterMapper,
+            $this->configMapper,
+            $this->collectionHandler,
+        );
+    }
+
+    /**
+     * Creates a block mapper under test.
+     */
+    private function createBlockMapper(): BlockMapper
+    {
+        return new BlockMapper(
+            $this->blockHandler,
+            $this->collectionHandler,
+            $this->collectionMapper,
+            $this->parameterMapper,
+            $this->configMapper,
+            $this->blockDefinitionRegistry,
+        );
+    }
+
+    /**
+     * Creates a block service under test.
+     */
+    private function createBlockService(): APIBlockService
+    {
+        $collectionValidator = new CollectionValidator();
+        $collectionValidator->setValidator($this->validator);
+
+        $blockValidator = new BlockValidator($collectionValidator);
+        $blockValidator->setValidator($this->validator);
+
+        return new BlockService(
+            $this->transactionHandler,
+            $blockValidator,
+            $this->blockMapper,
+            new BlockStructBuilder(
+                new ConfigStructBuilder(),
+            ),
+            $this->parameterMapper,
+            $this->configMapper,
+            $this->layoutTypeRegistry,
+            $this->blockHandler,
+            $this->layoutHandler,
+            $this->collectionHandler,
+        );
+    }
+
+    /**
+     * Creates a layout resolver mapper under test.
+     */
+    private function createLayoutResolverMapper(): LayoutResolverMapper
+    {
+        return new LayoutResolverMapper(
+            $this->layoutResolverHandler,
+            $this->targetTypeRegistry,
+            $this->conditionTypeRegistry,
+            $this->layoutService,
+        );
+    }
+
+    /**
+     * Creates a layout resolver service under test.
+     */
+    private function createLayoutResolverService(): APILayoutResolverService
+    {
+        $layoutResolverValidator = new LayoutResolverValidator(
+            $this->targetTypeRegistry,
+            $this->conditionTypeRegistry,
+        );
+
+        $layoutResolverValidator->setValidator($this->validator);
+
+        return new LayoutResolverService(
+            $this->transactionHandler,
+            $layoutResolverValidator,
+            $this->layoutResolverMapper,
+            new LayoutResolverStructBuilder(),
+            $this->layoutResolverHandler,
+            $this->layoutHandler,
         );
     }
 }

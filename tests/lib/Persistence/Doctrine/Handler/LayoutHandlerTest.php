@@ -1667,8 +1667,8 @@ final class LayoutHandlerTest extends CoreTestCase
 
     private function createHandlers(): void
     {
-        $this->layoutHandler = $this->createLayoutHandler();
-        $this->blockHandler = $this->createBlockHandler();
         $this->collectionHandler = $this->createCollectionHandler();
+        $this->blockHandler = $this->createBlockHandler();
+        $this->layoutHandler = $this->createLayoutHandler();
     }
 }

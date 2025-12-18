@@ -26,7 +26,6 @@ use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Netgen\Layouts\Tests\Stubs\Container;
-use Symfony\Component\Uid\Factory\UuidFactory;
 
 trait TestCaseTrait
 {
@@ -37,45 +36,11 @@ trait TestCaseTrait
         $this->closeDatabase();
     }
 
-    final protected function createUuidFactory(): UuidFactory
-    {
-        return $this->uuidFactory ??= new UuidFactory();
-    }
-
     final protected function createTransactionHandler(): TransactionHandlerInterface
     {
         $this->createDatabase();
 
         return new TransactionHandler($this->databaseConnection);
-    }
-
-    final protected function createLayoutHandler(): LayoutHandlerInterface
-    {
-        $connectionHelper = new ConnectionHelper($this->databaseConnection);
-
-        return new LayoutHandler(
-            new LayoutQueryHandler(
-                $this->databaseConnection,
-                $connectionHelper,
-            ),
-            $this->createBlockHandler(),
-            new LayoutMapper(),
-            $this->createUuidFactory(),
-        );
-    }
-
-    final protected function createBlockHandler(): BlockHandlerInterface
-    {
-        return new BlockHandler(
-            new BlockQueryHandler(
-                $this->databaseConnection,
-                new ConnectionHelper($this->databaseConnection),
-            ),
-            $this->createCollectionHandler(),
-            new BlockMapper(),
-            new PositionHelper($this->databaseConnection),
-            $this->createUuidFactory(),
-        );
     }
 
     final protected function createCollectionHandler(): CollectionHandlerInterface
@@ -87,14 +52,43 @@ trait TestCaseTrait
             ),
             new CollectionMapper(),
             new PositionHelper($this->databaseConnection),
-            $this->createUuidFactory(),
+            $this->uuidFactory,
+        );
+    }
+
+    final protected function createBlockHandler(): BlockHandlerInterface
+    {
+        return new BlockHandler(
+            new BlockQueryHandler(
+                $this->databaseConnection,
+                new ConnectionHelper($this->databaseConnection),
+            ),
+            $this->collectionHandler,
+            new BlockMapper(),
+            new PositionHelper($this->databaseConnection),
+            $this->uuidFactory,
+        );
+    }
+
+    final protected function createLayoutHandler(): LayoutHandlerInterface
+    {
+        $connectionHelper = new ConnectionHelper($this->databaseConnection);
+
+        return new LayoutHandler(
+            new LayoutQueryHandler(
+                $this->databaseConnection,
+                $connectionHelper,
+            ),
+            $this->blockHandler,
+            new LayoutMapper(),
+            $this->uuidFactory,
         );
     }
 
     final protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
     {
         return new LayoutResolverHandler(
-            $this->createLayoutHandler(),
+            $this->layoutHandler,
             new LayoutResolverQueryHandler(
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),
@@ -110,7 +104,7 @@ trait TestCaseTrait
                 ),
             ),
             new LayoutResolverMapper(),
-            $this->createUuidFactory(),
+            $this->uuidFactory,
         );
     }
 }
