@@ -11,8 +11,3 @@ parameters:
         # Disable errors about missing value types in PHPUnit data providers
 
         - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'
-
-        # PHPStan
-
-        - '#with generic interface Symfony\\Component\\Form\\\w+ (but )?does not specify its types: TData#'
-        - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
