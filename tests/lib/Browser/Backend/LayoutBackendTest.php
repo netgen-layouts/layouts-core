@@ -143,9 +143,12 @@ final class LayoutBackendTest extends TestCase
 
     public function testGetSubItemsWithSharedLayouts(): void
     {
+        $configuration = new Configuration('layout', 'Layout', []);
+        $configuration->setParameter('include_shared_layouts', 'true');
+
         $this->backend = new LayoutBackend(
             $this->layoutServiceStub,
-            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true']),
+            $configuration,
         );
 
         $this->layoutServiceStub
@@ -179,9 +182,12 @@ final class LayoutBackendTest extends TestCase
 
     public function testGetSubItemsCountWithSharedLayouts(): void
     {
+        $configuration = new Configuration('layout', 'Layout', []);
+        $configuration->setParameter('include_shared_layouts', 'true');
+
         $this->backend = new LayoutBackend(
             $this->layoutServiceStub,
-            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true']),
+            $configuration,
         );
 
         $this->layoutServiceStub
