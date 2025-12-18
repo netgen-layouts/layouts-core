@@ -10,7 +10,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 use function array_unique;
 use function array_values;
-use function is_string;
 
 final class LayoutTypeNode implements ConfigurationNodeInterface
 {
@@ -32,13 +31,13 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()
-                    ->scalarNode('icon')
+                    ->stringNode('icon')
                         ->defaultValue(null)
-                        ->validate()
-                            ->ifTrue(
-                                static fn (mixed $v): bool => $v !== null && !(is_string($v) && $v !== ''),
-                            )
-                            ->thenInvalid('Icon path needs to be a non empty string or null.')
+                        ->treatNullLike(null)
+                        ->cannotBeEmpty()
+                        ->beforeNormalization()
+                            ->ifNull()
+                            ->thenUnset()
                         ->end()
                     ->end()
                     ->arrayNode('zones')

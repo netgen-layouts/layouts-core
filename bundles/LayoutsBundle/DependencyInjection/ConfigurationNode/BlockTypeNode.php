@@ -9,8 +9,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-use function is_string;
-
 final class BlockTypeNode implements ConfigurationNodeInterface
 {
     /**
@@ -47,13 +45,13 @@ final class BlockTypeNode implements ConfigurationNodeInterface
                     ->stringNode('name')
                         ->cannotBeEmpty()
                     ->end()
-                    ->scalarNode('icon')
+                    ->stringNode('icon')
                         ->defaultValue(null)
-                        ->validate()
-                            ->ifTrue(
-                                static fn (mixed $v): bool => $v !== null && !(is_string($v) && $v !== ''),
-                            )
-                            ->thenInvalid('Icon path needs to be a non empty string or null.')
+                        ->treatNullLike(null)
+                        ->cannotBeEmpty()
+                        ->beforeNormalization()
+                            ->ifNull()
+                            ->thenUnset()
                         ->end()
                     ->end()
                     ->stringNode('definition_identifier')

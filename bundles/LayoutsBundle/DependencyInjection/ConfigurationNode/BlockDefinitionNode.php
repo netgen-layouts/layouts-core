@@ -15,7 +15,6 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use function array_unique;
 use function array_values;
 use function is_array;
-use function is_string;
 
 final class BlockDefinitionNode implements ConfigurationNodeInterface
 {
@@ -43,13 +42,13 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()
-                    ->scalarNode('icon')
+                    ->stringNode('icon')
                         ->defaultValue(null)
-                        ->validate()
-                            ->ifTrue(
-                                static fn (mixed $v): bool => $v !== null && !(is_string($v) && $v !== ''),
-                            )
-                            ->thenInvalid('Icon path needs to be a non empty string or null.')
+                        ->treatNullLike(null)
+                        ->cannotBeEmpty()
+                        ->beforeNormalization()
+                            ->ifNull()
+                            ->thenUnset()
                         ->end()
                     ->end()
                     ->booleanNode('translatable')
