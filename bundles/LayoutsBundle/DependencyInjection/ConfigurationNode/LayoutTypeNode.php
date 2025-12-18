@@ -52,9 +52,7 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                                 ->end()
                                 ->arrayNode('allowed_block_definitions')
                                     ->validate()
-                                        ->always(
-                                            static fn (array $v): array => array_values(array_unique($v)),
-                                        )
+                                        ->always(static fn (array $v): array => array_values(array_unique($v)))
                                     ->end()
                                     ->requiresAtLeastOneElement()
                                     ->stringPrototype()

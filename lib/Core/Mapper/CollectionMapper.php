@@ -34,6 +34,7 @@ use function array_first;
 use function array_intersect;
 use function array_map;
 use function array_unique;
+use function array_values;
 use function count;
 use function is_array;
 
@@ -68,7 +69,7 @@ final class CollectionMapper
             $locales[] = $collection->mainLocale;
         }
 
-        $validLocales = array_unique(array_intersect($locales, $collection->availableLocales));
+        $validLocales = array_values(array_unique(array_intersect($locales, $collection->availableLocales)));
         if (count($validLocales) === 0) {
             throw new NotFoundException('collection', $collection->uuid);
         }
@@ -187,7 +188,7 @@ final class CollectionMapper
             $locales[] = $query->mainLocale;
         }
 
-        $validLocales = array_unique(array_intersect($locales, $query->availableLocales));
+        $validLocales = array_values(array_unique(array_intersect($locales, $query->availableLocales)));
         if (count($validLocales) === 0) {
             throw new NotFoundException('query', $query->uuid);
         }

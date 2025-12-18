@@ -74,29 +74,21 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->variableNode('valid_item_types')
                                         ->defaultNull()
                                         ->validate()
-                                            ->ifTrue(
-                                                static fn (mixed $v): bool => $v !== null && !is_array($v),
-                                            )
+                                            ->ifTrue(static fn (mixed $v): bool => $v !== null && !is_array($v))
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
-                                            ->always(
-                                                static fn (mixed $v): ?array => is_array($v) ? array_values(array_unique($v)) : $v,
-                                            )
+                                            ->always(static fn (?array $v): ?array => $v !== null ? array_values(array_unique($v)) : $v)
                                         ->end()
                                     ->end()
                                     ->variableNode('valid_query_types')
                                         ->defaultNull()
                                         ->validate()
-                                            ->ifTrue(
-                                                static fn (mixed $v): bool => $v !== null && !is_array($v),
-                                            )
+                                            ->ifTrue(static fn (mixed $v): bool => $v !== null && !is_array($v))
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
-                                            ->always(
-                                                static fn (mixed $v): ?array => is_array($v) ? array_values(array_unique($v)) : $v,
-                                            )
+                                            ->always(static fn (?array $v): ?array => $v !== null ? array_values(array_unique($v)) : $v)
                                         ->end()
                                     ->end()
                                 ->end()
@@ -171,9 +163,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->arrayPrototype()
                             ->canBeDisabled()
                             ->validate()
-                                ->ifTrue(
-                                    static fn (array $v): bool => $v['enabled'] !== true,
-                                )
+                                ->ifTrue(static fn (array $v): bool => $v['enabled'] !== true)
                                 ->then(
                                     static fn (array $v): array => [
                                         'name' => 'Disabled',
@@ -195,15 +185,11 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->arrayPrototype()
                                         ->canBeDisabled()
                                         ->validate()
-                                            ->ifTrue(
-                                                static fn (array $v): bool => $v['enabled'] === true && !isset($v['name']),
-                                            )
+                                            ->ifTrue(static fn (array $v): bool => $v['enabled'] === true && !isset($v['name']))
                                             ->thenInvalid('Item view type name must be specified')
                                         ->end()
                                         ->validate()
-                                            ->ifTrue(
-                                                static fn (array $v): bool => $v['enabled'] !== true,
-                                            )
+                                            ->ifTrue(static fn (array $v): bool => $v['enabled'] !== true)
                                             ->then(
                                                 static fn (array $v): array => [
                                                     'name' => 'Disabled',
@@ -221,15 +207,11 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                 ->variableNode('valid_parameters')
                                     ->defaultNull()
                                     ->validate()
-                                        ->ifTrue(
-                                            static fn (mixed $v): bool => $v !== null && !is_array($v),
-                                        )
+                                        ->ifTrue(static fn (mixed $v): bool => $v !== null && !is_array($v))
                                         ->thenInvalid('The value should be null or an array')
                                     ->end()
                                     ->validate()
-                                        ->always(
-                                            static fn (mixed $v): ?array => is_array($v) ? array_values(array_unique($v)) : $v,
-                                        )
+                                        ->always(static fn (?array $v): ?array => $v !== null ? array_values(array_unique($v)) : $v)
                                     ->end()
                                 ->end()
                             ->end()

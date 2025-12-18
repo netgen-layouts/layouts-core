@@ -29,6 +29,7 @@ use function array_first;
 use function array_intersect;
 use function array_map;
 use function array_unique;
+use function array_values;
 use function count;
 use function is_array;
 
@@ -71,7 +72,7 @@ final class BlockMapper
             $locales[] = $block->mainLocale;
         }
 
-        $validLocales = array_unique(array_intersect($locales, $block->availableLocales));
+        $validLocales = array_values(array_unique(array_intersect($locales, $block->availableLocales)));
         if (count($validLocales) === 0) {
             throw new NotFoundException('block', $block->uuid);
         }

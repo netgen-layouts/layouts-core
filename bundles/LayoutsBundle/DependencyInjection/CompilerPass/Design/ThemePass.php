@@ -30,8 +30,7 @@ final class ThemePass implements CompilerPassInterface
 
         /** @var array<string, string[]> $designList */
         $designList = $container->getParameter('netgen_layouts.design_list');
-        $themeList = array_unique(array_merge(...array_values($designList)));
-        $themeList[] = 'standard';
+        $themeList = [...array_values(array_unique(array_merge(...array_values($designList)))), 'standard'];
 
         $themeDirs = $this->getThemeDirs($container, $themeList);
 
