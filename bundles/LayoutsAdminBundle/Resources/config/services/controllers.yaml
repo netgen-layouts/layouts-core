@@ -282,8 +282,6 @@ services:
     netgen_layouts.controller.app.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Index
         parent: netgen_layouts.controller.base
-        arguments:
-            - "%netgen_layouts.app.pagelayout%"
         tags:
             - { name: container.service_subscriber }
             - { name: controller.service_arguments }

@@ -10,10 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends AbstractController
 {
-    public function __construct(
-        private string $pageLayout,
-    ) {}
-
     /**
      * Displays the Netgen Layouts app index page.
      */
@@ -24,7 +20,7 @@ final class Index extends AbstractController
         $appEnvironment = $request->attributes->getString('_nglayouts_environment');
 
         return $this->render(
-            $this->pageLayout,
+            '@NetgenLayoutsAdmin/app/pagelayout.html.twig',
             [
                 'debug' => $appEnvironment === 'dev',
             ],
