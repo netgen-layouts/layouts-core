@@ -53,7 +53,7 @@
         "twig/extra-bundle": "^3.22",
         "twig/intl-extra": "^3.22",
         "doctrine/dbal": "^3.10 || ^4.4",
-        "doctrine/doctrine-bundle": "^2.18 || ^3.1",
+        "doctrine/doctrine-bundle": "^2.18 || ^3.2",
         "doctrine/doctrine-migrations-bundle": "^3.7 || ^4.0",
         "doctrine/collections": "^2.4",
         "egulias/email-validator": "^4.0",
