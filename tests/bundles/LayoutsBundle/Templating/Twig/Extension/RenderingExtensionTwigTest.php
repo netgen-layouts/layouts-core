@@ -155,8 +155,8 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->method('renderValue')
             ->willReturnCallback(
                 static fn (ZoneReference $zoneReference, string $context): string => $context === 'json' ?
-                        '{"blocks":[{"id":1},{"id":2}]}' :
-                        'block1 block2',
+                    '{"blocks":[{"id":1},{"id":2}]}' :
+                    'block1 block2',
             );
     }
 
