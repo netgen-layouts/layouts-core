@@ -26,8 +26,11 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         parent::setUp();
     }
 
+    /**
+     * @param \DateTimeImmutable|array<string, string>|null $value
+     */
     #[DataProvider('validateDataProvider')]
-    public function testValidate(mixed $value, bool $isValid): void
+    public function testValidate(DateTimeImmutable|array|null $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }

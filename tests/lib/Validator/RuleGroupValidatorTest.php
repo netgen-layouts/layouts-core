@@ -29,7 +29,7 @@ final class RuleGroupValidatorTest extends ValidatorTestCase
     }
 
     #[DataProvider('validateDataProvider')]
-    public function testValidate(mixed $value, bool $isValid): void
+    public function testValidate(?string $value, bool $isValid): void
     {
         if ($value !== null) {
             $this->layoutResolverServiceStub

@@ -26,7 +26,7 @@ final class BlockDefinitionValidatorTest extends ValidatorTestCase
     }
 
     #[DataProvider('validateDataProvider')]
-    public function testValidate(mixed $value, bool $isValid): void
+    public function testValidate(?string $value, bool $isValid): void
     {
         $this->assertValid($isValid, $value);
     }
