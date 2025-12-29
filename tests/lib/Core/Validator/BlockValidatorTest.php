@@ -84,6 +84,9 @@ final class BlockValidatorTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateBlockCreateStructDataProvider(): iterable
     {
         return [
@@ -355,6 +358,9 @@ final class BlockValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateBlockUpdateStructDataProvider(): iterable
     {
         return [

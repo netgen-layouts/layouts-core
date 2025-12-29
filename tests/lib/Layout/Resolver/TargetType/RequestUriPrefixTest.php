@@ -45,6 +45,9 @@ final class RequestUriPrefixTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [

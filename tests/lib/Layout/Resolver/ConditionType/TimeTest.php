@@ -54,6 +54,9 @@ final class TimeTest extends TestCase
         Clock::set(new NativeClock());
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [
@@ -83,6 +86,9 @@ final class TimeTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function matchesDataProvider(): iterable
     {
         return [

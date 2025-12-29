@@ -46,6 +46,9 @@ final class RouteTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [

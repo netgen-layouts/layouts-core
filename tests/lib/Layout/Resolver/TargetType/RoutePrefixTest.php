@@ -46,6 +46,9 @@ final class RoutePrefixTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [

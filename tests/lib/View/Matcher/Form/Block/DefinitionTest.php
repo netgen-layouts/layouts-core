@@ -91,6 +91,9 @@ final class DefinitionTest extends TestCase
         self::assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function matchDataProvider(): iterable
     {
         return [

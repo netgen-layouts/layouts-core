@@ -49,6 +49,9 @@ final class RouteParameterTest extends TestCase
         self::assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [
@@ -75,6 +78,9 @@ final class RouteParameterTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function matchesDataProvider(): iterable
     {
         return [

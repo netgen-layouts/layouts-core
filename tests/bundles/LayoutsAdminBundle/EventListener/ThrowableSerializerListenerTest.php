@@ -138,6 +138,9 @@ final class ThrowableSerializerListenerTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function onExceptionWithHttpExceptionDataProvider(): iterable
     {
         return [

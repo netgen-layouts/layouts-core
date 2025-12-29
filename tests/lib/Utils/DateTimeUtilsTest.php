@@ -55,6 +55,9 @@ final class DateTimeUtilsTest extends TestCase
         self::assertSame($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function isBetweenDatesDataProvider(): iterable
     {
         return [
@@ -96,6 +99,9 @@ final class DateTimeUtilsTest extends TestCase
         self::assertSame($input['timezone'], $dateTime->getTimezone()->getName());
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function createFromArrayDataProvider(): iterable
     {
         return [

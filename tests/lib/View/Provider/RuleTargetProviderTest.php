@@ -45,6 +45,9 @@ final class RuleTargetProviderTest extends TestCase
         self::assertSame($supports, $this->ruleTargetViewProvider->supports($value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsDataProvider(): iterable
     {
         return [

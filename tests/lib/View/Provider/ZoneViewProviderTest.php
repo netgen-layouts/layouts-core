@@ -78,6 +78,9 @@ final class ZoneViewProviderTest extends TestCase
         self::assertSame($supports, $this->ZoneViewProvider->supports($value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsDataProvider(): iterable
     {
         return [

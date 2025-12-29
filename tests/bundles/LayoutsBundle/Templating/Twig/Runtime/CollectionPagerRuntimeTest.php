@@ -128,6 +128,9 @@ final class CollectionPagerRuntimeTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function invalidPageDataProvider(): iterable
     {
         return [

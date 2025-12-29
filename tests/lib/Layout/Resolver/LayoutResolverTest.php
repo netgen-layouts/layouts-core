@@ -698,6 +698,9 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($resolved ? $rule : null, $this->layoutResolver->resolveRule(Request::create('/')));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function resolveRulesWithRuleConditionsDataProvider(): iterable
     {
         return [
@@ -711,6 +714,9 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function resolveRulesWithPartialRuleConditionsDataProvider(): iterable
     {
         return [

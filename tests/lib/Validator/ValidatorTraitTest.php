@@ -77,6 +77,9 @@ final class ValidatorTraitTest extends TestCase
         $this->valueValidator->validateLocale($locale);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateIdDataProvider(): iterable
     {
         return [
@@ -88,6 +91,9 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateIdentifierDataProvider(): iterable
     {
         return [
@@ -104,6 +110,9 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validatePositionDataProvider(): iterable
     {
         return [
@@ -120,6 +129,9 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateOffsetAndLimitDataProvider(): iterable
     {
         return [
@@ -132,6 +144,9 @@ final class ValidatorTraitTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateLocaleDataProvider(): iterable
     {
         return [

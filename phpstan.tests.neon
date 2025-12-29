@@ -6,8 +6,3 @@ parameters:
 
     excludePaths:
         - tests/application/public/bundles
-
-    ignoreErrors:
-        # Disable errors about missing value types in PHPUnit data providers
-
-        - '#Method .+Test(Base|Case)?::\w+DataProvider\(\) return type has no value type specified in iterable type iterable.#'

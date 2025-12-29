@@ -60,7 +60,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * Provider for testing default parameter values.
+     * @return iterable<mixed>
      */
     public static function defaultValueDataProvider(): iterable
     {
@@ -79,7 +79,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * Provider for testing valid parameter attributes.
+     * @return iterable<mixed>
      */
     public static function validOptionsDataProvider(): iterable
     {
@@ -184,7 +184,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * Provider for testing invalid parameter attributes.
+     * @return iterable<mixed>
      */
     public static function invalidOptionsDataProvider(): iterable
     {
@@ -251,7 +251,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * Provider for testing valid parameter values.
+     * @return iterable<mixed>
      */
     public static function validationDataProvider(): iterable
     {
@@ -289,6 +289,9 @@ final class ChoiceTypeTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function fromHashDataProvider(): iterable
     {
         return [
@@ -341,6 +344,9 @@ final class ChoiceTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function emptyDataProvider(): iterable
     {
         return [

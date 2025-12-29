@@ -50,6 +50,9 @@ final class TimeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateDataProvider(): iterable
     {
         return [

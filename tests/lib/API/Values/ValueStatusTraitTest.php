@@ -25,6 +25,9 @@ final class ValueStatusTraitTest extends TestCase
         self::assertSame($isArchived, $value->isArchived);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function statusDataProvider(): iterable
     {
         return [

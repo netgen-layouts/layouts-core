@@ -52,6 +52,9 @@ final class FormViewProviderTest extends TestCase
         self::assertSame($supports, $this->formViewProvider->supports(self::createStub($value)));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsDataProvider(): iterable
     {
         return [

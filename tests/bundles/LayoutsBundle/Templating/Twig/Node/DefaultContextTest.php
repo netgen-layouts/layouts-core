@@ -28,7 +28,7 @@ final class DefaultContextTest extends NodeTestBase
         self::assertSame($var, $node->getNode('expr'));
     }
 
-    public static function compileDataProvider(): array
+    public static function compileDataProvider(): iterable
     {
         $environment = self::getEnvironment();
         $environment->enableStrictVariables();

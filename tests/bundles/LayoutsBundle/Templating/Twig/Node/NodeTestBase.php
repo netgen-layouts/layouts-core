@@ -17,7 +17,7 @@ use function sprintf;
 abstract class NodeTestBase extends TestCase
 {
     /**
-     * @return mixed[]
+     * @return iterable<mixed>
      */
     abstract public static function compileDataProvider(): iterable;
 

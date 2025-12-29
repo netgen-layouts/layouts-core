@@ -49,6 +49,9 @@ final class EmailTypeTest extends TestCase
         $this->getParameterDefinition($options);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validOptionsDataProvider(): iterable
     {
         return [
@@ -59,6 +62,9 @@ final class EmailTypeTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function invalidOptionsDataProvider(): iterable
     {
         return [
@@ -81,6 +87,9 @@ final class EmailTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [
@@ -96,6 +105,9 @@ final class EmailTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function emptyDataProvider(): iterable
     {
         return [

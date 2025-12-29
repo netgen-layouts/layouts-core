@@ -39,6 +39,9 @@ final class OutputVisitorTest extends TestCase
         $this->visitor->visit(new Block());
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function acceptDataProvider(): iterable
     {
         return [

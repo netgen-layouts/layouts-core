@@ -130,6 +130,9 @@ final class RouteGeneratorTest extends TestCase
         self::assertSame($finalUri, $url);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function invokeDataProvider(): iterable
     {
         return [

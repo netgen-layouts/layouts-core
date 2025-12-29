@@ -39,6 +39,9 @@ final class PagerFactoryTest extends TestCase
         self::assertSame(200, $pager->getNbPages());
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function getPagerDataProvider(): iterable
     {
         return [
@@ -62,6 +65,9 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($nbPages, $pager->getNbPages());
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function getMaxPagesPagerDataProvider(): iterable
     {
         return [
@@ -89,6 +95,9 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($nbPages, $pager->getNbPages());
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function getPagerWithCollectionLimitDataProvider(): iterable
     {
         return [

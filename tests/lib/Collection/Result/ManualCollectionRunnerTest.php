@@ -68,9 +68,7 @@ final class ManualCollectionRunnerTest extends TestCase
     }
 
     /**
-     * Builds data providers for building result from manual collection.
-     *
-     * IDs are identifiers of 3rd party values
+     * @return iterable<mixed>
      */
     public static function manualCollectionDataProvider(): iterable
     {

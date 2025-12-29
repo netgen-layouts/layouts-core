@@ -81,6 +81,9 @@ final class ThrowableNormalizerTest extends TestCase
         self::assertSame($expected, $this->throwableNormalizer->supportsNormalization($data));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsNormalizationDataProvider(): iterable
     {
         return [

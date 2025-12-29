@@ -45,6 +45,9 @@ final class PathInfoPrefixTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [

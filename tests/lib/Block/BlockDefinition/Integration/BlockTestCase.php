@@ -77,8 +77,14 @@ abstract class BlockTestCase extends CoreTestCase
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     abstract public static function parametersDataProvider(): iterable;
 
+    /**
+     * @return iterable<mixed>
+     */
     abstract public static function invalidParametersDataProvider(): iterable;
 
     abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;

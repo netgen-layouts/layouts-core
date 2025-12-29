@@ -99,6 +99,9 @@ final class CollectionItemNormalizerTest extends TestCase
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsNormalizationDataProvider(): iterable
     {
         return [

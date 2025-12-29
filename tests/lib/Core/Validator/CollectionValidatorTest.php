@@ -153,6 +153,9 @@ final class CollectionValidatorTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateCollectionCreateStructDataProvider(): iterable
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('test'));
@@ -224,6 +227,9 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateCollectionUpdateStructDataProvider(): iterable
     {
         return [
@@ -342,6 +348,9 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateItemCreateStructDataProvider(): iterable
     {
         return [
@@ -376,6 +385,9 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateItemUpdateStructDataProvider(): iterable
     {
         return [
@@ -426,6 +438,9 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateQueryCreateStructDataProvider(): iterable
     {
         return [
@@ -466,6 +481,9 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateQueryUpdateStructDataProvider(): iterable
     {
         return [

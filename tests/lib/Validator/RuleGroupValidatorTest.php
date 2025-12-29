@@ -70,6 +70,9 @@ final class RuleGroupValidatorTest extends ValidatorTestCase
         $this->assertValid(true, 42);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateDataProvider(): iterable
     {
         return [

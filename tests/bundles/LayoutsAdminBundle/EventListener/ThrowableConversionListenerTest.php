@@ -138,6 +138,9 @@ final class ThrowableConversionListenerTest extends TestCase
         self::assertSame($throwable, $eventThrowable);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function onExceptionDataProvider(): iterable
     {
         return [

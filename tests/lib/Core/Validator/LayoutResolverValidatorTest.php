@@ -164,6 +164,9 @@ final class LayoutResolverValidatorTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateRuleUpdateStructDataProvider(): iterable
     {
         return [
@@ -176,6 +179,9 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateRuleGroupCreateStructDataProvider(): iterable
     {
         return [
@@ -188,6 +194,9 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateRuleGroupUpdateStructDataProvider(): iterable
     {
         return [
@@ -200,6 +209,9 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateTargetCreateStructDataProvider(): iterable
     {
         return [
@@ -209,6 +221,9 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateTargetUpdateStructDataProvider(): iterable
     {
         return [
@@ -218,6 +233,9 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateConditionCreateStructDataProvider(): iterable
     {
         return [
@@ -229,6 +247,9 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateConditionUpdateStructDataProvider(): iterable
     {
         return [

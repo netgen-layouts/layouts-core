@@ -61,6 +61,9 @@ final class DefaultContextTest extends TestCase
         $this->parser->parse($stream);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function compileDataProvider(): iterable
     {
         return [

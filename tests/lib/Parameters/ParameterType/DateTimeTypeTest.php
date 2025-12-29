@@ -34,6 +34,9 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function emptyDataProvider(): iterable
     {
         return [
@@ -51,6 +54,9 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function toHashDataProvider(): iterable
     {
         return [
@@ -89,6 +95,9 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function invalidFromHashDataProvider(): iterable
     {
         return [
@@ -113,6 +122,9 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [

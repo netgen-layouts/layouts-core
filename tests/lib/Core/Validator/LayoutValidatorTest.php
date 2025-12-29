@@ -159,6 +159,9 @@ final class LayoutValidatorTest extends TestCase
         );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateLayoutCreateStructDataProvider(): iterable
     {
         return [
@@ -217,6 +220,9 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateLayoutUpdateStructDataProvider(): iterable
     {
         return [
@@ -271,6 +277,9 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateLayoutCopyStructDataProvider(): iterable
     {
         return [
@@ -282,6 +291,9 @@ final class LayoutValidatorTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateChangeLayoutTypeDataProvider(): iterable
     {
         return [

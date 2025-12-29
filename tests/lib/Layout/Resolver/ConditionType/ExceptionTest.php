@@ -77,6 +77,9 @@ final class ExceptionTest extends TestCase
         self::assertFalse($this->conditionType->matches($request, [404]));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validationDataProvider(): iterable
     {
         return [
@@ -97,6 +100,9 @@ final class ExceptionTest extends TestCase
         ];
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function matchesDataProvider(): iterable
     {
         return [

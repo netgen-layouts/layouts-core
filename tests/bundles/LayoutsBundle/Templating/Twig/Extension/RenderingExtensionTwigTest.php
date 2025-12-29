@@ -95,11 +95,17 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function integrationDataProvider(): iterable
     {
         return self::assembleDataProvider(false);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function legacyIntegrationDataProvider(): iterable
     {
         return self::assembleDataProvider(true);
@@ -154,6 +160,9 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             );
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     private static function assembleDataProvider(bool $legacyTests): iterable
     {
         $fixturesDir = self::getFixturesDirectory();

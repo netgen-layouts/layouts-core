@@ -34,6 +34,9 @@ final class ViewTypeTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function matchDataProvider(): iterable
     {
         return [

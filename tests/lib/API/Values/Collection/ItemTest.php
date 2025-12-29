@@ -73,6 +73,9 @@ final class ItemTest extends TestCase
         self::assertFalse($item->isValid);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function isValidDataProvider(): iterable
     {
         return [

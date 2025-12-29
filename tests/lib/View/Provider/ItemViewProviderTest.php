@@ -62,6 +62,9 @@ final class ItemViewProviderTest extends TestCase
         self::assertSame($supports, $this->itemViewProvider->supports($value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsDataProvider(): iterable
     {
         return [

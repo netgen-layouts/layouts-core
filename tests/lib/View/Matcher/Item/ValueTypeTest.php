@@ -49,6 +49,9 @@ final class ValueTypeTest extends TestCase
         self::assertFalse($this->matcher->match($view, ['test']));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function matchDataProvider(): iterable
     {
         return [

@@ -49,6 +49,9 @@ final class BlockViewProviderTest extends TestCase
         self::assertSame($supports, $this->blockViewProvider->supports($value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsDataProvider(): iterable
     {
         return [

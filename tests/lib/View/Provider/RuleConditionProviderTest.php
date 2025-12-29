@@ -45,6 +45,9 @@ final class RuleConditionProviderTest extends TestCase
         self::assertSame($supports, $this->ruleConditionViewProvider->supports($value));
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function supportsDataProvider(): iterable
     {
         return [

@@ -69,6 +69,9 @@ final class DateTimeValidatorTest extends ValidatorTestCase
         $this->assertValid(true, []);
     }
 
+    /**
+     * @return iterable<mixed>
+     */
     public static function validateDataProvider(): iterable
     {
         return [
