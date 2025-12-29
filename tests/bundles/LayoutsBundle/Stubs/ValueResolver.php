@@ -9,22 +9,22 @@ use Symfony\Component\Uid\Uuid;
 
 final class ValueResolver extends BaseValueResolver
 {
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['id'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'value';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Value::class;
     }
 
-    public function loadValue(array $parameters): Value
+    protected function loadValue(array $parameters): Value
     {
         return Value::fromArray(
             [

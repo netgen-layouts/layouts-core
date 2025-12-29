@@ -16,22 +16,22 @@ final class BlockValueResolver extends ValueResolver
         private BlockService $blockService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['blockId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'block';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Block::class;
     }
 
-    public function loadValue(array $parameters): Block
+    protected function loadValue(array $parameters): Block
     {
         /** @var string[]|null $locales */
         $locales = isset($parameters['locale']) ? [$parameters['locale']] : null;

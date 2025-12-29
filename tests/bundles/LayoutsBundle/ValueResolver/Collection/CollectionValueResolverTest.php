@@ -11,6 +11,9 @@ use Netgen\Layouts\API\Values\Status;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(CollectionValueResolver::class)]
@@ -27,62 +30,85 @@ final class CollectionValueResolverTest extends TestCase
         $this->valueResolver = new CollectionValueResolver($this->collectionServiceStub);
     }
 
-    public function testGetSourceAttributeName(): void
+    public function testResolve(): void
     {
-        self::assertSame(['collectionId'], $this->valueResolver->getSourceAttributeNames());
-    }
-
-    public function testGetDestinationAttributeName(): void
-    {
-        self::assertSame('collection', $this->valueResolver->getDestinationAttributeName());
-    }
-
-    public function testGetSupportedClass(): void
-    {
-        self::assertSame(Collection::class, $this->valueResolver->getSupportedClass());
-    }
-
-    public function testLoadValue(): void
-    {
-        $collection = new Collection();
-
         $uuid = Uuid::v4();
-
-        $this->collectionServiceStub
-            ->method('loadCollection')
-            ->with(self::equalTo($uuid))
-            ->willReturn($collection);
-
-        self::assertSame(
-            $collection,
-            $this->valueResolver->loadValue(
-                [
-                    'collectionId' => $uuid->toString(),
-                    'status' => Status::Published,
-                ],
-            ),
-        );
-    }
-
-    public function testLoadValueDraft(): void
-    {
-        $collection = new Collection();
-
-        $uuid = Uuid::v4();
+        $collection = Collection::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->collectionServiceStub
             ->method('loadCollectionDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($collection);
 
+        $request = Request::create('/');
+        $request->attributes->set('collectionId', $uuid->toString());
+
+        $argument = new ArgumentMetadata('collection', Collection::class, false, false, null);
+
         self::assertSame(
-            $collection,
-            $this->valueResolver->loadValue(
-                [
-                    'collectionId' => $uuid->toString(),
-                    'status' => Status::Draft,
-                ],
-            ),
+            [$collection],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolvePublished(): void
+    {
+        $uuid = Uuid::v4();
+        $collection = Collection::fromArray(['id' => $uuid, 'status' => Status::Published]);
+
+        $this->collectionServiceStub
+            ->method('loadCollection')
+            ->with(self::equalTo($uuid))
+            ->willReturn($collection);
+
+        $request = Request::create('/');
+        $request->attributes->set('collectionId', $uuid->toString());
+        $request->attributes->set('_nglayouts_status', Status::Published->value);
+
+        $argument = new ArgumentMetadata('collection', Collection::class, false, false, null);
+
+        self::assertSame(
+            [$collection],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSourceName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('invalid', '42');
+
+        $argument = new ArgumentMetadata('collection', Collection::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidDestinationName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('collectionId', '42');
+
+        $argument = new ArgumentMetadata('invalid', Collection::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSupportedClass(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('collectionId', '42');
+
+        $argument = new ArgumentMetadata('collection', stdClass::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
         );
     }
 }

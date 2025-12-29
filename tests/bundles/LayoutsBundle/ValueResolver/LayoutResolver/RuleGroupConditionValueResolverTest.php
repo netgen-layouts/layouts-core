@@ -11,6 +11,9 @@ use Netgen\Layouts\API\Values\Status;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleGroupConditionValueResolver::class)]
@@ -27,62 +30,85 @@ final class RuleGroupConditionValueResolverTest extends TestCase
         $this->valueResolver = new RuleGroupConditionValueResolver($this->layoutResolverServiceStub);
     }
 
-    public function testGetSourceAttributeName(): void
+    public function testResolve(): void
     {
-        self::assertSame(['conditionId'], $this->valueResolver->getSourceAttributeNames());
-    }
-
-    public function testGetDestinationAttributeName(): void
-    {
-        self::assertSame('condition', $this->valueResolver->getDestinationAttributeName());
-    }
-
-    public function testGetSupportedClass(): void
-    {
-        self::assertSame(RuleGroupCondition::class, $this->valueResolver->getSupportedClass());
-    }
-
-    public function testLoadValue(): void
-    {
-        $condition = new RuleGroupCondition();
-
         $uuid = Uuid::v4();
-
-        $this->layoutResolverServiceStub
-            ->method('loadRuleGroupCondition')
-            ->with(self::equalTo($uuid))
-            ->willReturn($condition);
-
-        self::assertSame(
-            $condition,
-            $this->valueResolver->loadValue(
-                [
-                    'conditionId' => $uuid->toString(),
-                    'status' => Status::Published,
-                ],
-            ),
-        );
-    }
-
-    public function testLoadValueDraft(): void
-    {
-        $condition = new RuleGroupCondition();
-
-        $uuid = Uuid::v4();
+        $condition = RuleGroupCondition::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupConditionDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($condition);
 
+        $request = Request::create('/');
+        $request->attributes->set('conditionId', $uuid->toString());
+
+        $argument = new ArgumentMetadata('condition', RuleGroupCondition::class, false, false, null);
+
         self::assertSame(
-            $condition,
-            $this->valueResolver->loadValue(
-                [
-                    'conditionId' => $uuid->toString(),
-                    'status' => Status::Draft,
-                ],
-            ),
+            [$condition],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolvePublished(): void
+    {
+        $uuid = Uuid::v4();
+        $condition = RuleGroupCondition::fromArray(['id' => $uuid, 'status' => Status::Published]);
+
+        $this->layoutResolverServiceStub
+            ->method('loadRuleGroupCondition')
+            ->with(self::equalTo($uuid))
+            ->willReturn($condition);
+
+        $request = Request::create('/');
+        $request->attributes->set('conditionId', $uuid->toString());
+        $request->attributes->set('_nglayouts_status', Status::Published->value);
+
+        $argument = new ArgumentMetadata('condition', RuleGroupCondition::class, false, false, null);
+
+        self::assertSame(
+            [$condition],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSourceName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('invalid', '42');
+
+        $argument = new ArgumentMetadata('condition', RuleGroupCondition::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidDestinationName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('conditionId', '42');
+
+        $argument = new ArgumentMetadata('invalid', RuleGroupCondition::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSupportedClass(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('conditionId', '42');
+
+        $argument = new ArgumentMetadata('condition', stdClass::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
         );
     }
 }

@@ -11,6 +11,9 @@ use Netgen\Layouts\API\Values\Status;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(QueryValueResolver::class)]
@@ -27,62 +30,85 @@ final class QueryValueResolverTest extends TestCase
         $this->valueResolver = new QueryValueResolver($this->collectionServiceStub);
     }
 
-    public function testGetSourceAttributeName(): void
+    public function testResolve(): void
     {
-        self::assertSame(['queryId'], $this->valueResolver->getSourceAttributeNames());
-    }
-
-    public function testGetDestinationAttributeName(): void
-    {
-        self::assertSame('query', $this->valueResolver->getDestinationAttributeName());
-    }
-
-    public function testGetSupportedClass(): void
-    {
-        self::assertSame(Query::class, $this->valueResolver->getSupportedClass());
-    }
-
-    public function testLoadValue(): void
-    {
-        $query = new Query();
-
         $uuid = Uuid::v4();
-
-        $this->collectionServiceStub
-            ->method('loadQuery')
-            ->with(self::equalTo($uuid))
-            ->willReturn($query);
-
-        self::assertSame(
-            $query,
-            $this->valueResolver->loadValue(
-                [
-                    'queryId' => $uuid->toString(),
-                    'status' => Status::Published,
-                ],
-            ),
-        );
-    }
-
-    public function testLoadValueDraft(): void
-    {
-        $query = new Query();
-
-        $uuid = Uuid::v4();
+        $query = Query::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->collectionServiceStub
             ->method('loadQueryDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($query);
 
+        $request = Request::create('/');
+        $request->attributes->set('queryId', $uuid->toString());
+
+        $argument = new ArgumentMetadata('query', Query::class, false, false, null);
+
         self::assertSame(
-            $query,
-            $this->valueResolver->loadValue(
-                [
-                    'queryId' => $uuid->toString(),
-                    'status' => Status::Draft,
-                ],
-            ),
+            [$query],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolvePublished(): void
+    {
+        $uuid = Uuid::v4();
+        $query = Query::fromArray(['id' => $uuid, 'status' => Status::Published]);
+
+        $this->collectionServiceStub
+            ->method('loadQuery')
+            ->with(self::equalTo($uuid))
+            ->willReturn($query);
+
+        $request = Request::create('/');
+        $request->attributes->set('queryId', $uuid->toString());
+        $request->attributes->set('_nglayouts_status', Status::Published->value);
+
+        $argument = new ArgumentMetadata('query', Query::class, false, false, null);
+
+        self::assertSame(
+            [$query],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSourceName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('invalid', '42');
+
+        $argument = new ArgumentMetadata('query', Query::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidDestinationName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('queryId', '42');
+
+        $argument = new ArgumentMetadata('invalid', Query::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSupportedClass(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('queryId', '42');
+
+        $argument = new ArgumentMetadata('query', stdClass::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
         );
     }
 }

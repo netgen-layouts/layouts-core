@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class ConfigVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new ConfigVisitor();
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -35,6 +30,11 @@ abstract class ConfigVisitorTestBase extends VisitorTestBase
         return [
             ['config/block_31.json', '28df256a-2467-5527-b398-9269ccc652de', 'key'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new ConfigVisitor();
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): Config

@@ -26,11 +26,6 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
             ->willReturn(CmsItem::fromArray(['remoteId' => 'abc']));
     }
 
-    final public function getVisitor(): VisitorInterface
-    {
-        return new ItemVisitor();
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -46,6 +41,11 @@ abstract class ItemVisitorTestBase extends VisitorTestBase
             ['item/item_4.json', '79b6f162-d801-57e0-8b2d-a4b568a74231'],
             ['item/item_5.json', '966e55da-9671-581a-b3b4-84363f7db33d'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new ItemVisitor();
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): Item

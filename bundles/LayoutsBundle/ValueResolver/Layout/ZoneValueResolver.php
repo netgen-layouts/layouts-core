@@ -17,22 +17,22 @@ final class ZoneValueResolver extends ValueResolver
         private LayoutService $layoutService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['layoutId', 'zoneIdentifier'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'zone';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Zone::class;
     }
 
-    public function loadValue(array $parameters): Zone
+    protected function loadValue(array $parameters): Zone
     {
         $layout = match ($parameters['status']) {
             Status::Published => $this->layoutService->loadLayout(Uuid::fromString($parameters['layoutId'])),

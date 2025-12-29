@@ -16,22 +16,22 @@ final class ItemValueResolver extends ValueResolver
         private CollectionService $collectionService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['itemId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'item';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Item::class;
     }
 
-    public function loadValue(array $parameters): Item
+    protected function loadValue(array $parameters): Item
     {
         return match ($parameters['status']) {
             Status::Published => $this->collectionService->loadItem(Uuid::fromString($parameters['itemId'])),

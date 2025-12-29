@@ -11,6 +11,9 @@ use Netgen\Layouts\API\Values\Status;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(ItemValueResolver::class)]
@@ -27,62 +30,85 @@ final class ItemValueResolverTest extends TestCase
         $this->valueResolver = new ItemValueResolver($this->collectionServiceStub);
     }
 
-    public function testGetSourceAttributeName(): void
+    public function testResolve(): void
     {
-        self::assertSame(['itemId'], $this->valueResolver->getSourceAttributeNames());
-    }
-
-    public function testGetDestinationAttributeName(): void
-    {
-        self::assertSame('item', $this->valueResolver->getDestinationAttributeName());
-    }
-
-    public function testGetSupportedClass(): void
-    {
-        self::assertSame(Item::class, $this->valueResolver->getSupportedClass());
-    }
-
-    public function testLoadValue(): void
-    {
-        $item = new Item();
-
         $uuid = Uuid::v4();
-
-        $this->collectionServiceStub
-            ->method('loadItem')
-            ->with(self::equalTo($uuid))
-            ->willReturn($item);
-
-        self::assertSame(
-            $item,
-            $this->valueResolver->loadValue(
-                [
-                    'itemId' => $uuid->toString(),
-                    'status' => Status::Published,
-                ],
-            ),
-        );
-    }
-
-    public function testLoadValueDraft(): void
-    {
-        $item = new Item();
-
-        $uuid = Uuid::v4();
+        $item = Item::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->collectionServiceStub
             ->method('loadItemDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($item);
 
+        $request = Request::create('/');
+        $request->attributes->set('itemId', $uuid->toString());
+
+        $argument = new ArgumentMetadata('item', Item::class, false, false, null);
+
         self::assertSame(
-            $item,
-            $this->valueResolver->loadValue(
-                [
-                    'itemId' => $uuid->toString(),
-                    'status' => Status::Draft,
-                ],
-            ),
+            [$item],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolvePublished(): void
+    {
+        $uuid = Uuid::v4();
+        $item = Item::fromArray(['id' => $uuid, 'status' => Status::Published]);
+
+        $this->collectionServiceStub
+            ->method('loadItem')
+            ->with(self::equalTo($uuid))
+            ->willReturn($item);
+
+        $request = Request::create('/');
+        $request->attributes->set('itemId', $uuid->toString());
+        $request->attributes->set('_nglayouts_status', Status::Published->value);
+
+        $argument = new ArgumentMetadata('item', Item::class, false, false, null);
+
+        self::assertSame(
+            [$item],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSourceName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('invalid', '42');
+
+        $argument = new ArgumentMetadata('item', Item::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidDestinationName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('itemId', '42');
+
+        $argument = new ArgumentMetadata('invalid', Item::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSupportedClass(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('itemId', '42');
+
+        $argument = new ArgumentMetadata('item', stdClass::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
         );
     }
 }

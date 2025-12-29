@@ -16,22 +16,22 @@ final class CollectionValueResolver extends ValueResolver
         private CollectionService $collectionService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['collectionId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'collection';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Collection::class;
     }
 
-    public function loadValue(array $parameters): Collection
+    protected function loadValue(array $parameters): Collection
     {
         /** @var string[]|null $locales */
         $locales = isset($parameters['locale']) ? [$parameters['locale']] : null;

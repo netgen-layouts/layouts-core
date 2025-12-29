@@ -63,13 +63,6 @@ abstract class VisitorTestBase extends CoreTestCase
     }
 
     /**
-     * Returns the visitor under test.
-     *
-     * @return \Netgen\Layouts\Transfer\Output\VisitorInterface<T>
-     */
-    abstract public function getVisitor(): VisitorInterface;
-
-    /**
      * Provides data for testing VisitorInterface::accept method.
      */
     abstract public static function acceptDataProvider(): iterable;
@@ -78,6 +71,13 @@ abstract class VisitorTestBase extends CoreTestCase
      * Provides data for testing VisitorInterface::visit method.
      */
     abstract public static function visitDataProvider(): iterable;
+
+    /**
+     * Returns the visitor under test.
+     *
+     * @return \Netgen\Layouts\Transfer\Output\VisitorInterface<T>
+     */
+    abstract protected function getVisitor(): VisitorInterface;
 
     /**
      * Loads the value under test.

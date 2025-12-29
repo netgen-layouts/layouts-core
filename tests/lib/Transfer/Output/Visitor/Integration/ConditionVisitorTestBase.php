@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class ConditionVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new ConditionVisitor();
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -36,6 +31,11 @@ abstract class ConditionVisitorTestBase extends VisitorTestBase
             ['condition/condition_1.json', '35f4594c-6674-5815-add6-07f288b79686'],
             ['condition/condition_2.json', '7db46c94-3139-5a3d-9b2a-b2d28e7573ca'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new ConditionVisitor();
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): RuleCondition

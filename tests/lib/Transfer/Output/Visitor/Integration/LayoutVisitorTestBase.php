@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class LayoutVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new LayoutVisitor();
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -38,6 +33,11 @@ abstract class LayoutVisitorTestBase extends VisitorTestBase
             ['layout/layout_5.json', '399ad9ac-777a-50ba-945a-06e9f57add12'],
             ['layout/layout_7.json', '4b0202b3-5d06-5962-ae0c-bbeb25ee3503'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new LayoutVisitor();
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): Layout

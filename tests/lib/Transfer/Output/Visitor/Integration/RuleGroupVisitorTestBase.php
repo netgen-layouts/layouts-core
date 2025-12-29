@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class RuleGroupVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new RuleGroupVisitor($this->layoutResolverService);
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -36,6 +31,11 @@ abstract class RuleGroupVisitorTestBase extends VisitorTestBase
             ['rule_group/rule_group_1.json', '00000000-0000-0000-0000-000000000000'],
             ['rule_group/rule_group_2.json', 'b4f85f38-de3f-4af7-9a5f-21df63a49da9'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new RuleGroupVisitor($this->layoutResolverService);
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): RuleGroup

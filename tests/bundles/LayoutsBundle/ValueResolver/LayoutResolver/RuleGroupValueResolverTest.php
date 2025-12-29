@@ -11,6 +11,9 @@ use Netgen\Layouts\API\Values\Status;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(RuleGroupValueResolver::class)]
@@ -27,84 +30,107 @@ final class RuleGroupValueResolverTest extends TestCase
         $this->valueResolver = new RuleGroupValueResolver($this->layoutResolverServiceStub);
     }
 
-    public function testGetSourceAttributeName(): void
+    public function testResolve(): void
     {
-        self::assertSame(['ruleGroupId'], $this->valueResolver->getSourceAttributeNames());
-    }
-
-    public function testGetDestinationAttributeName(): void
-    {
-        self::assertSame('ruleGroup', $this->valueResolver->getDestinationAttributeName());
-    }
-
-    public function testGetSupportedClass(): void
-    {
-        self::assertSame(RuleGroup::class, $this->valueResolver->getSupportedClass());
-    }
-
-    public function testLoadValue(): void
-    {
-        $ruleGroup = new RuleGroup();
-
         $uuid = Uuid::v4();
-
-        $this->layoutResolverServiceStub
-            ->method('loadRuleGroup')
-            ->with(self::equalTo($uuid))
-            ->willReturn($ruleGroup);
-
-        self::assertSame(
-            $ruleGroup,
-            $this->valueResolver->loadValue(
-                [
-                    'ruleGroupId' => $uuid->toString(),
-                    'status' => Status::Published,
-                ],
-            ),
-        );
-    }
-
-    public function testLoadValueArchive(): void
-    {
-        $ruleGroup = new RuleGroup();
-
-        $uuid = Uuid::v4();
-
-        $this->layoutResolverServiceStub
-            ->method('loadRuleGroupArchive')
-            ->with(self::equalTo($uuid))
-            ->willReturn($ruleGroup);
-
-        self::assertSame(
-            $ruleGroup,
-            $this->valueResolver->loadValue(
-                [
-                    'ruleGroupId' => $uuid->toString(),
-                    'status' => Status::Archived,
-                ],
-            ),
-        );
-    }
-
-    public function testLoadValueDraft(): void
-    {
-        $ruleGroup = new RuleGroup();
-
-        $uuid = Uuid::v4();
+        $ruleGroup = RuleGroup::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
 
+        $request = Request::create('/');
+        $request->attributes->set('ruleGroupId', $uuid->toString());
+
+        $argument = new ArgumentMetadata('ruleGroup', RuleGroup::class, false, false, null);
+
         self::assertSame(
-            $ruleGroup,
-            $this->valueResolver->loadValue(
-                [
-                    'ruleGroupId' => $uuid->toString(),
-                    'status' => Status::Draft,
-                ],
-            ),
+            [$ruleGroup],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolvePublished(): void
+    {
+        $uuid = Uuid::v4();
+        $ruleGroup = RuleGroup::fromArray(['id' => $uuid, 'status' => Status::Published]);
+
+        $this->layoutResolverServiceStub
+            ->method('loadRuleGroup')
+            ->with(self::equalTo($uuid))
+            ->willReturn($ruleGroup);
+
+        $request = Request::create('/');
+        $request->attributes->set('ruleGroupId', $uuid->toString());
+        $request->attributes->set('_nglayouts_status', Status::Published->value);
+
+        $argument = new ArgumentMetadata('ruleGroup', RuleGroup::class, false, false, null);
+
+        self::assertSame(
+            [$ruleGroup],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveArchived(): void
+    {
+        $uuid = Uuid::v4();
+        $ruleGroup = RuleGroup::fromArray(['id' => $uuid, 'status' => Status::Archived]);
+
+        $this->layoutResolverServiceStub
+            ->method('loadRuleGroupArchive')
+            ->with(self::equalTo($uuid))
+            ->willReturn($ruleGroup);
+
+        $request = Request::create('/');
+        $request->attributes->set('ruleGroupId', $uuid->toString());
+        $request->attributes->set('_nglayouts_status', Status::Archived->value);
+
+        $argument = new ArgumentMetadata('ruleGroup', RuleGroup::class, false, false, null);
+
+        self::assertSame(
+            [$ruleGroup],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSourceName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('invalid', '42');
+
+        $argument = new ArgumentMetadata('ruleGroup', RuleGroup::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidDestinationName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('ruleGroupId', '42');
+
+        $argument = new ArgumentMetadata('invalid', RuleGroup::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSupportedClass(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('ruleGroupId', '42');
+
+        $argument = new ArgumentMetadata('ruleGroup', stdClass::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
         );
     }
 }

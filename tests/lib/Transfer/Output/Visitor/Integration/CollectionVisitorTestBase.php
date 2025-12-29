@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class CollectionVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new CollectionVisitor();
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -37,6 +32,11 @@ abstract class CollectionVisitorTestBase extends VisitorTestBase
             ['collection/collection_3.json', 'da050624-8ae0-5fb9-ae85-092bf8242b89'],
             ['collection/collection_6.json', '00872ad1-60e2-5947-95c2-e2eb75427af6'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new CollectionVisitor();
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): Collection

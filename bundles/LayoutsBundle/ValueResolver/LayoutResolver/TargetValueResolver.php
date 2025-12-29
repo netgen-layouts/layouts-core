@@ -16,22 +16,22 @@ final class TargetValueResolver extends ValueResolver
         private LayoutResolverService $layoutResolverService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['targetId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'target';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Target::class;
     }
 
-    public function loadValue(array $parameters): Target
+    protected function loadValue(array $parameters): Target
     {
         return match ($parameters['status']) {
             Status::Published => $this->layoutResolverService->loadTarget(Uuid::fromString($parameters['targetId'])),

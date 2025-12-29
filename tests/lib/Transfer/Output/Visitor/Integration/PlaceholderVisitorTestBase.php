@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class PlaceholderVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new PlaceholderVisitor();
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -36,6 +31,11 @@ abstract class PlaceholderVisitorTestBase extends VisitorTestBase
             ['placeholder/block_33_left.json', 'e666109d-f1db-5fd5-97fa-346f50e9ae59', 'left'],
             ['placeholder/block_33_right.json', 'e666109d-f1db-5fd5-97fa-346f50e9ae59', 'right'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new PlaceholderVisitor();
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): Placeholder

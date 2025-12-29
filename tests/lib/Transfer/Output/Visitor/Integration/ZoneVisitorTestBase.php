@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class ZoneVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new ZoneVisitor($this->blockService);
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -37,6 +32,11 @@ abstract class ZoneVisitorTestBase extends VisitorTestBase
             ['zone/zone_2_right.json', '71cbe281-430c-51d5-8e21-c3cc4e656dac', 'right'],
             ['zone/zone_6_bottom.json', '7900306c-0351-5f0a-9b33-5d4f5a1f3943', 'bottom'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new ZoneVisitor($this->blockService);
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): Zone

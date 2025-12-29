@@ -16,22 +16,22 @@ final class QueryValueResolver extends ValueResolver
         private CollectionService $collectionService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['queryId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'query';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Query::class;
     }
 
-    public function loadValue(array $parameters): Query
+    protected function loadValue(array $parameters): Query
     {
         /** @var string[]|null $locales */
         $locales = isset($parameters['locale']) ? [$parameters['locale']] : null;

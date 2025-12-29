@@ -16,11 +16,6 @@ use Symfony\Component\Uid\Uuid;
  */
 abstract class RuleVisitorTestBase extends VisitorTestBase
 {
-    final public function getVisitor(): VisitorInterface
-    {
-        return new RuleVisitor();
-    }
-
     final public static function acceptDataProvider(): iterable
     {
         return [
@@ -36,6 +31,11 @@ abstract class RuleVisitorTestBase extends VisitorTestBase
             ['rule/rule_2.json', '55622437-f700-5378-99c9-7dafe89a8fb6'],
             ['rule/rule_11.json', 'c6891782-9d3e-58b7-95ac-261f491cc1ae'],
         ];
+    }
+
+    final protected function getVisitor(): VisitorInterface
+    {
+        return new RuleVisitor();
     }
 
     final protected function loadValue(string $id, string ...$additionalParameters): Rule

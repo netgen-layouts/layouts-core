@@ -70,24 +70,24 @@ abstract class ValueResolver implements ValueResolverInterface
      *
      * @return string[]
      */
-    abstract public function getSourceAttributeNames(): array;
+    abstract protected function getSourceAttributeNames(): array;
 
     /**
      * Returns destination attribute name.
      */
-    abstract public function getDestinationAttributeName(): string;
+    abstract protected function getDestinationAttributeName(): string;
 
     /**
      * Returns the supported class.
      *
      * @return class-string
      */
-    abstract public function getSupportedClass(): string;
+    abstract protected function getSupportedClass(): string;
 
     /**
      * Returns the value.
      *
      * @param array<string, mixed> $parameters
      */
-    abstract public function loadValue(array $parameters): object;
+    abstract protected function loadValue(array $parameters): object;
 }

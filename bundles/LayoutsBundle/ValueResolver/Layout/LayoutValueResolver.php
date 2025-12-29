@@ -16,22 +16,22 @@ final class LayoutValueResolver extends ValueResolver
         private LayoutService $layoutService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['layoutId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'layout';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Layout::class;
     }
 
-    public function loadValue(array $parameters): Layout
+    protected function loadValue(array $parameters): Layout
     {
         return match ($parameters['status']) {
             Status::Published => $this->layoutService->loadLayout(Uuid::fromString($parameters['layoutId'])),

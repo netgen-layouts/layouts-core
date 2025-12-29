@@ -16,22 +16,22 @@ final class RuleGroupValueResolver extends ValueResolver
         private LayoutResolverService $layoutResolverService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['ruleGroupId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'ruleGroup';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return RuleGroup::class;
     }
 
-    public function loadValue(array $parameters): RuleGroup
+    protected function loadValue(array $parameters): RuleGroup
     {
         return match ($parameters['status']) {
             Status::Published => $this->layoutResolverService->loadRuleGroup(Uuid::fromString($parameters['ruleGroupId'])),

@@ -10,10 +10,12 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Layout\ZoneList;
 use Netgen\Layouts\API\Values\Status;
-use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Uid\Uuid;
 
 #[CoversClass(ZoneValueResolver::class)]
@@ -30,90 +32,91 @@ final class ZoneValueResolverTest extends TestCase
         $this->valueResolver = new ZoneValueResolver($this->layoutServiceStub);
     }
 
-    public function testGetSourceAttributeName(): void
+    public function testResolve(): void
     {
-        self::assertSame(['layoutId', 'zoneIdentifier'], $this->valueResolver->getSourceAttributeNames());
-    }
-
-    public function testGetDestinationAttributeName(): void
-    {
-        self::assertSame('zone', $this->valueResolver->getDestinationAttributeName());
-    }
-
-    public function testGetSupportedClass(): void
-    {
-        self::assertSame(Zone::class, $this->valueResolver->getSupportedClass());
-    }
-
-    public function testLoadValue(): void
-    {
-        $zone = new Zone();
-        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['left' => $zone])]);
-
         $uuid = Uuid::v4();
-
-        $this->layoutServiceStub
-            ->method('loadLayout')
-            ->with(self::equalTo($uuid))
-            ->willReturn($layout);
-
-        self::assertSame(
-            $zone,
-            $this->valueResolver->loadValue(
-                [
-                    'layoutId' => $uuid->toString(),
-                    'zoneIdentifier' => 'left',
-                    'status' => Status::Published,
-                ],
-            ),
-        );
-    }
-
-    public function testLoadValueDraft(): void
-    {
-        $zone = new Zone();
-        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['left' => $zone])]);
-
-        $uuid = Uuid::v4();
+        $zone = Zone::fromArray(['identifier' => 'left', 'status' => Status::Draft]);
+        $layout = Layout::fromArray(['id' => $uuid, 'zones' => ZoneList::fromArray(['left' => $zone])]);
 
         $this->layoutServiceStub
             ->method('loadLayoutDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
+        $request = Request::create('/');
+        $request->attributes->set('layoutId', $uuid->toString());
+        $request->attributes->set('zoneIdentifier', 'left');
+
+        $argument = new ArgumentMetadata('zone', Zone::class, false, false, null);
+
         self::assertSame(
-            $zone,
-            $this->valueResolver->loadValue(
-                [
-                    'layoutId' => $uuid->toString(),
-                    'zoneIdentifier' => 'left',
-                    'status' => Status::Draft,
-                ],
-            ),
+            [$zone],
+            [...$this->valueResolver->resolve($request, $argument)],
         );
     }
 
-    public function testLoadValueWithNonExistentZone(): void
+    public function testResolvePublished(): void
     {
-        $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find zone with identifier "left"');
-
-        $zone = new Zone();
-        $layout = Layout::fromArray(['zones' => ZoneList::fromArray(['right' => $zone])]);
-
         $uuid = Uuid::v4();
+        $zone = Zone::fromArray(['identifier' => 'left', 'status' => Status::Draft]);
+        $layout = Layout::fromArray(['id' => $uuid, 'zones' => ZoneList::fromArray(['left' => $zone])]);
 
         $this->layoutServiceStub
             ->method('loadLayout')
             ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
-        $this->valueResolver->loadValue(
-            [
-                'layoutId' => $uuid->toString(),
-                'zoneIdentifier' => 'left',
-                'status' => Status::Published,
-            ],
+        $request = Request::create('/');
+        $request->attributes->set('layoutId', $uuid->toString());
+        $request->attributes->set('zoneIdentifier', 'left');
+        $request->attributes->set('_nglayouts_status', Status::Published->value);
+
+        $argument = new ArgumentMetadata('zone', Zone::class, false, false, null);
+
+        self::assertSame(
+            [$zone],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSourceName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('invalid', '42');
+
+        $argument = new ArgumentMetadata('zone', Zone::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidDestinationName(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('layoutId', '42');
+        $request->attributes->set('zoneIdentifier', 'left');
+
+        $argument = new ArgumentMetadata('invalid', Zone::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
+        );
+    }
+
+    public function testResolveWithInvalidSupportedClass(): void
+    {
+        $request = Request::create('/');
+        $request->attributes->set('layoutId', '42');
+        $request->attributes->set('zoneIdentifier', 'left');
+
+        $argument = new ArgumentMetadata('zone', stdClass::class, false, false, null);
+
+        self::assertSame(
+            [],
+            [...$this->valueResolver->resolve($request, $argument)],
         );
     }
 }

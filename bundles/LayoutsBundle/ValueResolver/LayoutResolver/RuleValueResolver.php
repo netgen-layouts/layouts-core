@@ -16,22 +16,22 @@ final class RuleValueResolver extends ValueResolver
         private LayoutResolverService $layoutResolverService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['ruleId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'rule';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Rule::class;
     }
 
-    public function loadValue(array $parameters): Rule
+    protected function loadValue(array $parameters): Rule
     {
         return match ($parameters['status']) {
             Status::Published => $this->layoutResolverService->loadRule(Uuid::fromString($parameters['ruleId'])),

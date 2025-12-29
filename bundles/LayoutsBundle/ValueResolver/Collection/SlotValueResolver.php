@@ -16,22 +16,22 @@ final class SlotValueResolver extends ValueResolver
         private CollectionService $collectionService,
     ) {}
 
-    public function getSourceAttributeNames(): array
+    protected function getSourceAttributeNames(): array
     {
         return ['slotId'];
     }
 
-    public function getDestinationAttributeName(): string
+    protected function getDestinationAttributeName(): string
     {
         return 'slot';
     }
 
-    public function getSupportedClass(): string
+    protected function getSupportedClass(): string
     {
         return Slot::class;
     }
 
-    public function loadValue(array $parameters): Slot
+    protected function loadValue(array $parameters): Slot
     {
         return match ($parameters['status']) {
             Status::Published => $this->collectionService->loadSlot(Uuid::fromString($parameters['slotId'])),
