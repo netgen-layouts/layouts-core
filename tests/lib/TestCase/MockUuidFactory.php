@@ -10,7 +10,7 @@ use Symfony\Component\Uid\Exception\LogicException;
 use Symfony\Component\Uid\Factory\UuidFactory;
 use Symfony\Component\Uid\Uuid;
 
-class MockUuidFactory extends UuidFactory
+final class MockUuidFactory extends UuidFactory
 {
     private Iterator $sequence;
 
