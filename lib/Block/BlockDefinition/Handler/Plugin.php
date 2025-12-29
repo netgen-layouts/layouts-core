@@ -10,9 +10,6 @@ use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 
 abstract class Plugin implements PluginInterface
 {
-    /**
-     * @return iterable<string>
-     */
     public static function getExtendedIdentifiers(): iterable
     {
         return [];

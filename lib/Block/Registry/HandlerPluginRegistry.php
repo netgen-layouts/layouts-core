@@ -16,7 +16,7 @@ final class HandlerPluginRegistry
     ) {}
 
     /**
-     * Returns all handler plugins for the provided handler class.
+     * Returns all handler plugins for the provided block definition identifier and handler class.
      *
      * @return iterable<\Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface>
      */
