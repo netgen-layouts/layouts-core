@@ -36,7 +36,7 @@ final class RenderZoneTest extends NodeTestBase
         self::assertFalse($node->hasNode('context'));
     }
 
-    public static function getTests(): array
+    public static function compileDataProvider(): array
     {
         $environment = self::getEnvironment();
         $environment->enableStrictVariables();

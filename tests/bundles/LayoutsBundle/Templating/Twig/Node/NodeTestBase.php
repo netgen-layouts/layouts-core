@@ -19,9 +19,9 @@ abstract class NodeTestBase extends TestCase
     /**
      * @return mixed[]
      */
-    abstract public static function getTests(): iterable;
+    abstract public static function compileDataProvider(): iterable;
 
-    #[DataProvider('getTests')]
+    #[DataProvider('compileDataProvider')]
     final public function testCompile(Node $node, string $source, ?Environment $environment = null, bool $isPattern = false): void
     {
         self::assertNodeCompilation($source, $node, $environment, $isPattern);

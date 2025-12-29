@@ -28,22 +28,19 @@ final class DefaultContextTest extends NodeTestBase
         self::assertSame($var, $node->getNode('expr'));
     }
 
-    public static function getTests(): array
+    public static function compileDataProvider(): array
     {
         $environment = self::getEnvironment();
         $environment->enableStrictVariables();
 
-        $var = new ContextVariable('foo', 1);
-        $string = new ConstantExpression('foo', 1);
-
         return [
             [
-                new DefaultContext($var, 1),
+                new DefaultContext(new ContextVariable('foo', 1), 1),
                 '',
                 $environment,
             ],
             [
-                new DefaultContext($string, 1),
+                new DefaultContext(new ConstantExpression('foo', 1), 1),
                 '',
                 $environment,
             ],
