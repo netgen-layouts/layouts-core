@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsDebugBundle\DataCollector;
 
-use Jean85\PrettyVersions;
+use Composer\InstalledVersions;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler;
@@ -37,7 +37,7 @@ final class LayoutsDataCollector extends DataCollector
         private Environment $twig,
         string $edition,
     ) {
-        $coreVersion = PrettyVersions::getVersion('netgen/layouts-core')->getPrettyVersion();
+        $coreVersion = InstalledVersions::getPrettyVersion('netgen/layouts-core') ?? '';
         $this->data['version'] = sprintf('%s %s', $coreVersion, $edition);
         $this->data['docs_version'] = 'latest';
 

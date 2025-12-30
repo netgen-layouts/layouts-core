@@ -61,7 +61,6 @@
         "justinrainbow/json-schema": "^6.6.3",
         "friendsofsymfony/http-cache-bundle": "^3.2",
         "pagerfanta/pagerfanta": "^3.8 || ^4.7",
-        "jean85/pretty-package-versions": "^2.1",
         "emodric/twig-package-versions": "^1.1",
         "nikolaposa/version": "^4.2",
         "league/uri-polyfill": "^7.7"

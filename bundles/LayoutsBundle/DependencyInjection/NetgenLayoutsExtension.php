@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection;
 
-use Jean85\PrettyVersions;
+use Composer\InstalledVersions;
 use Netgen\Layouts\Attribute;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
@@ -46,6 +46,7 @@ use function file_exists;
 use function file_get_contents;
 use function implode;
 use function in_array;
+use function mb_substr;
 use function sprintf;
 
 final class NetgenLayoutsExtension extends Extension implements PrependExtensionInterface
@@ -130,7 +131,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     {
         $container->setParameter(
             'netgen_layouts.asset_version',
-            PrettyVersions::getVersion('netgen/layouts-core')->getShortReference(),
+            mb_substr(InstalledVersions::getReference('netgen/layouts-core') ?? '', 0, 8),
         );
 
         $prependConfigs = [
