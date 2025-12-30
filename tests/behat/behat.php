@@ -8,7 +8,6 @@ use Behat\Config\Profile;
 use Behat\MinkExtension\ServiceContainer\MinkExtension;
 use FriendsOfBehat\SuiteSettingsExtension\ServiceContainer\SuiteSettingsExtension;
 use FriendsOfBehat\SymfonyExtension\ServiceContainer\SymfonyExtension;
-use FriendsOfBehat\VariadicExtension\ServiceContainer\VariadicExtension;
 use Netgen\Layouts\Tests\App\Kernel;
 
 return new Config()
@@ -20,13 +19,10 @@ return new Config()
                     MinkExtension::class,
                     [
                         'base_url' => 'http://admin:admin@127.0.0.1:4242/',
-                        'default_session' => 'symfony',
+                        'default_session' => 'chrome',
                         'javascript_session' => 'chrome',
                         'show_auto' => false,
                         'sessions' => [
-                            'symfony' => [
-                                'symfony' => null,
-                            ],
                             'chrome' => [
                                 'selenium2' => [
                                     'browser' => 'chrome',
@@ -60,7 +56,6 @@ return new Config()
                     ],
                 ),
             )
-            ->withExtension(new Extension(VariadicExtension::class))
             ->withExtension(
                 new Extension(
                     SuiteSettingsExtension::class,

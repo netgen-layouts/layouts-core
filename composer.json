@@ -83,9 +83,7 @@
         "behat/mink": "^1.13",
         "behat/mink-selenium2-driver": "^1.7",
         "friends-of-behat/mink-extension": "^2.7",
-        "friends-of-behat/mink-browserkit-driver": "^1.6",
         "friends-of-behat/symfony-extension": "^2.6",
-        "friends-of-behat/variadic-extension": "^1.6",
         "friends-of-behat/suite-settings-extension": "^1.1",
         "friends-of-behat/page-object-extension": "^0.3"
     },
