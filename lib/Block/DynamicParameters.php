@@ -50,7 +50,7 @@ final class DynamicParameters implements ArrayAccess, Countable, IteratorAggrega
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->dynamicParameters[$offset] = $value;
+        $this->dynamicParameters[(string) $offset] = $value;
     }
 
     public function offsetUnset(mixed $offset): void
