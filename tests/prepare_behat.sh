@@ -1,8 +1,10 @@
 #!/bin/bash
 
-if [ ! -f vendor/bin/symfony ]; then
-    wget -O symfony.tar.gz https://github.com/symfony-cli/symfony-cli/releases/latest/download/symfony-cli_linux_amd64.tar.gz
-    tar xvf symfony.tar.gz --directory vendor/bin/ && rm symfony.tar.gz && chmod 755 vendor/bin/symfony
+if [ "$GITHUB_ACTIONS" != "true" ]; then
+    if [ ! -f vendor/bin/symfony ]; then
+        wget -O symfony.tar.gz https://github.com/symfony-cli/symfony-cli/releases/latest/download/symfony-cli_linux_amd64.tar.gz
+        tar xvf symfony.tar.gz --directory vendor/bin/ && rm symfony.tar.gz && chmod 755 vendor/bin/symfony
+    fi
 fi
 
 if [ ! -f vendor/bin/chromedriver ]; then
@@ -14,5 +16,8 @@ if [ ! -f vendor/bin/chromedriver ]; then
     rm -rf chromedriver-linux64
 fi
 
-vendor/bin/symfony server:start --no-tls --daemon --port=4242 --document-root=tests/application/public
+if [ "$GITHUB_ACTIONS" != "true" ]; then
+    vendor/bin/symfony server:start --no-tls --daemon --port=4242 --document-root=tests/application/public
+fi
+
 vendor/bin/chromedriver --port=9515
