@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: shivammathur/setup-php@verbose
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
           coverage: none
@@ -35,10 +35,9 @@ jobs:
           composer-options: '--prefer-dist'
           ignore-cache: 'yes'
 
-      - run: ./tests/prepare_behat.sh > /dev/null 2>&1 &
+      - uses: nanasess/setup-chromedriver@v2
 
-      # Sleep to allow the script to download Chrome WebDriver
-      - run: sleep 15
+      - run: chromedriver --port=9515 &
 
       - run: php -S 127.0.0.1:4242 -t tests/application/public > php-server.log 2>&1 &
 
