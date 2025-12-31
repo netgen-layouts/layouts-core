@@ -25,7 +25,7 @@ final class RuleConditionProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $condition = RuleCondition::fromArray(['id' => Uuid::v4()]);
+        $condition = RuleCondition::fromArray(['id' => Uuid::v7()]);
 
         $view = $this->ruleConditionViewProvider->provideView($condition);
 

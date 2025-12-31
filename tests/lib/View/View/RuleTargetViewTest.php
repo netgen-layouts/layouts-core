@@ -19,7 +19,7 @@ final class RuleTargetViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->target = Target::fromArray(['id' => Uuid::v4()]);
+        $this->target = Target::fromArray(['id' => Uuid::v7()]);
 
         $this->view = new RuleTargetView($this->target);
 

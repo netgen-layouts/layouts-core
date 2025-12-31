@@ -26,7 +26,7 @@ final class LayoutViewProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $layout = Layout::fromArray(['id' => Uuid::v4()]);
+        $layout = Layout::fromArray(['id' => Uuid::v7()]);
 
         $view = $this->layoutViewProvider->provideView($layout);
 

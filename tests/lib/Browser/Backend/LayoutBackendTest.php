@@ -58,7 +58,7 @@ final class LayoutBackendTest extends TestCase
 
     public function testLoadItem(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $layout = new Layout();
 
         $this->layoutServiceStub
@@ -73,7 +73,7 @@ final class LayoutBackendTest extends TestCase
 
     public function testLoadItemThrowsNotFoundException(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->expectException(ContentBrowserNotFoundException::class);
         $this->expectExceptionMessage(sprintf('Item with value "%s" not found.', $uuid->toString()));

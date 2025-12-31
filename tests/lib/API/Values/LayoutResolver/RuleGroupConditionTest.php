@@ -19,8 +19,8 @@ final class RuleGroupConditionTest extends TestCase
     {
         $conditionType = new ConditionType1();
 
-        $conditionUuid = Uuid::v4();
-        $ruleGroupUuid = Uuid::v4();
+        $conditionUuid = Uuid::v7();
+        $ruleGroupUuid = Uuid::v7();
 
         $condition = RuleGroupCondition::fromArray(
             [

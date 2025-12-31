@@ -60,8 +60,8 @@ final class BlockServiceTest extends TestCase
             $createStruct,
             Block::fromArray(
                 [
-                    'id' => Uuid::v4(),
-                    'layoutId' => Uuid::v4(),
+                    'id' => Uuid::v7(),
+                    'layoutId' => Uuid::v7(),
                     'status' => Status::Draft,
                     'definition' => ContainerDefinition::fromArray(
                         [
@@ -111,7 +111,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->createBlockInZone(
             $createStruct,
-            Zone::fromArray(['layoutId' => Uuid::v4(), 'status' => Status::Draft, 'identifier' => 'left']),
+            Zone::fromArray(['layoutId' => Uuid::v7(), 'status' => Status::Draft, 'identifier' => 'left']),
         );
     }
 
@@ -147,7 +147,7 @@ final class BlockServiceTest extends TestCase
         $this->blockService->updateBlock(
             Block::fromArray(
                 [
-                    'id' => Uuid::v4(),
+                    'id' => Uuid::v7(),
                     'status' => Status::Draft,
                     'definition' => new BlockDefinition(),
                     'configs' => new ConfigList(),
@@ -179,10 +179,10 @@ final class BlockServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlock(
-            Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
+            Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
             Block::fromArray(
                 [
-                    'id' => Uuid::v4(),
+                    'id' => Uuid::v7(),
                     'status' => Status::Draft,
                     'definition' => ContainerDefinition::fromArray(
                         [
@@ -225,8 +225,8 @@ final class BlockServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlockToZone(
-            Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
-            Zone::fromArray(['layoutId' => Uuid::v4(), 'status' => Status::Draft, 'identifier' => 'left']),
+            Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
+            Zone::fromArray(['layoutId' => Uuid::v7(), 'status' => Status::Draft, 'identifier' => 'left']),
         );
     }
 
@@ -251,10 +251,10 @@ final class BlockServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlock(
-            Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
+            Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
             Block::fromArray(
                 [
-                    'id' => Uuid::v4(),
+                    'id' => Uuid::v7(),
                     'status' => Status::Draft,
                     'definition' => ContainerDefinition::fromArray(
                         [
@@ -297,8 +297,8 @@ final class BlockServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlockToZone(
-            Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
-            Zone::fromArray(['layoutId' => Uuid::v4(), 'status' => Status::Draft, 'identifier' => 'left']),
+            Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft, 'definition' => new BlockDefinition()]),
+            Zone::fromArray(['layoutId' => Uuid::v7(), 'status' => Status::Draft, 'identifier' => 'left']),
             0,
         );
     }
@@ -324,7 +324,7 @@ final class BlockServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->restoreBlock(Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
+        $this->blockService->restoreBlock(Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]));
     }
 
     public function testEnableTranslations(): void
@@ -351,7 +351,7 @@ final class BlockServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->enableTranslations(Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
+        $this->blockService->enableTranslations(Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]));
     }
 
     public function testDisableTranslations(): void
@@ -371,7 +371,7 @@ final class BlockServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->disableTranslations(Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
+        $this->blockService->disableTranslations(Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]));
     }
 
     public function testDeleteBlock(): void
@@ -391,6 +391,6 @@ final class BlockServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->deleteBlock(Block::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
+        $this->blockService->deleteBlock(Block::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]));
     }
 }

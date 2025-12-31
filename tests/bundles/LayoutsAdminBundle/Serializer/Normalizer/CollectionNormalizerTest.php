@@ -28,7 +28,7 @@ final class CollectionNormalizerTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'query' => new Query(),
                 'isTranslatable' => true,
                 'isAlwaysAvailable' => true,

@@ -56,7 +56,7 @@ abstract class LayoutResolverMapperTestBase extends CoreTestCase
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'status' => PersistenceStatus::Published,
                 'ruleGroupId' => 1,
-                'layoutUuid' => Uuid::v4()->toString(),
+                'layoutUuid' => Uuid::v7()->toString(),
                 'isEnabled' => true,
                 'priority' => 12,
                 'description' => 'Description',

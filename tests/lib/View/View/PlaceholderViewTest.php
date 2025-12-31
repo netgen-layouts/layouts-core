@@ -22,7 +22,7 @@ final class PlaceholderViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->block = Block::fromArray(['id' => Uuid::v4()]);
+        $this->block = Block::fromArray(['id' => Uuid::v7()]);
         $this->placeholder = Placeholder::fromArray(['identifier' => 'main']);
 
         $this->view = new PlaceholderView($this->placeholder, $this->block);

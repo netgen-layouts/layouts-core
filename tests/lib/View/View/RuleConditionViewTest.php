@@ -19,7 +19,7 @@ final class RuleConditionViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->condition = RuleCondition::fromArray(['id' => Uuid::v4()]);
+        $this->condition = RuleCondition::fromArray(['id' => Uuid::v7()]);
 
         $this->view = new RuleConditionView($this->condition);
 

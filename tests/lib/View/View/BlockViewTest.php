@@ -19,7 +19,7 @@ final class BlockViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->block = Block::fromArray(['id' => Uuid::v4()]);
+        $this->block = Block::fromArray(['id' => Uuid::v7()]);
 
         $this->view = new BlockView($this->block);
 

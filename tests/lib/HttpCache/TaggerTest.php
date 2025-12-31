@@ -27,7 +27,7 @@ final class TaggerTest extends TestCase
 
     public function testTagLayout(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $layout = Layout::fromArray(['id' => $uuid]);
 
         $this->tagger->tagLayout($layout);
@@ -38,8 +38,8 @@ final class TaggerTest extends TestCase
 
     public function testTagBlock(): void
     {
-        $layoutUuid = Uuid::v4();
-        $blockUuid = Uuid::v4();
+        $layoutUuid = Uuid::v7();
+        $blockUuid = Uuid::v7();
 
         $block = Block::fromArray(['id' => $blockUuid, 'layoutId' => $layoutUuid]);
 

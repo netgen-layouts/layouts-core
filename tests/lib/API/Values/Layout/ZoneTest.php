@@ -16,7 +16,7 @@ final class ZoneTest extends TestCase
     {
         $linkedZone = new Zone();
 
-        $layoutUuid = Uuid::v4();
+        $layoutUuid = Uuid::v7();
 
         $zone = Zone::fromArray(
             [

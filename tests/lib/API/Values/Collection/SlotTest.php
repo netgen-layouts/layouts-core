@@ -14,8 +14,8 @@ final class SlotTest extends TestCase
 {
     public function testSetProperties(): void
     {
-        $slotUuid = Uuid::v4();
-        $collectionUuid = Uuid::v4();
+        $slotUuid = Uuid::v7();
+        $collectionUuid = Uuid::v7();
 
         $slot = Slot::fromArray(
             [

@@ -23,8 +23,8 @@ final class RuleGroupTest extends TestCase
 
         $condition = new RuleGroupCondition();
 
-        $uuid = Uuid::v4();
-        $parentUuid = Uuid::v4();
+        $uuid = Uuid::v7();
+        $parentUuid = Uuid::v7();
 
         $ruleGroup = RuleGroup::fromArray(
             [

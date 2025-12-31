@@ -21,7 +21,7 @@ final class ErrorResultTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityId = Uuid::v4();
+        $this->entityId = Uuid::v7();
         $this->error = new Exception();
 
         $this->result = new ErrorResult('type', ['key' => 'data'], $this->entityId, $this->error);

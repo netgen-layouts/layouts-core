@@ -22,7 +22,7 @@ final class SuccessResultTest extends TestCase
     protected function setUp(): void
     {
         $this->entity = new Value();
-        $this->entityId = Uuid::v4();
+        $this->entityId = Uuid::v7();
 
         $this->result = new SuccessResult('type', ['key' => 'value'], $this->entityId, $this->entity);
     }

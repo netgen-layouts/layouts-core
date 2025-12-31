@@ -42,7 +42,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(),
@@ -82,7 +82,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
@@ -127,7 +127,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
@@ -157,7 +157,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'definition' => new BlockDefinition(),
             ],
         );
@@ -173,7 +173,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'definition' => new TwigBlockDefinition(),
             ],
         );
@@ -192,7 +192,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'definition' => new TwigBlockDefinition(),
             ],
         );

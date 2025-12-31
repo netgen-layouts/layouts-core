@@ -22,8 +22,8 @@ final class ConditionListTest extends TestCase
 
     public function testGetConditionIds(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $conditions = [RuleCondition::fromArray(['id' => $uuid1]), RuleCondition::fromArray(['id' => $uuid2])];
 

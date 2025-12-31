@@ -24,7 +24,7 @@ final class LayoutIdTest extends TestCase
 
     public function testGetValue(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $item = new Item(
             Layout::fromArray(

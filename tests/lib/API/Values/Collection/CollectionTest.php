@@ -31,8 +31,8 @@ final class CollectionTest extends TestCase
 
         $query = new Query();
 
-        $uuid = Uuid::v4();
-        $blockUuid = Uuid::v4();
+        $uuid = Uuid::v7();
+        $blockUuid = Uuid::v7();
 
         $collection = Collection::fromArray(
             [
@@ -92,7 +92,7 @@ final class CollectionTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'offset' => 5,
                 'query' => null,
             ],
@@ -105,7 +105,7 @@ final class CollectionTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'items' => ItemList::fromArray([Item::fromArray(['position' => 0])]),
             ],
         );

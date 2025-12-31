@@ -48,7 +48,7 @@ final class BlockNormalizerTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'status' => Status::Published,
                 'offset' => 10,
                 'limit' => 5,
@@ -60,8 +60,8 @@ final class BlockNormalizerTest extends TestCase
 
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
-                'layoutId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'layoutId' => Uuid::v7(),
                 'definition' => BlockDefinition::fromArray(['identifier' => 'definition']),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -133,8 +133,8 @@ final class BlockNormalizerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
-                'layoutId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'layoutId' => Uuid::v7(),
                 'definition' => ContainerDefinition::fromArray(
                     [
                         'identifier' => 'definition',

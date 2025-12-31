@@ -32,7 +32,7 @@ final class LayoutValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $layout = Layout::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->layoutServiceStub
@@ -53,7 +53,7 @@ final class LayoutValueResolverTest extends TestCase
 
     public function testResolvePublished(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $layout = Layout::fromArray(['id' => $uuid, 'status' => Status::Published]);
 
         $this->layoutServiceStub
@@ -75,7 +75,7 @@ final class LayoutValueResolverTest extends TestCase
 
     public function testResolveArchived(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $layout = Layout::fromArray(['id' => $uuid, 'status' => Status::Archived]);
 
         $this->layoutServiceStub

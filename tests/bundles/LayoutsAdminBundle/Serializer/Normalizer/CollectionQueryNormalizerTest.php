@@ -37,8 +37,8 @@ final class CollectionQueryNormalizerTest extends TestCase
     {
         $query = Query::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'queryType' => new QueryType('test_query_type'),
                 'isTranslatable' => true,
                 'isAlwaysAvailable' => true,

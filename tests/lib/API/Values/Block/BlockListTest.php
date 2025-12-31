@@ -22,8 +22,8 @@ final class BlockListTest extends TestCase
 
     public function testGetBlockIds(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $blocks = [Block::fromArray(['id' => $uuid1]), Block::fromArray(['id' => $uuid2])];
 

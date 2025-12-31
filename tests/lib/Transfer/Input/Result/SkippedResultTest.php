@@ -18,7 +18,7 @@ final class SkippedResultTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityId = Uuid::v4();
+        $this->entityId = Uuid::v7();
 
         $this->result = new SkippedResult('type', ['key' => 'value'], $this->entityId);
     }

@@ -22,8 +22,8 @@ final class RuleGroupListTest extends TestCase
 
     public function testGetRuleGroupIds(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $ruleGroups = [RuleGroup::fromArray(['id' => $uuid1]), RuleGroup::fromArray(['id' => $uuid2])];
 

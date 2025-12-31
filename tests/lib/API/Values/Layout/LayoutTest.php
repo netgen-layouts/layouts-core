@@ -28,7 +28,7 @@ final class LayoutTest extends TestCase
             'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
         ];
 
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $layout = Layout::fromArray(
             [

@@ -46,7 +46,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetLayoutName(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -58,7 +58,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetLayoutNameWithNonExistingLayout(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -70,8 +70,8 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetRuleGroup(): void
     {
-        $ruleUuid = Uuid::v4();
-        $groupUuid = Uuid::v4();
+        $ruleUuid = Uuid::v7();
+        $groupUuid = Uuid::v7();
 
         $rule = Rule::fromArray(['id' => $ruleUuid, 'ruleGroupId' => $groupUuid]);
         $ruleGroup = RuleGroup::fromArray(['id' => $groupUuid]);
@@ -91,7 +91,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetRuleGroupName(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
@@ -103,7 +103,7 @@ final class HelpersRuntimeTest extends TestCase
 
     public function testGetRuleGroupNameWithNonExistingRuleGroup(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')

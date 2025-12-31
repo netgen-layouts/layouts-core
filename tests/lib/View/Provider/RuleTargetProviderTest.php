@@ -25,7 +25,7 @@ final class RuleTargetProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $target = Target::fromArray(['id' => Uuid::v4()]);
+        $target = Target::fromArray(['id' => Uuid::v7()]);
 
         $view = $this->ruleTargetViewProvider->provideView($target);
 

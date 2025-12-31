@@ -27,8 +27,8 @@ final class CollectionSlotNormalizerTest extends TestCase
     {
         $slot = Slot::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'position' => 3,
                 'viewType' => 'overlay',
             ],

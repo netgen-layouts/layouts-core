@@ -71,7 +71,7 @@ final class LayoutNormalizerTest extends TestCase
         $date1 = new DateTimeImmutable();
         $date1 = $date1->setTimestamp(123);
 
-        $blockUuid = Uuid::v4();
+        $blockUuid = Uuid::v7();
 
         $block = Block::fromArray(
             [
@@ -79,8 +79,8 @@ final class LayoutNormalizerTest extends TestCase
             ],
         );
 
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $layout = Layout::fromArray(
             [
@@ -200,7 +200,7 @@ final class LayoutNormalizerTest extends TestCase
         $date2 = new DateTimeImmutable();
         $date2 = $date2->setTimestamp(456);
 
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $layout = Layout::fromArray(
             [

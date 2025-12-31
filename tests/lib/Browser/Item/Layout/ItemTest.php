@@ -21,7 +21,7 @@ final class ItemTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->layoutId = Uuid::v4();
+        $this->layoutId = Uuid::v7();
 
         $this->layout = Layout::fromArray(['id' => $this->layoutId, 'name' => 'My layout']);
 

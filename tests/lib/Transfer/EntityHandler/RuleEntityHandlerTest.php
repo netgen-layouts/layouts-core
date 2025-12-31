@@ -37,7 +37,7 @@ final class RuleEntityHandlerTest extends TestCase
 
     public function testLoadEntity(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $rule = Rule::fromArray(['id' => $uuid]);
 
@@ -51,7 +51,7 @@ final class RuleEntityHandlerTest extends TestCase
 
     public function testLoadEntityWithNonExistentEntity(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find rule with identifier "%s"', $uuid->toString()));
@@ -66,7 +66,7 @@ final class RuleEntityHandlerTest extends TestCase
 
     public function testEntityExists(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutResolverServiceStub
             ->method('ruleExists')
@@ -78,7 +78,7 @@ final class RuleEntityHandlerTest extends TestCase
 
     public function testEntityExistsReturnsFalse(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutResolverServiceStub
             ->method('ruleExists')
@@ -90,7 +90,7 @@ final class RuleEntityHandlerTest extends TestCase
 
     public function testDeleteEntity(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $rule = Rule::fromArray(['id' => $uuid]);
 
@@ -108,7 +108,7 @@ final class RuleEntityHandlerTest extends TestCase
 
     public function testDeleteEntityWithNonExistentEntity(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find rule with identifier "%s"', $uuid->toString()));

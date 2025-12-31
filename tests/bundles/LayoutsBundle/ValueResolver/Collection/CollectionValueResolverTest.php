@@ -32,7 +32,7 @@ final class CollectionValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $collection = Collection::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->collectionServiceStub
@@ -53,7 +53,7 @@ final class CollectionValueResolverTest extends TestCase
 
     public function testResolvePublished(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $collection = Collection::fromArray(['id' => $uuid, 'status' => Status::Published]);
 
         $this->collectionServiceStub

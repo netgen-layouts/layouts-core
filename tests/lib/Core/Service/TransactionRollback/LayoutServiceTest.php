@@ -51,8 +51,8 @@ final class LayoutServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
-            Zone::fromArray(['layoutId' => Uuid::v4(), 'identifier' => 'right', 'status' => Status::Draft]),
-            Zone::fromArray(['layoutId' => Uuid::v4(), 'identifier' => 'left', 'status' => Status::Published]),
+            Zone::fromArray(['layoutId' => Uuid::v7(), 'identifier' => 'right', 'status' => Status::Draft]),
+            Zone::fromArray(['layoutId' => Uuid::v7(), 'identifier' => 'left', 'status' => Status::Published]),
         );
     }
 
@@ -73,7 +73,7 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->unlinkZone(Zone::fromArray(['layoutId' => Uuid::v4(), 'identifier' => 'right', 'status' => Status::Draft]));
+        $this->layoutService->unlinkZone(Zone::fromArray(['layoutId' => Uuid::v7(), 'identifier' => 'right', 'status' => Status::Draft]));
     }
 
     public function testCreateLayout(): void
@@ -125,7 +125,7 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->addTranslation(Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]), 'hr', 'en');
+        $this->layoutService->addTranslation(Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]), 'hr', 'en');
     }
 
     public function testRemoveTranslation(): void
@@ -152,7 +152,7 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->removeTranslation(Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]), 'hr');
+        $this->layoutService->removeTranslation(Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]), 'hr');
     }
 
     public function testUpdateLayout(): void
@@ -180,7 +180,7 @@ final class LayoutServiceTest extends TestCase
         $layoutUpdateStruct->name = 'New name';
 
         $this->layoutService->updateLayout(
-            Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
+            Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]),
             $layoutUpdateStruct,
         );
     }
@@ -210,7 +210,7 @@ final class LayoutServiceTest extends TestCase
         $layoutCopyStruct->name = 'Name';
 
         $this->layoutService->copyLayout(
-            Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
+            Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]),
             $layoutCopyStruct,
         );
     }
@@ -237,7 +237,7 @@ final class LayoutServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->changeLayoutType(
-            Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]),
+            Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]),
             LayoutType::fromArray(['identifier' => 'test_layout_1']),
             new ZoneMappings(),
         );
@@ -264,7 +264,7 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createDraft(Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Published]));
+        $this->layoutService->createDraft(Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Published]));
     }
 
     public function testDiscardDraft(): void
@@ -284,7 +284,7 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->discardDraft(Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
+        $this->layoutService->discardDraft(Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]));
     }
 
     public function testPublishLayout(): void
@@ -304,7 +304,7 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->publishLayout(Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
+        $this->layoutService->publishLayout(Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]));
     }
 
     public function testRestoreFromArchive(): void
@@ -332,7 +332,7 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->restoreFromArchive(Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Archived]));
+        $this->layoutService->restoreFromArchive(Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Archived]));
     }
 
     public function testDeleteLayout(): void
@@ -352,6 +352,6 @@ final class LayoutServiceTest extends TestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->deleteLayout(Layout::fromArray(['id' => Uuid::v4(), 'status' => Status::Draft]));
+        $this->layoutService->deleteLayout(Layout::fromArray(['id' => Uuid::v7(), 'status' => Status::Draft]));
     }
 }

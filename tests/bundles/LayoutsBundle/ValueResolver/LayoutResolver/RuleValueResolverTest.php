@@ -32,7 +32,7 @@ final class RuleValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $rule = Rule::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->layoutResolverServiceStub
@@ -53,7 +53,7 @@ final class RuleValueResolverTest extends TestCase
 
     public function testResolvePublished(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $rule = Rule::fromArray(['id' => $uuid, 'status' => Status::Published]);
 
         $this->layoutResolverServiceStub
@@ -75,7 +75,7 @@ final class RuleValueResolverTest extends TestCase
 
     public function testResolveArchived(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $rule = Rule::fromArray(['id' => $uuid, 'status' => Status::Archived]);
 
         $this->layoutResolverServiceStub

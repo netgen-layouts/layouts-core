@@ -22,8 +22,8 @@ final class SlotListTest extends TestCase
 
     public function testGetSlotIds(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $slots = [Slot::fromArray(['id' => $uuid1]), Slot::fromArray(['id' => $uuid2])];
 

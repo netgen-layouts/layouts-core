@@ -21,8 +21,8 @@ final class ItemTest extends TestCase
         $cmsItem = new CmsItem();
         $definition = new ItemDefinition();
 
-        $itemUuid = Uuid::v4();
-        $collectionUuid = Uuid::v4();
+        $itemUuid = Uuid::v7();
+        $collectionUuid = Uuid::v7();
 
         $item = Item::fromArray(
             [
@@ -50,8 +50,8 @@ final class ItemTest extends TestCase
     {
         $item = Item::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'definition' => new ItemDefinition(),
                 'cmsItem' => CmsItem::fromArray(['isVisible' => $cmsItemVisible]),
             ],
@@ -64,8 +64,8 @@ final class ItemTest extends TestCase
     {
         $item = Item::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'cmsItem' => new NullCmsItem('value'),
             ],
         );

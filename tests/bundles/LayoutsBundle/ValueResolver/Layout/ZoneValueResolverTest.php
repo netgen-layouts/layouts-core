@@ -34,7 +34,7 @@ final class ZoneValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $zone = Zone::fromArray(['identifier' => 'left', 'status' => Status::Draft]);
         $layout = Layout::fromArray(['id' => $uuid, 'zones' => ZoneList::fromArray(['left' => $zone])]);
 
@@ -57,7 +57,7 @@ final class ZoneValueResolverTest extends TestCase
 
     public function testResolvePublished(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $zone = Zone::fromArray(['identifier' => 'left', 'status' => Status::Draft]);
         $layout = Layout::fromArray(['id' => $uuid, 'zones' => ZoneList::fromArray(['left' => $zone])]);
 

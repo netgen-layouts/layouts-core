@@ -44,8 +44,8 @@ final class CollectionResultNormalizerTest extends TestCase
     {
         $collectionItem = Item::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'viewType' => 'overlay',
                 'cmsItem' => CmsItem::fromArray(
                     [
@@ -69,7 +69,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('normalize')
             ->willReturn($serializedConfig);
 
-        $slotUuid = Uuid::v4();
+        $slotUuid = Uuid::v7();
         $result = Result::fromArray(
             [
                 'position' => 3,
@@ -109,8 +109,8 @@ final class CollectionResultNormalizerTest extends TestCase
     {
         $collectionItem = Item::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'viewType' => 'overlay',
                 'cmsItem' => CmsItem::fromArray(
                     [
@@ -217,8 +217,8 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $collectionItem = Item::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'viewType' => 'overlay',
                 'cmsItem' => $item,
             ],

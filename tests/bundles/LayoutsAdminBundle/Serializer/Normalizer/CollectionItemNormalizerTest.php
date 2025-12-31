@@ -42,8 +42,8 @@ final class CollectionItemNormalizerTest extends TestCase
     {
         $item = Item::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'position' => 3,
                 'value' => 12,
                 'viewType' => 'overlay',

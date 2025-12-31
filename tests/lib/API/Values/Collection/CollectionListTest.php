@@ -22,8 +22,8 @@ final class CollectionListTest extends TestCase
 
     public function testGetCollectionIds(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $collections = [
             'one' => Collection::fromArray(['id' => $uuid1]),

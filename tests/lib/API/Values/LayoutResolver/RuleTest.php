@@ -26,8 +26,8 @@ final class RuleTest extends TestCase
 
         $layout = new Layout();
 
-        $uuid = Uuid::v4();
-        $ruleGroupUuid = Uuid::v4();
+        $uuid = Uuid::v7();
+        $ruleGroupUuid = Uuid::v7();
 
         $rule = Rule::fromArray(
             [

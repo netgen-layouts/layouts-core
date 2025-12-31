@@ -17,8 +17,8 @@ final class TargetTest extends TestCase
     {
         $targetType = new TargetType1();
 
-        $targetUuid = Uuid::v4();
-        $ruleUuid = Uuid::v4();
+        $targetUuid = Uuid::v7();
+        $ruleUuid = Uuid::v7();
 
         $target = Target::fromArray(
             [

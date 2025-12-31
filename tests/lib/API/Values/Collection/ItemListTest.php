@@ -22,8 +22,8 @@ final class ItemListTest extends TestCase
 
     public function testGetItemIds(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $items = [Item::fromArray(['id' => $uuid1]), Item::fromArray(['id' => $uuid2])];
 

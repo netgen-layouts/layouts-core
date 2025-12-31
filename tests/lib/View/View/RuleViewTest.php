@@ -19,7 +19,7 @@ final class RuleViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->rule = Rule::fromArray(['id' => Uuid::v4()]);
+        $this->rule = Rule::fromArray(['id' => Uuid::v7()]);
 
         $this->view = new RuleView($this->rule);
 

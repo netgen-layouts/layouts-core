@@ -51,7 +51,7 @@ final class RouteGeneratorTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'locale' => 'en',
                 'status' => Status::Published,
             ],
@@ -97,7 +97,7 @@ final class RouteGeneratorTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
                 'locale' => 'en',
                 'status' => Status::Published,
             ],

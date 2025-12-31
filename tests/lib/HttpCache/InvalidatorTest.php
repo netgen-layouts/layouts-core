@@ -34,10 +34,10 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayouts(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
-        $uuid3 = Uuid::v4();
-        $uuid4 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
+        $uuid3 = Uuid::v7();
+        $uuid4 = Uuid::v7();
 
         $this->idProviderStub
             ->method('provideIds')
@@ -81,8 +81,8 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateBlocks(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $this->clientStub
             ->method('purge')
@@ -115,8 +115,8 @@ final class InvalidatorTest extends TestCase
 
     public function testInvalidateLayoutBlocks(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
 
         $this->clientStub
             ->method('purge')

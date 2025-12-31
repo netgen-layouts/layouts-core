@@ -20,8 +20,8 @@ final class RuleConditionTest extends TestCase
     {
         $conditionType = new ConditionType1();
 
-        $conditionUuid = Uuid::v4();
-        $ruleUuid = Uuid::v4();
+        $conditionUuid = Uuid::v7();
+        $ruleUuid = Uuid::v7();
 
         $condition = RuleCondition::fromArray(
             [

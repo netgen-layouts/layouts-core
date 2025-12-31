@@ -18,8 +18,8 @@ final class QueryTest extends TestCase
     {
         $queryType = new QueryType('query_type');
 
-        $queryUuid = Uuid::v4();
-        $collectionUuid = Uuid::v4();
+        $queryUuid = Uuid::v7();
+        $collectionUuid = Uuid::v7();
 
         $query = Query::fromArray(
             [
@@ -49,8 +49,8 @@ final class QueryTest extends TestCase
     {
         $query = Query::fromArray(
             [
-                'id' => Uuid::v4(),
-                'collectionId' => Uuid::v4(),
+                'id' => Uuid::v7(),
+                'collectionId' => Uuid::v7(),
                 'queryType' => new QueryType('query_type'),
             ],
         );

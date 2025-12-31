@@ -25,11 +25,11 @@ final class BlockTest extends TestCase
         $definition = new BlockDefinition();
 
         $placeholder = Placeholder::fromArray(['identifier' => 'main']);
-        $collection = Collection::fromArray(['id' => Uuid::v4()]);
+        $collection = Collection::fromArray(['id' => Uuid::v7()]);
 
-        $blockUuid = Uuid::v4();
-        $parentUuid = Uuid::v4();
-        $layoutUuid = Uuid::v4();
+        $blockUuid = Uuid::v7();
+        $parentUuid = Uuid::v7();
+        $layoutUuid = Uuid::v7();
 
         $block = Block::fromArray(
             [

@@ -25,7 +25,7 @@ final class RuleViewProviderTest extends TestCase
 
     public function testProvideView(): void
     {
-        $rule = Rule::fromArray(['id' => Uuid::v4()]);
+        $rule = Rule::fromArray(['id' => Uuid::v7()]);
 
         $view = $this->ruleViewProvider->provideView($rule);
 

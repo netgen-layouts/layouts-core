@@ -32,7 +32,7 @@ final class RuleGroupConditionValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $condition = RuleGroupCondition::fromArray(['id' => $uuid, 'status' => Status::Draft]);
 
         $this->layoutResolverServiceStub
@@ -53,7 +53,7 @@ final class RuleGroupConditionValueResolverTest extends TestCase
 
     public function testResolvePublished(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
         $condition = RuleGroupCondition::fromArray(['id' => $uuid, 'status' => Status::Published]);
 
         $this->layoutResolverServiceStub

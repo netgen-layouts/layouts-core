@@ -27,7 +27,7 @@ final class BlockViewProviderTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => Uuid::v4(),
+                'id' => Uuid::v7(),
             ],
         );
 

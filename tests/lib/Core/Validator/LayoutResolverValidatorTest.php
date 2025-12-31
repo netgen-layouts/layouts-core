@@ -186,7 +186,7 @@ final class LayoutResolverValidatorTest extends TestCase
     {
         return [
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
-            [['uuid' => Uuid::v4(), 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
+            [['uuid' => Uuid::v7(), 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], true],
             [['uuid' => null, 'name' => '', 'priority' => 2, 'isEnabled' => true, 'description' => 'Description'], false],
             [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'isEnabled' => false, 'description' => 'Description'], true],

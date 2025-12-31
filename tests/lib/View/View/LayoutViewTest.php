@@ -19,7 +19,7 @@ final class LayoutViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->layout = Layout::fromArray(['id' => Uuid::v4()]);
+        $this->layout = Layout::fromArray(['id' => Uuid::v7()]);
 
         $this->view = new LayoutView($this->layout);
 

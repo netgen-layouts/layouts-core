@@ -30,7 +30,7 @@ final class IdProviderTest extends TestCase
 
     public function testProvideIds(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -51,7 +51,7 @@ final class IdProviderTest extends TestCase
 
     public function testProvideIdsWithNonExistingLayout(): void
     {
-        $uuid = Uuid::v4();
+        $uuid = Uuid::v7();
 
         $this->layoutServiceStub
             ->method('loadLayout')
@@ -65,9 +65,9 @@ final class IdProviderTest extends TestCase
 
     public function testProvideIdsWithSharedLayout(): void
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
-        $uuid3 = Uuid::v4();
+        $uuid1 = Uuid::v7();
+        $uuid2 = Uuid::v7();
+        $uuid3 = Uuid::v7();
 
         $sharedLayout = Layout::fromArray(
             [
