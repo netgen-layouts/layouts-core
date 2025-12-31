@@ -14,6 +14,8 @@ interface MapperInterface
 {
     /**
      * Returns the form type that will be used to edit the value of this target type.
+     *
+     * @return class-string<\Symfony\Component\Form\FormTypeInterface>
      */
     public function getFormType(): string;
 
