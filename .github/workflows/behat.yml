@@ -37,11 +37,17 @@ jobs:
 
       - uses: nanasess/setup-chromedriver@v2
 
-      - run: chromedriver --port=9515 &
+      - run: chromedriver --port=9515 --verbose > chromedriver.log 2>&1 &
 
       - run: php -S 127.0.0.1:4242 -t tests/application/public > php-server.log 2>&1 &
 
       - run: composer behat-headless
+
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: chromedriver-logs
+          path: chromedriver.log
 
       - uses: actions/upload-artifact@v6
         if: always()
