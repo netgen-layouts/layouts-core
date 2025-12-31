@@ -7,7 +7,7 @@ services:
     netgen_layouts.persistence.uuid_factory:
         class: Symfony\Component\Uid\Factory\UuidFactory
         arguments:
-            - "Symfony\\Component\\Uid\\UuidV4"
+            - "Symfony\\Component\\Uid\\UuidV7"
 
     # Persistence helpers
 
