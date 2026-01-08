@@ -55,7 +55,7 @@
         "doctrine/dbal": "^3.10 || ^4.4",
         "doctrine/doctrine-bundle": "^2.18 || ^3.2",
         "doctrine/doctrine-migrations-bundle": "^3.7 || ^4.0",
-        "doctrine/collections": "^2.4",
+        "doctrine/collections": "^2.5",
         "egulias/email-validator": "^4.0",
         "knplabs/knp-menu-bundle": "^3.7",
         "justinrainbow/json-schema": "^6.6.3",
