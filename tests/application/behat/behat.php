@@ -17,9 +17,7 @@ return new Config()
                 new Extension(
                     MinkExtension::class,
                     [
-                        'base_url' => 'http://admin:admin@127.0.0.1:4242/',
-                        'default_session' => 'chrome',
-                        'javascript_session' => 'chrome',
+                        'base_url' => 'http://admin:admin@127.0.0.1:4242',
                         'show_auto' => false,
                         'sessions' => [
                             'chrome' => [
@@ -29,12 +27,9 @@ return new Config()
                                     'capabilities' => [
                                         'browserName' => 'chrome',
                                         'browser' => 'chrome',
-                                        'version' => '',
                                         'chrome' => [
                                             'switches' => [
-                                                'no-sandbox',
                                                 'disable-extensions',
-                                                'disable-infobars',
                                                 'start-fullscreen',
                                             ],
                                         ],
