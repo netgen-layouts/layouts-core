@@ -25,7 +25,7 @@ final class ItemDefinitionFactoryTest extends TestCase
             new ParameterBuilderFactory(
                 new ParameterTypeRegistry(
                     [
-                        ParameterType\TextLineType::getIdentifier() => new ParameterType\TextLineType(),
+                        new ParameterType\TextLineType(),
                     ],
                 ),
             ),

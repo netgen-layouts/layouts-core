@@ -21,8 +21,8 @@ final class ParameterBuilderFactoryTest extends TestCase
     {
         $this->registry = new ParameterTypeRegistry(
             [
-                ParameterType\TextType::getIdentifier() => new ParameterType\TextType(),
-                ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
+                new ParameterType\TextType(),
+                new ParameterType\Compound\BooleanType(),
             ],
         );
 

@@ -31,9 +31,9 @@ final class ParameterBuilderTest extends TestCase
     {
         $this->registry = new ParameterTypeRegistry(
             [
-                ParameterType\TextType::getIdentifier() => new ParameterType\TextType(),
-                ParameterType\IntegerType::getIdentifier() => new ParameterType\IntegerType(),
-                ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
+                new ParameterType\TextType(),
+                new ParameterType\IntegerType(),
+                new ParameterType\Compound\BooleanType(),
             ],
         );
 

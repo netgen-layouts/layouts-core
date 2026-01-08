@@ -23,7 +23,7 @@ final class ParameterTypeRegistryTest extends TestCase
     {
         $this->parameterType = new ParameterType();
 
-        $this->registry = new ParameterTypeRegistry([$this->parameterType::getIdentifier() => $this->parameterType]);
+        $this->registry = new ParameterTypeRegistry([$this->parameterType]);
     }
 
     public function testGetParameterTypes(): void

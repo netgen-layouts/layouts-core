@@ -13,7 +13,6 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
 
-use function array_filter;
 use function array_key_exists;
 use function count;
 
@@ -26,18 +25,16 @@ final class TargetTypeRegistry implements ArrayAccess, Countable, IteratorAggreg
     /**
      * @var array<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
      */
-    private array $targetTypes;
+    private array $targetTypes = [];
 
     /**
-     * @param iterable<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes
+     * @param iterable<\Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes
      */
-    public function __construct(
-        iterable $targetTypes,
-    ) {
-        $this->targetTypes = array_filter(
-            [...$targetTypes],
-            static fn (TargetTypeInterface $targetType): bool => true,
-        );
+    public function __construct(iterable $targetTypes)
+    {
+        foreach ($targetTypes as $targetType) {
+            $this->addTargetType($targetType);
+        }
     }
 
     /**
@@ -100,5 +97,10 @@ final class TargetTypeRegistry implements ArrayAccess, Countable, IteratorAggreg
     public function offsetUnset(mixed $offset): never
     {
         throw new RuntimeException('Method call not supported.');
+    }
+
+    private function addTargetType(TargetTypeInterface $targetType): void
+    {
+        $this->targetTypes[$targetType::getType()] = $targetType;
     }
 }

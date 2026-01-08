@@ -23,7 +23,7 @@ final class ConditionTypeRegistryTest extends TestCase
     {
         $this->conditionType = new ConditionType1();
 
-        $this->registry = new ConditionTypeRegistry([$this->conditionType::getType() => $this->conditionType]);
+        $this->registry = new ConditionTypeRegistry([$this->conditionType]);
     }
 
     public function testGetConditionTypes(): void

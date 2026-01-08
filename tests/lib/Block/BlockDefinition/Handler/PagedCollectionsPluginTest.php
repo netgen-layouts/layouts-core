@@ -25,10 +25,10 @@ final class PagedCollectionsPluginTest extends TestCase
 
         $parameterTypeRegistry = new ParameterTypeRegistry(
             [
-                ParameterType\ChoiceType::getIdentifier() => new ParameterType\ChoiceType(),
-                ParameterType\IntegerType::getIdentifier() => new ParameterType\IntegerType(),
-                ParameterType\BooleanType::getIdentifier() => new ParameterType\BooleanType(),
-                ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
+                new ParameterType\ChoiceType(),
+                new ParameterType\IntegerType(),
+                new ParameterType\BooleanType(),
+                new ParameterType\Compound\BooleanType(),
             ],
         );
 

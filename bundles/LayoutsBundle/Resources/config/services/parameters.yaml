@@ -4,7 +4,7 @@ services:
     netgen_layouts.parameters.registry.parameter_type:
         class: Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
         arguments:
-            - !tagged_iterator { tag: netgen_layouts.parameter_type, default_index_method: getIdentifier }
+            - !tagged_iterator netgen_layouts.parameter_type
 
     # Parameter builder factory
 

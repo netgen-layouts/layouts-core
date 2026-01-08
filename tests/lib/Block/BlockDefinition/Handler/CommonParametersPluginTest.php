@@ -25,8 +25,8 @@ final class CommonParametersPluginTest extends TestCase
 
         $parameterTypeRegistry = new ParameterTypeRegistry(
             [
-                ParameterType\TextLineType::getIdentifier() => new ParameterType\TextLineType(),
-                ParameterType\BooleanType::getIdentifier() => new ParameterType\BooleanType(),
+                new ParameterType\TextLineType(),
+                new ParameterType\BooleanType(),
             ],
         );
 

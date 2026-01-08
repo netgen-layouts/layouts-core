@@ -207,23 +207,23 @@ abstract class CoreTestCase extends TestCase
 
         return new ParameterTypeRegistry(
             [
-                ParameterType\TextLineType::getIdentifier() => new ParameterType\TextLineType(),
-                ParameterType\TextType::getIdentifier() => new ParameterType\TextType(),
-                ParameterType\UrlType::getIdentifier() => new ParameterType\UrlType(),
-                ParameterType\RangeType::getIdentifier() => new ParameterType\RangeType(),
-                ParameterType\NumberType::getIdentifier() => new ParameterType\NumberType(),
-                ParameterType\LinkType::getIdentifier() => new ParameterType\LinkType(new ValueTypeRegistry([]), $remoteIdConverter),
-                ParameterType\ItemLinkType::getIdentifier() => new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
-                ParameterType\IntegerType::getIdentifier() => new ParameterType\IntegerType(),
-                ParameterType\IdentifierType::getIdentifier() => new ParameterType\IdentifierType(),
-                ParameterType\HtmlType::getIdentifier() => new ParameterType\HtmlType(new HtmlSanitizer(new HtmlSanitizerConfig()->allowSafeElements())),
-                ParameterType\EmailType::getIdentifier() => new ParameterType\EmailType(),
-                ParameterType\ChoiceType::getIdentifier() => new ParameterType\ChoiceType(),
-                ParameterType\EnumType::getIdentifier() => new ParameterType\EnumType(),
-                ParameterType\BooleanType::getIdentifier() => new ParameterType\BooleanType(),
-                ParameterType\DateTimeType::getIdentifier() => new ParameterType\DateTimeType(),
-                ParameterType\HiddenType::getIdentifier() => new ParameterType\HiddenType(),
-                ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
+                new ParameterType\TextLineType(),
+                new ParameterType\TextType(),
+                new ParameterType\UrlType(),
+                new ParameterType\RangeType(),
+                new ParameterType\NumberType(),
+                new ParameterType\LinkType(new ValueTypeRegistry([]), $remoteIdConverter),
+                new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
+                new ParameterType\IntegerType(),
+                new ParameterType\IdentifierType(),
+                new ParameterType\HtmlType(new HtmlSanitizer(new HtmlSanitizerConfig()->allowSafeElements())),
+                new ParameterType\EmailType(),
+                new ParameterType\ChoiceType(),
+                new ParameterType\EnumType(),
+                new ParameterType\BooleanType(),
+                new ParameterType\DateTimeType(),
+                new ParameterType\HiddenType(),
+                new ParameterType\Compound\BooleanType(),
             ],
         );
     }
@@ -372,13 +372,13 @@ abstract class CoreTestCase extends TestCase
     {
         return new TargetTypeRegistry(
             [
-                TargetType1::getType() => new TargetType1(),
-                TargetType\Route::getType() => new TargetType\Route(),
-                TargetType\RoutePrefix::getType() => new TargetType\RoutePrefix(),
-                TargetType\PathInfo::getType() => new TargetType\PathInfo(),
-                TargetType\PathInfoPrefix::getType() => new TargetType\PathInfoPrefix(),
-                TargetType\RequestUri::getType() => new TargetType\RequestUri(),
-                TargetType\RequestUriPrefix::getType() => new TargetType\RequestUriPrefix(),
+                new TargetType1(),
+                new TargetType\Route(),
+                new TargetType\RoutePrefix(),
+                new TargetType\PathInfo(),
+                new TargetType\PathInfoPrefix(),
+                new TargetType\RequestUri(),
+                new TargetType\RequestUriPrefix(),
             ],
         );
     }
@@ -387,8 +387,8 @@ abstract class CoreTestCase extends TestCase
     {
         return new ConditionTypeRegistry(
             [
-                ConditionType1::getType() => new ConditionType1(),
-                ConditionType\RouteParameter::getType() => new ConditionType\RouteParameter(),
+                new ConditionType1(),
+                new ConditionType\RouteParameter(),
             ],
         );
     }

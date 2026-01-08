@@ -13,7 +13,6 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterTypeInterface;
 use Traversable;
 
-use function array_filter;
 use function array_key_exists;
 use function count;
 
@@ -26,7 +25,7 @@ final class ParameterTypeRegistry implements ArrayAccess, Countable, IteratorAgg
     /**
      * @var array<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
      */
-    private array $parameterTypes;
+    private array $parameterTypes = [];
 
     /**
      * @var array<class-string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
@@ -34,17 +33,12 @@ final class ParameterTypeRegistry implements ArrayAccess, Countable, IteratorAgg
     private array $parameterTypesByClass = [];
 
     /**
-     * @param iterable<string, \Netgen\Layouts\Parameters\ParameterTypeInterface> $parameterTypes
+     * @param iterable<\Netgen\Layouts\Parameters\ParameterTypeInterface> $parameterTypes
      */
     public function __construct(iterable $parameterTypes)
     {
-        $this->parameterTypes = array_filter(
-            [...$parameterTypes],
-            static fn (ParameterTypeInterface $parameterType): bool => true,
-        );
-
-        foreach ($this->parameterTypes as $parameterType) {
-            $this->parameterTypesByClass[$parameterType::class] = $parameterType;
+        foreach ($parameterTypes as $parameterType) {
+            $this->addParameterType($parameterType);
         }
     }
 
@@ -130,5 +124,11 @@ final class ParameterTypeRegistry implements ArrayAccess, Countable, IteratorAgg
     public function offsetUnset(mixed $offset): never
     {
         throw new RuntimeException('Method call not supported.');
+    }
+
+    private function addParameterType(ParameterTypeInterface $parameterType): void
+    {
+        $this->parameterTypes[$parameterType::getIdentifier()] = $parameterType;
+        $this->parameterTypesByClass[$parameterType::class] = $parameterType;
     }
 }

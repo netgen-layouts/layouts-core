@@ -18,10 +18,10 @@ trait ParameterBuilderTrait
         $builderFactory = new ParameterBuilderFactory(
             new ParameterTypeRegistry(
                 [
-                    ParameterType\BooleanType::getIdentifier() => new ParameterType\BooleanType(),
-                    ParameterType\TextLineType::getIdentifier() => new ParameterType\TextLineType(),
-                    ParameterType\IntegerType::getIdentifier() => new ParameterType\IntegerType(),
-                    ParameterType\Compound\BooleanType::getIdentifier() => new ParameterType\Compound\BooleanType(),
+                    new ParameterType\BooleanType(),
+                    new ParameterType\TextLineType(),
+                    new ParameterType\IntegerType(),
+                    new ParameterType\Compound\BooleanType(),
                 ],
             ),
         );
