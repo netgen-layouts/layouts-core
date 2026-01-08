@@ -1,6 +1,0 @@
-services:
-    netgen_layouts.behat.context.transform.layout:
-        class: Netgen\Layouts\Behat\Context\Transform\LayoutContext
-        public: true
-        arguments:
-            - "@netgen_layouts.api.service.layout"

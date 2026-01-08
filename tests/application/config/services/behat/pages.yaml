@@ -1,0 +1,20 @@
+services:
+    netgen_layouts.behat.page.symfony_page:
+        class: Netgen\Layouts\Tests\App\Behat\Page\SymfonyPage
+        abstract: true
+        arguments:
+            - "@behat.mink.default_session"
+            - "@behat.mink.parameters"
+            - "@router"
+
+    netgen_layouts.behat.page.app.index:
+        class: Netgen\Layouts\Tests\App\Behat\Page\App\IndexPage
+        parent: netgen_layouts.behat.page.symfony_page
+
+    netgen_layouts.behat.page.admin.layouts.index:
+        class: Netgen\Layouts\Tests\App\Behat\Page\Admin\Layouts\IndexPage
+        parent: netgen_layouts.behat.page.symfony_page
+
+    netgen_layouts.behat.page.admin.shared_layouts.index:
+        class: Netgen\Layouts\Tests\App\Behat\Page\Admin\SharedLayouts\IndexPage
+        parent: netgen_layouts.behat.page.symfony_page

@@ -1,0 +1,37 @@
+services:
+    netgen_layouts.behat.context.hook.doctrine_database:
+        class: Netgen\Layouts\Tests\App\Behat\Context\Hook\DoctrineDatabaseContext
+        public: true
+
+    netgen_layouts.behat.context.transform.layout:
+        class: Netgen\Layouts\Tests\App\Behat\Context\Transform\LayoutContext
+        public: true
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+
+    netgen_layouts.behat.context.setup.admin_security:
+        class: Netgen\Layouts\Tests\App\Behat\Context\Setup\AdminSecurityContext
+        public: true
+
+    netgen_layouts.behat.context.setup.layout:
+        class: Netgen\Layouts\Tests\App\Behat\Context\Setup\LayoutContext
+        public: true
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.layout.registry.layout_type"
+
+    netgen_layouts.behat.context.admin.managing_layouts:
+        class: Netgen\Layouts\Tests\App\Behat\Context\Admin\ManagingLayoutsContext
+        public: true
+        arguments:
+            - "@netgen_layouts.behat.page.admin.layouts.index"
+            - "@netgen_layouts.behat.page.app.index"
+            - "@netgen_layouts.behat.context.transform.layout"
+
+    netgen_layouts.behat.context.admin.managing_shared_layouts:
+        class: Netgen\Layouts\Tests\App\Behat\Context\Admin\ManagingSharedLayoutsContext
+        public: true
+        arguments:
+            - "@netgen_layouts.behat.page.admin.shared_layouts.index"
+            - "@netgen_layouts.behat.page.app.index"
+            - "@netgen_layouts.behat.context.transform.layout"

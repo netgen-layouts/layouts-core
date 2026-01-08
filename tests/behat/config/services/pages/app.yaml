@@ -1,4 +1,0 @@
-services:
-    netgen_layouts.behat.page.app.index:
-        class: Netgen\Layouts\Behat\Page\App\IndexPage
-        parent: netgen_layouts.behat.symfony_page

@@ -1,4 +1,0 @@
-services:
-    netgen_layouts.behat.context.hook.doctrine_database:
-        class: Netgen\Layouts\Behat\Context\Hook\DoctrineDatabaseContext
-        public: true

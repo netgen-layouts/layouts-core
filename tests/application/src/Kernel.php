@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 use function dirname;
@@ -19,7 +21,9 @@ use function sys_get_temp_dir;
 
 final class Kernel extends BaseKernel implements CompilerPassInterface
 {
-    use MicroKernelTrait;
+    use MicroKernelTrait {
+        configureContainer as private configureKernelContainer;
+    }
 
     public function boot(): void
     {
@@ -54,5 +58,14 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $container->removeDefinition('netgen_layouts.event_listener.app_csrf_validation_listener');
+    }
+
+    public function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    {
+        $this->configureKernelContainer($container, $loader, $builder);
+
+        $configDir = $this->getConfigDir();
+
+        $container->import($configDir . '/{services}/**/*.yaml');
     }
 }

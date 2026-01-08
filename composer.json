@@ -98,8 +98,8 @@
         "test-api": "@php vendor/bin/phpunit -c phpunit-api.xml --colors=always",
         "coverage": "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit -c phpunit.xml --coverage-html=coverage --colors=always",
         "coverage-api": "@php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit -c phpunit-api.xml --coverage-html=coverage_api --colors=always",
-        "behat": "@php vendor/bin/behat -c tests/behat/behat.php --colors --strict --no-interaction -vvv -f progress",
-        "behat-headless": "@php vendor/bin/behat -c tests/behat/behat.php --colors --strict --no-interaction -vvv -f progress -p headless",
+        "behat": "@php vendor/bin/behat -c tests/application/behat/behat.php --colors --strict --no-interaction -vvv -f progress",
+        "behat-headless": "@php vendor/bin/behat -c tests/application/behat/behat.php --colors --strict --no-interaction -vvv -f progress -p headless",
         "phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon --ansi",
         "phpstan-tests": "@php vendor/bin/phpstan analyse -c phpstan.tests.neon --ansi"
     },
