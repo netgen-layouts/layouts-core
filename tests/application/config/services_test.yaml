@@ -1,2 +1,2 @@
 imports:
-    - { resource: ../../behat/Resources/config/services.yaml }
+    - { resource: ../../behat/config/services.yaml }

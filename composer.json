@@ -84,7 +84,6 @@
         "behat/mink-selenium2-driver": "^1.7",
         "friends-of-behat/mink-extension": "^2.7",
         "friends-of-behat/symfony-extension": "^2.6",
-        "friends-of-behat/suite-settings-extension": "^1.1",
         "friends-of-behat/page-object-extension": "^0.3"
     },
     "config": {
@@ -116,7 +115,7 @@
     "autoload-dev": {
         "psr-4": {
             "Netgen\\Layouts\\Tests\\": "tests/lib/",
-            "Netgen\\Layouts\\Behat\\": "tests/behat/",
+            "Netgen\\Layouts\\Behat\\": "tests/behat/src/",
             "Netgen\\Layouts\\Tests\\App\\": "tests/application/src/",
             "Netgen\\Bundle\\LayoutsBundle\\Tests\\": "tests/bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\": "tests/bundles/LayoutsAdminBundle/",

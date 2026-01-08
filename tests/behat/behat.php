@@ -6,12 +6,11 @@ use Behat\Config\Config;
 use Behat\Config\Extension;
 use Behat\Config\Profile;
 use Behat\MinkExtension\ServiceContainer\MinkExtension;
-use FriendsOfBehat\SuiteSettingsExtension\ServiceContainer\SuiteSettingsExtension;
 use FriendsOfBehat\SymfonyExtension\ServiceContainer\SymfonyExtension;
 use Netgen\Layouts\Tests\App\Kernel;
 
 return new Config()
-    ->import('Resources/config/suites.php')
+    ->import('config/suites.php')
     ->withProfile(
         new Profile('default')
             ->withExtension(
@@ -52,16 +51,6 @@ return new Config()
                     [
                         'kernel' => [
                             'class' => Kernel::class,
-                        ],
-                    ],
-                ),
-            )
-            ->withExtension(
-                new Extension(
-                    SuiteSettingsExtension::class,
-                    [
-                        'paths' => [
-                            'Resources/features',
                         ],
                     ],
                 ),
