@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\App;
 
+use Behat\Config\Config;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
+use function class_exists;
 use function dirname;
 use function getenv;
 use function is_string;
@@ -66,6 +68,10 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
 
         $configDir = $this->getConfigDir();
 
-        $container->import($configDir . '/{services}/**/*.yaml');
+        $container->import($configDir . '/{services}/netgen_layouts.yaml');
+
+        if (class_exists(Config::class)) {
+            $container->import($configDir . '/{services}/behat/**/*.yaml');
+        }
     }
 }
