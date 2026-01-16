@@ -63,7 +63,7 @@
         "pagerfanta/pagerfanta": "^3.8 || ^4.7",
         "emodric/twig-package-versions": "^2.0",
         "nikolaposa/version": "^4.2",
-        "league/uri-polyfill": "^7.7"
+        "league/uri-polyfill": "^7.8"
     },
     "require-dev": {
         "netgen/layouts-coding-standard": "^3.0",
