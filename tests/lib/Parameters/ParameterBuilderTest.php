@@ -742,7 +742,7 @@ final class ParameterBuilderTest extends TestCase
                 'label' => false,
                 'name' => 'compound',
                 'options' => ['reverse' => false],
-                'parameterDefinitions' => $innerDefinitions,
+                'parameterDefinitions' => $compoundDefinition->parameterDefinitions,
                 'type' => $this->registry->getParameterType('compound_boolean'),
             ],
             $this->exportObject($parameterDefinitions['compound']),

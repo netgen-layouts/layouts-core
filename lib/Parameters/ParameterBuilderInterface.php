@@ -141,7 +141,7 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Returns the builders for all parameters, optionally filtered by the group.
      *
-     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface[]
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterBuilderInterface>
      */
     public function all(?string $group = null): array;
 
@@ -163,7 +163,7 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Builds the parameter definitions.
      *
-     * @return \Netgen\Layouts\Parameters\ParameterDefinition[]
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
      */
     public function buildParameterDefinitions(): array;
 }

@@ -9,7 +9,7 @@ interface ParameterDefinitionCollectionInterface
     /**
      * Returns all parameter definitions from the collection.
      *
-     * @var \Netgen\Layouts\Parameters\ParameterDefinition[]
+     * @var array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
      */
     public array $parameterDefinitions { get; }
 
