@@ -118,94 +118,94 @@ services:
     netgen_layouts.parameters.form.mapper.hidden:
         class: Netgen\Layouts\Parameters\Form\Mapper\HiddenMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: hidden }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: hidden }
 
     netgen_layouts.parameters.form.mapper.text_line:
         class: Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: text_line }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: text_line }
 
     netgen_layouts.parameters.form.mapper.identifier:
         class: Netgen\Layouts\Parameters\Form\Mapper\IdentifierMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: identifier }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: identifier }
 
     netgen_layouts.parameters.form.mapper.integer:
         class: Netgen\Layouts\Parameters\Form\Mapper\IntegerMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: integer }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: integer }
 
     netgen_layouts.parameters.form.mapper.range:
         class: Netgen\Layouts\Parameters\Form\Mapper\RangeMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: range }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: range }
 
     netgen_layouts.parameters.form.mapper.number:
         class: Netgen\Layouts\Parameters\Form\Mapper\NumberMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: number }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: number }
 
     netgen_layouts.parameters.form.mapper.boolean:
         class: Netgen\Layouts\Parameters\Form\Mapper\BooleanMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: boolean }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: boolean }
 
     netgen_layouts.parameters.form.mapper.text:
         class: Netgen\Layouts\Parameters\Form\Mapper\TextMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: text }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: text }
 
     netgen_layouts.parameters.form.mapper.html:
         class: Netgen\Layouts\Parameters\Form\Mapper\HtmlMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: html }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: html }
 
     netgen_layouts.parameters.form.mapper.choice:
         class: Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: choice }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: choice }
 
     netgen_layouts.parameters.form.mapper.enum:
         class: Netgen\Layouts\Parameters\Form\Mapper\EnumMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: enum }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: enum }
 
     netgen_layouts.parameters.form.mapper.url:
         class: Netgen\Layouts\Parameters\Form\Mapper\UrlMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: url }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: url }
 
     netgen_layouts.parameters.form.mapper.datetime:
         class: Netgen\Layouts\Parameters\Form\Mapper\DateTimeMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: datetime }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: datetime }
 
     netgen_layouts.parameters.form.mapper.email:
         class: Netgen\Layouts\Parameters\Form\Mapper\EmailMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: email }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: email }
 
     netgen_layouts.parameters.form.mapper.item_link:
         class: Netgen\Layouts\Parameters\Form\Mapper\ItemLinkMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: item_link }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: item_link }
 
     netgen_layouts.parameters.form.mapper.link:
         class: Netgen\Layouts\Parameters\Form\Mapper\LinkMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: link }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: link }
 
     netgen_layouts.parameters.form.mapper.compound.boolean:
         class: Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper
         tags:
-            - { name: netgen_layouts.parameter_type.form_mapper, type: compound_boolean }
+            - { name: netgen_layouts.parameter_type.form_mapper, parameter_type: compound_boolean }
 
     # Form
 
     netgen_layouts.parameters.form.parameters:
         class: Netgen\Layouts\Parameters\Form\Type\ParametersType
         arguments:
-            - !tagged_locator { tag: netgen_layouts.parameter_type.form_mapper, index_by: type }
+            - !tagged_locator { tag: netgen_layouts.parameter_type.form_mapper, index_by: parameter_type }
         tags:
             - { name: form.type }
 

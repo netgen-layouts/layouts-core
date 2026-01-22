@@ -324,7 +324,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         $container->registerAttributeForAutoconfiguration(
             Attribute\AsParameterTypeFormMapper::class,
             static function (ChildDefinition $definition, Attribute\AsParameterTypeFormMapper $attribute): void {
-                $definition->addTag('netgen_layouts.parameter_type.form_mapper', ['type' => $attribute->type]);
+                $definition->addTag('netgen_layouts.parameter_type.form_mapper', ['parameter_type' => $attribute->type]);
             },
         );
 
