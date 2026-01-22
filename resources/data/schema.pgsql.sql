@@ -236,37 +236,23 @@ CREATE TABLE IF NOT EXISTS "nglayouts_rule_condition_rule_group" (
   FOREIGN KEY ("rule_group_id", "rule_group_status") REFERENCES nglayouts_rule_group ("id", "status")
 );
 
-DELETE FROM "nglayouts_block_collection";
-DELETE FROM "nglayouts_collection_item";
-DELETE FROM "nglayouts_collection_query_translation";
-DELETE FROM "nglayouts_collection_query";
-DELETE FROM "nglayouts_collection_slot";
-DELETE FROM "nglayouts_collection_translation";
-DELETE FROM "nglayouts_collection";
-DELETE FROM "nglayouts_zone";
-DELETE FROM "nglayouts_block_translation";
-DELETE FROM "nglayouts_block";
-DELETE FROM "nglayouts_layout_translation";
-DELETE FROM "nglayouts_layout";
-DELETE FROM "nglayouts_role_policy";
-DELETE FROM "nglayouts_role";
-DELETE FROM "nglayouts_rule_target";
-DELETE FROM "nglayouts_rule_condition_rule";
-DELETE FROM "nglayouts_rule_condition_rule_group";
-DELETE FROM "nglayouts_rule_condition";
-DELETE FROM "nglayouts_rule_data";
-DELETE FROM "nglayouts_rule";
-DELETE FROM "nglayouts_rule_group_data";
-DELETE FROM "nglayouts_rule_group";
-
 CREATE SEQUENCE IF NOT EXISTS nglayouts_layout_id_seq;
 ALTER SEQUENCE nglayouts_layout_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_layout ALTER COLUMN id SET DEFAULT nextval('nglayouts_layout_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_layout_name ON nglayouts_layout (name);
+CREATE INDEX IF NOT EXISTS idx_ngl_layout_type ON nglayouts_layout (type);
+CREATE INDEX IF NOT EXISTS idx_ngl_layout_shared ON nglayouts_layout (shared);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_layout_uuid ON nglayouts_layout (uuid, status);
+
+CREATE INDEX IF NOT EXISTS idx_ngl_layout ON nglayouts_zone (layout_id, status);
+CREATE INDEX IF NOT EXISTS idx_ngl_root_block ON nglayouts_zone (root_block_id, status);
+CREATE INDEX IF NOT EXISTS idx_ngl_linked_zone ON nglayouts_zone (linked_layout_uuid, linked_zone_identifier);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_block_id_seq;
 ALTER SEQUENCE nglayouts_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_block ALTER COLUMN id SET DEFAULT nextval('nglayouts_block_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_layout ON nglayouts_block (layout_id, status);
+CREATE INDEX IF NOT EXISTS idx_ngl_parent_block ON nglayouts_block (parent_id, placeholder, status);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_block_uuid ON nglayouts_block (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_id_seq;
@@ -274,39 +260,53 @@ ALTER SEQUENCE nglayouts_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVAL
 ALTER TABLE ONLY nglayouts_collection ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_id_seq'::regclass);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_uuid ON nglayouts_collection (uuid, status);
 
+CREATE INDEX IF NOT EXISTS idx_ngl_block ON nglayouts_block_collection (block_id, block_status);
+CREATE INDEX IF NOT EXISTS idx_ngl_collection ON nglayouts_block_collection (collection_id, collection_status);
+
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_item_id_seq;
 ALTER SEQUENCE nglayouts_collection_item_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_collection_item ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_item_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_collection ON nglayouts_collection_item (collection_id, status);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_item_uuid ON nglayouts_collection_item (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_query_id_seq;
 ALTER SEQUENCE nglayouts_collection_query_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_collection_query ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_query_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_collection ON nglayouts_collection_query (collection_id, status);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_query_uuid ON nglayouts_collection_query (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_slot_id_seq;
 ALTER SEQUENCE nglayouts_collection_slot_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_collection_slot ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_slot_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_collection ON nglayouts_collection_slot (collection_id, status);
+CREATE INDEX IF NOT EXISTS idx_ngl_position ON nglayouts_collection_slot (collection_id, position);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_slot_uuid ON nglayouts_collection_slot (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_role_id_seq;
 ALTER SEQUENCE nglayouts_role_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_role ALTER COLUMN id SET DEFAULT nextval('nglayouts_role_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_role_identifier ON nglayouts_role (identifier);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_role_uuid ON nglayouts_role (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_role_policy_id_seq;
 ALTER SEQUENCE nglayouts_role_policy_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_role_policy ALTER COLUMN id SET DEFAULT nextval('nglayouts_role_policy_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_role ON nglayouts_role_policy (role_id, status);
+CREATE INDEX IF NOT EXISTS idx_ngl_policy_component ON nglayouts_role_policy (component);
+CREATE INDEX IF NOT EXISTS idx_ngl_policy_component_permission ON nglayouts_role_policy (component, permission);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_role_policy_uuid ON nglayouts_role_policy (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_id_seq;
 ALTER SEQUENCE nglayouts_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_rule ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_related_layout ON nglayouts_rule (layout_uuid);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_uuid ON nglayouts_rule (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_target_id_seq;
 ALTER SEQUENCE nglayouts_rule_target_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_rule_target ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_target_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_rule ON nglayouts_rule_target (rule_id, status);
+CREATE INDEX IF NOT EXISTS idx_ngl_target_type ON nglayouts_rule_target (type);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_target_uuid ON nglayouts_rule_target (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_condition_id_seq;
@@ -314,13 +314,17 @@ ALTER SEQUENCE nglayouts_rule_condition_id_seq START WITH 1 INCREMENT BY 1 NO MI
 ALTER TABLE ONLY nglayouts_rule_condition ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_condition_id_seq'::regclass);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_condition_uuid ON nglayouts_rule_condition (uuid, status);
 
+CREATE INDEX IF NOT EXISTS idx_ngl_rule ON nglayouts_rule_condition_rule (rule_id, rule_status);
+
+CREATE INDEX IF NOT EXISTS idx_ngl_rule_group ON nglayouts_rule_condition_rule_group (rule_group_id, rule_group_status);
+
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_group_id_seq;
 ALTER SEQUENCE nglayouts_rule_group_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_rule_group ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_group_id_seq'::regclass);
+CREATE INDEX IF NOT EXISTS idx_ngl_parent_rule_group ON nglayouts_rule_group (parent_id);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_group_uuid ON nglayouts_rule_group (uuid, status);
 
 INSERT INTO nglayouts_rule_group VALUES (1, 1, '00000000-0000-0000-0000-000000000000', 0, '/1/', NULL, 'Root', '');
-
 INSERT INTO nglayouts_rule_group_data VALUES (1, TRUE, 0);
 
 SELECT setval('nglayouts_layout_id_seq', max(id)) FROM nglayouts_layout;
