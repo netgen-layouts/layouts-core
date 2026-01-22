@@ -351,8 +351,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
 
         $container->registerAttributeForAutoconfiguration(
             Attribute\AsTargetType::class,
-            static function (ChildDefinition $definition): void {
-                $definition->addTag('netgen_layouts.target_type');
+            static function (ChildDefinition $definition, Attribute\AsTargetType $attribute): void {
+                $definition->addTag('netgen_layouts.target_type', ['priority' => $attribute->priority]);
             },
         );
 
