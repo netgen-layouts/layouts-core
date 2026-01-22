@@ -324,7 +324,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         $container->registerAttributeForAutoconfiguration(
             Attribute\AsParameterTypeFormMapper::class,
             static function (ChildDefinition $definition, Attribute\AsParameterTypeFormMapper $attribute): void {
-                $definition->addTag('netgen_layouts.parameter_type.form_mapper', ['parameter_type' => $attribute->type]);
+                $definition->addTag('netgen_layouts.parameter_type.form_mapper', ['parameter_type' => $attribute->parameterType]);
             },
         );
 
@@ -359,14 +359,14 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         $container->registerAttributeForAutoconfiguration(
             Attribute\AsTargetTypeFormMapper::class,
             static function (ChildDefinition $definition, Attribute\AsTargetTypeFormMapper $attribute): void {
-                $definition->addTag('netgen_layouts.target_type.form_mapper', ['target_type' => $attribute->type]);
+                $definition->addTag('netgen_layouts.target_type.form_mapper', ['target_type' => $attribute->targetType]);
             },
         );
 
         $container->registerAttributeForAutoconfiguration(
             Attribute\AsDoctrineTargetTypeHandler::class,
             static function (ChildDefinition $definition, Attribute\AsDoctrineTargetTypeHandler $attribute): void {
-                $definition->addTag('netgen_layouts.target_type.doctrine_handler', ['target_type' => $attribute->type]);
+                $definition->addTag('netgen_layouts.target_type.doctrine_handler', ['target_type' => $attribute->targetType]);
             },
         );
 
@@ -380,7 +380,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         $container->registerAttributeForAutoconfiguration(
             Attribute\AsConditionTypeFormMapper::class,
             static function (ChildDefinition $definition, Attribute\AsConditionTypeFormMapper $attribute): void {
-                $definition->addTag('netgen_layouts.condition_type.form_mapper', ['condition_type' => $attribute->type]);
+                $definition->addTag('netgen_layouts.condition_type.form_mapper', ['condition_type' => $attribute->conditionType]);
             },
         );
 
