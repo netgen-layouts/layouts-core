@@ -19,7 +19,7 @@
 {% block _create_layoutType_entry_label %}
     <label for="{{ id }}" class="required">
         <i class="icon" {% if form.vars.layout_type.icon is not null %}style="background-image:url({{ asset(form.vars.layout_type.icon) }})"{% endif %}></i>
-        {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+        {{ translation_domain === false ? label : label|trans({}, translation_domain) }}
     </label>
 {% endblock %}
 

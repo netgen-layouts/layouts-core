@@ -50,7 +50,7 @@
 
         <div class="nl-rule-cell rule-targets">
             {% if rule.targets is not empty %}
-                {% if target_type_identifier is same as('null') %}
+                {% if target_type_identifier === 'null' %}
                     <p>{{ ('layout_resolver.target.null')|trans({}, 'nglayouts') }}</p>
                 {% elseif rule.targets|length == 1 %}
                     <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'nglayouts') }}:</p>
@@ -202,7 +202,7 @@
                 <div class="nl-grid">
                     <div class="col-xs12 nl-rule-setting">
                         {% if rule.targets is not empty %}
-                            {% if target_type_identifier is not same as('null') %}
+                            {% if target_type_identifier !== 'null' %}
                                 <div class="sidemenu-subtitle">
                                     <h4>{{ ('layout_resolver.rule.target_header.' ~ target_type_identifier)|trans }}:</h4>
                                     <p class="note">{{ 'layout_resolver.targets.notice'|trans|raw }}</p>
@@ -234,7 +234,7 @@
                                             </select>
                                         {% endif %}
 
-                                        {% if rule.targets is empty or target_type_identifier is not same as('null') %}
+                                        {% if rule.targets is empty or target_type_identifier !== 'null' %}
                                             <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-target"
                                                 {% if rule.targets is not empty %} data-target-type="{{ target_type_identifier }}" {% endif %}>
                                                 <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_target'|trans }}

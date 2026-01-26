@@ -1,7 +1,7 @@
 {% trans_default_domain 'nglayouts_admin' %}
 
 {% macro format_datetime(datetime) %}
-    {% if datetime is not same as(null) %}
+    {% if datetime !== null %}
         {{ datetime.datetime|format_datetime('medium', 'short') ~ ' (' ~ datetime.timezone ~ ')' }}
     {% endif %}
 {% endmacro %}

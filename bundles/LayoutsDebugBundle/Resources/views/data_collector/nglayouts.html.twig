@@ -1,12 +1,11 @@
 {% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
-    {% set layout = collector.data.layout %}
-    {% set rule = collector.data.rule %}
+    {% do {layout, rule} = collector.data %}
 
     {% if layout %}
         {% set status = 'green' %}
-    {% elseif layout is same as(false) %}
+    {% elseif layout === false %}
         {% set status = 'yellow' %}
     {% endif %}
 
@@ -16,7 +15,7 @@
         <span class="sf-toolbar-value">
             {% if layout %}
                 {{ layout.name }}
-            {% elseif layout is same as(false) %}
+            {% elseif layout === false %}
                 No layout resolved
             {% endif %}
         </span>
@@ -78,9 +77,7 @@
 {% endblock %}
 
 {% block panel %}
-    {% set layout = collector.data.layout %}
-    {% set rule = collector.data.rule %}
-    {% set blocks = collector.data.blocks %}
+    {% do {layout, rule, blocks} = collector.data %}
 
     <div class="sf-tabs">
         <div class="tab">
