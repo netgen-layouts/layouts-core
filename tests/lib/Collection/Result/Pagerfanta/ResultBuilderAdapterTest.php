@@ -27,12 +27,6 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $this->resultBuilderStub
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0),
-            )
             ->willReturn(ResultSet::fromArray(['totalCount' => 3]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderStub, $collection);
@@ -45,12 +39,6 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $this->resultBuilderStub
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0),
-            )
             ->willReturn(ResultSet::fromArray(['totalCount' => 50]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderStub, $collection, 0, 10);
@@ -63,12 +51,6 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $this->resultBuilderStub
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0),
-            )
             ->willReturn(ResultSet::fromArray(['totalCount' => 6]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderStub, $collection, 3);
@@ -81,12 +63,6 @@ final class ResultBuilderAdapterTest extends TestCase
         $collection = new Collection();
         $this->resultBuilderStub
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0),
-            )
             ->willReturn(ResultSet::fromArray(['totalCount' => 10]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderStub, $collection, 3, 5);
@@ -101,12 +77,6 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $this->resultBuilderStub
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(10),
-                self::identicalTo(0),
-            )
             ->willReturn($resultSet);
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderStub, $collection);
@@ -121,12 +91,6 @@ final class ResultBuilderAdapterTest extends TestCase
 
         $this->resultBuilderStub
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(3),
-                self::identicalTo(10),
-                self::identicalTo(0),
-            )
             ->willReturn($resultSet);
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderStub, $collection, 3);

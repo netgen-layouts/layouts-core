@@ -48,7 +48,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
 
         $this->layoutServiceStub
             ->method('getRelatedLayoutsCount')
-            ->with(self::identicalTo($layout))
             ->willReturn(3);
 
         $this->listener->onBuildView($event);

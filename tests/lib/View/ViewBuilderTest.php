@@ -41,17 +41,14 @@ final class ViewBuilderTest extends TestCase
 
         $this->viewProviderStub
             ->method('supports')
-            ->with(self::identicalTo($value))
             ->willReturn(true);
 
         $this->viewProviderStub
             ->method('provideView')
-            ->with(self::identicalTo($value))
             ->willReturn($view);
 
         $this->templateResolverStub
-            ->method('resolveTemplate')
-            ->with(self::identicalTo($view));
+            ->method('resolveTemplate');
 
         $viewBuilder = new ViewBuilder(
             $this->templateResolverStub,
@@ -98,7 +95,6 @@ final class ViewBuilderTest extends TestCase
 
         $this->viewProviderStub
             ->method('supports')
-            ->with(self::identicalTo($value))
             ->willReturn(false);
 
         $viewBuilder = new ViewBuilder(

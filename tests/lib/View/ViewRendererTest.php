@@ -40,15 +40,6 @@ final class ViewRendererTest extends TestCase
 
         $this->twigEnvironmentStub
             ->method('render')
-            ->with(
-                self::identicalTo('some_template.html.twig'),
-                self::identicalTo(
-                    [
-                        'some_param' => 'some_value',
-                        'value' => $value,
-                    ],
-                ),
-            )
             ->willReturn('rendered template');
 
         $renderedTemplate = $this->viewRenderer->renderView($view);

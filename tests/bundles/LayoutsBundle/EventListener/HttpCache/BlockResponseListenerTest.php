@@ -9,7 +9,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,22 +18,15 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 #[CoversClass(BlockResponseListener::class)]
 final class BlockResponseListenerTest extends TestCase
 {
-    private Stub&TaggerInterface $taggerStub;
-
-    private BlockResponseListener $listener;
-
-    protected function setUp(): void
-    {
-        $this->taggerStub = self::createStub(TaggerInterface::class);
-
-        $this->listener = new BlockResponseListener($this->taggerStub);
-    }
-
     public function testGetSubscribedEvents(): void
     {
+        $listener = new BlockResponseListener(
+            self::createStub(TaggerInterface::class),
+        );
+
         self::assertSame(
             [ResponseEvent::class => ['onKernelResponse', 10]],
-            $this->listener::getSubscribedEvents(),
+            $listener::getSubscribedEvents(),
         );
     }
 
@@ -53,11 +45,15 @@ final class BlockResponseListenerTest extends TestCase
             new Response(),
         );
 
-        $this->taggerStub
+        $taggerMock = $this->createMock(TaggerInterface::class);
+        $taggerMock
+            ->expects($this->once())
             ->method('tagBlock')
             ->with(self::identicalTo($block));
 
-        $this->listener->onKernelResponse($event);
+        $listener = new BlockResponseListener($taggerMock);
+
+        $listener->onKernelResponse($event);
     }
 
     public function testOnKernelResponseWithSubRequest(): void
@@ -79,9 +75,9 @@ final class BlockResponseListenerTest extends TestCase
             ->expects($this->never())
             ->method('tagBlock');
 
-        $this->listener = new BlockResponseListener($taggerMock);
+        $listener = new BlockResponseListener($taggerMock);
 
-        $this->listener->onKernelResponse($event);
+        $listener->onKernelResponse($event);
     }
 
     public function testOnKernelResponseWithoutSupportedValue(): void
@@ -103,8 +99,8 @@ final class BlockResponseListenerTest extends TestCase
             ->expects($this->never())
             ->method('tagBlock');
 
-        $this->listener = new BlockResponseListener($taggerMock);
+        $listener = new BlockResponseListener($taggerMock);
 
-        $this->listener->onKernelResponse($event);
+        $listener->onKernelResponse($event);
     }
 }

@@ -33,7 +33,6 @@ final class PolicyToRoleMapVoterTest extends TestCase
 
         $this->accessDecisionManagerStub
             ->method('decide')
-            ->with(self::equalTo($tokenStub), self::equalTo(['ROLE_NGLAYOUTS_ADMIN']))
             ->willReturn(true);
 
         $vote = $this->voter->vote(

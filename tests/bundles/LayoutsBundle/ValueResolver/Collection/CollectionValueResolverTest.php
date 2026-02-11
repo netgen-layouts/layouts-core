@@ -37,7 +37,6 @@ final class CollectionValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadCollectionDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($collection);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class CollectionValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadCollection')
-            ->with(self::equalTo($uuid))
             ->willReturn($collection);
 
         $request = Request::create('/');

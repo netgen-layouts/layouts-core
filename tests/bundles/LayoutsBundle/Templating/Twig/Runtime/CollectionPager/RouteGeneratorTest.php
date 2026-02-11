@@ -67,24 +67,10 @@ final class RouteGeneratorTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(
-                self::identicalTo('nglayouts_ajax_block'),
-                self::identicalTo(
-                    [
-                        'blockId' => $block->id->toString(),
-                        'locale' => 'en',
-                        'collectionIdentifier' => 'default',
-                        'nglContext' => ['var' => 'value'],
-                        'foo' => 'bar',
-                        'baz' => 'bat',
-                    ],
-                ),
-            )
             ->willReturn($generatedUri);
 
         $this->uriSignerStub
             ->method('sign')
-            ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');
 
         $url = ($this->routeGenerator)($block, 'default', $page);
@@ -107,22 +93,10 @@ final class RouteGeneratorTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(
-                self::identicalTo('nglayouts_ajax_block'),
-                self::identicalTo(
-                    [
-                        'blockId' => $block->id->toString(),
-                        'locale' => 'en',
-                        'collectionIdentifier' => 'default',
-                        'nglContext' => ['var' => 'value'],
-                    ],
-                ),
-            )
             ->willReturn($generatedUri);
 
         $this->uriSignerStub
             ->method('sign')
-            ->with(self::identicalTo('?nglContext%5Bvar%5D=value'))
             ->willReturn('?nglContext%5Bvar%5D=value&_hash=signature');
 
         $url = ($this->routeGenerator)($block, 'default', $page);

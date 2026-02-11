@@ -16,7 +16,7 @@ use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Uuid;
 
@@ -25,18 +25,18 @@ use function sprintf;
 #[CoversClass(LayoutEntityHandler::class)]
 final class LayoutEntityHandlerTest extends TestCase
 {
-    private Stub&LayoutService $layoutServiceStub;
+    private MockObject&LayoutService $layoutServiceMock;
 
     private LayoutEntityHandler $entityHandler;
 
     protected function setUp(): void
     {
-        $this->layoutServiceStub = self::createStub(LayoutService::class);
+        $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
         $this->entityHandler = new LayoutEntityHandler(
             self::createStub(BlockService::class),
             self::createStub(CollectionService::class),
-            $this->layoutServiceStub,
+            $this->layoutServiceMock,
             new BlockDefinitionRegistry([]),
             new LayoutTypeRegistry([]),
             new ItemDefinitionRegistry([]),
@@ -51,7 +51,8 @@ final class LayoutEntityHandlerTest extends TestCase
 
         $layout = Layout::fromArray(['id' => $uuid]);
 
-        $this->layoutServiceStub
+        $this->layoutServiceMock
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::identicalTo($uuid))
             ->willReturn($layout);
@@ -66,7 +67,8 @@ final class LayoutEntityHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find layout with identifier "%s"', $uuid->toString()));
 
-        $this->layoutServiceStub
+        $this->layoutServiceMock
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
@@ -78,7 +80,8 @@ final class LayoutEntityHandlerTest extends TestCase
     {
         $uuid = Uuid::v7();
 
-        $this->layoutServiceStub
+        $this->layoutServiceMock
+            ->expects($this->once())
             ->method('layoutExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(true);
@@ -90,7 +93,8 @@ final class LayoutEntityHandlerTest extends TestCase
     {
         $uuid = Uuid::v7();
 
-        $this->layoutServiceStub
+        $this->layoutServiceMock
+            ->expects($this->once())
             ->method('layoutExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(false);
@@ -104,12 +108,14 @@ final class LayoutEntityHandlerTest extends TestCase
 
         $layout = Layout::fromArray(['id' => $uuid]);
 
-        $this->layoutServiceStub
+        $this->layoutServiceMock
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::identicalTo($uuid))
             ->willReturn($layout);
 
-        $this->layoutServiceStub
+        $this->layoutServiceMock
+            ->expects($this->once())
             ->method('deleteLayout')
             ->with(self::identicalTo($layout));
 
@@ -123,7 +129,8 @@ final class LayoutEntityHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find layout with identifier "%s"', $uuid->toString()));
 
-        $this->layoutServiceStub
+        $this->layoutServiceMock
+            ->expects($this->once())
             ->method('loadLayout')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));

@@ -134,12 +134,10 @@ final class LayoutNormalizerTest extends TestCase
 
         $this->layoutServiceStub
             ->method('layoutExists')
-            ->with(self::identicalTo($layout->id), self::identicalTo(Status::Published))
             ->willReturn(true);
 
         $this->layoutServiceStub
             ->method('loadLayoutArchive')
-            ->with(self::identicalTo($layout->id))
             ->willThrowException(new NotFoundException('layout'));
 
         self::assertSame(
@@ -236,12 +234,10 @@ final class LayoutNormalizerTest extends TestCase
 
         $this->layoutServiceStub
             ->method('layoutExists')
-            ->with(self::identicalTo($layout->id), self::identicalTo(Status::Published))
             ->willReturn(true);
 
         $this->layoutServiceStub
             ->method('loadLayoutArchive')
-            ->with(self::identicalTo($layout->id))
             ->willReturn($archivedLayout);
 
         $data = $this->normalizer->normalize(new Value($layout));

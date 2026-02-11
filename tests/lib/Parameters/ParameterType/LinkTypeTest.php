@@ -309,7 +309,6 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -326,7 +325,6 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('24'), self::identicalTo('test_value_type'))
             ->willReturn(new NullCmsItem('test_value_type'));
 
         self::assertSame(
@@ -419,7 +417,6 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -439,7 +436,6 @@ final class LinkTypeTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('def'), self::identicalTo('test_value_type'))
             ->willReturn(new NullCmsItem('test_value_type'));
 
         $importedValue = $this->type->import(

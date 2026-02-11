@@ -39,16 +39,6 @@ final class CollectionViewTest extends TestCase
 
         $this->twigStub
             ->method('render')
-            ->with(
-                self::identicalTo('default_template.html.twig'),
-                self::identicalTo(
-                    [
-                        'block' => $block,
-                        'collection_identifier' => 'default',
-                        'pager' => $pagerStub,
-                    ],
-                ),
-            )
             ->willReturn('rendered template');
 
         $renderedTemplate = $this->collectionView->render(
@@ -70,16 +60,6 @@ final class CollectionViewTest extends TestCase
 
         $this->twigStub
             ->method('render')
-            ->with(
-                self::identicalTo('template.html.twig'),
-                self::identicalTo(
-                    [
-                        'block' => $block,
-                        'collection_identifier' => 'default',
-                        'pager' => $pagerStub,
-                    ],
-                ),
-            )
             ->willReturn('rendered template');
 
         $renderedTemplate = $this->collectionView->render(

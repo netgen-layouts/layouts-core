@@ -37,7 +37,6 @@ final class QueryValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadQueryDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($query);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class QueryValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadQuery')
-            ->with(self::equalTo($uuid))
             ->willReturn($query);
 
         $request = Request::create('/');

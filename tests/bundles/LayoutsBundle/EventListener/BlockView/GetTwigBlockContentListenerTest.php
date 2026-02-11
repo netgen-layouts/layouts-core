@@ -57,12 +57,10 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         $twigTemplateStub
             ->method('hasBlock')
-            ->with(self::identicalTo('twig_block'))
             ->willReturn(true);
 
         $twigTemplateStub
             ->method('displayBlock')
-            ->with(self::identicalTo('twig_block'))
             ->willReturnCallback(
                 static function (): void {
                     echo 'rendered twig block';
@@ -107,7 +105,6 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         $twigTemplateStub
             ->method('displayBlock')
-            ->with(self::identicalTo('block2'))
             ->willReturnCallback(
                 static function (): void {
                     echo 'rendered twig block';

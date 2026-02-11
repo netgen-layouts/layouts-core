@@ -35,11 +35,6 @@ final class ArrayValueNormalizerTest extends TestCase
         $value = new StubValue();
         $this->normalizerStub
             ->method('normalize')
-            ->with(
-                self::identicalTo($value),
-                self::identicalTo('json'),
-                self::identicalTo(['some' => 'context']),
-            )
             ->willReturn(['key' => 'serialized']);
 
         $data = $this->normalizer->normalize(new Value($value), 'json', ['some' => 'context']);

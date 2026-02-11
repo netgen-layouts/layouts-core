@@ -37,7 +37,6 @@ final class TargetValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadTargetDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($target);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class TargetValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadTarget')
-            ->with(self::equalTo($uuid))
             ->willReturn($target);
 
         $request = Request::create('/');

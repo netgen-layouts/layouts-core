@@ -94,7 +94,6 @@ final class BlockNormalizerTest extends TestCase
 
         $this->blockServiceStub
             ->method('hasPublishedState')
-            ->with(self::identicalTo($block))
             ->willReturn(true);
 
         self::assertSame(

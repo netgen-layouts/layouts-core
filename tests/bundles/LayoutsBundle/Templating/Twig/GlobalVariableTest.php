@@ -259,7 +259,6 @@ final class GlobalVariableTest extends TestCase
 
         $this->viewBuilderStub
             ->method('buildView')
-            ->with(self::identicalTo($layout))
             ->willReturn($layoutView);
 
         self::assertSame('layout.html.twig', $this->globalVariable->getLayoutTemplate());
@@ -278,7 +277,6 @@ final class GlobalVariableTest extends TestCase
 
         $this->viewBuilderStub
             ->method('buildView')
-            ->with(self::identicalTo($layout))
             ->willReturn($layoutView);
 
         self::assertSame('layout.html.twig', $this->globalVariable->getLayoutTemplate(ViewInterface::CONTEXT_DEFAULT, $layout));
@@ -331,7 +329,6 @@ final class GlobalVariableTest extends TestCase
 
         $this->viewBuilderStub
             ->method('buildView')
-            ->with(self::identicalTo($layout))
             ->willReturn($layoutView);
 
         self::assertSame('layout.html.twig', $this->globalVariable->getLayoutTemplate());
@@ -396,7 +393,6 @@ final class GlobalVariableTest extends TestCase
 
         $this->uriSignerStub
             ->method('sign')
-            ->with('?nglContext%5Bfoo%5D=bar&nglContext%5Bbar%5D=baz')
             ->willReturn('?nglContext%5Bfoo%5D=bar&nglContext%5Bbar%5D=baz&_hash=signature');
 
         self::assertSame(

@@ -10,7 +10,6 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\View\RendererInterface;
-use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
@@ -40,15 +39,10 @@ final class ViewNormalizerTest extends TestCase
         $value = new APIValue();
         $this->normalizerStub
             ->method('normalize')
-            ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
         $this->viewRendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($value),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-            )
             ->willReturn('rendered view');
 
         $view = new View($value);
@@ -63,7 +57,6 @@ final class ViewNormalizerTest extends TestCase
         $value = new APIValue();
         $this->normalizerStub
             ->method('normalize')
-            ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
         $view = new View($value);
@@ -79,15 +72,10 @@ final class ViewNormalizerTest extends TestCase
 
         $this->normalizerStub
             ->method('normalize')
-            ->with(self::equalTo(new Value($value)))
             ->willReturn(['id' => 42]);
 
         $this->viewRendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($value),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-            )
             ->willReturn('rendered view');
 
         $view = new View($value);

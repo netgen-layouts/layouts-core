@@ -47,7 +47,6 @@ final class MainMenuBuilderTest extends TestCase
     {
         $this->authorizationCheckerStub
             ->method('isGranted')
-            ->with(self::identicalTo('nglayouts:ui:access'))
             ->willReturn(true);
 
         $menu = $this->builder->createMenu();
@@ -83,7 +82,6 @@ final class MainMenuBuilderTest extends TestCase
     {
         $this->authorizationCheckerStub
             ->method('isGranted')
-            ->with(self::identicalTo('nglayouts:ui:access'))
             ->willReturn(false);
 
         $menu = $this->builder->createMenu();

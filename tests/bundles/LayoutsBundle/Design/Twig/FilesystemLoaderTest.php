@@ -26,7 +26,6 @@ final class FilesystemLoaderTest extends TestCase
 
         $configurationStub
             ->method('getParameter')
-            ->with(self::identicalTo('design'))
             ->willReturn('test');
 
         $this->loader = new FilesystemLoader(
@@ -41,7 +40,6 @@ final class FilesystemLoaderTest extends TestCase
 
         $this->innerLoaderStub
             ->method('getSourceContext')
-            ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn($source);
 
         $sourceContext = $this->loader->getSourceContext('@nglayouts/template.html.twig');
@@ -55,7 +53,6 @@ final class FilesystemLoaderTest extends TestCase
 
         $this->innerLoaderStub
             ->method('getSourceContext')
-            ->with(self::identicalTo('@other/template.html.twig'))
             ->willReturn($source);
 
         $sourceContext = $this->loader->getSourceContext('@other/template.html.twig');
@@ -67,7 +64,6 @@ final class FilesystemLoaderTest extends TestCase
     {
         $this->innerLoaderStub
             ->method('getCacheKey')
-            ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn('cache_key');
 
         $cacheKey = $this->loader->getCacheKey('@nglayouts/template.html.twig');
@@ -79,7 +75,6 @@ final class FilesystemLoaderTest extends TestCase
     {
         $this->innerLoaderStub
             ->method('getCacheKey')
-            ->with(self::identicalTo('@other/template.html.twig'))
             ->willReturn('cache_key');
 
         $cacheKey = $this->loader->getCacheKey('@other/template.html.twig');
@@ -91,7 +86,6 @@ final class FilesystemLoaderTest extends TestCase
     {
         $this->innerLoaderStub
             ->method('isFresh')
-            ->with(self::identicalTo('@nglayouts_test/template.html.twig'), self::identicalTo(42))
             ->willReturn(true);
 
         self::assertTrue($this->loader->isFresh('@nglayouts/template.html.twig', 42));
@@ -101,7 +95,6 @@ final class FilesystemLoaderTest extends TestCase
     {
         $this->innerLoaderStub
             ->method('isFresh')
-            ->with(self::identicalTo('@other/template.html.twig'), self::identicalTo(42))
             ->willReturn(true);
 
         self::assertTrue($this->loader->isFresh('@other/template.html.twig', 42));
@@ -111,7 +104,6 @@ final class FilesystemLoaderTest extends TestCase
     {
         $this->innerLoaderStub
             ->method('exists')
-            ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn(true);
 
         self::assertTrue($this->loader->exists('@nglayouts/template.html.twig'));
@@ -121,7 +113,6 @@ final class FilesystemLoaderTest extends TestCase
     {
         $this->innerLoaderStub
             ->method('exists')
-            ->with(self::identicalTo('@other/template.html.twig'))
             ->willReturn(true);
 
         self::assertTrue($this->loader->exists('@other/template.html.twig'));

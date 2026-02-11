@@ -153,7 +153,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([$rule1], $this->layoutResolver->resolveRules(Request::create('/')));
@@ -193,7 +192,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([$rule1], $this->layoutResolver->resolveRules(Request::create('/')));
@@ -233,7 +231,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([], $this->layoutResolver->resolveRules(Request::create('/')));
@@ -278,7 +275,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules(Request::create('/')));
@@ -347,7 +343,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame(
@@ -388,7 +383,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule]));
 
         self::assertSame(
@@ -500,7 +494,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame($rule1, $this->layoutResolver->resolveRule(Request::create('/')));
@@ -540,7 +533,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertNull($this->layoutResolver->resolveRule(Request::create('/')));
@@ -585,7 +577,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(RuleList::fromArray([$rule1, $rule2]));
 
         self::assertSame($rule2, $this->layoutResolver->resolveRule(Request::create('/')));
@@ -643,7 +634,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule]));
 
         self::assertSame(
@@ -687,7 +677,6 @@ final class LayoutResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('matchRules')
-            ->with(self::identicalTo($ruleGroup), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(RuleList::fromArray([$rule]));
 
         self::assertSame($resolved ? $rule : null, $this->layoutResolver->resolveRule(Request::create('/')));

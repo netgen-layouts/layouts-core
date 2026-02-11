@@ -11,7 +11,7 @@ use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Uuid;
 
@@ -20,16 +20,16 @@ use function sprintf;
 #[CoversClass(RuleEntityHandler::class)]
 final class RuleEntityHandlerTest extends TestCase
 {
-    private Stub&LayoutResolverService $layoutResolverServiceStub;
+    private MockObject&LayoutResolverService $layoutResolverServiceMock;
 
     private RuleEntityHandler $entityHandler;
 
     protected function setUp(): void
     {
-        $this->layoutResolverServiceStub = self::createStub(LayoutResolverService::class);
+        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
         $this->entityHandler = new RuleEntityHandler(
-            $this->layoutResolverServiceStub,
+            $this->layoutResolverServiceMock,
             new TargetTypeRegistry([]),
             new ConditionTypeRegistry([]),
         );
@@ -41,7 +41,8 @@ final class RuleEntityHandlerTest extends TestCase
 
         $rule = Rule::fromArray(['id' => $uuid]);
 
-        $this->layoutResolverServiceStub
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willReturn($rule);
@@ -56,7 +57,8 @@ final class RuleEntityHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find rule with identifier "%s"', $uuid->toString()));
 
-        $this->layoutResolverServiceStub
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('rule', $uuid->toString()));
@@ -68,7 +70,8 @@ final class RuleEntityHandlerTest extends TestCase
     {
         $uuid = Uuid::v7();
 
-        $this->layoutResolverServiceStub
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
             ->method('ruleExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(true);
@@ -80,7 +83,8 @@ final class RuleEntityHandlerTest extends TestCase
     {
         $uuid = Uuid::v7();
 
-        $this->layoutResolverServiceStub
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
             ->method('ruleExists')
             ->with(self::identicalTo($uuid))
             ->willReturn(false);
@@ -94,12 +98,14 @@ final class RuleEntityHandlerTest extends TestCase
 
         $rule = Rule::fromArray(['id' => $uuid]);
 
-        $this->layoutResolverServiceStub
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willReturn($rule);
 
-        $this->layoutResolverServiceStub
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
             ->method('deleteRule')
             ->with(self::identicalTo($rule));
 
@@ -113,7 +119,8 @@ final class RuleEntityHandlerTest extends TestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(sprintf('Could not find rule with identifier "%s"', $uuid->toString()));
 
-        $this->layoutResolverServiceStub
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
             ->method('loadRule')
             ->with(self::identicalTo($uuid))
             ->willThrowException(new NotFoundException('rule', $uuid->toString()));

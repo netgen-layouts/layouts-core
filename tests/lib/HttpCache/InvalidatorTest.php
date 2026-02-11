@@ -15,21 +15,11 @@ use Symfony\Component\Uid\Uuid;
 #[CoversClass(Invalidator::class)]
 final class InvalidatorTest extends TestCase
 {
-    private Stub&ClientInterface $clientStub;
-
     private Stub&IdProviderInterface $idProviderStub;
-
-    private Invalidator $invalidator;
 
     protected function setUp(): void
     {
-        $this->clientStub = self::createStub(ClientInterface::class);
         $this->idProviderStub = self::createStub(IdProviderInterface::class);
-
-        $this->invalidator = new Invalidator(
-            $this->clientStub,
-            $this->idProviderStub,
-        );
     }
 
     public function testInvalidateLayouts(): void
@@ -48,7 +38,9 @@ final class InvalidatorTest extends TestCase
                 ],
             );
 
-        $this->clientStub
+        $clientMock = $this->createMock(ClientInterface::class);
+        $clientMock
+            ->expects($this->once())
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -61,7 +53,12 @@ final class InvalidatorTest extends TestCase
                 ),
             );
 
-        $this->invalidator->invalidateLayouts([$uuid1->toString(), $uuid2->toString()]);
+        $invalidator = new Invalidator(
+            $clientMock,
+            $this->idProviderStub,
+        );
+
+        $invalidator->invalidateLayouts([$uuid1->toString(), $uuid2->toString()]);
     }
 
     public function testInvalidateLayoutsWithEmptyLayoutIds(): void
@@ -84,7 +81,9 @@ final class InvalidatorTest extends TestCase
         $uuid1 = Uuid::v7();
         $uuid2 = Uuid::v7();
 
-        $this->clientStub
+        $clientMock = $this->createMock(ClientInterface::class);
+        $clientMock
+            ->expects($this->once())
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -95,7 +94,12 @@ final class InvalidatorTest extends TestCase
                 ),
             );
 
-        $this->invalidator->invalidateBlocks([$uuid1->toString(), $uuid2->toString()]);
+        $invalidator = new Invalidator(
+            $clientMock,
+            $this->idProviderStub,
+        );
+
+        $invalidator->invalidateBlocks([$uuid1->toString(), $uuid2->toString()]);
     }
 
     public function testInvalidateBlocksWithEmptyBlockIds(): void
@@ -118,7 +122,9 @@ final class InvalidatorTest extends TestCase
         $uuid1 = Uuid::v7();
         $uuid2 = Uuid::v7();
 
-        $this->clientStub
+        $clientMock = $this->createMock(ClientInterface::class);
+        $clientMock
+            ->expects($this->once())
             ->method('purge')
             ->with(
                 self::identicalTo(
@@ -129,7 +135,12 @@ final class InvalidatorTest extends TestCase
                 ),
             );
 
-        $this->invalidator->invalidateLayoutBlocks([$uuid1->toString(), $uuid2->toString()]);
+        $invalidator = new Invalidator(
+            $clientMock,
+            $this->idProviderStub,
+        );
+
+        $invalidator->invalidateLayoutBlocks([$uuid1->toString(), $uuid2->toString()]);
     }
 
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
@@ -149,10 +160,17 @@ final class InvalidatorTest extends TestCase
 
     public function testCommit(): void
     {
-        $this->clientStub
+        $clientMock = $this->createMock(ClientInterface::class);
+        $clientMock
+            ->expects($this->once())
             ->method('commit')
             ->willReturn(true);
 
-        self::assertTrue($this->invalidator->commit());
+        $invalidator = new Invalidator(
+            $clientMock,
+            $this->idProviderStub,
+        );
+
+        self::assertTrue($invalidator->commit());
     }
 }

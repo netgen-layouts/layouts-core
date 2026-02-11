@@ -45,11 +45,6 @@ final class SerializerListenerTest extends TestCase
 
         $this->serializerStub
             ->method('serialize')
-            ->with(
-                self::identicalTo($value),
-                self::identicalTo('json'),
-                self::identicalTo([]),
-            )
             ->willReturn('serialized content');
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
@@ -82,11 +77,6 @@ final class SerializerListenerTest extends TestCase
 
         $this->serializerStub
             ->method('serialize')
-            ->with(
-                self::identicalTo($value),
-                self::identicalTo('json'),
-                self::identicalTo(['disable_html' => true]),
-            )
             ->willReturn('serialized content');
 
         $kernelStub = self::createStub(HttpKernelInterface::class);

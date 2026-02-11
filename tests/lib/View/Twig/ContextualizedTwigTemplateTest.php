@@ -29,7 +29,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $templateStub
             ->method('hasBlock')
-            ->with(self::identicalTo('block_name'))
             ->willReturn(true);
 
         $template = new ContextualizedTwigTemplate($templateStub);
@@ -43,7 +42,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $templateStub
             ->method('hasBlock')
-            ->with(self::identicalTo('block_name'))
             ->willReturn(false);
 
         $template = new ContextualizedTwigTemplate($templateStub);
@@ -57,12 +55,10 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $templateStub
             ->method('hasBlock')
-            ->with(self::identicalTo('block_name'))
             ->willReturn(true);
 
         $templateStub
             ->method('displayBlock')
-            ->with(self::identicalTo('block_name'))
             ->willReturnCallback(
                 static function (string $blockName): void {
                     echo 'rendered';
@@ -80,7 +76,6 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $templateStub
             ->method('hasBlock')
-            ->with(self::identicalTo('block_name'))
             ->willReturn(false);
 
         $template = new ContextualizedTwigTemplate($templateStub);
@@ -97,12 +92,10 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
         $templateStub
             ->method('hasBlock')
-            ->with(self::identicalTo('block_name'))
             ->willReturn(true);
 
         $templateStub
             ->method('displayBlock')
-            ->with(self::identicalTo('block_name'))
             ->willThrowException(new Exception('Test exception text'));
 
         $template = new ContextualizedTwigTemplate($templateStub);

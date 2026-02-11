@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAppRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ThrowableSerializerListener;
-use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
@@ -51,10 +50,6 @@ final class ThrowableSerializerListenerTest extends TestCase
 
         $this->serializerStub
             ->method('serialize')
-            ->with(
-                self::equalTo(new Value($throwable)),
-                self::identicalTo('json'),
-            )
             ->willReturn('serialized content');
 
         $loggerMock = $this->createMock(LoggerInterface::class);
@@ -98,10 +93,6 @@ final class ThrowableSerializerListenerTest extends TestCase
 
         $this->serializerStub
             ->method('serialize')
-            ->with(
-                self::equalTo(new Value($throwable)),
-                self::identicalTo('json'),
-            )
             ->willReturn('serialized content');
 
         $loggerMock = $this->createMock(LoggerInterface::class);

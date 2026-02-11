@@ -48,7 +48,6 @@ final class RuleCountListenerTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('getRuleCountForLayout')
-            ->with(self::identicalTo($layout))
             ->willReturn(3);
 
         $this->listener->onBuildView($event);

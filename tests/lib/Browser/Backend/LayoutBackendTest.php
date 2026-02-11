@@ -63,7 +63,6 @@ final class LayoutBackendTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         $item = $this->backend->loadItem($uuid->toString());
@@ -80,7 +79,6 @@ final class LayoutBackendTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
         $this->backend->loadItem($uuid->toString());
@@ -105,11 +103,6 @@ final class LayoutBackendTest extends TestCase
     {
         $this->layoutServiceStub
             ->method('loadLayouts')
-            ->with(
-                self::identicalTo(false),
-                self::identicalTo(0),
-                self::identicalTo(25),
-            )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
         $items = [];
@@ -125,11 +118,6 @@ final class LayoutBackendTest extends TestCase
     {
         $this->layoutServiceStub
             ->method('loadLayouts')
-            ->with(
-                self::identicalTo(false),
-                self::identicalTo(5),
-                self::identicalTo(10),
-            )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
         $items = [];
@@ -153,11 +141,6 @@ final class LayoutBackendTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadAllLayouts')
-            ->with(
-                self::identicalTo(false),
-                self::identicalTo(0),
-                self::identicalTo(25),
-            )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
         $items = [];

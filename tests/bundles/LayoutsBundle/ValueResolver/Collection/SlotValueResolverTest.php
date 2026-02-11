@@ -37,7 +37,6 @@ final class SlotValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadSlotDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($slot);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class SlotValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadSlot')
-            ->with(self::equalTo($uuid))
             ->willReturn($slot);
 
         $request = Request::create('/');

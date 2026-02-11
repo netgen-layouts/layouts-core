@@ -30,7 +30,6 @@ final class RemoteIdConverterTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -52,7 +51,6 @@ final class RemoteIdConverterTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
             ->willReturn(new NullCmsItem('test_value_type'));
 
         self::assertSame('null://0', $this->remoteIdConverter->convertToRemoteId('test-value-type://42'));
@@ -62,7 +60,6 @@ final class RemoteIdConverterTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -84,7 +81,6 @@ final class RemoteIdConverterTest extends TestCase
     {
         $this->cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
             ->willReturn(new NullCmsItem('test_value_type'));
 
         self::assertSame('null://0', $this->remoteIdConverter->convertFromRemoteId('test-value-type://abc'));

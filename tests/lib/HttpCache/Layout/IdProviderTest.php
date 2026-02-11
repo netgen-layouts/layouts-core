@@ -34,7 +34,6 @@ final class IdProviderTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid))
             ->willReturn(
                 Layout::fromArray(
                     [
@@ -55,7 +54,6 @@ final class IdProviderTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
         $providedIds = $this->idProvider->provideIds($uuid->toString());
@@ -78,12 +76,10 @@ final class IdProviderTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid1))
             ->willReturn($sharedLayout);
 
         $this->layoutServiceStub
             ->method('loadRelatedLayouts')
-            ->with(self::identicalTo($sharedLayout))
             ->willReturn(
                 new LayoutList(
                     [

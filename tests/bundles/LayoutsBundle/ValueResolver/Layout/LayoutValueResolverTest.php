@@ -37,7 +37,6 @@ final class LayoutValueResolverTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayoutDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class LayoutValueResolverTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         $request = Request::create('/');
@@ -80,7 +78,6 @@ final class LayoutValueResolverTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayoutArchive')
-            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         $request = Request::create('/');

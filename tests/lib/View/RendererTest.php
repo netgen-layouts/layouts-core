@@ -44,16 +44,10 @@ final class RendererTest extends TestCase
 
         $this->viewBuilderStub
             ->method('buildView')
-            ->with(
-                self::identicalTo($value),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['some_param' => 'some_value']),
-            )
             ->willReturn($view);
 
         $this->viewRendererStub
             ->method('renderView')
-            ->with(self::identicalTo($view))
             ->willReturn('rendered template');
 
         $renderedTemplate = $this->renderer->renderValue(

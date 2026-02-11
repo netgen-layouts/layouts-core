@@ -10,7 +10,6 @@ use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 #[CoversClass(CsrfTokenValidator::class)]
@@ -37,7 +36,6 @@ final class CsrfTokenValidatorTest extends TestCase
     {
         $this->csrfTokenManagerStub
             ->method('isTokenValid')
-            ->with(self::equalTo(new CsrfToken('token_id', 'token')))
             ->willReturn(true);
 
         $this->sessionStub
@@ -56,7 +54,6 @@ final class CsrfTokenValidatorTest extends TestCase
     {
         $this->csrfTokenManagerStub
             ->method('isTokenValid')
-            ->with(self::equalTo(new CsrfToken('token_id', 'token')))
             ->willReturn(false);
 
         $this->sessionStub

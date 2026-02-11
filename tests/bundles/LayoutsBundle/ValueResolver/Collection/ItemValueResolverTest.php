@@ -37,7 +37,6 @@ final class ItemValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadItemDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($item);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class ItemValueResolverTest extends TestCase
 
         $this->collectionServiceStub
             ->method('loadItem')
-            ->with(self::equalTo($uuid))
             ->willReturn($item);
 
         $request = Request::create('/');

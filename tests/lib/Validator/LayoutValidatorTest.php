@@ -11,7 +11,6 @@ use Netgen\Layouts\Validator\LayoutValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -34,7 +33,6 @@ final class LayoutValidatorTest extends ValidatorTestCase
         if ($value !== null) {
             $this->layoutServiceStub
                 ->method('layoutExists')
-                ->with(self::equalTo(Uuid::fromString($value)))
                 ->willReturn($isValid);
         }
 

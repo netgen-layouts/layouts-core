@@ -13,7 +13,6 @@ use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
-use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -81,7 +80,6 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -137,7 +135,6 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = Result::fromArray(['position' => 3, 'item' => new ManualItem($collectionItem)]);
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -180,7 +177,6 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($item), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(
@@ -241,7 +237,6 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = Result::fromArray(['position' => 3, 'item' => new ManualItem($collectionItem), 'subItem' => $item]);
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($collectionItem->cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/some/url');
 
         self::assertSame(

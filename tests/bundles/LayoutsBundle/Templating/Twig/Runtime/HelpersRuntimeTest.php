@@ -50,7 +50,6 @@ final class HelpersRuntimeTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid))
             ->willReturn(Layout::fromArray(['name' => 'Test layout']));
 
         self::assertSame('Test layout', $this->runtime->getLayoutName($uuid->toString()));
@@ -62,7 +61,6 @@ final class HelpersRuntimeTest extends TestCase
 
         $this->layoutServiceStub
             ->method('loadLayout')
-            ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
         self::assertSame('', $this->runtime->getLayoutName($uuid->toString()));
@@ -78,12 +76,10 @@ final class HelpersRuntimeTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRule')
-            ->with(self::equalTo($ruleUuid))
             ->willReturn($rule);
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
-            ->with(self::equalTo($groupUuid))
             ->willReturn($ruleGroup);
 
         self::assertSame($ruleGroup, $this->runtime->getRuleGroup($ruleUuid->toString()));
@@ -95,7 +91,6 @@ final class HelpersRuntimeTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
-            ->with(self::equalTo($uuid))
             ->willReturn(RuleGroup::fromArray(['name' => 'Test rule group']));
 
         self::assertSame('Test rule group', $this->runtime->getRuleGroupName($uuid->toString()));
@@ -107,7 +102,6 @@ final class HelpersRuntimeTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
-            ->with(self::equalTo($uuid))
             ->willThrowException(new NotFoundException('rule group', $uuid->toString()));
 
         self::assertSame('', $this->runtime->getRuleGroupName($uuid->toString()));

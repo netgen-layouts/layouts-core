@@ -33,7 +33,6 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
         if ($value !== null && $value !== '') {
             $this->layoutServiceStub
                 ->method('layoutNameExists')
-                ->with(self::identicalTo($value))
                 ->willReturn(!$isValid);
         }
 

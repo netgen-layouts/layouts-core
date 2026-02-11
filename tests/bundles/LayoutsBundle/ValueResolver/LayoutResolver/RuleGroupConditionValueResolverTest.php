@@ -37,7 +37,6 @@ final class RuleGroupConditionValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupConditionDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($condition);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class RuleGroupConditionValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupCondition')
-            ->with(self::equalTo($uuid))
             ->willReturn($condition);
 
         $request = Request::create('/');

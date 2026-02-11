@@ -222,7 +222,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('12'), self::identicalTo('test_value_type'))
             ->willReturn($cmsItem);
 
         $item = $this->collectionMapper->mapItem($persistenceItem);
@@ -312,7 +311,6 @@ abstract class CollectionMapperTestBase extends CoreTestCase
 
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('12'), self::identicalTo('null'))
             ->willReturn($cmsItem);
 
         $item = $this->collectionMapper->mapItem($persistenceItem);

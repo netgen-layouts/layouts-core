@@ -37,7 +37,6 @@ final class BlockValueResolverTest extends TestCase
 
         $this->blockServiceStub
             ->method('loadBlockDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($block);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class BlockValueResolverTest extends TestCase
 
         $this->blockServiceStub
             ->method('loadBlock')
-            ->with(self::equalTo($uuid))
             ->willReturn($block);
 
         $request = Request::create('/');

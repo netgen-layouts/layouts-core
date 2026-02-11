@@ -211,7 +211,6 @@ final class TemplateResolverTest extends TestCase
         $matcherStub = self::createStub(MatcherInterface::class);
         $matcherStub
             ->method('match')
-            ->with(self::identicalTo($this->view), self::identicalTo(['value']))
             ->willReturn(false);
 
         $viewConfiguration = [

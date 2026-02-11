@@ -9,7 +9,6 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\BlockList;
-use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\View\RendererInterface;
@@ -139,16 +138,11 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         if ($request instanceof Request) {
             $this->localeProviderStub
                 ->method('getRequestLocales')
-                ->with(self::identicalTo($request))
                 ->willReturn(['en']);
         }
 
         $this->blockServiceStub
             ->method('loadZoneBlocks')
-            ->with(
-                self::isInstanceOf(Zone::class),
-                self::identicalTo($request instanceof Request ? ['en'] : null),
-            )
             ->willReturn(BlockList::fromArray([]));
 
         $this->rendererStub

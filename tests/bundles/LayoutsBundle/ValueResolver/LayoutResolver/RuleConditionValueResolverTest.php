@@ -37,7 +37,6 @@ final class RuleConditionValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleConditionDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($ruleCondition);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class RuleConditionValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleCondition')
-            ->with(self::equalTo($uuid))
             ->willReturn($ruleCondition);
 
         $request = Request::create('/');

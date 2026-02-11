@@ -8,7 +8,6 @@ use Netgen\Bundle\LayoutsBundle\EventListener\ContextListener;
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\UriSigner;
@@ -20,28 +19,22 @@ final class ContextListenerTest extends TestCase
 {
     private Context $context;
 
-    private Stub&ContextBuilderInterface $contextBuilderStub;
-
-    private ContextListener $listener;
-
     protected function setUp(): void
     {
         $this->context = new Context();
-
-        $this->contextBuilderStub = self::createStub(ContextBuilderInterface::class);
-
-        $this->listener = new ContextListener(
-            $this->context,
-            $this->contextBuilderStub,
-            self::createStub(UriSigner::class),
-        );
     }
 
     public function testGetSubscribedEvents(): void
     {
+        $listener = new ContextListener(
+            $this->context,
+            self::createStub(ContextBuilderInterface::class),
+            self::createStub(UriSigner::class),
+        );
+
         self::assertSame(
             [RequestEvent::class => 'onKernelRequest'],
-            $this->listener::getSubscribedEvents(),
+            $listener::getSubscribedEvents(),
         );
     }
 
@@ -50,12 +43,20 @@ final class ContextListenerTest extends TestCase
         $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $this->contextBuilderStub
+        $contextBuilderMock = $this->createMock(ContextBuilderInterface::class);
+        $contextBuilderMock
+            ->expects($this->once())
             ->method('buildContext')
             ->with(self::identicalTo($this->context));
 
+        $listener = new ContextListener(
+            $this->context,
+            $contextBuilderMock,
+            self::createStub(UriSigner::class),
+        );
+
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $listener->onKernelRequest($event);
     }
 
     public function testOnKernelRequestWithContextFromAttributes(): void
@@ -65,8 +66,14 @@ final class ContextListenerTest extends TestCase
 
         $request->attributes->set('nglContext', ['var' => 'value']);
 
+        $listener = new ContextListener(
+            $this->context,
+            self::createStub(ContextBuilderInterface::class),
+            self::createStub(UriSigner::class),
+        );
+
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $listener->onKernelRequest($event);
 
         self::assertSame(['var' => 'value'], $this->context->all());
     }
@@ -78,8 +85,14 @@ final class ContextListenerTest extends TestCase
 
         $request->query->set('nglContext', ['var' => 'value']);
 
+        $listener = new ContextListener(
+            $this->context,
+            self::createStub(ContextBuilderInterface::class),
+            self::createStub(UriSigner::class),
+        );
+
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
-        $this->listener->onKernelRequest($event);
+        $listener->onKernelRequest($event);
 
         self::assertSame([], $this->context->all());
     }

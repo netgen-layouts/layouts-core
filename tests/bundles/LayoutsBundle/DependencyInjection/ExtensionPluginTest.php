@@ -38,22 +38,20 @@ final class ExtensionPluginTest extends TestCase
     {
         $node = new ConfigurationNode();
 
-        $rootNodeStub = self::createStub(ArrayNodeDefinition::class);
-        $nodeBuilderStub = self::createStub(NodeBuilder::class);
+        $rootNodeMock = $this->createMock(ArrayNodeDefinition::class);
+        $nodeBuilderMock = $this->createMock(NodeBuilder::class);
 
-        $rootNodeStub
+        $rootNodeMock
+            ->expects($this->once())
             ->method('children')
-            ->willReturn($nodeBuilderStub);
+            ->willReturn($nodeBuilderMock);
 
-        $nodeBuilderStub
+        $nodeBuilderMock
+            ->expects($this->atMost(2))
             ->method('append')
             ->with(self::equalTo($node->getConfigurationNode()));
 
-        $nodeBuilderStub
-            ->method('append')
-            ->with(self::equalTo($node->getConfigurationNode()));
-
-        $this->plugin->addConfiguration($rootNodeStub);
+        $this->plugin->addConfiguration($rootNodeMock);
     }
 
     public function testAppendConfigurationFiles(): void

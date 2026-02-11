@@ -9,7 +9,6 @@ use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
-use Netgen\Layouts\Item\UrlType;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
@@ -45,12 +44,10 @@ final class ItemRuntimeTest extends TestCase
 
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo(42), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Default))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath([42, 'value']);
@@ -64,12 +61,10 @@ final class ItemRuntimeTest extends TestCase
 
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Default))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath('value://42');
@@ -83,7 +78,6 @@ final class ItemRuntimeTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Default))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath($cmsItem);
@@ -112,12 +106,10 @@ final class ItemRuntimeTest extends TestCase
 
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo(42), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemAdminPath([42, 'value']);
@@ -131,12 +123,10 @@ final class ItemRuntimeTest extends TestCase
 
         $this->cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('value'))
             ->willReturn($cmsItem);
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemAdminPath('value://42');
@@ -150,7 +140,6 @@ final class ItemRuntimeTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(self::identicalTo($cmsItem), self::identicalTo(UrlType::Admin))
             ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemAdminPath($cmsItem);

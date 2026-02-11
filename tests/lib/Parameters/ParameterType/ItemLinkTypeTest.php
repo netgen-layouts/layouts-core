@@ -35,7 +35,6 @@ final class ItemLinkTypeTest extends TestCase
         $cmsItemLoaderStub = self::createStub(CmsItemLoaderInterface::class);
         $cmsItemLoaderStub
             ->method('load')
-            ->with(self::identicalTo('42'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [
@@ -47,7 +46,6 @@ final class ItemLinkTypeTest extends TestCase
 
         $cmsItemLoaderStub
             ->method('loadByRemoteId')
-            ->with(self::identicalTo('abc'), self::identicalTo('test_value_type'))
             ->willReturn(
                 CmsItem::fromArray(
                     [

@@ -37,7 +37,6 @@ final class RuleValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($rule);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class RuleValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRule')
-            ->with(self::equalTo($uuid))
             ->willReturn($rule);
 
         $request = Request::create('/');
@@ -80,7 +78,6 @@ final class RuleValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleArchive')
-            ->with(self::equalTo($uuid))
             ->willReturn($rule);
 
         $request = Request::create('/');

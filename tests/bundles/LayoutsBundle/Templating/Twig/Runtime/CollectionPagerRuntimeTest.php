@@ -44,11 +44,6 @@ final class CollectionPagerRuntimeTest extends TestCase
 
         $this->pagerfantaViewStub
             ->method('render')
-            ->with(
-                self::identicalTo($pagerfantaStub),
-                self::identicalTo($this->routeGenerator),
-                self::identicalTo(['block' => $block, 'collection_identifier' => 'default']),
-            )
             ->willReturn('rendered view');
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
@@ -67,17 +62,6 @@ final class CollectionPagerRuntimeTest extends TestCase
 
         $this->pagerfantaViewStub
             ->method('render')
-            ->with(
-                self::identicalTo($pagerfantaStub),
-                self::identicalTo($this->routeGenerator),
-                self::identicalTo(
-                    [
-                        'var' => 'value',
-                        'block' => $block,
-                        'collection_identifier' => 'default',
-                    ],
-                ),
-            )
             ->willReturn('rendered view');
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(

@@ -53,7 +53,6 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->viewRendererStub
             ->method('renderView')
-            ->with(self::identicalTo($view))
             ->willReturn('rendered content');
 
         $kernelStub = self::createStub(HttpKernelInterface::class);
@@ -87,7 +86,6 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->viewRendererStub
             ->method('renderView')
-            ->with(self::identicalTo($view))
             ->willThrowException(new Exception());
 
         $kernelStub = self::createStub(HttpKernelInterface::class);

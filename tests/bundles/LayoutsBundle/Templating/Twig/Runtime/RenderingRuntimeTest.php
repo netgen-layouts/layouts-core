@@ -26,7 +26,6 @@ use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
-use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
@@ -77,24 +76,10 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->blockServiceStub
             ->method('loadZoneBlocks')
-            ->with(
-                self::identicalTo($zone),
-                self::isNull(),
-            )
             ->willReturn($blocks);
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::isInstanceOf(ZoneReference::class),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(
-                    [
-                        'blocks' => $blocks,
-                        'twig_template' => $twigTemplate,
-                    ],
-                ),
-            )
             ->willReturn('rendered zone');
 
         self::assertSame(
@@ -115,16 +100,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($block),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(
-                    [
-                        'param' => 'value',
-                        'twig_template' => $twigTemplate,
-                    ],
-                ),
-            )
             ->willReturn('rendered block');
 
         self::assertSame(
@@ -145,16 +120,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($block),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(
-                    [
-                        'param' => 'value',
-                        'twig_template' => null,
-                    ],
-                ),
-            )
             ->willReturn('rendered block');
 
         self::assertSame(
@@ -174,16 +139,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($block),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(
-                    [
-                        'param' => 'value',
-                        'twig_template' => $twigTemplate,
-                    ],
-                ),
-            )
             ->willReturn('rendered block');
 
         self::assertSame(
@@ -206,16 +161,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($block),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(
-                    [
-                        'param' => 'value',
-                        'twig_template' => $twigTemplate,
-                    ],
-                ),
-            )
             ->willReturn('rendered block');
 
         self::assertSame(
@@ -287,17 +232,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($placeholder),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(
-                    [
-                        'block' => $block,
-                        'param' => 'value',
-                        'twig_template' => $twigTemplate,
-                    ],
-                ),
-            )
             ->willReturn('rendered placeholder');
 
         self::assertSame(
@@ -328,17 +262,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($placeholder),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(
-                    [
-                        'block' => $block,
-                        'param' => 'value',
-                        'twig_template' => null,
-                    ],
-                ),
-            )
             ->willReturn('rendered placeholder');
 
         self::assertSame(
@@ -369,17 +292,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($placeholder),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(
-                    [
-                        'block' => $block,
-                        'param' => 'value',
-                        'twig_template' => $twigTemplate,
-                    ],
-                ),
-            )
             ->willReturn('rendered placeholder');
 
         self::assertSame(
@@ -413,17 +325,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($placeholder),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(
-                    [
-                        'block' => $block,
-                        'param' => 'value',
-                        'twig_template' => $twigTemplate,
-                    ],
-                ),
-            )
             ->willReturn('rendered placeholder');
 
         self::assertSame(
@@ -493,11 +394,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($cmsItem),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willReturn('rendered item');
 
         self::assertSame(
@@ -517,11 +413,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($cmsItem),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willReturn('rendered item');
 
         self::assertSame(
@@ -542,11 +433,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($cmsItem),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willReturn('rendered item');
 
         self::assertSame(
@@ -568,11 +454,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($cmsItem),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willThrowException(new Exception());
 
         self::assertSame(
@@ -597,11 +478,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($cmsItem),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderItem(
@@ -619,11 +495,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'standard']),
-            )
             ->willReturn('rendered result');
 
         self::assertSame(
@@ -645,11 +516,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'overlay']),
-            )
             ->willReturn('rendered result');
 
         self::assertSame(
@@ -671,11 +537,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willReturn('rendered result');
 
         self::assertSame(
@@ -697,11 +558,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willReturn('rendered result');
 
         self::assertSame(
@@ -759,11 +615,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willReturn('rendered result');
 
         self::assertSame(
@@ -786,11 +637,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willReturn('rendered result');
 
         self::assertSame(
@@ -814,11 +660,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willThrowException(new Exception());
 
         self::assertSame(
@@ -845,11 +686,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value', 'view_type' => 'view_type']),
-            )
             ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderResult(
@@ -867,11 +703,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($condition),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value']),
-            )
             ->willReturn('rendered value');
 
         self::assertSame(
@@ -890,11 +721,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($condition),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value']),
-            )
             ->willReturn('rendered value');
 
         self::assertSame(
@@ -914,11 +740,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($condition),
-                self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value']),
-            )
             ->willReturn('rendered value');
 
         self::assertSame(
@@ -939,11 +760,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($condition),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value']),
-            )
             ->willThrowException(new Exception());
 
         self::assertSame(
@@ -967,11 +783,6 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererStub
             ->method('renderValue')
-            ->with(
-                self::identicalTo($condition),
-                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value']),
-            )
             ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderValue(

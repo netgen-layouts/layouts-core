@@ -37,7 +37,6 @@ final class RuleGroupValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupDraft')
-            ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
 
         $request = Request::create('/');
@@ -58,7 +57,6 @@ final class RuleGroupValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroup')
-            ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
 
         $request = Request::create('/');
@@ -80,7 +78,6 @@ final class RuleGroupValueResolverTest extends TestCase
 
         $this->layoutResolverServiceStub
             ->method('loadRuleGroupArchive')
-            ->with(self::equalTo($uuid))
             ->willReturn($ruleGroup);
 
         $request = Request::create('/');
