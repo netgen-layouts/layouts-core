@@ -72,5 +72,8 @@
             "last 2 Edge versions",
             "last 2 Opera versions"
         ]
+    },
+    "engines": {
+        "node": "^14"
     }
 }
