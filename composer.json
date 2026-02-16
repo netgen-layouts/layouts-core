@@ -58,7 +58,7 @@
         "doctrine/collections": "^2.6 || ^3.0",
         "egulias/email-validator": "^4.0",
         "knplabs/knp-menu-bundle": "^3.7",
-        "justinrainbow/json-schema": "^6.6.3",
+        "justinrainbow/json-schema": "^6.7",
         "friendsofsymfony/http-cache-bundle": "^3.3",
         "pagerfanta/pagerfanta": "^3.8 || ^4.8",
         "emodric/twig-package-versions": "^2.0",
