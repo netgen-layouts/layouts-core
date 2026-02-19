@@ -115,7 +115,6 @@
     "autoload-dev": {
         "psr-4": {
             "Netgen\\Layouts\\Tests\\": "tests/lib/",
-            "Netgen\\Layouts\\Behat\\": "tests/behat/src/",
             "Netgen\\Layouts\\Tests\\App\\": "tests/application/src/",
             "Netgen\\Bundle\\LayoutsBundle\\Tests\\": "tests/bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\": "tests/bundles/LayoutsAdminBundle/",
