@@ -27,7 +27,7 @@ final class PagerFactory
      *
      * The pager starting page will be set to $startPage.
      *
-     * @return PagerfantaInterface<\Netgen\Layouts\Collection\Result\Result>
+     * @return \Pagerfanta\PagerfantaInterface<\Netgen\Layouts\Collection\Result\Result>
      */
     public function getPager(Collection $collection, int $startPage, ?int $maxPages = null, int $flags = 0): PagerfantaInterface
     {
@@ -50,9 +50,9 @@ final class PagerFactory
     /**
      * Builds the pager from provided adapter.
      *
-     * @param AdapterInterface<\Netgen\Layouts\Collection\Result\Result> $adapter
+     * @param \Pagerfanta\Adapter\AdapterInterface<\Netgen\Layouts\Collection\Result\Result> $adapter
      *
-     * @return PagerfantaInterface<\Netgen\Layouts\Collection\Result\Result>
+     * @return \Pagerfanta\PagerfantaInterface<\Netgen\Layouts\Collection\Result\Result>
      */
     private function buildPager(AdapterInterface $adapter, Collection $collection, int $startPage): PagerfantaInterface
     {
