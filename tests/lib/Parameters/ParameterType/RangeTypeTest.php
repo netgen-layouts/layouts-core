@@ -143,8 +143,7 @@ final class RangeTypeTest extends TestCase
                 ],
             ],
             [
-                [
-                ],
+                [],
             ],
             [
                 [

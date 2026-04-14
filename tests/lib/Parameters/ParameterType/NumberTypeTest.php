@@ -82,8 +82,7 @@ final class NumberTypeTest extends TestCase
     {
         return [
             [
-                [
-                ],
+                [],
                 [
                     'min' => null,
                     'max' => null,
