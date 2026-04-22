@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\TestCase;
 
+use Symfony\Component\Uid\Factory\MockUuidFactory;
+
 trait UuidGeneratorTrait
 {
     /**

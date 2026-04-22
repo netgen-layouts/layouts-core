@@ -4,11 +4,6 @@ services:
         arguments:
             - "@database_connection"
 
-    netgen_layouts.persistence.uuid_factory:
-        class: Symfony\Component\Uid\Factory\UuidFactory
-        arguments:
-            - "Symfony\\Component\\Uid\\UuidV7"
-
     # Persistence helpers
 
     netgen_layouts.persistence.doctrine.helper.connection:
@@ -38,7 +33,7 @@ services:
             - "@netgen_layouts.persistence.doctrine.layout.query_handler"
             - "@netgen_layouts.persistence.doctrine.block.handler"
             - "@netgen_layouts.persistence.doctrine.layout.mapper"
-            - "@netgen_layouts.persistence.uuid_factory"
+            - "@uuid.factory"
 
     # Block related persistence APIs
 
@@ -58,7 +53,7 @@ services:
             - "@netgen_layouts.persistence.doctrine.collection.handler"
             - "@netgen_layouts.persistence.doctrine.block.mapper"
             - "@netgen_layouts.persistence.doctrine.helper.position"
-            - "@netgen_layouts.persistence.uuid_factory"
+            - "@uuid.factory"
 
     # Collection related persistence APIs
 
@@ -77,7 +72,7 @@ services:
             - "@netgen_layouts.persistence.doctrine.collection.query_handler"
             - "@netgen_layouts.persistence.doctrine.collection.mapper"
             - "@netgen_layouts.persistence.doctrine.helper.position"
-            - "@netgen_layouts.persistence.uuid_factory"
+            - "@uuid.factory"
 
     # Layout resolver related persistence APIs
 
@@ -97,7 +92,7 @@ services:
             - "@netgen_layouts.persistence.doctrine.layout.handler"
             - "@netgen_layouts.persistence.doctrine.layout_resolver.query_handler"
             - "@netgen_layouts.persistence.doctrine.layout_resolver.mapper"
-            - "@netgen_layouts.persistence.uuid_factory"
+            - "@uuid.factory"
 
     # Public API
 
