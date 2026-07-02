@@ -5,3 +5,6 @@ parameters:
         - lib
         - bundles
         - migrations
+
+    stubFiles:
+        - phpstan-stubs/deepclone_hydrate.stub

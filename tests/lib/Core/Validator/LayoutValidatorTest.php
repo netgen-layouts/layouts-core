@@ -18,11 +18,11 @@ use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
+use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(LayoutValidator::class)]
 final class LayoutValidatorTest extends TestCase

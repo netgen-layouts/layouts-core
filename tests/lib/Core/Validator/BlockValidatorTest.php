@@ -20,10 +20,10 @@ use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCaseTrait;
+use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(BlockValidator::class)]
 final class BlockValidatorTest extends TestCase
