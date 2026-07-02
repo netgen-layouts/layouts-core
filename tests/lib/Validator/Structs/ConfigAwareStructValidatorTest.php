@@ -11,6 +11,7 @@ use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionAware;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -19,7 +20,6 @@ use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(ConfigAwareStructValidator::class)]
 final class ConfigAwareStructValidatorTest extends ValidatorTestCase

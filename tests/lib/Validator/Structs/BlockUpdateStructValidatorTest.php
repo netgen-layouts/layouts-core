@@ -10,6 +10,7 @@ use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\Layouts\Tests\Core\Stubs\ConfigProvider;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -18,7 +19,6 @@ use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(BlockUpdateStructValidator::class)]
 final class BlockUpdateStructValidatorTest extends ValidatorTestCase

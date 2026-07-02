@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -16,7 +17,6 @@ use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\VarExporter\Hydrator;
 
 #[CoversClass(QueryUpdateStructValidator::class)]
 final class QueryUpdateStructValidatorTest extends ValidatorTestCase

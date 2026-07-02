@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Utils;
 
 use ReflectionClass;
-use Symfony\Component\VarExporter\Hydrator;
 
 use function array_map;
 use function count;
