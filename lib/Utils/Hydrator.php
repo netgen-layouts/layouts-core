@@ -8,13 +8,6 @@ use function deepclone_hydrate;
 
 use const DEEPCLONE_HYDRATE_PRESERVE_REFS;
 
-/**
- * Thin wrapper around deepclone_hydrate(), provided by the deepclone
- * extension or the symfony/polyfill-deepclone polyfill.
- *
- * Used instead of Symfony\Component\VarExporter\Hydrator, which was
- * deprecated in Symfony 8.1 in favor of deepclone_hydrate().
- */
 final class Hydrator
 {
     /**

@@ -25,7 +25,7 @@ use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
 use Netgen\Layouts\Transfer\Output\Visitor;
 use SebastianBergmann\Diff\Differ;
-use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 
 use function file_get_contents;
 use function json_decode;
@@ -154,7 +154,7 @@ abstract class ImporterTestBase extends CoreTestCase
             $matchResult = $matcher->match($exportedRuleData, $ruleData);
 
             if (!$matchResult) {
-                $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+                $differ = new Differ(new StrictUnifiedDiffOutputBuilder());
                 $diff = $differ->diff(
                     json_encode($ruleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                     json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
@@ -195,7 +195,7 @@ abstract class ImporterTestBase extends CoreTestCase
             $matchResult = $matcher->match($exportedRuleGroupData, $ruleGroupData);
 
             if (!$matchResult) {
-                $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+                $differ = new Differ(new StrictUnifiedDiffOutputBuilder());
                 $diff = $differ->diff(
                     json_encode($ruleGroupData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                     json_encode($exportedRuleGroupData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
@@ -237,7 +237,7 @@ abstract class ImporterTestBase extends CoreTestCase
             $matchResult = $matcher->match($exportedLayoutData, $layoutData);
 
             if (!$matchResult) {
-                $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+                $differ = new Differ(new StrictUnifiedDiffOutputBuilder());
                 $diff = $differ->diff(
                     json_encode($layoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                     json_encode($exportedLayoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),

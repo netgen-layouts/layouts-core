@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Controller\API;
 
 use Coduo\PHPMatcher\PHPMatcher;
 use SebastianBergmann\Diff\Differ;
-use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use Zenstruck\Assert;
 use Zenstruck\Browser\KernelBrowser as BaseKernelBrowser;
 
@@ -33,7 +33,7 @@ final class KernelBrowser extends BaseKernelBrowser
         $matchResult = $matcher->match($this->json()->decoded(), $decoded);
 
         if (!$matchResult) {
-            $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+            $differ = new Differ(new StrictUnifiedDiffOutputBuilder());
             $diff = $differ->diff(
                 json_encode($decoded, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                 (string) $this->json(),

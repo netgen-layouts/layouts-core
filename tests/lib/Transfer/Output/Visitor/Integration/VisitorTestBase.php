@@ -13,7 +13,7 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use SebastianBergmann\Diff\Differ;
-use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder;
 
 use function file_exists;
 use function file_get_contents;
@@ -57,7 +57,7 @@ abstract class VisitorTestBase extends CoreTestCase
 
         if (!$matchResult) {
             $visitedData = json_encode($visitedData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
-            $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+            $differ = new Differ(new StrictUnifiedDiffOutputBuilder());
             self::fail($matcher->error() . PHP_EOL . $differ->diff($expectedData, $visitedData));
         }
     }
