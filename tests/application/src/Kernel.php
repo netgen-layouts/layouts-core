@@ -62,9 +62,9 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
         $container->removeDefinition('netgen_layouts.event_listener.app_csrf_validation_listener');
     }
 
-    public function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void
+    public function configureContainer(ContainerConfigurator $container): void
     {
-        $this->configureKernelContainer($container, $loader, $builder);
+        $this->configureKernelContainer($container);
 
         $configDir = $this->getConfigDir();
 
