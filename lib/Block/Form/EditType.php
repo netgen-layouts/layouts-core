@@ -60,9 +60,7 @@ abstract class EditType extends AbstractType
             'constraints',
             static fn (Options $options): array => [
                 new BlockUpdateStructConstraint(
-                    [
-                        'payload' => $options['block'],
-                    ],
+                    payload: $options['block'],
                 ),
             ],
         );

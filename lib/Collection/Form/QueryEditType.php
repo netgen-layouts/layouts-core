@@ -30,9 +30,7 @@ final class QueryEditType extends AbstractType
             'constraints',
             static fn (Options $options): array => [
                 new QueryUpdateStructConstraint(
-                    [
-                        'payload' => $options['query'],
-                    ],
+                    payload: $options['query'],
                 ),
             ],
         );
