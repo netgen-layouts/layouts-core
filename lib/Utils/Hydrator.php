@@ -6,6 +6,8 @@ namespace Netgen\Layouts\Utils;
 
 use function deepclone_hydrate;
 
+use const DEEPCLONE_HYDRATE_PRESERVE_REFS;
+
 /**
  * Thin wrapper around deepclone_hydrate(), provided by the deepclone
  * extension or the symfony/polyfill-deepclone polyfill.
@@ -16,7 +18,7 @@ use function deepclone_hydrate;
 final class Hydrator
 {
     /**
-     * Sets the provided properties on the given object.
+     * Hydrates the provided object with given properties.
      *
      * @template T of object
      *
@@ -27,6 +29,9 @@ final class Hydrator
      */
     public static function hydrate(object $object, array $data): object
     {
-        return deepclone_hydrate($object, $data, DEEPCLONE_HYDRATE_PRESERVE_REFS);
+        /** @var T $return */
+        $return = deepclone_hydrate($object, $data, DEEPCLONE_HYDRATE_PRESERVE_REFS);
+
+        return $return;
     }
 }
