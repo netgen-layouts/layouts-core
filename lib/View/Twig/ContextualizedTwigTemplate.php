@@ -70,6 +70,6 @@ final class ContextualizedTwigTemplate
             throw $t;
         }
 
-        return ob_get_clean();
+        return (string) ob_get_clean();
     }
 }

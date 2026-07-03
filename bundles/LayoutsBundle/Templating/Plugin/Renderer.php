@@ -59,6 +59,6 @@ final class Renderer implements RendererInterface
             throw $t;
         }
 
-        return ob_get_clean();
+        return (string) ob_get_clean();
     }
 }
