@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         php: ['8.4', '8.5']
-        symfony: ['~7.4.0', '~8.0.0']
+        symfony: ['~7.4.0', '~8.1.0']
         script: ['test', 'test-api']
         db: ['sqlite']
         deps: ['highest']
@@ -105,7 +105,7 @@ jobs:
       - run: composer config extra.symfony.require ${{ matrix.symfony }}
 
       - run: composer remove --no-update --dev "behat/*" "friends-of-behat/*"
-        if: ${{ matrix.symfony == '~8.0.0' }}
+        if: ${{ matrix.symfony == '~8.1.0' }}
 
       - uses: ramsey/composer-install@v3
         with:
