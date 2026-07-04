@@ -52,7 +52,7 @@ final class DefaultContextTest extends TestCase
     public function testCompileThrowsTwigErrorSyntaxException(): void
     {
         $this->expectException(SyntaxError::class);
-        $this->expectExceptionMessage('Unexpected token "string" of value "bar" ("end of statement block" expected) at line 1.');
+        $this->expectExceptionMessage('Unexpected token "string" of value "bar" ("end of statement block" expected) at line 1');
 
         $stream = $this->environment->tokenize(
             new Source('{% nglayouts_default_context \'foo\' \'bar\' %}', ''),
