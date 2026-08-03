@@ -104,9 +104,6 @@ jobs:
 
       - run: composer config extra.symfony.require ${{ matrix.symfony }}
 
-      - run: composer remove --no-update --dev "behat/*" "friends-of-behat/*"
-        if: ${{ matrix.symfony == '~8.1.0' }}
-
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.deps }}
